@@ -1,7 +1,6 @@
 ---
-date: 2021-02-01T12:30:00+04:00
 title: Week 2
-weight: 20
+weight: 15
 ---
 
 ## What we will cover

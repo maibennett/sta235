@@ -1,7 +1,6 @@
 ---
-date: 2021-02-01T12:30:00+04:00
 title: Week 4
-weight: 20
+weight: 25
 ---
 
 ## What we will cover

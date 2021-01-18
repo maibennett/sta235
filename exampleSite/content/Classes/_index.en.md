@@ -1,8 +1,8 @@
 ---
 title: Classes
-weight: 5
-pre: "<b>1. </b>"
+weight: 10
 chapter: true
+pre: "<b>2. </b>"
 ---
 
 # Classes

@@ -1,7 +1,7 @@
 ---
-date: 2021-01-25T12:30:00+04:00
 title: Week 1
 weight: 20
+disableToc: true
 ---
 
 ## What we will cover
