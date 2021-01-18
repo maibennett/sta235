@@ -12,11 +12,11 @@ defaultContentLanguageInSubdir= true
   editURL = "https://github.com/maibennett/sta235/edit/main/exampleSite/content/"
   description = "Website for STA 235 - Data Science for Business Applications"
   author = "Magdalena Bennett"
-  showVisitedLinks = true
+  showVisitedLinks = false
   disableBreadcrumb = false
   disableNextPrev = false
-  disableLandingPageButton = true
-  disableMermaid = false
+  disableLandingPageButton = false
+  disableMermaid = true
   customMermaidURL = "https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"
   titleSeparator = "::"
 
