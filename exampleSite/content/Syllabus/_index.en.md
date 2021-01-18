@@ -58,3 +58,26 @@ For the optimal in-class experience, I suggest that you:
 3)	Asking questions in class is always a good thing! It helps clear the material not only for you, but probably for other students as well. However, if you require additional help, I encourage you to attend office hours. These are designed to help you solve any questions outside the classroom, so take advantage of this instance. Please watch this video on understanding why office hours are important and how they usually work: https://vimeo.com/270014784 
 4)	Complete all readings and assignments by the suggested date on the course outline posted on Canvas. Readings, homework, and other assignments will help you prepare for the midterm and the final exam, and identify potential questions you might have about the material (see num. 3). If you feel you are falling behind for any reason, please contact me or a TA as soon as possible. We can certainly work with you in finding a suitable solution if we have enough time to do so.
 5)	Get an early start on the homework assignments, and follow the submission guidelines. Given the uncertainty of current times, this will also help you have a better handle on your work if there are other unforeseeable disruptions.
+
+## Week-by-Week Outline
+
+Below you will find a general outline of the topics we’ll cover in this course. All other materials regarding homework assignments, readings, and other information will be posted on Canvas. Depending on how the class progresses, the order of these topics might change, so check Canvas regularly for an updated version of this outline:
+
+|Week| Class Date| Topics|
+|-------|-------|-------|
+|1|Jan 25| Syllabus overview and course motivation; Multiple regression models, comparing effect sizes and uncertainty quantification in multiple regression.|
+|2|Feb 1| Multiple regression models (cont.): Statistical adjustment and collinearity; Models with discrete responses: Binary outcomes.|
+|3|Feb 8| Introduction to Causal Inference: Potential outcomes framework, the fundamental problem of causal inference, causal estimands, and study design.|
+|4|Feb 15| Randomized-Controlled trials: The gold standard? How can we use RCTs to answer causal questions? Limitations of RCTs. Internal and external validity. A/B testing.|
+|5|Feb 22| Introduction to Observational Studies: Can we use data outside experiments to make causal claims? Matching and its comparison to RCTs. Overt and hidden biases. Propensity score matching & weighting. Other forms of matching. How does matching compare to regression adjustment?|
+|6|Mar 1| Observational studies: Using real-world variation to estimate causal effects. Natural experiments, Diff-in-Diff.|
+|7|Mar 8| MIDTERM|
+|8|Mar 15| SRPING BREAK|
+|9|Mar 22| Observational studies (cont.): Regression discontinuity design (RDD)|
+|10|Mar 29| Observational studies (cont.): Instrumental variables (IV).|
+|11|Apr 5| Building models: Overview of model checking; Dealing with outliers; Bias-variance tradeoff; out-of-sample validation and cross-validation; Variable selection (e.g. stepwise selection)|
+|12|Apr 12| Introduction to prediction models: K-nearest neighbors’ regression and classification.|
+|13|Apr 19| Prediction models (cont.): Classification and regression trees (CART).|
+|14|Apr 26| Prediction models (cont.): Random forests, boosting, and ensemble methods.|
+|15|May 3|Modeling trends and seasonality with time-series data.|
+|16|May 13|FINAL EXAM|
