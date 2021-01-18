@@ -9,7 +9,7 @@ metaDataFormat = "yaml"
 defaultContentLanguageInSubdir= false
 
 [params]
-  editURL = "https://github.com/maibennett/sta235/edit/main/exampleSite/content/"
+  editURL = ""
   description = "Website for STA 235 - Data Science for Business Applications"
   author = "Magdalena Bennett"
   showVisitedLinks = false
