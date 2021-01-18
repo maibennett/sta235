@@ -6,7 +6,7 @@ title = "STA 235 - Data Science for Business Applications"
 theme = "hugo-theme-learn"
 themesdir = "../.."
 metaDataFormat = "yaml"
-defaultContentLanguageInSubdir= true
+defaultContentLanguageInSubdir= false
 
 [params]
   editURL = "https://github.com/maibennett/sta235/edit/main/exampleSite/content/"
