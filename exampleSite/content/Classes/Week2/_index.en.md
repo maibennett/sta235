@@ -1,6 +1,6 @@
 ---
 title: Week 2
-weight: 15
+weight: 20
 ---
 
 ## What we will cover
