@@ -10,9 +10,9 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.1"
    id="svg833"
-   width="500"
+   width="1500"
    height="500"
-   viewBox="0 0 500 500"
+   viewBox="0 0 1500 500"
    sodipodi:docname="favpng_analytics-data-analysis-data-science.svg"
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
   <metadata
@@ -28,7 +28,38 @@
     </rdf:RDF>
   </metadata>
   <defs
-     id="defs837" />
+     id="defs837">
+    <rect
+       x="1170.4894"
+       y="112.81826"
+       width="8.4613694"
+       height="87.434151"
+       id="rect871" />
+    <rect
+       x="1226.8986"
+       y="87.434151"
+       width="5.640913"
+       height="163.58648"
+       id="rect865" />
+    <rect
+       x="1015.3643"
+       y="90.254607"
+       width="19.743195"
+       height="73.331868"
+       id="rect859" />
+    <rect
+       x="530.24582"
+       y="64.870499"
+       width="922.28927"
+       height="366.65934"
+       id="rect853" />
+    <rect
+       x="555.62993"
+       y="78.972781"
+       width="882.80288"
+       height="363.83889"
+       id="rect847" />
+  </defs>
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -42,7 +73,11 @@
      inkscape:window-height="930"
      id="namedview835"
      showgrid="false"
-     inkscape:zoom="1.396"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="0.35455254"
      inkscape:cx="250"
      inkscape:cy="250"
      inkscape:window-x="-7"
@@ -284,5 +319,29 @@ AO9FBDrD70+aALwXEegMv79Ena0ZYFadXb8XQaDTyNGaALwHEegMv/dF/VQzwKz4Wf0eBIFOY9dF
 
 "
        id="image843" />
+    <text
+       xml:space="preserve"
+       id="text845"
+       style="font-style:normal;font-weight:normal;font-size:192px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect847);fill:#000000;fill-opacity:1;stroke:none;" />
+    <text
+       xml:space="preserve"
+       id="text851"
+       style="font-style:normal;font-weight:normal;font-size:192px;line-height:1.25;font-family:sans-serif;text-align:center;white-space:pre;shape-inside:url(#rect853);fill:#000000;fill-opacity:0.71887553;stroke:none"
+       transform="translate(0,24)"><tspan
+         x="548.99151"
+         y="305.9825"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:266.667px;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans';text-align:center;text-anchor:middle;fill:#000000;fill-opacity:0.718876">STA 235</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       id="text857"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect859);fill:#000000;fill-opacity:1;stroke:none;" />
+    <text
+       xml:space="preserve"
+       id="text863"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect865);fill:#000000;fill-opacity:1;stroke:none;" />
+    <text
+       xml:space="preserve"
+       id="text869"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect871);fill:#000000;fill-opacity:1;stroke:none;" />
   </g>
 </svg>
