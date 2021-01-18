@@ -2,7 +2,7 @@ baseURL = "/"
 languageCode = "en-US"
 defaultContentLanguage = "en"
 
-title = "Hugo Learn Documentation"
+title = "STA 235 - Data Science for Business Applications"
 theme = "hugo-theme-learn"
 themesdir = "../.."
 metaDataFormat = "yaml"
@@ -10,8 +10,8 @@ defaultContentLanguageInSubdir= true
 
 [params]
   editURL = "https://github.com/matcornic/hugo-theme-learn/edit/master/exampleSite/content/"
-  description = "Documentation for Hugo Learn Theme"
-  author = "Mathieu Cornic"
+  description = "Website for STA 235 - Data Science for Business Applications"
+  author = "Magdalena Bennett"
   showVisitedLinks = true
   disableBreadcrumb = false
   disableNextPrev = false
@@ -25,7 +25,7 @@ home = [ "HTML", "RSS", "JSON"]
 
 [Languages]
 [Languages.en]
-title = "Documentation for Hugo Learn Theme"
+title = "Website for STA 235 - Data Science for Business Applications"
 weight = 1
 languageName = "English"
 landingPageURL = "/en"
