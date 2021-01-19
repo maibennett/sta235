@@ -21,7 +21,7 @@ If you feel you are falling behind or that there are any aspects of this class t
 
 | Instructor | E-mail   | Office   | Office Hours |
 |------------|----------|----------|--------------|
-| Dr. Magdalena Bennett   | <a href="mailto:m.bennett@austin.utexas.edu">m.bennett@austin.utexas.edu</a>   | CBA 6.476   | Mondays: 5:00-6:00 PM <br> Thursdays: 4:00-5:00 PM|
+| Dr. Magdalena Bennett   | <a href="mailto:m.bennett@austin.utexas.edu">m.bennett@austin.utexas.edu</a>   | CBA 6.476   | Mondays: 5:00-6:00 PM <br /> Thursdays: 4:00-5:00 PM|
 
 All office hours are held via Zoom and you can register through [calendly](https://calendly.com/maibennett/sta-235-office-hours?month=2021-01). The teaching assistants will also hold office hours based on a scheduled TBD. **If you have a conflict with office hours (e.g. another class is scheduled at the same time), please email us so we can set up another time to meet.**
 
@@ -110,6 +110,7 @@ There will be one online midterm and one final exam in this course (via Zoom). A
 3.	JITT assignments: 10%
 4.	Midterm: 25%
 5.	Final: 30%
+
 I will use the cutoffs below to translate your overall course average into a final letter grade. These cutoffs are firm; we do not round course averages. So, for example, an overall course average of 89.99 is a B+, not an A-. I sometimes (but not always) curve grades, but it will always be in your favor. For forecasting purposes, assume your grade will not be curved. 
 
 |Grade|A|A-|B+|B|B-|C+|C|C-|D|F|
