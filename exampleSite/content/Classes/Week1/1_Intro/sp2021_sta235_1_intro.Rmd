@@ -145,9 +145,7 @@ style_mono_accent(
 .pull-left[
 - **Magdalena Bennett, Ph.D.** 
 
-  - Assistant Professor at the Stats Group.
-  
-  - Research: 
+  - *Assistant Professor at the Stats Group.*
   
   .box-3.medium.sp-after-half[Causal Inference]
 <p align="center"> <b>+</b></p>
