@@ -59,9 +59,13 @@ For the optimal in-class experience, I suggest that you:
 ### HOW TO SUCCEED IN THIS COURSE:
 
 1)	Attend class each day and listen carefully, just as if you were in a traditional in-person classroom. If something is unclear, don’t be afraid to ask a question. Active participation in class enhances the learning experience for everyone!
+
 2)	Every lecture session will be recorded, and you’ll be able to view these recordings after the fact via Canvas. Slides will also be available after class, so don’t focus as much on transcribing, but focus on understanding the key concepts.
+
 3)	Asking questions in class is always a good thing! It helps clear the material not only for you, but probably for other students as well. However, if you require additional help, I encourage you to attend office hours. These are designed to help you solve any questions outside the classroom, so take advantage of this instance. Please watch this video on understanding why office hours are important and how they usually work: https://vimeo.com/270014784 
+
 4)	Complete all readings and assignments by the suggested date on the course outline posted on Canvas. Readings, homework, and other assignments will help you prepare for the midterm and the final exam, and identify potential questions you might have about the material (see num. 3). If you feel you are falling behind for any reason, please contact me or a TA as soon as possible. We can certainly work with you in finding a suitable solution if we have enough time to do so.
+
 5)	Get an early start on the homework assignments, and follow the submission guidelines. Given the uncertainty of current times, this will also help you have a better handle on your work if there are other unforeseeable disruptions.
 
 ## Week-by-Week Outline
@@ -150,7 +154,7 @@ I now explain each of these grading components in more detail.
 
 ## Course Policies
 
-## COMMUNICATING WITH THE INSTRUCTOR TEAM
+### COMMUNICATING WITH THE INSTRUCTOR TEAM
 
 1.	Email address: m.bennett@austin.utexas.edu 
 
