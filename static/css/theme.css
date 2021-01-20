@@ -38,6 +38,12 @@
     font-weight: 500;
     src: url("../fonts/Work_Sans_500.eot?#iefix") format("embedded-opentype"), url("../fonts/Work_Sans_500.woff") format("woff"), url("../fonts/Work_Sans_500.woff2") format("woff2"), url("../fonts/Work_Sans_500.svg#WorkSans") format("svg"), url("../fonts/Work_Sans_500.ttf") format("truetype");
 }
+@font-face {
+    font-family: 'Awesome';
+    font-style: normal;
+    font-weight: 400;
+    src: url("../webfonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("../webfonts/fa-regular-400.woff") format("woff"), url("../webfonts/fa-regular-400.woff2") format("woff2"), url("../webfonts/fa-regular-400.svg#WorkSans") format("svg"), url("../webfonts/fa-regular-400_500.ttf") format("truetype");
+}
 body {
     background: #fff;
     color: #777;
