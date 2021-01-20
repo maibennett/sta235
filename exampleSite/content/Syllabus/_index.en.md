@@ -7,7 +7,7 @@ chapter: true
 
 # Syllabus
 
-{{% notice info %}}
+{{% notice warning %}}
 Please read the syllabus. It has important information about the course, including structure, assignments, grading, and office hours, among many others. [Here's some Snoop Dog](https://www.cameo.com/v/5f2b392a0299b100202e624a?utm_campaign=video_share_to_copy) so you're motivated to read it.
 {{% /notice %}}
 
@@ -25,8 +25,11 @@ If you feel you are falling behind or that there are any aspects of this class t
 |------------|----------|----------|--------------|
 | Dr. Magdalena Bennett   | <a href="mailto:m.bennett@austin.utexas.edu">m.bennett@austin.utexas.edu</a>   | CBA 6.476   | Mondays: 5:00-6:00 PM <br /> Thursdays: 4:00-5:00 PM|
 
-All office hours are held via Zoom and you can register through [calendly](https://calendly.com/maibennett/sta-235-office-hours?month=2021-01). The teaching assistants will also hold office hours based on a scheduled TBD. **If you have a conflict with office hours (e.g. another class is scheduled at the same time), please email us so we can set up another time to meet.**
+All office hours are held via Zoom and you can register through [calendly](https://calendly.com/maibennett/sta-235-office-hours?month=2021-01). The teaching assistants will also hold office hours based on a scheduled TBD. 
 
+{{% notice info %}}
+If you have a conflict with office hours (e.g. another class is scheduled at the same time), please email us so we can set up another time to meet.
+{{% /notice %}}
 
 ## Course Overview
 
