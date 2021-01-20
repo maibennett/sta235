@@ -1,5 +1,5 @@
 ---
-title: "STA 235 - Introduction to the Course"
+title: "STA 235 - Introduction"
 subtitle: "Spring 2021"
 author: "McCombs School of Business, UT Austin"
 output:
@@ -140,60 +140,23 @@ style_mono_accent(
 .box-7.medium.sp-after-half[What should I expect to learn by the end of the semester?]
 
 ---
-# About me
+# About the instruction team
 
 .pull-left[
-- **Magdalena Bennett, Ph.D.** 
+.box-3b.medium.sp-after-half[Prof: Magdalena Bennett, Ph.D.]
 
   - *Assistant Professor at the Stats Group.*
   
-  .box-3.medium.sp-after-half[Causal Inference]
-<p align="center"> <b>+</b></p>
-  .box-6.medium.sp-after-half[Econ of Education]
+  - *Research: Causal Inference + Econ of Education*
+  
+.box-6b.medium.sp-after-half[TA: Ricardo Lara]
+  
+  - *Ph.D. candidate in Petroleum Engineering*
+  
 ]
 
 .pull-right[
 ![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/bobdylan.png)]
-  
-
----
-# Diff-in-Diff as an identification strategy
-
-
-
----
-# What about parallel trends?
-
-.pull-left[
-![](https://raw.githubusercontent.com/maibennett/website_github/master/exampleSite/content/images/data_comic.jpg)]
-
-.pull-right[
-- Can matching work to solve this? 
-
-  - It's complicated (?) .small[(Zeldow & Hatfield, 2019;Lindner & McConnell, 2018; Daw & Hatfield, 2018 (x2); Ryan, 2018; Ryan et al., 2018)]
-  
-- Most work has focused on **.purple[matching outcomes]**]
-
----
-
-# This paper
-
-- Identify contexts when matching can recover causal estimates under **violations in the parallel trend assumption**.
-
-- Use **mixed-integer programming matching (MIP)** to balance covariates directly.
-
-- Matching for **panel** and **repeated cross-sectional** data.
-
---
-<br/>
-.pull-left[
-.box-3.medium.sp-after-half[Simulations:<br/>Different DGP scenarios]
-]
-
-.pull-right[
-.box-6.medium.sp-after-half[Application:<br/>School segregation & vouchers]
-]
-
 
 ---
 background-position: 50% 50%
@@ -202,202 +165,30 @@ class: left, bottom, inverse
 Let's review the syllabus
 ]
 ---
+# About this course
 
-# DD Setup
+- **Objective**:
 
-- Let $Y^z_i(t)$ be the potential outcome for unit $i$ in period $t$ under treatment $z$.
-
-- Intervention implemented in $T_0$ $\rightarrow$ No units are treated in $t\leq T_0$
-
-- Difference-in-Differences (DD) focuses on ATT for $t>T_0$:
-$$ATT = E[Y_i^1(t) - Y_i^0(t)|Z=1]$$
-- **.purple[Assumptions for DD]**:
-  - Parallel-trend assumption (PTA)
-  
-  - Common shocks
-  
-  $$E[Y_i^0(1) - Y_i^0(0) | Z=1] = E[Y_i^0(1) - Y_i^0(0) | Z=0]$$
----
-# DD Setup (cont.)
-
-- Under these assumptions:
-$$
-\begin{align}
-\hat{\tau}^{DD} = &\color{#900DA4}{\overbrace{\color{black}{E[Y(1)|Z=1] - E[Y(1)|Z=0]}}^{\color{#900DA4}{\Delta_{post}}}} - \\
-&\color{#F89441}{\underbrace{\color{black}{(E[Y(0)|Z=1] - E[Y(0)|Z=0])}}_{\color{#F89441}{\Delta_{pre}}}}
-\end{align}
-$$
-  - Where $t=0$ and $t=1$ are the pre- and post-intervention periods, respectively.
-  
-  - $Y(t) = Y^1(t)\cdot Z + (1-Z)\cdot Y^0(t)$ is the observed outcome.
-
+- **Structure**:
 
 ---
+# What will you need?
 
-# Violations to the PTA
+- A computer with internet connection.
 
-.pull-left[
-- Under PTA, $g_1(t) = g_0(t) + h(t)$, where:
+- R & R Studio
 
-  - $g_z(t) = E[Y^0_i(t) | Z=z, T=t]$
-  - $h(t) = \alpha$
-  
-- Bias in a DD setting depends on the structure of $h(t)$.
+- Required Books:
 
-- Confounding in DD affect **.purple[trends]** and not **.purple[levels]**.
-
-- Contextual knowledge is important!
-  - Do groups come from different populations? 
-]
-
-.pull-right[
-![](https://media.giphy.com/media/L8yQ0RQBItqso/giphy.gif)
-]
----
-# Two distinct problems when combining matching + DD
-
-.pull-left[
-- **Regression to the mean**:
-
-  - Both groups come from different populations
-  - Particularly salient when matching on previous outcomes
-  
-- **Bias when matching on time-varying covariates**:
-  
-  - Depends on the structure of time variation
-]
-
-.pull-right[
-<img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/reg_to_the_mean.svg" alt="diagram" width="500"/>
-]
----
-# How do we match?
-
-- Match covariates or outcomes? Levels or trends?
-
-- Use of **.purple[MIP Matching]** .small[(Zubizarreta, 2015; Bennett, Zubizarreta, & Vielma, 2020)]:
-  
-  - Balance covariates directly
-  
-  - Yield largest matched sample under balancing constraints
-  
-  - Use of template matching to match multiple groups
-  
-  - Works with large samples
-  
----
-# Panel or repeated cross-sections?
-
-- **Panel data:** Straightforward
-
-- **Repeated cross-section data:** Representative template matching
-
-.center[
-<img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/diagram3v2.svg" alt="diagram" width="600"/>]
+  - Angrist & Pischke, "Mastering Metrics"
+  - "Introduction to Data Science"
 
 ---
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Simulations
-]
+# Assignments and Grading
 
----
+- **3 Homeworks (20% total) + Project (15%)**:
 
-# Different scenarios
+- **Just in Time Teaching assignments (JITT) (10%)**:
 
-
-.box-1.medium.sp-after-half[S1: Time-invariant covariate effect]
-
-.box-2.medium.sp-after-half[S2: Time-varying covariate effect]
-
-.box-3.medium.sp-after-half[S3: Treatment-independent covariate]
-
-.box-4.medium.sp-after-half[S4: Parallel evolution]
-
-.box-6.medium.sp-after-half[S5: Evolution differs by group]
-
-.box-7.medium.sp-after-half[S6: Evolution diverges in post]
-  
-.source[Following Zeldow & Hatfield (2019)]
----
-# Covariate evolution: Time-invariant
-
-.center[
-<img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/cov_1.svg" alt="diagram" width="900"/>]
-
----
-# Covariate evolution: Time-varying
-
-.center[
-<img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/cov_2.svg" alt="diagram" width="900"/>]
-
----
-
-# Different ways to control
-
-<div class="center"><table>
-<thead>
-<tr>
-<th>Model</th>
-<th>Pseudo <code class="remark-inline-code">R</code> code</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Simple</td>
-<td><code class="remark-inline-code">lm(y ~ a*p + t)</code> </td>
-</tr>
-<tr>
-<td>Covariate Adjusted (CA)</td>
-<td><code class="remark-inline-code">lm(y ~ a*p + t + x)</code> </td>
-</tr>
-<tr>
-<td>Time-Varying Adjusted (TVA)</td>
-<td><code class="remark-inline-code">lm(y ~ a*p + t*x)</code> </td>
-</tr>
-<tr>
-<td>Match on pre-treat outcomes</td>
-<td><code class="remark-inline-code">lm(y ~ a*p + t, data=out.match)</code> </td>
-</tr>
-<tr>
-<td>Match on pre-treat 1st diff</td>
-<td><code class="remark-inline-code">lm(y ~ a*p + t, data=out.lag.match)</code> </td>
-</tr>
-<tr>
-<td>Match on pre-treat cov (PS)</td>
-<td><code class="remark-inline-code">lm(y ~ a*p + t, data=cov.match)</code> </td>
-</tr>
-<tr>
-<td id="highlight">Match on pre-treat cov (MIP)</td>
-<td id="highlight"><code class="remark-inline-code">Event study (data=cov.match.mip)</code></td>
-</tr>
-<tr>
-<td id="highlight">Match on all cov (MIP)</td>
-<td id="highlight"><code class="remark-inline-code">Event study (data=cov.match.mip.all)</code></td>
-</tr>
-</tbody>
-</table>
-</div>
-
-.bottom[
-.source[Following Zeldow & Hatfield (2019)]]
-
----
-#Parameters:
-
-.center[
-Parameter                            | Value
--------------------------------------|----------------------------------------------
-Number of obs (N)                               | 1,000 
-`Pr(Z=1)`              | 0.5 
-Time periods (T)          | 10 
-Last pre-intervention period (T_0)          | 5 
-Matching PS          | Nearest neighbor
-MIP Matching tolerance          | .05 SD
-Number of simulations | 1,000
-]
-
-- Estimate compared to sample ATT (_different for matching_)
-- When matching with post-treat covariates $\rightarrow$ compared with direct effect $\tau$
+- **Midterm (25%) and Final Exam (30%)**:
 ---
