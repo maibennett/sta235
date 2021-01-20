@@ -10,7 +10,7 @@ In this first class, we will review the syllabus and course motivation. On the s
 
 ## Slides
 
-You can find the slides for the class [here](Classes/Week1/1_Intro/sp2021_sta235_1_intro.html):
+You can find the slides for the class [here](/1_Intro/sp2021_sta235_1_intro.html):
 
 knitr::include_url('/1_Intro/sp2021_sta235_1_intro.html', height = "505px")
 
