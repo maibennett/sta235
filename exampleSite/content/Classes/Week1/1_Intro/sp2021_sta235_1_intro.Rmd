@@ -145,16 +145,17 @@ style_mono_accent(
 .pull-left[
 - **Magdalena Bennett, Ph.D.** 
 
-  - Assistant Professor at the Stats Group at IROM.
-  - Research: Intersection of statistical methodologies in causal inference and economics of education.
+  - Assistant Professor at the Stats Group.
+  
+  - Research: 
   
   .box-3.medium.sp-after-half[Causal Inference]
-\center **+**
+<p align="center"> <b>+</b></p>
   .box-6.medium.sp-after-half[Econ of Education]
 ]
 
 .pull-right[
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/bobdylan.jpg)]
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/bobdylan.png)]
   
 
 ---
