@@ -23,26 +23,35 @@ class: center, middle, inverse, title-slide
 
 
 
-# Diff-in-Diff as an identification strategy
+# Welcome to STA 235
 
-&lt;img src="sp2021_sta235_1_intro_files/figure-html/dd-1.svg" style="display: block; margin: auto;" /&gt;
+- Data Science for Business Applications:
+
+.box-2.medium.sp-after-half[What is Data Science?]
+
+.box-4.medium.sp-after-half[What are we going to see in this course?]
+
+.box-7.medium.sp-after-half[What should I expect to learn by the end of the semester?]
+
+---
+# About me
+
+.pull-left[
+- **Magdalena Bennett, Ph.D.** 
+  - Assistant Professor at the Statistics Group at IROM.
+  - Research: Intersection of statistical methodologies in causal inference and economics of education.
+]
+
+.pull-right[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/bobdylan.jpg)]
+  
+
 ---
 # Diff-in-Diff as an identification strategy
 
-&lt;img src="sp2021_sta235_1_intro_files/figure-html/dd2-1.svg" style="display: block; margin: auto;" /&gt;
+
 
 ---
-# Diff-in-Diff as an identification strategy
-
-&lt;img src="sp2021_sta235_1_intro_files/figure-html/dd3-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-# Very popular for policy evaluation
-
-&lt;img src="sp2021_sta235_1_intro_files/figure-html/gg-1.svg" style="display: block; margin: auto;" /&gt;
-.source[Source: Google Scholar]
----
-
 # What about parallel trends?
 
 .pull-left[
@@ -80,7 +89,7 @@ class: center, middle, inverse, title-slide
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
-Let's get started
+Let's review the syllabus
 ]
 ---
 
@@ -282,178 +291,6 @@ Number of simulations | 1,000
 - Estimate compared to sample ATT (_different for matching_)
 - When matching with post-treat covariates `\(\rightarrow\)` compared with direct effect `\(\tau\)`
 ---
-#Results: Time-constant covariates
-
-&lt;img src="sp2021_sta235_1_intro_files/figure-html/res1-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-# Results: Time-varying covariates
-
-&lt;img src="sp2021_sta235_1_intro_files/figure-html/res2-1.svg" style="display: block; margin: auto;" /&gt;
----
-# Other simulations
-
-- Test **.purple[regression to the mean]** under no effect:
-
-  - Vary autocorrelation of `\(X_i(t)\)` (low vs. high)
-  - `\(X_0(t)\)` and `\(X_1(t)\)` come from the same or different distribution.
-
-&lt;img src="sp2021_sta235_1_intro_files/figure-html/res3-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Application
-]
----
-#Preferential Voucher Scheme in Chile
-
-- Universal **flat voucher** scheme `\(\stackrel{\mathbf{2008}}{\mathbf{\longrightarrow}}\)` Universal + **preferential voucher** scheme
-
-- Preferential voucher scheme:
-  - Targeted to bottom 40% of vulnerable students
-
-  - Additional 50% of voucher per student
-
-  - Additional money for concentration of SEP students.
-
---
-&lt;br/&gt;
-.pull-left[
-.box-3b.medium.sp-after-half[Students:&lt;br/&gt;- Verify SEP status&lt;br/&gt;- Attend a SEP school]
-]
-
-.pull-right[
-.box-6b.medium.sp-after-half[Schools:&lt;br/&gt;- Opt-into the policy&lt;br/&gt;- No selection, no fees&lt;br/&gt;- Resources ~ performance]
-]
-
----
-#Impact of the SEP policy
-
-- **Positive impact on test scores** for lower-income students (Aguirre, 2019; Nielson, 2016)
-
-- Design could have **increased** socioeconomic segregation
-  - Incentives for concentration of SEP students
-  
-- Key decision variables: Performance, current SEP students, competition, add-on fees.
-
-- **Diff-in-diff (w.r.t. 2007) for SEP and non-SEP schools**:
-  - Only for **.purple[private-subsidized schools]**
-  
-  - Matching between 2005-2007 --&gt; Effect estimated for 2008-2011
-  
-  - Outcome: Average students' household income
-  
----
-#Before Matching
-  
-.pull-left[
-&lt;img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/dd_all.svg" alt="diagram" width="800"/&gt;
-]
-.pull-right[
-- No (pre) parallel trend
-
-- Covariates evolve differently in the pre-intervention period
-]
-
----
-# [Pre] parallel trends
-
-.pull-left[
-&lt;img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/pta_all.svg" alt="diagram" width="800"/&gt;
-]
-.pull-right[
-&lt;img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/pta_match.svg" alt="diagram" width="800"/&gt;
-]
-
----
-#After Matching
-  
-.pull-left[
-&lt;img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/dd_match.svg" alt="diagram" width="800"/&gt;
-]
-.pull-right[
-- **MIP Matching**: 
-  - Mean balance (0.05 SD): Rural, enrollment, number of schools in county, charges add-on fees
-
-  - Fine balance: Test scores, monthly average voucher.
-
-- **6% increase in the income gap** between SEP and non-SEP schools
-]
----
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Let's wrap it up
-]
----
-#Conclusions
-
-.pull-left[
-- **Matching can be an important tool to address violations in PTA**.
-
-- Relevant to think whether groups come from the **.purple[same]** or **.purple[different]** populations.
-
-- **Serial correlation** also plays an important role: Don't match on random noise.
-
-- Adopt **flexibility** when estimating effects (event study)
-  
-.box-7.medium.sp-after-half[Match well and match smart!
-]]
-.pull-right[
-![](https://media.giphy.com/media/drwxYI2fxqQGqRZ9Pe/giphy.gif)
-]
-
----
-background-position: 50% 50%
-class: center,middle, inverse
-
-#A Difference-in-Differences Approach&lt;br/&gt;using Mixed-Integer Programming Matching
-
-##Magdalena Bennett
-
----
-# Time-invariant Covariates
-
-.box-1a.medium.sp-after-half[S1: Time-invariant covariate effect]
-.small[
-`$$X_i \stackrel{ind}{\sim} N(m(z_i),v(z_i))$$`
-`$$Y_i(t) \stackrel{ind}{\sim} N(1+z_i+treat_{it}+u_i+x_i+f(t),1)$$`]
-
---
-.box-2a.medium.sp-after-half[S2: Time-varying covariate effect]
-.small[
-`$$X_i \stackrel{ind}{\sim} N(m(z_i),v(z_i))$$`
-`$$Y_i(t) \stackrel{ind}{\sim} N(1+z_i+treat_{it}+u_i+x_i+f(t)+g(x_i,t),1)$$`]
-
---
-.box-3a.medium.sp-after-half[S3: Treatment-independent covariate]
-.small[
-`$$X_i \stackrel{ind}{\sim} N(1,1)$$`
-`$$Y_i(t) \stackrel{ind}{\sim} N(1+z_i+treat_{it}+u_i+x_i+f(t)+g(x_i,t),1)$$`]
-
----
-# Time-varying Covariates
-
-.box-4a.medium.sp-after-half[S4: Parallel evolution]
-.small[
-`$$X_{it} = x_{(t-1)i} + m_1(t)\cdot z$$`
-`$$Y_i(t) \stackrel{ind}{\sim} N(1+z_i+treat_{it}+u_i+x_i+f(t)+g(x_i,t),1)$$`]
-
---
-.box-6a.medium.sp-after-half[S5: Evolution differs by group]
-.small[
-`$$X_{it} = x_{(t-1)i} + m_2(z_i,t)\cdot z$$`
-`$$Y_i(t) \stackrel{ind}{\sim} N(1+z_i+treat_{it}+u_i+x_i+f(t)+g(x_i,t),1)$$`]
-
---
-.box-7a.medium.sp-after-half[S6: Evolution diverges in post]
-.small[
-`$$X_{it} = x_{(t-1)i} + m_1(t)\cdot z - m_3(z_i,t)$$`
-`$$Y_i(t) \stackrel{ind}{\sim} N(1+z_i+treat_{it}+u_i+x_i+f(t)+g(x_i,t),1)$$`]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
