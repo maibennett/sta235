@@ -6,7 +6,7 @@ disableToc: true
 
 ## What we will cover
 
-In this first class, we will review the syllabus.
+In this first class, we will review the syllabus and course motivation. On the second part of the class, we will also start reviewing some material, like multiple regression models. Specifically, we will talk about comparing effect sizes and uncertainty quantification in multiple regression.
 
 ## Slides
 

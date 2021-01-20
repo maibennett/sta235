@@ -5,7 +5,6 @@ weight: 25
 
 ## What we will cover
 
-In this class, we will...
 
 ## Slides
 
