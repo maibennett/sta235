@@ -32,9 +32,8 @@ landingPageURL = "/en"
 landingPageName = "<i class='fas fa-home'></i> Home"
 
 [[Languages.en.menu.shortcuts]]
-name = "<i class='fab fa-fw fa-github'></i> GitHub repo"
-identifier = "ds"
-url = "https://github.com/maibennett/sta235"
+name = "<i class='fas fa-fw fa-bullhorn'></i> About this course"
+url = "/about"
 weight = 10
 
 [[Languages.en.menu.shortcuts]]
@@ -44,6 +43,7 @@ url = "https://gohugo.io/"
 weight = 20
 
 [[Languages.en.menu.shortcuts]]
-name = "<i class='fas fa-fw fa-bullhorn'></i> About this course"
-url = "/about"
+name = "<i class='fab fa-fw fa-github'></i> GitHub repo"
+identifier = "ds"
+url = "https://github.com/maibennett/sta235"
 weight = 30
