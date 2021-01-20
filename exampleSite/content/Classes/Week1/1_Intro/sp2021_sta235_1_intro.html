@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235 - Introduction to the Course</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA 235 - Introduction to the Course
+## Spring 2021
+### McCombs School of Business, UT Austin
+
+---
+
+
+
+
+
+
+# Diff-in-Diff as an identification strategy
+
+&lt;img src="sp2021_sta235_1_intro_files/figure-html/dd-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Diff-in-Diff as an identification strategy
+
+&lt;img src="sp2021_sta235_1_intro_files/figure-html/dd2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Diff-in-Diff as an identification strategy
+
+&lt;img src="sp2021_sta235_1_intro_files/figure-html/dd3-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Very popular for policy evaluation
+
+&lt;img src="sp2021_sta235_1_intro_files/figure-html/gg-1.svg" style="display: block; margin: auto;" /&gt;
+.source[Source: Google Scholar]
+---
+
+# What about parallel trends?
+
+.pull-left[
+![](https://raw.githubusercontent.com/maibennett/website_github/master/exampleSite/content/images/data_comic.jpg)]
+
+.pull-right[
+- Can matching work to solve this? 
+
+  - It's complicated (?) .small[(Zeldow &amp; Hatfield, 2019;Lindner &amp; McConnell, 2018; Daw &amp; Hatfield, 2018 (x2); Ryan, 2018; Ryan et al., 2018)]
+  
+- Most work has focused on **.purple[matching outcomes]**]
+
+---
+
+# This paper
+
+- Identify contexts when matching can recover causal estimates under **violations in the parallel trend assumption**.
+
+- Use **mixed-integer programming matching (MIP)** to balance covariates directly.
+
+- Matching for **panel** and **repeated cross-sectional** data.
+
+--
+&lt;br/&gt;
+.pull-left[
+.box-3.medium.sp-after-half[Simulations:&lt;br/&gt;Different DGP scenarios]
+]
+
+.pull-right[
+.box-6.medium.sp-after-half[Application:&lt;br/&gt;School segregation &amp; vouchers]
+]
+
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Let's get started
+]
+---
+
+# DD Setup
+
+- Let `\(Y^z_i(t)\)` be the potential outcome for unit `\(i\)` in period `\(t\)` under treatment `\(z\)`.
+
+- Intervention implemented in `\(T_0\)` `\(\rightarrow\)` No units are treated in `\(t\leq T_0\)`
+
+- Difference-in-Differences (DD) focuses on ATT for `\(t&gt;T_0\)`:
+`$$ATT = E[Y_i^1(t) - Y_i^0(t)|Z=1]$$`
+- **.purple[Assumptions for DD]**:
+  - Parallel-trend assumption (PTA)
+  
+  - Common shocks
+  
+  `$$E[Y_i^0(1) - Y_i^0(0) | Z=1] = E[Y_i^0(1) - Y_i^0(0) | Z=0]$$`
+---
+# DD Setup (cont.)
+
+- Under these assumptions:
+$$
+`\begin{align}
+\hat{\tau}^{DD} = &amp;\color{#900DA4}{\overbrace{\color{black}{E[Y(1)|Z=1] - E[Y(1)|Z=0]}}^{\color{#900DA4}{\Delta_{post}}}} - \\
+&amp;\color{#F89441}{\underbrace{\color{black}{(E[Y(0)|Z=1] - E[Y(0)|Z=0])}}_{\color{#F89441}{\Delta_{pre}}}}
+\end{align}`
+$$
+  - Where `\(t=0\)` and `\(t=1\)` are the pre- and post-intervention periods, respectively.
+  
+  - `\(Y(t) = Y^1(t)\cdot Z + (1-Z)\cdot Y^0(t)\)` is the observed outcome.
+
+
+---
+
+# Violations to the PTA
+
+.pull-left[
+- Under PTA, `\(g_1(t) = g_0(t) + h(t)\)`, where:
+
+  - `\(g_z(t) = E[Y^0_i(t) | Z=z, T=t]\)`
+  - `\(h(t) = \alpha\)`
+  
+- Bias in a DD setting depends on the structure of `\(h(t)\)`.
+
+- Confounding in DD affect **.purple[trends]** and not **.purple[levels]**.
+
+- Contextual knowledge is important!
+  - Do groups come from different populations? 
+]
+
+.pull-right[
+![](https://media.giphy.com/media/L8yQ0RQBItqso/giphy.gif)
+]
+---
+# Two distinct problems when combining matching + DD
+
+.pull-left[
+- **Regression to the mean**:
+
+  - Both groups come from different populations
+  - Particularly salient when matching on previous outcomes
+  
+- **Bias when matching on time-varying covariates**:
+  
+  - Depends on the structure of time variation
+]
+
+.pull-right[
+&lt;img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/reg_to_the_mean.svg" alt="diagram" width="500"/&gt;
+]
+---
+# How do we match?
+
+- Match covariates or outcomes? Levels or trends?
+
+- Use of **.purple[MIP Matching]** .small[(Zubizarreta, 2015; Bennett, Zubizarreta, &amp; Vielma, 2020)]:
+  
+  - Balance covariates directly
+  
+  - Yield largest matched sample under balancing constraints
+  
+  - Use of template matching to match multiple groups
+  
+  - Works with large samples
+  
+---
+# Panel or repeated cross-sections?
+
+- **Panel data:** Straightforward
+
+- **Repeated cross-section data:** Representative template matching
+
+.center[
+&lt;img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/diagram3v2.svg" alt="diagram" width="600"/&gt;]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Simulations
+]
+
+---
+
+# Different scenarios
+
+
+.box-1.medium.sp-after-half[S1: Time-invariant covariate effect]
+
+.box-2.medium.sp-after-half[S2: Time-varying covariate effect]
+
+.box-3.medium.sp-after-half[S3: Treatment-independent covariate]
+
+.box-4.medium.sp-after-half[S4: Parallel evolution]
+
+.box-6.medium.sp-after-half[S5: Evolution differs by group]
+
+.box-7.medium.sp-after-half[S6: Evolution diverges in post]
+  
+.source[Following Zeldow &amp; Hatfield (2019)]
+---
+# Covariate evolution: Time-invariant
+
+.center[
+&lt;img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/cov_1.svg" alt="diagram" width="900"/&gt;]
+
+---
+# Covariate evolution: Time-varying
+
+.center[
+&lt;img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/cov_2.svg" alt="diagram" width="900"/&gt;]
+
+---
+
+# Different ways to control
+
+&lt;div class="center"&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Model&lt;/th&gt;
+&lt;th&gt;Pseudo &lt;code class="remark-inline-code"&gt;R&lt;/code&gt; code&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Simple&lt;/td&gt;
+&lt;td&gt;&lt;code class="remark-inline-code"&gt;lm(y ~ a*p + t)&lt;/code&gt; &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Covariate Adjusted (CA)&lt;/td&gt;
+&lt;td&gt;&lt;code class="remark-inline-code"&gt;lm(y ~ a*p + t + x)&lt;/code&gt; &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Time-Varying Adjusted (TVA)&lt;/td&gt;
+&lt;td&gt;&lt;code class="remark-inline-code"&gt;lm(y ~ a*p + t*x)&lt;/code&gt; &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Match on pre-treat outcomes&lt;/td&gt;
+&lt;td&gt;&lt;code class="remark-inline-code"&gt;lm(y ~ a*p + t, data=out.match)&lt;/code&gt; &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Match on pre-treat 1st diff&lt;/td&gt;
+&lt;td&gt;&lt;code class="remark-inline-code"&gt;lm(y ~ a*p + t, data=out.lag.match)&lt;/code&gt; &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Match on pre-treat cov (PS)&lt;/td&gt;
+&lt;td&gt;&lt;code class="remark-inline-code"&gt;lm(y ~ a*p + t, data=cov.match)&lt;/code&gt; &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td id="highlight"&gt;Match on pre-treat cov (MIP)&lt;/td&gt;
+&lt;td id="highlight"&gt;&lt;code class="remark-inline-code"&gt;Event study (data=cov.match.mip)&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td id="highlight"&gt;Match on all cov (MIP)&lt;/td&gt;
+&lt;td id="highlight"&gt;&lt;code class="remark-inline-code"&gt;Event study (data=cov.match.mip.all)&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+.bottom[
+.source[Following Zeldow &amp; Hatfield (2019)]]
+
+---
+#Parameters:
+
+.center[
+Parameter                            | Value
+-------------------------------------|----------------------------------------------
+Number of obs (N)                               | 1,000 
+`Pr(Z=1)`              | 0.5 
+Time periods (T)          | 10 
+Last pre-intervention period (T_0)          | 5 
+Matching PS          | Nearest neighbor
+MIP Matching tolerance          | .05 SD
+Number of simulations | 1,000
+]
+
+- Estimate compared to sample ATT (_different for matching_)
+- When matching with post-treat covariates `\(\rightarrow\)` compared with direct effect `\(\tau\)`
+---
+#Results: Time-constant covariates
+
+&lt;img src="sp2021_sta235_1_intro_files/figure-html/res1-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Results: Time-varying covariates
+
+&lt;img src="sp2021_sta235_1_intro_files/figure-html/res2-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Other simulations
+
+- Test **.purple[regression to the mean]** under no effect:
+
+  - Vary autocorrelation of `\(X_i(t)\)` (low vs. high)
+  - `\(X_0(t)\)` and `\(X_1(t)\)` come from the same or different distribution.
+
+&lt;img src="sp2021_sta235_1_intro_files/figure-html/res3-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Application
+]
+---
+#Preferential Voucher Scheme in Chile
+
+- Universal **flat voucher** scheme `\(\stackrel{\mathbf{2008}}{\mathbf{\longrightarrow}}\)` Universal + **preferential voucher** scheme
+
+- Preferential voucher scheme:
+  - Targeted to bottom 40% of vulnerable students
+
+  - Additional 50% of voucher per student
+
+  - Additional money for concentration of SEP students.
+
+--
+&lt;br/&gt;
+.pull-left[
+.box-3b.medium.sp-after-half[Students:&lt;br/&gt;- Verify SEP status&lt;br/&gt;- Attend a SEP school]
+]
+
+.pull-right[
+.box-6b.medium.sp-after-half[Schools:&lt;br/&gt;- Opt-into the policy&lt;br/&gt;- No selection, no fees&lt;br/&gt;- Resources ~ performance]
+]
+
+---
+#Impact of the SEP policy
+
+- **Positive impact on test scores** for lower-income students (Aguirre, 2019; Nielson, 2016)
+
+- Design could have **increased** socioeconomic segregation
+  - Incentives for concentration of SEP students
+  
+- Key decision variables: Performance, current SEP students, competition, add-on fees.
+
+- **Diff-in-diff (w.r.t. 2007) for SEP and non-SEP schools**:
+  - Only for **.purple[private-subsidized schools]**
+  
+  - Matching between 2005-2007 --&gt; Effect estimated for 2008-2011
+  
+  - Outcome: Average students' household income
+  
+---
+#Before Matching
+  
+.pull-left[
+&lt;img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/dd_all.svg" alt="diagram" width="800"/&gt;
+]
+.pull-right[
+- No (pre) parallel trend
+
+- Covariates evolve differently in the pre-intervention period
+]
+
+---
+# [Pre] parallel trends
+
+.pull-left[
+&lt;img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/pta_all.svg" alt="diagram" width="800"/&gt;
+]
+.pull-right[
+&lt;img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/pta_match.svg" alt="diagram" width="800"/&gt;
+]
+
+---
+#After Matching
+  
+.pull-left[
+&lt;img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/dd_match.svg" alt="diagram" width="800"/&gt;
+]
+.pull-right[
+- **MIP Matching**: 
+  - Mean balance (0.05 SD): Rural, enrollment, number of schools in county, charges add-on fees
+
+  - Fine balance: Test scores, monthly average voucher.
+
+- **6% increase in the income gap** between SEP and non-SEP schools
+]
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Let's wrap it up
+]
+---
+#Conclusions
+
+.pull-left[
+- **Matching can be an important tool to address violations in PTA**.
+
+- Relevant to think whether groups come from the **.purple[same]** or **.purple[different]** populations.
+
+- **Serial correlation** also plays an important role: Don't match on random noise.
+
+- Adopt **flexibility** when estimating effects (event study)
+  
+.box-7.medium.sp-after-half[Match well and match smart!
+]]
+.pull-right[
+![](https://media.giphy.com/media/drwxYI2fxqQGqRZ9Pe/giphy.gif)
+]
+
+---
+background-position: 50% 50%
+class: center,middle, inverse
+
+#A Difference-in-Differences Approach&lt;br/&gt;using Mixed-Integer Programming Matching
+
+##Magdalena Bennett
+
+---
+# Time-invariant Covariates
+
+.box-1a.medium.sp-after-half[S1: Time-invariant covariate effect]
+.small[
+`$$X_i \stackrel{ind}{\sim} N(m(z_i),v(z_i))$$`
+`$$Y_i(t) \stackrel{ind}{\sim} N(1+z_i+treat_{it}+u_i+x_i+f(t),1)$$`]
+
+--
+.box-2a.medium.sp-after-half[S2: Time-varying covariate effect]
+.small[
+`$$X_i \stackrel{ind}{\sim} N(m(z_i),v(z_i))$$`
+`$$Y_i(t) \stackrel{ind}{\sim} N(1+z_i+treat_{it}+u_i+x_i+f(t)+g(x_i,t),1)$$`]
+
+--
+.box-3a.medium.sp-after-half[S3: Treatment-independent covariate]
+.small[
+`$$X_i \stackrel{ind}{\sim} N(1,1)$$`
+`$$Y_i(t) \stackrel{ind}{\sim} N(1+z_i+treat_{it}+u_i+x_i+f(t)+g(x_i,t),1)$$`]
+
+---
+# Time-varying Covariates
+
+.box-4a.medium.sp-after-half[S4: Parallel evolution]
+.small[
+`$$X_{it} = x_{(t-1)i} + m_1(t)\cdot z$$`
+`$$Y_i(t) \stackrel{ind}{\sim} N(1+z_i+treat_{it}+u_i+x_i+f(t)+g(x_i,t),1)$$`]
+
+--
+.box-6a.medium.sp-after-half[S5: Evolution differs by group]
+.small[
+`$$X_{it} = x_{(t-1)i} + m_2(z_i,t)\cdot z$$`
+`$$Y_i(t) \stackrel{ind}{\sim} N(1+z_i+treat_{it}+u_i+x_i+f(t)+g(x_i,t),1)$$`]
+
+--
+.box-7a.medium.sp-after-half[S6: Evolution diverges in post]
+.small[
+`$$X_{it} = x_{(t-1)i} + m_1(t)\cdot z - m_3(z_i,t)$$`
+`$$Y_i(t) \stackrel{ind}{\sim} N(1+z_i+treat_{it}+u_i+x_i+f(t)+g(x_i,t),1)$$`]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

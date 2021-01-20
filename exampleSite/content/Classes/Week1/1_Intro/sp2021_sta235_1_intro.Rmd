@@ -1,0 +1,695 @@
+---
+title: "STA 235 - Introduction to the Course"
+subtitle: "Spring 2021"
+author: "McCombs School of Business, UT Austin"
+output:
+  xaringan::moon_reader:
+    css: [xaringan-themer.css]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+    includes:
+      in_header: header.html
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.showtext = TRUE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+
+theme_xaringan(
+  text_color = "#333f48",
+  background_color = "#FFFFFF",
+  accent_color = "#900DA4",
+  text_font = "Fira Mono",
+  text_font_use_google = TRUE,
+  title_font = "Fira Sans Condensed",
+  title_font_use_google = TRUE
+)
+
+style_mono_accent(
+  #base_color = "#bf5700",
+  extra_fonts = list(google_font("Fira Sans","200","300","400","500","600"),
+                     google_font("Fira Sans Condensed")),
+  base_color = "#333f48",
+  header_font_google = google_font("Yanone Kaffeesatz","200","300","400","500","600","700"),
+  text_font_google   = google_font("Roboto", "300", "300i","400","500"),
+  code_font_google   = google_font("Fira Mono"),
+  text_bold_color = "#333f48",
+  text_font_size = "110%",
+  colors = c(
+    red = "#f34213",
+    purple = "#900DA4",
+    orange = "#ff8811",
+    green = "#136f63",
+    white = "#FFFFFF"),
+  extra_css = list(
+    ".remark-slide table" = list("display" = "table",
+                   "width" = "80%",
+                   "text-align" = "left"),
+    ".remark-slide-number" = list("display" = "none"),
+    ".strong" = list("font-weight" = "400"),
+    ".big" = list("font-size" = "350%",
+                     "font-family" = "Yanone Kaffeesatz",
+                     "font-weight"="400"),
+    ".small" = list("font-size" = "80%"),
+    ".source" = list("color" = "#8c8c8c",
+                     "font-size" = "80%"),
+    ".remark-slide table td#highlight" = list("background-color" = "#eee1f0",
+                                  "color" = "#900DA4",
+                                  "font-weight" = "500"),
+   # ".remark-slide table thead th" = list(),
+    ".title-slide h1" = list("font-weight" = "500"),
+    ".title-slide h2" = list("font-weight" = "400",
+                             "font-size" =  "170%"),
+    ".title-slide h3" = list("font-family" = "Roboto",
+                             "font-size" = "100%",
+                             "font-weight" = "200"),
+    ".center2" = list("margin" = "0",
+                      "position" = "absolute",
+                      "top" = "50%",
+                      "left" = "50%",
+                      "-ms-transform" = "translate(-50%, -50%)",
+                      "transform" = "translate(-50%, -50%)"),
+    ".section-title h1" = list("color" = "#FFFFFF",
+                               "font-size" = "2.3em",
+                               "line-height" = "1.3"),
+    ".medium" = list("font-size" = "1.4em"),
+    ".sp-after-half" = list("margin-bottom" = "0.7em !important"),
+    ".box-1,.box-1a,.box-1b,.section-title-1" = list("background-color" = "#0D0887"),
+    ".box-2,.box-2a,.box-2b,.section-title-2" = list("background-color" = "#5601A4"),
+    ".box-3,.box-3a,.box-3b,.section-title-3" = list("background-color" = "#900DA4"),
+    ".box-4,.box-4a,.box-4b,.section-title-4" = list("background-color" = "#BF3984"),
+    ".box-5,.box-5a,.box-5b,.section-title-5" = list("background-color" = "#E16462"),
+    ".box-6,.box-6a,.box-6b,.section-title-6" = list("background-color" = "#F89441"),
+    ".box-7,.box-7a,.box-7b,.section-title-7" = list("background-color" = "#FCCE25"),
+    ".box-7, .box-6, .box-5, .box-4, .box-3, .box-2, .box-1" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "31px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "font-family" = "Fira Sans"),
+    ".box-7a, .box-6a, .box-5a, .box-4a, .box-3a, .box-2a, .box-1a" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.4em 0.4em",
+                                                                      "font-weight" = "600",
+                                                                      "font-size" = "25px",
+                                                                      "display" = "table",
+                                                                      "text-align" = "center",
+                                                                      "font-family" = "Fira Sans"),
+       ".box-7b, .box-6b, .box-5b, .box-4b, .box-3b, .box-2b, .box-1b" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.4em 0.4em",
+                                                                      "font-weight" = "600",
+                                                                      "font-size" = "25px",
+                                                                      "display" = "table",
+                                                                      "text-align" = "left",
+                                                                      "font-family" = "Fira Sans")
+  )
+)
+
+#,"li" = list("font-size" = "150%")
+#    "li" = list("font-size" = "110%"),
+#    "ul" = list("font-size" = "110%"),
+#color palette
+#5601A4
+#900DA4
+#F89441
+#FCCE25
+```
+
+# Welcome to STA 235
+
+- Data Science for Business Applications:
+
+.box-2.medium.sp-after-half[What is Data Science?]
+
+.box-4.medium.sp-after-half[What are we going to see in this course?]
+
+.box-7.medium.sp-after-half[What should I expect to learn by the end of the semester?
+
+---
+# About me
+
+.pull-left[
+- Magdalena Bennett, Ph.D. 
+  - Assistant Professor at the Statistics Group at IROM.
+  - Research: Intersection of statistical methodologies in causal inference and economics of education.
+]
+
+.pull-right[
+![](https://raw.githubusercontent.com/maibennett/website_github/master/exampleSite/content/images/data_comic.jpg)]
+  
+
+---
+# Diff-in-Diff as an identification strategy
+
+
+
+---
+# What about parallel trends?
+
+.pull-left[
+![](https://raw.githubusercontent.com/maibennett/website_github/master/exampleSite/content/images/data_comic.jpg)]
+
+.pull-right[
+- Can matching work to solve this? 
+
+  - It's complicated (?) .small[(Zeldow & Hatfield, 2019;Lindner & McConnell, 2018; Daw & Hatfield, 2018 (x2); Ryan, 2018; Ryan et al., 2018)]
+  
+- Most work has focused on **.purple[matching outcomes]**]
+
+---
+
+# This paper
+
+- Identify contexts when matching can recover causal estimates under **violations in the parallel trend assumption**.
+
+- Use **mixed-integer programming matching (MIP)** to balance covariates directly.
+
+- Matching for **panel** and **repeated cross-sectional** data.
+
+--
+<br/>
+.pull-left[
+.box-3.medium.sp-after-half[Simulations:<br/>Different DGP scenarios]
+]
+
+.pull-right[
+.box-6.medium.sp-after-half[Application:<br/>School segregation & vouchers]
+]
+
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Let's review the syllabus
+]
+---
+
+# DD Setup
+
+- Let $Y^z_i(t)$ be the potential outcome for unit $i$ in period $t$ under treatment $z$.
+
+- Intervention implemented in $T_0$ $\rightarrow$ No units are treated in $t\leq T_0$
+
+- Difference-in-Differences (DD) focuses on ATT for $t>T_0$:
+$$ATT = E[Y_i^1(t) - Y_i^0(t)|Z=1]$$
+- **.purple[Assumptions for DD]**:
+  - Parallel-trend assumption (PTA)
+  
+  - Common shocks
+  
+  $$E[Y_i^0(1) - Y_i^0(0) | Z=1] = E[Y_i^0(1) - Y_i^0(0) | Z=0]$$
+---
+# DD Setup (cont.)
+
+- Under these assumptions:
+$$
+\begin{align}
+\hat{\tau}^{DD} = &\color{#900DA4}{\overbrace{\color{black}{E[Y(1)|Z=1] - E[Y(1)|Z=0]}}^{\color{#900DA4}{\Delta_{post}}}} - \\
+&\color{#F89441}{\underbrace{\color{black}{(E[Y(0)|Z=1] - E[Y(0)|Z=0])}}_{\color{#F89441}{\Delta_{pre}}}}
+\end{align}
+$$
+  - Where $t=0$ and $t=1$ are the pre- and post-intervention periods, respectively.
+  
+  - $Y(t) = Y^1(t)\cdot Z + (1-Z)\cdot Y^0(t)$ is the observed outcome.
+
+
+---
+
+# Violations to the PTA
+
+.pull-left[
+- Under PTA, $g_1(t) = g_0(t) + h(t)$, where:
+
+  - $g_z(t) = E[Y^0_i(t) | Z=z, T=t]$
+  - $h(t) = \alpha$
+  
+- Bias in a DD setting depends on the structure of $h(t)$.
+
+- Confounding in DD affect **.purple[trends]** and not **.purple[levels]**.
+
+- Contextual knowledge is important!
+  - Do groups come from different populations? 
+]
+
+.pull-right[
+![](https://media.giphy.com/media/L8yQ0RQBItqso/giphy.gif)
+]
+---
+# Two distinct problems when combining matching + DD
+
+.pull-left[
+- **Regression to the mean**:
+
+  - Both groups come from different populations
+  - Particularly salient when matching on previous outcomes
+  
+- **Bias when matching on time-varying covariates**:
+  
+  - Depends on the structure of time variation
+]
+
+.pull-right[
+<img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/reg_to_the_mean.svg" alt="diagram" width="500"/>
+]
+---
+# How do we match?
+
+- Match covariates or outcomes? Levels or trends?
+
+- Use of **.purple[MIP Matching]** .small[(Zubizarreta, 2015; Bennett, Zubizarreta, & Vielma, 2020)]:
+  
+  - Balance covariates directly
+  
+  - Yield largest matched sample under balancing constraints
+  
+  - Use of template matching to match multiple groups
+  
+  - Works with large samples
+  
+---
+# Panel or repeated cross-sections?
+
+- **Panel data:** Straightforward
+
+- **Repeated cross-section data:** Representative template matching
+
+.center[
+<img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/diagram3v2.svg" alt="diagram" width="600"/>]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Simulations
+]
+
+---
+
+# Different scenarios
+
+
+.box-1.medium.sp-after-half[S1: Time-invariant covariate effect]
+
+.box-2.medium.sp-after-half[S2: Time-varying covariate effect]
+
+.box-3.medium.sp-after-half[S3: Treatment-independent covariate]
+
+.box-4.medium.sp-after-half[S4: Parallel evolution]
+
+.box-6.medium.sp-after-half[S5: Evolution differs by group]
+
+.box-7.medium.sp-after-half[S6: Evolution diverges in post]
+  
+.source[Following Zeldow & Hatfield (2019)]
+---
+# Covariate evolution: Time-invariant
+
+.center[
+<img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/cov_1.svg" alt="diagram" width="900"/>]
+
+---
+# Covariate evolution: Time-varying
+
+.center[
+<img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/cov_2.svg" alt="diagram" width="900"/>]
+
+---
+
+# Different ways to control
+
+<div class="center"><table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Pseudo <code class="remark-inline-code">R</code> code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simple</td>
+<td><code class="remark-inline-code">lm(y ~ a*p + t)</code> </td>
+</tr>
+<tr>
+<td>Covariate Adjusted (CA)</td>
+<td><code class="remark-inline-code">lm(y ~ a*p + t + x)</code> </td>
+</tr>
+<tr>
+<td>Time-Varying Adjusted (TVA)</td>
+<td><code class="remark-inline-code">lm(y ~ a*p + t*x)</code> </td>
+</tr>
+<tr>
+<td>Match on pre-treat outcomes</td>
+<td><code class="remark-inline-code">lm(y ~ a*p + t, data=out.match)</code> </td>
+</tr>
+<tr>
+<td>Match on pre-treat 1st diff</td>
+<td><code class="remark-inline-code">lm(y ~ a*p + t, data=out.lag.match)</code> </td>
+</tr>
+<tr>
+<td>Match on pre-treat cov (PS)</td>
+<td><code class="remark-inline-code">lm(y ~ a*p + t, data=cov.match)</code> </td>
+</tr>
+<tr>
+<td id="highlight">Match on pre-treat cov (MIP)</td>
+<td id="highlight"><code class="remark-inline-code">Event study (data=cov.match.mip)</code></td>
+</tr>
+<tr>
+<td id="highlight">Match on all cov (MIP)</td>
+<td id="highlight"><code class="remark-inline-code">Event study (data=cov.match.mip.all)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+.bottom[
+.source[Following Zeldow & Hatfield (2019)]]
+
+---
+#Parameters:
+
+.center[
+Parameter                            | Value
+-------------------------------------|----------------------------------------------
+Number of obs (N)                               | 1,000 
+`Pr(Z=1)`              | 0.5 
+Time periods (T)          | 10 
+Last pre-intervention period (T_0)          | 5 
+Matching PS          | Nearest neighbor
+MIP Matching tolerance          | .05 SD
+Number of simulations | 1,000
+]
+
+- Estimate compared to sample ATT (_different for matching_)
+- When matching with post-treat covariates $\rightarrow$ compared with direct effect $\tau$
+---
+#Results: Time-constant covariates
+
+```{r res1, fig.width=9, fig.height=5.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+d = read.csv("https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/sim_ppt.csv")
+
+attach(d)
+
+d = data.frame(cbind(c(s1,s2,s3,s4,s5,s5alt,s6),rep(c("Simple","CA","TVA","Match (level)",
+                                                      "Match (trend)","Match (cov PS)",
+                                                      "Match (cov MIP)",
+                                                      "Match (cov MIP all)"),7),
+                     c(rep("S1: Time-invariant_cov effect",8),
+                       rep("S2: Time-varying_cov effect",8),
+                       rep("S3: Treat-independent_cov effect",8),
+                       rep("S4: Parallel_evolution",8),
+                       rep("S5: Evolution diff._by group",8),
+                       rep("S5: Evolution diff._by group (adj)",8),
+                       rep("S6: Evolution diff._in post",8)),
+                     c(rep("Constant",24),rep("Varying",32))))
+names(d) = c("bias","adj","type","var")
+
+d$bias = as.numeric(d$bias)
+d$type = factor(d$type,levels = unique(d$type))
+
+levels(d$type) <- gsub("_", "\n", levels(d$type)) 
+
+ggplot(d[d$var=="Constant",], aes(x = factor(adj, levels=unique(d$adj)), y = bias), fill="white") +
+    geom_hline(yintercept = 0,lty=2,col="dark grey",lwd=1)+
+  geom_point(size=3)+
+  geom_segment(aes(x = factor(adj, levels=unique(d$adj)), y = 0, 
+                   xend = factor(adj, levels=unique(d$adj)), yend = bias), 
+               lty=1,lwd=1,col="#900DA4") +
+  scale_color_manual(values=c("#F89441","#900DA4")) +
+  
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold") + #plain 
+  xlab("") + ylab("% Bias")+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=10,angle = 45,hjust=1,vjust=1,margin=margin(0.1,0,0,0)),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=10),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14),
+        strip.text = element_text(family="Fira Sans Condensed")) + ylim(-0.5,1) +
+  facet_grid(cols=vars(type))
+
+```
+
+
+---
+# Results: Time-varying covariates
+
+```{r res2, fig.width=9, fig.height=5.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+ggplot(d[d$var=="Varying" & d$type!="S5: Evolution diff.\nby group",], 
+       aes(x = factor(adj, levels=unique(d$adj)), y = bias), fill="white") +
+    geom_hline(yintercept = 0,lty=2,col="dark grey",lwd=1)+
+  geom_point(size=3)+
+  geom_segment(aes(x = factor(adj, levels=unique(d$adj)), y = 0, 
+                   xend = factor(adj, levels=unique(d$adj)), yend = bias), 
+               lty=1,lwd=1,col="#900DA4") +
+  scale_color_manual(values=c("#F89441","#900DA4")) +
+  
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold") + #plain 
+  xlab("") + ylab("% Bias")+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16, family="Fira Sans Condensed"),
+        #margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=10,angle = 45,hjust=1,vjust=1,margin=margin(0.1,0,0,0)),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=10),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14, family="Fira Sans Condensed"),
+        strip.text = element_text(family="Fira Sans Condensed")) + ylim(-0.5,1) +
+  facet_grid(cols=vars(factor(type,levels = unique(d$type[d$var=="Varying" & d$type!=
+                                                            "Evolution differs by group"]))))
+
+```
+---
+# Other simulations
+
+- Test **.purple[regression to the mean]** under no effect:
+
+  - Vary autocorrelation of $X_i(t)$ (low vs. high)
+  - $X_0(t)$ and $X_1(t)$ come from the same or different distribution.
+
+```{r res3, fig.width=9, fig.height=4.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+
+#different-high/different-low - same-high/same-low
+results = c(0.039/1.067,0.192/1.063,0.028/1.013,0.10/1.015)
+
+d = data.frame(cbind(results,c("Different dist.","Different dist.",
+                               "Same dist.","Same dist."),c("High corr","Low corr",
+                                                            "High corr","Low corr")))
+names(d) = c("bias","dist","corr")
+d$bias = as.numeric(d$bias)
+
+ggplot(d, aes(x = factor(corr, levels=unique(d$corr)), y = bias), fill="white") +
+    geom_hline(yintercept = 0,lty=2,col="dark grey",lwd=1)+
+  geom_point(size=3)+
+  geom_segment(aes(x = factor(corr, levels=unique(d$corr)), y = 0, 
+                   xend = factor(corr, levels=unique(d$corr)), yend = bias), 
+               lty=1,lwd=1,col="#900DA4") +
+  scale_color_manual(values=c("#F89441","#900DA4")) +
+  
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold") + #plain 
+  xlab("") + ylab("% Bias")+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16, family="Fira Sans Condensed"),
+        #margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=10,angle = 45,hjust=1,vjust=1,margin=margin(0.1,0,0,0)),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=10),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14, family="Fira Sans Condensed"),
+        strip.text = element_text(family="Fira Sans Condensed")) + ylim(-0.5,0.5) +
+  facet_grid(cols=vars(factor(dist,levels = unique(d$dist))))
+
+```
+
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Application
+]
+---
+#Preferential Voucher Scheme in Chile
+
+- Universal **flat voucher** scheme $\stackrel{\mathbf{2008}}{\mathbf{\longrightarrow}}$ Universal + **preferential voucher** scheme
+
+- Preferential voucher scheme:
+  - Targeted to bottom 40% of vulnerable students
+
+  - Additional 50% of voucher per student
+
+  - Additional money for concentration of SEP students.
+
+--
+<br/>
+.pull-left[
+.box-3b.medium.sp-after-half[Students:<br/>- Verify SEP status<br/>- Attend a SEP school]
+]
+
+.pull-right[
+.box-6b.medium.sp-after-half[Schools:<br/>- Opt-into the policy<br/>- No selection, no fees<br/>- Resources ~ performance]
+]
+
+---
+#Impact of the SEP policy
+
+- **Positive impact on test scores** for lower-income students (Aguirre, 2019; Nielson, 2016)
+
+- Design could have **increased** socioeconomic segregation
+  - Incentives for concentration of SEP students
+  
+- Key decision variables: Performance, current SEP students, competition, add-on fees.
+
+- **Diff-in-diff (w.r.t. 2007) for SEP and non-SEP schools**:
+  - Only for **.purple[private-subsidized schools]**
+  
+  - Matching between 2005-2007 --> Effect estimated for 2008-2011
+  
+  - Outcome: Average students' household income
+  
+---
+#Before Matching
+  
+.pull-left[
+<img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/dd_all.svg" alt="diagram" width="800"/>
+]
+.pull-right[
+- No (pre) parallel trend
+
+- Covariates evolve differently in the pre-intervention period
+]
+
+---
+# [Pre] parallel trends
+
+.pull-left[
+<img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/pta_all.svg" alt="diagram" width="800"/>
+]
+.pull-right[
+<img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/pta_match.svg" alt="diagram" width="800"/>
+]
+
+---
+#After Matching
+  
+.pull-left[
+<img src="https://raw.githubusercontent.com/maibennett/presentations/main/bb_20201202/images/dd_match.svg" alt="diagram" width="800"/>
+]
+.pull-right[
+- **MIP Matching**: 
+  - Mean balance (0.05 SD): Rural, enrollment, number of schools in county, charges add-on fees
+
+  - Fine balance: Test scores, monthly average voucher.
+
+- **6% increase in the income gap** between SEP and non-SEP schools
+]
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Let's wrap it up
+]
+---
+#Conclusions
+
+.pull-left[
+- **Matching can be an important tool to address violations in PTA**.
+
+- Relevant to think whether groups come from the **.purple[same]** or **.purple[different]** populations.
+
+- **Serial correlation** also plays an important role: Don't match on random noise.
+
+- Adopt **flexibility** when estimating effects (event study)
+  
+.box-7.medium.sp-after-half[Match well and match smart!
+]]
+.pull-right[
+![](https://media.giphy.com/media/drwxYI2fxqQGqRZ9Pe/giphy.gif)
+]
+
+---
+background-position: 50% 50%
+class: center,middle, inverse
+
+#A Difference-in-Differences Approach<br/>using Mixed-Integer Programming Matching
+
+##Magdalena Bennett
+
+---
+# Time-invariant Covariates
+
+.box-1a.medium.sp-after-half[S1: Time-invariant covariate effect]
+.small[
+$$X_i \stackrel{ind}{\sim} N(m(z_i),v(z_i))$$
+$$Y_i(t) \stackrel{ind}{\sim} N(1+z_i+treat_{it}+u_i+x_i+f(t),1)$$]
+
+--
+.box-2a.medium.sp-after-half[S2: Time-varying covariate effect]
+.small[
+$$X_i \stackrel{ind}{\sim} N(m(z_i),v(z_i))$$
+$$Y_i(t) \stackrel{ind}{\sim} N(1+z_i+treat_{it}+u_i+x_i+f(t)+g(x_i,t),1)$$]
+
+--
+.box-3a.medium.sp-after-half[S3: Treatment-independent covariate]
+.small[
+$$X_i \stackrel{ind}{\sim} N(1,1)$$
+$$Y_i(t) \stackrel{ind}{\sim} N(1+z_i+treat_{it}+u_i+x_i+f(t)+g(x_i,t),1)$$]
+
+---
+# Time-varying Covariates
+
+.box-4a.medium.sp-after-half[S4: Parallel evolution]
+.small[
+$$X_{it} = x_{(t-1)i} + m_1(t)\cdot z$$
+$$Y_i(t) \stackrel{ind}{\sim} N(1+z_i+treat_{it}+u_i+x_i+f(t)+g(x_i,t),1)$$]
+
+--
+.box-6a.medium.sp-after-half[S5: Evolution differs by group]
+.small[
+$$X_{it} = x_{(t-1)i} + m_2(z_i,t)\cdot z$$
+$$Y_i(t) \stackrel{ind}{\sim} N(1+z_i+treat_{it}+u_i+x_i+f(t)+g(x_i,t),1)$$]
+
+--
+.box-7a.medium.sp-after-half[S6: Evolution diverges in post]
+.small[
+$$X_{it} = x_{(t-1)i} + m_1(t)\cdot z - m_3(z_i,t)$$
+$$Y_i(t) \stackrel{ind}{\sim} N(1+z_i+treat_{it}+u_i+x_i+f(t)+g(x_i,t),1)$$]
