@@ -11,6 +11,7 @@ output:
       highlightLines: true
       countIncrementalSlides: false
       ratio: "16:9"
+      beforeInit: "macros.js"
     includes:
       in_header: header.html
 ---
@@ -46,6 +47,8 @@ style_mono_accent(
   colors = c(
     red = "#f34213",
     purple = "#900DA4",
+    darkpurple = "#61077a",
+    darkorange = "#db5f12",
     orange = "#ff8811",
     green = "#136f63",
     white = "#FFFFFF"),
@@ -115,7 +118,8 @@ style_mono_accent(
                                                                       "font-size" = "25px",
                                                                       "display" = "table",
                                                                       "text-align" = "left",
-                                                                      "font-family" = "Fira Sans")
+                                                                      "font-family" = "Fira Sans"),
+   ".image-80 img" = list("scale" = "80%")
   )
 )
 
@@ -145,7 +149,7 @@ style_mono_accent(
 .pull-left[
 .box-3b.medium.sp-after-half[Prof: Magdalena Bennett, Ph.D.]
 
-  - *Assistant Professor at the Stats Group.*
+  - *Assistant Professor in the Stats Group.*
   
   - *Research: Causal Inference + Econ of Education*
   
@@ -156,7 +160,10 @@ style_mono_accent(
 ]
 
 .pull-right[
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/bobdylan2.png)]
+<p align="center">
+![:scale 75%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/bobdylan2.png)
+</p>
+]
 
 ---
 background-position: 50% 50%
@@ -167,9 +174,44 @@ Let's review the syllabus
 ---
 # About this course
 
-- **Objective**:
+- **.darkorange[Objective]**:
 
-- **Structure**:
+<p align="center"> <i>"[G]ain the tools you need to tackle real-world problems from a quantitative perspective."</i> </p>
+
+- **.darkorange[Structure]**:
+
+.box-2.medium.sp-after-half[1) Multiple Regression]
+
+.box-4.medium.sp-after-half[2) Causal Inference]
+
+.box-7.medium.sp-after-half[3) Prediction]
+
+---
+# How, when, and where?
+
+- **.darkorange[Continuation of STA 301]**
+
+- **.darkorange[Online session for Spring 2021]:** Every Monday at 12:30 - 2:15 PM (Section 1) and 2:30 - 4:15 PM (Section 2)
+
+  - Be punctual! Cameras on are encouraged.
+
+<p align="center"> <i>"[G]ain the tools you need to tackle real-world problems from a quantitative perspective."</i> </p>
+
+- **.darkorange[Office Hours]**:
+
+  - Professor Bennett: Monday 5:00 - 6:00 PM; Thursday 4:00 - 5:00 PM
+  
+    - Appointments by *calendly*
+    - Other times available upon request
+    
+  - T.A.: *TBD* 
+  
+---
+# How, when, and where? (Cont.)
+
+<p align = "center">**.darkorange[http://sta235.netlify.app]** </p>
+
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/sta235_website.png)
 
 ---
 # What will you need?

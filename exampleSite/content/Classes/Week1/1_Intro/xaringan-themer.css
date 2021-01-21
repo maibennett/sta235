@@ -61,6 +61,8 @@
   --black: #272822;
   --red: #f34213;
   --purple: #900DA4;
+  --darkpurple: #61077a;
+  --darkorange: #db5f12;
   --orange: #ff8811;
   --green: #136f63;
   --white: #FFFFFF;
@@ -269,6 +271,18 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 .bg-purple {
   background-color: var(--purple);
 }
+.darkpurple {
+  color: var(--darkpurple);
+}
+.bg-darkpurple {
+  background-color: var(--darkpurple);
+}
+.darkorange {
+  color: var(--darkorange);
+}
+.bg-darkorange {
+  background-color: var(--darkorange);
+}
 .orange {
   color: var(--orange);
 }
@@ -403,4 +417,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   display: table;
   text-align: left;
   font-family: Fira Sans;
+}
+.image-80 img {
+  scale: 80%;
 }
