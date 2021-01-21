@@ -156,7 +156,7 @@ style_mono_accent(
 ]
 
 .pull-right[
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/bobdylan.png)]
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/bobdylan2.png)]
 
 ---
 background-position: 50% 50%
