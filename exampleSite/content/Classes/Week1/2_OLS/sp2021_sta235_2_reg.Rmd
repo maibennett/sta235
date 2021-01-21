@@ -1,0 +1,194 @@
+---
+title: "STA 235 - Introduction"
+subtitle: "Spring 2021"
+author: "McCombs School of Business, UT Austin"
+output:
+  xaringan::moon_reader:
+    css: [xaringan-themer.css]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+    includes:
+      in_header: header.html
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.showtext = TRUE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+
+theme_xaringan(
+  text_color = "#333f48",
+  background_color = "#FFFFFF",
+  accent_color = "#900DA4",
+  text_font = "Fira Mono",
+  text_font_use_google = TRUE,
+  title_font = "Fira Sans Condensed",
+  title_font_use_google = TRUE
+)
+
+style_mono_accent(
+  #base_color = "#bf5700",
+  extra_fonts = list(google_font("Fira Sans","200","300","400","500","600"),
+                     google_font("Fira Sans Condensed")),
+  base_color = "#333f48",
+  header_font_google = google_font("Yanone Kaffeesatz","200","300","400","500","600","700"),
+  text_font_google   = google_font("Roboto", "300", "300i","400","500"),
+  code_font_google   = google_font("Fira Mono"),
+  text_bold_color = "#333f48",
+  text_font_size = "110%",
+  colors = c(
+    red = "#f34213",
+    purple = "#900DA4",
+    orange = "#ff8811",
+    green = "#136f63",
+    white = "#FFFFFF"),
+  extra_css = list(
+    ".remark-slide table" = list("display" = "table",
+                   "width" = "80%",
+                   "text-align" = "left"),
+    ".remark-slide-number" = list("display" = "none"),
+    ".strong" = list("font-weight" = "400"),
+    ".big" = list("font-size" = "350%",
+                     "font-family" = "Yanone Kaffeesatz",
+                     "font-weight"="400"),
+    ".small" = list("font-size" = "80%"),
+    ".source" = list("color" = "#8c8c8c",
+                     "font-size" = "80%"),
+    ".remark-slide table td#highlight" = list("background-color" = "#eee1f0",
+                                  "color" = "#900DA4",
+                                  "font-weight" = "500"),
+   # ".remark-slide table thead th" = list(),
+    ".title-slide h1" = list("font-weight" = "500"),
+    ".title-slide h2" = list("font-weight" = "400",
+                             "font-size" =  "170%"),
+    ".title-slide h3" = list("font-family" = "Roboto",
+                             "font-size" = "100%",
+                             "font-weight" = "200"),
+    ".center2" = list("margin" = "0",
+                      "position" = "absolute",
+                      "top" = "50%",
+                      "left" = "50%",
+                      "-ms-transform" = "translate(-50%, -50%)",
+                      "transform" = "translate(-50%, -50%)"),
+    ".section-title h1" = list("color" = "#FFFFFF",
+                               "font-size" = "2.3em",
+                               "line-height" = "1.3"),
+    ".medium" = list("font-size" = "1.4em"),
+    ".sp-after-half" = list("margin-bottom" = "0.7em !important"),
+    ".box-1,.box-1a,.box-1b,.section-title-1" = list("background-color" = "#0D0887"),
+    ".box-2,.box-2a,.box-2b,.section-title-2" = list("background-color" = "#5601A4"),
+    ".box-3,.box-3a,.box-3b,.section-title-3" = list("background-color" = "#900DA4"),
+    ".box-4,.box-4a,.box-4b,.section-title-4" = list("background-color" = "#BF3984"),
+    ".box-5,.box-5a,.box-5b,.section-title-5" = list("background-color" = "#E16462"),
+    ".box-6,.box-6a,.box-6b,.section-title-6" = list("background-color" = "#F89441"),
+    ".box-7,.box-7a,.box-7b,.section-title-7" = list("background-color" = "#FCCE25"),
+    ".box-7, .box-6, .box-5, .box-4, .box-3, .box-2, .box-1" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "31px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "font-family" = "Fira Sans"),
+    ".box-7a, .box-6a, .box-5a, .box-4a, .box-3a, .box-2a, .box-1a" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.4em 0.4em",
+                                                                      "font-weight" = "600",
+                                                                      "font-size" = "25px",
+                                                                      "display" = "table",
+                                                                      "text-align" = "center",
+                                                                      "font-family" = "Fira Sans"),
+       ".box-7b, .box-6b, .box-5b, .box-4b, .box-3b, .box-2b, .box-1b" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.4em 0.4em",
+                                                                      "font-weight" = "600",
+                                                                      "font-size" = "25px",
+                                                                      "display" = "table",
+                                                                      "text-align" = "left",
+                                                                      "font-family" = "Fira Sans")
+  )
+)
+
+#,"li" = list("font-size" = "150%")
+#    "li" = list("font-size" = "110%"),
+#    "ul" = list("font-size" = "110%"),
+#color palette
+#5601A4
+#900DA4
+#F89441
+#FCCE25
+```
+
+# Welcome to STA 235
+
+- Data Science for Business Applications:
+
+.box-2.medium.sp-after-half[What is Data Science?]
+
+.box-4.medium.sp-after-half[What are we going to see in this course?]
+
+.box-7.medium.sp-after-half[What should I expect to learn by the end of the semester?]
+
+---
+# About the instruction team
+
+.pull-left[
+.box-3b.medium.sp-after-half[Prof: Magdalena Bennett, Ph.D.]
+
+  - *Assistant Professor at the Stats Group.*
+  
+  - *Research: Causal Inference + Econ of Education*
+  
+.box-6b.medium.sp-after-half[TA: Ricardo Lara]
+  
+  - *Ph.D. candidate in Petroleum Engineering*
+  
+]
+
+.pull-right[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/bobdylan.png)]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Let's review the syllabus
+]
+---
+# About this course
+
+- **Objective**:
+
+- **Structure**:
+
+---
+# What will you need?
+
+- A computer with internet connection.
+
+- R & R Studio
+
+- Required Books:
+
+  - Angrist & Pischke, "Mastering Metrics"
+  - "Introduction to Data Science"
+
+---
+# Assignments and Grading
+
+- **3 Homeworks (20% total) + Project (15%)**:
+
+- **Just in Time Teaching assignments (JITT) (10%)**:
+
+- **Midterm (25%) and Final Exam (30%)**:
+---
