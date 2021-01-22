@@ -340,8 +340,39 @@ Let's review the syllabus
 
 ---
 background-position: 50% 50%
+class: center, middle
+.big[
+.darkorange[What questions do you have?]
+]
+---
+background-position: 50% 50%
 class: left, bottom, inverse
 .big[
-What are you expecting from this course?
+Your expectations
 ]
+---
+# What do you expect to learn from this course?
+
+- Many students are **.darkorange[not sure]** $\rightarrow$ That is fine!
+
+- Gain insights to business applications
+
+- Practice R
+---
+# How comfortable are you with R?
+
+- Most students feel more uncomfortable than comfortable with R
+
+- Google (and Stackoverflow in particular) are your friends!
+
+- **.darkorange[Ask questions]**
+
+---
+# What grade do you expect to get?
+
+- Confidence is great (but also **.darkorange[hard work]**)
+
+- Google (and Stackoverflow in particular) are your friends!
+
+- .darkorange[Ask questions]
 ---

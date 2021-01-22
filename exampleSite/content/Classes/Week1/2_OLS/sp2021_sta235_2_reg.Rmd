@@ -1,5 +1,5 @@
 ---
-title: "STA 235 - Introduction"
+title: "STA 235 - Multivariate Regression"
 subtitle: "Spring 2021"
 author: "McCombs School of Business, UT Austin"
 output:
@@ -11,6 +11,7 @@ output:
       highlightLines: true
       countIncrementalSlides: false
       ratio: "16:9"
+      beforeInit: "macros.js"
     includes:
       in_header: header.html
 ---
@@ -46,6 +47,8 @@ style_mono_accent(
   colors = c(
     red = "#f34213",
     purple = "#900DA4",
+    darkpurple = "#61077a",
+    darkorange = "#db5f12",
     orange = "#ff8811",
     green = "#136f63",
     white = "#FFFFFF"),
@@ -59,6 +62,7 @@ style_mono_accent(
                      "font-family" = "Yanone Kaffeesatz",
                      "font-weight"="400"),
     ".small" = list("font-size" = "80%"),
+    ".large" = list("font-size" = "150%"),
     ".source" = list("color" = "#8c8c8c",
                      "font-size" = "80%"),
     ".remark-slide table td#highlight" = list("background-color" = "#eee1f0",
@@ -115,7 +119,18 @@ style_mono_accent(
                                                                       "font-size" = "25px",
                                                                       "display" = "table",
                                                                       "text-align" = "left",
-                                                                      "font-family" = "Fira Sans")
+                                                                      "font-family" = "Fira Sans"),
+   ".image-80 img" = list("scale" = "80%"),
+   ".pull-left-little_l" = list("float" = "left",
+                                "width" = "67%"),
+   ".pull-right-little_l" = list("float" = "right",
+                                "width" = "27%"),
+   ".pull-left-little_r" = list("float" = "left",
+                                "width" = "27%"),
+   ".pull-right-little_r" = list("float" = "right",
+                                "width" = "67%")
+
+
   )
 )
 
@@ -129,15 +144,17 @@ style_mono_accent(
 #FCCE25
 ```
 
-# Welcome to STA 235
+# Remembering Regressions
 
-- Data Science for Business Applications:
+- Linear Regression is a **.darkorange[very useful tool]**.
 
-.box-2.medium.sp-after-half[What is Data Science?]
+  - Simple supervised learning approach.
+  - Many fancy methods are generalizations or extensions of linear regression!
 
-.box-4.medium.sp-after-half[What are we going to see in this course?]
+- Regression models allows you to determine whether there is evidence of association between two variables (*while controlling for other things*)
 
-.box-7.medium.sp-after-half[What should I expect to learn by the end of the semester?]
+.box-4.medium.sp-after-half[$$X \rightarrow Y$$]
+
 
 ---
 # About the instruction team
