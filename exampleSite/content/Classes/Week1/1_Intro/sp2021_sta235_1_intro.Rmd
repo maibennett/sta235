@@ -30,7 +30,7 @@ theme_xaringan(
   accent_color = "#900DA4",
   text_font = "Fira Mono",
   text_font_use_google = TRUE,
-  title_font = "Fira Sans Condensed",
+  title_font = "Yanone Kaffeesatz",
   title_font_use_google = TRUE
 )
 
@@ -43,7 +43,7 @@ style_mono_accent(
   text_font_google   = google_font("Roboto", "300", "300i","400","500"),
   code_font_google   = google_font("Fira Mono"),
   text_bold_color = "#333f48",
-  text_font_size = "110%",
+  text_font_size = "130%",
   colors = c(
     red = "#f34213",
     purple = "#900DA4",
@@ -86,13 +86,44 @@ style_mono_accent(
                                "line-height" = "1.3"),
     ".medium" = list("font-size" = "1.4em"),
     ".sp-after-half" = list("margin-bottom" = "0.7em !important"),
-    ".box-1,.box-1a,.box-1b,.box-1l,.section-title-1" = list("background-color" = "#0D0887"),
-    ".box-2,.box-2a,.box-2b,.box-2l,.section-title-2" = list("background-color" = "#5601A4"),
-    ".box-3,.box-3a,.box-3b,.box-3l,.section-title-3" = list("background-color" = "#900DA4"),
-    ".box-4,.box-4a,.box-4b,.box-4l,.section-title-4" = list("background-color" = "#BF3984"),
-    ".box-5,.box-5a,.box-5b,.box-5l,.section-title-5" = list("background-color" = "#E16462"),
-    ".box-6,.box-6a,.box-6b,.box-6l,.section-title-6" = list("background-color" = "#F89441"),
-    ".box-7,.box-7a,.box-7b,.box-7l,.section-title-7" = list("background-color" = "#FCCE25"),
+    ".box-1,.box-1a,.box-1b,.box-1l,.box-1LA,.section-title-1" = list("background-color" = "#0D0887"),
+    ".box-2,.box-2a,.box-2b,.box-2l,.box-2LA,.section-title-2" = list("background-color" = "#5601A4"),
+    ".box-3,.box-3a,.box-3b,.box-3l,.box-3LA,.section-title-3" = list("background-color" = "#900DA4"),
+    ".box-4,.box-4a,.box-4b,.box-4l,.box-4LA,.section-title-4" = list("background-color" = "#BF3984"),
+    ".box-5,.box-5a,.box-5b,.box-5l,.box-5LA,.section-title-5" = list("background-color" = "#E16462"),
+    ".box-6,.box-6a,.box-6b,.box-6l,.box-6LA,.section-title-6" = list("background-color" = "#F89441"),
+    ".box-7,.box-7a,.box-7b,.box-7l,.box-7LA,.section-title-7" = list("background-color" = "#FCCE25"),
+   
+   ".box-1t,.section-title-1t" = list("background-color" = "rgba(13, 8, 135,0.4)",
+                                      "color"="rgba(13, 8, 135,1)",
+                                      "font-family" = "Yanone Kaffeesatz"),
+    ".box-2t,.section-title-2t" = list("background-color" = "rgba(86, 1, 164,0.4)",
+                                       "color" = "rgba(86, 1, 164,1)",
+                                       "font-family" = "Yanone Kaffeesatz"),
+    ".box-3t,.section-title-3t" = list("background-color" = "rgba(144, 13, 164,0.4)",
+                                       "color" = "rgba(144, 13, 164,1)",
+                                       "font-family" = "Yanone Kaffeesatz"),
+    ".box-4t,.section-title-4t" = list("background-color" = "rgba(191, 57, 132,0.4)",
+                                       "color" = "rgba(191, 57, 132,1)",
+                                       "font-family" = "Yanone Kaffeesatz"),
+    ".box-5t,.section-title-5t" = list("background-color" = "rgba(225, 100, 98,0.4)",
+                                       "color" = "rgba(225, 100, 98,1)",
+                                       "font-family" = "Yanone Kaffeesatz"),
+    ".box-6t,.section-title-6t" = list("background-color" = "rgba(248, 148, 65,0.4)",
+                                       "color" = "rgba(248, 148, 65,1)",
+                                       "font-family" = "Yanone Kaffeesatz"),
+    ".box-7t,.section-title-7t" = list("background-color" = "rgba(252, 206, 37,0.4)",
+                                       "color" = "rgba(252, 206, 37,1)",
+                                       "font-family" = "Yanone Kaffeesatz"),
+   
+   ".box-7t, .box-6t, .box-5t, .box-4t, .box-3t, .box-2t, .box-1t" = list("margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "31px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center"),
+   
     ".box-7, .box-6, .box-5, .box-4, .box-3, .box-2, .box-1" = list("color" = "#FFFFFF",
                                                                     "margin" = "0em auto",
                                                                     "overflow" = "hidden",
@@ -125,7 +156,16 @@ style_mono_accent(
                                                                     "overflow" = "hidden",
                                                                     "padding" = "0.4em 0.4em",
                                                                     "font-weight" = "600",
-                                                                    "font-size" = "50px",
+                                                                    "font-size" = "45px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                      "font-family" = "Yanone Kaffeesatz"),
+   ".box-7LA, .box-6LA, .box-5LA, .box-4LA, .box-3LA, .box-2LA, .box-1LA" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "55px",
                                                                     "display" = "table",
                                                                     "text-align" = "center",
                                                                       "font-family" = "Yanone Kaffeesatz"),
@@ -156,7 +196,7 @@ style_mono_accent(
 background-position: 50% 50%
 class: center, middle
 .big[
-.box-5l.medium.sp-after-half[Welcome to STA 235<br />
+.box-5LA.medium.sp-after-half[Welcome to STA 235<br />
 Data Science for Business Applications]
 ]
 ---
@@ -201,32 +241,30 @@ Let's review the syllabus
 <p align="center"> <i>"[G]ain the tools you need to tackle real-world problems from a quantitative perspective."</i> </p>
 
 - <p style = "color:#db5f12;font-size:120%;"><b>Structure:</b></p>
+.box-2l.medium.sp-after-half[1) Multiple Regression]
 
-.box-2.medium.sp-after-half[1) Multiple Regression]
+.box-4l.medium.sp-after-half[2) Causal Inference]
 
-.box-4.medium.sp-after-half[2) Causal Inference]
-
-.box-7.medium.sp-after-half[3) Prediction]
+.box-7l.medium.sp-after-half[3) Prediction]
 
 ---
 # How, when, and where?
 
-- **.darkorange[Continuation of STA 301]**
-
-- **.darkorange[Online session for Spring 2021]:** Every Monday at 12:30 - 2:15 PM (Section 1) and 2:30 - 4:15 PM (Section 2)
-
+- **.darkorange[Online session for Spring 2021]:** Mon at 12:30 - 2:15 PM (Sec. 1) and 2:30 - 4:15 PM (Sec. 2)
   - Be punctual! Cameras on are encouraged.
 
 - **.darkorange[Online Office Hours]**:
-
-  - Professor Bennett: Monday 5:00 - 6:00 PM; Thursday 4:00 - 5:00 PM
+.pull-left[  
+.box-2.medium.sp-after-half[Prof. Bennett:<br>
+Mon 5:00 - 6:00 PM<br>
+Thur 4:00 - 5:00 PM]]
+.pull-right[.box-2.medium.sp-after-half[T.A.:<br>
+<i>TBD (before exams &</i><br><i>assignments)</i>]
+]
   
-      - Appointments by *calendly*
-      - Other times available upon request
+  - .small[Appointments by *calendly*]
+  - .small[Other times available upon request]
     
-  - T.A.: *TBD*
-  
-- Questions can also be asked through **.darkorange[Piazza]**
   
 ---
 # How, when, and where? (Cont.)
@@ -328,7 +366,7 @@ Let's review the syllabus
   - Let me know as soon as possible if you have another work or non-academic commitment
 
 ---
-# Collaboratios and Academic Integrity
+# Collaborations and Academic Integrity
 
 - **.darkorange[You are encouraged to form study groups!]**
 
@@ -497,6 +535,8 @@ class: left, bottom, inverse
 A brief motivation
 ]
 ---
+<br>
+<br>
 .box-2.medium.sp-after-half[What is Data Science?]
 
 .box-4.medium.sp-after-half[What are we going to see in this course?]

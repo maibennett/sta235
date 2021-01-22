@@ -35,7 +35,7 @@
   --code-font-family: 'Fira Mono';
   --code-font-is-google: 1;
   --base-font-size: 20px;
-  --text-font-size: 110%;
+  --text-font-size: 130%;
   --code-font-size: 0.9rem;
   --code-inline-font-size: 1em;
   --header-h1-font-size: 2.75rem;
@@ -84,7 +84,7 @@ h1, h2, h3 {
 }
 .remark-slide-content {
   background-color: var(--background-color);
-  font-size: 110%;
+  font-size: 130%;
   padding: 16px 64px 16px 64px;
   width: 100%;
   height: 100%;
@@ -367,26 +367,71 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 .sp-after-half {
   margin-bottom: 0.7em !important;
 }
-.box-1,.box-1a,.box-1b,.section-title-1 {
+.box-1,.box-1a,.box-1b,.box-1l,.box-1LA,.section-title-1 {
   background-color: #0D0887;
 }
-.box-2,.box-2a,.box-2b,.section-title-2 {
+.box-2,.box-2a,.box-2b,.box-2l,.box-2LA,.section-title-2 {
   background-color: #5601A4;
 }
-.box-3,.box-3a,.box-3b,.section-title-3 {
+.box-3,.box-3a,.box-3b,.box-3l,.box-3LA,.section-title-3 {
   background-color: #900DA4;
 }
-.box-4,.box-4a,.box-4b,.section-title-4 {
+.box-4,.box-4a,.box-4b,.box-4l,.box-4LA,.section-title-4 {
   background-color: #BF3984;
 }
-.box-5,.box-5a,.box-5b,.section-title-5 {
+.box-5,.box-5a,.box-5b,.box-5l,.box-5LA,.section-title-5 {
   background-color: #E16462;
 }
-.box-6,.box-6a,.box-6b,.section-title-6 {
+.box-6,.box-6a,.box-6b,.box-6l,.box-6LA,.section-title-6 {
   background-color: #F89441;
 }
-.box-7,.box-7a,.box-7b,.section-title-7 {
+.box-7,.box-7a,.box-7b,.box-7l,.box-7LA,.section-title-7 {
   background-color: #FCCE25;
+}
+.box-1t,.section-title-1t {
+  background-color: rgba(13, 8, 135,0.4);
+  color: rgba(13, 8, 135,1);
+  font-family: Yanone Kaffeesatz;
+}
+.box-2t,.section-title-2t {
+  background-color: rgba(86, 1, 164,0.4);
+  color: rgba(86, 1, 164,1);
+  font-family: Yanone Kaffeesatz;
+}
+.box-3t,.section-title-3t {
+  background-color: rgba(144, 13, 164,0.4);
+  color: rgba(144, 13, 164,1);
+  font-family: Yanone Kaffeesatz;
+}
+.box-4t,.section-title-4t {
+  background-color: rgba(191, 57, 132,0.4);
+  color: rgba(191, 57, 132,1);
+  font-family: Yanone Kaffeesatz;
+}
+.box-5t,.section-title-5t {
+  background-color: rgba(225, 100, 98,0.4);
+  color: rgba(225, 100, 98,1);
+  font-family: Yanone Kaffeesatz;
+}
+.box-6t,.section-title-6t {
+  background-color: rgba(248, 148, 65,0.4);
+  color: rgba(248, 148, 65,1);
+  font-family: Yanone Kaffeesatz;
+}
+.box-7t,.section-title-7t {
+  background-color: rgba(252, 206, 37,0.4);
+  color: rgba(252, 206, 37,1);
+  font-family: Yanone Kaffeesatz;
+}
+.box-7t, .box-6t, .box-5t, .box-4t, .box-3t, .box-2t, .box-1t {
+  margin: 0em auto;
+  overflow: hidden;
+  padding: 0.4em 0.4em;
+  font-weight: 600;
+  font-size: 31px;
+  display: table;
+  text-align: center;
+  font-family: Fira Sans;
 }
 .box-7, .box-6, .box-5, .box-4, .box-3, .box-2, .box-1 {
   color: #FFFFFF;
@@ -420,6 +465,28 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   display: table;
   text-align: left;
   font-family: Fira Sans;
+}
+.box-7l, .box-6l, .box-5l, .box-4l, .box-3l, .box-2l, .box-1l {
+  color: #FFFFFF;
+  margin: 0em auto;
+  overflow: hidden;
+  padding: 0.4em 0.4em;
+  font-weight: 600;
+  font-size: 45px;
+  display: table;
+  text-align: center;
+  font-family: Yanone Kaffeesatz;
+}
+.box-7LA, .box-6LA, .box-5LA, .box-4LA, .box-3LA, .box-2LA, .box-1LA {
+  color: #FFFFFF;
+  margin: 0em auto;
+  overflow: hidden;
+  padding: 0.4em 0.4em;
+  font-weight: 600;
+  font-size: 55px;
+  display: table;
+  text-align: center;
+  font-family: Yanone Kaffeesatz;
 }
 .image-80 img {
   scale: 80%;

@@ -29,31 +29,87 @@ class: center, middle, inverse, title-slide
 
   - Simple supervised learning approach.
   - Many fancy methods are generalizations or extensions of linear regression!
+  
 
-- Regression models allows you to determine whether there is evidence of association between two variables (*while controlling for other things*)
-
-.box-4.medium.sp-after-half[$$X \rightarrow Y$$]
+.source[*Shoutout: Slides based on Andrew Heiss' "Program Evaluation for Public Service" course.*]
 
 
 ---
-# About the instruction team
+# Essential Parts of a Regression
 
 .pull-left[
-.box-3b.medium.sp-after-half[Prof: Magdalena Bennett, Ph.D.]
+.box-2t.medium.sp-after-half[Y]
+.box-2.medium.sp-after-half[Outcome Variable]
+.box-2.medium.sp-after-half[Response Variable]
+.box-2.medium.sp-after-half[Dependent Variable]
 
-  - *Assistant Professor at the Stats Group.*
-  
-  - *Research: Causal Inference + Econ of Education*
-  
-.box-6b.medium.sp-after-half[TA: Ricardo Lara]
-  
-  - *Ph.D. candidate in Petroleum Engineering*
+.box-2t.medium.sp-after-half[*Thing you want to explain or predict*]
   
 ]
-
+--
 .pull-right[
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/bobdylan.png)]
+.box-2t.medium.sp-after-half[X]
+.box-2.medium.sp-after-half[Explanatory Variable]
+.box-2.medium.sp-after-half[Predictor Variable]
+.box-2.medium.sp-after-half[Independent Variable]
 
+.box-2t.medium.sp-after-half[*Thing you use to explain or predict Y*]
+]
+
+---
+# Identify the variables
+
+.pull-left[
+.box-2.medium.sp-after-half[A study examines the effect of smoking on lung cancer]
+]
+
+---
+# Identify the variables
+
+.pull-left[
+.box-2.medium.sp-after-half[A study examines the effect of smoking on lung cancer]
+.box-4.medium.sp-after-half[Researchers predict genocides by looking at negative media coverage, revolutions in neighboring countries, and economic growth]
+]
+
+---
+# Identify the variables
+
+.pull-left[
+.box-2.medium.sp-after-half[A study examines the effect of smoking on lung cancer]
+.box-4.medium.sp-after-half[Researchers predict genocides by looking at negative media coverage, revolutions in neighboring countries, and economic growth]
+]
+.pull-right[
+.box-5.medium.sp-after-half[You want to see if taking more AP classes in high school improves college grades]
+]
+
+---
+# Identify the variables
+
+.pull-left[
+.box-2.medium.sp-after-half[A study examines the effect of smoking on lung cancer]
+.box-4.medium.sp-after-half[Fantasy football fanatics predict the performance of a player based on past performance, health status, and characteristics of the opposite team]
+]
+.pull-right[
+.box-5.medium.sp-after-half[You want to see if taking more AP classes in high school improves college grades]
+.box-7.medium.sp-after-half[Netflix uses your past viewing history, the day of the week, and the time of the day to guess which show you want to watch next]
+]
+---
+# Two Purposes of Regression
+
+.pull-left[
+.box-3t.medium.sp-after-half[Prediction]
+.box-3.medium.sp-after-half[Forecast the future]
+.box-3.medium.sp-after-half[Focus is on **Y**]
+
+.box-3t.medium.sp-after-half[Netflix trying to guess your next show]
+]
+.pull-right[
+.box-6t.medium.sp-after-half[Explanation]
+.box-6.medium.sp-after-half[Explain the effect of **X** on **Y**]
+.box-6.medium.sp-after-half[Focus is on **X**]
+
+.box-6t.medium.sp-after-half[Netflix trying to guess your next show]
+]
 ---
 background-position: 50% 50%
 class: left, bottom, inverse
@@ -61,33 +117,12 @@ class: left, bottom, inverse
 Let's review the syllabus
 ]
 ---
-# About this course
+# References
 
-- **Objective**:
+- James, G. et al. (2017). "Introduction to Statistical Learning with Applications in R". *Chapter 3*
 
-- **Structure**:
+- Heiss, A. (2020). "Course: Program Evaluation for Public Service". *Slides for Regression and Inference*.
 
----
-# What will you need?
-
-- A computer with internet connection.
-
-- R &amp; R Studio
-
-- Required Books:
-
-  - Angrist &amp; Pischke, "Mastering Metrics"
-  - "Introduction to Data Science"
-
----
-# Assignments and Grading
-
-- **3 Homeworks (20% total) + Project (15%)**:
-
-- **Just in Time Teaching assignments (JITT) (10%)**:
-
-- **Midterm (25%) and Final Exam (30%)**:
----
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
