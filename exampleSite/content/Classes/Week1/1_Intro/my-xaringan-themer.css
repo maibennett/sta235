@@ -169,6 +169,25 @@ a, a > code {
   float: right;
   width: 47%;
 }
+
+.pull-left-little_l {
+  float: left;
+  width: 67%;
+}
+.pull-right-little_l {
+  float: right;
+  width: 27%;
+}
+
+.pull-left-little_r {
+  float: left;
+  width: 27%;
+}
+.pull-right-little_r {
+  float: right;
+  width: 67%;
+}
+
 .pull-right ~ * {
   clear: both;
 }
@@ -423,20 +442,4 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 }
 .image-80 img {
   scale: 80%;
-}
-.pull-left-little_l {
-  float: left;
-  width: 67%;
-}
-.pull-right-little_l {
-  float: right;
-  width: 27%;
-}
-.pull-left-little_r {
-  float: left;
-  width: 27%;
-}
-.pull-right-little_r {
-  float: right;
-  width: 67%;
 }

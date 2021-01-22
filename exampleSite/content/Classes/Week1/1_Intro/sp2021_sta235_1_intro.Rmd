@@ -120,7 +120,17 @@ style_mono_accent(
                                                                       "display" = "table",
                                                                       "text-align" = "left",
                                                                       "font-family" = "Fira Sans"),
-   ".image-80 img" = list("scale" = "80%")
+   ".image-80 img" = list("scale" = "80%"),
+   ".pull-left-little_l" = list("float" = "left",
+                                "width" = "67%"),
+   ".pull-right-little_l" = list("float" = "right",
+                                "width" = "27%"),
+   ".pull-left-little_r" = list("float" = "left",
+                                "width" = "27%"),
+   ".pull-right-little_r" = list("float" = "right",
+                                "width" = "67%")
+
+
   )
 )
 
@@ -173,13 +183,19 @@ class: left, bottom, inverse
 Let's review the syllabus
 ]
 ---
+# Please, read the syllabus!
+<br>
+<p align="center">
+<iframe width="672" height="378" src="https://www.youtube.com/embed/aOIvB2YtAhY" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</p>
+---
 # About this course
 
-- **.darkorange[Objective]**:
+- <p style = "color:#db5f12;font-size:120%;"><b>Objective:</b></p>
 
 <p align="center"> <i>"[G]ain the tools you need to tackle real-world problems from a quantitative perspective."</i> </p>
 
-- **.darkorange[Structure]**:
+- <p style = "color:#db5f12;font-size:120%;"><b>Structure:</b></p>
 
 .box-2.medium.sp-after-half[1) Multiple Regression]
 
@@ -200,8 +216,8 @@ Let's review the syllabus
 
   - Professor Bennett: Monday 5:00 - 6:00 PM; Thursday 4:00 - 5:00 PM
   
-    - Appointments by *calendly*
-    - Other times available upon request
+      - Appointments by *calendly*
+      - Other times available upon request
     
   - T.A.: *TBD*
   
@@ -210,7 +226,7 @@ Let's review the syllabus
 ---
 # How, when, and where? (Cont.)
 
-<p align = "center" style = "color:#db5f12;font-size:150%;"><b>http://sta235.netlify.app<b></p>
+<p align = "center" style = "color:#db5f12;font-size:150%;"><b>http://sta235.netlify.app</b></p>
 
 <p align="center">
 ![:scale 65%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/sta235_website.png)
@@ -220,26 +236,112 @@ Let's review the syllabus
 # What will you need?
 
 .pull-left-little_l[
-- A computer with internet connection.
+- A **.darkorange[computer]** with internet connection.
 
   - Microphone and webcam (*especially for office hours*)
 
-- R & R Studio
+- **.darkorange[R & R Studio]**
 
 - **.darkorange[Required Books]**:
 
   - Angrist, J. & J. Pischke. (2015). "Mastering Metrics". Princeton University Press.
-  - James, G., D. Witten, T. Hastie, & R. Tibshirani. (2017). "An Introduction to Statistical Learning with Applications in R". Springer. (*Available online*)
+  
+  - James, G et. al. (2017). "An Introduction to Statistical Learning with Applications in R". Springer. (*Available online*)
 ]
 .pull-right-little_l[
 ![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/mm.png)
 ]
+
 ---
-# Assignments and Grading
+# How to succeed in this course?
 
-- **3 Homeworks (20% total) + Project (15%)**:
+- **.darkorange[Attend class]**
+  
+- Classes are recorded, so focus on **.darkorange[understanding]**
 
-- **Just in Time Teaching assignments (JITT) (10%)**:
+- **.darkorange[Ask questions]** during class
 
-- **Midterm (25%) and Final Exam (30%)**:
+- Complete all **.darkorange[readings]** and **.darkorange[assignments]** by the suggested (or assigned) date
+
+  - *Caveat: We are on a pandemic, so reach out to the instruction team*
+  
+- Get an **.darkorange[early]** start on assignments and **.darkorange[follow the submission guidelines]**
+
+---
+# Assignments, Exams, and Grading
+
+- **.darkorange[3 homework assignments (20%) + 1 project (15%):]**
+
+  - Assignments include both written questions and code.
+  - Prediction project: similar to a long homework.
+  - No copying or plagiarism will be accepted.
+  
+.box-4.medium.sp-after-half[Read submission guidelines]
+  
+- **.darkorange[Just in Time Teaching (JITT) assignments (10%):]**
+
+  - Short online questionnaires about readings or material.
+  - Submit by midnight on Sunday before class.
+  - Graded for completion.
+
+---
+# Assignments, Exams, and Grading (Cont.)
+
+- **.darkorange[Midterm exam (25%):]**
+
+  - In-class exam (online)
+  
+- **.darkorange[Final exam (30%):]**
+
+  - Common time for both sections (May 13th 2:00 - 5:00 PM)
+  - Let me know as soon as possible if you have another work or non-academic commitment
+  
+- Cutoffs for final letter grade:
+
+|Grade|A|A-|B+|B|B-|C+|C|C-|D|F|
+|-----|-|--|--|-|--|--|-|--|-|-|
+|Cutoff|94%|90%|87%|84%|80%|77%|70%|65%|60%|<60%|
+
+- Assume there is no grade curving (if I do, it will always be in your favor).
+
+---
+# Communicating with the instructor team
+
+- **.darkorange[Email address: m.bennett@austin.utexas.edu]**
+
+  - Use the subject **[STA 235] Your subject**.
+  - Email me directly for questions related to course administration.
+  - Usually respond in 1 business day.
+  - *General questions should be posted on Piazza*
+  
+- **.darkorange[Piazza discussion board:]**
+
+  - Quickest way to get an answer about class material.
+  - **Do not send messages through Canvas**.
+
+  - Common time for both sections (May 13th 2:00 - 5:00 PM)
+  - Let me know as soon as possible if you have another work or non-academic commitment
+
+---
+# Collaboratios and Academic Integrity
+
+- **.darkorange[You are encouraged to form study groups!]**
+
+  - Studying or discussing assignments with others does **not** mean "divide and conquer".
+  - Students are responsible for their own work. All of it.
+  
+- **.darkorange[Do not share your files with other students]**
+
+  - If we find any evidence of copying or plagiarism, all students involved will be subject to disciplinary measures.
+  
+- **.darkorange[Remember to give credit where credit is due!]**
+
+  - Use citations and references when you use someone else's work.
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+What are you expecting from this course?
+]
 ---
