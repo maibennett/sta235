@@ -1,17 +1,18 @@
-Timestamp,Total score,What do you expect to learn in this course?,How comfortable are you with coding in R?,"Thinking forward to the end of the semester, what grade do you think you will get in this course?"
-2021/01/21 6:31:52 PM CST,0.00 / 0,,6,A
-2021/01/21 6:38:14 PM CST,0.00 / 0,How to apply statistics to real business problems/situations,3,A
-2021/01/21 6:44:06 PM CST,0.00 / 0,"I am super passionate about data science as a prospective career so I hope to equip valuable skills and conceptual understandings that will make me an asset to any team. Namely, I hope to learn more about multiple regression models and machine learning. However, I am ecstatic to learn anything and everything in the realm of data science. ",4,A
-2021/01/21 6:44:37 PM CST,0.00 / 0,Data Analytics ,6,A
-2021/01/21 6:45:43 PM CST,0.00 / 0,Practical ways a business can build applications to apply statistics or machine learning to enhance performance. ,4,A
-2021/01/21 7:04:14 PM CST,0.00 / 0,I would love to be better at coding and interpreting data! STA 301 was really overwhelming so I’m hoping to learn more this semester.,3,B+
-2021/01/21 7:28:02 PM CST,0.00 / 0,I am not sure yet,3,A
-2021/01/21 8:15:30 PM CST,0.00 / 0,Practice R,6,A
-2021/01/21 9:58:53 PM CST,0.00 / 0,I am looking forward to deepening my knowledge from STA 301.,6,
-2021/01/21 10:32:15 PM CST,0.00 / 0,"Time series, hopefully some machine learning (lasso/ridge regression), k nearest neighbor, stepwise regression, 3d models",5,A-
-2021/01/21 11:14:36 PM CST,0.00 / 0,Unsure ,1,A
-2021/01/22 2:09:09 AM CST,0.00 / 0,"I hope to expand on my skills that I learned in STA 301.. I really enjoyed that class and performed well even though it was fast-paced and hands on! Coding was challenging, but I aspire to become better at it! :)",7,
-2021/01/22 8:14:21 AM CST,0.00 / 0,How to solve business problems using quantitative data,4,A
-2021/01/22 9:20:06 AM CST,0.00 / 0,common data science methods & practices with business-relevant datasets,10,A
-2021/01/22 9:21:31 AM CST,0.00 / 0,unsure,6,A
-2021/01/22 10:21:42 AM CST,0.00 / 0,Further my knowledge in R,3,A-
+Timestamp,What do you expect to learn in this course?,How comfortable are you with coding in R?,"Thinking forward to the end of the semester, what grade do you think you will get in this course?"
+2021/01/21 6:31:52 PM CST,,6,A
+2021/01/21 6:38:14 PM CST,How to apply statistics to real business problems/situations,3,A
+2021/01/21 6:44:06 PM CST,"I am super passionate about data science as a prospective career so I hope to equip valuable skills and conceptual understandings that will make me an asset to any team. Namely, I hope to learn more about multiple regression models and machine learning. However, I am ecstatic to learn anything and everything in the realm of data science. ",4,A
+2021/01/21 6:44:37 PM CST,Data Analytics ,6,A
+2021/01/21 6:45:43 PM CST,Practical ways a business can build applications to apply statistics or machine learning to enhance performance. ,4,A
+2021/01/21 7:04:14 PM CST,I would love to be better at coding and interpreting data! STA 301 was really overwhelming so I’m hoping to learn more this semester.,3,B+
+2021/01/21 7:28:02 PM CST,I am not sure yet,3,A
+2021/01/21 8:15:30 PM CST,Practice R,6,A
+2021/01/21 9:58:53 PM CST,I am looking forward to deepening my knowledge from STA 301.,6,
+2021/01/21 10:32:15 PM CST,"Time series, hopefully some machine learning (lasso/ridge regression), k nearest neighbor, stepwise regression, 3d models",5,A-
+2021/01/21 11:14:36 PM CST,Unsure ,1,A
+2021/01/22 2:09:09 AM CST,"I hope to expand on my skills that I learned in STA 301.. I really enjoyed that class and performed well even though it was fast-paced and hands on! Coding was challenging, but I aspire to become better at it! :)",7,
+2021/01/22 8:14:21 AM CST,How to solve business problems using quantitative data,4,A
+2021/01/22 9:20:06 AM CST,common data science methods & practices with business-relevant datasets,10,A
+2021/01/22 9:21:31 AM CST,unsure,6,A
+2021/01/22 10:21:42 AM CST,Further my knowledge in R,3,A-
+2021/01/22 11:45:27 AM CST,,7,A

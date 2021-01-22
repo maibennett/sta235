@@ -367,25 +367,25 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 .sp-after-half {
   margin-bottom: 0.7em !important;
 }
-.box-1,.box-1a,.box-1b,.section-title-1 {
+.box-1,.box-1a,.box-1b,.box-1l,.section-title-1 {
   background-color: #0D0887;
 }
-.box-2,.box-2a,.box-2b,.section-title-2 {
+.box-2,.box-2a,.box-2b,.box-2l,.section-title-2 {
   background-color: #5601A4;
 }
-.box-3,.box-3a,.box-3b,.section-title-3 {
+.box-3,.box-3a,.box-3b,.box-3l,.section-title-3 {
   background-color: #900DA4;
 }
-.box-4,.box-4a,.box-4b,.section-title-4 {
+.box-4,.box-4a,.box-4b,.box-4l,.section-title-4 {
   background-color: #BF3984;
 }
-.box-5,.box-5a,.box-5b,.section-title-5 {
+.box-5,.box-5a,.box-5b,.box-5l,.section-title-5 {
   background-color: #E16462;
 }
-.box-6,.box-6a,.box-6b,.section-title-6 {
+.box-6,.box-6a,.box-6b,.box-6l,.section-title-6 {
   background-color: #F89441;
 }
-.box-7,.box-7a,.box-7b,.section-title-7 {
+.box-7,.box-7a,.box-7b,.box-7l,.section-title-7 {
   background-color: #FCCE25;
 }
 .box-7, .box-6, .box-5, .box-4, .box-3, .box-2, .box-1 {
@@ -420,6 +420,17 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   display: table;
   text-align: left;
   font-family: Fira Sans;
+}
+.box-7l, .box-6l, .box-5l, .box-4l, .box-3l, .box-2l, .box-1l {
+  color: #FFFFFF;
+  margin: 0em auto;
+  overflow: hidden;
+  padding: 0.4em 0.4em;
+  font-weight: 600;
+  font-size: 50px;
+  display: table;
+  text-align: center;
+  font-family: Yanone Kaffeesatz;
 }
 .image-80 img {
   scale: 80%;
