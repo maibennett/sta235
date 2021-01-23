@@ -239,7 +239,7 @@ style_mono_accent(
 
 .pull-left[
 .box-2.medium.sp-after-half[A study examines the effect of smoking on lung cancer]
-.box-4.medium.sp-after-half[Researchers predict genocides by looking at negative media coverage, revolutions in neighboring countries, and economic growth]
+.box-4.medium.sp-after-half[Fantasy football fanatics predict the performance of a player based on past performance, health status, and characteristics of the opposite team]
 ]
 
 ---
@@ -247,7 +247,7 @@ style_mono_accent(
 
 .pull-left[
 .box-2.medium.sp-after-half[A study examines the effect of smoking on lung cancer]
-.box-4.medium.sp-after-half[Researchers predict genocides by looking at negative media coverage, revolutions in neighboring countries, and economic growth]
+.box-4.medium.sp-after-half[Fantasy football fanatics predict the performance of a player based on past performance, health status, and characteristics of the opposite team]
 ]
 .pull-right[
 .box-5.medium.sp-after-half[You want to see if taking more AP classes in high school improves college grades]
@@ -270,17 +270,24 @@ style_mono_accent(
 .pull-left[
 .box-3t.medium.sp-after-half[Prediction]
 .box-3.medium.sp-after-half[Forecast the future]
-.box-3.medium.sp-after-half[Focus is on **Y**]
+.box-3.medium.sp-after-half[Focus is on <b>Y</b>]
 
 .box-3t.medium.sp-after-half[Netflix trying to guess your next show]
 ]
+--
 .pull-right[
 .box-6t.medium.sp-after-half[Explanation]
-.box-6.medium.sp-after-half[Explain the effect of **X** on **Y**]
-.box-6.medium.sp-after-half[Focus is on **X**]
+.box-6.medium.sp-after-half[Explain the effect of <b>X</b> on <b>Y</b>]
+.box-6.medium.sp-after-half[Focus is on <b>X</b>]
 
-.box-6t.medium.sp-after-half[Netflix trying to guess your next show]
+.box-6t.medium.sp-after-half[Netflix looking at the effect of time of the day on show selection]
 ]
+---
+# Let's write down regressions
+
+- Focus on the **.darkorange[Netflix]** example:
+
+.box-5.medium.sp-after-half[$$Y = \alpha + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \varepsilon$$]
 ---
 background-position: 50% 50%
 class: left, bottom, inverse
