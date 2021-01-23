@@ -43,7 +43,7 @@ style_mono_accent(
   text_font_google   = google_font("Roboto", "300", "300i","400","500"),
   code_font_google   = google_font("Fira Mono"),
   text_bold_color = "#333f48",
-  text_font_size = "130%",
+  text_font_size = "125%",
   colors = c(
     red = "#f34213",
     purple = "#900DA4",
@@ -86,33 +86,33 @@ style_mono_accent(
                                "line-height" = "1.3"),
     ".medium" = list("font-size" = "1.4em"),
     ".sp-after-half" = list("margin-bottom" = "0.7em !important"),
-    ".box-1,.box-1a,.box-1b,.box-1l,.box-1LA,.section-title-1" = list("background-color" = "#0D0887"),
-    ".box-2,.box-2a,.box-2b,.box-2l,.box-2LA,.section-title-2" = list("background-color" = "#5601A4"),
-    ".box-3,.box-3a,.box-3b,.box-3l,.box-3LA,.section-title-3" = list("background-color" = "#900DA4"),
-    ".box-4,.box-4a,.box-4b,.box-4l,.box-4LA,.section-title-4" = list("background-color" = "#BF3984"),
-    ".box-5,.box-5a,.box-5b,.box-5l,.box-5LA,.section-title-5" = list("background-color" = "#E16462"),
-    ".box-6,.box-6a,.box-6b,.box-6l,.box-6LA,.section-title-6" = list("background-color" = "#F89441"),
-    ".box-7,.box-7a,.box-7b,.box-7l,.box-7LA,.section-title-7" = list("background-color" = "#FCCE25"),
+    ".box-1,.box-1a,.box-1s,.box-1b,.box-1l,.box-1LA,.section-title-1" = list("background-color" = "#0D0887"),
+    ".box-2,.box-2a,.box-2s,.box-2b,.box-2l,.box-2LA,.section-title-2" = list("background-color" = "#5601A4"),
+    ".box-3,.box-3a,.box-3s,.box-3b,.box-3l,.box-3LA,.section-title-3" = list("background-color" = "#900DA4"),
+    ".box-4,.box-4a,.box-4s,.box-4b,.box-4l,.box-4LA,.section-title-4" = list("background-color" = "#BF3984"),
+    ".box-5,.box-5a,.box-5s,.box-5b,.box-5l,.box-5LA,.section-title-5" = list("background-color" = "#E16462"),
+    ".box-6,.box-6a,.box-6s,.box-6b,.box-6l,.box-6LA,.section-title-6" = list("background-color" = "#F89441"),
+    ".box-7,.box-7a,.box-7s,.box-7b,.box-7l,.box-7LA,.section-title-7" = list("background-color" = "#FCCE25"),
    
-   ".box-1t,.section-title-1t" = list("background-color" = "rgba(13, 8, 135,0.4)",
+   ".box-1t,.box-1tL,.section-title-1t" = list("background-color" = "rgba(13, 8, 135,0.3)",
                                       "color"="rgba(13, 8, 135,1)",
                                       "font-family" = "Yanone Kaffeesatz"),
-    ".box-2t,.section-title-2t" = list("background-color" = "rgba(86, 1, 164,0.4)",
+    ".box-2t,.box-2tL,.section-title-2t" = list("background-color" = "rgba(86, 1, 164,0.3)",
                                        "color" = "rgba(86, 1, 164,1)",
                                        "font-family" = "Yanone Kaffeesatz"),
-    ".box-3t,.section-title-3t" = list("background-color" = "rgba(144, 13, 164,0.4)",
+    ".box-3t,.box-3tL,.section-title-3t" = list("background-color" = "rgba(144, 13, 164,0.3)",
                                        "color" = "rgba(144, 13, 164,1)",
                                        "font-family" = "Yanone Kaffeesatz"),
-    ".box-4t,.section-title-4t" = list("background-color" = "rgba(191, 57, 132,0.4)",
+    ".box-4t,.box-4tL,.section-title-4t" = list("background-color" = "rgba(191, 57, 132,0.3)",
                                        "color" = "rgba(191, 57, 132,1)",
                                        "font-family" = "Yanone Kaffeesatz"),
-    ".box-5t,.section-title-5t" = list("background-color" = "rgba(225, 100, 98,0.4)",
+    ".box-5t,.box-5tL,.section-title-5t" = list("background-color" = "rgba(225, 100, 98,0.3)",
                                        "color" = "rgba(225, 100, 98,1)",
                                        "font-family" = "Yanone Kaffeesatz"),
-    ".box-6t,.section-title-6t" = list("background-color" = "rgba(248, 148, 65,0.4)",
+    ".box-6t,.box-6tL,.section-title-6t" = list("background-color" = "rgba(248, 148, 65,0.3)",
                                        "color" = "rgba(248, 148, 65,1)",
                                        "font-family" = "Yanone Kaffeesatz"),
-    ".box-7t,.section-title-7t" = list("background-color" = "rgba(252, 206, 37,0.4)",
+    ".box-7t,.box-7tL,.section-title-7t" = list("background-color" = "rgba(252, 206, 37,0.3)",
                                        "color" = "rgba(252, 206, 37,1)",
                                        "font-family" = "Yanone Kaffeesatz"),
    
@@ -122,8 +122,15 @@ style_mono_accent(
                                                                     "font-weight" = "600",
                                                                     "font-size" = "31px",
                                                                     "display" = "table",
-                                                                    "text-align" = "center",
-                                                                    "font-family" = "Fira Sans"),
+                                                                    "text-align" = "center"),
+   
+   ".box-7tL, .box-6tL, .box-5tL, .box-4tL, .box-3tL, .box-2tL, .box-1tL" = list("margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "50px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center"),
    
     ".box-7, .box-6, .box-5, .box-4, .box-3, .box-2, .box-1" = list("color" = "#FFFFFF",
                                                                     "margin" = "0em auto",
@@ -141,6 +148,15 @@ style_mono_accent(
                                                                       "font-weight" = "600",
                                                                       "font-size" = "25px",
                                                                       "display" = "table",
+                                                                      "text-align" = "center",
+                                                                      "font-family" = "Fira Sans"),
+   ".box-7s, .box-6s, .box-5s, .box-4s, .box-3s, .box-2s, .box-1s" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.2em 0.2em",
+                                                                      "font-weight" = "400",
+                                                                      "font-size" = "100%",
+                                                                      "display" = "inline",
                                                                       "text-align" = "center",
                                                                       "font-family" = "Fira Sans"),
        ".box-7b, .box-6b, .box-5b, .box-4b, .box-3b, .box-2b, .box-1b" = list("color" = "#FFFFFF",
@@ -209,7 +225,7 @@ style_mono_accent(
 # Essential Parts of a Regression
 
 .pull-left[
-.box-2t.medium.sp-after-half[Y]
+.box-2tL.medium.sp-after-half[Y]
 .box-2.medium.sp-after-half[Outcome Variable]
 .box-2.medium.sp-after-half[Response Variable]
 .box-2.medium.sp-after-half[Dependent Variable]
@@ -219,7 +235,7 @@ style_mono_accent(
 ]
 --
 .pull-right[
-.box-2t.medium.sp-after-half[X]
+.box-2tL.medium.sp-after-half[X]
 .box-2.medium.sp-after-half[Explanatory Variable]
 .box-2.medium.sp-after-half[Predictor Variable]
 .box-2.medium.sp-after-half[Independent Variable]
@@ -268,32 +284,39 @@ style_mono_accent(
 # Two Purposes of Regression
 
 .pull-left[
-.box-3t.medium.sp-after-half[Prediction]
+.box-3tL.medium.sp-after-half[Prediction]
 .box-3.medium.sp-after-half[Forecast the future]
 .box-3.medium.sp-after-half[Focus is on <b>Y</b>]
 
-.box-3t.medium.sp-after-half[Netflix trying to guess your next show]
+.box-3tL.medium.sp-after-half[Netflix trying to guess your next show]
 ]
 --
 .pull-right[
-.box-6t.medium.sp-after-half[Explanation]
+.box-6tL.medium.sp-after-half[Explanation]
 .box-6.medium.sp-after-half[Explain the effect of <b>X</b> on <b>Y</b>]
 .box-6.medium.sp-after-half[Focus is on <b>X</b>]
 
-.box-6t.medium.sp-after-half[Netflix looking at the effect of time of the day on show selection]
+.box-6tL.medium.sp-after-half[Netflix looking at the effect of time of the day on show selection]
 ]
+---
+# Let's introduce an example
+
+.box-3.medium.sp-after-half[Bechdel Test]
+
+- Focus on the **.darkorange[Netflix]** example:
+
+.box-5.medium.sp-after-half[$$Y = \alpha + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \varepsilon$$]
+
+- How do we estimate it? $\rightarrow$ .box-6s.medium.sp-after-half[Ordinary Least Squares (OLS)]
 ---
 # Let's write down regressions
 
 - Focus on the **.darkorange[Netflix]** example:
 
 .box-5.medium.sp-after-half[$$Y = \alpha + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \varepsilon$$]
----
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Let's review the syllabus
-]
+
+- How do we estimate it? $\rightarrow$ .box-6s.medium.sp-after-half[Ordinary Least Squares (OLS)]
+
 ---
 # References
 
@@ -301,3 +324,4 @@ Let's review the syllabus
 
 - Heiss, A. (2020). "Course: Program Evaluation for Public Service". *Slides for Regression and Inference*.
 
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week1/2_OLS/sp2021_sta235_2_reg.html') -->
