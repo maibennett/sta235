@@ -542,3 +542,6 @@ A brief motivation
 .box-4.medium.sp-after-half[What are we going to see in this course?]
 
 .box-7.medium.sp-after-half[What should I expect to learn by the end of the semester?]
+
+
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week1/1_Intro/sp2021_sta235_1_intro.html') -->
