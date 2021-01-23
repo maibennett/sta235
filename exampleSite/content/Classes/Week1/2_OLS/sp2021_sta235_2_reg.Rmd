@@ -299,29 +299,31 @@ style_mono_accent(
 .box-6tL.medium.sp-after-half[Netflix looking at the effect of time of the day on show selection]
 ]
 ---
-# Let's introduce an example
-
-.box-3.medium.sp-after-half[Bechdel Test]
+# Let's introduce an example: The Bechdel Test
 
 .pull-left[
-- Three criteria:
+- **.darkorange[Three criteria:]**
 
-  1. At least two named women in the picture
-  2. They have a conversation with each other
-  3. That conversation isn't about a male character
+  1. At least two named women
+  2. Who talk to each other
+  3. About something besides a man
 ]
 .pull-right[
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/bechdel.png)
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/bechdel.png)
 ]
 
 ---
-# Let's write down regressions
+# Is it convenient for my movie to pass the Bechdel test?
 
-- Focus on the **.darkorange[Netflix]** example:
+- I'm a profit-maximizing investor and want to know whether it's in my best interest to add an additional female character.
 
-.box-5.medium.sp-after-half[$$Y = \alpha + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \varepsilon$$]
+.box-6t.medium.sp-after-half[$$Y = \alpha + \beta X + \varepsilon$$]
 
-- How do we estimate it? $\rightarrow$ .box-6s.medium.sp-after-half[Ordinary Least Squares (OLS)]
+Where:
+  - Y: Revenue
+  - X: Pass Bechdel test
+  
+.box-7LA.medium.sp-after-half[Is this right?]
 
 ---
 # References
