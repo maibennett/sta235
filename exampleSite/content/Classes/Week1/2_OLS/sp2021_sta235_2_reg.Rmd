@@ -303,11 +303,17 @@ style_mono_accent(
 
 .box-3.medium.sp-after-half[Bechdel Test]
 
-- Focus on the **.darkorange[Netflix]** example:
+.pull-left[
+- Three criteria:
 
-.box-5.medium.sp-after-half[$$Y = \alpha + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \varepsilon$$]
+  1. At least two named women in the picture
+  2. They have a conversation with each other
+  3. That conversation isn't about a male character
+]
+.pull-right[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/bechdel.png)
+]
 
-- How do we estimate it? $\rightarrow$ .box-6s.medium.sp-after-half[Ordinary Least Squares (OLS)]
 ---
 # Let's write down regressions
 
