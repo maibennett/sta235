@@ -209,7 +209,21 @@ style_mono_accent(
 #F89441
 #FCCE25
 ```
+# Today
 
+.pull-left[
+- Quick **.darkorange[multiple regression]** review
+  - How does OLS work?
+  
+- Comparing **.darkorange[effect sizes]**
+
+- **.darkorange[Uncertainty quantification]** in regression
+]
+
+.pull-right[
+![](https://media.giphy.com/media/3o752flP8nVxQjXhO8/source.gif)
+]
+---
 # Remembering Regressions
 
 - Linear Regression is a **.darkorange[very useful tool]**.
@@ -217,7 +231,15 @@ style_mono_accent(
   - Simple supervised learning approach.
   - Many fancy methods are generalizations or extensions of linear regression!
   
+- It's a way to (partially) describe a **.darkorange[data generating process (DGP)]**.
 
+.box-2t[$$Y = \alpha + \beta_1 X_1 + \beta_2 X_2 + \varepsilon$$]
+
+- What are $\beta$'s?
+
+--
+  - $\beta$'s are the **.darkorange[population parameters]** we want to estimate.
+  - $\hat\beta$ are the **.darkorange[estimates]** of those parameters.
 
 .source[*Shoutout: Slides based on Andrew Heiss' "Program Evaluation for Public Service" course.*]
 
@@ -299,6 +321,7 @@ style_mono_accent(
 
 .box-6tL.medium.sp-after-half[Netflix looking at the effect of time of the day on show selection]
 ]
+
 ---
 # Let's introduce an example: The Bechdel Test
 
@@ -314,9 +337,16 @@ style_mono_accent(
 ]
 
 ---
+# Do movies pass the test?
+
+.center[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/hickey-bechdel-11.png)]
+
+
+---
 # Is it convenient for my movie to pass the Bechdel test?
 
-- I'm a profit-maximizing investor and want to know whether it's in my best interest to add an additional female character.
+- I'm a profit-maximizing investor and want to know whether it's in my best interest to switch a male for a female character.
 
 .box-6t.medium.sp-after-half[$$Y = \alpha + \beta X + \varepsilon$$]
 
@@ -406,13 +436,12 @@ round(summary(lm(log(Adj_Revenue)~bechdel_test, data=bechdel))$coeff, 4)
 # More variables
 
 ```{r bechdel2, results = FALSE}
-lm(log(Adj_Revenue) ~ bechdel_test + log(Adj_Budget) + Metascore + imdb + 
-             USA + factor(Rated), data=bechdel)
+lm(log(Adj_Revenue) ~ bechdel_test + log(Adj_Budget) + Metascore + imdb, data=bechdel)
 
 ```
 ```{r bechdel2r, echo=FALSE}
 round(summary(lm(log(Adj_Revenue)~factor(pass_bechdel)+log(Adj_Budget) + Metascore + imdb, 
-           data=bechdel))$coeff[1:5,], 4)
+           data=bechdel))$coeff, 4)
 
 ```
 <br>
@@ -436,15 +465,15 @@ round(summary(lm(log(Adj_Revenue)~factor(pass_bechdel)+log(Adj_Budget) + Metasco
 ---
 # Standardized Partial Coefficients
 
-- **.darkorange[Main idea:]** Transform everything to the same scale.
-
-  - Common units: Standard deviations.
+- **.darkorange[Main idea:]** Transform everything to the same scale (standard deviations)
 
 .box-4.medium.sp-after-half[$$X$$]
 .center[
 ![:scale 3%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/arrow.png)
 ]
 .box-4.medium.sp-after-half[$$\frac{X - \bar{X}}{\sigma_X}$$]
+
+- Will this change our estimates? How?
 
 ---
 # Transform the data
@@ -484,16 +513,17 @@ Where:
   - p: Number of covariates
   - $RSS = \sum(y_i-\hat{y}_i)^2$
 
-- What happens in $p$ increases?
+- What happens if $p$ increases?
 
 ---
 # Some measures to quantify uncertainty (cont.)
+.small[
 ```{r bechdel4r}
 summary(lm(log(Adj_Revenue) ~ bechdel_test +log(Adj_Budget) + Metascore + imdb, 
            data=bechdel), digits = 4)
 
 ```
-
+]
 ---
 # Let's look at the residuals
 

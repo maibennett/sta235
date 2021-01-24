@@ -22,7 +22,21 @@ class: center, middle, inverse, title-slide
 
 
 
+# Today
 
+.pull-left[
+- Quick **.darkorange[multiple regression]** review
+  - How does OLS work?
+  
+- Comparing **.darkorange[effect sizes]**
+
+- **.darkorange[Uncertainty quantification]** in regression
+]
+
+.pull-right[
+![](https://media.giphy.com/media/3o752flP8nVxQjXhO8/source.gif)
+]
+---
 # Remembering Regressions
 
 - Linear Regression is a **.darkorange[very useful tool]**.
@@ -30,7 +44,15 @@ class: center, middle, inverse, title-slide
   - Simple supervised learning approach.
   - Many fancy methods are generalizations or extensions of linear regression!
   
+- It's a way to (partially) describe a **.darkorange[data generating process (DGP)]**.
 
+.box-2t[$$Y = \alpha + \beta_1 X_1 + \beta_2 X_2 + \varepsilon$$]
+
+- What are `\(\beta\)`'s?
+
+--
+  - `\(\beta\)`'s are the **.darkorange[population parameters]** we want to estimate.
+  - `\(\hat\beta\)` are the **.darkorange[estimates]** of those parameters.
 
 .source[*Shoutout: Slides based on Andrew Heiss' "Program Evaluation for Public Service" course.*]
 
@@ -112,6 +134,8 @@ class: center, middle, inverse, title-slide
 
 .box-6tL.medium.sp-after-half[Netflix looking at the effect of time of the day on show selection]
 ]
+--
+
 ---
 # Let's introduce an example: The Bechdel Test
 
@@ -129,7 +153,7 @@ class: center, middle, inverse, title-slide
 ---
 # Is it convenient for my movie to pass the Bechdel test?
 
-- I'm a profit-maximizing investor and want to know whether it's in my best interest to add an additional female character.
+- I'm a profit-maximizing investor and want to know whether it's in my best interest to switch a male for a female character.
 
 .box-6t.medium.sp-after-half[$$Y = \alpha + \beta X + \varepsilon$$]
 
@@ -181,8 +205,7 @@ summary(lm(log(Adj_Revenue)~bechdel_test, data=bechdel))
 
 
 ```r
-lm(log(Adj_Revenue) ~ bechdel_test + log(Adj_Budget) + Metascore + imdb + 
-             USA + factor(Rated), data=bechdel)
+lm(log(Adj_Revenue) ~ bechdel_test + log(Adj_Budget) + Metascore + imdb, data=bechdel)
 ```
 
 ```
@@ -214,15 +237,15 @@ lm(log(Adj_Revenue) ~ bechdel_test + log(Adj_Budget) + Metascore + imdb +
 ---
 # Standardized Partial Coefficients
 
-- **.darkorange[Main idea:]** Transform everything to the same scale.
-
-  - Common units: Standard deviations.
+- **.darkorange[Main idea:]** Transform everything to the same scale (standard deviations)
 
 .box-4.medium.sp-after-half[$$X$$]
 .center[
 ![:scale 3%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/arrow.png)
 ]
 .box-4.medium.sp-after-half[$$\frac{X - \bar{X}}{\sigma_X}$$]
+
+- Will this change our estimates? How?
 
 ---
 # Transform the data
@@ -255,7 +278,7 @@ lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb,
 ---
 # Some measures to quantify uncertainty
 
-- .darkorange[$\mathbf{R^2}$:] Correlation between the outcome `\(\mathbf{Y}\)` and the predicted variable `\(\mathbf{\hat{Y}}\)`.
+- `\(\mathbf{R^2}\)`: Correlation between the outcome `\(\mathbf{Y}\)` and the predicted variable `\(\mathbf{\hat{Y}}\)`.
 
 - **.darkorange[Residual Squared Error (RSE)]**: Measure of the SD of error term `\(\varepsilon\)`
 
@@ -265,10 +288,11 @@ Where:
   - p: Number of covariates
   - `\(RSS = \sum(y_i-\hat{y}_i)^2\)`
 
-- What happens in `\(p\)` increases?
+- What happens if `\(p\)` increases?
 
 ---
 # Some measures to quantify uncertainty (cont.)
+.small[
 
 ```r
 summary(lm(log(Adj_Revenue) ~ bechdel_test +log(Adj_Budget) + Metascore + imdb, 
@@ -300,7 +324,7 @@ summary(lm(log(Adj_Revenue) ~ bechdel_test +log(Adj_Budget) + Metascore + imdb,
 ## Multiple R-squared:  0.477,	Adjusted R-squared:  0.4753 
 ## F-statistic: 290.9 on 4 and 1276 DF,  p-value: &lt; 2.2e-16
 ```
-
+]
 ---
 # Let's look at the residuals
 
