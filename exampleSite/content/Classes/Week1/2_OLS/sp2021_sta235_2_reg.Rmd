@@ -1,5 +1,5 @@
 ---
-title: "STA 235 - Multivariate Regression"
+title: "STA 235 - Multiple Regression"
 subtitle: "Spring 2021"
 author: "McCombs School of Business, UT Austin"
 output:
@@ -208,7 +208,15 @@ style_mono_accent(
 #900DA4
 #F89441
 #FCCE25
+
 ```
+```{css, echo = FALSE}
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+```
+
 # Today
 
 .pull-left[
@@ -526,6 +534,7 @@ plot_ly(data = cookies_data, z = ~happiness, x = ~cookies, y = ~stomach_ache, op
 
   - What is the **.darkorange[simplest model]** you would fit?
 --
+
 .box-6t.medium.sp-after-half[$$Y = \alpha + \beta X + \varepsilon$$]
 
 Where:
@@ -676,8 +685,9 @@ round(summary(lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb,
 ```
 ---
 # Does this model explain well the observed data?
-
-![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/linear_regression.png)
+.center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/linear_regression.png)
+]
 ---
 # Some measures to quantify uncertainty
 
@@ -695,6 +705,7 @@ Where:
 
 ---
 # Some measures to quantify uncertainty (cont.)
+
 .small[
 ```{r bechdel4r}
 summary(lm(log(Adj_Revenue) ~ bechdel_test +log(Adj_Budget) + Metascore + imdb, 
@@ -702,6 +713,7 @@ summary(lm(log(Adj_Revenue) ~ bechdel_test +log(Adj_Budget) + Metascore + imdb,
 
 ```
 ]
+
 ---
 # Let's look at the residuals
 
@@ -817,7 +829,15 @@ ggplot(data = res_data, aes(x = y_hat, y = res)) +
         title = element_text(size=14))
 ```
 
+---
+# Next class
 
+- Finishing with multiple regression models:
+  - Statistical adjustment and collinearity
+
+- Model with discrete responses: Binary outcomes
+
+- In the following weeks, we will start with Causal Inference.
 ---
 # References
 

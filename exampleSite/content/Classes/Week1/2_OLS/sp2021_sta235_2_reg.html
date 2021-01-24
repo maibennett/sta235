@@ -30,6 +30,13 @@ class: center, middle, inverse, title-slide
 
 
 
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+&lt;/style&gt;
+
 # Today
 
 .pull-left[
@@ -197,6 +204,7 @@ class: center, middle, inverse, title-slide
 
   - What is the **.darkorange[simplest model]** you would fit?
 --
+
 .box-6t.medium.sp-after-half[$$Y = \alpha + \beta X + \varepsilon$$]
 
 Where:
@@ -315,8 +323,9 @@ lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb,
 ```
 ---
 # Does this model explain well the observed data?
-
-![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/linear_regression.png)
+.center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/linear_regression.png)
+]
 ---
 # Some measures to quantify uncertainty
 
@@ -334,6 +343,7 @@ Where:
 
 ---
 # Some measures to quantify uncertainty (cont.)
+
 .small[
 
 ```r
@@ -367,6 +377,7 @@ summary(lm(log(Adj_Revenue) ~ bechdel_test +log(Adj_Budget) + Metascore + imdb,
 ## F-statistic: 290.9 on 4 and 1276 DF,  p-value: &lt; 2.2e-16
 ```
 ]
+
 ---
 # Let's look at the residuals
 
@@ -412,7 +423,15 @@ ggplot(data = res_data2, aes(x = y_hat2, y = res2)) +
 # What happens with additional variables? (cont.)
 &lt;img src="sp2021_sta235_2_reg_files/figure-html/bechdel6r-1.svg" style="display: block; margin: auto;" /&gt;
 
+---
+# Next class
 
+- Finishing with multiple regression models:
+  - Statistical adjustment and collinearity
+
+- Model with discrete responses: Binary outcomes
+
+- In the following weeks, we will start with Causal Inference.
 ---
 # References
 
