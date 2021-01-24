@@ -148,9 +148,9 @@ summary(lm(log(Adj_Revenue)~factor(pass_bechdel), data=bechdel))
 ```
 
 ```
-##                            Estimate Std. Error    t value     Pr(&gt;|t|)
-## (Intercept)              17.0321356 0.08075548 210.909966 0.000000e+00
-## factor(pass_bechdel)PASS -0.4417772 0.10787064  -4.095435 4.385976e-05
+##                Estimate Std. Error    t value     Pr(&gt;|t|)
+## (Intercept)  17.0321356 0.08075548 210.909966 0.000000e+00
+## bechdel_test -0.4417772 0.10787064  -4.095435 4.385976e-05
 ```
 &lt;br&gt;
 &lt;br&gt;
@@ -165,8 +165,9 @@ summary(lm(log(Adj_Revenue)~factor(pass_bechdel), data=bechdel))
 # More variables
 
 .pull-left[
-![](https://media.giphy.com/media/1ZlrrYTN7gAxdGE8nM/source.gif)
-]
+.center[
+![:scale 80%](https://media.giphy.com/media/1ZlrrYTN7gAxdGE8nM/source.gif)
+]]
 .pull-right[
 - **.darkorange[Bechdel test]** could be capturing the effect of other variables:
 
@@ -179,7 +180,13 @@ summary(lm(log(Adj_Revenue)~factor(pass_bechdel), data=bechdel))
 
 
 ```r
-summary(lm(log(Adj_Revenue)~factor(pass_bechdel)+log(Adj_Budget) + Metascore + imdbRating, data=bechdel))
+lm(log(Adj_Revenue) ~ bechdel_test + log(Adj_Budget) + Metascore + imdb + 
+             USA + factor(Rated), data=bechdel)
+```
+
+```
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument 'digits' will be disregarded
 ```
 
 ```
@@ -188,7 +195,7 @@ summary(lm(log(Adj_Revenue)~factor(pass_bechdel)+log(Adj_Budget) + Metascore + i
 ## factor(pass_bechdel)PASS 0.22749886 0.06646310  3.422935  6.391148e-04
 ## log(Adj_Budget)          0.85935799 0.02556399 33.615957 5.956983e-178
 ## Metascore                0.10115486 0.02930987  3.451222  5.762912e-04
-## imdbRating               0.08643071 0.05170464  1.671624  9.484373e-02
+## imdb                     0.08643071 0.05170464  1.671624  9.484373e-02
 ```
 &lt;br&gt;
 .box-3LA.medium.sp-after-half[Positive and significant!]
@@ -204,19 +211,113 @@ summary(lm(log(Adj_Revenue)~factor(pass_bechdel)+log(Adj_Budget) + Metascore + i
   - How does one more point on IMDB compare to passing/failing the Bechdel test?
 ]
 .pull-right[
-![](https://media.giphy.com/media/SVZsmcovaFTp6joAhO/source.gif)
-]
+.center[
+![:scale 80%](https://media.giphy.com/media/SVZsmcovaFTp6joAhO/source.gif)
+]]
 
 ---
 # Standardized Partial Coefficients
 
-- **dark.orange[Main idea:]** Transform everything to the same scale.
+- **.darkorange[Main idea:]** Transform everything to the same scale.
 
   - Common units: Standard deviations.
 
-.box-4tL.medium.sp-after-half[$$X$$]
-![:scale 50%]((https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/down-arrow-svgrepo-com.svg))
+.box-4.medium.sp-after-half[$$X$$]
+.center[
+![:scale 3%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/arrow.png)
+]
 .box-4.medium.sp-after-half[$$\frac{X - \bar{X}}{\sigma_X}$$]
+
+---
+# Transform the data
+
+
+```r
+scale2 &lt;- function(x, na.rm = FALSE) (x - mean(x, na.rm = na.rm)) / sd(x, na.rm)
+
+bechdel_std &lt;- bechdel %&gt;% select(log_Adj_Revenue,log_Adj_Budget, 
+                                  bechdel_test, Metascore, imdb) %&gt;% 
+  mutate_at(c("log_Adj_Revenue","log_Adj_Budget", "bechdel_test", 
+                  "Metascore", "imdb"),~scale2(.,na.rm=TRUE))
+
+lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb, 
+   data=bechdel_std)
+```
+
+```
+##                  Estimate Std. Error   t value      Pr(&gt;|t|)
+## (Intercept)    0.33839228 0.01379026 24.538498 3.089069e-109
+## bechdel_test   0.04755530 0.01389314  3.422935  6.391148e-04
+## log_Adj_Budget 0.46828744 0.01393051 33.615957 5.956983e-178
+## Metascore      0.07058143 0.02045115  3.451222  5.762912e-04
+## imdb           0.03419253 0.02045468  1.671624  9.484373e-02
+```
+---
+# Does this model explain well the observed data?
+
+- Estimate the OLS model and predict `\(Y\)` as following:
+`$$\widehat{\log{Revenue}} = \alpha + \hat{\beta}_1 Bechdel + \hat{\beta}_2 \log{Budget} + \hat{\beta}_3 Metascore + \hat{\beta}_4 IMDB$$`
+.box-4.medium.sp-after-half[$$Res = Y - \hat{Y}$$]
+
+
+```r
+summary(lm(log(Adj_Revenue) ~ bechdel_test +log(Adj_Budget) + Metascore + imdb, 
+           data=bechdel))$adj.r.squared
+```
+
+```
+## [1] 0.4753358
+```
+
+---
+# Let's look at the residuals
+
+
+
+```r
+y_hat = predict(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb, 
+                   data = bechdel))
+
+res = resid(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb, 
+               data = bechdel))
+
+residual_data = as.data.frame(cbind(y_hat,res))
+
+ggplot(data = residual_data, aes(x = y_hat, y = res)) + 
+  geom_point()
+```
+
+![](sp2021_sta235_2_reg_files/figure-html/bechdel5-1.png)&lt;!-- --&gt;
+
+---
+# Let's look at the residuals (cont.)
+&lt;img src="sp2021_sta235_2_reg_files/figure-html/bechdel5r-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# What happens if we add additional variables?
+
+
+
+```r
+y_hat2 = predict(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb +
+                     Year + Week + factor(Rated) + USA + English, 
+                   data = bechdel))
+
+res2 = resid(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb +
+                     Year + factor(Rated) + USA + English, 
+                   data = bechdel))
+
+residual_data2 = as.data.frame(cbind(y_hat2,res2))
+
+ggplot(data = residual_data2, aes(x = y_hat2, y = res2)) + 
+  geom_point()
+```
+
+![](sp2021_sta235_2_reg_files/figure-html/bechdel6-1.png)&lt;!-- --&gt;
+
+---
+# What happens with additional variables? (cont.)
+&lt;img src="sp2021_sta235_2_reg_files/figure-html/bechdel6r-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 # References
 
