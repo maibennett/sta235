@@ -492,13 +492,15 @@ wordcloud(words = d$word, freq = d$freq, min.freq = 1,
 
 d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/1_Intro/code/STA%20235%20-%20Intro%20Survey.csv")
 
-ggplot(data = d, aes(How.comfortable.are.you.with.coding.in.R.)) + 
-  geom_histogram(color="#900DA4", fill = alpha("#900DA4",0.5), lwd=1.5, stat="count") +
-  scale_x_discrete(name="x", breaks=seq(1,10,1), labels = c("1\nVery uncomfortable","2","3","4","5","6","7","8","9","10\nSuper comfortable"), limits = c(1,2,3,4,5,6,7,8,9,10)) +
+
+ggplot(data = d, aes(x = factor(How.comfortable.are.you.with.coding.in.R.,
+                                levels = seq(1,10,1)))) + 
+  geom_bar(color="#900DA4", fill = alpha("#900DA4",0.5), lwd=1.5) +
+  scale_x_discrete(labels = c("1" = "1\nVery\nuncomfortable","2" = "2","3" = "3","4" = "4","5" = "5","6" = "6",
+                              "7" = "7","8" = "8","9" = "9","10" = "10\nSuper\ncomfortable"), drop = FALSE) +
   theme_bw()+
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
   xlab("") + ylab("Count")+#ggtitle("How comfortable are you with R?")+
-  ylim(0,5)+
   theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
