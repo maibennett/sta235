@@ -386,7 +386,7 @@ cookies_with_residual
 ]
 
 ---
-# How do we estimate the coefficients in a regression ?
+# How do we estimate the coefficients in a regression ? (cont.)
 
 ```{r make-cookies2, include=FALSE}
 library(plotly)
