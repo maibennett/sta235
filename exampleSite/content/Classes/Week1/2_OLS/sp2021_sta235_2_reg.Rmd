@@ -382,7 +382,7 @@ summary(lm(log(Adj_Revenue)~factor(pass_bechdel), data=bechdel))$coeff
 # More variables
 
 .pull-left[
-![](https://media.giphy.com/media/1ZlrrYTN7gAxdGE8nM/source.gif)
+![:scale 80%](https://media.giphy.com/media/1ZlrrYTN7gAxdGE8nM/source.gif)
 ]
 .pull-right[
 - **.darkorange[Bechdel test]** could be capturing the effect of other variables:
@@ -416,13 +416,13 @@ summary(lm(log(Adj_Revenue)~factor(pass_bechdel)+log(Adj_Budget) + Metascore + i
   - How does one more point on IMDB compare to passing/failing the Bechdel test?
 ]
 .pull-right[
-![](https://media.giphy.com/media/SVZsmcovaFTp6joAhO/source.gif)
+![:scale 80%](https://media.giphy.com/media/SVZsmcovaFTp6joAhO/source.gif)
 ]
 
 ---
 # Standardized Partial Coefficients
 
-- **dark.orange[Main idea:]** Transform everything to the same scale.
+- **.darkorange[Main idea:]** Transform everything to the same scale.
 
   - Common units: Standard deviations.
 

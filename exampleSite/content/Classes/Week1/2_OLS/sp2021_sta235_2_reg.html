@@ -162,12 +162,12 @@ summary(lm(log(Adj_Revenue)~factor(pass_bechdel), data=bechdel))
 ![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/538_bechdel.png)]
 
 ---
-# More variables!
+# More variables
 
-.pull-right[
+.pull-left[
 ![](https://media.giphy.com/media/1ZlrrYTN7gAxdGE8nM/source.gif)
 ]
-.pull-left[
+.pull-right[
 - **.darkorange[Bechdel test]** could be capturing the effect of other variables:
 
   - What **.darkorange[type]** of movies are the ones that pass the test?
@@ -175,7 +175,7 @@ summary(lm(log(Adj_Revenue)~factor(pass_bechdel), data=bechdel))
   - What is their **.darkorange[budget]**?
 ]  
 ---
-# More variables!
+# More variables
 
 
 ```r
@@ -192,6 +192,31 @@ summary(lm(log(Adj_Revenue)~factor(pass_bechdel)+log(Adj_Budget) + Metascore + i
 ```
 &lt;br&gt;
 .box-3LA.medium.sp-after-half[Positive and significant!]
+
+---
+# Comparing effect sizes
+
+.pull-left[
+- Another investor says that it's better to bring in a better actor because it will increase ratings.
+
+- **.darkorange[How do you compare effect sizes?]**
+
+  - How does one more point on IMDB compare to passing/failing the Bechdel test?
+]
+.pull-right[
+![](https://media.giphy.com/media/SVZsmcovaFTp6joAhO/source.gif)
+]
+
+---
+# Standardized Partial Coefficients
+
+- **dark.orange[Main idea:]** Transform everything to the same scale.
+
+  - Common units: Standard deviations.
+
+.box-4tL.medium.sp-after-half[$$X$$]
+![:scale 50%]((https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/down-arrow-svgrepo-com.svg))
+.box-4.medium.sp-after-half[$$\frac{X - \bar{X}}{\sigma_X}$$]
 ---
 # References
 
