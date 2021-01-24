@@ -321,7 +321,183 @@ style_mono_accent(
 
 .box-6tL.medium.sp-after-half[Netflix looking at the effect of time of the day on show selection]
 ]
+---
+# How do we estimate the coefficients in a regression ?
+.pull-left[
+- **.darkorange[Ordinary Least Squares]** is the most popular way.
 
+$$\min_{\beta} Y_i - (\sum_{j=1}^p\beta_j X_{ij})$$
+]
+--
+.pull-right[
+```{r make-cookies, include=FALSE}
+library(generics)
+library(ggplot2)
+library(firasans)
+library(hrbrthemes)
+library(extrafont)
+library("RColorBrewer")
+library(viridis)
+library("tm")
+library("SnowballC")
+library("wordcloud")
+library("RColorBrewer")
+library("firasans")
+library(hrbrthemes)
+library(extrafont)
+library(tidyverse)
+
+cookies <- tibble(happiness = c(0.5, 2, 1, 2.5, 3, 1.5, 2, 2.5, 2, 3),
+                  stomach_ache = c(0,0,0.2,0.05,0.05,0.7,0.6,0.5,0.8,0.5),
+                  cookies = 1:10)
+cookies_data <- cookies
+cookies_model <- lm(happiness ~ cookies, data = cookies)
+cookies_fitted <- augment(cookies_model)
+cookies_base <- ggplot(cookies_fitted, aes(x = cookies, y = happiness)) +
+  geom_point(size = 4, color="#333f48", pch=21, fill=alpha("#333f48",0.4)) +
+  scale_x_continuous(breaks = 0:10) +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold") + #plain 
+  xlab("cookies") + ylab("happiness")+ggtitle("Simple regression")+
+  #xlim(-1,2) + ylim(0,5)+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=10),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+```
+
+```{r cookies1, fig.height=5, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message=FALSE}
+cookies_with_residual <- cookies_base +
+  geom_smooth(method = "lm", color = "#E16462", se = FALSE) +
+  geom_segment(aes(xend = cookies, yend = .fitted), color = "#F89441", size = 1)
+cookies_with_residual
+```
+]
+
+---
+# How do we estimate the coefficients in a regression ?
+
+```{r make-cookies2, include=FALSE}
+library(plotly)
+
+fit <- lm(happiness ~  cookies + stomach_ache,    
+          data = cookies_data)
+
+x_grid <- seq(from = min(cookies_data$cookies), to = max(cookies_data$cookies), length = 50)
+y_grid <- seq(from = min(cookies_data$stomach_ache), to = max(cookies_data$stomach_ache), length = 50)
+
+beta_hat <- cookies_data %>% 
+  lm(happiness ~ cookies + stomach_ache, data=.) %>% 
+  coef()
+fitted_values <- crossing(y_grid, x_grid) %>% 
+  mutate(z_grid = beta_hat[1] + beta_hat[2]*x_grid + beta_hat[3]*y_grid)
+z_grid <- fitted_values %>% 
+  pull(z_grid) %>%
+  matrix(nrow = length(x_grid)) %>%
+  t()
+
+
+group2NA <- function(data, groupNames = "group", nested = NULL, ordered = NULL,
+                     retrace.first = inherits(data, "GeomPolygon")) {
+  
+  if (NROW(data) == 0) return(data)
+  
+  # for restoring class information on exit
+  datClass <- oldClass(data)
+  
+  # data.table doesn't play nice with list-columns
+  if (inherits(data, "sf")) data <- fortify_sf(data)
+  
+  # evaluate this lazy argument now (in case we change class of data)
+  retrace <- force(retrace.first)
+  
+  # sanitize variable names (TODO: throw warnings if non-existing vars are referenced?)
+  groupNames <- groupNames[groupNames %in% names(data)]
+  nested <- nested[nested %in% names(data)]
+  ordered <- ordered[ordered %in% names(data)]
+  
+  dt <- data.table::as.data.table(data)
+  
+  # if group doesn't exist, just order the rows and exit
+  if (!length(groupNames)) {
+    keyVars <- c(nested, ordered)
+    if (length(keyVars)) data.table::setorderv(dt, cols = keyVars)
+    return(structure(dt, class = datClass))
+  }
+  
+  # order the rows
+  data.table::setorderv(dt, cols = c(nested, groupNames, ordered))
+  
+  # when connectgaps=FALSE, inserting NAs ensures each "group" 
+  # will be visually distinct https://plotly.com/r/reference/#scatter-connectgaps
+  # also, retracing is useful for creating polygon(s) via scatter trace(s)
+  keyVars <- c(nested, groupNames)
+  keyNum <- length(keyVars) + 1
+  idx <- if (retrace) {
+    dt[, c(.I, .I[1], NA), by = keyVars][[keyNum]]
+  } else {
+    dt[, c(.I, NA), by = keyVars][[keyNum]]
+  }
+  dt <- dt[idx]
+  
+  # remove NAs that unnecessarily seperate nested groups
+  # (at least internally, nested really tracks trace index, meaning we don't need 
+  # to seperate them)
+  NAidx <- which(is.na(idx))
+  for (i in seq_along(keyVars)) {
+    dt[[keyVars[[i]]]][NAidx] <- dt[[keyVars[[i]]]][NAidx - 1]
+  }
+  if (length(nested)) {
+    dt <- dt[ dt[, .I[-.N], by = nested][[length(nested) + 1]] ]
+  } else {
+    dt <- dt[-.N]
+  }
+
+  structure(dt, class = datClass)
+}
+
+utils::globalVariables(c(".I", ".N"))
+
+
+cookies_data$id <- seq_len(nrow(cookies_data))
+cookies_data_rep <- replicate(2, cookies_data, simplify = F)
+cookies_data_rep[[2]]$happiness <- fit$coef[1] + 
+    fit$coef[2]*cookies_data_rep[[2]]$cookies + fit$coef[3]*cookies_data_rep[[2]]$stomach_ache
+m <- group2NA(dplyr::bind_rows(cookies_data_rep), "id")
+
+```
+
+```{r cookies2, echo=FALSE, warning=FALSE, message=FALSE, include = FALSE}
+plot_ly(data = cookies_data, z = ~happiness, x = ~cookies, y = ~stomach_ache, opacity = 1,
+        showlegend = FALSE) %>%
+  add_markers() %>%
+  add_surface(x = x_grid, y = y_grid, z = z_grid, showscale = FALSE, opacity = 0.5) %>%
+  add_paths(data = m, x = ~cookies, y = ~stomach_ache, z = ~happiness, color=I("#333f48")) %>%
+  layout(
+    scene = list(
+      xaxis = list(title = "Cookies"),
+      yaxis = list(title = "Stomach Ache"),
+      zaxis = list(title = "Happiness")
+    ))
+```
+
+.pull-left[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/3dplot1.png)
+]
+.pull-right[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/3dplot2.png)
+]
 ---
 # Let's introduce an example: The Bechdel Test
 
@@ -348,6 +524,8 @@ style_mono_accent(
 
 - I'm a profit-maximizing investor and want to know whether it's in my best interest to switch a male for a female character.
 
+  - What is the **.darkorange[simplest model]** you would fit?
+--
 .box-6t.medium.sp-after-half[$$Y = \alpha + \beta X + \varepsilon$$]
 
 Where:
