@@ -470,11 +470,11 @@ round(summary(lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb,
 ---
 # Does this model explain well the observed data?
 
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/linear_regression.png)
+![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/linear_regression.png)
 ---
 # Some measures to quantify uncertainty
 
-- .darkorange[$\mathbb{R^2}$:] Correlation between the outcome $\mathbb{Y}$ and the predicted variable $\mathbb{\hat{Y}}$.
+- $\mathbf{R^2}$: Correlation between the outcome $\mathbf{Y}$ and the predicted variable $\mathbf{\hat{Y}}$.
 
 - **.darkorange[Residual Squared Error (RSE)]**: Measure of the SD of error term $\varepsilon$
 
@@ -516,6 +516,13 @@ ggplot(data = res_data, aes(x = y_hat, y = res)) +
 ---
 # Let's look at the residuals (cont.)
 ```{r bechdel5r, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+y_hat = predict(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb, 
+                   data = bechdel))
+
+res = resid(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb, 
+               data = bechdel))
+
+res_data = as.data.frame(cbind(y_hat,res))
 
 ggplot(data = res_data, aes(x = y_hat, y = res)) + 
   geom_point(color = "#E16462", fill = alpha("#E16462",0.4), pch=21, lwd = 1.5, size = 7)+
@@ -564,7 +571,15 @@ ggplot(data = res_data2, aes(x = y_hat2, y = res2)) +
 ---
 # What happens with additional variables? (cont.)
 ```{r bechdel6r, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-library(ggplot2)
+y_hat2 = predict(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb +
+                     Year + Week + factor(Rated) + USA + English, 
+                   data = bechdel))
+
+res2 = resid(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb +
+                     Year + factor(Rated) + USA + English, 
+                   data = bechdel))
+
+res_data2 = as.data.frame(cbind(y_hat2,res2))
 
 ggplot(data = res_data, aes(x = y_hat, y = res)) + 
   geom_point(color = "dark grey", fill = alpha("#E16462",0.4), pch=22, lwd = 1.5, size = 7)+
