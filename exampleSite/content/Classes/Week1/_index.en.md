@@ -15,6 +15,7 @@ You can find the slides for the class [here](https://sta235.netlify.app/Classes/
 {{< slides src="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.html" >}}
 
 <br>
+<br>
 
 {{< slides src="https://sta235.netlify.app/Classes/Week1/2_OLS/sp2021_sta235_2_reg.html" >}}
 
