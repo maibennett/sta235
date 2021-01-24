@@ -535,11 +535,9 @@ plot_ly(data = cookies_data, z = ~happiness, x = ~cookies, y = ~stomach_ache, op
   - What is the **.darkorange[simplest model]** you would fit?
 --
 
-.box-6t.medium.sp-after-half[$$Y = \alpha + \beta X + \varepsilon$$]
 
-Where:
-  - Y: Revenue
-  - X: Pass Bechdel test
+.box-6t.medium.sp-after-half[$$Revenue = \alpha + \beta Bechdel + \varepsilon$$]
+--
   
 .box-7LA.medium.sp-after-half[Is this right?]
 
@@ -627,7 +625,7 @@ lm(log(Adj_Revenue) ~ bechdel_test + log(Adj_Budget) + Metascore + imdb, data=be
 
 ```
 ```{r bechdel2r, echo=FALSE}
-round(summary(lm(log(Adj_Revenue)~factor(pass_bechdel)+log(Adj_Budget) + Metascore + imdb, 
+round(summary(lm(log(Adj_Revenue)~bechdel_test+log(Adj_Budget) + Metascore + imdb, 
            data=bechdel))$coeff, 4)
 
 ```
@@ -693,14 +691,20 @@ round(summary(lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb,
 
 - $\mathbf{R^2}$: Correlation between the outcome $\mathbf{Y}$ and the predicted variable $\mathbf{\hat{Y}}$.
 
+$$R^2 = 1 - \frac{RSS}{TSS}$$
+Where:
+  - $RSS = \sum{(y-\hat{y})^2}$ is the residual sum of the squares
+  - $TSS = \sum{(y-\bar{y})^2}$ is the total sum of squares (proportional to the variance of the data)
+  
+- $\mathbf{R^2}$ is non-decreasing when adding new variables.
+--
+$$R^2_{adj} = 1 - \frac{(1-R^2)(n-1)}{(n-p-1)}$$
+---
+# Some measures to quantify uncertainty (cont.)
+
 - **.darkorange[Residual Squared Error (RSE)]**: Measure of the SD of error term $\varepsilon$
 
 $$RSE = \sqrt{\frac{1}{n-p+1}RSS}$$
-Where:
-  - n: Number of observations
-  - p: Number of covariates
-  - $RSS = \sum(y_i-\hat{y}_i)^2$
-
 - What happens if $p$ increases?
 
 ---
@@ -720,38 +724,33 @@ summary(lm(log(Adj_Revenue) ~ bechdel_test +log(Adj_Budget) + Metascore + imdb,
 
 ```{r bechdel5, eval=FALSE}
 
-y_hat = predict(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb, 
-                   data = bechdel))
+bechdel_fitted <- augment(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb
+                              , data = bechdel))
 
-res = resid(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb, 
-               data = bechdel))
 
-res_data = as.data.frame(cbind(y_hat,res))
-
-ggplot(data = res_data, aes(x = y_hat, y = res)) + 
+ggplot(data = bechdel_fitted, aes(x = .fitted, y = .std.resid)) + 
   geom_point()
 
 ```
 
+- You can also use the functions `predict(lm(Y ~ X + Z))` and `resid(lm(Y ~ X + Z))` to obtain the fitted values and residuals, respectively.
+
 ---
 # Let's look at the residuals (cont.)
 ```{r bechdel5r, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-y_hat = predict(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb, 
-                   data = bechdel))
+bechdel_fitted <- augment(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdbRating, 
+                             data = bechdel))
 
-res = resid(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb, 
-               data = bechdel))
 
-res_data = as.data.frame(cbind(y_hat,res))
-
-ggplot(data = res_data, aes(x = y_hat, y = res)) + 
-  geom_point(color = "#E16462", fill = alpha("#E16462",0.4), pch=21, lwd = 1.5, size = 7)+
+ggplot(data = bechdel_fitted, aes(x = .fitted, y = .std.resid)) + 
+  geom_point(color = "#E16462", fill = alpha("#E16462",0.4), pch=22, size = 3)+
   geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1.3)+
+  theme_bw()+
+  xlab("Y_hat") + ylab("Residuals") +
   ggplot2::annotate("text", x = 10, y = 6, label = "Adj. R2 = 0.48", size = 6, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
   theme_bw()+
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  xlab("Y_hat") + ylab("Residuals")+#ggtitle("How comfortable are you with R?")+
-  ylim(-8,8)+
+
   theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
@@ -773,17 +772,11 @@ ggplot(data = res_data, aes(x = y_hat, y = res)) +
 
 ```{r bechdel6, eval=FALSE}
 
-y_hat2 = predict(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb +
-                     Year + Week + factor(Rated) + USA + English, 
-                   data = bechdel))
+bechdel_fitted2 <- augment(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb +
+                                Year + English + USA + factor(Rated), data = bechdel))
 
-res2 = resid(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb +
-                     Year + factor(Rated) + USA + English, 
-                   data = bechdel))
 
-res_data2 = as.data.frame(cbind(y_hat2,res2))
-
-ggplot(data = res_data2, aes(x = y_hat2, y = res2)) + 
+ggplot(data = bechdel_fitted2, aes(x = .fitted, y = .std.resid)) + 
   geom_point()
 
 ```
@@ -791,28 +784,24 @@ ggplot(data = res_data2, aes(x = y_hat2, y = res2)) +
 ---
 # What happens with additional variables? (cont.)
 ```{r bechdel6r, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-y_hat2 = predict(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb +
-                     Year + Week + factor(Rated) + USA + English, 
-                   data = bechdel))
+bechdel_fitted2 <- augment(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdbRating +
+                                Year + English + USA + factor(Rated), data = bechdel))
 
-res2 = resid(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb +
-                     Year + factor(Rated) + USA + English, 
-                   data = bechdel))
 
-res_data2 = as.data.frame(cbind(y_hat2,res2))
-
-ggplot(data = res_data, aes(x = y_hat, y = res)) + 
-  geom_point(color = "dark grey", fill = alpha("#E16462",0.4), pch=22, lwd = 1.5, size = 7)+
-  geom_point(data = res_data2, aes(x = y_hat2, y = res2), color = "#E16462", fill = alpha("#E16462",0.4), pch=21, lwd = 1.5, size = 7)+
+ggplot(data = bechdel_fitted, aes(x = .fitted, y = .std.resid)) +
+  geom_point(color = "dark grey", fill = alpha("dark grey",0.4), pch=22, size = 3) +
+  geom_point(data = bechdel_fitted2, aes(x = .fitted, y = .std.resid),
+             color = "#BF3984", fill = alpha("#BF3984",0.4), pch=21, size = 3)+
   geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1.3)+
+  theme_bw()+
+  xlab("Y_hat") + ylab("Residuals") +
   
   #annotate("text", x = 12, y = 0, label = "some text") + 
   ggplot2::annotate("text", x = 10, y = 6, label = "Adj. R2 = 0.54", size = 6, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
   
   theme_bw()+
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  xlab("Y_hat") + ylab("Residuals")+#ggtitle("How comfortable are you with R?")+
-  ylim(-8,8)+
+
   theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
@@ -828,16 +817,37 @@ ggplot(data = res_data, aes(x = y_hat, y = res)) +
         legend.background = element_rect(fill="white",colour ="white"),
         title = element_text(size=14))
 ```
+---
+# Main takeaway points
+
+- Data can tell different stories depending on how you handle it.
+
+  - Does that mean that we can get data to say **.darkorange[anything]**?
+  
+--
+
+.box-5.medium.sp-after-half["If you torture the data long enough, it will confess to anything"]
+
+--
+
+- Assumptions and measures matter.
+
+--
+
+- **.darkorange[Plot your data!]**
+
 
 ---
 # Next class
 
-- Finishing with multiple regression models:
+- Finishing with **.darkorange[multiple regression models]**:
+
   - Statistical adjustment and collinearity
 
-- Model with discrete responses: Binary outcomes
+- Model with discrete responses: **.darkorange[Binary outcomes]**
 
-- In the following weeks, we will start with Causal Inference.
+- In the following weeks, we will start with **.darkorange[Causal Inference]**.
+
 ---
 # References
 

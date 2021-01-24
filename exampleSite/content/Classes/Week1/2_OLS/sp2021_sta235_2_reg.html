@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>STA 235 - Multivariate Regression</title>
+    <title>STA 235 - Multiple Regression</title>
     <meta charset="utf-8" />
     <meta name="author" content="McCombs School of Business, UT Austin" />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -20,7 +20,7 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# STA 235 - Multivariate Regression
+# STA 235 - Multiple Regression
 ## Spring 2021
 ### McCombs School of Business, UT Austin
 
@@ -205,11 +205,9 @@ class: center, middle, inverse, title-slide
   - What is the **.darkorange[simplest model]** you would fit?
 --
 
-.box-6t.medium.sp-after-half[$$Y = \alpha + \beta X + \varepsilon$$]
 
-Where:
-  - Y: Revenue
-  - X: Pass Bechdel test
+.box-6t.medium.sp-after-half[$$Revenue = \alpha + \beta Bechdel + \varepsilon$$]
+--
   
 .box-7LA.medium.sp-after-half[Is this right?]
 
@@ -259,12 +257,12 @@ lm(log(Adj_Revenue) ~ bechdel_test + log(Adj_Budget) + Metascore + imdb, data=be
 ```
 
 ```
-##                          Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                1.3798     0.5126  2.6921   0.0072
-## factor(pass_bechdel)PASS   0.2275     0.0665  3.4229   0.0006
-## log(Adj_Budget)            0.8594     0.0256 33.6160   0.0000
-## Metascore                  0.1012     0.0293  3.4512   0.0006
-## imdb                       0.0864     0.0517  1.6716   0.0948
+##                 Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)       1.3798     0.5126  2.6921   0.0072
+## bechdel_test      0.2275     0.0665  3.4229   0.0006
+## log(Adj_Budget)   0.8594     0.0256 33.6160   0.0000
+## Metascore         0.1012     0.0293  3.4512   0.0006
+## imdb              0.0864     0.0517  1.6716   0.0948
 ```
 &lt;br&gt;
 .box-3LA.medium.sp-after-half[Positive and significant!]
@@ -331,14 +329,20 @@ lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb,
 
 - `\(\mathbf{R^2}\)`: Correlation between the outcome `\(\mathbf{Y}\)` and the predicted variable `\(\mathbf{\hat{Y}}\)`.
 
+`$$R^2 = 1 - \frac{RSS}{TSS}$$`
+Where:
+  - `\(RSS = \sum{(y-\hat{y})^2}\)` is the residual sum of the squares
+  - `\(TSS = \sum{(y-\bar{y})^2}\)` is the total sum of squares (proportional to the variance of the data)
+  
+- `\(\mathbf{R^2}\)` is non-decreasing when adding new variables.
+--
+`$$R^2_{adj} = 1 - \frac{(1-R^2)(n-1)}{(n-p-1)}$$`
+---
+# Some measures to quantify uncertainty (cont.)
+
 - **.darkorange[Residual Squared Error (RSE)]**: Measure of the SD of error term `\(\varepsilon\)`
 
 `$$RSE = \sqrt{\frac{1}{n-p+1}RSS}$$`
-Where:
-  - n: Number of observations
-  - p: Number of covariates
-  - `\(RSS = \sum(y_i-\hat{y}_i)^2\)`
-
 - What happens if `\(p\)` increases?
 
 ---
@@ -384,17 +388,15 @@ summary(lm(log(Adj_Revenue) ~ bechdel_test +log(Adj_Budget) + Metascore + imdb,
 
 
 ```r
-y_hat = predict(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb, 
-                   data = bechdel))
+bechdel_fitted &lt;- augment(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb
+                              , data = bechdel))
 
-res = resid(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb, 
-               data = bechdel))
 
-res_data = as.data.frame(cbind(y_hat,res))
-
-ggplot(data = res_data, aes(x = y_hat, y = res)) + 
+ggplot(data = bechdel_fitted, aes(x = .fitted, y = .std.resid)) + 
   geom_point()
 ```
+
+- You can also use the functions `predict(lm(Y ~ X + Z))` and `resid(lm(Y ~ X + Z))` to obtain the fitted values and residuals, respectively.
 
 ---
 # Let's look at the residuals (cont.)
@@ -405,33 +407,48 @@ ggplot(data = res_data, aes(x = y_hat, y = res)) +
 
 
 ```r
-y_hat2 = predict(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb +
-                     Year + Week + factor(Rated) + USA + English, 
-                   data = bechdel))
+bechdel_fitted2 &lt;- augment(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb +
+                                Year + English + USA + factor(Rated), data = bechdel))
 
-res2 = resid(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb +
-                     Year + factor(Rated) + USA + English, 
-                   data = bechdel))
 
-res_data2 = as.data.frame(cbind(y_hat2,res2))
-
-ggplot(data = res_data2, aes(x = y_hat2, y = res2)) + 
+ggplot(data = bechdel_fitted2, aes(x = .fitted, y = .std.resid)) + 
   geom_point()
 ```
 
 ---
 # What happens with additional variables? (cont.)
 &lt;img src="sp2021_sta235_2_reg_files/figure-html/bechdel6r-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Main takeaway points
+
+- Data can tell different stories depending on how you handle it.
+
+  - Does that mean that we can get data to say **.darkorange[anything]**?
+  
+--
+
+.box-5.medium.sp-after-half["If you torture the data long enough, it will confess to anything"]
+
+--
+
+- Assumptions and measures matter.
+
+--
+
+- **.darkorange[Plot your data!]**
+
 
 ---
 # Next class
 
-- Finishing with multiple regression models:
+- Finishing with **.darkorange[multiple regression models]**:
+
   - Statistical adjustment and collinearity
 
-- Model with discrete responses: Binary outcomes
+- Model with discrete responses: **.darkorange[Binary outcomes]**
 
-- In the following weeks, we will start with Causal Inference.
+- In the following weeks, we will start with **.darkorange[Causal Inference]**.
+
 ---
 # References
 
