@@ -13,7 +13,8 @@ In this first class, we will review the syllabus and course motivation. On the s
 You can find the slides for the class [here](https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.html) and [here](https://sta235.netlify.app/Classes/Week1/2_OLS/sp2021_sta235_2_reg.html):
 
 {{< slides src="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.html" >}}
-
+<br>
+<br>
 {{< slides src="https://sta235.netlify.app/Classes/Week1/2_OLS/sp2021_sta235_2_reg.html" >}}
 
 ## Code
