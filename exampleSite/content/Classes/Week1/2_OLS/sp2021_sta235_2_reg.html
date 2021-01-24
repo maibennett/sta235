@@ -139,11 +139,68 @@ Where:
 .box-7LA.medium.sp-after-half[Is this right?]
 
 ---
+# Let's analyze some models
+
+
+
+```r
+summary(lm(log(Adj_Revenue)~factor(pass_bechdel), data=bechdel))
+```
+
+```
+##                            Estimate Std. Error    t value     Pr(&gt;|t|)
+## (Intercept)              17.0321356 0.08075548 210.909966 0.000000e+00
+## factor(pass_bechdel)PASS -0.4417772 0.10787064  -4.095435 4.385976e-05
+```
+&lt;br&gt;
+&lt;br&gt;
+.box-3LA.medium.sp-after-half[Negative effect of including more women?]
+
+---
+# What gives?
+.center[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/538_bechdel.png)]
+
+---
+# More variables!
+
+.pull-right[
+![](https://media.giphy.com/media/1ZlrrYTN7gAxdGE8nM/source.gif)
+]
+.pull-left[
+- **.darkorange[Bechdel test]** could be capturing the effect of other variables:
+
+  - What **.darkorange[type]** of movies are the ones that pass the test?
+  
+  - What is their **.darkorange[budget]**?
+]  
+---
+# More variables!
+
+
+```r
+summary(lm(log(Adj_Revenue)~factor(pass_bechdel)+log(Adj_Budget) + Metascore + imdbRating, data=bechdel))
+```
+
+```
+##                            Estimate Std. Error   t value      Pr(&gt;|t|)
+## (Intercept)              1.37981675 0.51255153  2.692055  7.194221e-03
+## factor(pass_bechdel)PASS 0.22749886 0.06646310  3.422935  6.391148e-04
+## log(Adj_Budget)          0.85935799 0.02556399 33.615957 5.956983e-178
+## Metascore                0.10115486 0.02930987  3.451222  5.762912e-04
+## imdbRating               0.08643071 0.05170464  1.671624  9.484373e-02
+```
+&lt;br&gt;
+.box-3LA.medium.sp-after-half[Positive and significant!]
+---
 # References
+
+- Heiss, A. (2020). "Course: Program Evaluation for Public Service". *Slides for Regression and Inference*.
 
 - James, G. et al. (2017). "Introduction to Statistical Learning with Applications in R". *Chapter 3*
 
-- Heiss, A. (2020). "Course: Program Evaluation for Public Service". *Slides for Regression and Inference*.
+- Keegan, B. (2018). "The Need for Openess in Data Journalism". *[Github Repository](https://github.com/brianckeegan/Bechdel/blob/master/Bechdel_test.ipynb)*
+
 
 &lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week1/2_OLS/sp2021_sta235_2_reg.html') --&gt;
     </textarea>

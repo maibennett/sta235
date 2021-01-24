@@ -326,10 +326,117 @@ Where:
 .box-7LA.medium.sp-after-half[Is this right?]
 
 ---
+# Let's analyze some models
+
+```{r results='hide', message=FALSE,echo=FALSE, warning=FALSE}
+library(ggplot2)
+library(firasans)
+library(hrbrthemes)
+library(extrafont)
+library("RColorBrewer")
+library(viridis)
+library("tm")
+library("SnowballC")
+library("wordcloud")
+library("RColorBrewer")
+library("firasans")
+library(hrbrthemes)
+library(extrafont)
+
+rawData <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/data/bechdel.csv")
+
+# Select movies pre-1990, and format $-denominated data fields
+rawData<-rawData[rawData$Year>1989,]
+
+# Return on Investment (ROI) measures
+rawData$ROI<-rawData$Revenue/rawData$Budget #  Total ROI
+
+# Passes Bechdel test:
+rawData$pass_bechdel="FAIL"
+rawData$pass_bechdel[rawData$rating==3] = "PASS"
+
+# Divide movies into FAIL and PASS divisions
+failMovies<-rawData[rawData$binary=="FAIL",]
+passMovies<-rawData[rawData$binary=="PASS",]
+
+bechdel = rawData[rawData$Adj_Revenue>0,]
+```
+```{r bechdel1, results = FALSE}
+summary(lm(log(Adj_Revenue)~factor(pass_bechdel), data=bechdel))
+
+```
+```{r bechdel1r,echo=FALSE}
+summary(lm(log(Adj_Revenue)~factor(pass_bechdel), data=bechdel))$coeff
+
+```
+<br>
+<br>
+.box-3LA.medium.sp-after-half[Negative effect of including more women?]
+
+---
+# What gives?
+.center[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/538_bechdel.png)]
+
+---
+# More variables
+
+.pull-left[
+![](https://media.giphy.com/media/1ZlrrYTN7gAxdGE8nM/source.gif)
+]
+.pull-right[
+- **.darkorange[Bechdel test]** could be capturing the effect of other variables:
+
+  - What **.darkorange[type]** of movies are the ones that pass the test?
+  
+  - What is their **.darkorange[budget]**?
+]  
+---
+# More variables
+
+```{r bechdel2, results = FALSE}
+summary(lm(log(Adj_Revenue)~factor(pass_bechdel)+log(Adj_Budget) + Metascore + imdbRating, data=bechdel))
+
+```
+```{r bechdel2r, echo=FALSE}
+summary(lm(log(Adj_Revenue)~factor(pass_bechdel)+log(Adj_Budget) + Metascore + imdbRating, data=bechdel))$coeff
+
+```
+<br>
+.box-3LA.medium.sp-after-half[Positive and significant!]
+
+---
+# Comparing effect sizes
+
+.pull-left[
+- Another investor says that it's better to bring in a better actor because it will increase ratings.
+
+- **.darkorange[How do you compare effect sizes?]**
+
+  - How does one more point on IMDB compare to passing/failing the Bechdel test?
+]
+.pull-right[
+![](https://media.giphy.com/media/SVZsmcovaFTp6joAhO/source.gif)
+]
+
+---
+# Standardized Partial Coefficients
+
+- **dark.orange[Main idea:]** Transform everything to the same scale.
+
+  - Common units: Standard deviations.
+
+.box-4tL.medium.sp-after-half[$$X$$]
+![:scale 50%]((https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/down-arrow-svgrepo-com.svg))
+.box-4.medium.sp-after-half[$$\frac{X - \bar{X}}{\sigma_X}$$]
+---
 # References
+
+- Heiss, A. (2020). "Course: Program Evaluation for Public Service". *Slides for Regression and Inference*.
 
 - James, G. et al. (2017). "Introduction to Statistical Learning with Applications in R". *Chapter 3*
 
-- Heiss, A. (2020). "Course: Program Evaluation for Public Service". *Slides for Regression and Inference*.
+- Keegan, B. (2018). "The Need for Openess in Data Journalism". *[Github Repository](https://github.com/brianckeegan/Bechdel/blob/master/Bechdel_test.ipynb)*
+
 
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week1/2_OLS/sp2021_sta235_2_reg.html') -->
