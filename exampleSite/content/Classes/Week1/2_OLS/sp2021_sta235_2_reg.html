@@ -154,7 +154,7 @@ class: center, middle, inverse, title-slide
 .pull-left[
 - **.darkorange[Ordinary Least Squares]** is the most popular way.
 
-`$$\min_{\beta} Y_i - (\sum_{j=1}^p\beta_j X_{ij})$$`
+`$$\min_{\beta} [Y_i - (\sum_{j=1}^p\beta_j X_{ij})]^2$$`
 ]
 --
 .pull-right[
@@ -225,6 +225,7 @@ summary(lm(log(Adj_Revenue)~bechdel_test, data=bechdel))
 ## (Intercept)   17.0321     0.0808 210.9100        0
 ## bechdel_test  -0.4418     0.1079  -4.0954        0
 ```
+- `\((e^{\beta}-1)\cdot 100 \rightarrow\)` A movie that passes the Bechdel test is associated with a 36% decrease in Revenue
 &lt;br&gt;
 &lt;br&gt;
 .box-3LA.medium.sp-after-half[Negative effect of including more women?]

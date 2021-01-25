@@ -217,6 +217,12 @@ class: center, middle
 Data Science for Business Applications]
 ]
 ---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Introductions
+]
+---
 # About the instruction team
 
 .pull-left[
@@ -237,6 +243,19 @@ Data Science for Business Applications]
 ![:scale 75%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/bobdylan2.png)
 </p>
 ]
+
+---
+
+background-position: 50% 50%
+class: center, middle
+
+.box-2LA.medium.sp-after-half[Introduce yourself!]
+
+.box-5l.medium.sp-after-half[Interesting (or uninteresting) fact about yourself]
+
+--
+
+.box-7l.medium.sp-after-half[or Walk-up song?]
 
 ---
 background-position: 50% 50%
@@ -598,7 +617,7 @@ By **.darkorange[Hernán, Hsu, and Healy:]**
 .box-7tL.medium.sp-after-half[Causal Inference]
 
 ---
-# Data Science Tasks
+# Data Science tasks
 
 <br>
 
