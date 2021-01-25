@@ -52,7 +52,7 @@ This class meets online on Mondays from 12:30—2:15 PM (Section 1) or 2:30-4:15
 -	Laptop or desktop computer
 -	Modern and updated operating system (MacOS or Windows)
 -	Chrome (highly recommended), Safari, or Firefox web browser
--	Install the latest versions of `R` and `RStudio` software. These programs are free, require no registration, and will run on Macs, PCs, or Linux machines. Note that you need both programs; even though we’ll interact with RStudio rather than R directly, you still need a copy of R installed on your computer for RStudio to work.
+-	Install the latest versions of [`R`](https://www.r-project.org/) and [`RStudio`](https://rstudio.com/products/rstudio/download/) software. These programs are free, require no registration, and will run on Macs, PCs, or Linux machines. Note that you need both programs; even though we’ll interact with RStudio rather than R directly, you still need a copy of R installed on your computer for RStudio to work.
 -	5Mbps internet connection speed ([check your speed here](http://www.speedtest.net/))
 -	Ensure your microphone and webcam work properly. These will be encouraged during class and will facilitate discussions. These will also be particularly useful for getting the most out of office hours with the professor and TAs.
 
