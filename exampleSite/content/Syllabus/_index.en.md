@@ -105,7 +105,7 @@ Below you will find a general outline of the topics we’ll cover in this course
 There are two required textbooks for this course:
 
 -	Angrist, J. & J. Pischke. (2015) “Mastering Metrics”. Princeton University Press.
--	James, G., D. Witten, T. Hastie, & R. Tibshirani. (2017) “An Introduction to Statistical Learning with Applications in R”. Springer. (Available online [here](https://statlearning.com/ISLR%20Seventh%20Printing.pdf)) 
+-	James, G., D. Witten, T. Hastie, & R. Tibshirani. (2017) “An Introduction to Statistical Learning with Applications in R”. Springer. (Available online [here](https://static1.squarespace.com/static/5ff2adbe3fe4fe33db902812/t/6009dd9fa7bc363aa822d2c7/1611259312432/ISLR+Seventh+Printing.pdf)) 
 
 All lecture slides, supplemental readings, course videos, and additional material will be provided via Canvas.
 

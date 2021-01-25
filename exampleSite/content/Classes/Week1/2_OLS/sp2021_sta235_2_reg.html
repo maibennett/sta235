@@ -180,7 +180,7 @@ class: center, middle, inverse, title-slide
 .pull-left[
 - **.darkorange[Ordinary Least Squares]** is the most popular way.
 
-`$$\min_{\beta} [Y_i - (\sum_{j=1}^p\beta_j X_{ij})]^2$$`
+`$$\min_{\beta} \sum[Y_i - (\sum_{j=1}^p\beta_j X_{ij})]^2$$`
 ]
 --
 .pull-right[
@@ -229,6 +229,14 @@ class: center, middle, inverse, title-slide
 - I'm a profit-maximizing investor and want to know whether it's in my best interest to switch a male for a female character.
 
   - What is the **.darkorange[simplest model]** you would fit?
+
+
+---
+# Is it convenient for my movie to pass the Bechdel test?
+
+- I'm a profit-maximizing investor and want to know whether it's in my best interest to switch a male for a female character.
+
+  - What is the **.darkorange[simplest model]** you would fit?
 --
 
 
@@ -240,6 +248,21 @@ class: center, middle, inverse, title-slide
 ---
 # Let's analyze some models
 
+
+
+```r
+summary(lm(log(Adj_Revenue)~bechdel_test, data=bechdel))
+```
+
+```
+##              Estimate Std. Error  t value Pr(&gt;|t|)
+## (Intercept)   17.0321     0.0808 210.9100        0
+## bechdel_test  -0.4418     0.1079  -4.0954        0
+```
+
+
+---
+# Let's analyze some models
 
 
 ```r
@@ -362,6 +385,18 @@ Where:
   - `\(TSS = \sum{(y-\bar{y})^2}\)` is the total sum of squares (proportional to the variance of the data)
   
 - `\(\mathbf{R^2}\)` is non-decreasing when adding new variables.
+
+---
+# Some measures to quantify uncertainty
+
+- `\(\mathbf{R^2}\)`: Correlation between the outcome `\(\mathbf{Y}\)` and the predicted variable `\(\mathbf{\hat{Y}}\)`.
+
+`$$R^2 = 1 - \frac{RSS}{TSS}$$`
+Where:
+  - `\(RSS = \sum{(y-\hat{y})^2}\)` is the residual sum of the squares
+  - `\(TSS = \sum{(y-\bar{y})^2}\)` is the total sum of squares (proportional to the variance of the data)
+  
+- `\(\mathbf{R^2}\)` is non-decreasing when adding new variables.
 --
 `$$R^2_{adj} = 1 - \frac{(1-R^2)(n-1)}{(n-p-1)}$$`
 ---
@@ -452,6 +487,14 @@ ggplot(data = bechdel_fitted2, aes(x = .fitted, y = .std.resid)) +
 
   - Does that mean that we can get data to say **.darkorange[anything]**?
   
+
+---
+# Main takeaway points
+
+- Data can tell different stories depending on how you handle it.
+
+  - Does that mean that we can get data to say **.darkorange[anything]**?
+  
 --
 
 .box-5.medium.sp-after-half["If you torture the data long enough, it will confess to anything"]
@@ -460,7 +503,18 @@ ggplot(data = bechdel_fitted2, aes(x = .fitted, y = .std.resid)) +
 
 - Assumptions and measures matter.
 
+---
+# Main takeaway points
+
+- Data can tell different stories depending on how you handle it.
+
+  - Does that mean that we can get data to say **.darkorange[anything]**?
+  
 --
+
+.box-5.medium.sp-after-half["If you torture the data long enough, it will confess to anything"]
+
+- Assumptions and measures matter.
 
 - **.darkorange[Plot your data!]**
 
