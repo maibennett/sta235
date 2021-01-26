@@ -1,7 +1,7 @@
 ---
 title: Discussion
-weight: 15
-pre: "<b>3. </b>"
+weight: 20
+pre: "<b>4. </b>"
 chapter: true
 ---
 
