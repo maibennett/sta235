@@ -1,6 +1,6 @@
 ---
-title: Assignment 1
-weight: 15
+title: Homework 1
+weight: 20
 disableToc: true
 ---
 
