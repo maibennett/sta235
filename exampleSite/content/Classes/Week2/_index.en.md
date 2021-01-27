@@ -18,7 +18,7 @@ In this class we will continue reviewing multiple regressions, now focusing on s
 
 ## JITT
 
-Complete before Sunday Jan 31st (11:59 pm). You can complete this assignment [here](https://forms.gle/3T57btqLP3JoVEnc7)
+Complete before **Sunday Jan 31st (11:59 pm)**. You can find the assignment [here](https://forms.gle/3T57btqLP3JoVEnc7).
 
 ## Slides
 
