@@ -16,6 +16,10 @@ In this class we will continue reviewing multiple regressions, now focusing on s
 
 - Bellemare, M. (2013) ["A Rant on Estimation with Binary Dependent Variables (Technical)"](http://marcfbellemare.com/wordpress/8951)
 
+## JITT
+
+Complete before Sunday Jan 31st (11:59 pm). You can complete this assignment [here](https://forms.gle/3T57btqLP3JoVEnc7)
+
 ## Slides
 
 <!-- You can find the first slides for the class [here](https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.html):
