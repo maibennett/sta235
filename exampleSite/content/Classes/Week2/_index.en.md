@@ -4,6 +4,8 @@ weight: 20
 disableToc: true
 ---
 
+## Date: 02/01/2021
+
 ## What we will cover
 
 In this class we will continue reviewing multiple regressions, now focusing on statistical adjustment and collinearity. We will also talk about regressions with binary outcomes, including linear probability models and logistic regressions. 
