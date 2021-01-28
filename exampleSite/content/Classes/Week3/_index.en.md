@@ -16,7 +16,7 @@ In this class we will start with our causal inference chapter. We will review th
 
 - Marginal Revolution University. (2019). "Ceteris Paribus: Public vs. Private University". *Video materials from Mastering Metrics*.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/iPBV3BlV7jk?controls=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+{{< youtube iPBV3BlV7jk?controls=0 >}}
 
 ## JITT
 
