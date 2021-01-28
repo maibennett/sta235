@@ -1,0 +1,93 @@
+---
+title: "Homework 1: Regressions and Potential Outcomes"
+author: "STA 235"
+date: "Due on Feb. 15th, 12:00pm"
+output: 
+  html_document: 
+    toc: no
+  pdf_document: 
+    latex_engine: xelatex
+    toc: no
+  word_document: 
+    toc: no
+---
+
+# Task 1: How much should insurance cost?
+
+```{r setup, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(broom)
+library(modelsummary)
+
+# Load insurance data
+insurance <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework1/data/insurance.csv")
+```
+
+We have a dataset of over 1,300 people with their insurance charges and socio-demographic characteristics.
+
+- `age`: The insurer's age.
+- `sex`: Whether the insurer is male or female.
+- `bmi`: A measure of Body Mass Index, which is constructed by dividing the person's weight (in kg.) over their squared height (in cm.)
+- `children`: Number of children. 
+- `smoker`: Whether the person is a smoker or not.
+- `region`: Region in the US in which they reside.
+- `charges`: Insurance charges.
+
+## Exploratory analysis
+
+What is the relationship between charges and age? This plot shows some initial trends:
+
+```{r plot-age-charges}
+ggplot(data = insurance, 
+       aes(x = age, y = charges)) +
+  geom_point(color = "dark orange", fill = alpha("dark orange", 0.5), size = 3, pch = 21) +
+  theme_bw()
+  
+```
+
+**Question 1: Describe the relationship between age and charges based on the previous plot.**
+
+
+**Question 2: Make a new plot that colors these points by whether a person is a smoker or not. What can you tell about the relationship between age and charges?**
+
+```{r plot-age-charges-by-smoker}
+ggplot(data = insurance, 
+       aes(x = age, y = charges, fill = factor(smoker), color = factor(smoker))) +
+  geom_point(size = 3, pch = 21) +
+  theme_bw()
+```
+
+
+**Question 3: Now, show a new plot with the relationship between BMI and charges. What can you say about that relationship? Does the relationship look linear?**
+
+```{r plot-bmi-charges}
+ggplot(data = insurance, 
+       aes(x = bmi, y = charges)) +
+  geom_point(color = "purple", fill = alpha("purple", 0.5), size = 3, pch = 21) +
+  theme_bw()
+```
+
+## Let's build some models
+
+**Question 4: Using the previous information, build a regression using age, body mass index, smoker category, and sex as covariates, and charges as the dependent variable. Interpret the coefficients for this model.**
+```{r, echo=FALSE}
+#summary(lm(charges ~ age + bmi + I(bmi^2) + factor(smoker) + factor(sex), data = insurance))
+lm1 <- lm(charges ~ age + bmi + I(bmi^2) + factor(smoker) + factor(sex), data = insurance)
+
+modelsummary(list(lm1), stars = TRUE)
+```
+
+
+Finally, let's add region to the previous regression. 
+
+**Question 5: If we wanted to predict an individual's charges, which model do you think would be better and why?** 
+```{r, echo=FALSE}
+#summary(lm(charges ~ age + bmi + I(bmi^2) + factor(smoker) + factor(sex) + factor(region), data = insurance))
+
+lm2 <- lm(charges ~ age + bmi + I(bmi^2) + factor(smoker) + factor(sex) + factor(region), data = insurance)
+
+modelsummary(list(lm1, lm2),
+             coef_omit = "factor(region)", stars = TRUE)
+```
+
+#Task 2: Models with binary outcomes
