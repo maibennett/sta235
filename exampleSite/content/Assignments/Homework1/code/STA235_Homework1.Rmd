@@ -45,10 +45,10 @@ ggplot(data = insurance,
   
 ```
 
-**Question 1: Describe the relationship between age and charges based on the previous plot.**
+**Question 1.1: Describe the relationship between age and charges based on the previous plot.**
 
 
-**Question 2: Make a new plot that colors these points by whether a person is a smoker or not. What can you tell about the relationship between age and charges?**
+**Question 1.2: Make a new plot that colors these points by whether a person is a smoker or not. What can you tell about the relationship between age and charges?**
 
 ```{r plot-age-charges-by-smoker}
 ggplot(data = insurance, 
@@ -58,7 +58,7 @@ ggplot(data = insurance,
 ```
 
 
-**Question 3: Now, show a new plot with the relationship between BMI and charges. What can you say about that relationship? Does the relationship look linear?**
+**Question 1.3: Now, show a new plot with the relationship between BMI and charges. What can you say about that relationship? Does the relationship look linear?**
 
 ```{r plot-bmi-charges}
 ggplot(data = insurance, 
@@ -69,25 +69,80 @@ ggplot(data = insurance,
 
 ## Let's build some models
 
-**Question 4: Using the previous information, build a regression using age, body mass index, smoker category, and sex as covariates, and charges as the dependent variable. Interpret the coefficients for this model.**
+**Question 1.4: Using the previous information, build a regression using age, body mass index, smoker category, and sex as covariates, and charges as the dependent variable. Interpret the coefficients for this model.**
 ```{r, echo=FALSE}
 #summary(lm(charges ~ age + bmi + I(bmi^2) + factor(smoker) + factor(sex), data = insurance))
-lm1 <- lm(charges ~ age + bmi + I(bmi^2) + factor(smoker) + factor(sex), data = insurance)
+lm1.1 <- lm(charges ~ age + bmi + I(bmi^2) + factor(smoker) + factor(sex), data = insurance)
 
-modelsummary(list(lm1), stars = TRUE)
+modelsummary(list(lm1.1), stars = TRUE)
 ```
 
 
 Finally, let's add region to the previous regression. 
 
-**Question 5: If we wanted to predict an individual's charges, which model do you think would be better and why?** 
+**Question 1.5: If we wanted to predict an individual's charges, which model do you think would be better and why?** 
 ```{r, echo=FALSE}
 #summary(lm(charges ~ age + bmi + I(bmi^2) + factor(smoker) + factor(sex) + factor(region), data = insurance))
 
-lm2 <- lm(charges ~ age + bmi + I(bmi^2) + factor(smoker) + factor(sex) + factor(region), data = insurance)
+lm1.2 <- lm(charges ~ age + bmi + I(bmi^2) + factor(smoker) + factor(sex) + factor(region), data = insurance)
 
-modelsummary(list(lm1, lm2),
+modelsummary(list(lm1.1, lm1.2),
              coef_omit = "factor(region)", stars = TRUE)
 ```
 
-#Task 2: Models with binary outcomes
+
+# Task 2: Models with binary outcomes
+
+```{r setup2, warning=FALSE, message=FALSE}
+nba <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework1/data/nba.csv")
+```
+
+In this section, we will work with NBA data analyzing.
+
+- `name`: Player's name.
+- `GP`: Games played.
+- `MIN`: Minutes played.
+- `PTS`: Points per game. 
+- `FGM`: Field goals made.
+- `FGA`: Field goals attempts.
+- `FGP`: Field goals percentage.
+- `X3PM`: 3 points made.
+- `X3PA`: 3 points attempts.
+- `X3PP`: 3 points percentage.
+- `FTM`: Free throw made.
+- `FTA`: Free throw attempts.
+- `FTP`: Free throw percentage.
+- `OREB`: Offensive rebounds.
+- `DREB`: Defensive rebounds.
+- `REB`: Rebounds.
+- `AST`: Assists.
+- `STL`: Steals.
+- `BLK`: Blocks.
+- `TOV`: Turnovers.
+- `TARGET_5Yrs`: Career length in NBA $\geq$ 5 years (1) or $<$ 5 years (0).
+
+
+## Fitting some models
+The following linear probability model regresses some rookie stats (games played, average points per game, 3-point percentage, rebounds, and assists) on whether a player is still on the NBA five years later.   
+
+**Question 2.1: Interpret the coefficient for games played and 3-point percentage in this setting**
+
+```{r, echo=FALSE}
+#summary(lm(charges ~ age + bmi + I(bmi^2) + factor(smoker) + factor(sex) + factor(region), data = insurance))
+
+lm2.1 <- lm(TARGET_5Yrs ~ GP + PTS + X3PP + REB + AST, data = nba)
+
+modelsummary(list(lm2.1), stars = TRUE)
+```
+
+
+Now, fit the same model using a logistic regression.
+
+**Question 2.1: Interpret the coefficient the same coefficients for this model (games played and 3-point percentage). How do they compare?**
+```{r, echo=FALSE}
+#summary(lm(charges ~ age + bmi + I(bmi^2) + factor(smoker) + factor(sex) + factor(region), data = insurance))
+
+lm2.2 <- glm(TARGET_5Yrs ~ GP + PTS + X3PP + REB + AST, data = nba, family = binomial)
+
+modelsummary(list(lm2.1, lm2.2), stars = TRUE)
+```
