@@ -1,7 +1,7 @@
 ---
-title: "Homework 1: Regressions and Potential Outcomes"
+title: "Homework 2: Causal Inference (Part 1)"
 author: "STA 235"
-date: "Due on Feb. 15th, 12:00pm"
+date: "Due on March 1st, 12:00pm"
 output: 
   html_document:
     css: style.css 
@@ -12,7 +12,7 @@ output:
     toc: no
 ---
 
-# Task 1: How much should insurance cost?
+# Task 1: Let's run an experiment
 
 ```{r setup, warning=FALSE, message=FALSE}
 library(tidyverse)
@@ -74,7 +74,7 @@ Finally, let's add region to the previous regression.
 
 ---
 
-# Task 2: Models with binary outcomes
+# Task 2: Real-world data
 
 ```{r setup2, warning=FALSE, message=FALSE}
 library(estimatr)

@@ -20,3 +20,6 @@ Magdalena Bennett, Ph.D., Assistant Professor at the Statistics Group (IROM Depa
 
 ### Teaching Assistant
 
+Ricardo Lara, Ph.D. candidate in Petroleum Engineering
+
+- <i class="fas fa-envelope"></i> Email [rlara@utexas.edu](mailto:rlara@utexas.edu)
