@@ -1,5 +1,5 @@
 ---
-title: "STA 235 - Multiple Regression: Statistical Adjustment"
+title: "STA 235 - Binary Outcomes"
 subtitle: "Spring 2021"
 author: "McCombs School of Business, UT Austin"
 output:
@@ -217,47 +217,36 @@ style_mono_accent(
 }
 ```
 
-# Last week
+# Binary Outcomes
 
 .pull-left[
-- Quick **.darkorange[multiple regression]** review
+- **.darkorange[Binary outcome:]** Outcome that takes a discrete value of 0 or 1.
   
-- Comparing **.darkorange[effect sizes]**: Standarizing variables
-
-- **.darkorange[Uncertainty quantification]** in regression: $Adj-R^2$ and MSE.
 ]
 
 .pull-right[
 ![](https://media.giphy.com/media/hsCb46pXn9qVmS5mdC/giphy.gif)
 ]
 ---
-# Today
-
-.pull-left[
-![](https://media.giphy.com/media/3oEjHZPivwdJ0syhKE/source.gif)]
-
-.pull-right[
-- **.darkorange[Statistical adjustment in regressions]**:
-  - How do we interpret coefficients?
-  - What are those standard errors?
-  - Collinearity?
-  
-- Regression models with **.darkorange[binary outcomes]**
-
-]
+# Linear Probability Models (LPM)
 
 ---
-# But first... JITTs!
+# How to interpret an LPM?
 
-- (Almost) **.darkorange[everyone]** answered the JITT.
+---
+# Issues with an LPM?
 
-- Answers are very useful and **.darkorange[we will use them in today's class]**.
+---
+# Logistic Regression
 
-- People want **.darkorange[more plots!]**
-  
-  - *Ask and you shall receive.*
-  
-.box-4LA[Remember to ask questions!]
+---
+# How to interpret the coefficients
+
+---
+# Making things simpler?
+
+---
+# Which one?
 
 ---
 # Main takeaway points

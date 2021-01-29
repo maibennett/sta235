@@ -260,6 +260,39 @@ style_mono_accent(
 .box-4LA[Remember to ask questions!]
 
 ---
+# Statistical Adjustment
+
+
+---
+# Some data: Beer limit
+
+---
+# What variables should I use?
+
+---
+# Collinearity
+
+---
+# Does gender matter?
+
+- Should I include it?
+
+---
+# Are my standard errors ok?
+
+- "Out-of-a-can" standard errors vs. bootstrapping:
+  - Different assumptions
+  
+---
+# What should I control for?
+
+- Prediction:
+  - Overfitting
+  
+- Causality:
+  - Colliders
+
+---
 # Main takeaway points
 
 
