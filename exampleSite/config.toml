@@ -40,9 +40,3 @@ weight = 10
 name = "<i class='fas fa-fw fa-bookmark'></i> Bookmarks"
 url = "/bookmarks"
 weight = 20
-
-[[Languages.en.menu.shortcuts]]
-name = "<i class='fab fa-fw fa-github'></i> GitHub repo"
-identifier = "ds"
-url = "https://github.com/maibennett/sta235"
-weight = 30
