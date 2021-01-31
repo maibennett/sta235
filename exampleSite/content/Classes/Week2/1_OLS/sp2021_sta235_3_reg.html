@@ -29,14 +29,25 @@ class: center, middle, inverse, title-slide
 }
 &lt;/style&gt;
 
+# Quick reminders
+
+.box-2LA[sta235.netlify.app]
+
+- Slides are posted on the website before the class.
+
+- Required readings are posted in the *Classes* folder at least a week before.
+
+- Check the code for each class.
+
+---
 # Last week
 
 .pull-left[
 - Quick **.darkorange[multiple regression]** review
   
-- Comparing **.darkorange[effect sizes]**: Standarizing variables
+- Comparing **.darkorange[effect sizes]**: Standardizing variables (i.e. all `\(\hat{\beta}\)`'s in the same scale)
 
-- **.darkorange[Uncertainty quantification]** in regression: `\(Adj-R^2\)` and MSE.
+- **.darkorange[Uncertainty quantification]** in regression: Adj-R&lt;sup&gt;2&lt;/sup&gt; and RSE.
 ]
 
 .pull-right[
@@ -52,7 +63,7 @@ class: center, middle, inverse, title-slide
 - **.darkorange[Statistical adjustment in regressions]**:
   - How do we interpret coefficients?
   - What are those standard errors?
-  - Collinearity?
+  - Multicollinearity?
   
 - Regression models with **.darkorange[binary outcomes]**
 
@@ -70,6 +81,131 @@ class: center, middle, inverse, title-slide
   - *Ask and you shall receive.*
   
 .box-4LA[Remember to ask questions!]
+
+---
+# Multiple Regression
+
+.box-5[$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_p X_p + \varepsilon$$]
+
+Assumptions of the linear regression model:
+
+(i) The conditional mean of `\(Y\)` is **.darkorange[linear]** in the `\(X_j\)` variables
+
+(ii) The error terms are:
+  - normally distributed
+  - independent from each other
+  - identically distributed (i.e. constant variance)
+
+- Last two assumptions are the ones that we refer to when saying `\(\varepsilon \sim iid\)`
+---
+# How can we check these assumptions?
+
+Remember last week's Bechdel test example:
+
+
+
+```r
+ggplot(data = bechdel_fitted, aes(x = .std.resid)) + 
+  geom_density()
+```
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/bechdel_res-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# How can we check these assumptions?
+
+Remember last week's Bechdel test example:
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/bechdel5r-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# What happens if the assumptions break?
+
+.pull-left[
+![](https://media.giphy.com/media/fA1OFzprOfRjteYADG/giphy.gif)
+]
+
+.pull-right[
+- **.darkorange[Don't panic!]** There's still much to be done.
+
+- **.darkorange[Heteroskedasticity]** (non-constant variance) does not bias your estimates.
+
+- Can be fixed many times with **.darkorange[robust standard errors]**
+]
+
+---
+# What happens if the assumptions break?
+
+.pull-left[
+![](https://media.giphy.com/media/fA1OFzprOfRjteYADG/giphy.gif)
+]
+
+.pull-right[
+- **.darkorange[Don't panic!]** There's still much to be done.
+
+- **.darkorange[Heteroskedasticity]** (non-constant variance) does not bias your estimates.
+
+- Can be fixed many times with **.darkorange[robust standard errors]**:
+  
+  - Easy to implement in `R`!
+]
+
+---
+# Statistical Adjusment
+
+- Remember that an important part of our job is to **.darkorange[correctly estimate]** the `\(\beta\)` parameters:
+
+  - Point estimates
+  - Standard errors
+  
+- **.darkorange[Two ways]** to estimate standard errors:
+
+  - .darkorange[Direct estimation:] Use probability theory (e.g. `\(SE(\bar{x}) = \frac{\hat{\sigma}}{\sqrt{n}}\)`)
+  - .darkorange[Simulation:] Repeat the sampling process and estimates how much our estimate changes from one sample to the next (e.g. bootstrapping)
+
+---
+
+# Statistical Adjusment
+
+- Remember that an important part of our job is to **.darkorange[correctly estimate]** the `\(\beta\)` parameters:
+
+  - Point estimates
+  - Standard errors
+  
+- **.darkorange[Two ways]** to estimate standard errors:
+
+  - .darkorange[Direct estimation:] Use probability theory (e.g. `\(SE(\bar{x}) = \frac{\hat{\sigma}}{\sqrt{n}}\)`)
+  - .darkorange[Simulation:] Repeat the sampling process and estimates how much our estimate changes from one sample to the next (e.g. bootstrapping)
+
+.box-6tL[Important to understand R output!]
+
+---
+# Some data: Beer limit
+
+---
+# What variables should I use?
+
+---
+# Collinearity
+
+---
+# Does gender matter?
+
+- Should I include it?
+
+---
+# Are my standard errors ok?
+
+- "Out-of-a-can" standard errors vs. bootstrapping:
+  - Different assumptions
+  
+---
+# What should I control for?
+
+- Prediction:
+  - Overfitting
+  
+- Causality:
+  - Colliders
 
 ---
 # Main takeaway points
