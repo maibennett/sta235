@@ -301,6 +301,7 @@ library("tm")
 library("SnowballC")
 library(tidyverse)
 library(generics)
+library(modelsummary)
 
 rawData <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/data/bechdel.csv")
 
@@ -464,14 +465,430 @@ ggplot(data = bechdel_fitted, aes(x = .fitted, y = .std.resid)) +
 
 - The data looks like this:
 
+.center[
 ```{r message=FALSE,echo=FALSE, warning=FALSE}
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/PricesSales.csv")
+sales <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/PricesSales.csv")
 
-round(head(d),2)
+round(head(sales),2)
+```
+]
+
+---
+# Let's fit a model
+
+$$Sales_i = \beta_0 + \beta_1 p1_{i} + \beta_2 p2_i + \varepsilon_i$$
+.small[
+```{r message=FALSE,echo=TRUE, warning=FALSE}
+summary(lm(Sales ~ p1 + p2, data = sales))
+```
+]
+
+---
+# Do assumptions hold?
+
+$$\varepsilon_i \sim N(0, \sigma^2)$$
+```{r eval = FALSE}
+sales_fitted <- augment(lm(Sales ~ p1 + p2, data = sales))
+
+ggplot(data = sales_fitted, aes(x = .std.resid)) + 
+  geom_density()
+
+```
+```{r sales_res, fig.height=4, fig.width=6.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+sales_fitted <- augment(lm(Sales ~ p1 + p2, data = sales))
+
+ggplot(data = sales_fitted, aes(x = .std.resid)) + 
+  geom_density(color = "#E16462", lwd = 1.3)+
+  theme_bw()+
+  xlab("Std. Residuals") + ylab("Density") +
+  #ggplot2::annotate("text", x = 10, y = 6, label = "Adj. R2 = 0.48", size = 6, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain
+  xlim(-4,4)+
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+---
+# Do assumptions hold? (cont.)
+
+```{r sales5r, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+ggplot(data = sales_fitted, aes(x = .fitted, y = .std.resid)) + 
+  geom_point(color = "#E16462", fill = alpha("#E16462",0.4), pch=22, size = 3)+
+  geom_smooth(method = "lm", color = "dark grey", se = FALSE, lty = 2, lwd = 1.3) +
+  #geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1.3)+
+  theme_bw()+
+  xlab("Y_hat") + ylab("Residuals") +
+  #ggplot2::annotate("text", x = 10, y = 6, label = "Adj. R2 = 0.48", size = 6, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
 ```
 
 ---
-# Some data: Beer limit
+# Let's go back to our model
+
+$$Sales_i = \beta_0 + \beta_1 p1_{i} + \beta_2 p2_i + \varepsilon_i$$
+
+```{r message=FALSE,echo=FALSE, warning=FALSE}
+lm_sales <- lm(Sales ~ p1 + p2, data = sales)
+
+gm <- modelsummary::gof_map
+
+modelsummary(list(lm_sales), stars = TRUE, gof_omit = 'DF|Deviance|R2|AIC|BIC|Log.Lik.')
+
+```
+---
+# How is the prediction working?
+
+
+```{r sales_fitted, fig.height=4.5, fig.width=6.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+ggplot(data = sales_fitted, aes(x = .fitted, y = Sales)) + 
+  geom_point(color = "#900DA4", fill = alpha("#900DA4",0.4), pch=22, size = 3)+
+  geom_smooth(method = "lm", color = "dark grey", se = FALSE, lty = 2, lwd = 1.3) +
+  #geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1.3)+
+  theme_bw()+
+  xlab("Sales_hat") + ylab("Sales") +
+  #ggplot2::annotate("text", x = 10, y = 6, label = "Adj. R2 = 0.48", size = 6, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+```
+- **.darkorange[Can you guess the slope?]**
+
+---
+# What if we only had p1 and not p2?
+
+```{r eval = FALSE}
+ggplot(data = sales, aes(x = p1, y = Sales)) + 
+  geom_point() +
+  geom_smooth(method = "lm")
+
+```
+
+```{r sales_p1, fig.height=3.5, fig.width=5.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+sales_fitted_p1 <- augment(lm(Sales ~ p1, data = sales))
+
+ggplot(data = sales, aes(x = p1, y = Sales)) + 
+  geom_point(color = "#F89441", fill = alpha("#F89441",0.4), pch=22, size = 3)+
+  geom_smooth(method = "lm", color = "dark grey", se = FALSE, lty = 2, lwd = 1.3) +
+  #geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1.3)+
+  theme_bw()+
+  xlab("Sales_hat") + ylab("Sales") +
+  #ggplot2::annotate("text", x = 10, y = 6, label = "Adj. R2 = 0.48", size = 6, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+```
+- If I increase the price sales go up?
+
+---
+# What if we only had p1 and not p2?
+
+```{r eval = FALSE}
+ggplot(data = sales, aes(x = p1, y = Sales)) + 
+  geom_point() +
+  geom_smooth(method = "lm")
+
+```
+
+```{r sales_p1_2, fig.height=3.5, fig.width=5.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+sales_fitted_p1 <- augment(lm(Sales ~ p1, data = sales))
+
+ggplot(data = sales, aes(x = p1, y = Sales)) + 
+  geom_point(color = "#F89441", fill = alpha("#F89441",0.4), pch=22, size = 3)+
+  geom_smooth(method = "lm", color = "dark grey", se = FALSE, lty = 2, lwd = 1.3) +
+  #geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1.3)+
+  theme_bw()+
+  xlab("Sales_hat") + ylab("Sales") +
+  #ggplot2::annotate("text", x = 10, y = 6, label = "Adj. R2 = 0.48", size = 6, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+```
+- If I increase the price sales go up? **.darkorange[NO!]**
+
+---
+# Relationship between p1 and p2
+
+- Let's compare two different observations: Week 82 and week 99.
+
+```{r sales_p1_p2, fig.height=4.5, fig.width=8.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+library(gridExtra)
+
+g1 <- ggplot(data = sales, aes(x = p2, y = p1)) + 
+  geom_point(color = "dark grey", fill = alpha("dark grey",0.4), pch=22, size = 2.5)+
+  geom_point(data = sales[c(82,99),], aes(x = p2, y = p1),
+             color = "#900DA4", fill = alpha("#900DA4",0.6), pch=23, size = 3)+
+  theme_bw()+
+  xlab("p2") + ylab("p1") +
+  
+  ggplot2::annotate("text", x = 7.7, y = 1.5, label = "82", size = 6, colour = "#333f48", hjust=0.5,family="Fira Sans Condensed") +
+  ggplot2::annotate("text", x = 7.7, y = 8, label = "99", size = 6, colour = "#333f48", hjust=0.5,family="Fira Sans Condensed") +
+  
+  ggplot2::annotate("segment", x = 7.5, y = 1.7, xend = 7.69, yend = 2.85, size = 1, colour = "#333f48", alpha = 0.6, arrow = arrow(length = unit(0.1,"in"))) +
+  ggplot2::annotate("segment", x = 7.9, y = 7.8, xend = 7.73, yend = 5.8, size = 1, colour = "#333f48", alpha = 0.6, arrow = arrow(length = unit(0.1,"in"))) +
+  
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+g2 <- ggplot(data = sales, aes(x = p1, y = Sales)) + 
+  geom_point(color = "dark grey", fill = alpha("dark grey",0.4), pch=22, size = 3)+
+  geom_point(data = sales[c(82,99),], aes(x = p1, y = Sales),
+             color = "#900DA4", fill = alpha("#900DA4",0.4), pch=23, size = 3)+
+  theme_bw()+
+  xlab("p1") + ylab("Sales") +
+  
+  ggplot2::annotate("text", x = 2, y = 1000, label = "82", size = 6, colour = "#333f48", hjust=0.5,family="Fira Sans Condensed") +
+  ggplot2::annotate("text", x = 7.7, y = 0, label = "99", size = 6, colour = "#333f48", hjust=0.5,family="Fira Sans Condensed") +
+  
+  ggplot2::annotate("segment", x = 2.1, y = 950, xend = 2.8, yend = 690, size = 1, colour = "#333f48", alpha = 0.6, arrow = arrow(length = unit(0.1,"in"))) +
+  ggplot2::annotate("segment", x = 7.5, y = 50, xend = 5.9, yend = 380, size = 1, colour = "#333f48", alpha = 0.6, arrow = arrow(length = unit(0.1,"in"))) +
+  
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+grid.arrange(g1, g2, ncol = 2)
+
+```
+
+---
+# Relationship between p1 and p2 (cont.)
+
+- Same thing happens when looking at a set of obs where $p2 \sim$ constant.
+
+```{r sales_p1_p2_all1, fig.height=4.5, fig.width=8.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+library(gridExtra)
+
+g1 <- ggplot(data = sales, aes(x = p2, y = p1)) + 
+  geom_vline(aes(xintercept = 2),color = "dark grey", lty = 2, size = 1.5)+
+  geom_vline(aes(xintercept = 4),color = "dark grey", lty = 2, size = 1.5)+
+  geom_vline(aes(xintercept = 6),color = "dark grey", lty = 2, size = 1.5)+
+  geom_vline(aes(xintercept = 8),color = "dark grey", lty = 2, size = 1.5)+
+  geom_vline(aes(xintercept = 10),color = "dark grey", lty = 2, size = 1.5)+
+  geom_vline(aes(xintercept = 12),color = "dark grey", lty = 2, size = 1.5)+
+  
+  geom_point(data = sales[sales$p2<=2,], aes(x = p2, y = p1),
+             color = "#0D0887", fill = alpha("#0D0887",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>2 & sales$p2<=4,], aes(x = p2, y = p1),
+             color = "#5601A4", fill = alpha("#5601A4",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>4 & sales$p2<=6,], aes(x = p2, y = p1),
+             color = "#900DA4", fill = alpha("#900DA4",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>6 & sales$p2<=8,], aes(x = p2, y = p1),
+             color = "#BF3984", fill = alpha("#BF3984",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>8 & sales$p2<=10,], aes(x = p2, y = p1),
+             color = "#E16462", fill = alpha("#E16462",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>10 & sales$p2<=12,], aes(x = p2, y = p1),
+             color = "#F89441", fill = alpha("#F89441",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>12,], aes(x = p2, y = p1),
+             color = "#FCCE25", fill = alpha("#FCCE25",0.6), pch=23, size = 3)+
+  theme_bw()+
+  xlab("p2") + ylab("p1") +
+  
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+g2 <- ggplot(data = sales, aes(x = p1, y = Sales)) + 
+  #geom_point(color = "dark grey", fill = alpha("dark grey",0.4), pch=22, size = 3)+
+  geom_point(data = sales[sales$p2<=2,], aes(x = p1, y = Sales),
+             color = "#0D0887", fill = alpha("#0D0887",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>2 & sales$p2<=4,], aes(x = p1, y = Sales),
+             color = "#5601A4", fill = alpha("#5601A4",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>4 & sales$p2<=6,], aes(x = p1, y = Sales),
+             color = "#900DA4", fill = alpha("#900DA4",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>6 & sales$p2<=8,], aes(x = p1, y = Sales),
+             color = "#BF3984", fill = alpha("#BF3984",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>8 & sales$p2<=10,], aes(x = p1, y = Sales),
+             color = "#E16462", fill = alpha("#E16462",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>10 & sales$p2<=12,], aes(x = p1, y = Sales),
+             color = "#F89441", fill = alpha("#F89441",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>12,], aes(x = p1, y = Sales),
+             color = "#FCCE25", fill = alpha("#FCCE25",0.6), pch=23, size = 3)+
+  theme_bw()+
+  xlab("p1") + ylab("Sales") +
+  
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+grid.arrange(g1, ncol = 2)
+
+```
+---
+# Relationship between p1 and p2 (cont.)
+
+- Same thing happens when looking at a set of obs where $p2 \sim$ constant.
+
+```{r sales_p1_p2_all2, fig.height=4.5, fig.width=8.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+
+grid.arrange(g1, g2, ncol = 2)
+
+```
+---
+# Conclusions?
+
+
+.box-3tL[A larger p1 is associated with a larger p2, and overall, with more sales!]
+
+<br>
+
+.box-5tL[If we keep p2 constant, a larger p1 is associated with lower sales.]
+
+
+---
+# Let's look at more data: Beer limit
+
+- From the JITT assignment, we have beer data
+
+  - `nbeer`: Number of beers before getting tipsy
+  - `height` and `weight`
+  - `female`: Whether the student is female or not
 
 ---
 # What variables should I use?

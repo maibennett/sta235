@@ -5,6 +5,8 @@
     <meta charset="utf-8" />
     <meta name="author" content="McCombs School of Business, UT Austin" />
     <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/5235085b15.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -185,16 +187,181 @@ Remember last week's Bechdel test example:
 
 - The data looks like this:
 
+.center[
 
 ```
-##         p1        p2     Sales  X
-## 1 5.135670  5.204186 144.48788 NA
-## 2 3.495460  8.059732 637.24524 NA
-## 3 7.275341 11.675979 620.78693 NA
-## 4 4.662816  8.364421 549.00714 NA
-## 5 3.584537  2.150292  20.42542 NA
-## 6 5.167917 10.153037 713.00665 NA
+##     p1    p2  Sales
+## 1 5.14  5.20 144.49
+## 2 3.50  8.06 637.25
+## 3 7.28 11.68 620.79
+## 4 4.66  8.36 549.01
+## 5 3.58  2.15  20.43
+## 6 5.17 10.15 713.01
 ```
+]
+
+---
+# Let's fit a model
+
+`$$Sales_i = \beta_0 + \beta_1 p1_{i} + \beta_2 p2_i + \varepsilon_i$$`
+.small[
+
+```r
+summary(lm(Sales ~ p1 + p2, data = sales))
+```
+
+```
+## 
+## Call:
+## lm(formula = Sales ~ p1 + p2, data = sales)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -66.916 -15.663  -0.509  18.904  63.302 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  115.717      8.548   13.54   &lt;2e-16 ***
+## p1           -97.657      2.669  -36.59   &lt;2e-16 ***
+## p2           108.800      1.409   77.20   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 28.42 on 97 degrees of freedom
+## Multiple R-squared:  0.9871,	Adjusted R-squared:  0.9869 
+## F-statistic:  3717 on 2 and 97 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+---
+# Do assumptions hold?
+
+`$$\varepsilon_i \sim N(0, \sigma^2)$$`
+
+```r
+sales_fitted &lt;- augment(lm(Sales ~ p1 + p2, data = sales))
+
+ggplot(data = sales_fitted, aes(x = .std.resid)) + 
+  geom_density()
+```
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/sales_res-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Do assumptions hold? (cont.)
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/sales5r-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Let's go back to our model
+
+`$$Sales_i = \beta_0 + \beta_1 p1_{i} + \beta_2 p2_i + \varepsilon_i$$`
+
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 1 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (Intercept) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 115.717*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (8.548) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; p1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -97.657*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (2.669) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; p2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 108.800*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (1.409) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Num.Obs. &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 100 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; F &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3717.292 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="padding: 0; border:0;" colspan="100%"&gt;
+&lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+---
+# How is the prediction working?
+
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/sales_fitted-1.svg" style="display: block; margin: auto;" /&gt;
+- **.darkorange[Can you guess the slope?]**
+
+---
+# What if we only had p1 and not p2?
+
+
+```r
+ggplot(data = sales, aes(x = p1, y = Sales)) + 
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/sales_p1-1.svg" style="display: block; margin: auto;" /&gt;
+- If I increase the price sales go up?
+
+---
+# What if we only had p1 and not p2?
+
+
+```r
+ggplot(data = sales, aes(x = p1, y = Sales)) + 
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/sales_p1_2-1.svg" style="display: block; margin: auto;" /&gt;
+- If I increase the price sales go up? **.darkorange[NO!]**
+
+---
+# Relationship between p1 and p2
+
+- Let's compare two different observations: Week 82 and week 99.
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/sales_p1_p2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Relationship between p1 and p2 (cont.)
+
+- Same thing happens when looking at a set of obs where `\(p2 \sim\)` constant.
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/sales_p1_p2_all1-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Relationship between p1 and p2 (cont.)
+
+- Same thing happens when looking at a set of obs where `\(p2 \sim\)` constant.
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/sales_p1_p2_all2-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Conclusions?
+
+.box-3tL[A larger p1 is associated with a larger p2, and overall, with more sales!]
+
+.box-5tL[If we keep p2 constant, a larger p1 is associated with lower sales.]
+
 
 ---
 # Some data: Beer limit
