@@ -1091,45 +1091,187 @@ modelsummary(list(lm_w, lm_wh), stars = TRUE, gof_omit = 'DF|AIC|BIC|Log.Lik.')
 
 - What happened to the SE for `weight`? Why?
 
-.box5t[Multicolinearity]
+.box-5t[Multicolinearity]
 ]
 
 ---
-# Collinearity
+# Multicollinearity
+
+- If variable `x1` and `x2` are highly correlated, it is difficult to disentangle their effects
+  
+  - **.darkorange[Context matters!]**
+  
+---
+# Multicollinearity
+
+- If variable `x1` and `x2` are highly correlated, it is difficult to disentangle their effects
+  
+  - **.darkorange[Context matters!]**
+  
+- Limit scenario: $|Cor(x_1,x_2)| = 1$
+
+  - Cannot estimate both parameters: One is dropped!
+  
+  
+---
+# Multicollinearity
+
+- If variable `x1` and `x2` are highly correlated, it is difficult to disentangle their effects
+  
+  - **.darkorange[Context matters!]**
+  
+- Limit scenario: $|Cor(x_1,x_2)| = 1$
+
+  - Cannot estimate both parameters: One is dropped!
+  
+.box-4t[Can I add both binary variables `US_born` and `Foreign_born` to a regression?]
 
 ---
 # Does gender matter?
 
-- Should I include it?
+```{r echo=FALSE, warning=FALSE, message = FALSE}
+lm_w <- lm(nbeer ~ weight, data = beers)
+lm_wh <- lm(nbeer ~ weight + height, data = beers)
+lm_wf <- lm(nbeer ~ weight + female, data = beers)
+lm_whf <- lm(nbeer ~ weight + height + female, data = beers)
+
+gm <- modelsummary::gof_map
+
+modelsummary(list(lm_w, lm_wh,lm_wf,lm_whf), stars = TRUE, gof_omit = 'DF|AIC|BIC|Log.Lik.|F|Num.Obs.')
+
+```
 
 ---
-# Are my standard errors ok?
+# Other ways to control for variables
 
-- "Out-of-a-can" standard errors vs. bootstrapping:
-  - Different assumptions
+- **.darkorange[Interactions]**:
+
+  - E,g, The relationship between `weight` and `nbeers` is different for males and females.
   
+
+---
+# Other ways to control for variables
+
+- **.darkorange[Interactions]**:
+
+  - E,g, The relationship between `weight` and `nbeers` is different for males and females.
+  
+```{r echo=TRUE, warning=FALSE, message = FALSE}
+lm(nbeer ~ weight*female, data = beers)
+
+```
+
+- How do we interpret these results?
+
+---
+# Other ways to control for variables
+
+- **.darkorange[Other polynomial terms]**:
+
+  - E,g, The relationship between `weight` and `nbeers` is quadratic.
+
+
+---
+# Other ways to control for variables
+
+- **.darkorange[Other polynomial terms]**:
+
+  - E,g, The relationship between `weight` and `nbeers` is quadratic.
+  
+```{r echo=TRUE, warning=FALSE, message = FALSE}
+lm(nbeer ~ weight + I(weight^2), data = beers)
+
+```
+- How do we interpret these results?
+
+---
+# Other ways to control for variables
+
+- **.darkorange[Categorical variables]**:
+
+  - E,g, You want to include a factor variable for year the student is in.
+  
+---
+# Other ways to control for variables
+
+- **.darkorange[Categorical variables]**:
+
+  - E,g, You want to include a factor variable for year the student is in.
+  
+```{r echo=FALSE, warning=FALSE, message = FALSE}
+
+set.seed(100)
+beers$year = sample(c("freshmen","sophmore","junior","senior"),nrow(beers),replace = TRUE)
+
+```
+
+```{r echo=TRUE, warning=FALSE, message = FALSE}
+table(beers$year)
+
+lm(nbeer ~ weight + factor(year), data = beers)
+
+```
+
 ---
 # What should I control for?
 
-- Prediction:
-  - Overfitting
+.pull-left[
+- If your goal is **.darkorange[prediction]**:
   
-- Causality:
-  - Colliders
+.box-3[Overfitting]
+]
+---
+# What should I control for?
+
+.pull-left[
+- If your goal is **.darkorange[prediction]**:
+  
+.box-3[Overfitting]
+  
+- If your goal is **.darkorange[description]**:
+
+.box-5[Confidence Intervals]
+]
 
 ---
-# Main takeaway points
+# What should I control for?
 
+.pull-left[
+- If your goal is **.darkorange[prediction]**:
+  
+.box-3[Overfitting]
+  
+- If your goal is **.darkorange[description]**:
 
+.box-5[Confidence Intervals]
+
+- If your goal is **.darkorange[causality]**:
+
+.box-7[Bias]
+]
 
 ---
-# References
+# What should I control for?
 
-- Heiss, A. (2020). "Course: Program Evaluation for Public Service". *Slides for Regression and Inference*.
+.pull-left[
+- If your goal is **.darkorange[prediction]**:
+  
+.box-3[Overfitting]
+  
+- If your goal is **.darkorange[description]**:
 
-- James, G. et al. (2017). "Introduction to Statistical Learning with Applications in R". *Chapter 3*
+.box-5[Confidence Intervals]
 
-- Keegan, B. (2018). "The Need for Openess in Data Journalism". *[Github Repository](https://github.com/brianckeegan/Bechdel/blob/master/Bechdel_test.ipynb)*
+- If your goal is **.darkorange[causality]**:
+
+.box-7[Bias]
+]
+
+.pull-right[
+<br>
+<br>
+.box-1LA[All of them matter!]
+]
 
 
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week1/2_OLS/sp2021_sta235_2_reg.html') -->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week2/1_OLS/sp2021_sta235_3_reg.html') -->

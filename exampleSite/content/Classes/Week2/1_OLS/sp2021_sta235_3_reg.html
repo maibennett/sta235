@@ -747,48 +747,303 @@ ggcorrplot(M, method = "circle", outline.color = "white", ggtheme = ggplot2::the
 
 - What happened to the SE for `weight`? Why?
 
-.box5t[Multicolinearity]
+.box-5t[Multicolinearity]
 ]
 
 ---
-# Collinearity
+# Multicollinearity
+
+- If variable `x1` and `x2` are highly correlated, it is difficult to disentangle their effects
+  
+  - **.darkorange[Context matters!]**
+  
+---
+# Multicollinearity
+
+- If variable `x1` and `x2` are highly correlated, it is difficult to disentangle their effects
+  
+  - **.darkorange[Context matters!]**
+  
+- Limit scenario: `\(|Cor(x_1,x_2)| = 1\)`
+
+  - Cannot estimate both parameters: One is dropped!
+  
+  
+---
+# Multicollinearity
+
+- If variable `x1` and `x2` are highly correlated, it is difficult to disentangle their effects
+  
+  - **.darkorange[Context matters!]**
+  
+- Limit scenario: `\(|Cor(x_1,x_2)| = 1\)`
+
+  - Cannot estimate both parameters: One is dropped!
+  
+.box-4t[Can I add both binary variables `US_born` and `Foreign_born` to a regression?]
 
 ---
 # Does gender matter?
 
-- Should I include it?
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 1 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 2 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 3 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 4 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (Intercept) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -7.021*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -11.187 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -7.830** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -12.067 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (2.213) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (10.768) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (3.013) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (11.084) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weight &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.093*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.085*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.097*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.090*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.014) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.024) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.018) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.027) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; height &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.078 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.079 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.196) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.198) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.528 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.536 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (1.320) &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (1.333) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.479 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.481 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.481 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.482 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 Adj. &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.468 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.459 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.459 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.449 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="padding: 0; border:0;" colspan="100%"&gt;
+&lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
 
 ---
-# Are my standard errors ok?
+# Other ways to control for variables
 
-- "Out-of-a-can" standard errors vs. bootstrapping:
-  - Different assumptions
+- **.darkorange[Interactions]**:
+
+  - E,g, The relationship between `weight` and `nbeers` is different for males and females.
   
+
+---
+# Other ways to control for variables
+
+- **.darkorange[Interactions]**:
+
+  - E,g, The relationship between `weight` and `nbeers` is different for males and females.
+  
+
+```r
+lm(nbeer ~ weight*female, data = beers)
+```
+
+```
+## 
+## Call:
+## lm(formula = nbeer ~ weight * female, data = beers)
+## 
+## Coefficients:
+##   (Intercept)         weight         female  weight:female  
+##     -7.790193       0.097234       0.225748       0.002465
+```
+
+- How do we interpret these results?
+
+---
+# Other ways to control for variables
+
+- **.darkorange[Other polynomial terms]**:
+
+  - E,g, The relationship between `weight` and `nbeers` is quadratic.
+
+
+---
+# Other ways to control for variables
+
+- **.darkorange[Other polynomial terms]**:
+
+  - E,g, The relationship between `weight` and `nbeers` is quadratic.
+  
+
+```r
+lm(nbeer ~ weight + I(weight^2), data = beers)
+```
+
+```
+## 
+## Call:
+## lm(formula = nbeer ~ weight + I(weight^2), data = beers)
+## 
+## Coefficients:
+## (Intercept)       weight  I(weight^2)  
+##   0.1078784   -0.0016255    0.0003033
+```
+- How do we interpret these results?
+
+---
+# Other ways to control for variables
+
+- **.darkorange[Categorical variables]**:
+
+  - E,g, You want to include a factor variable for year the student is in.
+  
+---
+# Other ways to control for variables
+
+- **.darkorange[Categorical variables]**:
+
+  - E,g, You want to include a factor variable for year the student is in.
+  
+
+
+
+```r
+table(beers$year)
+```
+
+```
+## 
+## freshmen   junior   senior sophmore 
+##        7       14       14       15
+```
+
+```r
+lm(nbeer ~ weight + factor(year), data = beers)
+```
+
+```
+## 
+## Call:
+## lm(formula = nbeer ~ weight + factor(year), data = beers)
+## 
+## Coefficients:
+##          (Intercept)                weight    factor(year)junior  
+##             -6.85394               0.09237              -0.35244  
+##   factor(year)senior  factor(year)sophmore  
+##             -0.03144               0.07474
+```
+
 ---
 # What should I control for?
 
-- Prediction:
-  - Overfitting
+.pull-left[
+- If your goal is **.darkorange[prediction]**:
   
-- Causality:
-  - Colliders
+.box-3[Overfitting]
+]
+---
+# What should I control for?
+
+.pull-left[
+- If your goal is **.darkorange[prediction]**:
+  
+.box-3[Overfitting]
+  
+- If your goal is **.darkorange[description]**:
+
+.box-5[Confidence Intervals]
+]
 
 ---
-# Main takeaway points
+# What should I control for?
 
+.pull-left[
+- If your goal is **.darkorange[prediction]**:
+  
+.box-3[Overfitting]
+  
+- If your goal is **.darkorange[description]**:
 
+.box-5[Confidence Intervals]
+
+- If your goal is **.darkorange[causality]**:
+
+.box-7[Bias]
+]
 
 ---
-# References
+# What should I control for?
 
-- Heiss, A. (2020). "Course: Program Evaluation for Public Service". *Slides for Regression and Inference*.
+.pull-left[
+- If your goal is **.darkorange[prediction]**:
+  
+.box-3[Overfitting]
+  
+- If your goal is **.darkorange[description]**:
 
-- James, G. et al. (2017). "Introduction to Statistical Learning with Applications in R". *Chapter 3*
+.box-5[Confidence Intervals]
 
-- Keegan, B. (2018). "The Need for Openess in Data Journalism". *[Github Repository](https://github.com/brianckeegan/Bechdel/blob/master/Bechdel_test.ipynb)*
+- If your goal is **.darkorange[causality]**:
+
+.box-7[Bias]
+]
+
+.pull-right[
+&lt;br&gt;
+&lt;br&gt;
+.box-1LA[All of them matter!]
+]
 
 
-&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week1/2_OLS/sp2021_sta235_2_reg.html') --&gt;
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week2/1_OLS/sp2021_sta235_3_reg.html') --&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
