@@ -890,6 +890,12 @@ grid.arrange(g1, g2, ncol = 2)
   - `height` and `weight`
   - `female`: Whether the student is female or not
 
+```{r message=FALSE,echo=FALSE, warning=FALSE}
+sales <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/nbeer.csv")
+
+round(head(sales),2)
+```
+
 ---
 # What variables should I use?
 
