@@ -1,0 +1,180 @@
+---
+title: "Homework 2: Causal Inference - RCTs and Selection Bias"
+author: "STA 235"
+date: "Due on March 1st, 12:00pm"
+output: 
+  html_document:
+    css: style.css 
+    toc: no
+  pdf_document: 
+    latex_engine: xelatex
+    css: style.css
+    toc: no
+---
+
+# Task 1: The fundamental causal problem
+
+You are working for a company that has a member's reward program, and you want to know whether the program is effective or not. You have some 2019 data from this program, which was introduced in January 2019:
+
+```{r setup, warning=FALSE, message=FALSE}
+## data on 8622 households
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework2/data/rewards.csv")
+```
+
+The dataset has the following variables:
+
+- `user_id`: unique id for the user.
+- `signup_month`: Month (in 2019) the user signed up for the program. If =0, it means the user did not sign up.
+- `month`: Month of the year.
+- `spend`: Amount spent on the company's website.
+
+
+### Question 1.1: 
+**Create the variable `treatment` for each observation.** *Note: Remember that the unit of interest in this case is user-month!*
+
+### Question 1.2:
+**In this dataset, what would the outcome of interest be? and which covariates would you use?**. *Tip: Remember the importance of the time dimension. You can use average measures of pre and post.*
+ 
+### Question 1.3:
+**Now run the model with the previous covariates. What is the naive estimate for the effect of the rewards program on sales?**
+
+### Question 1.4:
+**Identify at least one potential problem with the causal interpretation of the previous estimate. Be specific!**
+
+---
+
+# Task 2: Two samples, one way
+
+## The Setup
+
+The [National Supported Work Demonstration (NSW)](https://www.jstor.org/stable/1806062?seq=1#metadata_info_tab_contents) was a small program targeted at disadvantaged low-wage workers. This program was ran as an experiment, which means that after workers applied to it, they were randomized either into the treatment group (training program) or the control group. The data for this small RCT is given in the dataset `sample_rct`:
+
+```{r setup2a, warning=FALSE, message=FALSE}
+sample_rct <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework2/data/nsw_dehejia_wahba_ps.csv")
+
+```
+
+Additionally, we also have data from the [Panel Study of Income Dynamics](https://amstat.tandfonline.com/doi/abs/10.1080/01621459.1999.10473858?casa_token=iOA-bIxeJFwAAAAA:X1Ugphi2-YBRwAnmkGERackdyJYQrpDmD2RZnvG4nngJdwqi1NGOPj-BB0gjmcMEc3v2lNROJAN1#.YBWz2OhKguU) in the dataset `sample_all`. In this case, these respondents did not participate in the NSW program, but we can assume they are a representative sample of workers from the same year in the US.
+
+```{r setup2b, warning=FALSE, message=FALSE}
+sample_all <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework2/data/nsw_dehejia_wahba_psid.csv")
+
+```
+
+For both samples, the variables are the following:
+
+- `data_id`: Where the data comes from.
+- `treat`: Whether the person participated in the training program or not.
+- `age`: Age (in years).
+- `education`: Years of education.
+- `black`: Whether the person is African-american (1) or not (0).
+- `hispanic`: Whether the person is Hispanic (1) or not (0).
+- `married`: Whether the person is married (1) or not (0).
+- `nodegree`: Whether the person did not finish high school (1) or not (0).
+- `re7x`: Earnings in the year 197x.
+
+---
+
+## The Effect of a Training Program
+
+First, you want to check whether the randomization was done correctly in the RCT sample:
+
+### Question 2.1:
+**Compare the covariates between the treatment and control group in your `sample_rct` data. What conclusions can you make?**
+
+### Question 2.2:
+**Using the experimental sample, estimate the effect of the NSW program. Run models both with and without covariates. How do the estimates change and why?**
+
+
+
+These results are great, but you actually want to estimate the effect of this training program on the entire working population. 
+
+### Question 2.3:
+**Create a table or plot comparing some key the characteristics of both samples, particularly focusing on the control groups. What differences can you observe?**
+
+### Question 2.4:
+**What model would you fit for a more generalizable effect? On what sample? Run the model and show your results. What is the effect that you find?**
+
+### Question 2.5:
+**If you only had the experimental sample, what would be the drawbacks of your estimate? Is there something you could do about it?**
+
+### Question 2.6:
+**Create a new data set with both samples, `sample_rct` and `sample_all`, match units in the treatment with units in the control group, and describe your matched sample. How does it compare to the original sample?**
+
+### Question 2.7:
+**Finally, compare the results of the matched sample to those of the experimental sample. Can you replicate an experimental result with this observational data? Why or why not?**
+
+---
+
+# Task 3: Breaking the assumptions
+
+## Pilot away!
+
+You are doing an internship at an ed tech firm, and they know you've taken this course. Knowing that you have expertise in Causal Inference, your boss asks you to run a small pilot to test different recommendation algorithms for their application, which is targeted at students. You start with a small sample of McCombs students (from different departments) to pilot your strategy, and randomize students into algorithm A or B. Here is the data for your pilot:
+
+```{r setup3, warning=FALSE, message=FALSE}
+
+pilot_mc <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework2/data/user_app_installed_mccombs_small.csv")
+
+```
+Where you have the following variables:
+
+- `female`: Student is female
+- `graduate`: Graduate student
+- `freshmen`: Freshmen
+- `Activity`: Phone activity from 1 (Low) to 4 (High)
+- `algorithm`: Whether the student was randomized into algorithm A or B.
+- `installed`: Whether the student installed the app or not.
+
+
+### Question 3.1
+**What is your treatment? What is your control group?**
+
+### Question 3.2
+**Given your previous answer, can you write the causal questions for this setting? What would the counterfactual be?**
+
+
+Now, you want to assess the effect of your treatment.
+
+### Question 3.3
+**Write down the model and estimate the necessary parameters. Remember to justify your choices!**
+
+---
+
+## Expanding your sample
+
+Your boss is encouraged about your preliminary results, and now asks you to run the same experiment on a bigger sample. You'll now have to randomize a much larger sample of students at McCombs! Here are those results:
+
+```{r setup4, warning=FALSE, message=FALSE}
+
+full_mc <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework2/data/user_app_installed_mccombs_large.csv")
+
+```
+
+### Question 3.4
+**Estimate the treatment effect on the new sample. How did it change compared to your pilot?**
+
+### Question 3.5
+**Plot the outcome for both groups by sample (original pilot sample and the expanded sample). What differences do you see? Is this a problem for causal identification?**
+
+---
+
+## Let's go global (UT global)
+
+To avoid interference and gain more statistical power, you decide to use the sample size as before, but now stratify by school. This means that you will only choose a small number of students from different academic units. Here's your final data:
+
+```{r setup5, warning=FALSE, message=FALSE}
+
+data_ut <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework2/data/user_app_installed_UT_large.csv")
+
+```
+
+### Question 3.6
+**Estimate the treatment effect on this new stratified sample. How did it change compared to your pilot?**
+
+### Question 3.7
+**Assuming interference is not a problem here, why are results different? Justify your answer and make appropriate plots/tables to sustain your argument.**
+
+### Question 3.8
+**Can you use some of the methods learned in class to recover a similar effect to the one observed in your pilot? How? Run the new model and show your results.**
+
