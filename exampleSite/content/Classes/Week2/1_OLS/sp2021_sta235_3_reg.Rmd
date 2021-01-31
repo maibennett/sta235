@@ -887,13 +887,13 @@ grid.arrange(g1, g2, ncol = 2)
 - From the JITT assignment, we have beer data
 
   - `nbeer`: Number of beers before getting tipsy
-  - `height` and `weight`
+  - `height`, `weight`, `age`.
   - `female`: Whether the student is female or not
 
 ```{r message=FALSE,echo=FALSE, warning=FALSE}
-sales <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/nbeer.csv")
+beer <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/beer.csv")
 
-round(head(sales),2)
+round(head(beer),2)
 ```
 
 ---
