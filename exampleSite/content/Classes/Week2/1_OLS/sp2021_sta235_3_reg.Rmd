@@ -464,10 +464,10 @@ ggplot(data = bechdel_fitted, aes(x = .fitted, y = .std.resid)) +
 
 - The data looks like this:
 
-```{r results='hide', message=FALSE,echo=FALSE, warning=FALSE}
+```{r message=FALSE,echo=FALSE, warning=FALSE}
 d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/PricesSales.csv")
 
-head(d)
+round(head(d),2)
 ```
 
 ---
