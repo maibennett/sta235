@@ -7,7 +7,6 @@ output:
     css: style.css 
     toc: no
   pdf_document: 
-    latex_engine: xelatex
     css: style.css
     toc: no
 ---
@@ -17,7 +16,7 @@ output:
 You are working for a company that has a member's reward program, and you want to know whether the program is effective or not. You have some 2019 data from this program, which was introduced in January 2019:
 
 ```{r setup, warning=FALSE, message=FALSE}
-## data on 8622 households
+
 d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework2/data/rewards.csv")
 ```
 
