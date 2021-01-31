@@ -358,16 +358,397 @@ ggplot(data = sales, aes(x = p1, y = Sales)) +
 ---
 # Conclusions?
 
+
 .box-3tL[A larger p1 is associated with a larger p2, and overall, with more sales!]
+
+&lt;br&gt;
 
 .box-5tL[If we keep p2 constant, a larger p1 is associated with lower sales.]
 
 
 ---
-# Some data: Beer limit
+# Let's look at more data: Beer limit
+
+- From the JITT assignment, we have `beers` data
+
+  - `nbeer`: Number of beers before getting tipsy
+  - `height`, `weight`, `age`
+  - `female`: Whether the student is female or not
+.center[
+
+```
+##   nbeer weight height age female
+## 1    12    192     72  26      0
+## 2    12    160     66  27      0
+## 3     5    155     65  25      0
+## 4     5    120     66  28      0
+## 5     7    150     67  28      0
+## 6    13    175     71  31      0
+```
+]
 
 ---
-# What variables should I use?
+# Is the number of beers related to height
+
+- What model would you run?
+
+---
+# Is the number of beers related to height
+
+- What model would you run?
+
+`$$nbeers_i = \beta_0 + \beta_1 \cdot height_i + \varepsilon$$`
+---
+# Is the number of beers related to height
+
+- What model would you run?
+
+`$$nbeers_i = \beta_0 + \beta_1 \cdot height_i + \varepsilon$$`
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/beers_height-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Is the number of beers related to height
+
+- What model would you run?
+
+`$$nbeers_i = \beta_0 + \beta_1 \cdot height_i + \varepsilon$$`
+.small[
+
+```r
+summary(lm(nbeer ~ height, data = beers))
+```
+
+```
+## 
+## Call:
+## lm(formula = nbeer ~ height, data = beers)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -6.164 -2.005 -0.093  1.738  9.978 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -36.9200     8.9560  -4.122 0.000148 ***
+## height        0.6430     0.1296   4.960 9.23e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.109 on 48 degrees of freedom
+## Multiple R-squared:  0.3389,	Adjusted R-squared:  0.3251 
+## F-statistic:  24.6 on 1 and 48 DF,  p-value: 9.23e-06
+```
+]
+
+---
+# Is this the explanation that I want?
+
+- Height can be a **.darkorange[proxy]** for "bigger" people.
+
+---
+# Is this the explanation that I want?
+
+- Height can be a **.darkorange[proxy]** for "bigger" people.
+
+- What do you think will happen when I control for **.darkorange[weight]**?
+
+
+---
+# Is this the explanation that I want?
+
+- Height can be a **.darkorange[proxy]** for "bigger" people.
+
+- What do you think will happen when I control for **.darkorange[weight]**?
+
+
+```r
+beers_fitted_weight &lt;- augment(lm(nbeer ~ weight, data = beers))
+```
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/beers_height_weight-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Is this the explanation that I want?
+
+- Height can be a **.darkorange[proxy]** for "bigger" people.
+
+.small[
+
+```r
+summary(lm(nbeer ~ weight + height, data = beers))
+```
+
+```
+## 
+## Call:
+## lm(formula = nbeer ~ weight + height, data = beers)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -8.5080 -2.0269  0.0652  1.5576  5.9087 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -11.18709   10.76821  -1.039 0.304167    
+## weight        0.08530    0.02381   3.582 0.000806 ***
+## height        0.07751    0.19598   0.396 0.694254    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.784 on 47 degrees of freedom
+## Multiple R-squared:  0.4807,	Adjusted R-squared:  0.4586 
+## F-statistic: 21.75 on 2 and 47 DF,  p-value: 2.056e-07
+```
+]
+
+---
+# Is this the explanation that I want?
+
+- Height can be a **.darkorange[proxy]** for "bigger" people.
+
+
+```r
+M &lt;-cor(beers)
+
+ggcorrplot(M, method = "circle", outline.color = "white", ggtheme = ggplot2::theme_bw,
+           colors = viridis(3))
+```
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/corrplot-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Let's look at the two models closer!
+
+.pull-left[
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 1 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 2 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (Intercept) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -7.021*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -11.187 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (2.213) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (10.768) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weight &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.093*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.085*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.014) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.024) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; height &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.078 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (0.196) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Num.Obs. &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 50 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 50 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.479 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.481 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 Adj. &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.468 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.459 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; F &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 44.119 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 21.750 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="padding: 0; border:0;" colspan="100%"&gt;
+&lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+]
+.pull-right[
+- Which model do you prefer?
+]
+
+---
+# Let's look at the two models closer!
+
+.pull-left[
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 1 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 2 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (Intercept) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -7.021*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -11.187 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (2.213) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (10.768) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weight &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.093*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.085*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.014) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.024) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; height &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.078 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (0.196) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Num.Obs. &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 50 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 50 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.479 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.481 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 Adj. &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.468 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.459 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; F &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 44.119 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 21.750 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="padding: 0; border:0;" colspan="100%"&gt;
+&lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+]
+.pull-right[
+- Which model do you prefer?
+
+- What happened to the SE for `weight`? Why?
+]
+
+---
+# Let's look at the two models closer!
+
+.pull-left[
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 1 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 2 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (Intercept) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -7.021*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -11.187 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (2.213) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (10.768) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weight &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.093*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.085*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.014) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.024) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; height &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.078 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (0.196) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Num.Obs. &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 50 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 50 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.479 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.481 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 Adj. &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.468 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.459 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; F &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 44.119 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 21.750 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="padding: 0; border:0;" colspan="100%"&gt;
+&lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+]
+.pull-right[
+- Which model do you prefer?
+
+- What happened to the SE for `weight`? Why?
+
+.box5t[Multicolinearity]
+]
 
 ---
 # Collinearity

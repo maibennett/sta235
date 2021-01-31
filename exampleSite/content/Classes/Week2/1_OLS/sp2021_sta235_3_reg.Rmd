@@ -302,6 +302,8 @@ library("SnowballC")
 library(tidyverse)
 library(generics)
 library(modelsummary)
+library(ggcorrplot)
+library(viridis)
 
 rawData <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/data/bechdel.csv")
 
@@ -884,20 +886,213 @@ grid.arrange(g1, g2, ncol = 2)
 ---
 # Let's look at more data: Beer limit
 
-- From the JITT assignment, we have beer data
+- From the JITT assignment, we have `beers` data
 
   - `nbeer`: Number of beers before getting tipsy
-  - `height`, `weight`, `age`.
+  - `height`, `weight`, `age`
   - `female`: Whether the student is female or not
-
+.center[
 ```{r message=FALSE,echo=FALSE, warning=FALSE}
-beer <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/beer.csv")
+beers <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/beer.csv")
 
-round(head(beer),2)
+round(head(beers),2)
 ```
+]
 
 ---
-# What variables should I use?
+# Is the number of beers related to height
+
+- What model would you run?
+
+---
+# Is the number of beers related to height
+
+- What model would you run?
+
+$$nbeers_i = \beta_0 + \beta_1 \cdot height_i + \varepsilon$$
+---
+# Is the number of beers related to height
+
+- What model would you run?
+
+$$nbeers_i = \beta_0 + \beta_1 \cdot height_i + \varepsilon$$
+
+```{r beers_height, fig.height=4, fig.width=4.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+ggplot(data = beers, aes(x = height, y = nbeer)) + 
+  geom_point(color = "#F89441", fill = alpha("#F89441",0.4), pch=22, size = 3)+
+  geom_smooth(method = "lm", color = "dark grey", se = FALSE, lty = 2, lwd = 1.3) +
+  #geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1.3)+
+  theme_bw()+
+  xlab("height") + ylab("nbeer") +
+  #ggplot2::annotate("text", x = 10, y = 6, label = "Adj. R2 = 0.48", size = 6, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+
+---
+# Is the number of beers related to height
+
+- What model would you run?
+
+$$nbeers_i = \beta_0 + \beta_1 \cdot height_i + \varepsilon$$
+.small[
+```{r message=FALSE,echo=TRUE, warning=FALSE}
+summary(lm(nbeer ~ height, data = beers))
+```
+]
+
+---
+# Is this the explanation that I want?
+
+- Height can be a **.darkorange[proxy]** for "bigger" people.
+
+---
+# Is this the explanation that I want?
+
+- Height can be a **.darkorange[proxy]** for "bigger" people.
+
+- What do you think will happen when I control for **.darkorange[weight]**?
+
+
+---
+# Is this the explanation that I want?
+
+- Height can be a **.darkorange[proxy]** for "bigger" people.
+
+- What do you think will happen when I control for **.darkorange[weight]**?
+
+```{r echo=TRUE, results='hide', warning=FALSE, message = FALSE}
+beers_fitted_weight <- augment(lm(nbeer ~ weight, data = beers))
+```
+
+```{r beers_height_weight, fig.height=4, fig.width=4.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+beers_fitted_weight <- augment(lm(nbeer ~ weight, data = beers))
+beers_fitted_weight$height <- beers$height
+
+ggplot(data = beers_fitted_weight, aes(x = height, y = .resid)) + 
+  geom_point(color = "#F89441", fill = alpha("#F89441",0.4), pch=22, size = 3)+
+  geom_smooth(method = "lm", color = "dark grey", se = FALSE, lty = 2, lwd = 1.3) +
+  #geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1.3)+
+  theme_bw()+
+  xlab("height") + ylab("resid(nbeer|weight)") +
+  #ggplot2::annotate("text", x = 10, y = 6, label = "Adj. R2 = 0.48", size = 6, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+---
+# Is this the explanation that I want?
+
+- Height can be a **.darkorange[proxy]** for "bigger" people.
+
+.small[
+```{r echo=TRUE, warning=FALSE, message = FALSE}
+summary(lm(nbeer ~ weight + height, data = beers))
+```
+]
+
+---
+# Is this the explanation that I want?
+
+- Height can be a **.darkorange[proxy]** for "bigger" people.
+
+```{r corrplot, fig.height=3.8, fig.width=4.3, fig.align='center', dev='svg', echo=TRUE, warning=FALSE, message = FALSE}
+M <-cor(beers)
+
+ggcorrplot(M, method = "circle", outline.color = "white", ggtheme = ggplot2::theme_bw,
+           colors = viridis(3))
+
+```
+---
+# Let's look at the two models closer!
+
+.pull-left[
+```{r echo=FALSE, warning=FALSE, message = FALSE}
+lm_w <- lm(nbeer ~ weight, data = beers)
+lm_wh <- lm(nbeer ~ weight + height, data = beers)
+
+gm <- modelsummary::gof_map
+
+modelsummary(list(lm_w, lm_wh), stars = TRUE, gof_omit = 'DF|AIC|BIC|Log.Lik.')
+
+```
+]
+.pull-right[
+- Which model do you prefer?
+]
+
+---
+# Let's look at the two models closer!
+
+.pull-left[
+```{r echo=FALSE, warning=FALSE, message = FALSE}
+lm_w <- lm(nbeer ~ weight, data = beers)
+lm_wh <- lm(nbeer ~ weight + height, data = beers)
+
+gm <- modelsummary::gof_map
+
+modelsummary(list(lm_w, lm_wh), stars = TRUE, gof_omit = 'DF|AIC|BIC|Log.Lik.')
+
+```
+]
+.pull-right[
+- Which model do you prefer?
+
+- What happened to the SE for `weight`? Why?
+]
+
+---
+# Let's look at the two models closer!
+
+.pull-left[
+```{r echo=FALSE, warning=FALSE, message = FALSE}
+lm_w <- lm(nbeer ~ weight, data = beers)
+lm_wh <- lm(nbeer ~ weight + height, data = beers)
+
+gm <- modelsummary::gof_map
+
+modelsummary(list(lm_w, lm_wh), stars = TRUE, gof_omit = 'DF|AIC|BIC|Log.Lik.')
+
+```
+]
+.pull-right[
+- Which model do you prefer?
+
+- What happened to the SE for `weight`? Why?
+
+.box5t[Multicolinearity]
+]
 
 ---
 # Collinearity
