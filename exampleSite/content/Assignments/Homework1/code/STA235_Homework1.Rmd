@@ -112,19 +112,19 @@ In this section, we will work with NBA data analyzing different players' statist
 The following linear probability model regresses some rookie stats (games played, average points per game, 3-point percentage, rebounds, and assists) on whether a player is still on the NBA five years later.   
 
 ### Question 2.1: 
-**Interpret the coefficient for games played and 3-point percentage in this setting**
+**Interpret the coefficient for games played and 3-point percentage in this setting (SE are in parenthesis)**
 
 ```{r, echo=FALSE}
 lm2.1 <- estimatr::lm_robust(TARGET_5Yrs ~ GP + PTS + X3PP + REB + AST, data = nba)
 
-modelsummary(list(Target_5Yrs = lm2.1), stars = TRUE)
+modelsummary(list(Target_5Yrs = lm2.1), stars = TRUE, gof_omit = 'DF|AIC|BIC|Log.Lik.|F')
 ```
 
 
 Now, fit the same model using a logistic regression.
 
 ### Question 2.2: 
-**Interpret the same coefficients for this model (games played and 3-point percentage). How do they compare?**
+**Interpret the same coefficients for this model (games played and 3-point percentage) in your logistic regression. How do they compare to the linear probability model?**
 
 
 ---
@@ -154,22 +154,24 @@ rookies <- data.frame(Name = c("Smith Roberts","Tyler Stevens"),
 
 Let's go back to the insurance data. Imagine that you now have also data for people that are uninsured:
 
-```{r, echo=FALSE}
+```{r, echo=TRUE}
 # Load all insurance data
 insurance_all <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework1/data/insurance_all.csv")
 
 ```
 
 ### Question 3.1: 
-**What is the relationship between being insured and BMI? and what about smoking? Draw some figures! Comment on your results.**
+**What is the relationship between being insured and BMI? and what about smoking? Draw some figures and fit some simple models! Comment on your results.**
 
+
+---
 
 We are interested in a problem called "Moral Hazard", which refers to the idea that people tend to take more risks after they get insurance compared to those that are uninsured or even compared to their previous behavior (e.g. drive faster, take worse care of their health, etc.). A colleague says that they know how to identify it, and shows you the following results:
 
 ```{r, echo=FALSE}
 lm3.1 <- lm(bmi ~ insured + factor(smoker) + age + factor(sex) + factor(region), data = insurance_all)
 
-modelsummary(list(BMI = lm3.1), stars = TRUE)
+modelsummary(list(BMI = lm3.1), stars = TRUE, gof_omit = 'DF|AIC|BIC|Log.Lik.|F')
 ```
 
 ### Question 3.2: 

@@ -706,7 +706,7 @@ nba &lt;- read.csv(&quot;https://raw.githubusercontent.com/maibennett/sta235/mai
 <p>The following linear probability model regresses some rookie stats (games played, average points per game, 3-point percentage, rebounds, and assists) on whether a player is still on the NBA five years later.</p>
 <div id="question-2.1" class="section level3">
 <h3>Question 2.1:</h3>
-<p><strong>Interpret the coefficient for games played and 3-point percentage in this setting</strong></p>
+<p><strong>Interpret the coefficient for games played and 3-point percentage in this setting (SE are in parenthesis)</strong></p>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -853,7 +853,7 @@ HC2
 </div>
 <div id="question-2.2" class="section level3">
 <h3>Question 2.2:</h3>
-<p><strong>Interpret the same coefficients for this model (games played and 3-point percentage). How do they compare?</strong></p>
+<p><strong>Interpret the same coefficients for this model (games played and 3-point percentage) in your logistic regression. How do they compare to the linear probability model?</strong></p>
 <hr />
 </div>
 </div>
@@ -876,9 +876,12 @@ HC2
 <div id="task-3-introduction-to-causal-inference" class="section level1">
 <h1>Task 3: Introduction to Causal Inference</h1>
 <p>Let’s go back to the insurance data. Imagine that you now have also data for people that are uninsured:</p>
+<pre class="r"><code># Load all insurance data
+insurance_all &lt;- read.csv(&quot;https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework1/data/insurance_all.csv&quot;)</code></pre>
 <div id="question-3.1" class="section level3">
 <h3>Question 3.1:</h3>
-<p><strong>What is the relationship between being insured and BMI? and what about smoking? Draw some figures! Comment on your results.</strong></p>
+<p><strong>What is the relationship between being insured and BMI? and what about smoking? Draw some figures and fit some simple models! Comment on your results.</strong></p>
+<hr />
 <p>We are interested in a problem called “Moral Hazard”, which refers to the idea that people tend to take more risks after they get insurance compared to those that are uninsured or even compared to their previous behavior (e.g. drive faster, take worse care of their health, etc.). A colleague says that they know how to identify it, and shows you the following results:</p>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1033,38 +1036,6 @@ R2 Adj.
 </td>
 <td style="text-align:center;">
 0.109
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-AIC
-</td>
-<td style="text-align:center;">
-15010.5
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-BIC
-</td>
-<td style="text-align:center;">
-15062.3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Log.Lik.
-</td>
-<td style="text-align:center;">
--7496.253
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-F
-</td>
-<td style="text-align:center;">
-41.764
 </td>
 </tr>
 </tbody>
