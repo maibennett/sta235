@@ -1189,7 +1189,7 @@ ggplot(data = d2, aes(x="",y=as.numeric(value),fill=variables)) +
 
 - **.darkorange[Interactions]**:
 
-  - E,g, The relationship between `weight` and `nbeers` is different for males and females.
+  - E.g. The relationship between `weight` and `nbeers` is different for males and females.
   
 
 ---
