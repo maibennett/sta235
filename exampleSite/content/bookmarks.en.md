@@ -17,5 +17,5 @@ For those that want some R refresher, these resources can be useful:
 
 ## Multiple Regression
 
-- [Regression Models with Multiple Regressors](https://www.econometrics-with-r.org/6-rmwmr.html) by C. Hanck et al. (2020), from their book *Introduction to Econometric with R*
+- [Regression Models with Multiple Regressors](https://www.econometrics-with-r.org/6-rmwmr.html) by C. Hanck et al. (2020), from their book *Introduction to Econometrics with R*
 	- It also includes some R resurces!
