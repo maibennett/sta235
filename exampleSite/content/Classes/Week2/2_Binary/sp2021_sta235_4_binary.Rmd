@@ -595,34 +595,41 @@ summary(glm(deny ~ pirat + factor(afam), family = binomial(link = "logit"),
 
 - **.darkorange[No easy way!]**
 
-  - Coefficients in the output are **.darkorange[log odds ratio]**
+  - An **.darkorange[odd]** is the probability of success over probability of failure: $\frac{p}{1-p}$
+
+  - An **.darkorange[odds ratio]** is the odds for scenario 1 over the odds for scenario 2: $\frac{p_1}{1-p_1}\cdot \frac{1-p_2}{p_2}$
   
-$$\log(\frac{p}{1-p}) = \beta_0 + \beta_1 X_1 + ... + \beta_p X_p$$
 ---
 # How to interpret the coefficients? (cont.)
 
 - **.darkorange[No easy way!]**
 
-  - Coefficients in the output are **.darkorange[log odds ratio]**
+  - An **.darkorange[odd]** is the probability of success over probability of failure: $\frac{p}{1-p}$
+
+  - An **.darkorange[odds ratio]** is the odds for scenario 1 over the odds for scenario 2: $\frac{p_1}{1-p_1}\cdot \frac{1-p_2}{p_2}$
+  
+  - Coefficients in the output are **.darkorange[log odds ratio]**:
   
 $$\log(\frac{p}{1-p}) = \beta_0 + \beta_1 X_1 + ... + \beta_p X_p$$
-- With a little bit of algebra, you can solve for $p$:
-$$p = \frac{\exp(\beta_0 + \beta_1 X_1 + ... + \beta_p X_p)}{1+\exp(\beta_0 + \beta_1 X_1 + ... + \beta_p X_p)}$$
+- $(\exp(\beta_1)-1)\cdot 100\%$ is the expected increase in the odds of $Y=1$ for a one unit increase of $X_1$.
+
 ---
 # How to interpret the coefficients? (cont.)
 
-- **.darkorange[No easy way!]**
+- Let's go back to our example:
+.small[
+```{r echo=TRUE, warning=FALSE, message = FALSE}
+glm(deny ~ pirat + factor(afam), family = binomial(link = "logit"),
+              data = hmda)
+```
+]
 
-  - Coefficients in the output are **.darkorange[log odds ratio]**
-  
-$$\log(\frac{p}{1-p}) = \beta_0 + \beta_1 X_1 + ... + \beta_p X_p$$
-- With a little bit of algebra, you can solve for $p$:
-$$p = \frac{\exp(\beta_0 + \beta_1 X_1 + ... + \beta_p X_p)}{1+\exp(\beta_0 + \beta_1 X_1 + ... + \beta_p X_p)}$$
-
-- **.darkorange[Differences are not constant for across values of X<sub>j</sub>]**
+- $(\exp(1.27)-1)\cdot 100\% = 257\%$ more likely to be denied a mortgage if you are African American, holding payments to income ratio constant.
 
 ---
 # How to interpret the coefficients? (cont.)
+
+- Let's look at **.darkorange[probabilities]**
 
 - E.g. Choose coefficient of interest, and fix the other variables to their mean or mode:
 
@@ -641,6 +648,8 @@ predictions_afam
 
 ---
 # How to interpret the coefficients? (cont.)
+
+- Let's look at **.darkorange[probabilities]**
 
 - E.g. Choose coefficient of interest, and fix the other variables to their mean or mode:
 
