@@ -741,4 +741,4 @@ diff(predictions_afam)
 - James, G. et al. (2017). "Introduction to Statistical Learning with Applications in R". *Chapter 4.3*
 
 
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week1/2_OLS/sp2021_sta235_2_reg.html') -->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week2/2_Binary/sp2021_sta235_4_binary.html') -->
