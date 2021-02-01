@@ -24,10 +24,16 @@ Complete before **Sunday Jan 31st (11:59 pm)**. You can find the assignment [her
 
 ## Slides
 
-<!-- You can find the first slides for the class [here](https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.html):
+You can find the first slides for the class [here](https://sta235.netlify.app/Classes/Week2/1_OLS/sp2021_sta235_3_reg.html):
 
-{{< slides src="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.html" >}} -->
+{{< slides src="https://sta235.netlify.app/Classes/Week2/1_OLS/sp2021_sta235_3_reg.html" >}}
+
+<br>
+
+And for the second part [here](https://sta235.netlify.app/Classes/Week2/2_Binary/sp2021_sta235_4_binary.html):
+
+{{< slides src="https://sta235.netlify.app/Classes/Week2/2_Binary/sp2021_sta235_4_binary.html" >}} 
 
 ## Code
 
-<!-- [Here](https://github.com/maibennett/sta235/blob/main/exampleSite/content/Classes/Week1/2_OLS/code/sp2021_sta235_2_reg.R) is the R code we will review in class, with some additional data and questions. -->
+[Here](https://github.com/maibennett/sta235/blob/main/exampleSite/content/Classes/Week2/code/sp2021_sta235_3_reg_binary.R) is the R code we will review in class. Go ahead and play with this!
