@@ -1091,7 +1091,7 @@ modelsummary(list(lm_w, lm_wh), stars = TRUE, gof_omit = 'DF|AIC|BIC|Log.Lik.')
 
 - What happened to the SE for `weight`? Why?
 
-.box-5t[Multicolinearity]
+.box-5t[Multicollinearity]
 ]
 
 ---
@@ -1138,6 +1138,49 @@ lm_whf <- lm(nbeer ~ weight + height + female, data = beers)
 gm <- modelsummary::gof_map
 
 modelsummary(list(lm_w, lm_wh,lm_wf,lm_whf), stars = TRUE, gof_omit = 'DF|AIC|BIC|Log.Lik.|F|Num.Obs.')
+
+```
+
+---
+# Some of your answers in the JITT Assingment
+
+```{r pie1, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/jitt1.csv")
+
+
+d$variables = factor(d$variables)
+
+d2 = as.data.frame(cbind(table(d$variables),rownames(table(d$variables))))
+names(d2) = c("value","variables")
+
+d2$variables = factor(d2$variables, levels = c("w+g","h+w+g","other"))
+
+cols = c("#5601A4","#900DA4","#FCCE25")
+
+ggplot(data = d2, aes(x="",y=as.numeric(value),fill=variables)) + 
+  geom_bar(lwd=1.5, stat="identity", color="white") +
+  coord_polar("y",start = 0)+
+  scale_fill_manual(values=cols) + 
+  #scale_x_discrete(name="x", breaks=seq(1,10,1), labels = c("1\nVery uncomfortable","2","3","4","5","6","7","8","9","10\nSuper comfortable"), limits = c(1,2,3,4,5,6,7,8,9,10)) +
+  theme_void()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  #ggtitle("How comfortable are you with R?")+
+  #ylim(0,5)+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_blank())+
+  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank(),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position="right",
+        legend.title = element_text(size=15),
+        legend.text = element_text(size=12),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
 
 ```
 

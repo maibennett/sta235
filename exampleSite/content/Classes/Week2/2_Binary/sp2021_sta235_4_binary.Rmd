@@ -677,6 +677,32 @@ diff(predictions_afam)
 ]
 
 ---
+# Wrapping things up: Which one did you choose?
+
+<br>
+<br>
+```{r echo=FALSE, warning=FALSE, results = 'asis'}
+
+library(kableExtra)
+
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/jitt1.csv")
+
+d$LPM1 = factor(d$LPM1)
+d$LPM2 = factor(d$LPM2)
+
+tab <- cbind(c("LPM for explanation","no","yes"),c("no","10","9"),c("yes","4","3"))
+
+
+kable(tab, booktabs = TRUE) %>%
+  add_header_above(c(" " = 1,"LPM for prediction" = 2)) %>% 
+  kable_styling(full_width = FALSE) %>%
+  column_spec(1, bold = TRUE, border_right = TRUE) %>%
+  row_spec(1, bold = TRUE)
+
+
+```
+
+---
 # Wrapping things up: Which one do we choose? (cont.)
 
 .pull-left[
