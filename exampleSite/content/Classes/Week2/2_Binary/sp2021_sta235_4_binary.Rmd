@@ -296,7 +296,7 @@ data("HMDA")
 
 hmda <- data.frame(HMDA)
 
-head(HMDA)
+head(hmda)
 
 ```
 ]
