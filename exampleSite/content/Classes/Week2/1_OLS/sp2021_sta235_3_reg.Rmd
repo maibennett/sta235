@@ -1142,7 +1142,7 @@ modelsummary(list(lm_w, lm_wh,lm_wf,lm_whf), stars = TRUE, gof_omit = 'DF|AIC|BI
 ```
 
 ---
-# Some of your answers in the JITT Assingment
+# Some of your answers in the JITT Assignment
 
 ```{r pie1, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
 

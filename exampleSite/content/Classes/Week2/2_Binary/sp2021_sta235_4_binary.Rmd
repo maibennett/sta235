@@ -766,5 +766,8 @@ kable(tab, booktabs = TRUE) %>%
 
 - James, G. et al. (2017). "Introduction to Statistical Learning with Applications in R". *Chapter 4.3*
 
+- Grace-Martin, K. (2018). “Why logistic regression for binary responses?"
+
+- Bellemare, M. (2013) “A Rant on Estimation with Binary Dependent Variables (Technical)"
 
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week2/2_Binary/sp2021_sta235_4_binary.html') -->
