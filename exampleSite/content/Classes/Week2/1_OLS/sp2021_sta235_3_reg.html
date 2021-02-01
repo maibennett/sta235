@@ -341,7 +341,13 @@ ggplot(data = sales, aes(x = p1, y = Sales)) +
 
 - Let's compare two different observations: Week 82 and week 99.
 
-&lt;img src="sp2021_sta235_3_reg_files/figure-html/sales_p1_p2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/sales_p1_p2_a-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Relationship between p1 and p2
+
+- Let's compare two different observations: Week 82 and week 99.
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/sales_p1_p2_b-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Relationship between p1 and p2 (cont.)
@@ -397,7 +403,7 @@ ggplot(data = sales, aes(x = p1, y = Sales)) +
 
 - What model would you run?
 
-`$$nbeers_i = \beta_0 + \beta_1 \cdot height_i + \varepsilon$$`
+`$$nbeers_i = \beta_0 + \beta_1 \cdot height_i + \varepsilon_i$$`
 ---
 # Is the number of beers related to height
 
@@ -893,7 +899,7 @@ ggcorrplot(M, method = "circle", outline.color = "white", ggtheme = ggplot2::the
 
 - **.darkorange[Interactions]**:
 
-  - E,g, The relationship between `weight` and `nbeers` is different for males and females.
+  - E.g. The relationship between `weight` and `nbeers` is different for males and females.
   
 
 ```r
@@ -942,6 +948,30 @@ lm(nbeer ~ weight + I(weight^2), data = beers)
 ##   0.1078784   -0.0016255    0.0003033
 ```
 - How do we interpret these results?
+
+---
+# Other ways to control for variables
+
+- **.darkorange[Other polynomial terms]**:
+
+  - E,g, The relationship between `weight` and `nbeers` is quadratic.
+  
+
+```r
+lm(nbeer ~ weight + I(weight^2), data = beers)
+```
+
+```
+## 
+## Call:
+## lm(formula = nbeer ~ weight + I(weight^2), data = beers)
+## 
+## Coefficients:
+## (Intercept)       weight  I(weight^2)  
+##   0.1078784   -0.0016255    0.0003033
+```
+- How do we interpret these results?
+`$$\frac{\partial Y_{beers}}{\partial X_w} = \beta_1 + 2\cdot\beta_2 X_w$$`
 
 ---
 # Other ways to control for variables
