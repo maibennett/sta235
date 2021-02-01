@@ -690,7 +690,7 @@ d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleS
 d$LPM1 = factor(d$LPM1)
 d$LPM2 = factor(d$LPM2)
 
-tab <- cbind(c("LPM for explanation","no","yes"),c("no","10","9"),c("yes","4","3"))
+tab <- cbind(c("LPM for explanation","no","yes"),c("no","11","11"),c("yes","4","3"))
 
 
 kable(tab, booktabs = TRUE) %>%

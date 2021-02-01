@@ -1154,9 +1154,9 @@ d$variables = factor(d$variables)
 d2 = as.data.frame(cbind(table(d$variables),rownames(table(d$variables))))
 names(d2) = c("value","variables")
 
-d2$variables = factor(d2$variables, levels = c("w+g","h+w+g","other"))
+d2$variables = factor(d2$variables, levels = c("h+w+g","h+w","w+g","other"))
 
-cols = c("#5601A4","#900DA4","#FCCE25")
+cols = c("#5601A4","#900DA4","#E16462","#FCCE25")
 
 ggplot(data = d2, aes(x="",y=as.numeric(value),fill=variables)) + 
   geom_bar(lwd=1.5, stat="identity", color="white") +
