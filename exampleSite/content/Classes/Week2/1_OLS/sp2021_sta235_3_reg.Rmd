@@ -523,6 +523,7 @@ ggplot(data = sales_fitted, aes(x = .std.resid)) +
         legend.background = element_rect(fill="white",colour ="white"),
         title = element_text(size=14))
 ```
+
 ---
 # Do assumptions hold? (cont.)
 

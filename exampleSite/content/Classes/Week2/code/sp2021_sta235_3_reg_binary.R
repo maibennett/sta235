@@ -125,6 +125,14 @@ table(beers$year)
 
 summary(lm(nbeer ~ weight + factor(year), data = beers)) # Which one is the base category?
 
+# Is there a difference between the association between weight and nbeers for males and females?
+# Let's look at a plot!
+
+ggplot(data = beers, aes(x = weight, y = nbeer, fill = factor(female), color = factor(female))) + # Include the grouping variable as a factor.
+  geom_point(pch=22, size = 3)+
+  geom_smooth(method = "lm", se = FALSE, lty = 2, lwd = 1.3) +
+  theme_bw()+
+  xlab("weight") + ylab("nbeer")
 
 ####### Binary outcomes
 
