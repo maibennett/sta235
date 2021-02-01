@@ -690,7 +690,7 @@ d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleS
 d$LPM1 = factor(d$LPM1)
 d$LPM2 = factor(d$LPM2)
 
-tab <- cbind(c("LPM for explanation","no","yes"),c("no","11","11"),c("yes","4","3"))
+tab <- cbind(c("LPM for explanation","no","yes"),c("no","12","12"),c("yes","4","5"))
 
 
 kable(tab, booktabs = TRUE) %>%
@@ -714,7 +714,7 @@ kable(tab, booktabs = TRUE) %>%
 <br>
 .box-3t[Cons:
 - Cannot be used for prediction
-- Robust SE]]
+- Heteroskedasticity]]
 ]
 .pull-right[
 .box-6[Logit]
@@ -739,7 +739,7 @@ kable(tab, booktabs = TRUE) %>%
 .pull-right[
 <br>
 <br>
-- LMP and Logistic Regression can **.darkorange[both be useful]** depending on the context.
+- LPM and Logistic Regression can **.darkorange[both be useful]** depending on the context.
 
 - **.darkorange[Be careful]** with the interpretation!
 
