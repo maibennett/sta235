@@ -267,7 +267,7 @@ style_mono_accent(
 
 - $\hat{\beta}$'s interpreted as **.darkorange[change in probability]**
 
-$$E[Y|X_1,..., X_P] = Pr(Y = 1|X_1,...,X_p)\cdot 0 + Pr(Y = 1|X_1,...,X_p)\cdot 1$$
+$$E[Y|X_1,..., X_P] = Pr(Y = 0|X_1,...,X_p)\cdot 0 + Pr(Y = 1|X_1,...,X_p)\cdot 1$$
 $$= Pr(Y = 1|X_1,...,X_p)$$
 
 ---
@@ -275,7 +275,7 @@ $$= Pr(Y = 1|X_1,...,X_p)$$
 
 - $\hat{\beta}$'s interpreted as **.darkorange[change in probability]**
 
-$$E[Y|X_1,..., X_P] = Pr(Y = 1|X_1,...,X_p)\cdot 0 + Pr(Y = 1|X_1,...,X_p)\cdot 1$$
+$$E[Y|X_1,..., X_P] = Pr(Y = 0|X_1,...,X_p)\cdot 0 + Pr(Y = 1|X_1,...,X_p)\cdot 1$$
 $$= Pr(Y = 1|X_1,...,X_p)$$
 - Example:
 

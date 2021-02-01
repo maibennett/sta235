@@ -1271,6 +1271,19 @@ set.seed(100)
 beers$year = sample(c("freshmen","sophmore","junior","senior"),nrow(beers),replace = TRUE)
 
 ```
+---
+# Other ways to control for variables
+
+- **.darkorange[Categorical variables]**:
+
+  - E,g, You want to include a factor variable for year the student is in.
+  
+```{r echo=FALSE, warning=FALSE, message = FALSE}
+
+set.seed(100)
+beers$year = sample(c("freshmen","sophmore","junior","senior"),nrow(beers),replace = TRUE)
+
+```
 
 ```{r echo=TRUE, warning=FALSE, message = FALSE}
 table(beers$year)
