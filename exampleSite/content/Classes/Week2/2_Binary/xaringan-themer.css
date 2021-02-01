@@ -428,9 +428,9 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   overflow: hidden;
   padding: 0.4em 0.4em;
   font-weight: 600;
-  font-size: 31px;
+  font-size: 27px;
   display: table;
-  text-align: center;
+  text-align: left;
 }
 .box-7tL, .box-6tL, .box-5tL, .box-4tL, .box-3tL, .box-2tL, .box-1tL {
   margin: 0em auto;
