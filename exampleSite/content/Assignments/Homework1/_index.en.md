@@ -11,7 +11,7 @@ This homework will cover topics on multiple regression, regressions with binary 
 ### Submission
 
 {{% notice warning %}}
-Due on Monday February 15th, by 12:00pm (noon)
+Due on **Monday February 15th, by 12:00pm (noon)**
 {{% /notice %}}
 
 Remember that you need to submit both a **written assignment** with your answers (pdfs only) and your **R code script**. Your assignment will be considered incomplete if you don't hand in both files.
