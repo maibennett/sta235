@@ -8,9 +8,8 @@ disableToc: true
 
 This homework will cover topics on multiple regression, regressions with binary outcomes, and the introduction to causal inference.
 
-<!-- ## Download files
+## Download files
 
-You can download the first homework assignment [here](https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.html):
+You can view the first homework assignment on a different tab {{% button href="https://sta235.netlify.app/Assignments/Homework1/code/STA235_Homework1.html" %}}here{{% /button %}}:
 
-{{< slides src="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.html" >}}
- -->
+{{< slides src="https://sta235.netlify.app/Assignments/Homework1/code/STA235_Homework1.html" >}}
