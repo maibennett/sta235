@@ -20,7 +20,7 @@ In this class we will start with our causal inference chapter. We will review th
 
 ## JITT
 
-Complete before **Sunday Feb 7th (11:59 pm)**. Assignment will be posted soon.
+Complete before **Sunday Feb 7th (11:59 pm)**. You can find the assignment [here](https://forms.gle/TMdFqFJ7pfoFwigP7).
 
 ## Slides
 
