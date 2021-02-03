@@ -37,3 +37,10 @@ And for the second part [here](https://sta235.netlify.app/Classes/Week2/2_Binary
 ## Code
 
 [Here](https://github.com/maibennett/sta235/blob/main/exampleSite/content/Classes/Week2/code/sp2021_sta235_3_reg_binary.R) is the R code we will review in class. Go ahead and play with this! 
+
+
+## <a name="additional"></a> Additional Material
+
+[Here](https://sta235.netlify.app/Classes/Week2/2_Binary/sp2021_sta235_4_binary_extra.html) I created additional slides to explain how to interpret coefficients of a logistic regression in a bit more detail:
+
+{{< slides src="https://sta235.netlify.app/Classes/Week2/2_Binary/sp2021_sta235_4_binary_extra.html" >}} 

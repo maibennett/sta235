@@ -545,7 +545,7 @@ logit1 <- glm(deny ~ pirat, family = binomial(link = "logit"),
 prob <- predict(logit1, type = "response") # probabilities
 ```
 
-```{r logit1, fig.height=4.5, fig.width=6.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+```{r logit1, fig.height=4, fig.width=5.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 
 ggplot(data = hmda, aes(x = pirat, y = deny)) + 
   geom_point(color = "#5601A4", fill = alpha("#5601A4",0.4), pch=21, size = 3)+
@@ -576,7 +576,8 @@ ggplot(data = hmda, aes(x = pirat, y = deny)) +
         legend.title = element_blank(),
         legend.text = element_text(size=15),
         legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
+        title = element_text(size=14),
+        plot.margin = unit(c(0.1,0.1,0.1,0.1), "cm"))
 
 ```
 

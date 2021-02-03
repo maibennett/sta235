@@ -4,7 +4,7 @@ subtitle: "Spring 2021"
 author: "McCombs School of Business, UT Austin"
 output:
   xaringan::moon_reader:
-    css: [xaringan-themer.css]
+    css: ["xaringan-themer.css", "custom.css"]
     lib_dir: libs
     nature:
       highlightStyle: github
@@ -489,6 +489,8 @@ summary(lm(Sales ~ p1 + p2, data = sales))
 # Do assumptions hold?
 
 $$\varepsilon_i \sim N(0, \sigma^2)$$
+
+.small[
 ```{r eval = FALSE}
 sales_fitted <- augment(lm(Sales ~ p1 + p2, data = sales))
 
@@ -496,7 +498,9 @@ ggplot(data = sales_fitted, aes(x = .std.resid)) +
   geom_density()
 
 ```
-```{r sales_res, fig.height=4, fig.width=6.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+]
+
+```{r sales_res, fig.height=3.5, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 sales_fitted <- augment(lm(Sales ~ p1 + p2, data = sales))
 
 ggplot(data = sales_fitted, aes(x = .std.resid)) + 
@@ -521,7 +525,8 @@ ggplot(data = sales_fitted, aes(x = .std.resid)) +
         legend.title = element_blank(),
         legend.text = element_text(size=15),
         legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
+        title = element_text(size=14),
+        plot.margin = unit(c(0.1,0.1,0.1,0.1), "cm"))
 ```
 
 ---
@@ -992,7 +997,7 @@ summary(lm(nbeer ~ height, data = beers))
 beers_fitted_weight <- augment(lm(nbeer ~ weight, data = beers))
 ```
 
-```{r beers_height_weight, fig.height=4, fig.width=4.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+```{r beers_height_weight, fig.height=3.5, fig.width=4.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 
 beers_fitted_weight <- augment(lm(nbeer ~ weight, data = beers))
 beers_fitted_weight$height <- beers$height
@@ -1020,7 +1025,8 @@ ggplot(data = beers_fitted_weight, aes(x = height, y = .resid)) +
         legend.title = element_blank(),
         legend.text = element_text(size=15),
         legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
+        title = element_text(size=14),
+        plot.margin = unit(c(0.1,0.1,0.1,0.1), "cm"))
 ```
 ---
 # Is this the explanation that I want?
@@ -1038,7 +1044,7 @@ summary(lm(nbeer ~ weight + height, data = beers))
 
 - Height can be a **.darkorange[proxy]** for "bigger" people.
 
-```{r corrplot, fig.height=3.8, fig.width=4.3, fig.align='center', dev='svg', echo=TRUE, warning=FALSE, message = FALSE}
+```{r corrplot, fig.height=3.5, fig.width=4.1, fig.align='center', dev='svg', echo=TRUE, warning=FALSE, message = FALSE}
 M <-cor(beers)
 
 ggcorrplot(M, method = "circle", outline.color = "white", ggtheme = ggplot2::theme_bw,

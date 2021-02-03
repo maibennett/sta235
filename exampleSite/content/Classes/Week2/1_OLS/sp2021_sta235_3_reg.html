@@ -9,6 +9,7 @@
     <link href="libs/lightable/lightable.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/5235085b15.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="custom.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -238,12 +239,16 @@ summary(lm(Sales ~ p1 + p2, data = sales))
 
 `$$\varepsilon_i \sim N(0, \sigma^2)$$`
 
+.small[
+
 ```r
 sales_fitted &lt;- augment(lm(Sales ~ p1 + p2, data = sales))
 
 ggplot(data = sales_fitted, aes(x = .std.resid)) + 
   geom_density()
 ```
+]
+
 &lt;img src="sp2021_sta235_3_reg_files/figure-html/sales_res-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
