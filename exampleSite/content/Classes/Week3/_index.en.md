@@ -24,10 +24,10 @@ Complete before **Sunday Feb 7th (11:59 pm)**. You can find the assignment [here
 
 ## Slides
 
-<!-- You can find the first slides for the class [here](https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.html):
+<!-- You can find the first slides for the class [here](https://sta235.netlify.app/Classes/Week3/1_PotentialOutcomes/sp2021_sta235_5_PotentialOutcomes.html):
 
-{{< slides src="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.html" >}} -->
+{{< slides src="https://sta235.netlify.app/Classes/Week3/1_PotentialOutcomes/sp2021_sta235_5_PotentialOutcomes.html" >}} -->
 
 ## Code
 
-<!-- [Here](https://github.com/maibennett/sta235/blob/main/exampleSite/content/Classes/Week1/2_OLS/code/sp2021_sta235_2_reg.R) is the R code we will review in class, with some additional data and questions. -->
+<!-- [Here](https://github.com/maibennett/sta235/blob/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/code/sp2021_sta235_5_PO.R) is the R code we will review in class, with some additional data and questions. -->
