@@ -1,0 +1,1345 @@
+---
+title: "STA 235 - Introduction to Causal Inference: Potential Outcomes"
+subtitle: "Spring 2021"
+author: "McCombs School of Business, UT Austin"
+output:
+  xaringan::moon_reader:
+    css: ["xaringan-themer.css", "custom.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "macros.js"
+    includes:
+      in_header: header.html
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.showtext = TRUE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+
+theme_xaringan(
+  text_color = "#333f48",
+  background_color = "#FFFFFF",
+  accent_color = "#900DA4",
+  text_font = "Fira Mono",
+  text_font_use_google = TRUE,
+  title_font = "Yanone Kaffeesatz",
+  title_font_use_google = TRUE
+)
+
+style_mono_accent(
+  #base_color = "#bf5700",
+  extra_fonts = list(google_font("Fira Sans","200","300","400","500","600"),
+                     google_font("Fira Sans Condensed")),
+  base_color = "#333f48",
+  header_font_google = google_font("Yanone Kaffeesatz","200","300","400","500","600","700"),
+  text_font_google   = google_font("Roboto", "300", "300i","400","500"),
+  code_font_google   = google_font("Fira Mono"),
+  text_bold_color = "#333f48",
+  text_font_size = "125%",
+  colors = c(
+    red = "#f34213",
+    purple = "#900DA4",
+    darkpurple = "#61077a",
+    darkorange = "#db5f12",
+    orange = "#ff8811",
+    green = "#136f63",
+    white = "#FFFFFF"),
+  extra_css = list(
+    ".remark-slide table" = list("display" = "table",
+                   "width" = "80%",
+                   "text-align" = "left"),
+    ".remark-slide-number" = list("display" = "none"),
+    ".strong" = list("font-weight" = "400"),
+    ".big" = list("font-size" = "350%",
+                     "font-family" = "Yanone Kaffeesatz",
+                     "font-weight"="400"),
+    ".small" = list("font-size" = "80%"),
+    ".large" = list("font-size" = "150%"),
+    ".source" = list("color" = "#8c8c8c",
+                     "font-size" = "80%"),
+    ".remark-slide table td#highlight" = list("background-color" = "#eee1f0",
+                                  "color" = "#900DA4",
+                                  "font-weight" = "500"),
+   # ".remark-slide table thead th" = list(),
+    ".title-slide h1" = list("font-weight" = "500"),
+    ".title-slide h2" = list("font-weight" = "400",
+                             "font-size" =  "170%"),
+    ".title-slide h3" = list("font-family" = "Roboto",
+                             "font-size" = "100%",
+                             "font-weight" = "200"),
+    ".center2" = list("margin" = "0",
+                      "position" = "absolute",
+                      "top" = "50%",
+                      "left" = "50%",
+                      "-ms-transform" = "translate(-50%, -50%)",
+                      "transform" = "translate(-50%, -50%)"),
+    ".section-title h1" = list("color" = "#FFFFFF",
+                               "font-size" = "2.3em",
+                               "line-height" = "1.3"),
+    ".medium" = list("font-size" = "1.4em"),
+    ".sp-after-half" = list("margin-bottom" = "0.7em !important"),
+    ".box-1,.box-1a,.box-1s,.box-1b,.box-1l,.box-1LA,.section-title-1" = list("background-color" = "#0D0887"),
+    ".box-2,.box-2a,.box-2s,.box-2b,.box-2l,.box-2LA,.section-title-2" = list("background-color" = "#5601A4"),
+    ".box-3,.box-3a,.box-3s,.box-3b,.box-3l,.box-3LA,.section-title-3" = list("background-color" = "#900DA4"),
+    ".box-4,.box-4a,.box-4s,.box-4b,.box-4l,.box-4LA,.section-title-4" = list("background-color" = "#BF3984"),
+    ".box-5,.box-5a,.box-5s,.box-5b,.box-5l,.box-5LA,.section-title-5" = list("background-color" = "#E16462"),
+    ".box-6,.box-6a,.box-6s,.box-6b,.box-6l,.box-6LA,.section-title-6" = list("background-color" = "#F89441"),
+    ".box-7,.box-7a,.box-7s,.box-7b,.box-7l,.box-7LA,.section-title-7" = list("background-color" = "#FCCE25"),
+   
+   ".box-1t,.box-1tL,.section-title-1t" = list("background-color" = "rgba(13, 8, 135,0.3)",
+                                      "color"="rgba(13, 8, 135,1)",
+                                      "font-family" = "Yanone Kaffeesatz"),
+    ".box-2t,.box-2tL,.section-title-2t" = list("background-color" = "rgba(86, 1, 164,0.3)",
+                                       "color" = "rgba(86, 1, 164,1)",
+                                       "font-family" = "Yanone Kaffeesatz"),
+    ".box-3t,.box-3tL,.section-title-3t" = list("background-color" = "rgba(144, 13, 164,0.3)",
+                                       "color" = "rgba(144, 13, 164,1)",
+                                       "font-family" = "Yanone Kaffeesatz"),
+    ".box-4t,.box-4tL,.section-title-4t" = list("background-color" = "rgba(191, 57, 132,0.3)",
+                                       "color" = "rgba(191, 57, 132,1)",
+                                       "font-family" = "Yanone Kaffeesatz"),
+    ".box-5t,.box-5tL,.section-title-5t" = list("background-color" = "rgba(225, 100, 98,0.3)",
+                                       "color" = "rgba(225, 100, 98,1)",
+                                       "font-family" = "Yanone Kaffeesatz"),
+    ".box-6t,.box-6tL,.section-title-6t" = list("background-color" = "rgba(248, 148, 65,0.3)",
+                                       "color" = "rgba(248, 148, 65,1)",
+                                       "font-family" = "Yanone Kaffeesatz"),
+    ".box-7t,.box-7tL,.section-title-7t" = list("background-color" = "rgba(252, 206, 37,0.3)",
+                                       "color" = "rgba(252, 206, 37,1)",
+                                       "font-family" = "Yanone Kaffeesatz"),
+   
+   ".box-7t, .box-6t, .box-5t, .box-4t, .box-3t, .box-2t, .box-1t" = list("margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "31px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center"),
+   
+   ".box-7tL, .box-6tL, .box-5tL, .box-4tL, .box-3tL, .box-2tL, .box-1tL" = list("margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "50px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center"),
+   
+    ".box-7, .box-6, .box-5, .box-4, .box-3, .box-2, .box-1" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "31px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "font-family" = "Fira Sans"),
+    ".box-7a, .box-6a, .box-5a, .box-4a, .box-3a, .box-2a, .box-1a" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.4em 0.4em",
+                                                                      "font-weight" = "600",
+                                                                      "font-size" = "25px",
+                                                                      "display" = "table",
+                                                                      "text-align" = "center",
+                                                                      "font-family" = "Fira Sans"),
+   ".box-7s, .box-6s, .box-5s, .box-4s, .box-3s, .box-2s, .box-1s" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.2em 0.2em",
+                                                                      "font-weight" = "400",
+                                                                      "font-size" = "100%",
+                                                                      "display" = "inline",
+                                                                      "text-align" = "center",
+                                                                      "font-family" = "Fira Sans"),
+       ".box-7b, .box-6b, .box-5b, .box-4b, .box-3b, .box-2b, .box-1b" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.4em 0.4em",
+                                                                      "font-weight" = "600",
+                                                                      "font-size" = "25px",
+                                                                      "display" = "table",
+                                                                      "text-align" = "left",
+                                                                      "font-family" = "Fira Sans"),
+   ".box-7l, .box-6l, .box-5l, .box-4l, .box-3l, .box-2l, .box-1l" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "45px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                      "font-family" = "Yanone Kaffeesatz"),
+   ".box-7LA, .box-6LA, .box-5LA, .box-4LA, .box-3LA, .box-2LA, .box-1LA" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "55px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                      "font-family" = "Yanone Kaffeesatz"),
+   ".image-80 img" = list("scale" = "80%"),
+   ".pull-left-little_l" = list("float" = "left",
+                                "width" = "67%"),
+   ".pull-right-little_l" = list("float" = "right",
+                                "width" = "27%"),
+   ".pull-left-little_r" = list("float" = "left",
+                                "width" = "27%"),
+   ".pull-right-little_r" = list("float" = "right",
+                                "width" = "67%")
+
+
+  )
+)
+
+#,"li" = list("font-size" = "150%")
+#    "li" = list("font-size" = "110%"),
+#    "ul" = list("font-size" = "110%"),
+#color palette
+#5601A4
+#900DA4
+#F89441
+#FCCE25
+
+```
+```{css, echo = FALSE}
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+```
+
+# Housekeeping
+
+.box-2LA[Homework 1 is due next Monday]
+
+- Check out the **.darkorange[R scripts]** posted for each class.
+
+- Additional slides for **.darkorange[interpretation of logistic regression coefficients]**.
+<br>
+<br>
+.box-5LA[TA Office Hours: Friday 12th 4:00 - 5:00 PM]
+
+---
+# Last week
+
+.pull-left[
+- Finished our chapter on **.darkorange[multiple regression]**.
+  
+- **.darkorange[Statistical Adjustment]**: Unveiling useful associations, multicolinearity. 
+
+- **.darkorange[Binary Outcomes]**: LPM vs Logistic Regression.
+]
+
+.pull-right[
+![](https://media.giphy.com/media/xUOwGb8GuMRhxZcBuo/giphy-downsized-large.gif)
+]
+---
+# Today
+
+.pull-left[
+.center[
+![](https://media.giphy.com/media/xTiN0CNHgoRf1Ha7CM/giphy.gif)]
+]
+.pull-right[
+- **.darkorange[Introduction to Causal Inference]**:
+  
+  .box-2t[Why? Potential Outcomes Framework]
+  
+  .box-4t[What? Causal Estimands]
+  
+  .box-7t[How? Study Design]
+]
+
+---
+
+.center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/greta_tweet.png)]
+---
+# How can we check these assumptions?
+
+Remember last week's Bechdel test example:
+
+```{r results='hide', message=FALSE,echo=FALSE, warning=FALSE}
+library(ggplot2)
+library(firasans)
+library(hrbrthemes)
+library(extrafont)
+library("RColorBrewer")
+library(viridis)
+library("tm")
+library("SnowballC")
+library(tidyverse)
+library(generics)
+library(modelsummary)
+library(ggcorrplot)
+library(viridis)
+
+rawData <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/data/bechdel.csv")
+
+# Select movies pre-1990, and format $-denominated data fields
+rawData<-rawData[rawData$Year>1989,]
+
+# Return on Investment (ROI) measures
+rawData$ROI<-rawData$Revenue/rawData$Budget #  Total ROI
+
+# Passes Bechdel test:
+rawData$pass_bechdel="FAIL"
+rawData$pass_bechdel[rawData$rating==3] = "PASS"
+
+# Divide movies into FAIL and PASS divisions
+failMovies<-rawData[rawData$binary=="FAIL",]
+passMovies<-rawData[rawData$binary=="PASS",]
+
+bechdel = rawData[rawData$Adj_Revenue>0,]
+
+bechdel$imdb = bechdel$imdbRating
+
+bechdel$log_Adj_Revenue = log(bechdel$Adj_Revenue)
+bechdel$log_Adj_Budget = log(bechdel$Adj_Budget)
+bechdel$bechdel_test=0
+bechdel$bechdel_test[bechdel$pass_bechdel=="PASS"] = 1
+
+bechdel_fitted <- augment(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdbRating, 
+                             data = bechdel))
+  
+```
+```{r eval = FALSE}
+ggplot(data = bechdel_fitted, aes(x = .std.resid)) + 
+  geom_density()
+
+```
+```{r bechdel_res, fig.height=4, fig.width=6.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+ggplot(data = bechdel_fitted, aes(x = .std.resid)) + 
+  geom_density(color = "#E16462", lwd = 1.3)+
+  theme_bw()+
+  xlab("Std. Residuals") + ylab("Density") +
+  #ggplot2::annotate("text", x = 10, y = 6, label = "Adj. R2 = 0.48", size = 6, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain
+  xlim(-4,4)+
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# How can we check these assumptions?
+
+Remember last week's Bechdel test example:
+
+```{r bechdel5r, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+ggplot(data = bechdel_fitted, aes(x = .fitted, y = .std.resid)) + 
+  geom_point(color = "#E16462", fill = alpha("#E16462",0.4), pch=22, size = 3)+
+  geom_smooth(method = "lm", color = "dark grey", se = FALSE, lty = 2, lwd = 1.3) +
+  #geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1.3)+
+  theme_bw()+
+  xlab("Y_hat") + ylab("Residuals") +
+  #ggplot2::annotate("text", x = 10, y = 6, label = "Adj. R2 = 0.48", size = 6, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# What happens if the assumptions break?
+
+.pull-left[
+![](https://media.giphy.com/media/fA1OFzprOfRjteYADG/giphy.gif)
+]
+
+.pull-right[
+- **.darkorange[Don't panic!]** There's still much to be done.
+
+- **.darkorange[Heteroskedasticity]** (non-constant variance) does not bias your estimates.
+
+- Can be fixed many times with **.darkorange[robust standard errors]**
+]
+
+---
+# What happens if the assumptions break?
+
+.pull-left[
+![](https://media.giphy.com/media/fA1OFzprOfRjteYADG/giphy.gif)
+]
+
+.pull-right[
+- **.darkorange[Don't panic!]** There's still much to be done.
+
+- **.darkorange[Heteroskedasticity]** (non-constant variance) does not bias your estimates.
+
+- Can be fixed many times with **.darkorange[robust standard errors]**:
+  
+  - Easy to implement in `R`!
+]
+
+---
+# Statistical Adjusment
+
+- Remember that an important part of our job is to **.darkorange[correctly estimate]** the $\beta$ parameters:
+
+  - Point estimates
+  - Standard errors
+  
+- **.darkorange[Two ways]** to estimate standard errors:
+
+  - .darkorange[Direct estimation:] Use probability theory (e.g. $SE(\bar{x}) = \frac{\hat{\sigma}}{\sqrt{n}}$)
+  - .darkorange[Simulation:] Repeat the sampling process and estimates how much our estimate changes from one sample to the next (e.g. bootstrapping)
+
+---
+
+# Statistical Adjusment
+
+- Remember that an important part of our job is to **.darkorange[correctly estimate]** the $\beta$ parameters:
+
+  - Point estimates
+  - Standard errors
+  
+- **.darkorange[Two ways]** to estimate standard errors:
+
+  - .darkorange[Direct estimation:] Use probability theory (e.g. $SE(\bar{x}) = \frac{\hat{\sigma}}{\sqrt{n}}$)
+  - .darkorange[Simulation:] Repeat the sampling process and estimates how much our estimate changes from one sample to the next (e.g. bootstrapping)
+
+.box-6tL[Important to understand R output!]
+
+---
+# Let's look at some data
+
+- I have some data for price and sales of product 1, but also I'm tracking the prices of its competitor, product 2.
+
+- The data looks like this:
+
+.center[
+```{r message=FALSE,echo=FALSE, warning=FALSE}
+sales <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/PricesSales.csv")
+
+round(head(sales),2)
+```
+]
+
+---
+# Let's fit a model
+
+$$Sales_i = \beta_0 + \beta_1 p1_{i} + \beta_2 p2_i + \varepsilon_i$$
+.small[
+```{r message=FALSE,echo=TRUE, warning=FALSE}
+summary(lm(Sales ~ p1 + p2, data = sales))
+```
+]
+
+---
+# Do assumptions hold?
+
+$$\varepsilon_i \sim N(0, \sigma^2)$$
+
+.small[
+```{r eval = FALSE}
+sales_fitted <- augment(lm(Sales ~ p1 + p2, data = sales))
+
+ggplot(data = sales_fitted, aes(x = .std.resid)) + 
+  geom_density()
+
+```
+]
+
+```{r sales_res, fig.height=3.5, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+sales_fitted <- augment(lm(Sales ~ p1 + p2, data = sales))
+
+ggplot(data = sales_fitted, aes(x = .std.resid)) + 
+  geom_density(color = "#E16462", lwd = 1.3)+
+  theme_bw()+
+  xlab("Std. Residuals") + ylab("Density") +
+  #ggplot2::annotate("text", x = 10, y = 6, label = "Adj. R2 = 0.48", size = 6, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain
+  xlim(-4,4)+
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14),
+        plot.margin = unit(c(0.1,0.1,0.1,0.1), "cm"))
+```
+
+---
+# Do assumptions hold? (cont.)
+
+```{r sales5r, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+ggplot(data = sales_fitted, aes(x = .fitted, y = .std.resid)) + 
+  geom_point(color = "#E16462", fill = alpha("#E16462",0.4), pch=22, size = 3)+
+  geom_smooth(method = "lm", color = "dark grey", se = FALSE, lty = 2, lwd = 1.3) +
+  #geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1.3)+
+  theme_bw()+
+  xlab("Y_hat") + ylab("Residuals") +
+  #ggplot2::annotate("text", x = 10, y = 6, label = "Adj. R2 = 0.48", size = 6, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# Let's go back to our model
+
+$$Sales_i = \beta_0 + \beta_1 p1_{i} + \beta_2 p2_i + \varepsilon_i$$
+
+```{r message=FALSE,echo=FALSE, warning=FALSE}
+lm_sales <- lm(Sales ~ p1 + p2, data = sales)
+
+gm <- modelsummary::gof_map
+
+modelsummary(list(lm_sales), stars = TRUE, gof_omit = 'DF|Deviance|R2|AIC|BIC|Log.Lik.')
+
+```
+---
+# How is the prediction working?
+
+
+```{r sales_fitted, fig.height=4.5, fig.width=6.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+ggplot(data = sales_fitted, aes(x = .fitted, y = Sales)) + 
+  geom_point(color = "#900DA4", fill = alpha("#900DA4",0.4), pch=22, size = 3)+
+  geom_smooth(method = "lm", color = "dark grey", se = FALSE, lty = 2, lwd = 1.3) +
+  #geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1.3)+
+  theme_bw()+
+  xlab("Sales_hat") + ylab("Sales") +
+  #ggplot2::annotate("text", x = 10, y = 6, label = "Adj. R2 = 0.48", size = 6, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+```
+- **.darkorange[Can you guess the slope?]**
+
+---
+# What if we only had p1 and not p2?
+
+```{r eval = FALSE}
+ggplot(data = sales, aes(x = p1, y = Sales)) + 
+  geom_point() +
+  geom_smooth(method = "lm")
+
+```
+
+```{r sales_p1, fig.height=3.5, fig.width=5.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+sales_fitted_p1 <- augment(lm(Sales ~ p1, data = sales))
+
+ggplot(data = sales, aes(x = p1, y = Sales)) + 
+  geom_point(color = "#F89441", fill = alpha("#F89441",0.4), pch=22, size = 3)+
+  geom_smooth(method = "lm", color = "dark grey", se = FALSE, lty = 2, lwd = 1.3) +
+  #geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1.3)+
+  theme_bw()+
+  xlab("p1") + ylab("Sales") +
+  #ggplot2::annotate("text", x = 10, y = 6, label = "Adj. R2 = 0.48", size = 6, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+```
+- If I increase the price sales go up?
+
+---
+# What if we only had p1 and not p2?
+
+```{r eval = FALSE}
+ggplot(data = sales, aes(x = p1, y = Sales)) + 
+  geom_point() +
+  geom_smooth(method = "lm")
+
+```
+
+```{r sales_p1_2, fig.height=3.5, fig.width=5.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+sales_fitted_p1 <- augment(lm(Sales ~ p1, data = sales))
+
+ggplot(data = sales, aes(x = p1, y = Sales)) + 
+  geom_point(color = "#F89441", fill = alpha("#F89441",0.4), pch=22, size = 3)+
+  geom_smooth(method = "lm", color = "dark grey", se = FALSE, lty = 2, lwd = 1.3) +
+  #geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1.3)+
+  theme_bw()+
+  xlab("p1") + ylab("Sales") +
+  #ggplot2::annotate("text", x = 10, y = 6, label = "Adj. R2 = 0.48", size = 6, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+```
+- If I increase the price sales go up? **.darkorange[NO!]**
+
+---
+# Relationship between p1 and p2
+
+- Let's compare two different observations: Week 82 and week 99.
+
+```{r sales_p1_p2_a, fig.height=4.5, fig.width=8.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+library(gridExtra)
+
+g1 <- ggplot(data = sales, aes(x = p2, y = p1)) + 
+  geom_point(color = "dark grey", fill = alpha("dark grey",0.4), pch=22, size = 2.5)+
+  geom_point(data = sales[c(82,99),], aes(x = p2, y = p1),
+             color = "#900DA4", fill = alpha("#900DA4",0.6), pch=23, size = 3)+
+  theme_bw()+
+  xlab("p2") + ylab("p1") +
+  
+  ggplot2::annotate("text", x = 7.7, y = 1.5, label = "82", size = 6, colour = "#333f48", hjust=0.5,family="Fira Sans Condensed") +
+  ggplot2::annotate("text", x = 7.7, y = 8, label = "99", size = 6, colour = "#333f48", hjust=0.5,family="Fira Sans Condensed") +
+  
+  ggplot2::annotate("segment", x = 7.5, y = 1.7, xend = 7.69, yend = 2.85, size = 1, colour = "#333f48", alpha = 0.6, arrow = arrow(length = unit(0.1,"in"))) +
+  ggplot2::annotate("segment", x = 7.9, y = 7.8, xend = 7.73, yend = 5.8, size = 1, colour = "#333f48", alpha = 0.6, arrow = arrow(length = unit(0.1,"in"))) +
+  
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+g2 <- ggplot(data = sales, aes(x = p1, y = Sales)) + 
+  geom_point(color = "dark grey", fill = alpha("dark grey",0.4), pch=22, size = 3)+
+  geom_point(data = sales[c(82,99),], aes(x = p1, y = Sales),
+             color = "#900DA4", fill = alpha("#900DA4",0.4), pch=23, size = 3)+
+  theme_bw()+
+  xlab("p1") + ylab("Sales") +
+  
+  ggplot2::annotate("text", x = 2, y = 1000, label = "82", size = 6, colour = "#333f48", hjust=0.5,family="Fira Sans Condensed") +
+  ggplot2::annotate("text", x = 7.7, y = 0, label = "99", size = 6, colour = "#333f48", hjust=0.5,family="Fira Sans Condensed") +
+  
+  ggplot2::annotate("segment", x = 2.1, y = 950, xend = 2.8, yend = 690, size = 1, colour = "#333f48", alpha = 0.6, arrow = arrow(length = unit(0.1,"in"))) +
+  ggplot2::annotate("segment", x = 7.5, y = 50, xend = 5.9, yend = 380, size = 1, colour = "#333f48", alpha = 0.6, arrow = arrow(length = unit(0.1,"in"))) +
+  
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+grid.arrange(g1, ncol = 2)
+
+```
+---
+# Relationship between p1 and p2
+
+- Let's compare two different observations: Week 82 and week 99.
+
+```{r sales_p1_p2_b, fig.height=4.5, fig.width=8.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+grid.arrange(g1, g2, ncol = 2)
+
+```
+
+---
+# Relationship between p1 and p2 (cont.)
+
+- Same thing happens when looking at a set of obs where $p2 \sim$ constant.
+
+```{r sales_p1_p2_all1, fig.height=4.5, fig.width=8.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+library(gridExtra)
+
+g1 <- ggplot(data = sales, aes(x = p2, y = p1)) + 
+  geom_vline(aes(xintercept = 2),color = "dark grey", lty = 2, size = 1.5)+
+  geom_vline(aes(xintercept = 4),color = "dark grey", lty = 2, size = 1.5)+
+  geom_vline(aes(xintercept = 6),color = "dark grey", lty = 2, size = 1.5)+
+  geom_vline(aes(xintercept = 8),color = "dark grey", lty = 2, size = 1.5)+
+  geom_vline(aes(xintercept = 10),color = "dark grey", lty = 2, size = 1.5)+
+  geom_vline(aes(xintercept = 12),color = "dark grey", lty = 2, size = 1.5)+
+  
+  geom_point(data = sales[sales$p2<=2,], aes(x = p2, y = p1),
+             color = "#0D0887", fill = alpha("#0D0887",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>2 & sales$p2<=4,], aes(x = p2, y = p1),
+             color = "#5601A4", fill = alpha("#5601A4",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>4 & sales$p2<=6,], aes(x = p2, y = p1),
+             color = "#900DA4", fill = alpha("#900DA4",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>6 & sales$p2<=8,], aes(x = p2, y = p1),
+             color = "#BF3984", fill = alpha("#BF3984",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>8 & sales$p2<=10,], aes(x = p2, y = p1),
+             color = "#E16462", fill = alpha("#E16462",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>10 & sales$p2<=12,], aes(x = p2, y = p1),
+             color = "#F89441", fill = alpha("#F89441",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>12,], aes(x = p2, y = p1),
+             color = "#FCCE25", fill = alpha("#FCCE25",0.6), pch=23, size = 3)+
+  theme_bw()+
+  xlab("p2") + ylab("p1") +
+  
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+g2 <- ggplot(data = sales, aes(x = p1, y = Sales)) + 
+  #geom_point(color = "dark grey", fill = alpha("dark grey",0.4), pch=22, size = 3)+
+  geom_point(data = sales[sales$p2<=2,], aes(x = p1, y = Sales),
+             color = "#0D0887", fill = alpha("#0D0887",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>2 & sales$p2<=4,], aes(x = p1, y = Sales),
+             color = "#5601A4", fill = alpha("#5601A4",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>4 & sales$p2<=6,], aes(x = p1, y = Sales),
+             color = "#900DA4", fill = alpha("#900DA4",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>6 & sales$p2<=8,], aes(x = p1, y = Sales),
+             color = "#BF3984", fill = alpha("#BF3984",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>8 & sales$p2<=10,], aes(x = p1, y = Sales),
+             color = "#E16462", fill = alpha("#E16462",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>10 & sales$p2<=12,], aes(x = p1, y = Sales),
+             color = "#F89441", fill = alpha("#F89441",0.6), pch=23, size = 3)+
+  
+  geom_point(data = sales[sales$p2>12,], aes(x = p1, y = Sales),
+             color = "#FCCE25", fill = alpha("#FCCE25",0.6), pch=23, size = 3)+
+  theme_bw()+
+  xlab("p1") + ylab("Sales") +
+  
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+grid.arrange(g1, ncol = 2)
+
+```
+---
+# Relationship between p1 and p2 (cont.)
+
+- Same thing happens when looking at a set of obs where $p2 \sim$ constant.
+
+```{r sales_p1_p2_all2, fig.height=4.5, fig.width=8.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+
+grid.arrange(g1, g2, ncol = 2)
+
+```
+---
+# Conclusions?
+
+
+.box-3tL[A larger p1 is associated with a larger p2, and overall, with more sales!]
+
+<br>
+
+.box-5tL[If we keep p2 constant, a larger p1 is associated with lower sales.]
+
+
+---
+# Let's look at more data: Beer limit
+
+- From the JITT assignment, we have `beers` data
+
+  - `nbeer`: Number of beers before getting tipsy
+  - `height`, `weight`, `age`
+  - `female`: Whether the student is female or not
+.center[
+```{r message=FALSE,echo=FALSE, warning=FALSE}
+beers <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/beer.csv")
+
+round(head(beers),2)
+```
+]
+
+---
+# Is the number of beers related to height
+
+- What model would you run?
+
+---
+# Is the number of beers related to height
+
+- What model would you run?
+
+$$nbeers_i = \beta_0 + \beta_1 \cdot height_i + \varepsilon_i$$
+---
+# Is the number of beers related to height
+
+- What model would you run?
+
+$$nbeers_i = \beta_0 + \beta_1 \cdot height_i + \varepsilon$$
+
+```{r beers_height, fig.height=4, fig.width=4.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+ggplot(data = beers, aes(x = height, y = nbeer)) + 
+  geom_point(color = "#F89441", fill = alpha("#F89441",0.4), pch=22, size = 3)+
+  geom_smooth(method = "lm", color = "dark grey", se = FALSE, lty = 2, lwd = 1.3) +
+  #geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1.3)+
+  theme_bw()+
+  xlab("height") + ylab("nbeer") +
+  #ggplot2::annotate("text", x = 10, y = 6, label = "Adj. R2 = 0.48", size = 6, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+
+---
+# Is the number of beers related to height
+
+- What model would you run?
+
+$$nbeers_i = \beta_0 + \beta_1 \cdot height_i + \varepsilon$$
+.small[
+```{r message=FALSE,echo=TRUE, warning=FALSE}
+summary(lm(nbeer ~ height, data = beers))
+```
+]
+
+---
+# Is this the explanation that I want?
+
+- Height can be a **.darkorange[proxy]** for "bigger" people.
+
+---
+# Is this the explanation that I want?
+
+- Height can be a **.darkorange[proxy]** for "bigger" people.
+
+- What do you think will happen when I control for **.darkorange[weight]**?
+
+
+---
+# Is this the explanation that I want?
+
+- Height can be a **.darkorange[proxy]** for "bigger" people.
+
+- What do you think will happen when I control for **.darkorange[weight]**?
+
+```{r echo=TRUE, results='hide', warning=FALSE, message = FALSE}
+beers_fitted_weight <- augment(lm(nbeer ~ weight, data = beers))
+```
+
+```{r beers_height_weight, fig.height=3.5, fig.width=4.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+beers_fitted_weight <- augment(lm(nbeer ~ weight, data = beers))
+beers_fitted_weight$height <- beers$height
+
+ggplot(data = beers_fitted_weight, aes(x = height, y = .resid)) + 
+  geom_point(color = "#F89441", fill = alpha("#F89441",0.4), pch=22, size = 3)+
+  geom_smooth(method = "lm", color = "dark grey", se = FALSE, lty = 2, lwd = 1.3) +
+  #geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1.3)+
+  theme_bw()+
+  xlab("height") + ylab("resid(nbeer|weight)") +
+  #ggplot2::annotate("text", x = 10, y = 6, label = "Adj. R2 = 0.48", size = 6, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14),
+        plot.margin = unit(c(0.1,0.1,0.1,0.1), "cm"))
+```
+---
+# Is this the explanation that I want?
+
+- Height can be a **.darkorange[proxy]** for "bigger" people.
+
+.small[
+```{r echo=TRUE, warning=FALSE, message = FALSE}
+summary(lm(nbeer ~ weight + height, data = beers))
+```
+]
+
+---
+# Is this the explanation that I want?
+
+- Height can be a **.darkorange[proxy]** for "bigger" people.
+
+```{r corrplot, fig.height=3.5, fig.width=4.1, fig.align='center', dev='svg', echo=TRUE, warning=FALSE, message = FALSE}
+M <-cor(beers)
+
+ggcorrplot(M, method = "circle", outline.color = "white", ggtheme = ggplot2::theme_bw,
+           colors = viridis(3))
+
+```
+---
+# Let's look at the two models closer!
+
+.pull-left[
+```{r echo=FALSE, warning=FALSE, message = FALSE}
+lm_w <- lm(nbeer ~ weight, data = beers)
+lm_wh <- lm(nbeer ~ weight + height, data = beers)
+
+gm <- modelsummary::gof_map
+
+modelsummary(list(lm_w, lm_wh), stars = TRUE, gof_omit = 'DF|AIC|BIC|Log.Lik.')
+
+```
+]
+.pull-right[
+- Which model do you prefer?
+]
+
+---
+# Let's look at the two models closer!
+
+.pull-left[
+```{r echo=FALSE, warning=FALSE, message = FALSE}
+lm_w <- lm(nbeer ~ weight, data = beers)
+lm_wh <- lm(nbeer ~ weight + height, data = beers)
+
+gm <- modelsummary::gof_map
+
+modelsummary(list(lm_w, lm_wh), stars = TRUE, gof_omit = 'DF|AIC|BIC|Log.Lik.')
+
+```
+]
+.pull-right[
+- Which model do you prefer?
+
+- What happened to the SE for `weight`? Why?
+]
+
+---
+# Let's look at the two models closer!
+
+.pull-left[
+```{r echo=FALSE, warning=FALSE, message = FALSE}
+lm_w <- lm(nbeer ~ weight, data = beers)
+lm_wh <- lm(nbeer ~ weight + height, data = beers)
+
+gm <- modelsummary::gof_map
+
+modelsummary(list(lm_w, lm_wh), stars = TRUE, gof_omit = 'DF|AIC|BIC|Log.Lik.')
+
+```
+]
+.pull-right[
+- Which model do you prefer?
+
+- What happened to the SE for `weight`? Why?
+
+.box-5t[Multicollinearity]
+]
+
+---
+# Multicollinearity
+
+- If variable `x1` and `x2` are highly correlated, it is difficult to disentangle their effects
+  
+  - **.darkorange[Context matters!]**
+  
+---
+# Multicollinearity
+
+- If variable `x1` and `x2` are highly correlated, it is difficult to disentangle their effects
+  
+  - **.darkorange[Context matters!]**
+  
+- Limit scenario: $|Cor(x_1,x_2)| = 1$
+
+  - Cannot estimate both parameters: One is dropped!
+  
+  
+---
+# Multicollinearity
+
+- If variable `x1` and `x2` are highly correlated, it is difficult to disentangle their effects
+  
+  - **.darkorange[Context matters!]**
+  
+- Limit scenario: $|Cor(x_1,x_2)| = 1$
+
+  - Cannot estimate both parameters: One is dropped!
+  
+.box-4t[Can I add both binary variables `US_born` and `Foreign_born` to a regression?]
+
+---
+# Does gender matter?
+
+```{r echo=FALSE, warning=FALSE, message = FALSE}
+lm_w <- lm(nbeer ~ weight, data = beers)
+lm_wh <- lm(nbeer ~ weight + height, data = beers)
+lm_wf <- lm(nbeer ~ weight + female, data = beers)
+lm_whf <- lm(nbeer ~ weight + height + female, data = beers)
+
+gm <- modelsummary::gof_map
+
+modelsummary(list(lm_w, lm_wh,lm_wf,lm_whf), stars = TRUE, gof_omit = 'DF|AIC|BIC|Log.Lik.|F|Num.Obs.')
+
+```
+
+---
+# Some of your answers in the JITT Assignment
+
+```{r pie1, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/jitt1.csv")
+
+
+d$variables = factor(d$variables)
+
+d2 = as.data.frame(cbind(table(d$variables),rownames(table(d$variables))))
+names(d2) = c("value","variables")
+
+d2$variables = factor(d2$variables, levels = c("h+w+g","h+w","w+g","other"))
+
+cols = c("#5601A4","#900DA4","#E16462","#FCCE25")
+
+ggplot(data = d2, aes(x="",y=as.numeric(value),fill=variables)) + 
+  geom_bar(lwd=1.5, stat="identity", color="white") +
+  coord_polar("y",start = 0)+
+  scale_fill_manual(values=cols) + 
+  #scale_x_discrete(name="x", breaks=seq(1,10,1), labels = c("1\nVery uncomfortable","2","3","4","5","6","7","8","9","10\nSuper comfortable"), limits = c(1,2,3,4,5,6,7,8,9,10)) +
+  theme_void()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  #ggtitle("How comfortable are you with R?")+
+  #ylim(0,5)+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_blank())+
+  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank(),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position="right",
+        legend.title = element_text(size=15),
+        legend.text = element_text(size=12),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+```
+
+---
+# Other ways to control for variables
+
+- **.darkorange[Interactions]**:
+
+  - E.g. The relationship between `weight` and `nbeers` is different for males and females.
+  
+
+---
+# Other ways to control for variables
+
+- **.darkorange[Interactions]**:
+
+  - E.g. The relationship between `weight` and `nbeers` is different for males and females.
+  
+```{r echo=TRUE, warning=FALSE, message = FALSE}
+lm(nbeer ~ weight*female, data = beers)
+
+```
+
+- How do we interpret these results?
+
+---
+# Other ways to control for variables
+
+- **.darkorange[Other polynomial terms]**:
+
+  - E,g, The relationship between `weight` and `nbeers` is quadratic.
+
+
+---
+# Other ways to control for variables
+
+- **.darkorange[Other polynomial terms]**:
+
+  - E,g, The relationship between `weight` and `nbeers` is quadratic.
+  
+```{r echo=TRUE, warning=FALSE, message = FALSE}
+lm(nbeer ~ weight + I(weight^2), data = beers)
+
+```
+- How do we interpret these results?
+
+---
+# Other ways to control for variables
+
+- **.darkorange[Other polynomial terms]**:
+
+  - E,g, The relationship between `weight` and `nbeers` is quadratic.
+  
+```{r echo=TRUE, warning=FALSE, message = FALSE}
+lm(nbeer ~ weight + I(weight^2), data = beers)
+
+```
+- How do we interpret these results?
+$$\frac{\partial Y_{beers}}{\partial X_w} = \beta_1 + 2\cdot\beta_2 X_w$$
+
+---
+# Other ways to control for variables
+
+- **.darkorange[Categorical variables]**:
+
+  - E,g, You want to include a factor variable for year the student is in.
+  
+---
+# Other ways to control for variables
+
+- **.darkorange[Categorical variables]**:
+
+  - E,g, You want to include a factor variable for year the student is in.
+  
+```{r echo=FALSE, warning=FALSE, message = FALSE}
+
+set.seed(100)
+beers$year = sample(c("freshmen","sophmore","junior","senior"),nrow(beers),replace = TRUE)
+
+```
+---
+# Other ways to control for variables
+
+- **.darkorange[Categorical variables]**:
+
+  - E,g, You want to include a factor variable for year the student is in.
+  
+```{r echo=FALSE, warning=FALSE, message = FALSE}
+
+set.seed(100)
+beers$year = sample(c("freshmen","sophmore","junior","senior"),nrow(beers),replace = TRUE)
+
+```
+
+```{r echo=TRUE, warning=FALSE, message = FALSE}
+table(beers$year)
+
+lm(nbeer ~ weight + factor(year), data = beers)
+
+```
+
+---
+# What should I control for?
+
+.pull-left[
+- If your goal is **.darkorange[prediction]**:
+  
+.box-3[Overfitting]
+]
+---
+# What should I control for?
+
+.pull-left[
+- If your goal is **.darkorange[prediction]**:
+  
+.box-3[Overfitting]
+  
+- If your goal is **.darkorange[description]**:
+
+.box-5[Confidence Intervals]
+]
+
+---
+# What should I control for?
+
+.pull-left[
+- If your goal is **.darkorange[prediction]**:
+  
+.box-3[Overfitting]
+  
+- If your goal is **.darkorange[description]**:
+
+.box-5[Confidence Intervals]
+
+- If your goal is **.darkorange[causality]**:
+
+.box-7[Bias]
+]
+
+---
+# What should I control for?
+
+.pull-left[
+- If your goal is **.darkorange[prediction]**:
+  
+.box-3[Overfitting]
+  
+- If your goal is **.darkorange[description]**:
+
+.box-5[Confidence Intervals]
+
+- If your goal is **.darkorange[causality]**:
+
+.box-7[Bias]
+]
+
+.pull-right[
+<br>
+<br>
+.box-1LA[All of them matter!]
+]
+
+---
+# References
+
+- Hanck, C. et al. (2020). ["Econometrics with R"](https://www.econometrics-with-r.org/6-2-tmrm.html). *The Multiple Regression Model* 
+
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week2/1_OLS/sp2021_sta235_3_reg.html') -->
