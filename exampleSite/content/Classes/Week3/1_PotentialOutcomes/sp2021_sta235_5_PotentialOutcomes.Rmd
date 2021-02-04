@@ -240,7 +240,7 @@ style_mono_accent(
 ]
 
 .pull-right[
-![](https://media.giphy.com/media/xUOwGb8GuMRhxZcBuo/giphy-downsized-large.gif)
+![:scale 90%](https://media.giphy.com/media/xUOwGb8GuMRhxZcBuo/giphy-downsized-large.gif)
 ]
 ---
 # Today
