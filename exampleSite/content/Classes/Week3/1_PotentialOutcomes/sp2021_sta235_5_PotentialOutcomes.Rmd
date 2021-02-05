@@ -387,6 +387,14 @@ Rule (the estimator), its result (the estimate) and the quantity of interest (th
 # Cookies in evaluations
 
 ---
+# Is this effect causal?
+
+- Remember statistical adjustment and standar errors?
+
+- How likely is that the effect we estimated is just by chance?
+
+
+---
 # References
 
 - Neil, B. (2020). "Introduction to Causal Inference". *Fall 2020 Course*
