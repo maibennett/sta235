@@ -22,6 +22,10 @@ In this class we will talk about Randomized Controlled Trials and the power of r
 
 {{< youtube src="https://www.youtube.com/embed/UB1A62u9fBE?controls=0" >}}
 
+- Athey, S. (2013). "The Dangers of Becoming Too Data-Driven". *Stanford Graduate School of Business*
+
+{{< youtube src="https://www.youtube.com/embed/8XyRVcJz7RY?controls=0" >}}
+
 ## JITT
 
 Complete before **Sunday Feb 14th (11:59 pm)**. Assignment will be posted soon.

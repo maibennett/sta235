@@ -102,23 +102,74 @@ class: center, middle, inverse, title-slide
 ---
 # A world of potential (outcomes)
 
-- Potential outcomes 
+- Headache
 
 ---
-# What happens if the assumptions break?
+# A world of potential (outcomes)
 
-.pull-left[
-![](https://media.giphy.com/media/fA1OFzprOfRjteYADG/giphy.gif)
-]
+- Headache - pill - No headache
 
-.pull-right[
-- **.darkorange[Don't panic!]** There's still much to be done.
+---
+# A world of potential (outcomes)
 
-- **.darkorange[Heteroskedasticity]** (non-constant variance) does not bias your estimates.
+- How do we know the taking the pill **.darkorange[caused]** the headache to go away?
 
-- Can be fixed many times with **.darkorange[robust standard errors]**
-]
+---
+# A world of potential (outcomes)
 
+- Two parallel worlds
+- Headache - pill - No headache
+- Headache - no pill - headache
+
+---
+# A world of potential (outcomes)
+
+- A priori, the first scenario would be the potential outcome if I take the pill.
+
+- The second scenario would be the potential outcome if I don't take the pill.
+
+- A posteriori, I can only observe **.darkorange[at most one of the potential outcomes]**
+
+.box-3LA[Fundamental Problem of Causal Inference]
+
+---
+# Potential Outcomes Framework:
+
+Let's introduce some notation:
+
+- Let `\(Y_i\)` be the observed outcome for unit `\(i\)` (e.g. whether I have a headache or not in an hour).
+- Let `\(T\)` be the treatment or intervention (e.g. taking a pill).
+
+Then,
+
+$$Y_i | T = 1 \overset{\Delta}{=} Y_i(1) $$
+where `\(Y_i(1)\)` is the **.darkorange[potential outcome under treatment]**.
+
+In the same fashion,
+
+$$Y_i | T = 0 \overset{\Delta}{=} Y_i(0) $$
+where `\(Y_i(1)\)` is the **.darkorange[potential outcome under control]**.
+
+`$$\rightarrow Y_i = T\cdot Y_i(1) + (1-T)\cdot Y_i(0)$$`
+
+---
+# Causal Effects
+
+.box-4t[Individual Causal Effect]
+
+`$$ICE_i = Y_i(1) - Y_i(0)$$`
+---
+# Causal Effects
+
+.box-4t[Individual Causal Effect]
+
+`$$ICE_i = Y_i(1) - Y_i(0)$$`
+
+.box-6LA[Can we ever observe indivual causal effects?]
+---
+# References
+
+- Neil, B. (2020). "Introduction to Causal Inference". *Fall 2020 Course*
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
