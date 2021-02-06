@@ -264,8 +264,9 @@ style_mono_accent(
 
 .center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/greta_tweet.png)]
 ---
-
-.center2[![:scale 170%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/greta_dag.png)]
+.center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/greta_effect.png)]
+---
+.center2[![:scale 200%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/greta_dag.png)]
 ---
 .center2[.box-3LA[What do you thing are the biggest issues here?]]
 
