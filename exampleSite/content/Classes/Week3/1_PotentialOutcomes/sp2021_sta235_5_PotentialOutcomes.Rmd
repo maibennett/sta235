@@ -341,23 +341,38 @@ style_mono_accent(
 - "Providing students with  FAFSA forms caused a decrease of 15% in student aid denials."
 
 ---
-# A world of potential (outcomes)
-
-.center[![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache_ci.png)]
+# Imagine we have a headache...
+.center[![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache.png)]
 
 .source[
 <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 ]
 ---
-# A world of potential (outcomes)
+# A treatment could be an aspirin
+.center[![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache_pill.png)]
 
-- Headache - pill - No headache
+.source[
+<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+]
 
 ---
-# A world of potential (outcomes)
+# Headache is gone!
+.center[![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache_pill_happy.png)]
 
-- How do we know the taking the pill **.darkorange[caused]** the headache to go away?
-
+.source[
+<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+]
+---
+.center2[
+.box-3tL[Did the aspirin work?]
+<br>
+]
+---
+.center2[
+.box-3tL[Did the aspirin work?]
+<br>
+.box-5tL[We can't know!]
+]
 ---
 # A world of potential (outcomes)
 
