@@ -276,16 +276,35 @@ style_mono_accent(
 ---
 # The Tesla Autosteer Case
 .pull-left[
-.center[![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/tesla_all.png)]
+.center[![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/tesla_good.png)]
 ]
 ---
 # The Tesla Autosteer Case
 .pull-left[
-.center[![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/tesla_all.png)]
+.center[![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/tesla_good.png)]
 ]
 .pull-right[
-.center[![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/tesla.png)]
+.center[![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/tesla_fake.png)]
 ]
+---
+# Before we start...
+
+.center[.box-2LA[Be clear about your language]]
+---
+# Before we start...
+
+.center[.box-2LA[Be clear about your language]]
+<br>
+.center[.box-4LA[Be clear about your data]]
+
+---
+# Before we start...
+
+.center[.box-2LA[Be clear about your language]]
+<br>
+.center[.box-4LA[Be clear about your data]]
+<br>
+.center[.box-7LA[Be clear about your assumptions]]
 ---
 # What is Causal Inference?
 
@@ -299,15 +318,36 @@ style_mono_accent(
 <br>
 - "My headache went away because I took an aspirin".
 
+---
+# What is Causal Inference?
+
+.box-5LA[Inferring the effect of one thing on another thing]
+<br>
+<br>
+- "My headache went away because I took an aspirin".
+
 - "The new marketing campaign increased our sales by 20%"
 
-- "Providing students with help filling out the FAFSA forms caused a decrease of 15% in student aid denials."
+---
+# What is Causal Inference?
+
+.box-5LA[Inferring the effect of one thing on another thing]
+<br>
+<br>
+- "My headache went away because I took an aspirin".
+
+- "The new marketing campaign increased our sales by 20%"
+
+- "Providing students with  FAFSA forms caused a decrease of 15% in student aid denials."
 
 ---
 # A world of potential (outcomes)
 
-- Headache
+.center[![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache_ci.png)]
 
+.source[
+<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+]
 ---
 # A world of potential (outcomes)
 
