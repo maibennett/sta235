@@ -22,7 +22,7 @@ function (X_mat, t_id, c_id, v_line, col="#BF3984", format = FALSE) {
 	  theme_bw() +
 	  ylab("") + xlab("Absolute std. differences in means") 
 	
-	if(format = TRUE){
+	if(format == TRUE){
 	  library(hrbrthemes)
 	  library(firasans)
 	  
