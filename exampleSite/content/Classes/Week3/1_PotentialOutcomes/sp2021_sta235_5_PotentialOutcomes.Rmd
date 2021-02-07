@@ -261,11 +261,11 @@ knitr::opts_chunk$set(message = FALSE)
 .pull-right[
 - **.darkorange[Introduction to Causal Inference]**:
   
-  .box-2t[Why? Potential Outcomes Framework]
+  .box-2t[How? Potential Outcomes Framework]
   
   .box-4t[What? Causal Estimands]
   
-  .box-7t[How? Study Design]
+  .box-7t[Why? Causal Questions and Study Design]
 ]
 
 ---
