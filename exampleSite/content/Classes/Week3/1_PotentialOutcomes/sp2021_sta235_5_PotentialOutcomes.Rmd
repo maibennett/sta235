@@ -219,7 +219,7 @@ style_mono_accent(
 }
 
 .tiny .remark-code { /*Change made here*/
-  font-size: 50% !important;
+  font-size: 70% !important;
 }
 ```
 
@@ -1224,8 +1224,10 @@ It's the same as the **.darkorange[exchangeability assumption]**:
 $$E[Y(1) | T = 1] = E[Y(1)| T=0] = E[Y(1)]$$
 $$E[Y(0) | T = 1] = E[Y(0)| T=0] = E[Y(0)]$$
 ---
-
+.center2[
 .box-2LA[Let's look at some data]
+]
+
 ---
 # Example: Effect of types of advertising on sales
 
@@ -1273,7 +1275,7 @@ You want to know whether is more convenient to **.darkorange[e-mail]** or **.dar
 
 .center[
 ```{r echo=FALSE}
-tab <- cbind(c("E-mail","","Mail",""),c("19%","(285/1500)","16%","(88/550)"))
+tab <- cbind(c("E-mail","","Mail",""),c("19%","(290/1500)","16%","(88/550)"))
 
 colnames(tab) <- c("Treatment","Total")
 
@@ -1297,7 +1299,17 @@ tbl <- tab %>%
       minWidth = 200
   ))
 
-tbl
+div(
+  # this class can be called with CSS now via .salary
+  class = "tab",
+  div(
+    # this can be called with CSS now via .title
+    class = "title",
+    h3("% of New Registrations by Type of Campaign")
+  ),
+  # The actual table
+  tbl
+)
 
 ```
 ]
@@ -1309,9 +1321,6 @@ tbl
 
 .center[
 ```{r echo=FALSE}
-tab <- cbind(c("E-mail","","Mail",""),c("19%","(290/1500)","16%","(88/550)"))
-
-colnames(tab) <- c("Treatment","Total")
 
 tbl <- tab %>%
   reactable(
@@ -1339,7 +1348,17 @@ tbl <- tab %>%
                         },
   )
 
-tbl
+div(
+  # this class can be called with CSS now via .salary
+  class = "tab",
+  div(
+    # this can be called with CSS now via .title
+    class = "title",
+    h3("% of New Registrations by Type of Campaign")
+  ),
+  # The actual table
+  tbl
+)
 
 ```
 ]
@@ -1380,7 +1399,17 @@ tbl <- tab %>%
                         },
   )
 
-tbl
+div(
+  # this class can be called with CSS now via .salary
+  class = "tab",
+  div(
+    # this can be called with CSS now via .title
+    class = "title",
+    h3("% of New Registrations by Type of Campaign")
+  ),
+  # The actual table
+  tbl
+)
 
 ```
 ]
@@ -1425,7 +1454,17 @@ tbl <- tab2 %>%
   )
   )
 
-tbl
+div(
+  # this class can be called with CSS now via .salary
+  class = "tab",
+  div(
+    # this can be called with CSS now via .title
+    class = "title",
+    h3("% of New Registrations by Type of Campaign and Visits to the Website")
+  ),
+  # The actual table
+  tbl
+)
 
 ```
 ]
@@ -1439,9 +1478,9 @@ tbl
 
 .center[
 ```{r echo=FALSE}
-tab3 <- cbind(tab2[,1],c("6.7%","","93.4%",""),c("93.4%","","6.5%",""),tab2[,2])
+tab3 <- cbind(tab2[,1],c("6.7%","","93.4%",""),c("93.4%","","6.5%",""))
 
-colnames(tab3) <- c("Treatment","Visited web","Not visited web","Total")
+colnames(tab3) <- c("Treatment","Visited web","Not visited web")
 
 tbl <- tab3 %>%
   reactable(
@@ -1471,7 +1510,17 @@ tbl <- tab3 %>%
   
   )
 
-tbl
+div(
+  # this class can be called with CSS now via .salary
+  class = "tab",
+  div(
+    # this can be called with CSS now via .title
+    class = "title",
+    h3("% of the Sample in each Category by Site Visit")
+  ),
+  # The actual table
+  tbl
+)
 
 ```
 ]
@@ -1511,7 +1560,17 @@ tbl <- tab %>%
   )
   )
 
-tbl
+div(
+  # this class can be called with CSS now via .salary
+  class = "tab",
+  div(
+    # this can be called with CSS now via .title
+    class = "title",
+    h3("% of New Registrations by Type of Campaign and Visits to the Website")
+  ),
+  # The actual table
+  tbl
+)
 
 ```
 ]
@@ -1538,25 +1597,25 @@ tbl
 
 .box-5LA[Depends]
 
-- **.darkorange[Measured before the intervention:]** Yes $\rightarrow$ Getting your name out there is effective.
+- **.darkorange[Measured before the intervention:]** Yes $\rightarrow$ Getting your name out there is effective, especially for people that don't know you.
 
 ---
 # Is "Visited the website" a confounder?
 
 .box-5LA[Depends]
 
-- **.darkorange[Measured before the intervention:]** Yes $\rightarrow$ Getting your name out there is effective.
+- **.darkorange[Measured before the intervention:]** Yes $\rightarrow$ Getting your name out there is effective, especially for people that don't know you.
 
-- **.darkorange[Measured after the intervention:]** Don't know $\rightarrow$ Intervention might have incentivized people to go to the website.
+- **.darkorange[Measured after the intervention:]** Don't know $\rightarrow$ Intervention might have incentivized people to go to the website, and registering also had on effect on traffic.
 
 ---
 # Is "Visited the website" a confounder?
 
 .box-5LA[Depends]
 
-- **.darkorange[Measured before the intervention:]** Yes $\rightarrow$ Getting your name out there is effective.
+- **.darkorange[Measured before the intervention:]** Yes $\rightarrow$ Getting your name out there is effective, especially for people that don't know you
 
-- **.darkorange[Measured after the intervention:]** Don't know $\rightarrow$ Intervention might have incentivized people to go to the website.
+- **.darkorange[Measured after the intervention:]** Don't know $\rightarrow$ Intervention might have incentivized people to go to the website, and registering also had on effect on traffic.
 
 .box-3tL[Collider]
 
@@ -1571,21 +1630,22 @@ tbl
   
   - Due to data collection, more people in the mailing sample had visited the website than people in the email sample.
 
+.small[
 .center[
 ```{r echo = FALSE}
-set.seed(102)
+set.seed(122)
 
 # Confounding:
 
 # probability of registering depending on whether you've visited the website or not (and are reminded of it)
-prob_nv <- 0.20
-prob_v <- 0.14
+prob_nv <- 0.203
+prob_v <- 0.142
 
 y1_nv <- sample(c(0,1),1436,replace = TRUE, prob = c(1-prob_nv,prob_nv))
 y1_v <- sample(c(0,1),614,replace = TRUE, prob = c(1-prob_v,prob_v))
 
-treat_nv <- sample(c("m","e"), 1436, replace = TRUE, prob = c(0.065,0.935))
-treat_v <- sample(c("e","m"), 614, replace = TRUE, prob = c(0.065,0.935))
+treat_nv <- sample(c("m","e"), 1436, replace = TRUE, prob = c(36/1436,1-36/1436))
+treat_v <- sample(c("m","e"), 614, replace = TRUE, prob = c(514/614,1-514/614))
 
 confound <- data.frame("id" = seq(1,2050),
                        "visit" = c(rep(0,1436),rep(1,614)),
@@ -1593,10 +1653,12 @@ confound <- data.frame("id" = seq(1,2050),
                        "y" = c(y1_nv, y1_v))
 
 tab1 <- table(confound$treat,confound$visit)
-tab2 <- round(table(confound$treat,confound$y)[,2]/rowSums(table(confound$treat,confound$y)),2)
+tab2 <- round(table(confound$treat[confound$visit==0],confound$y[confound$visit==0])[,2]/rowSums(table(confound$treat[confound$visit==0],confound$y[confound$visit==0])),2)
+tab3 <- round(table(confound$treat[confound$visit==1],confound$y[confound$visit==1])[,2]/rowSums(table(confound$treat[confound$visit==1],confound$y[confound$visit==1])),2)
+tab4 <- round(table(confound$treat,confound$y)[,2]/rowSums(table(confound$treat,confound$y)),2)
 
-tab <- cbind(tab1, tab2)
-colnames(tab) <- c("Not visited","Visited", "% Registered")
+tab <- cbind(tab1, tab2, tab3, tab4)
+colnames(tab) <- c("Not visited","Visited", "Registered - NV","Registered - V","Registered - Total")
 
 rownames(tab) <- c("Email","Mail")
 
@@ -1618,16 +1680,27 @@ tbl <- tab %>%
     # 100 px and align to center of column
     defaultColDef = colDef(
       align = "center",
-      minWidth = 200
+      minWidth = 180
   ),
   columns = list(
-    "% Registered" = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
+    "Registered - NV" = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)")),
+    "Registered - Total" = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
   )
   )
 
-tbl
+div(
+  # this class can be called with CSS now via .salary
+  class = "tab",
+  div(
+    # this can be called with CSS now via .title
+    class = "title",
+    h3("Num in Sample and % of New Registrations by Type of Campaign and Visits to the Website")
+  ),
+  # The actual table
+  tbl
+)
 ```
-]
+]]
 
 .source[Note: Simulated data]
 
@@ -1637,8 +1710,31 @@ tbl
 What happens if we run a **.darkorange[simple model]**?
 
 .small[
+```{r echo = TRUE, results='hide'}
+summary(lm(y ~ factor(treat), data = confound))
+```
+]
+
+- What would you **.darkorange[expect]** to see?
+---
+# Scenario 1: Confounding
+
+What happens if we run a **.darkorange[simple model]**?
+
+.small[
 ```{r echo = TRUE}
 summary(lm(y ~ factor(treat), data = confound))
+```
+]
+
+---
+# Scenario 1: Confounding
+
+What happens if we now **.darkorange[control by whether the person visited the website]**?
+
+.small[
+```{r echo = TRUE, results='hide'}
+summary(lm(y ~ factor(treat) + visit, data = confound))
 ```
 ]
 
@@ -1675,34 +1771,28 @@ summary(lm(y ~ factor(treat) + visit, data = confound))
   
   - Pr(Visit | e-mail) < Pr(Visit | mail)
   
-  - People that receive a letter are much more encouraged to visit the website, and people that visit the website are more likely to register.
+  - People that receive a letter are much more encouraged to visit the website, and people that register are also more likely to visit the website.
 
+.small[
 .center[
 ```{r echo = FALSE}
-set.seed(14)
+set.seed(120)
 
 treat <- sample(c("m","e"), 2050, replace = TRUE, prob = c(1-0.732,0.732))
 
-visit_m <- sample(c(0,1), sum(treat=="m"), replace = TRUE, prob = c(1-0.9345,0.9345))
+y1 <- sample(c(0,1), 2050, replace = TRUE, prob=c(1-0.1843,0.1843))
 
-visit_e <- sample(c(0,1), sum(treat=="e"), replace = TRUE, prob = c(1-0.0667,0.0667))
+visit_e_0 <- sample(c(0,1),sum(treat=="e" & y1==0),replace = TRUE, prob = c(1-90/1210,90/1210))
+visit_e_1 <- sample(c(0,1),sum(treat=="e" & y1==1),replace = TRUE, prob = c(1-10/290,10/290))
+
+visit_m_0 <- sample(c(0,1),sum(treat=="m" & y1==0),replace = TRUE, prob = c(1-437/462,437/462))
+visit_m_1 <- sample(c(0,1),sum(treat=="m" & y1==1),replace = TRUE, prob = c(1-77/88,77/88))
 
 visit <- 0
-visit[which(treat=="m")] <- visit_m
-visit[which(treat=="e")] <- visit_e
-
-y1_m_nv <- sample(c(0,1),sum(treat=="m" & visit==0),replace = TRUE, prob = c(1-0.31,0.31))
-y1_m_v <- sample(c(0,1),sum(treat=="m" & visit==1),replace = TRUE, prob = c(1-0.15,0.15))
-
-y1_e_nv <- sample(c(0,1),sum(treat=="e" & visit==0),replace = TRUE, prob = c(1-0.2,0.2))
-y1_e_v <- sample(c(0,1),sum(treat=="e" & visit==1),replace = TRUE, prob = c(1-0.1,0.1))
-
-y1 <- rep(0,2050)
-y1[which(treat=="m" & visit==0)] <- y1_m_nv
-y1[which(treat=="m" & visit==1)] <- y1_m_v
-
-y1[which(treat=="e" & visit==0)] <- y1_e_nv
-y1[which(treat=="e" & visit==1)] <- y1_e_v
+visit[which(treat=="m" & y1==0)] <- visit_m_0
+visit[which(treat=="m" & y1==1)] <- visit_m_1
+visit[which(treat=="e" & y1==0)] <- visit_e_0
+visit[which(treat=="e" & y1==1)] <- visit_e_1
 
 collider <- data.frame("id" = seq(1,2050),
                        "visit" = visit,
@@ -1711,10 +1801,12 @@ collider <- data.frame("id" = seq(1,2050),
 
 
 tab1 <- table(collider$treat,collider$visit)
-tab2 <- round(table(collider$treat,collider$y)[,2]/rowSums(table(collider$treat,collider$y)),2)
+tab2 <- round(table(collider$treat[collider$visit==0],collider$y[collider$visit==0])[,2]/rowSums(table(collider$treat[collider$visit==0],collider$y[collider$visit==0])),2)
+tab3 <- round(table(collider$treat[collider$visit==1],collider$y[collider$visit==1])[,2]/rowSums(table(collider$treat[collider$visit==1],collider$y[collider$visit==1])),2)
+tab4 <- round(table(collider$treat,collider$y)[,2]/rowSums(table(collider$treat,collider$y)),2)
 
-tab <- cbind(tab1, tab2)
-colnames(tab) <- c("Not visited","Visited", "% Registered")
+tab <- cbind(tab1, tab2, tab3, tab4)
+colnames(tab) <- c("Not visited","Visited", "Registered - NV","Registered - V","Registered - Total")
 
 rownames(tab) <- c("Email","Mail")
 
@@ -1736,18 +1828,41 @@ tbl <- tab %>%
     # 100 px and align to center of column
     defaultColDef = colDef(
       align = "center",
-      minWidth = 200
+      minWidth = 180
   ),
   columns = list(
-    "% Registered" = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
+    "Registered - Toal" = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
   )
   )
 
-tbl
+div(
+  # this class can be called with CSS now via .salary
+  class = "tab",
+  div(
+    # this can be called with CSS now via .title
+    class = "title",
+    h3("Num in Sample and % of New Registrations by Type of Campaign and Visits to the Website")
+  ),
+  # The actual table
+  tbl
+)
+```
+]]
+
+.source[Note: Simulated data]
+
+---
+# Scenario 2: Collider Bias
+
+What happens if we now **.darkorange[run a simple model]**?
+
+.small[
+```{r echo = TRUE, results='hide'}
+summary(lm(y ~ factor(treat), data = collider))
 ```
 ]
 
-.source[Note: Simulated data]
+- what would you **.darkorange[expect]** to see?
 
 ---
 # Scenario 2: Collider Bias
@@ -1766,20 +1881,118 @@ summary(lm(y ~ factor(treat), data = collider))
 What happens if we now **.darkorange[control by whether the person visited the website]**?
 
 .small[
+```{r echo = TRUE, results='hide'}
+summary(lm(y ~ factor(treat) + visit, data = collider))
+```
+]
+
+---
+# Scenario 2: Collider Bias
+
+What happens if we now **.darkorange[control by whether the person visited the website]**?
+
+.small[
 ```{r echo = TRUE}
 summary(lm(y ~ factor(treat) + visit, data = collider))
 ```
 ]
 
 ---
-# Is this effect causal?
+# Scenario 2: Collider Bias
 
-- Remember statistical adjustment and standar errors?
+What happens if we now **.darkorange[control by whether the person visited the website]**?
 
-- How likely is that the effect we estimated is just by chance?
+.small[
+```{r echo = TRUE}
+summary(lm(y ~ factor(treat) + visit, data = collider))
+```
+]
 
+**.darkorange[What happened here?]**
+
+---
+# Avoiding biases in Causal Inference
+
+- **.darkorange[Always check your data!]**
+
+---
+# Avoiding biases in Causal Inference
+
+- **.darkorange[Always check your data!]**
+
+- Assess the plausibility of the **.darkorange[ignorability assumption]**
+
+
+---
+# Avoiding biases in Causal Inference
+
+- **.darkorange[Always check your data!]**
+
+- Assess the plausibility of the **.darkorange[ignorability assumption]**
+
+- The **.darkorange[model]** you have in your head matters!
+
+
+---
+# Avoiding biases in Causal Inference
+
+- **.darkorange[Always check your data!]**
+
+- Assess the plausibility of the **.darkorange[ignorability assumption]**
+
+- The **.darkorange[model]** you have in your head matters!
+
+- Avoid controlling for **.darkorange[ex-post variables]**.
+
+---
+# Another Example: Beauty in the Classroom
+
+- Data: Student's evaluations for instructors at UT Austin
+
+```{r echo = TRUE}
+
+```
+
+---
+# Main takeaway points
+
+.box-3LA[Causal Inference is hard]
+<br>
+<br>
+
+---
+# Main takeaway points
+
+.box-3LA[Causal Inference is hard]
+<br>
+<br>
+- Check validity of assumptions (*Is ignorability enough? Am I controlling for the right covariates?*)
+
+---
+# Main takeaway points
+
+.box-3LA[Causal Inference is hard]
+<br>
+<br>
+- Check validity of assumptions (*Is ignorability enough? Am I controlling for the right covariates?*)
+---
+# Next week
+
+.pull-left[
+- **.darkorange[Randomization inference]**
+
+- **.darkorange[Randomized Controlled Trials]**:
+
+  - Pros and Cons
+  - Concept of validity
+]
+
+.pull-right[
+![](https://media.giphy.com/media/SiGg4zSmwmbafTYwpj/giphy.gif)
+]
 
 ---
 # References
 
+- Angrist, J. & S. Pischke. (2015). "Mastering Metrics". *Chapter 1*
 - Neil, B. (2020). "Introduction to Causal Inference". *Fall 2020 Course*
