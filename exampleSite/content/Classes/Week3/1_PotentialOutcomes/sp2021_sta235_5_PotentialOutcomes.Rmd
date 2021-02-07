@@ -492,7 +492,31 @@ $$ICE_i = Y_i(1) - Y_i(0)$$
 .box-3LA[Can we ever observe individual causal effects?]
 
 ---
-# Causal Estimands
+# Estimands vs Estimates vs Estimators
+
+.pull-left-3[
+.box-2[Estimand]
+<br>
+.box-2t[A quantity we want to estimate]
+]
+
+.pull-center-3[
+.box-4[Estimator]
+<br>
+.box-4t[A rule for calculating an estimate based on data]
+]
+
+
+.pull-right-3[
+.box-7[Estimate]
+<br>
+.box-7t[The result]
+]
+
+---
+# Correlation is not causation
+
+- Sleeping with your shoes on causes a headache.
 
 - What is an estimand?
 
@@ -507,11 +531,6 @@ Function of the observations, i.e., how observations are put together
 Estimation:
 The process of finding an estimate, or approximation, which is a value that is usable for some purpose even if input data may be incomplete, uncertain, or unstable (value derived from the best information available)
 Rule (the estimator), its result (the estimate) and the quantity of interest (the estimand) are distinguished.
-
----
-# Correlation is not causation
-
-- Sleeping with your shoes on causes a headache.
 
 ---
 # Drinking causes lung cancer
