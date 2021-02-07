@@ -211,6 +211,8 @@ style_mono_accent(
 #F89441
 #FCCE25
 
+knitr::opts_chunk$set(message = FALSE)
+
 ```
 ```{css, echo = FALSE}
 
@@ -615,6 +617,9 @@ library(htmltools)
 library(paletteer)
 library(reactable)
 library(tidyverse)
+library(extrafont)
+library(hrbrthemes)
+library(firasans)
 
 tab <- cbind(seq(1,6,1),c(0,1,1,0,0,1),c(1,1,0,0,1,0),c("?",1,0,"?","?",0),c(1,"?","?",0,1,"?"),rep("?",6))
 
@@ -636,7 +641,8 @@ tbl <- tab %>%
     # apply defaults
     # 100 px and align to center of column
     defaultColDef = colDef(
-      align = "center")
+      align = "center"),
+    style = list(fontFamily = "Fira Sans, sans-serif")
     )
 
 tbl
@@ -725,7 +731,8 @@ tbl <- tab %>%
       list(color = color, background = bk_color, fontWeight = 600)
     }
   )
-)
+),
+    style = list(fontFamily = "Fira Sans, sans-serif")
     )
 
 tbl
@@ -762,7 +769,8 @@ rowStyle = function(index) {
   if (index %in% c(2,3,6)) list(fontWeight = "bold",
                                 background = "rgba(86, 1, 164,0.3)",
                                 color = "rgba(86, 1, 164,1)")
-}
+},
+    style = list(fontFamily = "Fira Sans, sans-serif")
 
 )
 
@@ -800,7 +808,8 @@ rowStyle = function(index) {
   if (index %in% c(1,4,5)) list(fontWeight = "bold",
                                 background = "rgba(225, 100, 98,0.3)",
                                 color = "rgba(225, 100, 98,1)")
-}
+},
+    style = list(fontFamily = "Fira Sans, sans-serif")
 
 )
 
@@ -833,7 +842,8 @@ tbl <- tab %>%
     # apply defaults
     # 100 px and align to center of column
     defaultColDef = colDef(
-      align = "center")
+      align = "center"),
+    style = list(fontFamily = "Fira Sans, sans-serif")
 )
 
 tbl
@@ -1015,7 +1025,8 @@ tbl <- tab2 %>%
     # apply defaults
     # 100 px and align to center of column
     defaultColDef = colDef(
-      align = "center")
+      align = "center"),
+    style = list(fontFamily = "Fira Sans, sans-serif")
 )
 
 tbl
@@ -1090,7 +1101,8 @@ tbl <- tab2 %>%
       list(color = color, background = bk_color, fontWeight = fw)
     }
   )
-)
+),
+    style = list(fontFamily = "Fira Sans, sans-serif")
     )
 
 tbl
@@ -1173,7 +1185,8 @@ tbl <- tab2 %>%
       list(color = color, background = bk_color, fontWeight = fw)
     }
   )
-)
+),
+    style = list(fontFamily = "Fira Sans, sans-serif")
     )
 
 tbl
@@ -1297,7 +1310,8 @@ tbl <- tab %>%
     defaultColDef = colDef(
       align = "center",
       minWidth = 200
-  ))
+  ),
+    style = list(fontFamily = "Fira Sans, sans-serif"))
 
 div(
   # this class can be called with CSS now via .salary
@@ -1345,7 +1359,8 @@ tbl <- tab %>%
   if (index==1) list(fontWeight = "bold",
                       background = "rgba(144, 13, 164,0.3)",
                      color = "rgba(144, 13, 164,1)")
-                        },
+  },
+    style = list(fontFamily = "Fira Sans, sans-serif")
   )
 
 div(
@@ -1396,7 +1411,8 @@ tbl <- tab %>%
   if (index==1) list(fontWeight = "bold",
                       background = "rgba(144, 13, 164,0.3)",
                      color = "rgba(144, 13, 164,1)")
-                        },
+  },
+    style = list(fontFamily = "Fira Sans, sans-serif")
   )
 
 div(
@@ -1451,7 +1467,8 @@ tbl <- tab2 %>%
   columns = list(
     Treatment = colDef(style = list(borderRight = "1px solid rgba(0, 0, 0, 0.1)")),
     Total = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
-  )
+  ),
+    style = list(fontFamily = "Fira Sans, sans-serif")
   )
 
 div(
@@ -1505,8 +1522,7 @@ tbl <- tab3 %>%
     Treatment = colDef(style = list(borderRight = "1px solid rgba(0, 0, 0, 0.1)")),
     Total = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
   ),
-  
-
+    style = list(fontFamily = "Fira Sans, sans-serif")
   
   )
 
@@ -1557,7 +1573,8 @@ tbl <- tab %>%
   columns = list(
     Treatment = colDef(style = list(borderRight = "1px solid rgba(0, 0, 0, 0.1)")),
     Total = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
-  )
+  ),
+    style = list(fontFamily = "Fira Sans, sans-serif")
   )
 
 div(
@@ -1685,7 +1702,8 @@ tbl <- tab %>%
   columns = list(
     "Registered - NV" = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)")),
     "Registered - Total" = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
-  )
+  ),
+    style = list(fontFamily = "Fira Sans, sans-serif")
   )
 
 div(
@@ -1832,7 +1850,8 @@ tbl <- tab %>%
   ),
   columns = list(
     "Registered - Toal" = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
-  )
+  ),
+    style = list(fontFamily = "Fira Sans, sans-serif")
   )
 
 div(
@@ -1969,15 +1988,62 @@ head(profs)
 
 - **.darkorange[Causal Question:]** What is the effect of beauty on teachers evaluations?
 
-.pull-left-l[
+.pull-left-little_l[
 .small[
 ```{r echo = TRUE}
-summary(lm(eval ~ beauty, data=profs))
+library(estimatr)
+
+summary(estimatr::lm_robust(eval ~ beauty, data=profs))
 ```
 ]
 ]
-.pull-right-l[
+.pull-left-right_l[
+<br>
+<br>
+<br>
 .box-4[Clearly not causal]
+]
+
+---
+# Beauty and Evaluations
+
+- **.darkorange[Causal Question:]** What is the effect of beauty on teachers evaluations?
+
+.pull-left-little_l[
+.small[
+```{r resid_beauty, fig.height=5, fig.width=6.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+library(generics)
+
+profs.fitted <- augment(lm(eval ~ beauty, data=profs))
+
+resid <- profs.fitted$.std.resid
+
+ggplot(data = profs, aes(x = allstudents, y = resid)) + 
+  geom_point(pch = 21, size = 3, color = "#F89441", fill=alpha("#F89441",4)) +
+  geom_smooth(method = "lm", color = "dark grey", lty = 2, lwd = 1.2, se = FALSE) +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  xlab("All Students (N)") + ylab("resid(Evaluations | Beauty)")+#ggtitle("How comfortable are you with R?")+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position=c(0.9,0.15),
+        legend.title = element_blank(),
+        legend.text = element_text(size=12),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+```
+]
+]
+.pull-left-right_l[
+Correlation between **.darkorange[residuals]** and **.darkorange[age]**
 ]
 
 ---
@@ -1989,7 +2055,7 @@ summary(lm(eval ~ beauty, data=profs))
 .small[
 ```{r echo = TRUE, message=FALSE, results = 'hide'}
 profs <- profs %>% mutate(treat = as.numeric(beauty > 0),
-                          female = 1 - as.numeric(gender),
+                          female = 2 - as.numeric(gender),
                           single_credit = as.numeric(credits)-1,
                           upper_div = as.numeric(division)-1,
                           native = as.numeric(native)-1,
@@ -1998,7 +2064,8 @@ profs <- profs %>% mutate(treat = as.numeric(beauty > 0),
 
 library(designmatch)
 
-covs <- profs %>% dplyr::select(minority, age, female, single_credit, upper_div, native, tenure, students, allstudents, beauty)
+covs <- profs %>% dplyr::select(minority, age, female, single_credit, upper_div, 
+                                native, tenure, students, allstudents)
 
 meantab(covs, profs$treat, which(profs$treat==1), which(profs$treat==0))
 ```
@@ -2007,14 +2074,172 @@ meantab(covs, profs$treat, which(profs$treat==1), which(profs$treat==0))
 ---
 # Let's check our data
 
-- Simplify the problem:
-  - **.darkorange[Binary Treatment]**: Beauty above average (1) vs Below average (0)
-
 .small[
 ```{r echo = TRUE, message=FALSE}
 meantab(covs, profs$treat, which(profs$treat==1), which(profs$treat==0))
 ```
 ]
+
+- **.darkorange[What can you say about the data?]**
+
+---
+# Let's check our data... now with a Love Plot!
+
+.small[
+```{r loveplot, fig.height=4.4, fig.width=6.5, fig.align='center', dev='svg', echo=TRUE, warning=FALSE, message = FALSE}
+# Reads a user-written function to generate a loveplot
+source("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/code/loveplot_balance.R")
+
+loveplot_balance(covs, which(profs$treat==1), which(profs$treat==0), v_line = 0.05, format = TRUE)
+```
+]
+
+---
+# Is it enough to control?
+
+- We can use the covariates we have on our dataset to **.darkorange[control for those group differences]**.
+
+---
+.pull-left[
+.tiny[
+```{r echo=FALSE}
+library(modelsummary)
+library(estimatr)
+
+lm1 <- estimatr::lm_robust(eval ~ beauty, data = profs)
+lm2 <- estimatr::lm_robust(eval ~ beauty + minority + age + gender + division + native + tenure + students + allstudents, data = profs)
+
+modelsummary(list(lm1, lm2), stars = TRUE, gof_omit = 'DF|Deviance|R2|AIC|BIC|Log.Lik.')
+```
+]
+]
+.pull-right[
+<br>
+<br>
+.box-3t[Beauty coeff. is consistent across models]
+<br>
+<br>
+.box-7t[Other covariates also matter]
+]
+---
+# Is it enough to control?
+
+- We can use the covariates we have on our dataset to **.darkorange[control for those group differences]**.
+
+.box-7[Is that enough]
+
+---
+# Is it enough to control?
+
+- We can use the covariates we have on our dataset to **.darkorange[control for those group differences]**.
+
+.box-7[Is that enough]
+
+.box-5[What other variable could be confounding our effect?]
+
+---
+# Is it enough to control?
+
+- We can use the covariates we have on our dataset to **.darkorange[control for those group differences]**.
+
+.box-7[Is that enough]
+
+.box-5[What other variable could be confounding our effect?]
+
+.box-2t[If I told you professors in the treatment group are taller than the ones in the control group, is height a confounder?]
+
+---
+# The problem with self-esteem
+
+- Image now we also have a self-esteem measure for each professor:
+
+```{r self_esteem_beauty, fig.height=4.3, fig.width=10.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+set.seed(100)
+
+library(gridExtra)
+
+profs <- profs %>% mutate(self_esteem = beauty + beauty^2 + rnorm(nrow(profs)))
+
+cols = c("#FCCE25","#E16462")
+
+g1 <- ggplot(data = profs, aes(x = beauty, y = self_esteem, color = factor(treat), fill = factor(treat))) + 
+  geom_point(pch = 21, size = 3) +
+  scale_fill_manual(values=c(alpha(cols[1],0.4),alpha(cols[2],0.4)),labels = c("0"="Below avg","1"="Above avg")) +
+  scale_color_manual(values=cols, labels = c("0"="Below avg","1"="Above avg")) + 
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  xlab("Beauty") + ylab("Self-Esteem")+#ggtitle("How comfortable are you with R?")+
+  theme(plot.margin=unit(c(0.5,0.5,1,1),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position=c(0.9,0.15),
+        legend.title = element_blank(),
+        legend.text = element_text(size=12),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+grid.arrange(g1, ncol = 2)
+```
+---
+# The problem with self-esteem
+
+- Image now we also have a self-esteem measure for each professor:
+
+```{r self_esteem_evals, fig.height=4.3, fig.width=10.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+resid <- profs.fitted$.std.resid
+
+g2 <- ggplot(data = profs, aes(x = self_esteem, y = resid, color = factor(treat), fill = factor(treat))) + 
+  geom_point(pch = 21, size = 3) +
+  scale_fill_manual(values=c(alpha(cols[1],0.4),alpha(cols[2],0.4)),labels = c("0"="Below avg","1"="Above avg")) +
+  scale_color_manual(values=cols, labels = c("0"="Below avg","1"="Above avg")) + 
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  xlab("Self-Esteem") + ylab("resid(Evaluations | Beauty)")+#ggtitle("How comfortable are you with R?")+
+  theme(plot.margin=unit(c(0.5,0.5,1,1),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position=c(0.9,0.15),
+        legend.title = element_blank(),
+        legend.text = element_text(size=12),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+grid.arrange(g1, g2, ncol = 2)
+```
+
+---
+# The problem with self-esteem
+
+- Image now we also have a self-esteem measure for each professor:
+
+```{r self_esteem_evals2, fig.height=4.3, fig.width=10.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+grid.arrange(g1, g2, ncol = 2)
+```
+Is it potentially a **.darkorange[confounder]**?
+
+---
+# Answering the question
+
+<span class="box-2LA">How would you answer this question?<br>Design a study!</span>
+
+---
+# Answering the question
+
+<span class="box-2LA">How would you answer this question?<br>Design a study!</span>
+
+.box-4[Can you "randomize" beauty?]
 
 ---
 # Main takeaway points
