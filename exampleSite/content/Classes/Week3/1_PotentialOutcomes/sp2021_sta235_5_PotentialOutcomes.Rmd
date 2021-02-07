@@ -443,14 +443,21 @@ Icons made by [Freepik](https://www.freepik.com) from [www.flaticon.com](https:/
 ]
 
 ---
-.center[![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache_pill.png)]
+# Potential Outcomes: An example
 
-.center[![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache_nopill.png)]
----
-.center2[
-.box-3LA[Outcome if I take the pill (i.e. treatment)]
-<br>
-.box-5LA[Outcome if I don't take the pill (i.e. control)]
+.pull-left[
+.center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache_pill.png)
+
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache_nopill.png)]
+]
+
+.pull-right[
+**.darkorange[Potential outcomes]**:
+
+- Outcome if I take the pill
+
+- Outcome if I don't take the pill
 ]
 
 ---
@@ -494,6 +501,55 @@ $$ICE_i = Y_i(1) - Y_i(0)$$
 $$ICE_i = Y_i(1) - Y_i(0)$$
 
 .box-3LA[Can we ever observe individual causal effects?]
+
+---
+# Causal Effects
+
+.box-4t[Individual Causal Effect]
+
+$$ICE_i = Y_i(1) - Y_i(0)$$
+
+.box-3LA[Can we ever observe individual causal effects?]
+
+.box-7LA[No!*]
+
+---
+# Only one realization
+
+.pull-left[
+.box-2[T=1]
+.center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache_pill_happy.png)
+
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache_pill_headache.png)]
+]
+
+.pull-right[
+.box-2[T=0]
+.center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache_nopill_happy.png)
+
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache_nopill_headache.png)]
+]
+
+---
+# Only one realization
+
+.pull-left[
+.box-2[T=1]
+.center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache_pill_happy_highlight.png)
+
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache_pill_headache.png)]
+]
+
+.pull-right[
+.box-2[T=0]
+.center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache_nopill_happy.png)
+
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache_nopill_headache.png)]
+]
 
 ---
 # Estimands vs Estimates vs Estimators
