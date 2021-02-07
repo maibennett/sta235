@@ -490,25 +490,26 @@ This means that we can write the observed outcome as a function of the *potentia
 ---
 # Causal Effects
 
-.box-4t[Individual Causal Effect]
+.box-4tL[Individual Causal Effect]
 
 $$ICE_i = Y_i(1) - Y_i(0)$$
 ---
 # Causal Effects
 
-.box-4t[Individual Causal Effect]
+.box-4tL[Individual Causal Effect]
 
 $$ICE_i = Y_i(1) - Y_i(0)$$
-
+<br>
 .box-3LA[Can we ever observe individual causal effects?]
 
 ---
 # Causal Effects
 
-.box-4t[Individual Causal Effect]
+.box-4tL[Individual Causal Effect]
 
 $$ICE_i = Y_i(1) - Y_i(0)$$
 
+<br>
 .box-3LA[Can we ever observe individual causal effects?]
 
 .box-7LA[No!*]
@@ -1222,6 +1223,19 @@ It's the same as the **.darkorange[exchangeability assumption]**:
 
 $$E[Y(1) | T = 1] = E[Y(1)| T=0] = E[Y(1)]$$
 $$E[Y(0) | T = 1] = E[Y(0)| T=0] = E[Y(0)]$$
+---
+# Example: Effect of types of advertising
+
+You want to know whether is more convenient to **.darkorange[e-mail]** or **.darkorange[physically mail]** potential customers to increase your sales.
+
+.pull-left[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/freshdirect_mail.jpeg)
+]
+
+.pull-left[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/freshdirect_email.png)
+]
+
 ---
 # Drinking causes lung cancer
 
