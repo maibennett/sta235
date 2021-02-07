@@ -346,7 +346,7 @@ knitr::opts_chunk$set(message = FALSE)
 
 - "The new marketing campaign increased our sales by 20%"
 
-- "Providing students with  FAFSA forms caused a decrease of 15% in student aid denials."
+- "Providing students support when filling out FAFSA forms improves college access and completion."
 
 ---
 # Imagine we have a headache...
@@ -851,17 +851,17 @@ tbl
 ```
 ]
 
-$$\hat{\tau} = \frac{1}{6}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.167$$
+$$\hat{\tau} = \frac{1}{3}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.333$$
 ---
 # Getting around the fundamental problem of causal inference
 
-$$\hat{\tau} = \frac{1}{6}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.167$$
+$$\hat{\tau} = \frac{1}{3}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.333$$
 - What is the **.darkorange[estimand]**?
 
 ---
 # Getting around the fundamental problem of causal inference
 
-$$\hat{\tau} = \frac{1}{6}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.167$$
+$$\hat{\tau} = \frac{1}{3}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.333$$
 
 - What is the **.darkorange[estimand]**?
 
@@ -870,7 +870,7 @@ $$\hat{\tau} = \frac{1}{6}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.167$$
 ---
 # Getting around the fundamental problem of causal inference
 
-$$\hat{\tau} = \frac{1}{6}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.167$$
+$$\hat{\tau} = \frac{1}{3}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.333$$
 
 - What is the **.darkorange[estimand]**?
 
@@ -882,7 +882,7 @@ $$\hat{\tau} = \frac{1}{6}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.167$$
 ---
 # Getting around the fundamental problem of causal inference
 
-$$\hat{\tau} = \frac{1}{6}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.167$$
+$$\hat{\tau} = \frac{1}{3}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.333$$
 
 - What is the **.darkorange[estimand]**?
 
@@ -895,7 +895,7 @@ $$\hat{\tau} = \frac{1}{6}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.167$$
 ---
 # Getting around the fundamental problem of causal inference
 
-$$\hat{\tau} = \frac{1}{6}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.167$$
+$$\hat{\tau} = \frac{1}{3}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.333$$
 
 - What is the **.darkorange[estimand]**?
 
@@ -910,7 +910,7 @@ $$\hat{\tau} = \frac{1}{6}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.167$$
 ---
 # Getting around the fundamental problem of causal inference
 
-$$\hat{\tau} = \frac{1}{6}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.167$$
+$$\hat{\tau} = \frac{1}{3}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.167$$
 
 - What is the **.darkorange[estimand]**?
 
@@ -955,6 +955,19 @@ $$= E[Y_i(1)] - E[Y_i(0)]$$
 .box-3[Ignorability]
 
 - Ignorability means that the potential outcomes $Y(0)$ and $Y(1)$ are independent of the treatment, e.g. $(Y(0), Y(1)) \perp\!\!\!\perp T$. 
+
+---
+# Under what assumptions is our estimate causal?
+
+$$\tau = E[Y_i(1) - Y_i(0)]$$
+$$= E[Y_i(1)] - E[Y_i(0)]$$
+**.darkorange[Key assumption]**:
+
+.box-3[Ignorability]
+
+- Ignorability means that the potential outcomes $Y(0)$ and $Y(1)$ are independent of the treatment, e.g. $(Y(0), Y(1)) \perp\!\!\!\perp T$. 
+
+- Remember that if $A \perp\!\!\!\perp B \ \rightarrow \ E[A|B] = E[A]$
 
 ---
 # Under what assumptions is our estimate causal?
