@@ -1224,27 +1224,552 @@ It's the same as the **.darkorange[exchangeability assumption]**:
 $$E[Y(1) | T = 1] = E[Y(1)| T=0] = E[Y(1)]$$
 $$E[Y(0) | T = 1] = E[Y(0)| T=0] = E[Y(0)]$$
 ---
-# Example: Effect of types of advertising
+
+.box-2LA[Let's look at some data]
+---
+# Example: Effect of types of advertising on sales
 
 You want to know whether is more convenient to **.darkorange[e-mail]** or **.darkorange[physically mail]** potential customers to increase your sales.
 
-.pull-left[
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/freshdirect_mail.jpeg)
+.pull-left[.center[
+![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/freshdirect_mail.png)]
 ]
 
-.pull-left[
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/freshdirect_email.png)
+.pull-right[
+.center[
+![:scale 55%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/freshdirect_email.jpg)]
+]
+---
+# Example: Effect of types of advertising on sales
+
+You want to know whether is more convenient to **.darkorange[e-mail]** or **.darkorange[physically mail]** potential customers to increase your sales.
+
+- What is the **.darkorange[treatment]**?
+
+---
+# Example: Effect of types of advertising on sales
+
+You want to know whether is more convenient to **.darkorange[e-mail]** or **.darkorange[physically mail]** potential customers to increase your sales.
+
+- What is the **.darkorange[treatment]**?
+
+- What is the **.darkorange[causal question]** that you want to answer?
+
+---
+# Example: Effect of types of advertising on sales
+
+You want to know whether is more convenient to **.darkorange[e-mail]** or **.darkorange[physically mail]** potential customers to increase your sales.
+
+- What is the **.darkorange[treatment]**?
+
+- What is the **.darkorange[causal question]** that you want to answer?
+
+- What would the **.darkorange[counterfactual]** be?
+
+---
+# Looking at some data
+
+- You get some data from a friend in Silicon Valley, who works at a similar company:
+
+.center[
+```{r echo=FALSE}
+tab <- cbind(c("E-mail","","Mail",""),c("19%","(285/1500)","16%","(88/550)"))
+
+colnames(tab) <- c("Treatment","Total")
+
+tbl <- tab %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = FALSE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center",
+      minWidth = 200
+  ))
+
+tbl
+
+```
 ]
 
 ---
-# Drinking causes lung cancer
+# Looking at some data
 
-- People that drink tend to smoke more. (COLLIDER)
----
-# Beauty in the Classroom
+- You get some data from a friend in Silicon Valley, who works at a similar company:
+
+.center[
+```{r echo=FALSE}
+tab <- cbind(c("E-mail","","Mail",""),c("19%","(290/1500)","16%","(88/550)"))
+
+colnames(tab) <- c("Treatment","Total")
+
+tbl <- tab %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = FALSE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center",
+      minWidth = 200
+  ),
+  rowStyle = function(index) {
+  if (index==1) list(fontWeight = "bold",
+                      background = "rgba(144, 13, 164,0.3)",
+                     color = "rgba(144, 13, 164,1)")
+                        },
+  )
+
+tbl
+
+```
+]
+
+**.darkorange[Does this mean that e-mailing is more effective in getting new customers?]**
 
 ---
-# Cookies in evaluations
+# Looking at some data
+
+- You get some data from a friend in Silicon Valley, who works at a similar company:
+
+.center[
+```{r echo=FALSE}
+
+tbl <- tab %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = FALSE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center",
+      minWidth = 200
+  ),
+  rowStyle = function(index) {
+  if (index==1) list(fontWeight = "bold",
+                      background = "rgba(144, 13, 164,0.3)",
+                     color = "rgba(144, 13, 164,1)")
+                        },
+  )
+
+tbl
+
+```
+]
+
+**.darkorange[Does this mean that e-mailing is more effective in getting new customers?]**
+
+**.darkorange[What additional information would you need?]**
+
+---
+# Let's add some covariates
+
+- Your friend now also sends you additional data on whether the individual had ever visited the site:
+
+.center[
+```{r echo=FALSE}
+tab2 <- cbind(tab[,1],c("10%","10/100","15%","77/514"),c("20%","280/1400","31%","11/36"),tab[,2])
+
+colnames(tab2) <- c("Treatment","Visited web","Not visited web","Total")
+
+tbl <- tab2 %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = FALSE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center",
+      minWidth = 200
+  ),
+  columns = list(
+    Treatment = colDef(style = list(borderRight = "1px solid rgba(0, 0, 0, 0.1)")),
+    Total = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
+  )
+  )
+
+tbl
+
+```
+]
+
+**.darkorange[What seems strange?]**
+
+---
+# Let's add some covariates
+
+- The majority of the sample that was assigned to "E-mail" had not visited the website before, while the majority of the sample that was sent a mailing had visited the website.
+
+.center[
+```{r echo=FALSE}
+tab3 <- cbind(tab2[,1],c("6.7%","","93.4%",""),c("93.4%","","6.5%",""),tab2[,2])
+
+colnames(tab3) <- c("Treatment","Visited web","Not visited web","Total")
+
+tbl <- tab3 %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = FALSE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center",
+      minWidth = 200
+  ),
+  columns = list(
+    Treatment = colDef(style = list(borderRight = "1px solid rgba(0, 0, 0, 0.1)")),
+    Total = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
+  ),
+  
+
+  
+  )
+
+tbl
+
+```
+]
+---
+# Let's add some covariates
+
+- Your friend now also sends you additional data on whether the individual had ever visited the site:
+
+.center[
+```{r echo=FALSE}
+tab <- cbind(tab[,1],c("10%","10/100","15%","77/514"),c("20%","280/1400","31%","11/36"),tab[,2])
+
+colnames(tab) <- c("Treatment","Visited web","Not visited web","Total")
+
+tbl <- tab %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = FALSE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center",
+      minWidth = 200
+  ),
+  columns = list(
+    Treatment = colDef(style = list(borderRight = "1px solid rgba(0, 0, 0, 0.1)")),
+    Total = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
+  )
+  )
+
+tbl
+
+```
+]
+
+**.darkorange[Do we have a confounding problem?]**
+
+---
+# Confounding
+
+.box-3LA[Confounder]
+
+.box-3tL[Variable that is correlated with the treatment AND the outcome which causes a spurious correlation/bias.]
+
+---
+# Is "Visited the website" a confounder?
+
+---
+# Is "Visited the website" a confounder?
+
+.box-5LA[Depends]
+
+---
+# Is "Visited the website" a confounder?
+
+.box-5LA[Depends]
+
+- **.darkorange[Measured before the intervention:]** Yes $\rightarrow$ Getting your name out there is effective.
+
+---
+# Is "Visited the website" a confounder?
+
+.box-5LA[Depends]
+
+- **.darkorange[Measured before the intervention:]** Yes $\rightarrow$ Getting your name out there is effective.
+
+- **.darkorange[Measured after the intervention:]** Don't know $\rightarrow$ Intervention might have incentivized people to go to the website.
+
+---
+# Is "Visited the website" a confounder?
+
+.box-5LA[Depends]
+
+- **.darkorange[Measured before the intervention:]** Yes $\rightarrow$ Getting your name out there is effective.
+
+- **.darkorange[Measured after the intervention:]** Don't know $\rightarrow$ Intervention might have incentivized people to go to the website.
+
+.box-3tL[Collider]
+
+---
+# Scenario 1: Confounding
+
+**.darkorange[Data Generating Process]**:
+  
+  - No treatment effect.
+  
+  - Pr(Registering | Visit) < Pr(Registering | Not Visited)
+  
+  - Due to data collection, more people in the mailing sample had visited the website than people in the email sample.
+
+.center[
+```{r echo = FALSE}
+set.seed(102)
+
+# Confounding:
+
+# probability of registering depending on whether you've visited the website or not (and are reminded of it)
+prob_nv <- 0.20
+prob_v <- 0.14
+
+y1_nv <- sample(c(0,1),1436,replace = TRUE, prob = c(1-prob_nv,prob_nv))
+y1_v <- sample(c(0,1),614,replace = TRUE, prob = c(1-prob_v,prob_v))
+
+treat_nv <- sample(c("m","e"), 1436, replace = TRUE, prob = c(0.065,0.935))
+treat_v <- sample(c("e","m"), 614, replace = TRUE, prob = c(0.065,0.935))
+
+confound <- data.frame("id" = seq(1,2050),
+                       "visit" = c(rep(0,1436),rep(1,614)),
+                       "treat" = c(treat_nv,treat_v),
+                       "y" = c(y1_nv, y1_v))
+
+tab1 <- table(confound$treat,confound$visit)
+tab2 <- round(table(confound$treat,confound$y)[,2]/rowSums(table(confound$treat,confound$y)),2)
+
+tab <- cbind(tab1, tab2)
+colnames(tab) <- c("Not visited","Visited", "% Registered")
+
+rownames(tab) <- c("Email","Mail")
+
+
+tbl <- tab %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = TRUE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = FALSE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center",
+      minWidth = 200
+  ),
+  columns = list(
+    "% Registered" = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
+  )
+  )
+
+tbl
+```
+]
+
+.source[Note: Simulated data]
+
+---
+# Scenario 1: Confounding
+
+What happens if we run a **.darkorange[simple model]**?
+
+.small[
+```{r echo = TRUE}
+summary(lm(y ~ factor(treat), data = confound))
+```
+]
+
+---
+# Scenario 1: Confounding
+
+What happens if we now **.darkorange[control by whether the person visited the website]**?
+
+.small[
+```{r echo = TRUE}
+summary(lm(y ~ factor(treat) + visit, data = confound))
+```
+]
+
+---
+# Scenario 1: Confounding
+
+What happens if we now **.darkorange[control by whether the person visited the website]**?
+
+.small[
+```{r echo = TRUE}
+summary(lm(y ~ factor(treat) + visit, data = confound))
+```
+]
+
+- **.darkorange[What conclusions would you make?]**
+
+---
+# Scenario 2: Collider Bias
+
+**.darkorange[Data Generating Process]**:
+  
+  - No direct treatment effect of mailing over emails.
+  
+  - Pr(Visit | e-mail) < Pr(Visit | mail)
+  
+  - People that receive a letter are much more encouraged to visit the website, and people that visit the website are more likely to register.
+
+.center[
+```{r echo = FALSE}
+set.seed(14)
+
+treat <- sample(c("m","e"), 2050, replace = TRUE, prob = c(1-0.732,0.732))
+
+visit_m <- sample(c(0,1), sum(treat=="m"), replace = TRUE, prob = c(1-0.9345,0.9345))
+
+visit_e <- sample(c(0,1), sum(treat=="e"), replace = TRUE, prob = c(1-0.0667,0.0667))
+
+visit <- 0
+visit[which(treat=="m")] <- visit_m
+visit[which(treat=="e")] <- visit_e
+
+y1_m_nv <- sample(c(0,1),sum(treat=="m" & visit==0),replace = TRUE, prob = c(1-0.31,0.31))
+y1_m_v <- sample(c(0,1),sum(treat=="m" & visit==1),replace = TRUE, prob = c(1-0.15,0.15))
+
+y1_e_nv <- sample(c(0,1),sum(treat=="e" & visit==0),replace = TRUE, prob = c(1-0.2,0.2))
+y1_e_v <- sample(c(0,1),sum(treat=="e" & visit==1),replace = TRUE, prob = c(1-0.1,0.1))
+
+y1 <- rep(0,2050)
+y1[which(treat=="m" & visit==0)] <- y1_m_nv
+y1[which(treat=="m" & visit==1)] <- y1_m_v
+
+y1[which(treat=="e" & visit==0)] <- y1_e_nv
+y1[which(treat=="e" & visit==1)] <- y1_e_v
+
+collider <- data.frame("id" = seq(1,2050),
+                       "visit" = visit,
+                       "treat" = treat,
+                       "y" = y1)
+
+
+tab1 <- table(collider$treat,collider$visit)
+tab2 <- round(table(collider$treat,collider$y)[,2]/rowSums(table(collider$treat,collider$y)),2)
+
+tab <- cbind(tab1, tab2)
+colnames(tab) <- c("Not visited","Visited", "% Registered")
+
+rownames(tab) <- c("Email","Mail")
+
+
+tbl <- tab %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = TRUE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = FALSE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center",
+      minWidth = 200
+  ),
+  columns = list(
+    "% Registered" = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
+  )
+  )
+
+tbl
+```
+]
+
+.source[Note: Simulated data]
+
+---
+# Scenario 2: Collider Bias
+
+What happens if we now **.darkorange[run a simple model]**?
+
+.small[
+```{r echo = TRUE}
+summary(lm(y ~ factor(treat), data = collider))
+```
+]
+
+---
+# Scenario 2: Collider Bias
+
+What happens if we now **.darkorange[control by whether the person visited the website]**?
+
+.small[
+```{r echo = TRUE}
+summary(lm(y ~ factor(treat) + visit, data = collider))
+```
+]
 
 ---
 # Is this effect causal?
