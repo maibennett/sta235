@@ -28,6 +28,10 @@ class: center, middle, inverse, title-slide
 .small .remark-code { /*Change made here*/
   font-size: 80% !important;
 }
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 50% !important;
+}
 &lt;/style&gt;
 
 # Housekeeping
@@ -155,54 +159,106 @@ class: center, middle, inverse, title-slide
 
 ---
 # Imagine we have a headache...
-.center[![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache.png)]
+.center[![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache.png)]
 
-.source[
-&lt;div&gt;Icons made by &lt;a href="https://www.freepik.com" title="Freepik"&gt;Freepik&lt;/a&gt; from &lt;a href="https://www.flaticon.com/" title="Flaticon"&gt;www.flaticon.com&lt;/a&gt;&lt;/div&gt;
-]
+&lt;br&gt;
+&lt;br&gt;
+.tiny[
+.lightgrey[
+Icons made by [Freepik](https://www.freepik.com) from [www.flaticon.com](https://www.flaticon.com/)
+]]
 ---
 # A treatment could be an aspirin
-.center[![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache_pill.png)]
+.center[![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache_pill.png)]
 
-.source[
-&lt;div&gt;Icons made by &lt;a href="https://www.freepik.com" title="Freepik"&gt;Freepik&lt;/a&gt; from &lt;a href="https://www.flaticon.com/" title="Flaticon"&gt;www.flaticon.com&lt;/a&gt;&lt;/div&gt;
-]
-
+&lt;br&gt;
+&lt;br&gt;
+.tiny[
+.lightgrey[
+Icons made by [Freepik](https://www.freepik.com) from [www.flaticon.com](https://www.flaticon.com/)
+]]
 ---
 # Headache is gone!
-.center[![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache_pill_happy.png)]
+.center[![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache_pill_happy.png)]
 
-.source[
-&lt;div&gt;Icons made by &lt;a href="https://www.freepik.com" title="Freepik"&gt;Freepik&lt;/a&gt; from &lt;a href="https://www.flaticon.com/" title="Flaticon"&gt;www.flaticon.com&lt;/a&gt;&lt;/div&gt;
-]
+&lt;br&gt;
+&lt;br&gt;
+.tiny[
+.lightgrey[
+Icons made by [Freepik](https://www.freepik.com) from [www.flaticon.com](https://www.flaticon.com/)
+]]
 ---
 .center2[
-.box-3tL[Did the aspirin work?]
+.box-3LA[Did the aspirin work?]
 &lt;br&gt;
 ]
 ---
 .center2[
-.box-3tL[Did the aspirin work?]
+.box-3LA[Did the aspirin work?]
 &lt;br&gt;
-.box-5tL[We can't know!]
+.box-5LA[We can't know!]
 ]
 ---
 # A world of potential (outcomes)
 
-- Two parallel worlds
-- Headache - pill - No headache
-- Headache - no pill - headache
+- Under a binary treatment or intervention, there are **.darkorange[two potential worlds]**:
 
 ---
 # A world of potential (outcomes)
 
-- A priori, the first scenario would be the potential outcome if I take the pill.
+- Under a binary treatment or intervention, there are **.darkorange[two potential worlds]**:
 
-- The second scenario would be the potential outcome if I don't take the pill.
+.pull-left[
+- **.darkorange[World 1]**: You take the pill
+  
+- **.darkorange[World 2]**: You don't take the pill
+]
+.pull-right[
+![](https://media.giphy.com/media/SCt3Miv6ugvSg/source.gif)
+]
+---
+# A world of potential (outcomes)
+
+- A **.darkorange[potential outcome]** is the outcome under each of these scenarios or "worlds".
+
+  - *There will be one for each path!*
+
+---
+# A world of potential (outcomes)
+
+- A **.darkorange[potential outcome]** is the outcome under each of these scenarios or "worlds".
+
+  - *There will be one for each path!*
+
+- A priori, each of these scenarios has a *potential outcome*
+
+- A posteriori, I can only observe **.darkorange[at most one of the potential outcomes]**
+
+
+---
+# A world of potential (outcomes)
+
+- A **.darkorange[potential outcome]** is the outcome under each of these scenarios or "worlds".
+
+  - *There will be one for each path!*
+
+- A priori, each of these scenarios has a *potential outcome*
 
 - A posteriori, I can only observe **.darkorange[at most one of the potential outcomes]**
 
 .box-3LA[Fundamental Problem of Causal Inference]
+
+---
+.center2[
+.box-6LA[What are the potential outcomes for our previous example?]
+]
+
+---
+.center2[
+.box-3LA[Outcome if I take the pill (i.e. treatment)]
+&lt;br&gt;
+.box-5LA[Outcome if I don't take the pill (i.e. control)]
+]
 
 ---
 # Potential Outcomes Framework:
@@ -210,19 +266,26 @@ class: center, middle, inverse, title-slide
 Let's introduce some notation:
 
 - Let `\(Y_i\)` be the observed outcome for unit `\(i\)` (e.g. whether I have a headache or not in an hour).
-- Let `\(T\)` be the treatment or intervention (e.g. taking a pill).
+- Let `\(T_i\)` be the treatment or intervention (e.g. taking a pill).
 
 Then,
 
-$$Y_i | T = 1 \overset{\Delta}{=} Y_i(1) $$
+$$Y_i | T_i = 1 \overset{\Delta}{=} Y_i(1) $$
 where `\(Y_i(1)\)` is the **.darkorange[potential outcome under treatment]**.
 
 In the same fashion,
 
-$$Y_i | T = 0 \overset{\Delta}{=} Y_i(0) $$
+$$Y_i | T_i = 0 \overset{\Delta}{=} Y_i(0) $$
 where `\(Y_i(1)\)` is the **.darkorange[potential outcome under control]**.
 
-`$$\rightarrow Y_i = T\cdot Y_i(1) + (1-T)\cdot Y_i(0)$$`
+---
+# Potential Outcomes Framework:
+
+This means that we can write the observed outcome as a function of the *potential outcomes*:
+
+.box-5LA[$$\rightarrow Y_i = T_i\cdot Y_i(1) + (1-T_i)\cdot Y_i(0)$$]
+
+- This definition will be useful because we can see this as a **.darkorange[missing data problem]**.
 
 ---
 # Causal Effects
@@ -237,7 +300,7 @@ where `\(Y_i(1)\)` is the **.darkorange[potential outcome under control]**.
 
 `$$ICE_i = Y_i(1) - Y_i(0)$$`
 
-.box-6LA[Can we ever observe individual causal effects?]
+.box-3LA[Can we ever observe individual causal effects?]
 
 ---
 # Causal Estimands

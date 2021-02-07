@@ -59,6 +59,7 @@
   --base: #333f48;
   --white: #FFFFFF;
   --black: #272822;
+  --lightgrey: #C0C0C0;
   --red: #f34213;
   --purple: #900DA4;
   --darkpurple: #61077a;
@@ -259,6 +260,12 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 .bg-black {
   background-color: var(--black);
 }
+.lightgrey {
+  color: var(--lightgrey);
+}
+.bg-lightgrey {
+  background-color: var(--lightgrey);
+}
 .red {
   color: var(--red);
 }
@@ -323,6 +330,9 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 }
 .small {
   font-size: 80%;
+}
+.tiny {
+  font-size: 50%;
 }
 .large {
   font-size: 150%;
