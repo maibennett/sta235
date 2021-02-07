@@ -443,6 +443,10 @@ Icons made by [Freepik](https://www.freepik.com) from [www.flaticon.com](https:/
 ]
 
 ---
+.center[![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache_pill.png)]
+
+.center[![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/headache_nopill.png)]
+---
 .center2[
 .box-3LA[Outcome if I take the pill (i.e. treatment)]
 <br>
@@ -450,7 +454,7 @@ Icons made by [Freepik](https://www.freepik.com) from [www.flaticon.com](https:/
 ]
 
 ---
-# Potential Outcomes Framework:
+# Potential Outcomes Framework
 
 Let's introduce some notation:
 
@@ -468,7 +472,7 @@ $$Y_i | T_i = 0 \overset{\Delta}{=} Y_i(0) $$
 where $Y_i(1)$ is the **.darkorange[potential outcome under control]**.
 
 ---
-# Potential Outcomes Framework:
+# Potential Outcomes Framework
 
 This means that we can write the observed outcome as a function of the *potential outcomes*:
 
@@ -1124,30 +1128,44 @@ tbl
 ---
 # Ignorability Assumption
 
-It's the same as the **.darkorange[exchangeability assumption]*:
+It's the same as the **.darkorange[exchangeability assumption]**:
 
-.pull-left[
-.center[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/ex1.png)]
-]
+.center[![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/ex1.png)]
 
----
-# Ignorability Assumption
-
-It's the same as the **.darkorange[exchangeability assumption]*:
-
-.pull-left[
-.center[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/ex2.png)]
-]
 
 ---
 # Ignorability Assumption
 
-It's the same as the **.darkorange[exchangeability assumption]*:
+It's the same as the **.darkorange[exchangeability assumption]**:
 
-.pull-left[
-.center[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/ex3.png)]
-]
+.center[![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/ex2.png)]
 
+
+---
+# Ignorability Assumption
+
+It's the same as the **.darkorange[exchangeability assumption]**:
+
+.center[![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/ex3.png)]
+
+---
+# Ignorability Assumption
+
+It's the same as the **.darkorange[exchangeability assumption]**:
+
+.center[![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/ex3.png)]
+
+$$E[Y(1) | T = 1] = E[Y(1)| T=0] = E[Y(1)]$$
+
+---
+# Ignorability Assumption
+
+It's the same as the **.darkorange[exchangeability assumption]**:
+
+.center[![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/ex3.png)]
+
+$$E[Y(1) | T = 1] = E[Y(1)| T=0] = E[Y(1)]$$
+$$E[Y(0) | T = 1] = E[Y(0)| T=0] = E[Y(0)]$$
 ---
 # Drinking causes lung cancer
 
