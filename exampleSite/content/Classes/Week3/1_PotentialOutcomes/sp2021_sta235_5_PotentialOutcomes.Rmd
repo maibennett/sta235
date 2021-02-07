@@ -606,6 +606,30 @@ estimate based on data</span>
 
 .box-4t[$$\frac{1}{n}\sum_i Y_i$$]
 ]
+
+---
+# Estimands vs Estimates vs Estimators
+
+- Some important **.darkorange[estimands]** that we need to keep in mind:
+
+.box-3[Average Treatment Effect (ATE)]
+
+.box-5[Average Treatment Effect on the Treated (ATT or TOT)]
+
+.box-7[Conditional Average Treatment Effect (CATE)]
+
+---
+# Estimands vs Estimates vs Estimators
+
+- Some important **.darkorange[estimands]** that we need to keep in mind:
+
+.box-3[$$ATE = E[Y(1)- Y(0)]$$]
+
+.box-5[$$ATT = E[Y(1)- Y(0)| T=1]$$]
+
+.box-7[$$CATE = E[Y(1)- Y(0)| X]$$]
+
+
 ---
 # Getting around the fundamental problem of causal inference
 
@@ -928,7 +952,7 @@ $$\hat{\tau} = \frac{1}{3}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.167$$
 # Under what assumptions is our estimate causal?
 
 We are using:
-$$\hat{\tau} = \frac{1}{6}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i)$$
+$$\hat{\tau} = \frac{1}{3}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i)$$
 to estimate:
 
 $$\tau = E[Y_i(1) - Y_i(0)]$$
@@ -937,7 +961,7 @@ $$\tau = E[Y_i(1) - Y_i(0)]$$
 # Under what assumptions is our estimate causal?
 
 We are using:
-$$\hat{\tau} = \frac{1}{6}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i)$$
+$$\hat{\tau} = \frac{1}{3}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i)$$
 
 to estimate:
 
@@ -967,7 +991,7 @@ $$= E[Y_i(1)] - E[Y_i(0)]$$
 
 - Ignorability means that the potential outcomes $Y(0)$ and $Y(1)$ are independent of the treatment, e.g. $(Y(0), Y(1)) \perp\!\!\!\perp T$. 
 
-- Remember that if $A \perp\!\!\!\perp B \ \rightarrow \ E[A|B] = E[A]$
+  - *Remember that if* $A \perp\!\!\!\perp B \ \rightarrow \ E[A|B] = E[A]$
 
 ---
 # Under what assumptions is our estimate causal?
@@ -994,7 +1018,7 @@ $$= E[Y_i(1)] - E[Y_i(0)]$$
 
 - Ignorability means that the potential outcomes $Y(0)$ and $Y(1)$ are independent of the treatment, e.g. $(Y(0), Y(1)) \perp\!\!\!\perp T$. 
 
-$$\tau = E[Y_i(1)] - E[Y_i(0)] = \color{purple}{\underbrace{E[Y_i(1)| T=1]}_\text{Obs. Outcome for T}} - \color{darkorange}{\overbrace{E[Y_i(0)| T=0]}^\text{Obs. Outcome for C}}$$
+$$\tau = E[Y_i(1)] - E[Y_i(0)] = \color{#900DA4}{\underbrace{E[Y_i(1)| T=1]}_\text{Obs. Outcome for T}} - \color{#F89441}{\overbrace{E[Y_i(0)| T=0]}^\text{Obs. Outcome for C}}$$
 ---
 # Under what assumptions is our estimate causal?
 
