@@ -1949,9 +1949,72 @@ summary(lm(y ~ factor(treat) + visit, data = collider))
 
 - Data: Student's evaluations for instructors at UT Austin
 
+.small[
 ```{r echo = TRUE}
+profs <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/data/profs.csv",
+                  stringsAsFactors = TRUE)
 
+head(profs)
 ```
+]
+
+---
+# Beauty and Evaluations
+
+- **.darkorange[Causal Question:]** What is the effect of beauty on teachers evaluations?
+
+
+---
+# Beauty and Evaluations
+
+- **.darkorange[Causal Question:]** What is the effect of beauty on teachers evaluations?
+
+.pull-left-l[
+.small[
+```{r echo = TRUE}
+summary(lm(eval ~ beauty, data=profs))
+```
+]
+]
+.pull-right-l[
+.box-4[Clearly not causal]
+]
+
+---
+# Let's check our data
+
+- Simplify the problem:
+  - **.darkorange[Binary Treatment]**: Beauty above average (1) vs Below average (0)
+
+.small[
+```{r echo = TRUE, message=FALSE, results = 'hide'}
+profs <- profs %>% mutate(treat = as.numeric(beauty > 0),
+                          female = 1 - as.numeric(gender),
+                          single_credit = as.numeric(credits)-1,
+                          upper_div = as.numeric(division)-1,
+                          native = as.numeric(native)-1,
+                          tenure = as.numeric(tenure)-1,
+                          minority = as.numeric(minority)-1) 
+
+library(designmatch)
+
+covs <- profs %>% dplyr::select(minority, age, female, single_credit, upper_div, native, tenure, students, allstudents, beauty)
+
+meantab(covs, profs$treat, which(profs$treat==1), which(profs$treat==0))
+```
+]
+
+---
+# Let's check our data
+
+- Simplify the problem:
+  - **.darkorange[Binary Treatment]**: Beauty above average (1) vs Below average (0)
+
+.small[
+```{r echo = TRUE, message=FALSE}
+meantab(covs, profs$treat, which(profs$treat==1), which(profs$treat==0))
+```
+]
 
 ---
 # Main takeaway points

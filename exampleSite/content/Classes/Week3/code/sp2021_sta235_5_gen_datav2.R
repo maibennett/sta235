@@ -15,18 +15,17 @@ y_B <- rep(0, n_B)
 y1_B <- sample(seq(1:n_B),88)
 y_B[y1_B] <- 1
 
-
 # Confounding:
 
 # probability of registering depending on whether you've visited the website or not (and are reminded of it)
-prob_nv <- 0.20
-prob_v <- 0.14
+prob_nv <- 0.203
+prob_v <- 0.142
 
 y1_nv <- sample(c(0,1),1436,replace = TRUE, prob = c(1-prob_nv,prob_nv))
 y1_v <- sample(c(0,1),614,replace = TRUE, prob = c(1-prob_v,prob_v))
 
-treat_nv <- sample(c("m","e"), 1436, replace = TRUE, prob = c(0.065,0.935))
-treat_v <- sample(c("e","m"), 614, replace = TRUE, prob = c(0.065,0.935))
+treat_nv <- sample(c("m","e"), 1436, replace = TRUE, prob = c(36/1436,1-36/1436))
+treat_v <- sample(c("m","e"), 614, replace = TRUE, prob = c(514/614,1-514/614))
 
 confound <- data.frame("id" = seq(1,2050),
                        "visit" = c(rep(0,1436),rep(1,614)),
