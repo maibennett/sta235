@@ -269,12 +269,14 @@ knitr::opts_chunk$set(message = FALSE)
 ]
 
 ---
-
-.center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/greta_tweet.png)]
+<br>
+.center[![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/greta_tweet.png)]
 ---
 .center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/greta_effect.png)]
 ---
-.center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/greta_dag.png)]
+<br>
+<br>
+.center[![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/greta_dag.png)]
 ---
 .center2[.box-3LA[What do you thing are the biggest issues here?]]
 ---
@@ -1891,8 +1893,9 @@ summary(lm(y ~ factor(treat) + visit, data = confound))
 
 ---
 # Scenario 2: Collider Bias
-.center2[
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/dag_collider.png)
+
+.center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/dag_collider.png)
 ]
 
 ---
@@ -2427,3 +2430,5 @@ Is it potentially a **.darkorange[confounder]**?
 - Cunningham, S. (2021). ["Causal Inference: The Mixtape". *Chapter 4: Potential Outcomes Causal Model*](https://mixtape.scunning.com/ch3.html).
 
 - Neil, B. (2020). "Introduction to Causal Inference". *Fall 2020 Course*
+
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week3/1_PotentialOutcomes/sp2021_sta235_5_PotentialOutcomes.html') -->
