@@ -2529,7 +2529,7 @@ Is it potentially a **.darkorange[confounder]**?
 .box-3LA[Causal Inference is hard]
 <br>
 <br>
-- Check validity of assumptions (*Is ignorability plausible? Am I controlling for the right covariates?*)
+- Think about the **.darkorange[causal problem]**
 
 ---
 # Main takeaway points
@@ -2537,7 +2537,33 @@ Is it potentially a **.darkorange[confounder]**?
 .box-3LA[Causal Inference is hard]
 <br>
 <br>
-- Check validity of assumptions (*Is ignorability plausible? Am I controlling for the right covariates?*)
+- Think about the **.darkorange[causal problem]**
+
+- Always **.darkorange[look at your data]**
+
+---
+# Main takeaway points
+
+.box-3LA[Causal Inference is hard]
+<br>
+<br>
+- Think about the **.darkorange[causal problem]**
+
+- Always **.darkorange[look at your data]**
+
+- Check **.darkorange[validity]** of assumptions (*Is ignorability plausible? Am I controlling for the right covariates?*)
+
+---
+# Main takeaway points
+
+.box-3LA[Causal Inference is hard]
+<br>
+<br>
+- Think about the **.darkorange[causal problem]**
+
+- Always **.darkorange[look at your data]**
+
+- Check **.darkorange[validity]** of assumptions (*Is ignorability plausible? Am I controlling for the right covariates?*)
 
 - Most of this chapter will be spent on looking for **.darkorange[exogeneous variation]** to make the ignorability assumption happen.
 

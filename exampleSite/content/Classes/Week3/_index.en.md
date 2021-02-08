@@ -30,4 +30,4 @@ You can find the first slides for the class [here](https://sta235.netlify.app/Cl
 
 ## Code
 
-<!-- [Here](https://github.com/maibennett/sta235/blob/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/code/sp2021_sta235_5_PO.R) is the R code we will review in class, with some additional data and questions. -->
+[Here](https://github.com/maibennett/sta235/blob/main/exampleSite/content/Classes/Week3/code/sp2021_sta235_5_PO.R) is the R code we will review in class.
