@@ -614,7 +614,7 @@ estimate based on data</span>
 
 .box-3[Average Treatment Effect (ATE)]
 
-.box-5[Average Treatment Effect on the Treated (ATT or TOT)]
+.box-5[Average Treatment Effect on the Treated (ATT)]
 
 .box-7[Conditional Average Treatment Effect (CATE)]
 
@@ -934,7 +934,7 @@ $$\hat{\tau} = \frac{1}{3}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.333$$
 ---
 # Getting around the fundamental problem of causal inference
 
-$$\hat{\tau} = \frac{1}{3}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.167$$
+$$\hat{\tau} = \frac{1}{3}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.333$$
 
 - What is the **.darkorange[estimand]**?
 
@@ -946,7 +946,7 @@ $$\hat{\tau} = \frac{1}{3}(\sum_{i \in T=1}Y_i - \sum_{i \in T=0}Y_i) = -0.167$$
 
 - What is the **.darkorange[estimate]** and *how do we interpret it*?
 
-.box-2[16.7% decrease in probability of having a headache]
+.box-2[33.3% decrease in probability of having a headache]
 
 ---
 # Under what assumptions is our estimate causal?
@@ -1273,6 +1273,71 @@ It's the same as the **.darkorange[exchangeability assumption]**:
 
 $$E[Y(1) | T = 1] = E[Y(1)| T=0] = E[Y(1)]$$
 $$E[Y(0) | T = 1] = E[Y(0)| T=0] = E[Y(0)]$$
+---
+# What happens if the ignorability assumption doesn't hold?
+
+- Now, let's assume $(Y(0), Y(1)) \not\!\perp\!\!\!\perp T$
+
+$$\tau = E[Y_i(1)] - E[Y_i(0)] \neq E[Y_i| T=1] - E[Y_i| T=0]$$
+.box-4LA[Correlation does not imply causation]
+
+---
+# What happens if the ignorability assumption doesn't hold?
+
+- Now, let's assume $(Y(0), Y(1)) \not\!\perp\!\!\!\perp T$
+
+$$\tau = E[Y_i(1) - Y_i(0)] = $$
+$$=E[Y_i(1) - Y_i(0)|T=1]Pr(T=1) + E[Y_i(1) - Y_i(0)|T=1](1-Pr(T=1))$$
+---
+# What happens if the ignorability assumption doesn't hold?
+
+- Now, let's assume $(Y(0), Y(1)) \not\!\perp\!\!\!\perp T$
+
+$$\tau = E[Y_i(1) - Y_i(0)] = $$
+
+$$=\color{#900DA4}{\underbrace{E[Y_i(1) - Y_i(0)|T=1]}_\text{ATT}}Pr(T=1) + \color{#F89441}{\overbrace{E[Y_i(1) - Y_i(0)|T=0]}^\text{ATC}}(1-Pr(T=1))$$
+- Weighted average of the ATT and ATC.
+
+---
+# What happens if the ignorability assumption doesn't hold?
+
+- After some simple math, you can get to:
+
+$$\tau = E[Y_i(1) - Y_i(0)] = ATE$$
+
+$$\begin{aligned}
+ATE &=E[Y_i|T=1] - E[Y_i|T=0] \\
+\\
+& - (E[Y_i(0)|T=1]-E[Y_i(0)|T=0]) \\
+\\
+& - (1-Pr(T=1))(ATT - ATC)
+\end{aligned}$$
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+.source[Check out [Scott Cunningham's "Causal Inference: The Mixtape" (Ch. 4.1.3)](https://mixtape.scunning.com/ch3.html) for the decomposition]
+
+---
+# What happens if the ignorability assumption doesn't hold?
+
+- After some simple math, you can get to:
+
+$$\tau = E[Y_i(1) - Y_i(0)] = ATE$$
+
+$$\begin{aligned}
+ATE &=\color{#900DA4}{\underbrace{E[Y_i|T=1] - E[Y_i|T=0]}_\text{Obs diff in means}} \\
+& - \color{#E16462}{\underbrace{(E[Y_i(0)|T=1]-E[Y_i(0)|T=0])}_\text{Selection bias}} \\
+& - \color{#FCCE25}{\underbrace{(1-Pr(T=1))(ATT - ATC)}_\text{Heterogeneous treat. effect bias}}
+\end{aligned}$$
+- **.darkorange[Selection Bias:]** Difference between groups if they both were under control.
+- **.darkorange[Heterogeneous Treatment Effect Bias:]** Difference in returns to treatment for the two groups (weighted by the control population).
+<br>
+<br>
+.source[Check out [Scott Cunningham's "Causal Inference: The Mixtape" (Ch. 4.1.3)](https://mixtape.scunning.com/ch3.html) for the decomposition]
+
 ---
 .center2[
 .box-2LA[Let's look at some data]
@@ -1676,6 +1741,13 @@ div(
 ---
 # Scenario 1: Confounding
 
+.center2[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/dag_confound.png)
+]
+
+---
+# Scenario 1: Confounding
+
 **.darkorange[Data Generating Process]**:
   
   - No treatment effect.
@@ -1816,6 +1888,12 @@ summary(lm(y ~ factor(treat) + visit, data = confound))
 ]
 
 - **.darkorange[What conclusions would you make?]**
+
+---
+# Scenario 2: Collider Bias
+.center2[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/dag_collider.png)
+]
 
 ---
 # Scenario 2: Collider Bias
@@ -2080,7 +2158,7 @@ ggplot(data = profs, aes(x = allstudents, y = resid)) +
 ]
 ]
 .pull-left-right_l[
-Correlation between **.darkorange[residuals]** and **.darkorange[age]**
+Negative correlation between **.darkorange[residuals]** and **.darkorange[number of students]**
 ]
 
 ---
@@ -2163,14 +2241,14 @@ modelsummary(list(lm1, lm2), stars = TRUE, gof_omit = 'DF|Deviance|R2|AIC|BIC|Lo
 
 - We can use the covariates we have on our dataset to **.darkorange[control for those group differences]**.
 
-.box-7[Is that enough]
+.box-7[Is that enough?]
 
 ---
 # Is it enough to control?
 
 - We can use the covariates we have on our dataset to **.darkorange[control for those group differences]**.
 
-.box-7[Is that enough]
+.box-7[Is that enough?]
 
 .box-5[What other variable could be confounding our effect?]
 
@@ -2179,7 +2257,7 @@ modelsummary(list(lm1, lm2), stars = TRUE, gof_omit = 'DF|Deviance|R2|AIC|BIC|Lo
 
 - We can use the covariates we have on our dataset to **.darkorange[control for those group differences]**.
 
-.box-7[Is that enough]
+.box-7[Is that enough?]
 
 .box-5[What other variable could be confounding our effect?]
 
@@ -2279,6 +2357,27 @@ Is it potentially a **.darkorange[confounder]**?
 .box-4[Can you "randomize" beauty?]
 
 ---
+# After everything we've seen today... JITT
+
+<span class="box-7">Is there an association between health insurance and health index?</span>
+
+---
+# After everything we've seen today... JITT
+
+<span class="box-7">Is there an association between health insurance and health index?</span>
+
+<span class="box-5">Is there a causal effect of health insurance on health index?</span>
+
+---
+# After everything we've seen today... JITT
+
+<span class="box-7">Is there an association between health insurance and health index?</span>
+
+<span class="box-5">Is there a causal effect of health insurance on health index?</span>
+
+<span class="box-3">Remember that a confounding variable needs to affect the treatment AND the outcome</span>
+
+---
 # Main takeaway points
 
 .box-3LA[Causal Inference is hard]
@@ -2291,7 +2390,7 @@ Is it potentially a **.darkorange[confounder]**?
 .box-3LA[Causal Inference is hard]
 <br>
 <br>
-- Check validity of assumptions (*Is ignorability enough? Am I controlling for the right covariates?*)
+- Check validity of assumptions (*Is ignorability plausible? Am I controlling for the right covariates?*)
 
 ---
 # Main takeaway points
@@ -2299,7 +2398,10 @@ Is it potentially a **.darkorange[confounder]**?
 .box-3LA[Causal Inference is hard]
 <br>
 <br>
-- Check validity of assumptions (*Is ignorability enough? Am I controlling for the right covariates?*)
+- Check validity of assumptions (*Is ignorability plausible? Am I controlling for the right covariates?*)
+
+- Most of this chapter will be spent on looking for **.darkorange[exogeneous variation]** to make the ignorability assumption happen.
+
 ---
 # Next week
 
@@ -2310,6 +2412,7 @@ Is it potentially a **.darkorange[confounder]**?
 
   - Pros and Cons
   - Concept of validity
+  - A/B Testing
 ]
 
 .pull-right[
@@ -2319,5 +2422,8 @@ Is it potentially a **.darkorange[confounder]**?
 ---
 # References
 
-- Angrist, J. & S. Pischke. (2015). "Mastering Metrics". *Chapter 1*
+- Angrist, J. & S. Pischke. (2015). "Mastering Metrics". *Chapter 1*.
+
+- Cunningham, S. (2021). ["Causal Inference: The Mixtape". *Chapter 4: Potential Outcomes Causal Model*](https://mixtape.scunning.com/ch3.html).
+
 - Neil, B. (2020). "Introduction to Causal Inference". *Fall 2020 Course*
