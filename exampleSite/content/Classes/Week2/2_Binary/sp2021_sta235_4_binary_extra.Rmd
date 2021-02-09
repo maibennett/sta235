@@ -20,7 +20,15 @@ output:
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(fig.showtext = TRUE)
 ```
+```{r setup2, echo=FALSE, message=FALSE}
+library(knitr)
+library(showtext)
+```
 
+```{r fonts, message=FALSE, echo=FALSE}
+font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
+font.add.google("Fira Sans", "Fira Sans")
+```
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(xaringanthemer)
 

@@ -37,7 +37,7 @@ theme_xaringan(
 style_mono_accent(
   #base_color = "#bf5700",
   extra_fonts = list(google_font("Fira Sans","200","300","400","500","600"),
-                     google_font("Fira Sans Condensed")),
+                     google_font("Fira Sans Condensed","200","300","400","500","600")),
   base_color = "#333f48",
   header_font_google = google_font("Yanone Kaffeesatz","200","300","400","500","600","700"),
   text_font_google   = google_font("Roboto", "300", "300i","400","500"),
@@ -223,6 +223,16 @@ knitr::opts_chunk$set(message = FALSE)
 .tiny .remark-code { /*Change made here*/
   font-size: 70% !important;
 }
+```
+
+```{r setup2, echo=FALSE, message=FALSE}
+library(knitr)
+library(showtext)
+```
+
+```{r fonts, message=FALSE, echo=FALSE}
+font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
+font.add.google("Fira Sans", "Fira Sans")
 ```
 
 # Housekeeping
@@ -646,8 +656,14 @@ library(tidyverse)
 library(extrafont)
 library(hrbrthemes)
 library(firasans)
-library(showtext)
-showtext_auto()
+# for windows
+windowsFonts(sans = "Fira")
+loadfonts(device="win")
+loadfonts(device="postscript")
+#import_fira_sans()
+
+#library(showtext)
+#showtext_auto()
 
 tab <- cbind(seq(1,6,1),c(0,1,1,0,0,1),c(1,1,0,0,1,0),c("?",1,0,"?","?",0),c(1,"?","?",0,1,"?"),rep("?",6))
 
