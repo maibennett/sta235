@@ -24,7 +24,7 @@ Complete before **Sunday Feb 7th (11:59 pm)**. You can find the assignment [here
 
 ## Slides
 
-You can find the first slides for the class [here](https://sta235.netlify.app/Classes/Week3/1_PotentialOutcomes/sp2021_sta235_5_PotentialOutcomes.html):
+You can find the first slides for the class [here](https://sta235.netlify.app/Classes/Week3/1_PotentialOutcomes/sp2021_sta235_5_PotentialOutcomes.html) or download them {{% button href="https://sta235.netlify.app/Classes/Week3/1_PotentialOutcomes/sp2021_sta235_5_PotentialOutcomes.pdf" icon="fas fa-download" icon-position="right" %}}here{{% /button %}}:
 
 {{< slides src="https://sta235.netlify.app/Classes/Week3/1_PotentialOutcomes/sp2021_sta235_5_PotentialOutcomes.html" >}}
 

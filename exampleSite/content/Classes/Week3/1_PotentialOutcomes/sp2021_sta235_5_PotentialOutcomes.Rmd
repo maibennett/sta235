@@ -278,7 +278,7 @@ knitr::opts_chunk$set(message = FALSE)
 <br>
 .center[![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/greta_dag.png)]
 ---
-.center2[.box-3LA[What do you thing are the biggest issues here?]]
+.center2[.box-3LA[What do you think are the biggest issues here?]]
 ---
 .center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/khoa_tweet.png)]
 ---
@@ -1266,7 +1266,7 @@ It's the same as the **.darkorange[exchangeability assumption]**:
 
 .center[![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/ex3.png)]
 
-$$E[Y(1) | T = 1] = E[Y(1)| Z=0] = E[Y(1)]$$
+$$E[Y(1) | Z = 1] = E[Y(1)| Z=0] = E[Y(1)]$$
 
 ---
 # Ignorability Assumption
@@ -1275,8 +1275,8 @@ It's the same as the **.darkorange[exchangeability assumption]**:
 
 .center[![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/ex3.png)]
 
-$$E[Y(1) | T = 1] = E[Y(1)| Z=0] = E[Y(1)]$$
-$$E[Y(0) | T = 1] = E[Y(0)| Z=0] = E[Y(0)]$$
+$$E[Y(1) | Z = 1] = E[Y(1)| Z=0] = E[Y(1)]$$
+$$E[Y(0) | Z = 1] = E[Y(0)| Z=0] = E[Y(0)]$$
 ---
 # What happens if the ignorability assumption doesn't hold?
 
@@ -2265,7 +2265,7 @@ summary(estimatr::lm_robust(eval ~ beauty, data=profs))
 
 .pull-left-little_l[
 .small[
-```{r resid_beauty, fig.height=5, fig.width=6.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+```{r resid_beauty, fig.height=4.5, fig.width=6.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 library(generics)
 
 profs.fitted <- augment(lm(eval ~ beauty, data=profs))

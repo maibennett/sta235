@@ -28,7 +28,7 @@ In this class we will talk about Randomized Controlled Trials and the power of r
 
 ## JITT
 
-Complete before **Sunday Feb 14th (11:59 pm)**. Assignment will be posted soon.
+Complete before **Sunday Feb 14th (11:59 pm)**. You can find the JITT assignment [here](https://forms.gle/1SgszNv9Ny3HLFQq6)
 
 ## Slides
 
