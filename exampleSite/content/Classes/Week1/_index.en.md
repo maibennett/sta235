@@ -19,7 +19,7 @@ You can find the first slides for the class [here](https://sta235.netlify.app/Cl
 {{< slides src="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.html" >}}
 {{% /tab %}}
 {{< tab name="PDF" >}}
-{{< slides src="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.pdf" >}}
+
 {{< /tab >}}
 {{< /tabs >}}
 
