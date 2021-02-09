@@ -24,13 +24,14 @@ Complete before **Sunday Jan 31st (11:59 pm)**. You can find the assignment [her
 
 ## Slides
 
-You can find the first slides for the class [here](https://sta235.netlify.app/Classes/Week2/1_OLS/sp2021_sta235_3_reg.html):
+{{% button href="https://sta235.netlify.app/Classes/Week2/1_OLS/sp2021_sta235_3_reg.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week2/1_OLS/sp2021_sta235_3_reg.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
 {{< slides src="https://sta235.netlify.app/Classes/Week2/1_OLS/sp2021_sta235_3_reg.html" >}}
 
 <br>
 
-And for the second part [here](https://sta235.netlify.app/Classes/Week2/2_Binary/sp2021_sta235_4_binary.html):
+{{% button href="https://sta235.netlify.app/Classes/Week2/2_Binary/sp2021_sta235_4_binary.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week2/2_Binary/sp2021_sta235_4_binary.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+
 
 {{< slides src="https://sta235.netlify.app/Classes/Week2/2_Binary/sp2021_sta235_4_binary.html" >}} 
 
@@ -41,6 +42,6 @@ And for the second part [here](https://sta235.netlify.app/Classes/Week2/2_Binary
 
 ## <a name="additional"></a> Additional Material
 
-[Here](https://sta235.netlify.app/Classes/Week2/2_Binary/sp2021_sta235_4_binary_extra.html) I created additional slides to explain how to interpret coefficients of a logistic regression in a bit more detail:
+{{% button href="https://sta235.netlify.app/Classes/Week2/2_Binary/sp2021_sta235_4_binary_extra.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week2/2_Binary/sp2021_sta235_4_binary_extra.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
 {{< slides src="https://sta235.netlify.app/Classes/Week2/2_Binary/sp2021_sta235_4_binary_extra.html" >}} 
