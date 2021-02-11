@@ -217,7 +217,7 @@ knitr::opts_chunk$set(message = FALSE)
 ```{css, echo = FALSE}
 
 .small .remark-code { /*Change made here*/
-  font-size: 90% !important;
+  font-size: 80% !important;
 }
 
 .tiny .remark-code { /*Change made here*/
@@ -695,13 +695,13 @@ head(d)
 ---
 # Checking for balance
 
-.tiny[
+.small[
 ```{r, message=FALSE, warning=FALSE}
 library(designmatch)
 
 d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/1_RCT/data/covariates_example.csv")
 
-head (d)
+head (round(d,3))
 
 names_covs <- paste0("x",seq(1,20))
 ```
@@ -710,7 +710,7 @@ names_covs <- paste0("x",seq(1,20))
 # Checking for balance
 
 .pull-left[
-.tiny[
+.small[
 ```{r, message=FALSE, warning=FALSE}
 meantab(d[,names_covs], d$z, which(d$z==1), which(d$z==0))
 ```
@@ -728,7 +728,7 @@ meantab(d[,names_covs], d$z, which(d$z==1), which(d$z==0))
 # Checking for balance
 
 .pull-left[
-.tiny[
+.small[
 ```{r, message=FALSE, warning=FALSE, highlight.output=c(2,7)}
 meantab(d[,names_covs], d$z, which(d$z==1), which(d$z==0))
 ```
@@ -740,12 +740,38 @@ meantab(d[,names_covs], d$z, which(d$z==1), which(d$z==0))
 ]
 
 ---
-.center2[.box-6LA[What about other topics?]]
+.center2[.box-6LA[Randomization assures balance *in expectation*]]
+
 ---
-# The Tesla Autosteer Case
-.pull-left[
-.center[![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/tesla_good.png)]
+.center2[.box-3LA[Let's go to R]]
+
+---
+# Simulations: Difference between T and C for X1
+
+- 100 random assignments for $Z$
+
+.center2[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/sim_100.png)
 ]
+
+---
+# Simulations: Difference between T and C for X1
+
+- 1,000 random assignments for $Z$
+
+.center2[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/sim_1k.png)
+]
+
+---
+# Simulations: Difference between T and C for X1
+
+- 100,000 random assignments for $Z$
+
+.center2[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/sim_100k.png)
+]
+
 ---
 # The Tesla Autosteer Case
 .pull-left[
