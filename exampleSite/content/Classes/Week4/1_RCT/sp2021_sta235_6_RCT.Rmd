@@ -259,32 +259,34 @@ font.add.google("Fira Sans", "Fira Sans")
 
 - **.darkorange[Bias in Causal Inference]**:
   
+  - Ignorability assumption
   - Confounding vs Collider Bias
 ]
 
 .pull-right[
-![:scale 90%](https://media.giphy.com/media/xUOwGb8GuMRhxZcBuo/giphy-downsized-large.gif)
+![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/correlation.png))
 ]
 ---
 # Today
 
 .pull-left[
 .center[
-![](https://media.giphy.com/media/xTiN0CNHgoRf1Ha7CM/giphy.gif)]
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/xkcd-p-value-jellybeans.jpg)]
 ]
 .pull-right[
-- **.darkorange[Introduction to Causal Inference]**:
+- **.darkorange[Randomized Controlled Trials]**:
   
-  .box-2t[How? Potential Outcomes Framework]
+  .box-2t[Assumptions: The power of randomization]
   
-  .box-4t[What? Causal Estimands]
+  .box-4t[Design: What should we consider]
   
-  .box-7t[Why? Causal Questions and Study Design]
+  .box-7t[Limitations: Gold Standard?]
 ]
 
 ---
 <br>
 .center[![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/greta_tweet.png)]
+
 ---
 .center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/greta_effect.png)]
 ---
