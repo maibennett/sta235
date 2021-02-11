@@ -235,6 +235,226 @@ font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
 font.add.google("Fira Sans", "Fira Sans")
 ```
 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(gganimate)
+library(ggthemes)
+library(gifski)
+library(plotly)
+library(leaflet)
+
+set.seed(5)
+
+col1 = "#247BA0"
+col2 = "#70C1B3"
+col3 = "#E5D524"
+col4 = "#9E9D9D"
+col5 = "#FF1654"
+
+colNumLine = colorNumeric(c(col1,col2,col3,col4,col5),domain=c(1,5))
+
+col1 = "#73ABC2"
+col2 = "#97D1C7"
+col3 = "#FFF482"
+col4 = "#BCBABA"
+col5 = "#FF5582"
+
+colNumMark = colorNumeric(c(col1,col2,col3,col4,col5),domain=c(1,5))
+
+
+sizeFunc = function(size){
+  x = rep(NA,length(size))
+  
+  x[size==1]=25
+  x[size==2]=35
+  x[size==3]=45
+  
+  return(x)
+}
+
+########3 RCTs
+
+size1 = sample(c(1,2,3),size=10,replace=TRUE)
+color1 = sample(c(1,2,3),size=10,replace=TRUE)
+shape1 = sample(c(1,2,3),size=10,replace=TRUE)
+
+
+x1 = c(seq(0,0.5,0.12)[sample(seq(1,5),5,replace=FALSE)],
+       seq(0,0.5,0.12)[sample(seq(1,5),5,replace=FALSE)],
+       seq(0,0.5,0.12)[sample(seq(1,5),5,replace=FALSE)],
+       seq(0,0.5,0.12)[sample(seq(1,5),5,replace=FALSE)]) +
+  sample(c(-0.018,-0.009,0,0.009,0.018),20,replace=TRUE) # padding
+
+y1 = c(rep(0.05,5),
+       rep(0.20,5),
+       rep(0.35,5),
+       rep(0.5,5)) +
+  sample(c(-0.025,-0.01,0,-0.01,0.025),20,replace=TRUE) # padding
+
+
+x2 = c(seq(0,0.2,0.07)[sample(seq(1,3),3,replace=FALSE)],
+       seq(0,0.2,0.07)[sample(seq(1,3),3,replace=FALSE)],
+       seq(0,0.2,0.06)[sample(seq(1,4),4,replace=FALSE)]) +
+  sample(c(-0.006,0,0.006),10,replace=TRUE) # padding
+
+
+x3 = c(seq(0.35,0.5,0.05)[sample(seq(1,4),4,replace=FALSE)],
+       seq(0.35,0.5,0.06)[sample(seq(1,3),3,replace=FALSE)],
+       seq(0.35,0.5,0.06)[sample(seq(1,3),3,replace=FALSE)]) +
+  sample(c(-0.005,0,0.005),10,replace=TRUE) # padding
+
+
+y2 = c(rep(0.2,3),
+       rep(0.27,3),
+       rep(0.4,4),
+       rep(0.2,4),
+       rep(0.28,3),
+       rep(0.4,3)) +
+  sample(c(-0.02,-0.01,0,0.01,0.02),20,replace=TRUE) # padding
+
+
+df <- data.frame(xaxisTime=x1,Treated=c(rep("Treated",10),rep("Control",10))) %>%
+  mutate(Y = y1, Y2 = Y, size = c(size1,size1),
+         color = c(color1,color1), shape=c(shape1,shape1),
+         state="1")
+
+x_shift = c(runif(10,0,0.4),runif(10,0.6,1))
+
+df1 = df %>% mutate(f=1)
+df2 = df %>% mutate(xaxisTime=c(x2,x3), Y=y2,f=2)
+df3 = df %>% mutate(xaxisTime=c(x2,x3), Y=y2,f=3)
+df4 = df2 %>% mutate(Y=y2,color=c(rep(4,10),rep(5,10)),
+                    f=4)
+
+dffull <- rbind(df1, df2, df3,df4)
+
+m <- list(
+  l = 50,
+  r = 30,
+  b = 10,
+  t = 50,
+  pad = 4
+)
+
+fig <- dffull %>% plot_ly() %>%
+  layout(xaxis = list(title = "",
+                      showgrid = FALSE, zeroline = FALSE,
+                      showline = FALSE,
+                      showticklabels = FALSE,
+                      range = c(-0.04,0.53)),
+         yaxis = list(title = "",
+                      showgrid = FALSE, zeroline = FALSE,
+                      showline = FALSE,
+                      showticklabels = FALSE,
+                      range = c(-0.01,0.56)),
+         plot_bgcolor="rgba(0, 0, 0, 0)",
+         paper_bgcolor="rgba(0, 0, 0, 0)",
+         margin=m,
+         autosize = F, width = 1000, height = 500) %>%
+  add_trace(dffull,x=~xaxisTime,y=~Y, frame=~f,type='scatter',mode='markers',
+            symbol=~shape,
+            marker = list(color=~alpha(colNumMark(color),1),size=~sizeFunc(size),
+            line = list(
+              color = ~colNumLine(color),
+              width = 3
+            ))) %>%
+  animation_opts(frame=1500,transition=1300,redraw = FALSE) %>%
+  animation_slider(hide = TRUE) %>% config(displayModeBar = FALSE) %>% 
+  animation_button(visible = TRUE)
+
+
+set.seed(5)
+
+size1 = sample(c(1,2,3),size=20,replace=TRUE)
+color1 = sample(c(1,2,3),size=20,replace=TRUE)
+shape1 = sample(c(1,2,3),size=20,replace=TRUE)
+
+treat=rep(0,20)
+treat[shape1==1] = sample(c(0,1),sum(shape1==1),replace=TRUE,prob=c(0,1))
+
+x1 = c(seq(0,0.5,0.12)[sample(seq(1,5),5,replace=FALSE)],
+       seq(0,0.5,0.12)[sample(seq(1,5),5,replace=FALSE)],
+       seq(0,0.5,0.12)[sample(seq(1,5),5,replace=FALSE)],
+       seq(0,0.5,0.12)[sample(seq(1,5),5,replace=FALSE)]) +
+  sample(c(-0.018,-0.009,0,0.009,0.018),20,replace=TRUE) # padding
+
+y1 = c(rep(0.05,5),
+       rep(0.20,5),
+       rep(0.35,5),
+       rep(0.5,5)) +
+  sample(c(-0.025,-0.01,0,0.01,0.025),20,replace=TRUE) # padding
+
+
+x2_total = rep(0,20)
+
+x2_total[treat==1] = c(seq(0.35,0.5,0.07)[sample(seq(1,3),3,replace=FALSE)],
+                       seq(0.35,0.5,0.07)[sample(seq(1,3),3,replace=FALSE)]) + 
+  sample(c(-0.01,0,0.01),6,replace=TRUE) # padding
+
+
+x2_total[treat==0] = c(seq(0.0,0.23,0.055)[sample(seq(1,5),5,replace=FALSE)],
+                       seq(0.0,0.23,0.055)[sample(seq(1,5),5,replace=FALSE)],
+                       seq(0.0,0.23,0.07)[sample(seq(1,4),4,replace=FALSE)]) +
+  sample(c(-0.004,-0.002,0,0.002,0.004),14,replace=TRUE) # padding
+
+y2_total = rep(0,20)
+
+y2_total[treat==1] = c(rep(0.28,3),
+                 rep(0.38,3))+
+  sample(c(-0.014,0,0.014),6,replace=TRUE) # padding
+
+y2_total[treat==0] = c(rep(0.15,5),
+                       rep(0.27,5),
+                       rep(0.4,4)) +
+  sample(c(-0.015,0,0.015),14,replace=TRUE) # padding
+
+
+df <- data.frame(xaxisTime=x1,Treated=treat) %>%
+  mutate(Y = y1, Y2 = Y, size = size1,
+         color = color1, shape=shape1,
+         state="1")
+
+x_shift = rep(0,20)
+x_shift[treat==0] = runif(sum(treat==0),0,0.2)
+x_shift[treat==1] = runif(sum(treat==1),0.3,0.5)
+col_treat = rep(4,20)
+col_treat[treat==1] = 5
+
+df1 = df %>% mutate(f=1)
+df2 = df %>% mutate(color=col_treat,f=2)
+df3 = df %>% mutate(color=col_treat,f=3)
+df4 = df2 %>% mutate(Y=y2_total, xaxisTime=x2_total,color=col_treat,
+                     f=4)
+
+dffull <- rbind(df1, df2, df3, df4)
+
+fig2 <- dffull %>% plot_ly() %>%
+  layout(xaxis = list(title = "",
+                      showgrid = FALSE, zeroline = FALSE,
+                      showline = FALSE,
+                      showticklabels = FALSE,
+                      range = c(-0.04,0.53)),
+         yaxis = list(title = "",
+                      showgrid = FALSE, zeroline = FALSE,
+                      showline = FALSE,
+                      showticklabels = FALSE,
+                      range = c(-0.05,0.54)),
+         plot_bgcolor="rgba(0, 0, 0, 0)",
+         paper_bgcolor="rgba(0, 0, 0, 0)",
+         margin = m,
+         autosize = F, width = 1000, height = 500) %>%
+  add_trace(dffull,x=~xaxisTime,y=~Y, frame=~f,type='scatter',mode='markers',
+            symbol=~shape,
+            marker = list(color=~alpha(colNumMark(color),1),size=~sizeFunc(size),
+                          line = list(
+                            color = ~colNumLine(color),
+                            width = 3
+                          ))) %>%
+  animation_opts(frame=1500,transition=1300,redraw = FALSE) %>%
+  animation_slider(hide = TRUE) %>% config(displayModeBar = FALSE)
+```
+
 # Some reminders
 
 .box-2LA[Homework 2 will be posted today (due in 2 weeks)]
@@ -264,14 +484,17 @@ font.add.google("Fira Sans", "Fira Sans")
 ]
 
 .pull-right[
-![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/correlation.png))
+<br>
+<br>
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/correlation.png)
 ]
 ---
 # Today
 
 .pull-left[
-.center[
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/xkcd-p-value-jellybeans.jpg)]
+<br>
+<br>
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/xkcd-p-value-jellybeans.jpg)
 ]
 .pull-right[
 - **.darkorange[Randomized Controlled Trials]**:
@@ -284,15 +507,65 @@ font.add.google("Fira Sans", "Fira Sans")
 ]
 
 ---
+# Ignorability Assumption
+
+
+$$(Y(0), Y(1)) \perp\!\!\!\perp Z$$
+
+- Most times, **.darkorange[the ignorability assumption doesn't hold]**
+
+  - Why? (Remember the two types of bias we saw the previous class?)
+  
+---
+# Ignorability Assumption
+
+
+$$(Y(0), Y(1)) \perp\!\!\!\perp Z$$
+
+
+- Most times, **.darkorange[the ignorability assumption doesn't hold]**
+
+  - For ATE:
+  
+.box-2t[Selection bias]
 <br>
-.center[![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/greta_tweet.png)]
+.box-4t[Heterogeneous treatment effect bias]
+  
+---
+# The problem with self-selection
+
+```{r, echo=FALSE}
+fig2
+```
 
 ---
-.center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/greta_effect.png)]
+# The power of randomization
+
+- One way to make sure the ignorability assumption holds, is to do it by design:
+
+.box-6[Randomize the assignment of Z]
+
+i.e. Some units will **.darkorange[randomly]** be chosen to be in the treatment group and others to be in the control group.
+
+.box-4t[What does randomization buy us?]
+
 ---
-<br>
-<br>
-.center[![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/greta_dag.png)]
+# Randomization of z
+
+```{r, echo=FALSE}
+fig
+```
+
+---
+# How do we randomize?
+
+
+---
+# How do we randomize?
+
+.box-5[Coin flip*]
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/coin.png)
+
 ---
 .center2[.box-3LA[What do you think are the biggest issues here?]]
 ---
