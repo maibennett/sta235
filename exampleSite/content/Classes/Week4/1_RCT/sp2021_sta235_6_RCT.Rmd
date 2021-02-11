@@ -507,10 +507,18 @@ fig2 <- dffull %>% plot_ly() %>%
 ]
 
 ---
-# Ignorability Assumption
+# The Fundamental Problem of Causal Inference
 
+- Remember that we can only see $Y(0)$ **OR** $Y(1)$
+
+.box-7[Fundamental Problem of Causal Inference]
+
+--
+
+- Need for the **.darkorange[ignorability assumption]**
 
 $$(Y(0), Y(1)) \perp\!\!\!\perp Z$$
+--
 
 - Most times, **.darkorange[the ignorability assumption doesn't hold]**
 
@@ -750,8 +758,8 @@ meantab(d[,names_covs], d$z, which(d$z==1), which(d$z==0))
 
 - 100 random assignments for $Z$
 
-.center2[
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/sim_100.png)
+.center[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/sim_100.png)
 ]
 
 ---
@@ -759,8 +767,8 @@ meantab(d[,names_covs], d$z, which(d$z==1), which(d$z==0))
 
 - 1,000 random assignments for $Z$
 
-.center2[
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/sim_1k.png)
+.center[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/sim_1k.png)
 ]
 
 ---
@@ -768,8 +776,8 @@ meantab(d[,names_covs], d$z, which(d$z==1), which(d$z==0))
 
 - 100,000 random assignments for $Z$
 
-.center2[
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/sim_100k.png)
+.center[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/sim_100k.png)
 ]
 
 ---
