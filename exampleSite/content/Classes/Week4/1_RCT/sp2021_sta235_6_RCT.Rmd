@@ -683,6 +683,11 @@ head(d)
 
 - One way to make sure our randomization was done properly is to check the balance between the different groups
 
+
+```{r}
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/1_RCT/data/covariates_example.csv")
+```
+
 ---
 .center2[.box-6LA[What about other topics?]]
 ---
