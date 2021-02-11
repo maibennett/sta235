@@ -564,12 +564,125 @@ fig
 # How do we randomize?
 
 .box-5[Coin flip*]
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/coin.png)
+
+.center[
+![:scale 10%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/coin.png)]
 
 ---
-.center2[.box-3LA[What do you think are the biggest issues here?]]
+# How do we randomize?
+
+.box-5[Coin flip*]
+
+E.g., in `R`:
+
+.pull-left[
+```{r}
+id <- seq(1,1000)
+
+set.seed(100)
+
+treat_id <- sample(id, length(id)*0.5)
+control_id <- id[!(id %in% treat_id)]
+
+```
+]
+
 ---
-.center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/images/khoa_tweet.png)]
+# How do we randomize?
+
+.box-5[Coin flip*]
+
+E.g., in `R`:
+
+.pull-left[
+```{r}
+id <- seq(1,1000)
+
+set.seed(100) #<<
+
+treat_id <- sample(id, length(id)*0.5)
+control_id <- id[!(id %in% treat_id)]
+
+```
+]
+
+---
+# How do we randomize?
+
+.box-5[Coin flip*]
+
+E.g., in `R`:
+
+.pull-left[
+```{r}
+id <- seq(1,1000)
+
+set.seed(100)
+
+treat_id <- sample(id, length(id)*0.5) #<<
+control_id <- id[!(id %in% treat_id)]
+
+```
+]
+
+---
+# How do we randomize?
+
+.box-5[Coin flip*]
+
+E.g., in `R`:
+
+.pull-left[
+```{r}
+id <- seq(1,1000)
+
+set.seed(100)
+
+treat_id <- sample(id, length(id)*0.5)
+control_id <- id[!(id %in% treat_id)] #<<
+
+```
+]
+
+---
+# How do we randomize?
+
+.box-5[Coin flip*]
+
+E.g., in `R`:
+
+.pull-left[
+```{r}
+id <- seq(1,1000)
+
+set.seed(100)
+
+treat_id <- sample(id, length(id)*0.5)
+control_id <- id[!(id %in% treat_id)]
+
+```
+]
+
+.pull-right[
+```{r}
+z <- rep(0, length(id)) #<<
+z[treat_id] <- 1 #<<
+
+d <- data.frame("id" = id,"z" = z)
+
+head(d)
+```
+]
+
+---
+.center2[
+.box-3LA[How do we check that randomization was done correctly?]
+]
+---
+# Checking for balance
+
+- One way to make sure our randomization was done properly is to check the balance between the different groups
+
 ---
 .center2[.box-6LA[What about other topics?]]
 ---
