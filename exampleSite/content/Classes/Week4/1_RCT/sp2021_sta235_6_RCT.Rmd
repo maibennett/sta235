@@ -1006,6 +1006,46 @@ Plots and tables
 - Companies can quickly analyze the data, adapt their design, and continue testing features.
 
 ---
+# A/B Testing Jargon
+
+- There's a lot of jargon in A/B testing that is thrown out there...
+
+.box-6[What does it all mean?]
+
+--
+
+.box-5t[Conversions]
+
+.box-4t[Regret]
+
+.box-2t[Multi-armed bandits/ Contextual bandits]
+
+---
+# A/B Testing Jargon
+
+- **.darkorange[Conversions]**: "Cause the customer to take action"
+
+- **.darkorange[Regret]**: Loss of conversion due to a low-performing treatment.
+--
+
+.box-7[Maximize conversions and minimize regret]
+
+---
+# A/B Testing Jargon
+
+- **.darkorange[Multi-armed bandits/ Contextual bandits]**
+
+  - Name comes from machines at casinos.
+  - You want to maximize total payout $\rightarrow$ Balance between exploration and exploitation
+
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/slot_machine.png)
+--
+
+- **.darkorange[Multi-armed bandits]** redirect users to the more successful versions of the treatment.
+
+- A **.darkorange[contextual bandit]** uses prior information from the user to select an action.
+
+---
 # A/B Testing in Data
 
 
