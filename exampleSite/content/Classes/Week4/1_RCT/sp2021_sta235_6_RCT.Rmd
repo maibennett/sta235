@@ -979,15 +979,45 @@ Plots and tables
 - Control group works harder
 
 ---
+# Feasibility
+
+- RCTs can be expensive and also slow.
+
+- Organizations might not be willing to randomize.
+
+---
+# Getting around some issues
+
+- Staggered adoption: Eventually treat everyone, but at different times.
+
+  - You can think about this when you have panel data.
+
+- Randomize in the bubble:
+
+  - Not randomize everyone, but maybe those that are on the margin of receiving the treatment.
+
+---
 # A/B Testing
 
-DATA EXAMPLE
+- A/B testing are very popular right now to test the effect of **.darkorange[small changes]** in products on an outcome of interest.
+
+- E.g. In web development, user would be exposed to different versions of the same website (only with subtle changes).
+
+- Companies can quickly analyze the data, adapt their design, and continue testing features.
+
+---
+# A/B Testing in Data
+
+
 
 ---
 # References
 
 - Angrist, J. and S. Pischke. (2015)
+
 - Imbens, G. and D. Rubin. (2015). "Causal Inference for Statistics, Social, and Biomedical Sciences: An Introduction". *Chapter 1*
+
+- Young, S. (2014). "Improving Library User Experience withA/B Testing: Principles and Process". *Weave. Vol 1, Issue 1.*
 
 
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week3/1_PotentialOutcomes/sp2021_sta235_5_PotentialOutcomes.html') -->
