@@ -112,3 +112,8 @@ d_s1 <- d[!is.na(d$treat_real),]
 d_s1 %>% 
   group_by(state, competiv, treat_real) %>% 
   summarize_all(mean)
+
+library(reactable)
+
+
+summary(lm(vote02 ~ treat_real + factor(state) + factor(competiv), dat = d_s1))
