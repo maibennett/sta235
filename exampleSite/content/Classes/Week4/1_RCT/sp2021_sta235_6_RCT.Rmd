@@ -1046,7 +1046,33 @@ Plots and tables
 - A **.darkorange[contextual bandit]** uses prior information from the user to select an action.
 
 ---
-# A/B Testing in Data
+# A/B Testing in Data: MSU Library
+
+- Montana University Library website: Low interaction with the "Interact" Category
+
+![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/montana_control.png)
+---
+# A/B Testing in Data: MSU Library
+
+![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/heatmap_control.png)
+
+---
+# A/B Testing in Data: Different treatments
+
+- Test four different names for that category
+
+.pull-left[
+![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/connect.png)
+
+![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/learn.png)
+]
+
+.pull-right[
+![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/help.png)
+
+![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/services.png)
+]
+
 
 
 
