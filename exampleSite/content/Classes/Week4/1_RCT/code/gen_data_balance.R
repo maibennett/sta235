@@ -99,3 +99,16 @@ theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain
         legend.text = element_text(size=15),
         legend.background = element_rect(fill="white",colour ="white"),
         title = element_text(size=14))
+
+
+## Get out the vote example
+
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/1_RCT/data/voters_covariates.csv")
+
+# Drop variables with unlisted phone numbers
+d_s1 <- d[!is.na(d$treat_real),]
+
+# View balance
+d_s1 %>% 
+  group_by(state, competiv, treat_real) %>% 
+  summarize_all(mean)
