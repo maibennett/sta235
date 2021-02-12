@@ -114,6 +114,6 @@ d_s1 %>%
   summarize_all(mean)
 
 library(reactable)
+library(estimatr)
 
-
-summary(lm(vote02 ~ treat_real + factor(state) + factor(competiv), dat = d_s1))
+summary(estimatr::lm_robust(vote02 ~ treat_real + factor(state)*factor(competiv), dat = d_s1))

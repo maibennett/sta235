@@ -957,6 +957,32 @@ Plots and tables
 ---
 # Limitations of RCTs
 
+- External Validity vs Internal Validity
+
+---
+# External vs Internal Validity
+
+- Convenience samples
+
+---
+# Noncompliance and Attrition
+
+---
+# Hawthorne effects
+
+- Effect that occurs when people behave differently because they are being watched
+
+
+---
+# John Henry effects
+
+- Control group works harder
+
+---
+# A/B Testing
+
+DATA EXAMPLE
+
 ---
 # References
 
