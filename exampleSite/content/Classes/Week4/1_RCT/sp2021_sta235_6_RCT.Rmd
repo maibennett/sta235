@@ -245,17 +245,17 @@ library(leaflet)
 
 set.seed(5)
 
-col1 = "#247BA0"
-col2 = "#70C1B3"
-col3 = "#E5D524"
+col1 = "#5601A4"
+col2 = "#BF3984"
+col3 = "#FCCE25"
 col4 = "#9E9D9D"
 col5 = "#FF1654"
 
 colNumLine = colorNumeric(c(col1,col2,col3,col4,col5),domain=c(1,5))
 
-col1 = "#73ABC2"
-col2 = "#97D1C7"
-col3 = "#FFF482"
+col1 = "#9565c2"
+col2 = "#c2679a"
+col3 = "#ede266"
 col4 = "#BCBABA"
 col5 = "#FF5582"
 
@@ -1156,13 +1156,16 @@ Plots and tables
 
 --
 
-1) Randomize at a higher level (e.g. neighborhood, school, etc. instead of at the individual level)
+1. Randomize at a higher level (e.g. neighborhood, school, etc. instead of at the individual level)
 
 --
+
   - Note that you will have to **.darkorange[cluster your standard errors]**
+
 --
 
-2) Model the network!
+2. Model the network!
+
 ---
 # General Equilibrium Effects
 
@@ -1194,15 +1197,18 @@ Plots and tables
 # Noncompliance and Attrition
 
 ---
-# Hawthorne effects
+# Other problems to look out for
 
-- Effect that occurs when people behave differently because they are being watched
+1. **.darkorange[Hawthorne effects]**:
 
+  - Effect that occurs when people behave differently because they are being watched
 
----
-# John Henry effects
+--
 
-- Control group works harder
+2. **.darkorange[John Henry effects]**:
+
+  - Effect that occurs when the control group works harder because they were not assigned to treatment.
+
 
 ---
 # Feasibility
