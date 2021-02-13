@@ -15,6 +15,12 @@ For those that want some R refresher, these resources can be useful:
 
 - [A ModernDive into R and the tidyverse](https://moderndive.com/index.html) (by Ismai and Kim).
 
+Cheatsheets for R are amazing! Here are two of my favorite so you can look up functions we will be using frequently explained in a simple way:
+
+- [Data Visualization with ggplot2: Cheatsheet](https://sta235.netlify.com/images/data-visualization.pdf)
+
+- [Data Transformation with dplyr: Cheatsheet](https://sta235.netlify.com/images/data-transformation.pdf)
+
 ## Multiple Regression
 
 - [Regression Models with Multiple Regressors](https://www.econometrics-with-r.org/6-rmwmr.html) by C. Hanck et al. (2020), from their book *Introduction to Econometrics with R*
