@@ -834,6 +834,27 @@ meantab(d[,names_covs], d$z, which(d$z==1), which(d$z==0))
 - Then, you randomize in the same way *within strata*.
 
 ---
+# Randomization of treatment
+
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/study1.png)
+]
+
+---
+# Randomization of treatment with no strata
+
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/study2.png)
+]
+
+---
+# Randomization of treatment with ntrata
+
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/study3.png)
+]
+
+---
 # How to analyze RCTs?
 
 .box-7LA[Easy! (Statistically speaking)]
@@ -904,7 +925,7 @@ Plots and tables
   - $Z_1$ and $Z_2$ will be the treatment assignment for 1 and 2, respectively.
   - Under SUTVA:
   
-  .box-7LA[$$Y_2(0), Y_2(1)) \perp\perp Z_1$$]
+  .box-3LA[$$(Y_2(0), Y_2(1)) \perp Z_1$$]
   
 
 ---
@@ -914,13 +935,15 @@ Plots and tables
 
 --
 
-- Think about the headche example from last class:
+- Think about the headache example from last class:
 
   - Individual 1 gets a new aspirin (aspirin +)
   - Individual 2 gets an old aspirin (aspirin -)
   - Individual 3 doesn't get a pill
   
-- If we label the treatments as $Z=0$ (doesn't get an aspirin) and $Z=1$ (gets an aspirin), potential outcomes would change depending on whether they got *aspirin +* or *aspirin -*
+- If we label the treatments as $Z=0$ (doesn't get an aspirin) and $Z=1$ (gets an aspirin), potential outcomes would change depending on whether they got *aspirin +* or *aspirin -*.
+
+
   
 
 
@@ -932,26 +955,25 @@ Plots and tables
 ]
 <br>
 <br>
+<br>
+<br>
 .source[h/t to @paul_gp]
 
 ---
 # When SUTVA hits the fan
 
-.center2[
-.box-7[Network effects]
-
+.center[
+.box-3[Network effects]
+]
 --
-
-.box-2[General Equilibrium Effects]
+.center[
+.box-5[General Equilibrium Effects]
 ]
 
 ---
-# When SUTVA hits the fan
+# Network effects
 
-.center2[
-.box-7[Multi-site interventions]
-]
-
+- Also referred to as **.darkorange[spillovers]**
 
 
 ---
