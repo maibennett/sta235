@@ -500,7 +500,7 @@ fig2 <- dffull %>% plot_ly() %>%
   
   .box-2t[Assumptions: The power of randomization]
   
-  .box-4t[Design: What should we consider]
+  .box-4t[Design: What should we consider?]
   
   .box-7t[Limitations: Gold Standard?]
 ]
@@ -508,7 +508,7 @@ fig2 <- dffull %>% plot_ly() %>%
 ---
 # The Fundamental Problem of Causal Inference
 
-- Remember that we can only see $Y(0)$ **OR** $Y(1)$
+- Remember that we can only see one potential outcome (e.g. if $Z$ is binary, either $Y(0)$ **OR** $Y(1)$)
 
 .box-7[Fundamental Problem of Causal Inference]
 
@@ -516,7 +516,7 @@ fig2 <- dffull %>% plot_ly() %>%
 
 - Need for the **.darkorange[ignorability assumption]**
 
-$$(Y(0), Y(1)) \perp\!\!\!\perp Z$$
+$$Y(z) \perp\!\!\!\perp Z \ \ \ \ \ \forall \ z\in Z$$
 --
 
 - Most times, **.darkorange[the ignorability assumption doesn't hold]**
@@ -569,18 +569,6 @@ i.e. Some units will **.darkorange[randomly]** be chosen to be in the treatment 
 
 .box-3t[No (systematic) selection on observables OR unobservables]
 
----
-# The power of randomization
-
-- One way to make sure the ignorability assumption holds, is to do it by design:
-
-.box-6[Randomize the assignment of Z]
-
-i.e. Some units will **.darkorange[randomly]** be chosen to be in the treatment group and others to be in the control group.
-
-.box-4t[What does randomization buy us?]
-
-.box-3t[No (systematic) selection on observables OR unobservables]
 
 ---
 # Randomization of z
@@ -604,8 +592,10 @@ fig
 ]
 
 ---
+# If I randomize treatment allocation...
 
-.box-3LA[Can the treatment be potentially correlated by a confounder?]
+.center2[
+.box-3LA[Can the treatment be potentially correlated with a confounder?]]
 
 ---
 # Just by chance!
@@ -616,7 +606,17 @@ fig
 ---
 # RCTs: The Gold Standard
 
-- DUFLO, KRAMER, AND BANERJEE NOBEL PRIZE
+.pull-left[
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/nobel.png)
+]
+]
+
+.pull-right[
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/nobel2.png)
+]
+]
 
 ---
 # How do we randomize?

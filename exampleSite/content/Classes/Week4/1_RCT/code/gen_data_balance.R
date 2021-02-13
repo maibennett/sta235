@@ -26,6 +26,7 @@ for(j in 1:n_covs){
   
   set.seed(j)
   
+  
   X[,j] = rnorm(N)
 
 }
