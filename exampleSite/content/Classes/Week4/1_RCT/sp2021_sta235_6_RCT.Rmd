@@ -975,6 +975,54 @@ Plots and tables
 
 - Also referred to as **.darkorange[spillovers]**
 
+- Potential outcomes will depend on *who gets the treatment*
+
+.box-5LA[Let's look at an example]
+
+---
+# Network effects
+
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/networks1.png)
+]
+
+
+---
+# Network effects
+
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/networks2.png)
+]
+
+---
+# Network effects
+
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/networks3.png)
+]
+
+---
+# Network effects
+
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/networks4.png)
+]
+
+---
+# Network effects
+
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/networks5.png)
+]
+
+---
+# General Equilibrium Effects
+
+- Usually arise when you **.darkorange[scale up]** a program or intervention.
+
+- **.darkorange[E.g. Congestion]**:
+  
+  - A training program for workers has a positive effect on employment on a low-scale. What happens if we offer it to everyone?
 
 ---
 # Statistical power
