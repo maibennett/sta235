@@ -94,7 +94,7 @@ class: center, middle, inverse, title-slide
   
   .box-2t[Assumptions: The power of randomization]
   
-  .box-4t[Design: What should we consider]
+  .box-4t[Design: What should we consider?]
   
   .box-7t[Limitations: Gold Standard?]
 ]
@@ -102,7 +102,7 @@ class: center, middle, inverse, title-slide
 ---
 # The Fundamental Problem of Causal Inference
 
-- Remember that we can only see `\(Y(0)\)` **OR** `\(Y(1)\)`
+- Remember that we can only see one potential outcome (e.g. if `\(Z\)` is binary, either `\(Y(0)\)` **OR** `\(Y(1)\)`)
 
 .box-7[Fundamental Problem of Causal Inference]
 
@@ -110,7 +110,7 @@ class: center, middle, inverse, title-slide
 
 - Need for the **.darkorange[ignorability assumption]**
 
-`$$(Y(0), Y(1)) \perp\!\!\!\perp Z$$`
+`$$Y(z) \perp\!\!\!\perp Z \ \ \ \ \ \forall \ z\in Z$$`
 --
 
 - Most times, **.darkorange[the ignorability assumption doesn't hold]**
@@ -136,7 +136,7 @@ class: center, middle, inverse, title-slide
 # The problem with self-selection
 
 <div id="htmlwidget-41a1b0fe52767b8e30fd" style="width:504px;height:504px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-41a1b0fe52767b8e30fd">{"x":{"visdat":{"42301d75746b":["function () ","plotlyVisDat"]},"cur_data":"42301d75746b","attrs":{"42301d75746b":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"frame":{},"type":"scatter","mode":"markers","symbol":{},"marker":{"color":{},"size":{},"line":{"color":{},"width":3}},"inherit":true}},"layout":{"width":1000,"height":500,"margin":{"b":10,"l":50,"t":50,"r":30,"pad":4},"xaxis":{"domain":[0,1],"automargin":true,"title":"","showgrid":false,"zeroline":false,"showline":false,"showticklabels":false,"range":[-0.04,0.53]},"yaxis":{"domain":[0,1],"automargin":true,"title":"","showgrid":false,"zeroline":false,"showline":false,"showticklabels":false,"range":[-0.05,0.54]},"plot_bgcolor":"rgba(0, 0, 0, 0)","paper_bgcolor":"rgba(0, 0, 0, 0)","autosize":false,"hovermode":"closest","showlegend":false,"sliders":[],"updatemenus":[{"type":"buttons","direction":"right","showactive":false,"y":0,"x":0,"yanchor":"top","xanchor":"right","pad":{"t":60,"r":5},"buttons":[{"label":"Play","method":"animate","args":[null,{"fromcurrent":true,"mode":"immediate","transition":{"duration":1300,"easing":"linear"},"frame":{"duration":1500,"redraw":false}}]}]}]},"source":"A","config":{"showSendToCloud":false,"displayModeBar":false},"data":[{"x":[0.258,-0.009,0.498,0.129,0.36,0.222,0.342,0.489,0.138,-0.018,0.138,0.369,0,0.489,0.258,0.018,0.351,0.489,0.12,0.222],"y":[0.025,0.04,0.075,0.025,0.04,0.21,0.2,0.19,0.2,0.2,0.325,0.34,0.36,0.375,0.375,0.49,0.5,0.5,0.5,0.525],"frame":"1","type":"scatter","mode":"markers","marker":{"color":["#73ABC2","#97D1C7","#FFF482","#97D1C7","#73ABC2","#97D1C7","#97D1C7","#FFF482","#73ABC2","#97D1C7","#97D1C7","#73ABC2","#FFF482","#FFF482","#FFF482","#97D1C7","#97D1C7","#97D1C7","#73ABC2","#97D1C7"],"symbol":["triangle-up","circle","square","circle","square","square","triangle-up","circle","square","square","square","triangle-up","circle","triangle-up","triangle-up","circle","triangle-up","square","circle","square"],"size":[35,45,25,45,45,25,25,25,35,45,45,45,45,35,35,45,25,35,25,45],"line":{"color":["#247BA0","#70C1B3","#E5D524","#70C1B3","#247BA0","#70C1B3","#70C1B3","#E5D524","#247BA0","#70C1B3","#70C1B3","#247BA0","#E5D524","#E5D524","#E5D524","#70C1B3","#70C1B3","#70C1B3","#247BA0","#70C1B3"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"frames":[{"name":"1","data":[{"x":[0.258,-0.009,0.498,0.129,0.36,0.222,0.342,0.489,0.138,-0.018,0.138,0.369,0,0.489,0.258,0.018,0.351,0.489,0.12,0.222],"y":[0.025,0.04,0.075,0.025,0.04,0.21,0.2,0.19,0.2,0.2,0.325,0.34,0.36,0.375,0.375,0.49,0.5,0.5,0.5,0.525],"frame":"1","type":"scatter","mode":"markers","marker":{"color":["#73ABC2","#97D1C7","#FFF482","#97D1C7","#73ABC2","#97D1C7","#97D1C7","#FFF482","#73ABC2","#97D1C7","#97D1C7","#73ABC2","#FFF482","#FFF482","#FFF482","#97D1C7","#97D1C7","#97D1C7","#73ABC2","#97D1C7"],"symbol":["triangle-up","circle","square","circle","square","square","triangle-up","circle","square","square","square","triangle-up","circle","triangle-up","triangle-up","circle","triangle-up","square","circle","square"],"size":[35,45,25,45,45,25,25,25,35,45,45,45,45,35,35,45,25,35,25,45],"line":{"color":["#247BA0","#70C1B3","#E5D524","#70C1B3","#247BA0","#70C1B3","#70C1B3","#E5D524","#247BA0","#70C1B3","#70C1B3","#247BA0","#E5D524","#E5D524","#E5D524","#70C1B3","#70C1B3","#70C1B3","#247BA0","#70C1B3"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2","data":[{"x":[0.258,-0.009,0.498,0.129,0.36,0.222,0.342,0.489,0.138,-0.018,0.138,0.369,0,0.489,0.258,0.018,0.351,0.489,0.12,0.222],"y":[0.025,0.04,0.075,0.025,0.04,0.21,0.2,0.19,0.2,0.2,0.325,0.34,0.36,0.375,0.375,0.49,0.5,0.5,0.5,0.525],"frame":"2","type":"scatter","mode":"markers","marker":{"color":["#BCBABA","#FF5582","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA"],"symbol":["triangle-up","circle","square","circle","square","square","triangle-up","circle","square","square","square","triangle-up","circle","triangle-up","triangle-up","circle","triangle-up","square","circle","square"],"size":[35,45,25,45,45,25,25,25,35,45,45,45,45,35,35,45,25,35,25,45],"line":{"color":["#9E9D9D","#FF1654","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"3","data":[{"x":[0.258,-0.009,0.498,0.129,0.36,0.222,0.342,0.489,0.138,-0.018,0.138,0.369,0,0.489,0.258,0.018,0.351,0.489,0.12,0.222],"y":[0.025,0.04,0.075,0.025,0.04,0.21,0.2,0.19,0.2,0.2,0.325,0.34,0.36,0.375,0.375,0.49,0.5,0.5,0.5,0.525],"frame":"3","type":"scatter","mode":"markers","marker":{"color":["#BCBABA","#FF5582","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA"],"symbol":["triangle-up","circle","square","circle","square","square","triangle-up","circle","square","square","square","triangle-up","circle","triangle-up","triangle-up","circle","triangle-up","square","circle","square"],"size":[35,45,25,45,45,25,25,25,35,45,45,45,45,35,35,45,25,35,25,45],"line":{"color":["#9E9D9D","#FF1654","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"4","data":[{"x":[0.106,0.5,0.002,0.34,0.163,0.051,0.22,0.43,0.161,-0.004,0.106,0.222,0.5,0.051,0.07,0.35,0,0.14,0.42,0.21],"y":[0.165,0.266,0.165,0.28,0.135,0.15,0.15,0.28,0.27,0.27,0.27,0.27,0.38,0.285,0.385,0.38,0.415,0.385,0.366,0.385],"frame":"4","type":"scatter","mode":"markers","marker":{"color":["#BCBABA","#FF5582","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA"],"symbol":["triangle-up","circle","square","circle","square","square","triangle-up","circle","square","square","square","triangle-up","circle","triangle-up","triangle-up","circle","triangle-up","square","circle","square"],"size":[35,45,25,45,45,25,25,25,35,45,45,45,45,35,35,45,25,35,25,45],"line":{"color":["#9E9D9D","#FF1654","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]}],"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-41a1b0fe52767b8e30fd">{"x":{"visdat":{"56087dc7609c":["function () ","plotlyVisDat"]},"cur_data":"56087dc7609c","attrs":{"56087dc7609c":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"frame":{},"type":"scatter","mode":"markers","symbol":{},"marker":{"color":{},"size":{},"line":{"color":{},"width":3}},"inherit":true}},"layout":{"width":1000,"height":500,"margin":{"b":10,"l":50,"t":50,"r":30,"pad":4},"xaxis":{"domain":[0,1],"automargin":true,"title":"","showgrid":false,"zeroline":false,"showline":false,"showticklabels":false,"range":[-0.04,0.53]},"yaxis":{"domain":[0,1],"automargin":true,"title":"","showgrid":false,"zeroline":false,"showline":false,"showticklabels":false,"range":[-0.05,0.54]},"plot_bgcolor":"rgba(0, 0, 0, 0)","paper_bgcolor":"rgba(0, 0, 0, 0)","autosize":false,"hovermode":"closest","showlegend":false,"sliders":[],"updatemenus":[{"type":"buttons","direction":"right","showactive":false,"y":0,"x":0,"yanchor":"top","xanchor":"right","pad":{"t":60,"r":5},"buttons":[{"label":"Play","method":"animate","args":[null,{"fromcurrent":true,"mode":"immediate","transition":{"duration":1300,"easing":"linear"},"frame":{"duration":1500,"redraw":false}}]}]}]},"source":"A","config":{"showSendToCloud":false,"displayModeBar":false},"data":[{"x":[0.258,-0.009,0.498,0.129,0.36,0.222,0.342,0.489,0.138,-0.018,0.138,0.369,0,0.489,0.258,0.018,0.351,0.489,0.12,0.222],"y":[0.025,0.04,0.075,0.025,0.04,0.21,0.2,0.19,0.2,0.2,0.325,0.34,0.36,0.375,0.375,0.49,0.5,0.5,0.5,0.525],"frame":"1","type":"scatter","mode":"markers","marker":{"color":["#73ABC2","#97D1C7","#FFF482","#97D1C7","#73ABC2","#97D1C7","#97D1C7","#FFF482","#73ABC2","#97D1C7","#97D1C7","#73ABC2","#FFF482","#FFF482","#FFF482","#97D1C7","#97D1C7","#97D1C7","#73ABC2","#97D1C7"],"symbol":["triangle-up","circle","square","circle","square","square","triangle-up","circle","square","square","square","triangle-up","circle","triangle-up","triangle-up","circle","triangle-up","square","circle","square"],"size":[35,45,25,45,45,25,25,25,35,45,45,45,45,35,35,45,25,35,25,45],"line":{"color":["#247BA0","#70C1B3","#E5D524","#70C1B3","#247BA0","#70C1B3","#70C1B3","#E5D524","#247BA0","#70C1B3","#70C1B3","#247BA0","#E5D524","#E5D524","#E5D524","#70C1B3","#70C1B3","#70C1B3","#247BA0","#70C1B3"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"frames":[{"name":"1","data":[{"x":[0.258,-0.009,0.498,0.129,0.36,0.222,0.342,0.489,0.138,-0.018,0.138,0.369,0,0.489,0.258,0.018,0.351,0.489,0.12,0.222],"y":[0.025,0.04,0.075,0.025,0.04,0.21,0.2,0.19,0.2,0.2,0.325,0.34,0.36,0.375,0.375,0.49,0.5,0.5,0.5,0.525],"frame":"1","type":"scatter","mode":"markers","marker":{"color":["#73ABC2","#97D1C7","#FFF482","#97D1C7","#73ABC2","#97D1C7","#97D1C7","#FFF482","#73ABC2","#97D1C7","#97D1C7","#73ABC2","#FFF482","#FFF482","#FFF482","#97D1C7","#97D1C7","#97D1C7","#73ABC2","#97D1C7"],"symbol":["triangle-up","circle","square","circle","square","square","triangle-up","circle","square","square","square","triangle-up","circle","triangle-up","triangle-up","circle","triangle-up","square","circle","square"],"size":[35,45,25,45,45,25,25,25,35,45,45,45,45,35,35,45,25,35,25,45],"line":{"color":["#247BA0","#70C1B3","#E5D524","#70C1B3","#247BA0","#70C1B3","#70C1B3","#E5D524","#247BA0","#70C1B3","#70C1B3","#247BA0","#E5D524","#E5D524","#E5D524","#70C1B3","#70C1B3","#70C1B3","#247BA0","#70C1B3"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2","data":[{"x":[0.258,-0.009,0.498,0.129,0.36,0.222,0.342,0.489,0.138,-0.018,0.138,0.369,0,0.489,0.258,0.018,0.351,0.489,0.12,0.222],"y":[0.025,0.04,0.075,0.025,0.04,0.21,0.2,0.19,0.2,0.2,0.325,0.34,0.36,0.375,0.375,0.49,0.5,0.5,0.5,0.525],"frame":"2","type":"scatter","mode":"markers","marker":{"color":["#BCBABA","#FF5582","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA"],"symbol":["triangle-up","circle","square","circle","square","square","triangle-up","circle","square","square","square","triangle-up","circle","triangle-up","triangle-up","circle","triangle-up","square","circle","square"],"size":[35,45,25,45,45,25,25,25,35,45,45,45,45,35,35,45,25,35,25,45],"line":{"color":["#9E9D9D","#FF1654","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"3","data":[{"x":[0.258,-0.009,0.498,0.129,0.36,0.222,0.342,0.489,0.138,-0.018,0.138,0.369,0,0.489,0.258,0.018,0.351,0.489,0.12,0.222],"y":[0.025,0.04,0.075,0.025,0.04,0.21,0.2,0.19,0.2,0.2,0.325,0.34,0.36,0.375,0.375,0.49,0.5,0.5,0.5,0.525],"frame":"3","type":"scatter","mode":"markers","marker":{"color":["#BCBABA","#FF5582","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA"],"symbol":["triangle-up","circle","square","circle","square","square","triangle-up","circle","square","square","square","triangle-up","circle","triangle-up","triangle-up","circle","triangle-up","square","circle","square"],"size":[35,45,25,45,45,25,25,25,35,45,45,45,45,35,35,45,25,35,25,45],"line":{"color":["#9E9D9D","#FF1654","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"4","data":[{"x":[0.106,0.5,0.002,0.34,0.163,0.051,0.22,0.43,0.161,-0.004,0.106,0.222,0.5,0.051,0.07,0.35,0,0.14,0.42,0.21],"y":[0.165,0.266,0.165,0.28,0.135,0.15,0.15,0.28,0.27,0.27,0.27,0.27,0.38,0.285,0.385,0.38,0.415,0.385,0.366,0.385],"frame":"4","type":"scatter","mode":"markers","marker":{"color":["#BCBABA","#FF5582","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA"],"symbol":["triangle-up","circle","square","circle","square","square","triangle-up","circle","square","square","square","triangle-up","circle","triangle-up","triangle-up","circle","triangle-up","square","circle","square"],"size":[35,45,25,45,45,25,25,25,35,45,45,45,45,35,35,45,25,35,25,45],"line":{"color":["#9E9D9D","#FF1654","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]}],"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 
 ---
 # The power of randomization
@@ -162,24 +162,12 @@ i.e. Some units will **.darkorange[randomly]** be chosen to be in the treatment 
 
 .box-3t[No (systematic) selection on observables OR unobservables]
 
----
-# The power of randomization
-
-- One way to make sure the ignorability assumption holds, is to do it by design:
-
-.box-6[Randomize the assignment of Z]
-
-i.e. Some units will **.darkorange[randomly]** be chosen to be in the treatment group and others to be in the control group.
-
-.box-4t[What does randomization buy us?]
-
-.box-3t[No (systematic) selection on observables OR unobservables]
 
 ---
 # Randomization of z
 
 <div id="htmlwidget-bc001841e90ff42a1ed5" style="width:504px;height:504px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-bc001841e90ff42a1ed5">{"x":{"visdat":{"42303ad9210b":["function () ","plotlyVisDat"]},"cur_data":"42303ad9210b","attrs":{"42303ad9210b":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"frame":{},"type":"scatter","mode":"markers","symbol":{},"marker":{"color":{},"size":{},"line":{"color":{},"width":3}},"inherit":true}},"layout":{"width":1000,"height":500,"margin":{"b":10,"l":50,"t":50,"r":30,"pad":4},"xaxis":{"domain":[0,1],"automargin":true,"title":"","showgrid":false,"zeroline":false,"showline":false,"showticklabels":false,"range":[-0.04,0.53]},"yaxis":{"domain":[0,1],"automargin":true,"title":"","showgrid":false,"zeroline":false,"showline":false,"showticklabels":false,"range":[-0.01,0.56]},"plot_bgcolor":"rgba(0, 0, 0, 0)","paper_bgcolor":"rgba(0, 0, 0, 0)","autosize":false,"hovermode":"closest","showlegend":false,"sliders":[],"updatemenus":[{"type":"buttons","direction":"right","showactive":false,"y":0,"x":0,"yanchor":"top","xanchor":"right","pad":{"t":60,"r":5},"buttons":[{"label":"Play","method":"animate","args":[null,{"fromcurrent":true,"mode":"immediate","transition":{"duration":1300,"easing":"linear"},"frame":{"duration":1500,"redraw":false}}]}],"visible":true}]},"source":"A","config":{"showSendToCloud":false,"displayModeBar":false},"data":[{"x":[0.378,0,0.24,0.48,0.111,0.129,0.342,-0.009,0.489,0.249,0.378,0.471,-0.018,0.249,0.102,0.369,0.018,0.231,0.48,0.102],"y":[0.04,0.05,0.04,0.05,0.05,0.19,0.2,0.175,0.19,0.225,0.34,0.325,0.325,0.325,0.325,0.525,0.49,0.525,0.49,0.5],"frame":"1","type":"scatter","mode":"markers","marker":{"color":["#FFF482","#FFF482","#FFF482","#97D1C7","#97D1C7","#FFF482","#73ABC2","#97D1C7","#73ABC2","#FFF482","#FFF482","#FFF482","#FFF482","#97D1C7","#97D1C7","#FFF482","#73ABC2","#97D1C7","#73ABC2","#FFF482"],"symbol":["circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up","circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up"],"size":[35,45,25,45,45,25,25,25,35,45,35,45,25,45,45,25,25,25,35,45],"line":{"color":["#E5D524","#E5D524","#E5D524","#70C1B3","#70C1B3","#E5D524","#247BA0","#70C1B3","#247BA0","#E5D524","#E5D524","#E5D524","#E5D524","#70C1B3","#70C1B3","#E5D524","#247BA0","#70C1B3","#247BA0","#E5D524"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"frames":[{"name":"1","data":[{"x":[0.378,0,0.24,0.48,0.111,0.129,0.342,-0.009,0.489,0.249,0.378,0.471,-0.018,0.249,0.102,0.369,0.018,0.231,0.48,0.102],"y":[0.04,0.05,0.04,0.05,0.05,0.19,0.2,0.175,0.19,0.225,0.34,0.325,0.325,0.325,0.325,0.525,0.49,0.525,0.49,0.5],"frame":"1","type":"scatter","mode":"markers","marker":{"color":["#FFF482","#FFF482","#FFF482","#97D1C7","#97D1C7","#FFF482","#73ABC2","#97D1C7","#73ABC2","#FFF482","#FFF482","#FFF482","#FFF482","#97D1C7","#97D1C7","#FFF482","#73ABC2","#97D1C7","#73ABC2","#FFF482"],"symbol":["circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up","circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up"],"size":[35,45,25,45,45,25,25,25,35,45,35,45,25,45,45,25,25,25,35,45],"line":{"color":["#E5D524","#E5D524","#E5D524","#70C1B3","#70C1B3","#E5D524","#247BA0","#70C1B3","#247BA0","#E5D524","#E5D524","#E5D524","#E5D524","#70C1B3","#70C1B3","#E5D524","#247BA0","#70C1B3","#247BA0","#E5D524"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2","data":[{"x":[0.006,0.076,0.134,0.006,0.146,0.064,0,0.186,0.12,0.066,0.405,0.445,0.5,0.345,0.47,0.35,0.415,0.35,0.41,0.475],"y":[0.2,0.18,0.19,0.28,0.29,0.29,0.39,0.4,0.4,0.4,0.22,0.2,0.2,0.2,0.3,0.28,0.3,0.4,0.38,0.41],"frame":"2","type":"scatter","mode":"markers","marker":{"color":["#FFF482","#FFF482","#FFF482","#97D1C7","#97D1C7","#FFF482","#73ABC2","#97D1C7","#73ABC2","#FFF482","#FFF482","#FFF482","#FFF482","#97D1C7","#97D1C7","#FFF482","#73ABC2","#97D1C7","#73ABC2","#FFF482"],"symbol":["circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up","circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up"],"size":[35,45,25,45,45,25,25,25,35,45,35,45,25,45,45,25,25,25,35,45],"line":{"color":["#E5D524","#E5D524","#E5D524","#70C1B3","#70C1B3","#E5D524","#247BA0","#70C1B3","#247BA0","#E5D524","#E5D524","#E5D524","#E5D524","#70C1B3","#70C1B3","#E5D524","#247BA0","#70C1B3","#247BA0","#E5D524"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"3","data":[{"x":[0.006,0.076,0.134,0.006,0.146,0.064,0,0.186,0.12,0.066,0.405,0.445,0.5,0.345,0.47,0.35,0.415,0.35,0.41,0.475],"y":[0.2,0.18,0.19,0.28,0.29,0.29,0.39,0.4,0.4,0.4,0.22,0.2,0.2,0.2,0.3,0.28,0.3,0.4,0.38,0.41],"frame":"3","type":"scatter","mode":"markers","marker":{"color":["#FFF482","#FFF482","#FFF482","#97D1C7","#97D1C7","#FFF482","#73ABC2","#97D1C7","#73ABC2","#FFF482","#FFF482","#FFF482","#FFF482","#97D1C7","#97D1C7","#FFF482","#73ABC2","#97D1C7","#73ABC2","#FFF482"],"symbol":["circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up","circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up"],"size":[35,45,25,45,45,25,25,25,35,45,35,45,25,45,45,25,25,25,35,45],"line":{"color":["#E5D524","#E5D524","#E5D524","#70C1B3","#70C1B3","#E5D524","#247BA0","#70C1B3","#247BA0","#E5D524","#E5D524","#E5D524","#E5D524","#70C1B3","#70C1B3","#E5D524","#247BA0","#70C1B3","#247BA0","#E5D524"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"4","data":[{"x":[0.006,0.076,0.134,0.006,0.146,0.064,0,0.186,0.12,0.066,0.405,0.445,0.5,0.345,0.47,0.35,0.415,0.35,0.41,0.475],"y":[0.2,0.18,0.19,0.28,0.29,0.29,0.39,0.4,0.4,0.4,0.22,0.2,0.2,0.2,0.3,0.28,0.3,0.4,0.38,0.41],"frame":"4","type":"scatter","mode":"markers","marker":{"color":["#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582"],"symbol":["circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up","circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up"],"size":[35,45,25,45,45,25,25,25,35,45,35,45,25,45,45,25,25,25,35,45],"line":{"color":["#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]}],"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-bc001841e90ff42a1ed5">{"x":{"visdat":{"560861dc468d":["function () ","plotlyVisDat"]},"cur_data":"560861dc468d","attrs":{"560861dc468d":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"frame":{},"type":"scatter","mode":"markers","symbol":{},"marker":{"color":{},"size":{},"line":{"color":{},"width":3}},"inherit":true}},"layout":{"width":1000,"height":500,"margin":{"b":10,"l":50,"t":50,"r":30,"pad":4},"xaxis":{"domain":[0,1],"automargin":true,"title":"","showgrid":false,"zeroline":false,"showline":false,"showticklabels":false,"range":[-0.04,0.53]},"yaxis":{"domain":[0,1],"automargin":true,"title":"","showgrid":false,"zeroline":false,"showline":false,"showticklabels":false,"range":[-0.01,0.56]},"plot_bgcolor":"rgba(0, 0, 0, 0)","paper_bgcolor":"rgba(0, 0, 0, 0)","autosize":false,"hovermode":"closest","showlegend":false,"sliders":[],"updatemenus":[{"type":"buttons","direction":"right","showactive":false,"y":0,"x":0,"yanchor":"top","xanchor":"right","pad":{"t":60,"r":5},"buttons":[{"label":"Play","method":"animate","args":[null,{"fromcurrent":true,"mode":"immediate","transition":{"duration":1300,"easing":"linear"},"frame":{"duration":1500,"redraw":false}}]}],"visible":true}]},"source":"A","config":{"showSendToCloud":false,"displayModeBar":false},"data":[{"x":[0.378,0,0.24,0.48,0.111,0.129,0.342,-0.009,0.489,0.249,0.378,0.471,-0.018,0.249,0.102,0.369,0.018,0.231,0.48,0.102],"y":[0.04,0.05,0.04,0.05,0.05,0.19,0.2,0.175,0.19,0.225,0.34,0.325,0.325,0.325,0.325,0.525,0.49,0.525,0.49,0.5],"frame":"1","type":"scatter","mode":"markers","marker":{"color":["#FFF482","#FFF482","#FFF482","#97D1C7","#97D1C7","#FFF482","#73ABC2","#97D1C7","#73ABC2","#FFF482","#FFF482","#FFF482","#FFF482","#97D1C7","#97D1C7","#FFF482","#73ABC2","#97D1C7","#73ABC2","#FFF482"],"symbol":["circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up","circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up"],"size":[35,45,25,45,45,25,25,25,35,45,35,45,25,45,45,25,25,25,35,45],"line":{"color":["#E5D524","#E5D524","#E5D524","#70C1B3","#70C1B3","#E5D524","#247BA0","#70C1B3","#247BA0","#E5D524","#E5D524","#E5D524","#E5D524","#70C1B3","#70C1B3","#E5D524","#247BA0","#70C1B3","#247BA0","#E5D524"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"frames":[{"name":"1","data":[{"x":[0.378,0,0.24,0.48,0.111,0.129,0.342,-0.009,0.489,0.249,0.378,0.471,-0.018,0.249,0.102,0.369,0.018,0.231,0.48,0.102],"y":[0.04,0.05,0.04,0.05,0.05,0.19,0.2,0.175,0.19,0.225,0.34,0.325,0.325,0.325,0.325,0.525,0.49,0.525,0.49,0.5],"frame":"1","type":"scatter","mode":"markers","marker":{"color":["#FFF482","#FFF482","#FFF482","#97D1C7","#97D1C7","#FFF482","#73ABC2","#97D1C7","#73ABC2","#FFF482","#FFF482","#FFF482","#FFF482","#97D1C7","#97D1C7","#FFF482","#73ABC2","#97D1C7","#73ABC2","#FFF482"],"symbol":["circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up","circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up"],"size":[35,45,25,45,45,25,25,25,35,45,35,45,25,45,45,25,25,25,35,45],"line":{"color":["#E5D524","#E5D524","#E5D524","#70C1B3","#70C1B3","#E5D524","#247BA0","#70C1B3","#247BA0","#E5D524","#E5D524","#E5D524","#E5D524","#70C1B3","#70C1B3","#E5D524","#247BA0","#70C1B3","#247BA0","#E5D524"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2","data":[{"x":[0.006,0.076,0.134,0.006,0.146,0.064,0,0.186,0.12,0.066,0.405,0.445,0.5,0.345,0.47,0.35,0.415,0.35,0.41,0.475],"y":[0.2,0.18,0.19,0.28,0.29,0.29,0.39,0.4,0.4,0.4,0.22,0.2,0.2,0.2,0.3,0.28,0.3,0.4,0.38,0.41],"frame":"2","type":"scatter","mode":"markers","marker":{"color":["#FFF482","#FFF482","#FFF482","#97D1C7","#97D1C7","#FFF482","#73ABC2","#97D1C7","#73ABC2","#FFF482","#FFF482","#FFF482","#FFF482","#97D1C7","#97D1C7","#FFF482","#73ABC2","#97D1C7","#73ABC2","#FFF482"],"symbol":["circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up","circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up"],"size":[35,45,25,45,45,25,25,25,35,45,35,45,25,45,45,25,25,25,35,45],"line":{"color":["#E5D524","#E5D524","#E5D524","#70C1B3","#70C1B3","#E5D524","#247BA0","#70C1B3","#247BA0","#E5D524","#E5D524","#E5D524","#E5D524","#70C1B3","#70C1B3","#E5D524","#247BA0","#70C1B3","#247BA0","#E5D524"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"3","data":[{"x":[0.006,0.076,0.134,0.006,0.146,0.064,0,0.186,0.12,0.066,0.405,0.445,0.5,0.345,0.47,0.35,0.415,0.35,0.41,0.475],"y":[0.2,0.18,0.19,0.28,0.29,0.29,0.39,0.4,0.4,0.4,0.22,0.2,0.2,0.2,0.3,0.28,0.3,0.4,0.38,0.41],"frame":"3","type":"scatter","mode":"markers","marker":{"color":["#FFF482","#FFF482","#FFF482","#97D1C7","#97D1C7","#FFF482","#73ABC2","#97D1C7","#73ABC2","#FFF482","#FFF482","#FFF482","#FFF482","#97D1C7","#97D1C7","#FFF482","#73ABC2","#97D1C7","#73ABC2","#FFF482"],"symbol":["circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up","circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up"],"size":[35,45,25,45,45,25,25,25,35,45,35,45,25,45,45,25,25,25,35,45],"line":{"color":["#E5D524","#E5D524","#E5D524","#70C1B3","#70C1B3","#E5D524","#247BA0","#70C1B3","#247BA0","#E5D524","#E5D524","#E5D524","#E5D524","#70C1B3","#70C1B3","#E5D524","#247BA0","#70C1B3","#247BA0","#E5D524"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"4","data":[{"x":[0.006,0.076,0.134,0.006,0.146,0.064,0,0.186,0.12,0.066,0.405,0.445,0.5,0.345,0.47,0.35,0.415,0.35,0.41,0.475],"y":[0.2,0.18,0.19,0.28,0.29,0.29,0.39,0.4,0.4,0.4,0.22,0.2,0.2,0.2,0.3,0.28,0.3,0.4,0.38,0.41],"frame":"4","type":"scatter","mode":"markers","marker":{"color":["#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582"],"symbol":["circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up","circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up"],"size":[35,45,25,45,45,25,25,25,35,45,35,45,25,45,45,25,25,25,35,45],"line":{"color":["#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]}],"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 
 ---
 # Observational Causal Graph
@@ -199,7 +187,7 @@ i.e. Some units will **.darkorange[randomly]** be chosen to be in the treatment 
 # If I randomize treatment allocation...
 
 .center2[
-.box-3LA[Can the treatment be potentially correlated by a confounder?]]
+.box-3LA[Can the treatment be potentially correlated with a confounder?]]
 
 ---
 # Just by chance!
@@ -210,7 +198,17 @@ i.e. Some units will **.darkorange[randomly]** be chosen to be in the treatment 
 ---
 # RCTs: The Gold Standard
 
-- DUFLO, KRAMER, AND BANERJEE NOBEL PRIZE
+.pull-left[
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/nobel.png)
+]
+]
+
+.pull-right[
+.center[
+![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/nobel2.png)
+]
+]
 
 ---
 # How do we randomize?
@@ -218,14 +216,17 @@ i.e. Some units will **.darkorange[randomly]** be chosen to be in the treatment 
 
 ---
 # How do we randomize?
+
 
 .box-5[Coin flip*]
+
 
 .center[
 ![:scale 10%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/coin.png)]
 
 ---
 # How do we randomize?
+
 
 .box-5[Coin flip*]
 
@@ -341,6 +342,52 @@ head(d)
 ```
 ]
 
+---
+# How would you randomize for more treatments?
+
+---
+# How would you randomize for more treatments?
+
+.pull-left[
+
+```r
+# One way
+
+id &lt;- seq(1,1000)
+
+set.seed(100)
+
+types_treat &lt;- c(0,1,2)
+
+z &lt;- sample(types_treat, length(id), 
+            replace = TRUE, prob = c(1/3,1/3,1/3))
+
+table(z)
+```
+
+```
+## z
+##   0   1   2 
+## 354 306 340
+```
+]
+
+.pull-right[
+
+```r
+# Another way
+
+id &lt;- seq(1,1000)
+
+set.seed(100)
+
+rand &lt;- runif(length(id))
+
+id &lt;- id[order(rand)]
+
+z &lt;- rep(c(0,1,2),1000/3 + 1)[1:length(id)]
+```
+]
 ---
 .center2[
 .box-3LA[How do we check that randomization was done correctly?]
@@ -509,6 +556,31 @@ meantab(d[,names_covs], d$z, which(d$z==1), which(d$z==0))
 - Then, you randomize in the same way *within strata*.
 
 ---
+# Randomization of treatment
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/study1.png)
+]
+
+---
+# Randomization of treatment with no strata
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/study2.png)
+]
+
+---
+# Randomization of treatment with strata
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/study3.png)
+]
+
+---
+# How to analyze RCTs?
+
+
+---
 # How to analyze RCTs?
 
 .box-7LA[Easy! (Statistically speaking)]
@@ -535,10 +607,15 @@ meantab(d[,names_covs], d$z, which(d$z==1), which(d$z==0))
 ---
 # Let's look at some data
 
+.pull-left[
 - "Get out the Vote" Large-Scale Mobilization experiment (Arceneaux, Gerber, and Green, 2006)
   
   - "Households containing one or two registered voters where **.darkorange[randomly assigned]** to treatment or control groups" 
-  
+]
+.pull-right[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/vote.jpg)
+]
+
 ---
 # Checking for balance
 
@@ -552,8 +629,30 @@ Plots and tables
 ---
 # Estimating the effect
 
-- Compare group means
-- Simple regression
+- Depending on the design, usually you can **.darkorange[compare group means]** or fit a **.darkorange[simple regression]**
+
+--
+
+.box-3t[$\frac{1}{N_T}\sum_{i\in T}Y_i - \frac{1}{N_C}\sum_{i\in C}Y_i$]
+
+.box-5t[$$Y_i = \beta_0 + \beta_1 Z_i + \varepsilon_i$$]
+
+--
+
+**.darkorange[How do we incorporate stratification here?]**
+
+---
+# Estimating the effect
+
+- In stratified RCTs, we need to consider the strata!
+
+--
+
+- Run a regression with *Fixed effects by strata*
+
+.box-6t[$$Y_i = \beta_0 + \beta_1 Z_i + \gamma_s + \varepsilon_i$$]
+
+
 
 ---
 # Other assumptions
@@ -579,7 +678,7 @@ Plots and tables
   - `\(Z_1\)` and `\(Z_2\)` will be the treatment assignment for 1 and 2, respectively.
   - Under SUTVA:
   
-  .box-7LA[$$Y_2(0), Y_2(1)) \perp\perp Z_1$$]
+  .box-3LA[$$(Y_2(0), Y_2(1)) \perp Z_1$$]
   
 
 ---
@@ -589,13 +688,15 @@ Plots and tables
 
 --
 
-- Think about the headche example from last class:
+- Think about the headache example from last class:
 
   - Individual 1 gets a new aspirin (aspirin +)
   - Individual 2 gets an old aspirin (aspirin -)
   - Individual 3 doesn't get a pill
   
-- If we label the treatments as `\(Z=0\)` (doesn't get an aspirin) and `\(Z=1\)` (gets an aspirin), potential outcomes would change depending on whether they got *aspirin +* or *aspirin -*
+- If we label the treatments as `\(Z=0\)` (doesn't get an aspirin) and `\(Z=1\)` (gets an aspirin), potential outcomes would change depending on whether they got *aspirin +* or *aspirin -*.
+
+
   
 
 
@@ -607,27 +708,88 @@ Plots and tables
 ]
 &lt;br&gt;
 &lt;br&gt;
-.source[h/t to @paul_gp]
+&lt;br&gt;
+&lt;br&gt;
+.bottom[.source[h/t to @paul_gp]]
 
 ---
 # When SUTVA hits the fan
 
-.center2[
-.box-7[Network effects]
+.center[
+.box-3[Network effects]
+]
+--
+.center[
+.box-5[General Equilibrium Effects]
+]
+
+---
+# Network effects
+
+- Also referred to as **.darkorange[spillovers]**
+
+- Potential outcomes will depend on *who gets the treatment*
+
+.box-2LA[Let's look at an example]
+
+---
+# Network effects
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/networks1.png)
+]
+
+
+---
+# Network effects
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/networks2.png)
+]
+
+---
+# Network effects
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/networks3.png)
+]
+
+---
+# Network effects
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/networks4.png)
+]
+
+---
+# Network effects
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/networks5.png)
+]
+
+---
+# Network effects
+
+.box-6LA[Can we do something about this?]
 
 --
 
-.box-2[General Equilibrium Effects]
-]
+1) Randomize at a higher level (e.g. neighborhood, school, etc. instead of at the individual level)
 
+--
+  - Note that you will have to **.darkorange[cluster your standard errors]**
+--
+
+2) Model the network!
 ---
-# When SUTVA hits the fan
+# General Equilibrium Effects
 
-.center2[
-.box-7[Multi-site interventions]
-]
+- Usually arise when you **.darkorange[scale up]** a program or intervention.
 
-
+- **.darkorange[E.g. Congestion]**:
+  
+  - A training program for workers has a positive effect on employment on a low-scale. What happens if we offer it to everyone?
 
 ---
 # Statistical power
@@ -768,14 +930,16 @@ Plots and tables
 ---
 # References
 
-- Angrist, J. and S. Pischke. (2015)
+- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 1*.
+
+- Heiss, A. (2020). "Program Evaluation for Public Policy". *Course*
 
 - Imbens, G. and D. Rubin. (2015). "Causal Inference for Statistics, Social, and Biomedical Sciences: An Introduction". *Chapter 1*
 
-- Young, S. (2014). "Improving Library User Experience withA/B Testing: Principles and Process". *Weave. Vol 1, Issue 1.*
+- Young, S. (2014). "Improving Library User Experience with A/B Testing: Principles and Process". *Weave. Vol 1, Issue 1.*
 
 
-&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week3/1_PotentialOutcomes/sp2021_sta235_5_PotentialOutcomes.html') --&gt;
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week4/1_RCT/sp2021_sta235_6_RCT.html') --&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

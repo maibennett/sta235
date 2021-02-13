@@ -608,13 +608,13 @@ fig
 
 .pull-left[
 .center[
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/nobel.png)
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/nobel.png)
 ]
 ]
 
 .pull-right[
 .center[
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/nobel2.png)
+![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/nobel2.png)
 ]
 ]
 
@@ -624,14 +624,17 @@ fig
 
 ---
 # How do we randomize?
+
 
 .box-5[Coin flip*]
+
 
 .center[
 ![:scale 10%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/coin.png)]
 
 ---
 # How do we randomize?
+
 
 .box-5[Coin flip*]
 
@@ -737,6 +740,106 @@ head(d)
 ]
 
 ---
+# How would you randomize for more treatments?
+
+---
+# How would you randomize for more treatments?
+
+.pull-left[
+```{r}
+# One way
+
+id <- seq(1,1000)
+
+set.seed(100)
+
+types_treat <- c(0,1,2)
+
+z <- sample(types_treat, length(id), #<<
+            replace = TRUE, prob = c(1/3,1/3,1/3)) #<<
+
+table(z)
+```
+]
+
+
+---
+# How would you randomize for more treatments?
+
+.pull-left[
+```{r}
+# One way
+
+id <- seq(1,1000)
+
+set.seed(100)
+
+types_treat <- c(0,1,2)
+
+z <- sample(types_treat, length(id), 
+            replace = TRUE, prob = c(1/3,1/3,1/3))
+
+table(z)
+```
+]
+
+.pull-right[
+```{r}
+# Another way
+
+id <- seq(1,1000)
+
+set.seed(100)
+
+rand <- runif(length(id)) #<<
+
+id <- id[order(rand)]
+
+z <- rep(c(0,1,2),1000/3 + 1)[1:length(id)]
+
+table(z)
+
+```
+]
+
+---
+# How would you randomize for more treatments?
+
+.pull-left[
+```{r}
+# One way
+
+id <- seq(1,1000)
+
+set.seed(100)
+
+types_treat <- c(0,1,2)
+
+z <- sample(types_treat, length(id), 
+            replace = TRUE, prob = c(1/3,1/3,1/3))
+
+table(z)
+```
+]
+
+.pull-right[
+```{r}
+# Another way
+
+id <- seq(1,1000)
+
+set.seed(100)
+
+rand <- runif(length(id)) 
+
+id <- id[order(rand)] #<<
+
+z <- rep(c(0,1,2),1000/3 + 1)[1:length(id)]
+
+table(z)
+```
+]
+---
 .center2[
 .box-3LA[How do we check that randomization was done correctly?]
 ]
@@ -837,22 +940,26 @@ meantab(d[,names_covs], d$z, which(d$z==1), which(d$z==0))
 # Randomization of treatment
 
 .center[
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/study1.png)
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/study1.png)
 ]
 
 ---
 # Randomization of treatment with no strata
 
 .center[
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/study2.png)
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/study2.png)
 ]
 
 ---
-# Randomization of treatment with ntrata
+# Randomization of treatment with strata
 
 .center[
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/study3.png)
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/study3.png)
 ]
+
+---
+# How to analyze RCTs?
+
 
 ---
 # How to analyze RCTs?
@@ -881,10 +988,15 @@ meantab(d[,names_covs], d$z, which(d$z==1), which(d$z==0))
 ---
 # Let's look at some data
 
+.pull-left[
 - "Get out the Vote" Large-Scale Mobilization experiment (Arceneaux, Gerber, and Green, 2006)
   
   - "Households containing one or two registered voters where **.darkorange[randomly assigned]** to treatment or control groups" 
-  
+]
+.pull-right[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/vote.jpg)
+]
+
 ---
 # Checking for balance
 
@@ -898,8 +1010,30 @@ Plots and tables
 ---
 # Estimating the effect
 
-- Compare group means
-- Simple regression
+- Depending on the design, usually you can **.darkorange[compare group means]** or fit a **.darkorange[simple regression]**
+
+--
+
+.box-3t[$\frac{1}{N_T}\sum_{i\in T}Y_i - \frac{1}{N_C}\sum_{i\in C}Y_i$]
+
+.box-5t[$$Y_i = \beta_0 + \beta_1 Z_i + \varepsilon_i$$]
+
+--
+
+**.darkorange[How do we incorporate stratification here?]**
+
+---
+# Estimating the effect
+
+- In stratified RCTs, we need to consider the strata!
+
+--
+
+- Run a regression with *Fixed effects by strata*
+
+.box-6t[$$Y_i = \beta_0 + \beta_1 Z_i + \gamma_s + \varepsilon_i$$]
+
+
 
 ---
 # Other assumptions
@@ -957,7 +1091,7 @@ Plots and tables
 <br>
 <br>
 <br>
-.source[h/t to @paul_gp]
+.bottom[.source[h/t to @paul_gp]]
 
 ---
 # When SUTVA hits the fan
@@ -977,13 +1111,13 @@ Plots and tables
 
 - Potential outcomes will depend on *who gets the treatment*
 
-.box-5LA[Let's look at an example]
+.box-2LA[Let's look at an example]
 
 ---
 # Network effects
 
 .center[
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/networks1.png)
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/networks1.png)
 ]
 
 
@@ -991,30 +1125,44 @@ Plots and tables
 # Network effects
 
 .center[
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/networks2.png)
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/networks2.png)
 ]
 
 ---
 # Network effects
 
 .center[
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/networks3.png)
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/networks3.png)
 ]
 
 ---
 # Network effects
 
 .center[
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/networks4.png)
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/networks4.png)
 ]
 
 ---
 # Network effects
 
 .center[
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/networks5.png)
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/networks5.png)
 ]
 
+---
+# Network effects
+
+.box-6LA[Can we do something about this?]
+
+--
+
+1) Randomize at a higher level (e.g. neighborhood, school, etc. instead of at the individual level)
+
+--
+  - Note that you will have to **.darkorange[cluster your standard errors]**
+--
+
+2) Model the network!
 ---
 # General Equilibrium Effects
 
@@ -1163,11 +1311,13 @@ Plots and tables
 ---
 # References
 
-- Angrist, J. and S. Pischke. (2015)
+- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 1*.
+
+- Heiss, A. (2020). "Program Evaluation for Public Policy". *Course*
 
 - Imbens, G. and D. Rubin. (2015). "Causal Inference for Statistics, Social, and Biomedical Sciences: An Introduction". *Chapter 1*
 
-- Young, S. (2014). "Improving Library User Experience withA/B Testing: Principles and Process". *Weave. Vol 1, Issue 1.*
+- Young, S. (2014). "Improving Library User Experience with A/B Testing: Principles and Process". *Weave. Vol 1, Issue 1.*
 
 
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week3/1_PotentialOutcomes/sp2021_sta235_5_PotentialOutcomes.html') -->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week4/1_RCT/sp2021_sta235_6_RCT.html') -->
