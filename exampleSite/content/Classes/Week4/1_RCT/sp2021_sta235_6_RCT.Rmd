@@ -1370,7 +1370,8 @@ fake_income %>%
 # Can I detect an effect?
 
 .pull-left[
-.box-5b[Enroll 10 participants]
+.center[
+.box-5b[Enroll 10 participants]]
 
 ```{r power-small, echo=FALSE, fig.width=6, fig.height=4.5, out.width="100%"}
 library(ggplot2)
@@ -1416,7 +1417,7 @@ boot_small %>%
 --
 
 .pull-right[
-.box-5b[Enroll 200 participants]
+.center[.box-5b[Enroll 200 participants]]
 
 ```{r power-big, echo=FALSE, fig.width=6, fig.height=4.5, out.width="100%"}
 boot_big %>% 
@@ -1451,7 +1452,7 @@ boot_big %>%
 .box-6[Use a statistical power calculator to<br>make sure you can potentially detect an effect]
 
 .center[
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/power-search.png)
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/power-search.png)
 ]
 
 --
