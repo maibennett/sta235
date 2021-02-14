@@ -508,8 +508,11 @@ fig2 <- dffull %>% plot_ly() %>%
 ---
 # The Fundamental Problem of Causal Inference
 
-- Remember that we can only see one potential outcome (e.g. if $Z$ is binary, either $Y(0)$ **OR** $Y(1)$)
+- Remember that we can only see one potential outcome 
+  
+  - E.g. if $Z$ is binary, either $Y(0)$ **OR** $Y(1)$
 
+<br>
 .box-7[Fundamental Problem of Causal Inference]
 
 --
@@ -1000,12 +1003,14 @@ meantab(d[,names_covs], d$z, which(d$z==1), which(d$z==0))
 ---
 # Checking for balance
 
+.center2[
 .box-5LA[Let's go to R]
+]
 
 ---
 # Checking for balance
 
-Plots and tables
+
 
 ---
 # Estimating the effect
@@ -1171,12 +1176,167 @@ Plots and tables
 
 - Usually arise when you **.darkorange[scale up]** a program or intervention.
 
-- **.darkorange[E.g. Congestion]**:
-  
-  - A training program for workers has a positive effect on employment on a low-scale. What happens if we offer it to everyone?
+- Imagine you want to test the effect of providing information about employment and expected income to students on their choice of university and/or major.
+
+--
+
+.box-7LA[What could happen if you offer it to everyone?]
 
 ---
 # Statistical power
+
+- **.darorange[Statistical power]** refers to the magnitude of the effects I am able to detect given my data.
+
+.box-2t[How big of a sample?]
+
+```{r fake-income-program, include=FALSE}
+library(infer)
+
+set.seed(1234)
+fake_income_t <- tibble(Person = 1:200, 
+                        Group = "Treatment",
+                        Before = rnorm(200, mean = 200, sd = 70),
+                        After = rnorm(200, mean = 250, sd = 70))
+fake_income_c <- tibble(Person = 201:400, 
+                        Group = "Control",
+                        Before = rnorm(200, mean = 200, sd = 70),
+                        After = rnorm(200, mean = 220, sd = 70))
+fake_income <- bind_rows(fake_income_t, fake_income_c) %>% 
+  mutate(Difference = After - Before) %>% 
+  sample_frac(1)
+fake_income_small <- fake_income %>% 
+  group_by(Group) %>% 
+  sample_n(5) %>% 
+  ungroup()
+diff_small <- fake_income_small %>% 
+  specify(Difference ~ Group) %>% 
+  calculate("diff in means", order = c("Treatment", "Control"))
+boot_small <- fake_income_small %>% 
+  specify(Difference ~ Group) %>% 
+  hypothesize(null = "independence") %>% 
+  generate(reps = 1000, type = "permute") %>% 
+  calculate("diff in means", order = c("Treatment", "Control"))
+p_small <- boot_small %>% 
+  get_p_value(obs_stat = diff_small$stat, direction = "both") %>% 
+  mutate(p_value_clean = scales::pvalue(p_value))
+diff_big <- fake_income %>% 
+  specify(Difference ~ Group) %>% 
+  calculate("diff in means", order = c("Treatment", "Control"))
+boot_big <- fake_income %>% 
+  specify(Difference ~ Group) %>% 
+  hypothesize(null = "independence") %>% 
+  generate(reps = 1000, type = "permute") %>% 
+  calculate("diff in means", order = c("Treatment", "Control"))
+p_big <- boot_big %>% 
+  get_p_value(obs_stat = diff_big$stat, direction = "both") %>% 
+  mutate(p_value_clean = scales::pvalue(p_value))
+```
+
+
+.box-4t[A training program causes incomes to rise by $40]
+
+.center.small[
+```{r fake-income-example, echo=FALSE}
+fake_income %>% 
+  head(6) %>% 
+  mutate(across(where(is.numeric), ~round(., 2))) %>% 
+  knitr::kable(align = "llccc")
+```
+]
+
+---
+# Can I detect an effect?
+
+pull-left[
+.box-5b[Enroll 10 participants]
+
+```{r power-small, echo=FALSE, fig.width=6, fig.height=4.5, out.width="100%"}
+library(ggplot2)
+library(firasans)
+library(hrbrthemes)
+library(extrafont)
+library("RColorBrewer")
+library(viridis)
+library("tm")
+library("SnowballC")
+library("wordcloud")
+library("RColorBrewer")
+library("firasans")
+library(hrbrthemes)
+library(extrafont)
+
+boot_small %>% 
+  visualize() +
+  geom_vline(xintercept = diff_big$stat, color = "#FF4136", size = 1) +
+  labs(x = "Average treatment − Average control",
+       y = "Count",
+       title = "Simulated world with no difference",
+       subtitle = paste0("N = 10; p = ", p_small$p_value_clean)) +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+]
+
+--
+
+.pull-right[
+.box-5b[Enroll 200 participants]
+
+```{r power-big, echo=FALSE, fig.width=6, fig.height=4.5, out.width="100%"}
+boot_big %>% 
+  visualize() +
+  geom_vline(xintercept = diff_big$stat, color = "#FF4136", size = 1) +
+  labs(x = "Average treatment − Average control",
+       y = "Count",
+       title = "Simulated world with no difference",
+       subtitle = paste0("N = 200; p = ", p_big$p_value_clean)) +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+]
+
+---
+# What's the right sample size?
+
+.box-6[Use a statistical power calculator to<br>make sure you can potentially detect an effect]
+
+.center[
+![]((https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/power-search.png)
+]
+
+--
+
+.box-7[Or you can use simulations!]
+
+---
 
 ---
 # A quick note on randomization inference
@@ -1196,6 +1356,57 @@ Plots and tables
 ---
 # Noncompliance and Attrition
 
+.box-5[Attrition]
+
+.box-5t[Units fall out of your sample]
+
+- **.darkorange[Can you give an example?]**
+
+---
+# Noncompliance and Attrition
+
+.box-5[Attrition]
+
+.box-5t[Units fall out of your sample]
+
+.box-7[Noncompliance]
+
+.box-7t[Units that where assigned to one group end up in another]
+
+- **.darkorange[Example?]**
+
+---
+# Noncompliance and Attrition
+
+- If **.darkorange[attrition]** is correlated with the treatment, we're in trouble.
+
+--
+
+.box-3LA[WHY?]
+
+---
+# Noncompliance and Attrition
+
+- If **.darkorange[attrition]** is correlated with the treatment, we're in trouble.
+
+
+.box-3LA[The ignorability assumption can break!]
+
+---
+# Noncompliance and Attrition
+
+- If **.darkorange[attrition]** is correlated with the treatment, we're in trouble.
+
+.box-3LA[The ignorability assumption can break!]
+
+- **.darkorange[Noncompliance]** is a problem for identifying $ATE$.
+
+  - E.g. Treatment *assingment* is random, but not necessarily the *take-up* of the treatment
+  
+  --
+  
+  - Stuck with **.darkorange[Intention to Treat (ITT) effect]**.
+
 ---
 # Other problems to look out for
 
@@ -1213,10 +1424,16 @@ Plots and tables
 ---
 # Feasibility
 
+.pull-left[
 - RCTs can be expensive and also slow.
 
 - Organizations might not be willing to randomize.
+]
 
+.pull-right[
+.center[
+![](https://media.giphy.com/media/1xkMJIvxeKiDS/giphy.gif)]
+]
 ---
 # Getting around some issues
 
@@ -1227,6 +1444,31 @@ Plots and tables
 - Randomize in the bubble:
 
   - Not randomize everyone, but maybe those that are on the margin of receiving the treatment.
+  
+---
+# Staggered adoption
+
+.pull-left[
+![]((https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/staggered1.png)
+]
+
+--
+
+.pull-right[
+![]((https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/staggered2.png)
+]
+
+---
+# Staggered adoption
+
+.pull-left[
+![]((https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/staggered1.png)
+]
+
+
+.pull-right[
+![]((https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/staggered3.png)
+]
 
 ---
 # A/B Testing

@@ -110,11 +110,87 @@ d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleS
 d_s1 <- d[!is.na(d$treat_real),]
 
 # View balance
-d_s1 %>% 
-  group_by(state, competiv, treat_real) %>% 
+tab <- d_s1 %>%
+  group_by(state, competiv, treat_real) %>%
+  relocate(state, competiv, treat_real, female2, fem_miss, age, newreg, persons, contact, vote98, vote00) %>%
+  dplyr::select(-c(treat_pseudo, vote02)) %>%
   summarize_all(mean)
 
+rnames <- colnames(tab)
+
+tab <- round(t(tab),3)
+
+tab 
+
+rownames(tab) <- rnames
+colnames(tab) <- paste0("V",seq(1,8))
+
+write.csv(tab, file="balance_gotv.csv")
+
+tab <- as.data.frame(tab)
+
 library(reactable)
+
+
+tbl <- tab[4:11,] %>%
+  reactable(
+    # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = TRUE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = TRUE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center"),
+    style = list(fontFamily = "Fira Sans, sans-serif"),
+    
+    columns = list(
+      V1 = colDef(name = "Treat"),
+      V2 = colDef(name = "Control",
+                  style = list(borderRight = "1px solid rgba(0, 0, 0, 0.1)")),
+      V3 = colDef(name = "Treat"),
+      V4 = colDef(name = "Control",
+                  style = list(borderRight = "3px solid rgba(0, 0, 0, 0.1)")),
+      V5 = colDef(name = "Treat"),
+      V6 = colDef(name = "Control",
+                  style = list(borderRight = "1px solid rgba(0, 0, 0, 0.1)")),
+      V7 = colDef(name = "Treat"),
+      V8 = colDef(name = "Control")
+    ),
+    columnGroups = list(
+      colGroup(name = "Non-competitive", columns = c("V1", "V2")),
+      colGroup(name = "Competitive", columns = c("V3", "V4")),
+      colGroup(name = "Non-competitive", columns = c("V5", "V6")),
+      colGroup(name = "Competitive", columns = c("V7", "V8")),
+      colGroup(name = "State 1", columns = c("V1","V2","V3", "V4"))
+      
+    ),
+    highlight = TRUE
+    
+  )
+
+div(
+  # this class can be called with CSS now via .salary
+  class = "tab",
+  div(
+    # this can be called with CSS now via .title
+    class = "title",
+    h3("Balance Table by Strata")
+  ),
+  # The actual table
+  tbl
+)
+
+
+
+
 library(estimatr)
 
 summary(estimatr::lm_robust(vote02 ~ treat_real + factor(state)*factor(competiv), dat = d_s1))
