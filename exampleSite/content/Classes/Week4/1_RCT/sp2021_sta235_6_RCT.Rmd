@@ -525,6 +525,14 @@ fig2 <- dffull %>% plot_ly() %>%
 ]
 
 ---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+The Magic of Randomization
+]
+
+
+---
 # The Fundamental Problem of Causal Inference
 
 - Remember that we can only see one potential outcome 
@@ -983,6 +991,13 @@ meantab(d[,names_covs], d$z, which(d$z==1), which(d$z==0))
 ]
 
 ---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+RCTs in Practice
+]
+
+---
 # How to analyze RCTs?
 
 
@@ -1170,6 +1185,13 @@ table(d_s1$treat_real, d_s1$contact)
 .box-5[Does this affect the internal validity of the study?]
 
 ---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+When we assume...
+]
+
+---
 # Other assumptions
 
 .pull-left[
@@ -1323,6 +1345,13 @@ table(d_s1$treat_real, d_s1$contact)
 .box-7LA[What could happen if you offer it to everyone?]
 
 ---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Show me the power
+]
+
+---
 # Statistical power
 
 - **.darkorange[Statistical power]** refers to the probability that a test correctly rejects the null hypothesis $H_0$, when $H_0$ is false.
@@ -1342,7 +1371,7 @@ table(d_s1$treat_real, d_s1$contact)
 
 
 .center[
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/type_1_errors.png)]
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/type_1_errors.png)]
 ]
 
 ---
@@ -1350,14 +1379,14 @@ table(d_s1$treat_real, d_s1$contact)
 
 
 .center[
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/type_2_errors.png)]
+![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/type_2_errors.png)]
 ]
 
 
 ---
 # Statistical power in pictures
 
-```{r power_calc, echo = FALSE, warning=FALSE, fig.width=6, fig.height=4.5, out.width="100%"}
+```{r power_calc, echo = FALSE, warning=FALSE, fig.width=6, fig.height=4.5}
 
 library(grid) # need for arrow()
 m1 <- 0  # mu H0
@@ -1730,7 +1759,7 @@ div(
 - If she was just guessing, she is equally likely to choose any of the **.darkorange[20 possibilities]** (because ${6 \choose 3} = 20$).
 
 - **.darkorange[Under the null hypothesis]**, the probability of her choosing $k$ correct ones out of $n$ cups is:
-$$Pr(k successes) = \frac{1}{total combinations}{n \choose k} {n \choose (n-k)}$$
+$$Pr(Successes = k) = \frac{1}{Total \ Perm}{n \choose k} {n \choose n-k}$$
 --
 
 ![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/combinations.png)]
@@ -1739,9 +1768,20 @@ $$Pr(k successes) = \frac{1}{total combinations}{n \choose k} {n \choose (n-k)}$
 
 
 ---
-# Limitations of RCTs
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Limitations of Randomized Controlled Trials
+]
 
-- External Validity vs Internal Validity
+---
+# Some limitations of RCTs
+
+- External Validity vs Internal Validity:
+
+  - **.darkorange[External validity]**: "The extent to which results can be generalized to other contexts or populations."
+  
+  - **.darkorange[Internal validity]**: "[T]he extent to which the observed results represent the truth in the population we are studying."
 
 ---
 # External vs Internal Validity
