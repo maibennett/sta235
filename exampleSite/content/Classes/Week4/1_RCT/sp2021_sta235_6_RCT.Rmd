@@ -880,8 +880,11 @@ meantab(d[,names_covs], d$z, which(d$z==1), which(d$z==0))
 - **.darkorange[Columns of interest]**:
 
   - Mean T: Avg. for treat. group
+  
   - Mean C: Avg. for control group
+  
   - Std. Dif: Difference T-C (in SD)
+  
   - P-val: Whether diff is significant
 ]
 
@@ -1100,13 +1103,13 @@ div(
 
 --
 
-.box-3[$$1/N_T\sum_{i\in T}Y_i - 1/N_C\sum_{i\in C}Y_i$$]
+$$\frac{1}{N_T}\sum_{i\in T}Y_i - \frac{1}{N_C}\sum_{i\in C}Y_i$$
 
-.box-5[$$Y_i = \beta_0 + \beta_1 Z_i + \varepsilon_i$$]
+$$Y_i = \beta_0 + \beta_1 Z_i + \varepsilon_i$$
 
 --
 
-**.darkorange[How do we incorporate stratification here?]**
+.box-4[How do we incorporate stratification here?]
 
 ---
 # Estimating the effect
@@ -1136,14 +1139,14 @@ library(estimatr)
 
 d_s1$strata <- interaction(d_s1$state, d_s1$competiv)
 
-summary(estimatr::lm_robust(vote02 ~ treat_real + strata, dat = d_s1))
+summary(estimatr::lm_robust(vote02 ~ treat_real + strata, data = d_s1))
 ```
 ]
 
 ---
 # Estimating the effect
 
-- One important thing to note in the previous analysis is that **.darkorange[Assignment to treatment]** **$\neq$** **.darkorange[contact]**
+- One important thing to note in the previous analysis is that **.darkorange[assignment to treatment]** <b>$\neq$</b> **.darkorange[contact]**
 
 ```{r, echo = TRUE, message = FALSE}
 table(d_s1$treat_real, d_s1$contact)
@@ -1156,6 +1159,7 @@ table(d_s1$treat_real, d_s1$contact)
 ---
 # Other assumptions
 
+.pull-left[
 - We already talked about the **.darkorange[ignorability assumption]**
 
 --
@@ -1164,7 +1168,12 @@ table(d_s1$treat_real, d_s1$contact)
 
   - No interference
   - No hidden variations of treatments
+]
 
+.pull-right[
+.center[
+![](https://media.giphy.com/media/xT5LMHsI58Q1ZpugPC/giphy.gif)]
+]
 ---
 # SUTVA: No interference
 
@@ -1175,6 +1184,7 @@ table(d_s1$treat_real, d_s1$contact)
 - Imagine we have two individuals, 1 and 2:
 
   - $Z_1$ and $Z_2$ will be the treatment assignment for 1 and 2, respectively.
+  
   - Under SUTVA:
   
   .box-3LA[$$(Y_2(0), Y_2(1)) \perp Z_1$$]
@@ -1207,7 +1217,7 @@ table(d_s1$treat_real, d_s1$contact)
 <br>
 <br>
 <br>
-.bottom[h/t to @paul_gp]
+.bottom[.lightgrey[h/t to @paul_gp]]
 
 ---
 # When SUTVA hits the fan
@@ -1278,7 +1288,7 @@ table(d_s1$treat_real, d_s1$contact)
 <br>
 --
 
-1. Randomize at a higher level (e.g. neighborhood, school, etc. instead of at the individual level)
+1. **.darkorange[Randomize at a higher level]** (e.g. neighborhood, school, etc. instead of at the individual level)
 
 --
 
@@ -1286,14 +1296,14 @@ table(d_s1$treat_real, d_s1$contact)
 
 --
 
-2. Model the network!
+2. **.darkorange[Model the network!]**
 
 ---
 # General Equilibrium Effects
 
 - Usually arise when you **.darkorange[scale up]** a program or intervention.
 
-- Imagine you want to test the effect of providing information about employment and expected income to students on their choice of university and/or major.
+- Imagine you want to test the effect of providing information about employment and expected income to students to see whether it affect their choice of university and/or major.
 
 --
 <br>
@@ -1303,10 +1313,18 @@ table(d_s1$treat_real, d_s1$contact)
 ---
 # Statistical power
 
-- **.darorange[Statistical power]** refers to the magnitude of the effects I am able to detect given my data.
+- **.darkorange[Statistical power]** refers to the probability that a test correctly rejects the null hypothesis $H_0$.
 
---
+  - It's related to sample size!
 
+.box-6[Power = 1- Pr(Type II error)]
+
+- **.darkorange[Type I error]**: Probability of rejecting the null hypothesis, when the null is true.
+
+- **.darkorange[Type I error]**: Probability of not rejecting the null hypothesis, when the null is false.
+
+---
+#Statistical power and sample size
 .box-2t[How big of a sample?]
 
 --
@@ -1319,36 +1337,45 @@ fake_income_t <- tibble(Person = 1:200,
                         Group = "Treatment",
                         Before = rnorm(200, mean = 200, sd = 70),
                         After = rnorm(200, mean = 250, sd = 70))
+
 fake_income_c <- tibble(Person = 201:400, 
                         Group = "Control",
                         Before = rnorm(200, mean = 200, sd = 70),
-                        After = rnorm(200, mean = 220, sd = 70))
+                        After = rnorm(200, mean = 210, sd = 70))
+
 fake_income <- bind_rows(fake_income_t, fake_income_c) %>% 
   mutate(Difference = After - Before) %>% 
   sample_frac(1)
+
 fake_income_small <- fake_income %>% 
   group_by(Group) %>% 
   sample_n(5) %>% 
   ungroup()
+
 diff_small <- fake_income_small %>% 
   specify(Difference ~ Group) %>% 
   calculate("diff in means", order = c("Treatment", "Control"))
+
 boot_small <- fake_income_small %>% 
   specify(Difference ~ Group) %>% 
   hypothesize(null = "independence") %>% 
   generate(reps = 1000, type = "permute") %>% 
   calculate("diff in means", order = c("Treatment", "Control"))
+
 p_small <- boot_small %>% 
   get_p_value(obs_stat = diff_small$stat, direction = "both") %>% 
   mutate(p_value_clean = scales::pvalue(p_value))
+
 diff_big <- fake_income %>% 
   specify(Difference ~ Group) %>% 
   calculate("diff in means", order = c("Treatment", "Control"))
+
 boot_big <- fake_income %>% 
   specify(Difference ~ Group) %>% 
   hypothesize(null = "independence") %>% 
   generate(reps = 1000, type = "permute") %>% 
   calculate("diff in means", order = c("Treatment", "Control"))
+
 p_big <- boot_big %>% 
   get_p_value(obs_stat = diff_big$stat, direction = "both") %>% 
   mutate(p_value_clean = scales::pvalue(p_value))
@@ -1447,6 +1474,15 @@ boot_big %>%
 ]
 
 ---
+# What affects power calculations?
+
+- There are many parameters we need to consider for statistical power.
+
+  - Sample size
+  - 
+  
+  
+---
 # What's the right sample size?
 
 .box-6[Use a statistical power calculator to<br>make sure you can potentially detect an effect]
@@ -1462,7 +1498,125 @@ boot_big %>%
 ---
 # A quick note on randomization inference
 
-- We have seen 
+- Previous power calculations work well on **.darkorange[larger samples]**.
+
+- On smaller samples, usually we can't rely on the **.darkorange[central limit theorem]**.
+
+--
+
+.box-3[Randomization Inference]
+<br>
+<br>
+
+.box-3t[What are the chances of something happening given all possible randomization scenarios?]
+
+---
+# The Lady Tasting Tea
+
+- There's a lady in England that claims she can always know whether **.darkorange[tea or milk was poured first]** in a cup.
+
+- So you decide to **.darkorange[test it]**.
+
+--
+
+.center[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/cups.png)]
+
+---
+# The Lady Tasting Tea
+
+.center[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/cups.png)]
+
+- This is only one of the random allocations you could have used. There are other **.darkorange[19 combinations]**!
+
+  - Number of possible randomization allocations (or permutations): $n \choose k$
+  
+```{r, echo = FALSE}
+z_allocations <- rbind(c(1,1,1,0,0,0),
+                       c(1,0,1,1,0,0),
+                       c(1,0,0,1,1,0),
+                       c(1,0,0,0,1,1),
+                       c(1,1,0,1,0,0),
+                       c(1,1,0,0,1,0),
+                       c(1,1,0,0,0,1),
+                       c(1,0,1,0,1,0),
+                       c(1,0,1,0,0,1),
+                       c(1,0,0,1,0,1),
+                       c(0,1,1,1,0,0),
+                       c(0,1,0,1,1,0),
+                       c(0,1,0,0,1,1),
+                       c(0,1,0,0,1,1),
+                       c(0,1,0,1,0,1),
+                       c(0,1,1,0,0,1),
+                       c(0,0,1,1,1,0),
+                       c(0,0,1,1,0,1),
+                       c(0,0,1,0,1,1),
+                       c(0,0,0,1,1,1))
+
+
+
+colnames(z_allocations) <- paste0("cup ",seq(1,6))
+
+tbl <- z_allocations[1:6,] %>%
+  reactable(
+    # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = TRUE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center"),
+    style = list(fontFamily = "Fira Sans, sans-serif"),
+    
+    highlight = TRUE
+    
+  )
+
+div(
+  # this class can be called with CSS now via .salary
+  class = "tab",
+  div(
+    # this can be called with CSS now via .title
+    class = "title",
+    h3("Possible Treatment Allocations")
+  ),
+  # The actual table
+  tbl
+)
+```
+---
+# The Lady Tasting Tea
+
+- If the woman is telling the truth, then she needs to pick out the 3 cups of tea with milk first.
+
+--
+
+.box-4[She does it!]
+
+--
+
+.box-4[What are the chances?]
+
+
+---
+# The Lady Tasting Tea
+
+- If she was just guessing, she has **.darkorange[20 possibilities]** (because $6 \choose 3 = 20$).
+
+
+
+
+.box-2[p-value = 0.05]
+
 
 ---
 # Limitations of RCTs
