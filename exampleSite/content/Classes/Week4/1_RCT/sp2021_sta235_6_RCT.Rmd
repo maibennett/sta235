@@ -1146,7 +1146,7 @@ summary(estimatr::lm_robust(vote02 ~ treat_real + strata, data = d_s1))
 ---
 # Estimating the effect
 
-- One important thing to note in the previous analysis is that **.darkorange[assignment to treatment]** <b>$\neq$</b> **.darkorange[contact]**
+- One important thing to note in the previous analysis is that **.darkorange[assignment to treatment]** $\neq$ **.darkorange[contact]**
 
 ```{r, echo = TRUE, message = FALSE}
 table(d_s1$treat_real, d_s1$contact)
@@ -1317,11 +1317,24 @@ table(d_s1$treat_real, d_s1$contact)
 
   - It's related to sample size!
 
+--
+
 .box-6[Power = 1- Pr(Type II error)]
 
 - **.darkorange[Type I error]**: Probability of rejecting the null hypothesis, when the null is true.
 
 - **.darkorange[Type I error]**: Probability of not rejecting the null hypothesis, when the null is false.
+
+---
+# Statistical power
+
+.pull-left[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/type_1_errors.png)
+]
+
+.pull-right[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/type_2_errors.png)
+]
 
 ---
 #Statistical power and sample size
@@ -1840,7 +1853,7 @@ div(
 
 - Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 1*.
 
-- Heiss, A. (2020). "Program Evaluation for Public Policy". *Course*
+- Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 7: Randomization and Matching, Course at BYU*
 
 - Imbens, G. and D. Rubin. (2015). "Causal Inference for Statistics, Social, and Biomedical Sciences: An Introduction". *Chapter 1*
 
