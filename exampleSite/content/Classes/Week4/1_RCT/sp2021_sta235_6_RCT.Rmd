@@ -1771,11 +1771,11 @@ $$Pr(Successes = k) = \frac{1}{Total \ Perm}{n \choose k} {n \choose n-k}$$
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
-Limitations of Randomized Controlled Trials
+Limitations and Potential Problems in Randomized Controlled Trials
 ]
 
 ---
-# Some limitations of RCTs
+# Generalizibility of RCTs
 
 - External Validity vs Internal Validity:
 
@@ -1786,7 +1786,10 @@ Limitations of Randomized Controlled Trials
 ---
 # External vs Internal Validity
 
-- Convenience samples
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/validity.png)]
+
+--
+- Many times, RCTs use **.darkorange[convenience samples]**
 
 ---
 # Noncompliance and Attrition
