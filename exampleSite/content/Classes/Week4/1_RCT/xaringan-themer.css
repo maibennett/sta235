@@ -366,6 +366,14 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
+.bottom {
+  margin: 0;
+  position: absolute;
+  top: 90%;
+  left: 10%;
+  -ms-transform: translate(-10%, -90%);
+  transform: translate(-10%, -90%);
+}
 .section-title h1 {
   color: #FFFFFF;
   font-size: 2.3em;

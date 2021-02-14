@@ -13,6 +13,11 @@
     <script src="libs/crosstalk/js/crosstalk.min.js"></script>
     <link href="libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
     <script src="libs/plotly-main/plotly-latest.min.js"></script>
+    <script src="libs/core-js/shim.min.js"></script>
+    <script src="libs/react/react.min.js"></script>
+    <script src="libs/react/react-dom.min.js"></script>
+    <script src="libs/reactwidget/react-tools.js"></script>
+    <script src="libs/reactable-binding/reactable.js"></script>
     <script src="https://use.fontawesome.com/5235085b15.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="custom.css" type="text/css" />
@@ -102,8 +107,11 @@ class: center, middle, inverse, title-slide
 ---
 # The Fundamental Problem of Causal Inference
 
-- Remember that we can only see one potential outcome (e.g. if `\(Z\)` is binary, either `\(Y(0)\)` **OR** `\(Y(1)\)`)
+- Remember that we can only see one potential outcome 
+  
+  - E.g. if `\(Z\)` is binary, either `\(Y(0)\)` **OR** `\(Y(1)\)`
 
+&lt;br&gt;
 .box-7[Fundamental Problem of Causal Inference]
 
 --
@@ -136,7 +144,7 @@ class: center, middle, inverse, title-slide
 # The problem with self-selection
 
 <div id="htmlwidget-41a1b0fe52767b8e30fd" style="width:504px;height:504px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-41a1b0fe52767b8e30fd">{"x":{"visdat":{"94c3dde5bc7":["function () ","plotlyVisDat"]},"cur_data":"94c3dde5bc7","attrs":{"94c3dde5bc7":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"frame":{},"type":"scatter","mode":"markers","symbol":{},"marker":{"color":{},"size":{},"line":{"color":{},"width":3}},"inherit":true}},"layout":{"width":1000,"height":500,"margin":{"b":10,"l":50,"t":50,"r":30,"pad":4},"xaxis":{"domain":[0,1],"automargin":true,"title":"","showgrid":false,"zeroline":false,"showline":false,"showticklabels":false,"range":[-0.04,0.53]},"yaxis":{"domain":[0,1],"automargin":true,"title":"","showgrid":false,"zeroline":false,"showline":false,"showticklabels":false,"range":[-0.05,0.54]},"plot_bgcolor":"rgba(0, 0, 0, 0)","paper_bgcolor":"rgba(0, 0, 0, 0)","autosize":false,"hovermode":"closest","showlegend":false,"sliders":[],"updatemenus":[{"type":"buttons","direction":"right","showactive":false,"y":0,"x":0,"yanchor":"top","xanchor":"right","pad":{"t":60,"r":5},"buttons":[{"label":"Play","method":"animate","args":[null,{"fromcurrent":true,"mode":"immediate","transition":{"duration":1300,"easing":"linear"},"frame":{"duration":1500,"redraw":false}}]}]}]},"source":"A","config":{"showSendToCloud":false,"displayModeBar":false},"data":[{"x":[0.258,-0.009,0.498,0.129,0.36,0.222,0.342,0.489,0.138,-0.018,0.138,0.369,0,0.489,0.258,0.018,0.351,0.489,0.12,0.222],"y":[0.025,0.04,0.075,0.025,0.04,0.21,0.2,0.19,0.2,0.2,0.325,0.34,0.36,0.375,0.375,0.49,0.5,0.5,0.5,0.525],"frame":"1","type":"scatter","mode":"markers","marker":{"color":["#9565C2","#C2679A","#EDE266","#C2679A","#9565C2","#C2679A","#C2679A","#EDE266","#9565C2","#C2679A","#C2679A","#9565C2","#EDE266","#EDE266","#EDE266","#C2679A","#C2679A","#C2679A","#9565C2","#C2679A"],"symbol":["triangle-up","circle","square","circle","square","square","triangle-up","circle","square","square","square","triangle-up","circle","triangle-up","triangle-up","circle","triangle-up","square","circle","square"],"size":[35,45,25,45,45,25,25,25,35,45,45,45,45,35,35,45,25,35,25,45],"line":{"color":["#5601A4","#BF3984","#FCCE25","#BF3984","#5601A4","#BF3984","#BF3984","#FCCE25","#5601A4","#BF3984","#BF3984","#5601A4","#FCCE25","#FCCE25","#FCCE25","#BF3984","#BF3984","#BF3984","#5601A4","#BF3984"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"frames":[{"name":"1","data":[{"x":[0.258,-0.009,0.498,0.129,0.36,0.222,0.342,0.489,0.138,-0.018,0.138,0.369,0,0.489,0.258,0.018,0.351,0.489,0.12,0.222],"y":[0.025,0.04,0.075,0.025,0.04,0.21,0.2,0.19,0.2,0.2,0.325,0.34,0.36,0.375,0.375,0.49,0.5,0.5,0.5,0.525],"frame":"1","type":"scatter","mode":"markers","marker":{"color":["#9565C2","#C2679A","#EDE266","#C2679A","#9565C2","#C2679A","#C2679A","#EDE266","#9565C2","#C2679A","#C2679A","#9565C2","#EDE266","#EDE266","#EDE266","#C2679A","#C2679A","#C2679A","#9565C2","#C2679A"],"symbol":["triangle-up","circle","square","circle","square","square","triangle-up","circle","square","square","square","triangle-up","circle","triangle-up","triangle-up","circle","triangle-up","square","circle","square"],"size":[35,45,25,45,45,25,25,25,35,45,45,45,45,35,35,45,25,35,25,45],"line":{"color":["#5601A4","#BF3984","#FCCE25","#BF3984","#5601A4","#BF3984","#BF3984","#FCCE25","#5601A4","#BF3984","#BF3984","#5601A4","#FCCE25","#FCCE25","#FCCE25","#BF3984","#BF3984","#BF3984","#5601A4","#BF3984"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2","data":[{"x":[0.258,-0.009,0.498,0.129,0.36,0.222,0.342,0.489,0.138,-0.018,0.138,0.369,0,0.489,0.258,0.018,0.351,0.489,0.12,0.222],"y":[0.025,0.04,0.075,0.025,0.04,0.21,0.2,0.19,0.2,0.2,0.325,0.34,0.36,0.375,0.375,0.49,0.5,0.5,0.5,0.525],"frame":"2","type":"scatter","mode":"markers","marker":{"color":["#BCBABA","#FF5582","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA"],"symbol":["triangle-up","circle","square","circle","square","square","triangle-up","circle","square","square","square","triangle-up","circle","triangle-up","triangle-up","circle","triangle-up","square","circle","square"],"size":[35,45,25,45,45,25,25,25,35,45,45,45,45,35,35,45,25,35,25,45],"line":{"color":["#9E9D9D","#FF1654","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"3","data":[{"x":[0.258,-0.009,0.498,0.129,0.36,0.222,0.342,0.489,0.138,-0.018,0.138,0.369,0,0.489,0.258,0.018,0.351,0.489,0.12,0.222],"y":[0.025,0.04,0.075,0.025,0.04,0.21,0.2,0.19,0.2,0.2,0.325,0.34,0.36,0.375,0.375,0.49,0.5,0.5,0.5,0.525],"frame":"3","type":"scatter","mode":"markers","marker":{"color":["#BCBABA","#FF5582","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA"],"symbol":["triangle-up","circle","square","circle","square","square","triangle-up","circle","square","square","square","triangle-up","circle","triangle-up","triangle-up","circle","triangle-up","square","circle","square"],"size":[35,45,25,45,45,25,25,25,35,45,45,45,45,35,35,45,25,35,25,45],"line":{"color":["#9E9D9D","#FF1654","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"4","data":[{"x":[0.106,0.5,0.002,0.34,0.163,0.051,0.22,0.43,0.161,-0.004,0.106,0.222,0.5,0.051,0.07,0.35,0,0.14,0.42,0.21],"y":[0.165,0.266,0.165,0.28,0.135,0.15,0.15,0.28,0.27,0.27,0.27,0.27,0.38,0.285,0.385,0.38,0.415,0.385,0.366,0.385],"frame":"4","type":"scatter","mode":"markers","marker":{"color":["#BCBABA","#FF5582","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA"],"symbol":["triangle-up","circle","square","circle","square","square","triangle-up","circle","square","square","square","triangle-up","circle","triangle-up","triangle-up","circle","triangle-up","square","circle","square"],"size":[35,45,25,45,45,25,25,25,35,45,45,45,45,35,35,45,25,35,25,45],"line":{"color":["#9E9D9D","#FF1654","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]}],"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-41a1b0fe52767b8e30fd">{"x":{"visdat":{"22484c5534f8":["function () ","plotlyVisDat"]},"cur_data":"22484c5534f8","attrs":{"22484c5534f8":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"frame":{},"type":"scatter","mode":"markers","symbol":{},"marker":{"color":{},"size":{},"line":{"color":{},"width":3}},"inherit":true}},"layout":{"width":1000,"height":500,"margin":{"b":10,"l":50,"t":50,"r":30,"pad":4},"xaxis":{"domain":[0,1],"automargin":true,"title":"","showgrid":false,"zeroline":false,"showline":false,"showticklabels":false,"range":[-0.04,0.53]},"yaxis":{"domain":[0,1],"automargin":true,"title":"","showgrid":false,"zeroline":false,"showline":false,"showticklabels":false,"range":[-0.05,0.54]},"plot_bgcolor":"rgba(0, 0, 0, 0)","paper_bgcolor":"rgba(0, 0, 0, 0)","autosize":false,"hovermode":"closest","showlegend":false,"sliders":[],"updatemenus":[{"type":"buttons","direction":"right","showactive":false,"y":0,"x":0,"yanchor":"top","xanchor":"right","pad":{"t":60,"r":5},"buttons":[{"label":"Play","method":"animate","args":[null,{"fromcurrent":true,"mode":"immediate","transition":{"duration":1300,"easing":"linear"},"frame":{"duration":1500,"redraw":false}}]}]}]},"source":"A","config":{"showSendToCloud":false,"displayModeBar":false},"data":[{"x":[0.258,-0.009,0.498,0.129,0.36,0.222,0.342,0.489,0.138,-0.018,0.138,0.369,0,0.489,0.258,0.018,0.351,0.489,0.12,0.222],"y":[0.025,0.04,0.075,0.025,0.04,0.21,0.2,0.19,0.2,0.2,0.325,0.34,0.36,0.375,0.375,0.49,0.5,0.5,0.5,0.525],"frame":"1","type":"scatter","mode":"markers","marker":{"color":["#9565C2","#C2679A","#EDE266","#C2679A","#9565C2","#C2679A","#C2679A","#EDE266","#9565C2","#C2679A","#C2679A","#9565C2","#EDE266","#EDE266","#EDE266","#C2679A","#C2679A","#C2679A","#9565C2","#C2679A"],"symbol":["triangle-up","circle","square","circle","square","square","triangle-up","circle","square","square","square","triangle-up","circle","triangle-up","triangle-up","circle","triangle-up","square","circle","square"],"size":[35,45,25,45,45,25,25,25,35,45,45,45,45,35,35,45,25,35,25,45],"line":{"color":["#5601A4","#BF3984","#FCCE25","#BF3984","#5601A4","#BF3984","#BF3984","#FCCE25","#5601A4","#BF3984","#BF3984","#5601A4","#FCCE25","#FCCE25","#FCCE25","#BF3984","#BF3984","#BF3984","#5601A4","#BF3984"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"frames":[{"name":"1","data":[{"x":[0.258,-0.009,0.498,0.129,0.36,0.222,0.342,0.489,0.138,-0.018,0.138,0.369,0,0.489,0.258,0.018,0.351,0.489,0.12,0.222],"y":[0.025,0.04,0.075,0.025,0.04,0.21,0.2,0.19,0.2,0.2,0.325,0.34,0.36,0.375,0.375,0.49,0.5,0.5,0.5,0.525],"frame":"1","type":"scatter","mode":"markers","marker":{"color":["#9565C2","#C2679A","#EDE266","#C2679A","#9565C2","#C2679A","#C2679A","#EDE266","#9565C2","#C2679A","#C2679A","#9565C2","#EDE266","#EDE266","#EDE266","#C2679A","#C2679A","#C2679A","#9565C2","#C2679A"],"symbol":["triangle-up","circle","square","circle","square","square","triangle-up","circle","square","square","square","triangle-up","circle","triangle-up","triangle-up","circle","triangle-up","square","circle","square"],"size":[35,45,25,45,45,25,25,25,35,45,45,45,45,35,35,45,25,35,25,45],"line":{"color":["#5601A4","#BF3984","#FCCE25","#BF3984","#5601A4","#BF3984","#BF3984","#FCCE25","#5601A4","#BF3984","#BF3984","#5601A4","#FCCE25","#FCCE25","#FCCE25","#BF3984","#BF3984","#BF3984","#5601A4","#BF3984"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2","data":[{"x":[0.258,-0.009,0.498,0.129,0.36,0.222,0.342,0.489,0.138,-0.018,0.138,0.369,0,0.489,0.258,0.018,0.351,0.489,0.12,0.222],"y":[0.025,0.04,0.075,0.025,0.04,0.21,0.2,0.19,0.2,0.2,0.325,0.34,0.36,0.375,0.375,0.49,0.5,0.5,0.5,0.525],"frame":"2","type":"scatter","mode":"markers","marker":{"color":["#BCBABA","#FF5582","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA"],"symbol":["triangle-up","circle","square","circle","square","square","triangle-up","circle","square","square","square","triangle-up","circle","triangle-up","triangle-up","circle","triangle-up","square","circle","square"],"size":[35,45,25,45,45,25,25,25,35,45,45,45,45,35,35,45,25,35,25,45],"line":{"color":["#9E9D9D","#FF1654","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"3","data":[{"x":[0.258,-0.009,0.498,0.129,0.36,0.222,0.342,0.489,0.138,-0.018,0.138,0.369,0,0.489,0.258,0.018,0.351,0.489,0.12,0.222],"y":[0.025,0.04,0.075,0.025,0.04,0.21,0.2,0.19,0.2,0.2,0.325,0.34,0.36,0.375,0.375,0.49,0.5,0.5,0.5,0.525],"frame":"3","type":"scatter","mode":"markers","marker":{"color":["#BCBABA","#FF5582","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA"],"symbol":["triangle-up","circle","square","circle","square","square","triangle-up","circle","square","square","square","triangle-up","circle","triangle-up","triangle-up","circle","triangle-up","square","circle","square"],"size":[35,45,25,45,45,25,25,25,35,45,45,45,45,35,35,45,25,35,25,45],"line":{"color":["#9E9D9D","#FF1654","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"4","data":[{"x":[0.106,0.5,0.002,0.34,0.163,0.051,0.22,0.43,0.161,-0.004,0.106,0.222,0.5,0.051,0.07,0.35,0,0.14,0.42,0.21],"y":[0.165,0.266,0.165,0.28,0.135,0.15,0.15,0.28,0.27,0.27,0.27,0.27,0.38,0.285,0.385,0.38,0.415,0.385,0.366,0.385],"frame":"4","type":"scatter","mode":"markers","marker":{"color":["#BCBABA","#FF5582","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA","#BCBABA","#FF5582","#BCBABA"],"symbol":["triangle-up","circle","square","circle","square","square","triangle-up","circle","square","square","square","triangle-up","circle","triangle-up","triangle-up","circle","triangle-up","square","circle","square"],"size":[35,45,25,45,45,25,25,25,35,45,45,45,45,35,35,45,25,35,25,45],"line":{"color":["#9E9D9D","#FF1654","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D","#9E9D9D","#FF1654","#9E9D9D"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]}],"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 
 ---
 # The power of randomization
@@ -167,7 +175,7 @@ i.e. Some units will **.darkorange[randomly]** be chosen to be in the treatment 
 # Randomization of z
 
 <div id="htmlwidget-bc001841e90ff42a1ed5" style="width:504px;height:504px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-bc001841e90ff42a1ed5">{"x":{"visdat":{"94c60746145":["function () ","plotlyVisDat"]},"cur_data":"94c60746145","attrs":{"94c60746145":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"frame":{},"type":"scatter","mode":"markers","symbol":{},"marker":{"color":{},"size":{},"line":{"color":{},"width":3}},"inherit":true}},"layout":{"width":1000,"height":500,"margin":{"b":10,"l":50,"t":50,"r":30,"pad":4},"xaxis":{"domain":[0,1],"automargin":true,"title":"","showgrid":false,"zeroline":false,"showline":false,"showticklabels":false,"range":[-0.04,0.53]},"yaxis":{"domain":[0,1],"automargin":true,"title":"","showgrid":false,"zeroline":false,"showline":false,"showticklabels":false,"range":[-0.01,0.56]},"plot_bgcolor":"rgba(0, 0, 0, 0)","paper_bgcolor":"rgba(0, 0, 0, 0)","autosize":false,"hovermode":"closest","showlegend":false,"sliders":[],"updatemenus":[{"type":"buttons","direction":"right","showactive":false,"y":0,"x":0,"yanchor":"top","xanchor":"right","pad":{"t":60,"r":5},"buttons":[{"label":"Play","method":"animate","args":[null,{"fromcurrent":true,"mode":"immediate","transition":{"duration":1300,"easing":"linear"},"frame":{"duration":1500,"redraw":false}}]}],"visible":true}]},"source":"A","config":{"showSendToCloud":false,"displayModeBar":false},"data":[{"x":[0.378,0,0.24,0.48,0.111,0.129,0.342,-0.009,0.489,0.249,0.378,0.471,-0.018,0.249,0.102,0.369,0.018,0.231,0.48,0.102],"y":[0.04,0.05,0.04,0.05,0.05,0.19,0.2,0.175,0.19,0.225,0.34,0.325,0.325,0.325,0.325,0.525,0.49,0.525,0.49,0.5],"frame":"1","type":"scatter","mode":"markers","marker":{"color":["#EDE266","#EDE266","#EDE266","#C2679A","#C2679A","#EDE266","#9565C2","#C2679A","#9565C2","#EDE266","#EDE266","#EDE266","#EDE266","#C2679A","#C2679A","#EDE266","#9565C2","#C2679A","#9565C2","#EDE266"],"symbol":["circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up","circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up"],"size":[35,45,25,45,45,25,25,25,35,45,35,45,25,45,45,25,25,25,35,45],"line":{"color":["#FCCE25","#FCCE25","#FCCE25","#BF3984","#BF3984","#FCCE25","#5601A4","#BF3984","#5601A4","#FCCE25","#FCCE25","#FCCE25","#FCCE25","#BF3984","#BF3984","#FCCE25","#5601A4","#BF3984","#5601A4","#FCCE25"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"frames":[{"name":"1","data":[{"x":[0.378,0,0.24,0.48,0.111,0.129,0.342,-0.009,0.489,0.249,0.378,0.471,-0.018,0.249,0.102,0.369,0.018,0.231,0.48,0.102],"y":[0.04,0.05,0.04,0.05,0.05,0.19,0.2,0.175,0.19,0.225,0.34,0.325,0.325,0.325,0.325,0.525,0.49,0.525,0.49,0.5],"frame":"1","type":"scatter","mode":"markers","marker":{"color":["#EDE266","#EDE266","#EDE266","#C2679A","#C2679A","#EDE266","#9565C2","#C2679A","#9565C2","#EDE266","#EDE266","#EDE266","#EDE266","#C2679A","#C2679A","#EDE266","#9565C2","#C2679A","#9565C2","#EDE266"],"symbol":["circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up","circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up"],"size":[35,45,25,45,45,25,25,25,35,45,35,45,25,45,45,25,25,25,35,45],"line":{"color":["#FCCE25","#FCCE25","#FCCE25","#BF3984","#BF3984","#FCCE25","#5601A4","#BF3984","#5601A4","#FCCE25","#FCCE25","#FCCE25","#FCCE25","#BF3984","#BF3984","#FCCE25","#5601A4","#BF3984","#5601A4","#FCCE25"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2","data":[{"x":[0.006,0.076,0.134,0.006,0.146,0.064,0,0.186,0.12,0.066,0.405,0.445,0.5,0.345,0.47,0.35,0.415,0.35,0.41,0.475],"y":[0.2,0.18,0.19,0.28,0.29,0.29,0.39,0.4,0.4,0.4,0.22,0.2,0.2,0.2,0.3,0.28,0.3,0.4,0.38,0.41],"frame":"2","type":"scatter","mode":"markers","marker":{"color":["#EDE266","#EDE266","#EDE266","#C2679A","#C2679A","#EDE266","#9565C2","#C2679A","#9565C2","#EDE266","#EDE266","#EDE266","#EDE266","#C2679A","#C2679A","#EDE266","#9565C2","#C2679A","#9565C2","#EDE266"],"symbol":["circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up","circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up"],"size":[35,45,25,45,45,25,25,25,35,45,35,45,25,45,45,25,25,25,35,45],"line":{"color":["#FCCE25","#FCCE25","#FCCE25","#BF3984","#BF3984","#FCCE25","#5601A4","#BF3984","#5601A4","#FCCE25","#FCCE25","#FCCE25","#FCCE25","#BF3984","#BF3984","#FCCE25","#5601A4","#BF3984","#5601A4","#FCCE25"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"3","data":[{"x":[0.006,0.076,0.134,0.006,0.146,0.064,0,0.186,0.12,0.066,0.405,0.445,0.5,0.345,0.47,0.35,0.415,0.35,0.41,0.475],"y":[0.2,0.18,0.19,0.28,0.29,0.29,0.39,0.4,0.4,0.4,0.22,0.2,0.2,0.2,0.3,0.28,0.3,0.4,0.38,0.41],"frame":"3","type":"scatter","mode":"markers","marker":{"color":["#EDE266","#EDE266","#EDE266","#C2679A","#C2679A","#EDE266","#9565C2","#C2679A","#9565C2","#EDE266","#EDE266","#EDE266","#EDE266","#C2679A","#C2679A","#EDE266","#9565C2","#C2679A","#9565C2","#EDE266"],"symbol":["circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up","circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up"],"size":[35,45,25,45,45,25,25,25,35,45,35,45,25,45,45,25,25,25,35,45],"line":{"color":["#FCCE25","#FCCE25","#FCCE25","#BF3984","#BF3984","#FCCE25","#5601A4","#BF3984","#5601A4","#FCCE25","#FCCE25","#FCCE25","#FCCE25","#BF3984","#BF3984","#FCCE25","#5601A4","#BF3984","#5601A4","#FCCE25"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"4","data":[{"x":[0.006,0.076,0.134,0.006,0.146,0.064,0,0.186,0.12,0.066,0.405,0.445,0.5,0.345,0.47,0.35,0.415,0.35,0.41,0.475],"y":[0.2,0.18,0.19,0.28,0.29,0.29,0.39,0.4,0.4,0.4,0.22,0.2,0.2,0.2,0.3,0.28,0.3,0.4,0.38,0.41],"frame":"4","type":"scatter","mode":"markers","marker":{"color":["#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582"],"symbol":["circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up","circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up"],"size":[35,45,25,45,45,25,25,25,35,45,35,45,25,45,45,25,25,25,35,45],"line":{"color":["#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]}],"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-bc001841e90ff42a1ed5">{"x":{"visdat":{"224869c96dd1":["function () ","plotlyVisDat"]},"cur_data":"224869c96dd1","attrs":{"224869c96dd1":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"frame":{},"type":"scatter","mode":"markers","symbol":{},"marker":{"color":{},"size":{},"line":{"color":{},"width":3}},"inherit":true}},"layout":{"width":1000,"height":500,"margin":{"b":10,"l":50,"t":50,"r":30,"pad":4},"xaxis":{"domain":[0,1],"automargin":true,"title":"","showgrid":false,"zeroline":false,"showline":false,"showticklabels":false,"range":[-0.04,0.53]},"yaxis":{"domain":[0,1],"automargin":true,"title":"","showgrid":false,"zeroline":false,"showline":false,"showticklabels":false,"range":[-0.01,0.56]},"plot_bgcolor":"rgba(0, 0, 0, 0)","paper_bgcolor":"rgba(0, 0, 0, 0)","autosize":false,"hovermode":"closest","showlegend":false,"sliders":[],"updatemenus":[{"type":"buttons","direction":"right","showactive":false,"y":0,"x":0,"yanchor":"top","xanchor":"right","pad":{"t":60,"r":5},"buttons":[{"label":"Play","method":"animate","args":[null,{"fromcurrent":true,"mode":"immediate","transition":{"duration":1300,"easing":"linear"},"frame":{"duration":1500,"redraw":false}}]}],"visible":true}]},"source":"A","config":{"showSendToCloud":false,"displayModeBar":false},"data":[{"x":[0.378,0,0.24,0.48,0.111,0.129,0.342,-0.009,0.489,0.249,0.378,0.471,-0.018,0.249,0.102,0.369,0.018,0.231,0.48,0.102],"y":[0.04,0.05,0.04,0.05,0.05,0.19,0.2,0.175,0.19,0.225,0.34,0.325,0.325,0.325,0.325,0.525,0.49,0.525,0.49,0.5],"frame":"1","type":"scatter","mode":"markers","marker":{"color":["#EDE266","#EDE266","#EDE266","#C2679A","#C2679A","#EDE266","#9565C2","#C2679A","#9565C2","#EDE266","#EDE266","#EDE266","#EDE266","#C2679A","#C2679A","#EDE266","#9565C2","#C2679A","#9565C2","#EDE266"],"symbol":["circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up","circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up"],"size":[35,45,25,45,45,25,25,25,35,45,35,45,25,45,45,25,25,25,35,45],"line":{"color":["#FCCE25","#FCCE25","#FCCE25","#BF3984","#BF3984","#FCCE25","#5601A4","#BF3984","#5601A4","#FCCE25","#FCCE25","#FCCE25","#FCCE25","#BF3984","#BF3984","#FCCE25","#5601A4","#BF3984","#5601A4","#FCCE25"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"frames":[{"name":"1","data":[{"x":[0.378,0,0.24,0.48,0.111,0.129,0.342,-0.009,0.489,0.249,0.378,0.471,-0.018,0.249,0.102,0.369,0.018,0.231,0.48,0.102],"y":[0.04,0.05,0.04,0.05,0.05,0.19,0.2,0.175,0.19,0.225,0.34,0.325,0.325,0.325,0.325,0.525,0.49,0.525,0.49,0.5],"frame":"1","type":"scatter","mode":"markers","marker":{"color":["#EDE266","#EDE266","#EDE266","#C2679A","#C2679A","#EDE266","#9565C2","#C2679A","#9565C2","#EDE266","#EDE266","#EDE266","#EDE266","#C2679A","#C2679A","#EDE266","#9565C2","#C2679A","#9565C2","#EDE266"],"symbol":["circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up","circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up"],"size":[35,45,25,45,45,25,25,25,35,45,35,45,25,45,45,25,25,25,35,45],"line":{"color":["#FCCE25","#FCCE25","#FCCE25","#BF3984","#BF3984","#FCCE25","#5601A4","#BF3984","#5601A4","#FCCE25","#FCCE25","#FCCE25","#FCCE25","#BF3984","#BF3984","#FCCE25","#5601A4","#BF3984","#5601A4","#FCCE25"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2","data":[{"x":[0.006,0.076,0.134,0.006,0.146,0.064,0,0.186,0.12,0.066,0.405,0.445,0.5,0.345,0.47,0.35,0.415,0.35,0.41,0.475],"y":[0.2,0.18,0.19,0.28,0.29,0.29,0.39,0.4,0.4,0.4,0.22,0.2,0.2,0.2,0.3,0.28,0.3,0.4,0.38,0.41],"frame":"2","type":"scatter","mode":"markers","marker":{"color":["#EDE266","#EDE266","#EDE266","#C2679A","#C2679A","#EDE266","#9565C2","#C2679A","#9565C2","#EDE266","#EDE266","#EDE266","#EDE266","#C2679A","#C2679A","#EDE266","#9565C2","#C2679A","#9565C2","#EDE266"],"symbol":["circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up","circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up"],"size":[35,45,25,45,45,25,25,25,35,45,35,45,25,45,45,25,25,25,35,45],"line":{"color":["#FCCE25","#FCCE25","#FCCE25","#BF3984","#BF3984","#FCCE25","#5601A4","#BF3984","#5601A4","#FCCE25","#FCCE25","#FCCE25","#FCCE25","#BF3984","#BF3984","#FCCE25","#5601A4","#BF3984","#5601A4","#FCCE25"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"3","data":[{"x":[0.006,0.076,0.134,0.006,0.146,0.064,0,0.186,0.12,0.066,0.405,0.445,0.5,0.345,0.47,0.35,0.415,0.35,0.41,0.475],"y":[0.2,0.18,0.19,0.28,0.29,0.29,0.39,0.4,0.4,0.4,0.22,0.2,0.2,0.2,0.3,0.28,0.3,0.4,0.38,0.41],"frame":"3","type":"scatter","mode":"markers","marker":{"color":["#EDE266","#EDE266","#EDE266","#C2679A","#C2679A","#EDE266","#9565C2","#C2679A","#9565C2","#EDE266","#EDE266","#EDE266","#EDE266","#C2679A","#C2679A","#EDE266","#9565C2","#C2679A","#9565C2","#EDE266"],"symbol":["circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up","circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up"],"size":[35,45,25,45,45,25,25,25,35,45,35,45,25,45,45,25,25,25,35,45],"line":{"color":["#FCCE25","#FCCE25","#FCCE25","#BF3984","#BF3984","#FCCE25","#5601A4","#BF3984","#5601A4","#FCCE25","#FCCE25","#FCCE25","#FCCE25","#BF3984","#BF3984","#FCCE25","#5601A4","#BF3984","#5601A4","#FCCE25"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"4","data":[{"x":[0.006,0.076,0.134,0.006,0.146,0.064,0,0.186,0.12,0.066,0.405,0.445,0.5,0.345,0.47,0.35,0.415,0.35,0.41,0.475],"y":[0.2,0.18,0.19,0.28,0.29,0.29,0.39,0.4,0.4,0.4,0.22,0.2,0.2,0.2,0.3,0.28,0.3,0.4,0.38,0.41],"frame":"4","type":"scatter","mode":"markers","marker":{"color":["#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#BCBABA","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582","#FF5582"],"symbol":["circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up","circle","triangle-up","square","triangle-up","circle","triangle-up","triangle-up","square","circle","triangle-up"],"size":[35,45,25,45,45,25,25,25,35,45,35,45,25,45,45,25,25,25,35,45],"line":{"color":["#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#9E9D9D","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654","#FF1654"],"width":3}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]}],"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 
 ---
 # Observational Causal Graph
@@ -698,7 +706,11 @@ meantab(d[,names_covs], d$z, which(d$z==1), which(d$z==0))
 .pull-left[
 - "Get out the Vote" Large-Scale Mobilization experiment (Arceneaux, Gerber, and Green, 2006)
   
-  - "Households containing one or two registered voters where **.darkorange[randomly assigned]** to treatment or control groups" 
+  - "Households containing one or two registered voters where **.darkorange[randomly assigned]** to treatment or control groups"
+  
+  - Treatment: GOTV phone calls
+  
+  - Stratified RCT: Two states divided into competitive and noncompetitive 
 ]
 .pull-right[
 ![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/vote.jpg)
@@ -707,12 +719,22 @@ meantab(d[,names_covs], d$z, which(d$z==1), which(d$z==0))
 ---
 # Checking for balance
 
+.center2[
 .box-5LA[Let's go to R]
+]
 
 ---
 # Checking for balance
 
-Plots and tables
+.small[
+<div class="tab">
+<div class="title">
+<h3>Balance Table by Stratum</h3>
+</div>
+<div id="htmlwidget-6d6f6146f97666dc1e36" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-6d6f6146f97666dc1e36">{"x":{"tag":{"name":"Reactable","attribs":{"data":{".rownames":["female2","fem_miss","age","newreg","persons","contact","vote98","vote00"],"V1":[0.552,0,52.157,0.117,1.496,0,0.231,0.564],"V2":[0.546,0,51.977,0.116,1.497,0.369,0.227,0.567],"V3":[0.541,0,50.81,0.133,1.513,0,0.258,0.595],"V4":[0.535,0,50.862,0.134,1.518,0.388,0.259,0.593],"V5":[0.549,0.026,55.795,0.048,1.539,0,0.572,0.734],"V6":[0.545,0.025,55.782,0.049,1.538,0.461,0.574,0.732],"V7":[0.543,0.022,53.481,0.048,1.529,0,0.599,0.781],"V8":[0.541,0.021,53.464,0.046,1.533,0.452,0.594,0.78]},"columns":[{"accessor":".rownames","name":"","type":"character","align":"center","sortable":false,"filterable":false},{"accessor":"V1","name":"Treat","type":"numeric","align":"center"},{"accessor":"V2","name":"Control","type":"numeric","align":"center","style":{"borderRight":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"V3","name":"Treat","type":"numeric","align":"center"},{"accessor":"V4","name":"Control","type":"numeric","align":"center","style":{"borderRight":"3px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"V5","name":"Treat","type":"numeric","align":"center"},{"accessor":"V6","name":"Control","type":"numeric","align":"center","style":{"borderRight":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"V7","name":"Treat","type":"numeric","align":"center"},{"accessor":"V8","name":"Control","type":"numeric","align":"center"}],"columnGroups":[{"name":"Non-competitive","columns":["V1","V2"]},{"name":"Competitive","columns":["V3","V4"]},{"name":"Non-competitive","columns":["V5","V6"]},{"name":"Competitive","columns":["V7","V8"]},{"name":"State 1","columns":["V1","V2","V3","V4"]}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"0b0b5a12d5ba2571ccc96269b61b6041","key":"0b0b5a12d5ba2571ccc96269b61b6041"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+]
 
 ---
 # Estimating the effect
@@ -721,9 +743,9 @@ Plots and tables
 
 --
 
-.box-3t[$\frac{1}{N_T}\sum_{i\in T}Y_i - \frac{1}{N_C}\sum_{i\in C}Y_i$]
+.box-3[$$1/N_T\sum_{i\in T}Y_i - 1/N_C\sum_{i\in C}Y_i$$]
 
-.box-5t[$$Y_i = \beta_0 + \beta_1 Z_i + \varepsilon_i$$]
+.box-5[$$Y_i = \beta_0 + \beta_1 Z_i + \varepsilon_i$$]
 
 --
 
@@ -736,11 +758,65 @@ Plots and tables
 
 --
 
-- Run a regression with *Fixed effects by strata*
+- Run a regression with *fixed effects by strata*
 
 .box-6t[$$Y_i = \beta_0 + \beta_1 Z_i + \gamma_s + \varepsilon_i$$]
 
 
+---
+# Estimating the effect
+
+
+.small[
+
+```r
+library(estimatr)
+
+d_s1$strata &lt;- interaction(d_s1$state, d_s1$competiv)
+
+summary(estimatr::lm_robust(vote02 ~ treat_real + strata, dat = d_s1))
+```
+
+```
+## 
+## Call:
+## estimatr::lm_robust(formula = vote02 ~ treat_real + strata, data = d_s1)
+## 
+## Standard error type:  HC2 
+## 
+## Coefficients:
+##             Estimate Std. Error   t value Pr(&gt;|t|) CI Lower CI Upper      DF
+## (Intercept) 0.509915  0.0004633 1100.6000   0.0000  0.50901 0.510823 1905315
+## treat_real  0.001499  0.0020709    0.7237   0.4693 -0.00256 0.005557 1905315
+## strata1.1   0.085625  0.0016372   52.2989   0.0000  0.08242 0.088834 1905315
+## strata0.2   0.049105  0.0009801   50.1034   0.0000  0.04718 0.051026 1905315
+## strata1.2   0.146435  0.0009803  149.3733   0.0000  0.14451 0.148357 1905315
+## 
+## Multiple R-squared:  0.01172 ,	Adjusted R-squared:  0.01172 
+## F-statistic:  5937 on 4 and 1905315 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+---
+# Estimating the effect
+
+- One important thing to note in the previous analysis is that **.darkorange[Assignment to treatment]** **$\neq$** **.darkorange[contact]**
+
+
+```r
+table(d_s1$treat_real, d_s1$contact)
+```
+
+```
+##    
+##           0       1
+##   0 1845348       0
+##   1   34929   25043
+```
+
+--
+
+.box-5[Does this affect the internal validity of the study?]
 
 ---
 # Other assumptions
@@ -778,14 +854,12 @@ Plots and tables
 
 - Think about the headache example from last class:
 
-  - Individual 1 gets a new aspirin (aspirin +)
-  - Individual 2 gets an old aspirin (aspirin -)
+  - Individual 1 gets a **.darkorange[new aspirin (aspirin +)]**
+  - Individual 2 gets an **.darkorange[old aspirin (aspirin -)]**
   - Individual 3 doesn't get a pill
   
-- If we label the treatments as `\(Z=0\)` (doesn't get an aspirin) and `\(Z=1\)` (gets an aspirin), potential outcomes would change depending on whether they got *aspirin +* or *aspirin -*.
+- If we label the treatments as `\(Z=0\)` (doesn't get an aspirin) and `\(Z=1\)` (gets an aspirin), **.darkorange[potential outcomes would change depending on whether they got *aspirin +* or *aspirin -*.]**
 
-
-  
 
 
 ---
@@ -798,11 +872,13 @@ Plots and tables
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
-.bottom[.source[h/t to @paul_gp]]
+.bottom[h/t to @paul_gp]
 
 ---
 # When SUTVA hits the fan
-
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 .center[
 .box-3[Network effects]
 ]
@@ -818,6 +894,8 @@ Plots and tables
 
 - Potential outcomes will depend on *who gets the treatment*
 
+&lt;br&gt;
+&lt;br&gt;
 .box-2LA[Let's look at an example]
 
 ---
@@ -860,7 +938,9 @@ Plots and tables
 # Network effects
 
 .box-6LA[Can we do something about this?]
-
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 --
 
 1. Randomize at a higher level (e.g. neighborhood, school, etc. instead of at the individual level)
@@ -881,7 +961,8 @@ Plots and tables
 - Imagine you want to test the effect of providing information about employment and expected income to students on their choice of university and/or major.
 
 --
-
+&lt;br&gt;
+&lt;br&gt;
 .box-7LA[What could happen if you offer it to everyone?]
 
 ---
@@ -889,7 +970,11 @@ Plots and tables
 
 - **.darorange[Statistical power]** refers to the magnitude of the effects I am able to detect given my data.
 
+--
+
 .box-2t[How big of a sample?]
+
+--
 
 
 
@@ -911,7 +996,7 @@ Plots and tables
 ---
 # Can I detect an effect?
 
-pull-left[
+.pull-left[
 .box-5b[Enroll 10 participants]
 
 &lt;img src="sp2021_sta235_6_RCT_files/figure-html/power-small-1.png" width="100%" /&gt;
@@ -933,14 +1018,12 @@ pull-left[
 .box-6[Use a statistical power calculator to&lt;br&gt;make sure you can potentially detect an effect]
 
 .center[
-![]((https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/power-search.png)
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/power-search.png)
 ]
 
 --
 
 .box-7[Or you can use simulations!]
-
----
 
 ---
 # A quick note on randomization inference
@@ -1007,7 +1090,7 @@ pull-left[
 
   - E.g. Treatment *assingment* is random, but not necessarily the *take-up* of the treatment
   
-  --
+--
   
   - Stuck with **.darkorange[Intention to Treat (ITT) effect]**.
 
@@ -1029,23 +1112,23 @@ pull-left[
 # Feasibility
 
 .pull-left[
-- RCTs can be expensive and also slow.
+- RCTs can be **.darkorange[expensive]** and also **.darkorange[slow]**.
 
-- Organizations might not be willing to randomize.
+- Organizations might **.darkorange[not be willing to randomize]**.
 ]
 
 .pull-right[
 .center[
-![](https://media.giphy.com/media/1xkMJIvxeKiDS/giphy.gif)]
+![:scale 90%](https://media.giphy.com/media/1xkMJIvxeKiDS/giphy.gif)]
 ]
 ---
 # Getting around some issues
 
-- Staggered adoption: Eventually treat everyone, but at different times.
+- **.darkorange[Staggered adoption]**: Eventually treat everyone, but at different times.
 
   - You can think about this when you have panel data.
 
-- Randomize in the bubble:
+- **.darkorange[Randomize in the bubble]**:
 
   - Not randomize everyone, but maybe those that are on the margin of receiving the treatment.
   
@@ -1053,25 +1136,25 @@ pull-left[
 # Staggered adoption
 
 .pull-left[
-![]((https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/staggered1.png)
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/staggered1.png)
 ]
 
 --
 
 .pull-right[
-![]((https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/staggered2.png)
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/staggered2.png)
 ]
 
 ---
 # Staggered adoption
 
 .pull-left[
-![]((https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/staggered1.png)
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/staggered1.png)
 ]
 
 
 .pull-right[
-![]((https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/staggered3.png)
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/staggered3.png)
 ]
 
 ---
@@ -1106,6 +1189,8 @@ pull-left[
 - **.darkorange[Regret]**: Loss of conversion due to a low-performing treatment.
 --
 
+&lt;br&gt;
+&lt;br&gt;
 .box-7[Maximize conversions and minimize regret]
 
 ---
@@ -1157,8 +1242,10 @@ pull-left[
 ---
 # A/B Testing in Data: Analyze results
 
-.box-5LA[How would you analyze these results?]
+.center2[
+.box-5LA[How would you analyze these results?]]
 
+---
 
 ---
 # References
