@@ -83,7 +83,7 @@ style_mono_accent(
                       "left" = "50%",
                       "-ms-transform" = "translate(-50%, -50%)",
                       "transform" = "translate(-50%, -50%)"),
-   ".bottom" = list("margin" = "0",
+   ".bottom2" = list("margin" = "0",
                       "position" = "absolute",
                       "top" = "90%",
                       "left" = "10%",
@@ -1251,7 +1251,7 @@ When we assume...
 <br>
 <br>
 <br>
-.bottom[.lightgrey[h/t to @paul_gp]]
+.bottom2[.lightgrey[h/t to @paul_gp]]
 
 ---
 # When SUTVA hits the fan
@@ -1371,8 +1371,8 @@ Show me the power
 
 
 .center[
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/type_1_errors.png)]
-]
+![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/type_1_errors.png)]
+
 
 ---
 # Statistical power
@@ -1380,13 +1380,13 @@ Show me the power
 
 .center[
 ![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/type_2_errors.png)]
-]
+
 
 
 ---
 # Statistical power in pictures
 
-```{r power_calc, echo = FALSE, warning=FALSE, fig.width=6, fig.height=4.5}
+```{r power_calc, fig.height=5.5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 
 library(grid) # need for arrow()
 m1 <- 0  # mu H0
@@ -1761,8 +1761,8 @@ div(
 - **.darkorange[Under the null hypothesis]**, the probability of her choosing $k$ correct ones out of $n$ cups is:
 $$Pr(Successes = k) = \frac{1}{Total \ Perm}{n \choose k} {n \choose n-k}$$
 --
-
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/combinations.png)]
+.center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/combinations.png)]
 
 .box-2[p-value = 0.05]
 
@@ -1786,7 +1786,8 @@ Limitations and Potential Problems in Randomized Controlled Trials
 ---
 # External vs Internal Validity
 
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/validity.png)]
+.center[
+![:scale 75%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/validity.png)]
 
 --
 - Many times, RCTs use **.darkorange[convenience samples]**
@@ -1911,18 +1912,25 @@ Limitations and Potential Problems in Randomized Controlled Trials
 ---
 # A/B Testing
 
-- A/B testing are very popular right now to test the effect of **.darkorange[small changes]** in products on an outcome of interest.
+.pull-left[
+.center[
+![](https://media.giphy.com/media/LmNwrBhejkK9EFP504/giphy.gif)]
+]
 
-- E.g. In web development, user would be exposed to different versions of the same website (only with subtle changes).
+.pull-right[
+- A/B testing is very popular right now to test the effect of **.darkorange[small changes]** in products on an outcome of interest.
+
+- E.g. In web development, user would be exposed to **.darkorange[different versions of the same website]** (only with subtle changes).
 
 - Companies can quickly analyze the data, adapt their design, and continue testing features.
+]
 
 ---
 # A/B Testing Jargon
 
 - There's a lot of jargon in A/B testing that is thrown out there...
 
-.box-6[What does it all mean?]
+.box-7[What does it all mean?]
 
 --
 
@@ -1940,6 +1948,8 @@ Limitations and Potential Problems in Randomized Controlled Trials
 - **.darkorange[Regret]**: Loss of conversion due to a low-performing treatment.
 --
 
+<br>
+<br>
 <br>
 <br>
 .box-7[Maximize conversions and minimize regret]
