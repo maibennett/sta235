@@ -137,7 +137,7 @@ I now explain each of these grading components in more detail.
 1.	**Homework assignments (20%)**
 -	There will be three homework assignments in this course, with the following submission deadlines:
 	- HW1: February 15th, 12:00 PM (noon)
-	- HW2: March 1st, 12:00 PM (noon)
+	- HW2: March 3rd, 12:00 PM (noon)
 	- HW3: April 12th, 12:00 PM (noon)
 -	Homework assignments will be posted on Canvas and submitted through Canvas.  
 -	You must submit your homework write-up as a PDF. No other file format is acceptable. Both MS Word and Google Docs have an option to save your document as a PDF.
