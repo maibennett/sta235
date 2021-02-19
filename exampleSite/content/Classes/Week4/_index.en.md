@@ -10,6 +10,10 @@ disableToc: true
 
 In this class we will talk about Randomized Controlled Trials and the power of randomization. We will discuss why this approach is often considered the gold standard of causal inference, but also look at its limitations.
 
+{{% notice warning %}}
+**Class was suspended due to winter storm. I will post videos for all topics on this class, and review the main points of RCTs on the next class.**
+{{% /notice %}}
+
 ## Recommended readings/videos
 
 - Angrist & Pischke. (2015). "Mastering Metrics". *Chapter 1: Randomized Trials*. Pg. 12-33. 
