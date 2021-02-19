@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235 - Binary Outcomes</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA 235 - Binary Outcomes
+## Spring 2021
+### McCombs School of Business, UT Austin
+
+---
+
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+&lt;/style&gt;
+
+# Binary Outcomes
+
+.pull-left[
+- So far, outcome has been a **.darkorange[continuous variable]**.
+
+.box-6[What if the outcome is binary?]
+  
+]
+
+.pull-right[
+![](https://media.giphy.com/media/HUkOv6BNWc1HO/giphy.gif)
+]
+---
+.center2[
+.box-3LA[What can we do?]
+]
+
+---
+# How to handle binary outcomes?
+
+.center2[
+.box-2tL[Linear Probability Model]
+
+.box-4tL[Logistic Regression]
+]
+
+---
+# Linear Probability Models (LPM)
+
+- Just the same as the **.darkorange[multiple regression models]** we've been seeing.
+
+.box-1tL[$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_p X_p + \varepsilon$$]
+
+&lt;br&gt;
+
+---
+# Linear Probability Models (LPM)
+
+- Just the same as the **.darkorange[multiple regression models]** we've been seeing.
+
+.box-1tL[$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_p X_p + \varepsilon$$]
+
+&lt;br&gt;
+- But now `\(Y \in \{0,1\}\)`
+
+---
+# How to interpret an LPM?
+
+- `\(\hat{\beta}\)`'s interpreted as **.darkorange[change in probability]**
+
+`$$E[Y|X_1,..., X_P] = Pr(Y = 0|X_1,...,X_p)\cdot 0 + Pr(Y = 1|X_1,...,X_p)\cdot 1$$`
+`$$= Pr(Y = 1|X_1,...,X_p)$$`
+
+---
+# How to interpret an LPM?
+
+- `\(\hat{\beta}\)`'s interpreted as **.darkorange[change in probability]**
+
+`$$E[Y|X_1,..., X_P] = Pr(Y = 0|X_1,...,X_p)\cdot 0 + Pr(Y = 1|X_1,...,X_p)\cdot 1$$`
+`$$= Pr(Y = 1|X_1,...,X_p)$$`
+- Example:
+
+.box-2t[$$Pass = \beta_0 + \beta_1 \cdot Study + \varepsilon$$]
+
+- `\(\hat{\beta}_1\)` is the estimated change in probability of passing STA 235 if I study one more hour.
+
+---
+# Let's look at an example
+
+- Home Mortgage Disclosure Act Data (HMDA) from the `AER` package
+
+.small[
+
+```
+##   deny pirat hirat     lvrat chist mhist phist unemp selfemp insurance condomin
+## 1   no 0.221 0.221 0.8000000     5     2    no   3.9      no        no       no
+## 2   no 0.265 0.265 0.9218750     2     2    no   3.2      no        no       no
+## 3   no 0.372 0.248 0.9203980     1     2    no   3.2      no        no       no
+## 4   no 0.320 0.250 0.8604651     1     2    no   4.3      no        no       no
+## 5   no 0.360 0.350 0.6000000     1     1    no   3.2      no        no       no
+## 6   no 0.240 0.170 0.5105263     1     1    no   3.9      no        no       no
+##   afam single hschool
+## 1   no     no     yes
+## 2   no    yes     yes
+## 3   no     no     yes
+## 4   no     no     yes
+## 5   no     no     yes
+## 6   no     no     yes
+```
+]
+
+---
+# Probability of someone getting a mortgage loan denied?
+
+- Getting mortgage denied (1) based on payments to income ratio (`pirat`)
+
+.small[
+
+```r
+hmda$deny = as.numeric(hmda$deny) - 1
+
+summary(lm(deny ~ pirat, data = hmda))
+```
+
+```
+## 
+## Call:
+## lm(formula = deny ~ pirat, data = hmda)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.73070 -0.13736 -0.11322 -0.07097  1.05577 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -0.07991    0.02116  -3.777 0.000163 ***
+## pirat        0.60353    0.06084   9.920  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.3183 on 2378 degrees of freedom
+## Multiple R-squared:  0.03974,	Adjusted R-squared:  0.03933 
+## F-statistic: 98.41 on 1 and 2378 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+---
+# How does this LPM look?
+
+
+&lt;img src="sp2021_sta235_4_binary_files/figure-html/lpm1-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Issues with an LPM?
+
+- **.darkorange[Main problems]**:
+
+  - Non-normality of the error term
+  
+  - Heteroskedasticity
+  
+  - Predictions can be outside [0,1]
+  
+  - LPM imposes linearity assumption
+  
+  
+---
+# Issues with an LPM?
+
+- **.darkorange[Main problems]**:
+
+  - Non-normality of the error term `\(\rightarrow\)` **.darkorange[Hypothesis testing]**
+  
+  - Heteroskedasticity
+  
+  - Predictions can be outside [0,1]
+  
+  - LPM imposes linearity assumption
+  
+  
+---
+# Issues with an LPM?
+
+- **.darkorange[Main problems]**:
+
+  - Non-normality of the error term `\(\rightarrow\)` **.darkorange[Hypothesis testing]**
+  
+  - Heteroskedasticity `\(\rightarrow\)` **.darkorange[Validity of SE]**
+  
+  - Predictions can be outside [0,1]
+  
+  - LPM imposes linearity assumption
+  
+---
+# Issues with an LPM?
+
+- **.darkorange[Main problems]**:
+
+  - Non-normality of the error term `\(\rightarrow\)` **.darkorange[Hypothesis testing]**
+  
+  - Heteroskedasticity `\(\rightarrow\)` **.darkorange[Validity of SE]**
+  
+  - Predictions can be outside [0,1] `\(\rightarrow\)` **.darkorange[Issues for prediction]**
+  
+  - LPM imposes linearity assumption
+  
+---
+# Issues with an LPM?
+
+- **.darkorange[Main problems]**:
+
+  - Non-normality of the error term `\(\rightarrow\)` **.darkorange[Hypothesis testing]**
+  
+  - Heteroskedasticity `\(\rightarrow\)` **.darkorange[Validity of SE]**
+  
+  - Predictions can be outside [0,1] `\(\rightarrow\)` **.darkorange[Issues for prediction]**
+  
+  - LPM imposes linearity assumption `\(\rightarrow\)` **.darkorange[Too strict?]**
+  
+---
+# Are there solutions?
+
+.pull-left[
+![](https://media.giphy.com/media/xT5LMHMVvWbyDAtYQ0/giphy.gif)
+]
+.pull-right[
+- **.darkorange[Don't use small samples]**: With the CLT, non-normality shouldn't matter much.
+
+- **.darkorange[Saturate your model]**: In a fully saturated model (i.e. include dummies and interactions), CEF is linear.
+
+- **.darkorange[Use robust standard errors]**: Package `estimatr` in R is great!
+
+- **.darkorange[Not appropriate for prediction]**
+]
+
+
+---
+# Run again with robust standard errors
+
+.small[
+
+```r
+library(estimatr)
+
+model1 &lt;- lm(deny ~ pirat, data = hmda)
+model2 &lt;- estimatr::lm_robust(deny ~ pirat, data = hmda)
+```
+]
+
+.small[
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 1 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 2 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (Intercept) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.080*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.080** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.021) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.035) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; pirat &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.604*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.604*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (0.061) &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (0.107) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.040 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.040 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 Adj. &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.039 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.039 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; se_type &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; HC2 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="padding: 0; border:0;" colspan="100%"&gt;
+&lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+]
+
+- The default is the Bell-McCaffrey adjustment, a [bias-reduced version of "robust" SE](https://github.com/acoppock/Green-Lab-SOP/blob/master/Green_Lab_SOP.pdf).
+
+---
+# Let's include more covariates
+
+.small[
+
+```r
+model3 &lt;- estimatr::lm_robust(deny ~ pirat + factor(afam), data = hmda)
+```
+]
+
+.small[
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 1 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 2 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 3 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (Intercept) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.080*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.080** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.091*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.021) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.035) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.031) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; pirat &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.604*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.604*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.559*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.061) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.107) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.095) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; factor(afam)yes &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.177*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (0.025) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.040 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.040 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.076 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 Adj. &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.039 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.039 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.075 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; se_type &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; HC2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; HC2 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="padding: 0; border:0;" colspan="100%"&gt;
+&lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+]
+
+---
+# Let's include more covariates
+
+.small[
+
+```r
+model3 &lt;- estimatr::lm_robust(deny ~ pirat + factor(afam), data = hmda)
+```
+]
+
+.small[
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 1 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 2 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 3 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (Intercept) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.080*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.080** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.091*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.021) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.035) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.031) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; pirat &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.604*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.604*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.559*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.061) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.107) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.095) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; factor(afam)yes &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.177*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (0.025) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.040 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.040 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.076 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 Adj. &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.039 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.039 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.075 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; se_type &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; HC2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; HC2 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="padding: 0; border:0;" colspan="100%"&gt;
+&lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+]
+
+- Can you interpret these parameters? Do they make sense?
+
+---
+# Logistic Regression
+
+- Typically used in the context of binary outcomes (*Probit is another popular one*)
+
+- **.darkorange[Nonlinear function]** to model the conditional probability function of a binary outcome.
+
+`$$Pr(Y = 1|X_1,...,X_p) = F(\beta_0 + \beta_1 X_1 + ... + \beta_p X_p)$$`
+Where in a **.darkorange[logistic regression]**: `\(F(x) = \frac{1}{1+exp(-x)}\)`
+
+- *In the LPM, `\(F(x) = x\)`*
+
+
+---
+# How does this look in a plot?
+
+
+```r
+logit1 &lt;- glm(deny ~ pirat, family = binomial(link = "logit"),
+              data = hmda)
+
+prob &lt;- predict(logit1, type = "response") # probabilities
+```
+
+&lt;img src="sp2021_sta235_4_binary_files/figure-html/logit1-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# How to interpret the coefficients?
+
+.small[
+
+```r
+summary(glm(deny ~ pirat + factor(afam), family = binomial(link = "logit"),
+              data = hmda))
+```
+
+```
+## 
+## Call:
+## glm(formula = deny ~ pirat + factor(afam), family = binomial(link = "logit"), 
+##     data = hmda)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.3709  -0.4732  -0.4219  -0.3556   2.8038  
+## 
+## Coefficients:
+##                 Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)      -4.1256     0.2684 -15.370  &lt; 2e-16 ***
+## pirat             5.3704     0.7283   7.374 1.66e-13 ***
+## factor(afam)yes   1.2728     0.1462   8.706  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1744.2  on 2379  degrees of freedom
+## Residual deviance: 1591.4  on 2377  degrees of freedom
+## AIC: 1597.4
+## 
+## Number of Fisher Scoring iterations: 5
+```
+]
+
+---
+# How to interpret the coefficients? (cont.)
+
+- **.darkorange[No easy way!]**
+
+  - An **.darkorange[odd]** is the probability of success over probability of failure: `\(\frac{p}{1-p}\)`
+
+  - An **.darkorange[odds ratio]** is the odds for scenario 1 over the odds for scenario 2: `\(\frac{p_1}{1-p_1}\cdot \frac{1-p_2}{p_2}\)`
+  
+---
+# How to interpret the coefficients? (cont.)
+
+- **.darkorange[No easy way!]**
+
+  - An **.darkorange[odd]** is the probability of success over probability of failure: `\(\frac{p}{1-p}\)`
+
+  - An **.darkorange[odds ratio]** is the odds for scenario 1 over the odds for scenario 2: `\(\frac{p_1}{1-p_1}\cdot \frac{1-p_2}{p_2}\)`
+  
+  - Coefficients in the output are **.darkorange[log odds ratio]**:
+  
+`$$\log(\frac{p}{1-p}) = \beta_0 + \beta_1 X_1 + ... + \beta_p X_p$$`
+- `\((\exp(\beta_1)-1)\cdot 100\%\)` is the expected increase in the odds of `\(Y=1\)` for a one unit increase of `\(X_1\)`.
+
+---
+# How to interpret the coefficients? (cont.)
+
+- Let's go back to our example:
+.small[
+
+```r
+glm(deny ~ pirat + factor(afam), family = binomial(link = "logit"),
+              data = hmda)
+```
+
+```
+## 
+## Call:  glm(formula = deny ~ pirat + factor(afam), family = binomial(link = "logit"), 
+##     data = hmda)
+## 
+## Coefficients:
+##     (Intercept)            pirat  factor(afam)yes  
+##          -4.126            5.370            1.273  
+## 
+## Degrees of Freedom: 2379 Total (i.e. Null);  2377 Residual
+## Null Deviance:	    1744 
+## Residual Deviance: 1591 	AIC: 1597
+```
+]
+
+- `\((\exp(1.27)-1)\cdot 100\% = 257\%\)` more likely to be denied a mortgage if you are African American, holding payments to income ratio constant.
+
+---
+# How to interpret the coefficients? (cont.)
+
+- Let's look at **.darkorange[probabilities]**
+
+- E.g. Choose coefficient of interest, and fix the other variables to their mean or mode:
+
+.small[
+
+```r
+logit1 &lt;- glm(deny ~ pirat + factor(afam), family = binomial(link = "logit"),
+              data = hmda)
+
+predictions_afam &lt;- predict(logit1, newdata = data.frame("afam" = c("no", "yes"),
+                                                         "pirat" = c(mean(hmda$pirat), mean(hmda$pirat))),
+                            type = "response")
+predictions_afam
+```
+
+```
+##          1          2 
+## 0.08714775 0.25422824
+```
+]
+
+---
+# How to interpret the coefficients? (cont.)
+
+- Let's look at **.darkorange[probabilities]**
+
+- E.g. Choose coefficient of interest, and fix the other variables to their mean or mode:
+
+.small[
+
+```r
+logit1 &lt;- glm(deny ~ pirat + factor(afam), family = binomial(link = "logit"),
+              data = hmda)
+
+predictions_afam &lt;- predict(logit1, newdata = data.frame("afam" = c("no", "yes"),
+                                                         "pirat" = c(mean(hmda$pirat), mean(hmda$pirat))),
+                            type = "response")
+predictions_afam
+```
+
+```
+##          1          2 
+## 0.08714775 0.25422824
+```
+
+
+```r
+diff(predictions_afam)
+```
+
+```
+##         2 
+## 0.1670805
+```
+]
+
+- Remember that for the LPM model, `\(\hat{\beta}_{afam} = 0.177\)`
+
+---
+# Wrapping things up: Which one do we choose?
+
+.pull-left[
+- Both logit and LPM have **.darkorange[pros and cons]**.
+
+- A lot of the time, **.darkorange[depends on what you want to do]**.
+]
+.pull-right[
+![](https://media.giphy.com/media/ma7VlDSlty3EA/giphy.gif)
+]
+
+---
+# Wrapping things up: Which one did you choose?
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+&lt;thead&gt;&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;LPM for prediction&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;&lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;font-weight: bold;"&gt; LPM for explanation &lt;/td&gt;
+   &lt;td style="text-align:left;font-weight: bold;"&gt; no &lt;/td&gt;
+   &lt;td style="text-align:left;font-weight: bold;"&gt; yes &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; no &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; yes &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+# Wrapping things up: Which one do we choose? (cont.)
+
+.pull-left[
+.box-3[LPM]
+.center[
+.box-3t[Pros:
+- Simplicity
+- Interpretability]
+&lt;br&gt;
+.box-3t[Cons:
+- Cannot be used for prediction
+- Heteroskedasticity]]
+]
+.pull-right[
+.box-6[Logit]
+
+.box-6t[Pros:
+- Bounded probabilities
+- Flexibility]
+&lt;br&gt;
+.box-6t[Cons:
+- Log odds ratio
+- Doesn't play well with FE]
+]
+
+---
+# Main takeaway points
+
+.pull-left[
+&lt;br&gt;
+&lt;br&gt;
+![](https://media.giphy.com/media/l0MYBJzJ7elsmG1K8/giphy.gif)
+]
+.pull-right[
+&lt;br&gt;
+&lt;br&gt;
+- LPM and Logistic Regression can **.darkorange[both be useful]** depending on the context.
+
+- **.darkorange[Be careful]** with the interpretation!
+
+- Remember to always **.darkorange[plot]** your data.
+]
+
+
+---
+# Next week
+
+- We start with:
+.box-3[Causal Inference]
+
+- Homework 1 will be **.darkorange[posted today]**.
+
+  - Start early!
+
+- **.darkorange[Readings for next week]** are also posted on the website.
+
+---
+# References
+
+- Hanck, C. et al. (2020). ["Econometrics with R"](https://www.econometrics-with-r.org/11-rwabdv.html). *Regression with a Binary Dependent Variable* 
+
+- James, G. et al. (2017). "Introduction to Statistical Learning with Applications in R". *Chapter 4.3*
+
+- Grace-Martin, K. (2018). “Why logistic regression for binary responses?"
+
+- Bellemare, M. (2013) “A Rant on Estimation with Binary Dependent Variables (Technical)"
+
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week2/2_Binary/sp2021_sta235_4_binary.html') --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

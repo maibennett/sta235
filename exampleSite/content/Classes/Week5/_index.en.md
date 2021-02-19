@@ -23,7 +23,7 @@ In this class we will introduce the topic of observational studies. What can we 
 
 ## JITT
 
-Complete before **Sunday Feb 21th (11:59 pm)**. The assignment will be posted soon.
+There will be **no JITT** this week.
 
 ## Slides
 
