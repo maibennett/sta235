@@ -473,18 +473,6 @@ fig2 <- dffull %>% plot_ly() %>%
   animation_slider(hide = TRUE) %>% config(displayModeBar = FALSE)
 ```
 
-# Some reminders
-
-.box-2LA[Homework 2 will be posted today (due March 3rd)]
-
-- Get your questions in **.darkorange[early]** (OH or Piazza).
-
-- Run the **.darkorange[R scripts]** posted for each class, and replicate other exercises.
-
-- Slides are now posted in **.darkorange[pdf]** as well.
-
-- The midterm will be **.darkorange[very similar]** to the homework assignments. 
-
 ---
 # Last week
 

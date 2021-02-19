@@ -475,15 +475,51 @@ fig2 <- dffull %>% plot_ly() %>%
 
 # Some reminders
 
-.box-2LA[Homework 2 will be posted today (due March 3rd)]
+.box-2LA[Homework 2 will be posted today (due March 4th at 11:59 PM)]
 
-- Get your questions in **.darkorange[early]** (OH or Piazza).
+- It covers **.darkorange[last week and this week's topics]**.
 
-- Run the **.darkorange[R scripts]** posted for each class, and replicate other exercises.
+--
 
-- Slides are now posted in **.darkorange[pdf]** as well.
+.box-4LA[Midterm is on Monday March 8th in class]
 
-- The midterm will be **.darkorange[very similar]** to the homework assignments. 
+- You will need a **.darkorange[camera]**.
+
+- Make sure you have a **.darkorange[stable connection]**.
+---
+# Other notes
+
+--
+
+.box-2[It's ok to struggle with the homework]
+
+--
+
+.box-4[It's ok to struggle with R code]
+
+--
+
+.box-5[Ask questions, reach out!]
+
+--
+
+.box-7[Do it in a timely manner!]
+
+---
+# Professional Courtesy: The Hidden Curriculum
+
+--
+
+.box-1[Plan ahead!]
+
+--
+
+.box-3[Weekends/non-regular working hours are important]
+
+--
+
+.box-7[For meetings, propose a number of dates and time slots]
+
 
 ---
 # Last week
@@ -1344,428 +1380,6 @@ When we assume...
 <br>
 .box-7LA[What could happen if you offer it to everyone?]
 
----
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Show me the power
-]
-
----
-# Statistical power
-
-- **.darkorange[Statistical power]** refers to the probability that a test correctly rejects the null hypothesis $H_0$, when $H_0$ is false.
-
-  - It's related to sample size!
-
---
-
-.box-6[Power = 1- Pr(Type II error)]
-
-- **.darkorange[Type I error]**: Probability of rejecting the null hypothesis, when the null is true ($\alpha$).
-
-- **.darkorange[Type II error]**: Probability of not rejecting the null hypothesis, when the null is false ($\beta$).
-
----
-# Statistical power
-
-
-.center[
-![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/type_1_errors.png)]
-
-
----
-# Statistical power
-
-
-.center[
-![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/type_2_errors.png)]
-
-
-
----
-# Statistical power in pictures
-
-```{r power_calc, fig.height=5.5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-
-library(grid) # need for arrow()
-m1 <- 0  # mu H0
-sd1 <- 1.5 # sigma H0
-m2 <- 3.5 # mu HA
-sd2 <- 1.5 # sigma HA
- 
-z_crit <- qnorm(1-(0.05/2), m1, sd1)
- 
-# set length of tails
-min1 <- m1-sd1*4
-max1 <- m1+sd1*4
-min2 <- m2-sd2*4
-max2 <- m2+sd2*4          
-# create x sequence
-x <- seq(min(min1,min2), max(max1, max2), .01)
-# generate normal dist #1
-y1 <- dnorm(x, m1, sd1)
-# put in data frame
-df1 <- data.frame("x" = x, "y" = y1)
-# generate normal dist #2
-y2 <- dnorm(x, m2, sd2)
-# put in data frame
-df2 <- data.frame("x" = x, "y" = y2)
- 
-# Alpha polygon
-y.poly <- pmin(y1,y2)
-poly1 <- data.frame(x=x, y=y.poly)
-poly1 <- poly1[poly1$x >= z_crit, ] 
-poly1<-rbind(poly1, c(z_crit, 0))  # add lower-left corner
- 
-# Beta polygon
-poly2 <- df2
-poly2 <- poly2[poly2$x <= z_crit,] 
-poly2<-rbind(poly2, c(z_crit, 0))  # add lower-left corner
- 
-# power polygon; 1-beta
-poly3 <- df2
-poly3 <- poly3[poly3$x >= z_crit,] 
-poly3 <-rbind(poly3, c(z_crit, 0))  # add lower-left corner
- 
-# combine polygons. 
-poly1$id <- 3 # alpha, give it the highest number to make it the top layer
-poly2$id <- 2 # beta
-poly3$id <- 1 # power; 1 - beta
-poly <- rbind(poly1, poly2, poly3)
-poly$id <- factor(poly$id,  labels=c("power","beta","alpha"))
-
-
-ggplot(poly, aes(x,y, fill=id, group=id)) +
-  geom_polygon(show_guide=F, alpha=I(8/10)) +
-  # add line for treatment group
-  geom_line(data=df1, aes(x,y, color="H0", group=NULL, fill=NULL), size=1.5, show_guide=F) + 
-  # add line for treatment group. These lines could be combined into one dataframe.
-  geom_line(data=df2, aes(color="HA", group=NULL, fill=NULL),size=1.5, show_guide=F) +
-  # add vlines for z_crit
-  geom_vline(xintercept = z_crit, size=1, linetype="dashed") +
-  # change colors 
-  scale_color_manual("Group", 
-                     values= c("HA" = "#5601A4","H0" = "dark grey")) +
-  scale_fill_manual("test", values= c("alpha" = "#900DA4","beta" = "#F89441","power"="#BF3984")) +
-  # beta arrow
-  ggplot2::annotate("segment", x=0.1, y=0.045, xend=1.3, yend=0.01, arrow = arrow(length = unit(0.3, "cm")), size=1) +
-  ggplot2::annotate("text", label="beta", x=0, y=0.05, parse=T, size=8) +
-  # alpha arrow
-  ggplot2::annotate("segment", x=4, y=0.043, xend=3.4, yend=0.01, arrow = arrow(length = unit(0.3, "cm")), size=1) +
-  ggplot2::annotate("text", label="frac(alpha,2)", x=4.2, y=0.05, parse=T, size=8) +
-  # power arrow
-  ggplot2::annotate("segment", x=6, y=0.2, xend=4.5, yend=0.15, arrow = arrow(length = unit(0.3, "cm")), size=1) +
-  ggplot2::annotate("text", label="1-beta", x=6.1, y=0.21, parse=T, size=8) +
-  # H_0 title
-  ggplot2::annotate("text", label="H[0]", x=m1, y=0.28, parse=T, size=8) +
-  # H_a title
-  ggplot2::annotate("text", label="H[a]", x=m2, y=0.28, parse=T, size=8) +
-  # remove some elements
-  theme_bw()+
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line.x = element_line(colour = "dark grey"),
-        axis.line.y = element_blank())+
-  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_blank(),
-        axis.title.y = element_blank(),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-```
----
-#Statistical power and sample size
-.box-2t[How big of a sample?]
-
---
-
-```{r fake-income-program, include=FALSE}
-library(infer)
-
-set.seed(1234)
-fake_income_t <- tibble(Person = 1:200, 
-                        Group = "Treatment",
-                        Before = rnorm(200, mean = 200, sd = 70),
-                        After = rnorm(200, mean = 250, sd = 70))
-
-fake_income_c <- tibble(Person = 201:400, 
-                        Group = "Control",
-                        Before = rnorm(200, mean = 200, sd = 70),
-                        After = rnorm(200, mean = 210, sd = 70))
-
-fake_income <- bind_rows(fake_income_t, fake_income_c) %>% 
-  mutate(Difference = After - Before) %>% 
-  sample_frac(1)
-
-fake_income_small <- fake_income %>% 
-  group_by(Group) %>% 
-  sample_n(5) %>% 
-  ungroup()
-
-diff_small <- fake_income_small %>% 
-  specify(Difference ~ Group) %>% 
-  calculate("diff in means", order = c("Treatment", "Control"))
-
-boot_small <- fake_income_small %>% 
-  specify(Difference ~ Group) %>% 
-  hypothesize(null = "independence") %>% 
-  generate(reps = 1000, type = "permute") %>% 
-  calculate("diff in means", order = c("Treatment", "Control"))
-
-p_small <- boot_small %>% 
-  get_p_value(obs_stat = diff_small$stat, direction = "both") %>% 
-  mutate(p_value_clean = scales::pvalue(p_value))
-
-diff_big <- fake_income %>% 
-  specify(Difference ~ Group) %>% 
-  calculate("diff in means", order = c("Treatment", "Control"))
-
-boot_big <- fake_income %>% 
-  specify(Difference ~ Group) %>% 
-  hypothesize(null = "independence") %>% 
-  generate(reps = 1000, type = "permute") %>% 
-  calculate("diff in means", order = c("Treatment", "Control"))
-
-p_big <- boot_big %>% 
-  get_p_value(obs_stat = diff_big$stat, direction = "both") %>% 
-  mutate(p_value_clean = scales::pvalue(p_value))
-```
-
-
-.box-4t[A training program causes incomes to rise by $40]
-
-.center.small[
-```{r fake-income-example, echo=FALSE}
-fake_income %>% 
-  head(6) %>% 
-  mutate(across(where(is.numeric), ~round(., 2))) %>% 
-  knitr::kable(align = "llccc")
-```
-]
-
----
-# Can I detect an effect?
-
-.pull-left[
-.center[
-.box-5b[Enroll 10 participants]]
-
-```{r power-small, echo=FALSE, fig.width=6, fig.height=4.5, out.width="100%"}
-
-boot_small %>% 
-  visualize() +
-  geom_vline(xintercept = diff_big$stat, color = "#FF4136", size = 1) +
-  labs(x = "Average treatment − Average control",
-       y = "Count",
-       title = "Simulated world with no difference",
-       subtitle = paste0("N = 10; p = ", p_small$p_value_clean)) +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
-]
-
---
-
-.pull-right[
-.center[.box-5b[Enroll 200 participants]]
-
-```{r power-big, echo=FALSE, fig.width=6, fig.height=4.5, out.width="100%"}
-boot_big %>% 
-  visualize() +
-  geom_vline(xintercept = diff_big$stat, color = "#FF4136", size = 1) +
-  labs(x = "Average treatment − Average control",
-       y = "Count",
-       title = "Simulated world with no difference",
-       subtitle = paste0("N = 200; p = ", p_big$p_value_clean)) +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
-]
-
-
----
-# What's the right sample size?
-
-.box-6[Use a statistical power calculator to<br>make sure you can potentially detect an effect]
-
-.center[
-![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/power-search.png)
-]
-
---
-
-.box-7[Or you can use simulations!]
-
----
-# A quick note on randomization inference
-
-- Previous power calculations work well on **.darkorange[larger samples]**.
-
-- On smaller samples, usually we can't rely on the **.darkorange[central limit theorem]**.
-
---
-
-.box-3[Randomization Inference]
-<br>
-<br>
-
-.box-3t[What are the chances of something happening given all possible randomization scenarios?]
-
----
-# The Lady Tasting Tea
-
-- There's a lady in England that claims she can always know whether **.darkorange[tea or milk was poured first]** in a cup.
-
-- So you decide to **.darkorange[test it]**.
-
---
-
-.center[
-![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/cups.png)]
-
---
-- This is only one of the random allocations you could have used. There are other **.darkorange[19 combinations]**!
-
-  - Number of possible randomization allocations (or permutations): $n \choose k$
-  
----
-# The Lady Tasting Tea
-
-.center[
-![:scale 20%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/cups.png)]
-
-.small[  
-```{r, echo = FALSE}
-z_allocations <- rbind(c(1,1,1,0,0,0),
-                       c(1,0,1,1,0,0),
-                       c(1,0,0,1,1,0),
-                       c(1,0,0,0,1,1),
-                       c(1,1,0,1,0,0),
-                       c(1,1,0,0,1,0),
-                       c(1,1,0,0,0,1),
-                       c(1,0,1,0,1,0),
-                       c(1,0,1,0,0,1),
-                       c(1,0,0,1,0,1),
-                       c(0,1,1,1,0,0),
-                       c(0,1,0,1,1,0),
-                       c(0,1,0,0,1,1),
-                       c(0,1,0,0,1,1),
-                       c(0,1,0,1,0,1),
-                       c(0,1,1,0,0,1),
-                       c(0,0,1,1,1,0),
-                       c(0,0,1,1,0,1),
-                       c(0,0,1,0,1,1),
-                       c(0,0,0,1,1,1))
-
-
-
-colnames(z_allocations) <- paste0("cup ",seq(1,6))
-
-tbl <- z_allocations[1:8,] %>%
-  reactable(
-    # ALL one page (no scrolling or page swapping)
-    pagination = TRUE,
-    rownames = FALSE,
-    # compact for an overall smaller table width wise
-    compact = FALSE,
-    # borderless - TRUE or FALSE
-    borderless = FALSE,
-    # Stripes - TRUE or FALSE
-    striped = TRUE,
-    # fullWidth - either fit to width or not
-    fullWidth = TRUE,
-    # apply defaults
-    # 100 px and align to center of column
-    defaultColDef = colDef(
-      align = "center"),
-    style = list(fontFamily = "Fira Sans, sans-serif"),
-    
-    highlight = TRUE,
-    
-    theme = reactableTheme(
-      highlightColor = "rgba(248, 148, 65,0.3)"
-    )
-    
-  )
-
-div(
-  # this class can be called with CSS now via .salary
-  class = "tab",
-  div(
-    # this can be called with CSS now via .title
-    class = "title",
-    h3("Possible Treatment Allocations")
-  ),
-  # The actual table
-  tbl
-)
-```
-]
-
----
-# The Lady Tasting Tea
-
-- If the woman is telling the truth, then she needs to pick out the 3 cups of tea with milk first.
-
---
-
-.box-4[She does it!]
-
---
-
-.box-4[What are the chances?]
-
-
----
-# The Lady Tasting Tea
-
-- If she was just guessing, she is equally likely to choose any of the **.darkorange[20 possibilities]** (because ${6 \choose 3} = 20$).
-
-- **.darkorange[Under the null hypothesis]**, the probability of her choosing $k$ correct ones out of $n$ cups is:
-$$Pr(Successes = k) = \frac{1}{Total \ Perm}{n \choose k} {n \choose n-k}$$
---
-.center[
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/combinations.png)]
-
-.box-2[p-value = 0.05]
-
 
 ---
 background-position: 50% 50%
@@ -1910,6 +1524,12 @@ Limitations and Potential Problems in Randomized Controlled Trials
 ]
 
 ---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+A/B Testing
+]
+---
 # A/B Testing
 
 .pull-left[
@@ -1924,51 +1544,6 @@ Limitations and Potential Problems in Randomized Controlled Trials
 
 - Companies can quickly analyze the data, adapt their design, and continue testing features.
 ]
-
----
-# A/B Testing Jargon
-
-- There's a lot of jargon in A/B testing that is thrown out there...
-
-.box-7[What does it all mean?]
-
---
-
-.box-5t[Conversions]
-
-.box-4t[Regret]
-
-.box-2t[Multi-armed bandits/ Contextual bandits]
-
----
-# A/B Testing Jargon
-
-- **.darkorange[Conversions]**: "Cause the customer to take action"
-
-- **.darkorange[Regret]**: Loss of conversion due to a low-performing treatment.
---
-
-<br>
-<br>
-<br>
-<br>
-.box-7[Maximize conversions and minimize regret]
-
----
-# A/B Testing Jargon
-
-- **.darkorange[Multi-armed bandits/ Contextual bandits]**
-
-  - Name comes from machines at casinos.
-  - You want to maximize total payout $\rightarrow$ Balance between exploration and exploitation
-
-.center[
-![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/slot-machine.png)]
---
-
-- **.darkorange[Multi-armed bandits]** redirect users to the more successful versions of the treatment.
-
-- A **.darkorange[contextual bandit]** uses prior information from the user to select an action.
 
 ---
 # A/B Testing in Data: MSU Library
@@ -2007,7 +1582,7 @@ Limitations and Potential Problems in Randomized Controlled Trials
 .box-5LA[How would you analyze these results?]]
 
 ---
-
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/google_analytics1.png)]
 ---
 # References
 
