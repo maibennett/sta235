@@ -23,7 +23,7 @@ In this class we will introduce the topic of observational studies. What can we 
 
 {{< youtube src="https://www.youtube.com/embed/6YrIDhaUQOE?controls=0" >}}
 
-- Cunningham, S. (2021). "Causal Inference: The Mixtape". [*Ch 5.1.3, Ch 5.1.4, and Ch 5.2*](https://mixtape.scunning.com/matching-and-subclassification.html)
+- Cunningham, S. (2021). "Causal Inference: The Mixtape". [*Ch 5.1.3, Ch 5.1.4, and Ch 5.2*](https://mixtape.scunning.com/matching-and-subclassification.html#subclassification-exercise-titanic-mathrmdata-set)
 
 
 ## JITT
