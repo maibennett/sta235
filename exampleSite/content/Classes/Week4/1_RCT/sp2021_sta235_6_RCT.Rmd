@@ -2019,6 +2019,37 @@ A/B Testing
 # Homepage return
 .center[
 ![:scale 55%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/homepage_return.png)]
+
+---
+# Wrapping things up
+
+- Randomized controlled trials are great... **.darkorange[but not for everything!]**
+
+--
+
+- Randomization buys us **.darkorange[no systematic selection on observables or unobservables]**
+
+  - But things can go wrong, too!
+  
+--
+
+.box7-LA[Check your assumptions and look out for potential issues!]
+
+---
+# Next class
+
+.pull-left[
+- Introduction to **.darkorange[observational studies]**
+
+- Selection on **.darkorange[observables]**
+
+- The wonderful world of **.darkorange[matching!]**
+]
+
+.pull-right[
+![](https://media.giphy.com/media/oF5oUYTOhvFnO/giphy.gif)
+]
+
 ---
 # References
 

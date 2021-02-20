@@ -110,6 +110,70 @@ data.frame("diff" = diff) %>% ggplot(aes(x = diff)) +
 
 ## Question: Create two other vectors (diff10k and diff100k, for 10k and 100k simulations respectively). Plot the three densities together. What can you see?
 
+########
+
+# You can also speed things up with the package doParallel. Here, we will run the same code but using a different package:
+library(doParallel)
+registerDoParallel(cores = detectCores()) #This is useful if you are running your code in a computer with more than one core (if it only has one, that's ok! it just won't go any faster)
+
+sim = 100000 #Let's run 100k simulations (to check the difference in time between both codes)
+
+#Let's measure the time!
+
+################################################################################
+start_time <- Sys.time() #Record the starting time for this code
+
+#diff_par will be a vector of length sim, just the same as diff! (only, we will do it in a parallel way, not sequentially!)
+diff_par <- foreach(s=1:sim, .combine = c)%dopar%{ #This will loop for every value of s from 1 to sim, and will concatenate (c) the results. Use ?foreach to see the other options for .combine. We will also use %dopar% to do it in a parallel way. If you use %do% instead, it would it sequentially, like a for loop.
+  
+  set.seed(s)
+  
+  # Same as before, we generate a vector for treatment assignment.
+  treat_id <- sample(id, N*p)
+  control_id <- id[!(id %in% treat_id)]
+  
+  z <- rep(0, length(id))
+  z[treat_id] <- 1
+  
+  #For element s of the diff vector, we store the difference in sample means between the treatment and the control group.
+  #In this case we don't assign it to any variable, because we want this value to be concatenated by the loop.
+  mean(d$x1[z==1]) - mean(d$x1[z==0])
+  
+}
+
+end_time <- Sys.time()
+
+par_time <- end_time - start_time
+################################################################################
+
+start_time <- Sys.time() #Let's do the same but not parallel
+
+#diff_par will be a vector of length sim, just the same as diff! 
+diff_nonpar <- foreach(s=1:sim, .combine = c)%do%{ #This time we are using just do
+  
+  set.seed(s)
+  
+  # Same as before, we generate a vector for treatment assignment.
+  treat_id <- sample(id, N*p)
+  control_id <- id[!(id %in% treat_id)]
+  
+  z <- rep(0, length(id))
+  z[treat_id] <- 1
+  
+  #For element s of the diff vector, we store the difference in sample means between the treatment and the control group.
+  #In this case we don't assign it to any variable, because we want this value to be concatenated by the loop.
+  mean(d$x1[z==1]) - mean(d$x1[z==0])
+  
+}
+
+end_time <- Sys.time()
+
+nonpar_time <- end_time - start_time
+################################################################################
+
+# Now let's check out the difference! (Might not be much, but if you are running something very computationally expensive, this can save you tons of time)
+par_time
+nonpar_time
 
 #####################################################################
 
@@ -203,6 +267,8 @@ is.factor(d_s1$strata) #Check whether it's a factor or not.
 
 #It's always advised to use robust SE to account for heteroskedasticity (homoskedastic errors are rare!)
 summary(estimatr::lm_robust(vote02 ~ treat_real + strata, dat = d_s1))
+
+#Question: Add covariates to the previous model. Does your estimate change? Why or why not? What happens to the SE?
 
 #See that not every person that was assigned to treatment was actually contacted.
 table(d_s1$treat_real, d_s1$contact)
