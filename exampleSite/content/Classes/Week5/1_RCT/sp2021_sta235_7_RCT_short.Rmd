@@ -518,7 +518,11 @@ fig2 <- dffull %>% plot_ly() %>%
 
 --
 
-.box-7[For meetings, propose a number of dates and time slots]
+.box-6[For meetings, propose a number of dates and time slots]
+
+--
+
+.box-7[Follow instructions]
 
 
 ---
@@ -1582,18 +1586,23 @@ A/B Testing
 .box-5LA[How would you analyze these results?]]
 
 ---
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/google_analytics1.png)]
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/google_analytics1.png)]
 ---
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/google_analytics2.png)]
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/google_analytics2.png)]
 ---
 # Homepage click-through
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/click_through.png)]
+.center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/click_through.png)]
 ---
 # Drop-off
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/drop_off.png)]
+.center[
+![:scale 55%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/drop_off.png)]
 ---
 # Homepage return
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/homepage_return.png)]
+.center[
+![:scale 55%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/homepage_return.png)]
 ---
 # References
 
