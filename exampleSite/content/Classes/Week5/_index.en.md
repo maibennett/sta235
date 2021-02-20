@@ -10,9 +10,10 @@ disableToc: true
 
 In this class we will introduce the topic of observational studies. What can we do when we can't run an experiment? What are the limitations when we can't randomize a treatment? How does matching compare to RCTs?  
 
-{{% notice info %}}
-**Given the suspension of las week's class, we will start with a review of Randomized Controlled Trials (RCTs).**
+{{% notice warning %}}
+**Class was suspended due to winter storm. I will post videos for all topics on this class.**
 {{% /notice %}}
+
 
 ## Recommended readings/videos
 
