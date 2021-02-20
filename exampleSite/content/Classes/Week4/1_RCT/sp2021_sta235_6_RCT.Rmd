@@ -473,7 +473,7 @@ fig2 <- dffull %>% plot_ly() %>%
   animation_slider(hide = TRUE) %>% config(displayModeBar = FALSE)
 ```
 
----
+
 # Last week
 
 .pull-left[
