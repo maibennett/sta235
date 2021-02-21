@@ -37,7 +37,7 @@ Complete before **Sunday Jan 31st (11:59 pm)**. You can find the assignment [her
 
 ## Code
 
-[Here](https://github.com/maibennett/sta235/blob/main/exampleSite/content/Classes/Week2/code/sp2021_sta235_3_reg_binary.R) is the R code we will review in class. Go ahead and play with this! 
+Here is the R code we will review in class, with some additional data and questions {{% button href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/code/sp2021_sta235_3_reg_binary.R" icon="fas fa-code" icon-position="right" %}}Download{{% /button %}}
 
 
 ## <a name="additional"></a> Additional Material
