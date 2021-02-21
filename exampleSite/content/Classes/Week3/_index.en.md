@@ -30,4 +30,4 @@ Complete before **Sunday Feb 7th (11:59 pm)**. You can find the assignment [here
 
 ## Code
 
-[Here](https://github.com/maibennett/sta235/blob/main/exampleSite/content/Classes/Week3/code/sp2021_sta235_5_PO.R) is the R code we will review in class.
+Here is the R code we will review in class, with some additional data and questions {{% button href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/code/sp2021_sta235_5_PO.R" icon="fas fa-code" icon-position="right" %}}Download{{% /button %}}
