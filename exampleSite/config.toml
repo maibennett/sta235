@@ -5,6 +5,7 @@ defaultContentLanguage = "en"
 title = "STA 235 - Data Science for Business Applications"
 theme = "hugo-theme-learn"
 themesdir = "../.."
+googleAnalytics = "UA-190320018-1"
 metaDataFormat = "yaml"
 defaultContentLanguageInSubdir= false
 

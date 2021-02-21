@@ -37,6 +37,7 @@
         }
       {{ end }}
     </style>
+    {{ template "_internal/google_analytics.html" . }}
     {{ partial "custom-header.html" . }}
   </head>
   <body class="" data-url="{{ .RelPermalink }}">
