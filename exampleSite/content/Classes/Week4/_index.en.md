@@ -11,7 +11,11 @@ disableToc: true
 In this class we will talk about Randomized Controlled Trials and the power of randomization. We will discuss why this approach is often considered the gold standard of causal inference, but also look at its limitations.
 
 {{% notice warning %}}
-**Class was suspended due to winter storm. I will post videos for all topics on this class.**
+**Class was suspended due to winter storm. You can find the videos for this class after the Code section on this page.**
+{{% /notice %}}
+
+{{% notice tip %}}
+Review the code that is posted with this class, and try to answer the questions there!
 {{% /notice %}}
 
 ## Recommended readings/videos
