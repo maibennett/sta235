@@ -49,7 +49,7 @@ Complete before **Sunday Feb 14th (11:59 pm)**. You can find the JITT assignment
 
 ### Introduction to RCTs
 
-{{< youtube src="https://www.youtube.com/embed/8XyRVcJz7RY?controls=0" >}}
+{{< youtube src="https://www.youtube.com/embed/zENUZp38lJw?controls=0" >}}
 
 ### RCTs in practice
 
