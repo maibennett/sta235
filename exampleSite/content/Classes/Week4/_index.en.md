@@ -43,3 +43,26 @@ Complete before **Sunday Feb 14th (11:59 pm)**. You can find the JITT assignment
 ## Code
 
 [Here](https://github.com/maibennett/sta235/blob/main/exampleSite/content/Classes/Week4/code/sp2021_sta235_6_RCT.R) is the R code we will review in class, with some additional data and questions.
+
+
+## Class Videos
+
+### Introduction to RCTs
+
+{{< youtube src="https://www.youtube.com/embed/8XyRVcJz7RY?controls=0" >}}
+
+### RCTs in practice
+
+{{< youtube src="https://www.youtube.com/embed/YWh8yNZCYIs?controls=0" >}}
+
+### Assumptions in RCTs
+
+{{< youtube src="https://www.youtube.com/embed/RFQno3v3mEs?controls=0" >}}
+
+### Statistical power and limitations
+
+{{< youtube src="https://www.youtube.com/embed/NfXp2qluRN0?controls=0" >}}
+
+### A/B testing
+
+{{< youtube src="https://www.youtube.com/embed/cOHkIZ4UKWA?controls=0" >}}
