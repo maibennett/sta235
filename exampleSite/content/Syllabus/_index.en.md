@@ -12,7 +12,7 @@ Please read the syllabus. It has important information about the course, includi
 {{% /notice %}}
 
 {{% notice info %}}
-**22/02 Update:** Dates for Homework 2 and the midterm have been modified to adjust for the two classes we missed during the winter storm. Please check the sections below to see the new dates. 
+**02/22 Update:** Dates for Homework 2 and the midterm have been modified to adjust for the two classes we missed during the winter storm. Please check the sections below to see the new dates. 
 {{% /notice %}}
 
 ## Introduction
@@ -81,6 +81,8 @@ For the optimal in-class experience, I suggest that you:
 ## Week-by-Week Outline
 
 Below you will find a general outline of the topics we’ll cover in this course. All other materials regarding homework assignments, readings, and other information will be posted on Canvas. Depending on how the class progresses, the order of these topics might change, so check Canvas regularly for an updated version of this outline:
+
+**Note: Dates marked in green show changes made on 02/22.**
 
 <table>
 <thead>
@@ -237,11 +239,12 @@ I now explain each of these grading components in more detail.
 -	Both exams will be taken online via Zoom either during regular class hours (midterm) or during a **common time assigned to both sections (May 13th 2:00-5:00 PM)**. *If you have a schedule conflict for this date and time, please let me know as soon as possible.*
 
 {{% notice info %}}
-- You will need a working webcam for both the midterm and the final exam, so make sure you secure one with enough time for both dates. 
 
-- To the best of your abilities, try to ensure you have a stable internet connection (e.g. connect your computer physically through an ethernet cable, take your exam somewhere you know the connection might be better (UT library, for example, if you are close to campus)).
+You will need a working webcam for both the midterm and the final exam, so make sure you secure one with enough time for both dates. 
 
-- There will be no make-up exam for the midterm. If you have any issues, your final exam will count both as your midterm and final. 
+To the best of your abilities, try to ensure you have a stable internet connection (e.g. connect your computer physically through an ethernet cable, take your exam somewhere you know the connection might be better (UT library, for example, if you are close to campus)).
+
+There will be no make-up exam for the midterm. If you have any issues, your final exam will count both as your midterm and final. 
 {{% /notice %}}
 
 ## Course Policies
