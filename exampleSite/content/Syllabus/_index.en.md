@@ -213,8 +213,6 @@ I now explain each of these grading components in more detail.
 
 1.	**Homework assignments (20%)**
 
-
-
 -	There will be three homework assignments in this course, with the following submission deadlines:
 	- HW1: February 15th, 12:00 PM (noon)
 	- **HW2: March 8th, 12:00 PM (noon)** (*Note: Date was changed to accommodate suspended classes due to winter storm.*)
@@ -237,6 +235,14 @@ I now explain each of these grading components in more detail.
 4.	**Midterm and Final Exam (25% and 30%, respectively)**
 -	Both exams will cover all topics covered in class, up to a week before the date of the exam. In the case of the final exam, even though it will heavily focus on the second part of this course, it can also cover topics that were discussed on the midterm.
 -	Both exams will be taken online via Zoom either during regular class hours (midterm) or during a **common time assigned to both sections (May 13th 2:00-5:00 PM)**. *If you have a schedule conflict for this date and time, please let me know as soon as possible.*
+
+{{% notice info %}}
+- You will need a working webcam for both the midterm and the final exam, so make sure you secure one with enough time for both dates. 
+
+- To the best of your abilities, try to ensure you have a stable internet connection (e.g. connect your computer physically through an ethernet cable, take your exam somewhere you know the connection might be better (UT library, for example, if you are close to campus)).
+
+- There will be no make-up exam for the midterm. If you have any issues, your final exam will count both as your midterm and final. 
+{{% /notice %}}
 
 ## Course Policies
 
