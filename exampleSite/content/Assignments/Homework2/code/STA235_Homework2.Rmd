@@ -1,7 +1,7 @@
 ---
 title: "Homework 2: Causal Inference - RCTs and Selection Bias"
 author: "STA 235"
-date: "Due on March 1st, 12:00pm"
+date: "Due on March 8th, 12:00pm (noon)"
 output: 
   html_document:
     css: style.css 
@@ -10,6 +10,29 @@ output:
     css: style.css
     toc: no
 ---
+<style type="text/css">
+.main-container {
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media only screen and (max-width: 700px) {
+   body {
+      margin: 0;
+      padding: 0;
+   }
+   .sample {
+      width: 100%;
+   }
+}
+</style>
+
+# Some Notes
+
+- Remember to **write your name** on every document you submit.
+- Only **pdf** extensions will be accepted for the write-up.
+- Send both your **write-up** and **R script**.
 
 # Task 1: The fundamental causal problem
 
@@ -27,18 +50,40 @@ The dataset has the following variables:
 - `month`: Month of the year.
 - `spend`: Amount spent on the company's website.
 
+Notice that the data has a panel structure, which means that each row is a user-month. Also, as a note, the rewards program doesn't kick off until the month after the user subscribes.
 
-### Question 1.1: 
-**Create the variable `treatment` for each observation.** *Note: Remember that the unit of interest in this case is user-month!*
+### Question 1.1:
+**What is the treatment in this case? Write down the causal estimand you want to estimate as a function of the potential outcomes**.
 
-### Question 1.2:
-**In this dataset, what would the outcome of interest be? and which covariates would you use?**. *Tip: Remember the importance of the time dimension. You can use average measures of pre and post.*
- 
+
+### Question 1.2: 
+**Create the variable `treatment` for each observation.**
+
 ### Question 1.3:
-**Now run the model with the previous covariates. What is the naive estimate for the effect of the rewards program on sales?**
+**Show a scatter plot spending by month, coloring observations that are in the treatment group *that month* in different colors. What can you say about the spending patterns between those users that sign up for the rewards program compared to those that do no?**. *Tip: To avoid two categories overlapping each other, you can use the `position = position_dodge(width=0.3)` argument in your scatter plot!*
+
+
+---
+
+Now, we are going to slice our data!
 
 ### Question 1.4:
-**Identify at least one potential problem with the causal interpretation of the previous estimate. Be specific!**
+**Create two new datasets: One with only the months of January and February (name it `d1`), and the second one with only the months of November and December (name it `d2`). Then, we will use `pivot_wider()` on each of the new dataframes to transform our data and obtain new dataframes with only ONE observation per user.**
+
+*Tip: `pivot_wider()` is a function from the `tidyverse` package that transforms data from long format to wide format. See the following vignette for an example:*
+
+<p align="center">
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Assignments/Homework2/images/pivot_wider.png)
+</p>
+
+
+### Question 1.5:
+**Using the previous datasets that you created (`d1` and `d2`, after using `pivot_wider()`), fit an appropriate model to estimate the estimand in 1.1. What variables would you use as controls? Would you exclude any observations in one of the analysis? Justify your choices and assumptions for making causal inference, and compare your results between the two datasets.**
+
+
+### Question 1.4:
+**Identify at least one potential problem with the causal interpretation of the previous estimates. Be specific!**
+
 
 ---
 
@@ -46,7 +91,7 @@ The dataset has the following variables:
 
 ## The Setup
 
-The [National Supported Work Demonstration (NSW)](https://www.jstor.org/stable/1806062?seq=1#metadata_info_tab_contents) was a small program targeted at disadvantaged low-wage workers. This program was ran as an experiment, which means that after workers applied to it, they were randomized either into the treatment group (training program) or the control group. The data for this small RCT is given in the dataset `sample_rct`:
+The [National Supported Work Demonstration (NSW)](https://www.jstor.org/stable/1806062?seq=1#metadata_info_tab_contents) was a small program targeted at disadvantaged low-wage workers in 1976. This program was ran as an experiment, which means that after workers applied to it, they were randomized either into the treatment group (training program) or the control group. The data for this small RCT is given in the dataset `sample_rct`:
 
 ```{r setup2a, warning=FALSE, message=FALSE}
 sample_rct <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework2/data/nsw_dehejia_wahba_ps.csv")
@@ -79,29 +124,39 @@ For both samples, the variables are the following:
 First, you want to check whether the randomization was done correctly in the RCT sample:
 
 ### Question 2.1:
-**Compare the covariates between the treatment and control group in your `sample_rct` data. What conclusions can you make?**
+**Compare the covariates between the treatment and control group in your `sample_rct` data. What conclusions can you make?** *Note: Remember to only show covariate balance! We are not looking at the outcome yet.*
+
 
 ### Question 2.2:
 **Using the experimental sample, estimate the effect of the NSW program. Run models both with and without covariates. How do the estimates change and why?**
 
-
+---
 
 These results are great, but you actually want to estimate the effect of this training program on the entire working population. 
 
 ### Question 2.3:
 **Create a table or plot comparing some key the characteristics of both samples, particularly focusing on the control groups. What differences can you observe?**
 
-### Question 2.4:
-**What model would you fit for a more generalizable effect? On what sample? Run the model and show your results. What is the effect that you find?**
 
-### Question 2.5:
+### Question 2.4:
 **If you only had the experimental sample, what would be the drawbacks of your estimate? Is there something you could do about it?**
 
+
 ### Question 2.6:
-**Create a new data set with both samples, `sample_rct` and `sample_all`, match units in the treatment with units in the control group, and describe your matched sample. How does it compare to the original sample?**
+**Create a new data set with both the treatment group in `sample_rct` and also `sample_all`, match units in the treatment group with units in the control group both using nearest neighbor and optimal, and describe your matched sample. How does it compare to the balance of the original RCT sample?**
+
 
 ### Question 2.7:
-**Finally, compare the results of the matched sample to those of the experimental sample. Can you replicate an experimental result with this observational data? Why or why not?**
+**Compare the results of the matched sample (using optmatch) to those of the experimental sample, both using and not using covariates. Can you replicate an experimental result with this observational data? Why or why not?**
+
+
+### Question 2.8:
+**Use IPW to estimate an ATE, using weights to approximate the general population in your RCT sample**
+
+
+### Question 2.9:
+**Do you think the previous effect (using IPW) would be the ATE if the government decided to scale-up the program? Why or why not?**
+
 
 ---
 
@@ -109,7 +164,7 @@ These results are great, but you actually want to estimate the effect of this tr
 
 ## Pilot away!
 
-You are doing an internship at an ed tech firm, and they know you've taken this course. Knowing that you have expertise in Causal Inference, your boss asks you to run a small pilot to test different recommendation algorithms for their application, which is targeted at students. You start with a small sample of McCombs students (from different departments) to pilot your strategy, and randomize students into algorithm A or B. Here is the data for your pilot:
+You are doing an internship at an ed tech firm, and they know you've taken this course. Knowing that you have expertise in Causal Inference, your boss asks you to run a small pilot to test different recommendation algorithms for their phone application, which is targeted at students. The main goal is to increase the number of app installs. You start with a small sample of McCombs students (from different departments) to pilot your strategy, and randomize students into algorithm A or B. Here is the data for your pilot:
 
 ```{r setup3, warning=FALSE, message=FALSE}
 
@@ -129,14 +184,17 @@ Where you have the following variables:
 ### Question 3.1
 **What is your treatment? What is your control group?**
 
+
 ### Question 3.2
 **Given your previous answer, can you write the causal questions for this setting? What would the counterfactual be?**
 
+---
 
 Now, you want to assess the effect of your treatment.
 
 ### Question 3.3
-**Write down the model and estimate the necessary parameters. Remember to justify your choices!**
+**Write down the model and estimate the necessary parameters. If you include covariates, remember to justify your choices!**
+
 
 ---
 
@@ -151,16 +209,18 @@ full_mc <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/ex
 ```
 
 ### Question 3.4
-**Estimate the treatment effect on the new sample. How did it change compared to your pilot?**
+**Estimate the treatment effect on the new sample. How did it change compared to your pilot? Why do you think this is?**
+
 
 ### Question 3.5
-**Plot the outcome for both groups by sample (original pilot sample and the expanded sample). What differences do you see? Is this a problem for causal identification?**
+**Show (in a plot or a table) the outcome for both treatment and control groups by sample (original pilot sample and the expanded sample). What differences do you see? Is this a problem for causal identification?**
+
 
 ---
 
 ## Let's go global (UT global)
 
-To avoid interference and gain more statistical power, you decide to use the sample size as before, but now stratify by school. This means that you will only choose a small number of students from different academic units. Here's your final data:
+To avoid interference and gain more statistical power, you decide to use the same sample size as before, but now stratify by small. This means that you will only choose a small number of students from different academic units. Here's your final data:
 
 ```{r setup5, warning=FALSE, message=FALSE}
 
@@ -171,9 +231,9 @@ data_ut <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/ex
 ### Question 3.6
 **Estimate the treatment effect on this new stratified sample. How did it change compared to your pilot?**
 
-### Question 3.7
-**Assuming interference is not a problem here, why are results different? Justify your answer and make appropriate plots/tables to sustain your argument.**
 
-### Question 3.8
-**Can you use some of the methods learned in class to recover a similar effect to the one observed in your pilot? How? Run the new model and show your results.**
+### Question 3.7
+**Assuming interference is not a problem here, why are results different from the previous models? Justify your answer and make appropriate plots/tables to sustain your argument.**
+
+
 
