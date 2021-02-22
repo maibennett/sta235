@@ -9,6 +9,12 @@ googleAnalytics = "UA-190320018-1"
 metaDataFormat = "yaml"
 defaultContentLanguageInSubdir= false
 
+[markup]
+  defaultMarkdownHandler = "goldmark"
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+      
 [params]
   editURL = ""
   description = "Website for STA 235 - Data Science for Business Applications"
