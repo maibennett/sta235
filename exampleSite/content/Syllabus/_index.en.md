@@ -11,6 +11,10 @@ chapter: true
 Please read the syllabus. It has important information about the course, including structure, assignments, grading, and office hours, among many others. [Here's some Snoop Dog](https://www.cameo.com/v/5f2b392a0299b100202e624a?utm_campaign=video_share_to_copy) so you're motivated to read it.
 {{% /notice %}}
 
+{{% notice information %}}
+**22/02 Update:** Dates for Homework 2 and the midterm have been modified to adjust for the two classes we missed during the winter storm. Please check the sections below to see the new dates. 
+{{% /notice %}}
+
 ## Introduction
 
 Our class meets on Mondays (Section 1: 12:30 – 2:15 PM, Section 2: 2:30 - 4:30 PM), streaming online via our course website on Canvas.
@@ -78,24 +82,97 @@ For the optimal in-class experience, I suggest that you:
 
 Below you will find a general outline of the topics we’ll cover in this course. All other materials regarding homework assignments, readings, and other information will be posted on Canvas. Depending on how the class progresses, the order of these topics might change, so check Canvas regularly for an updated version of this outline:
 
-|Week| Class Date| Topics|
-|-------|-------|-------|
-|1|Jan 25| Syllabus overview and course motivation; Multiple regression models, comparing effect sizes and uncertainty quantification in multiple regression.|
-|2|Feb 1| Multiple regression models (cont.): Statistical adjustment and collinearity; Models with discrete responses: Binary outcomes.|
-|3|Feb 8| Introduction to Causal Inference: Potential outcomes framework, the fundamental problem of causal inference, causal estimands, and study design.|
-|4|Feb 15| Randomized-Controlled trials: The gold standard? How can we use RCTs to answer causal questions? Limitations of RCTs. Internal and external validity. A/B testing.|
-|5|Feb 22| Introduction to Observational Studies: Can we use data outside experiments to make causal claims? Matching and its comparison to RCTs. Overt and hidden biases. Propensity score matching & weighting. Other forms of matching. How does matching compare to regression adjustment?|
-|6|Mar 1| Observational studies: Using real-world variation to estimate causal effects. Natural experiments, Diff-in-Diff.|
-|7|Mar 8| MIDTERM|
-|8|Mar 15| SRPING BREAK|
-|9|Mar 22| Observational studies (cont.): Regression discontinuity design (RDD)|
-|10|Mar 29| Observational studies (cont.): Instrumental variables (IV).|
-|11|Apr 5| Building models: Overview of model checking; Dealing with outliers; Bias-variance tradeoff; out-of-sample validation and cross-validation; Variable selection (e.g. stepwise selection)|
-|12|Apr 12| Introduction to prediction models: K-nearest neighbors’ regression and classification.|
-|13|Apr 19| Prediction models (cont.): Classification and regression trees (CART).|
-|14|Apr 26| Prediction models (cont.): Random forests, boosting, and ensemble methods.|
-|15|May 3|Modeling trends and seasonality with time-series data.|
-|16|May 13|FINAL EXAM|
+<table>
+<thead>
+<tr>
+<th>Week</th>
+<th>Class Date</th>
+<th>Topics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Jan 25</td>
+<td>Syllabus overview and course motivation; Multiple regression models, comparing effect sizes and uncertainty quantification in multiple regression.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Feb 1</td>
+<td>Multiple regression models (cont.): Statistical adjustment and collinearity; Models with discrete responses: Binary outcomes.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Feb 8</td>
+<td>Introduction to Causal Inference: Potential outcomes framework, the fundamental problem of causal inference, causal estimands, and study design.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Feb 15</td>
+<td>Randomized-Controlled trials: The gold standard? How can we use RCTs to answer causal questions? Limitations of RCTs. Internal and external validity. A/B testing.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Feb 22</td>
+<td>Introduction to Observational Studies: Can we use data outside experiments to make causal claims? Matching and its comparison to RCTs. Overt and hidden biases. Propensity score matching &amp; weighting. Other forms of matching. How does matching compare to regression adjustment?</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Mar 1</td>
+<td>Observational studies: Using real-world variation to estimate causal effects. Natural experiments, Diff-in-Diff.</td>
+</tr>
+<tr bgcolor="MediumSeaGreen", color="white">
+<td>7</td>
+<td>Mar 8</td>
+<td>Observational studies (cont.): Regression discontinuity design (RDD).</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Mar 15</td>
+<td>SRPING BREAK</td>
+</tr>
+<tr bgcolor="MediumSeaGreen", color="white">
+<td>9</td>
+<td>Mar 22</td>
+<td>Observational studies (cont.): Instrumental variables (IV).</td>
+</tr>
+<tr bgcolor="MediumSeaGreen", color="white">
+<td>10</td>
+<td>Mar 29</td>
+<td>MIDTERM</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Apr 5</td>
+<td>Building models: Overview of model checking; Dealing with outliers; Bias-variance tradeoff; out-of-sample validation and cross-validation; Variable selection (e.g. stepwise selection)</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Apr 12</td>
+<td>Introduction to prediction models: K-nearest neighbors’ regression and classification.</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Apr 19</td>
+<td>Prediction models (cont.): Classification and regression trees (CART).</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Apr 26</td>
+<td>Prediction models (cont.): Random forests, boosting, and ensemble methods.</td>
+</tr>
+<tr>
+<td>15</td>
+<td>May 3</td>
+<td>Modeling trends and seasonality with time-series data.</td>
+</tr>
+<tr>
+<td>16</td>
+<td>May 13</td>
+<td>FINAL EXAM</td>
+</tr>
+</tbody>
+</table>
 
 
 ## Course Requirements and Grading
@@ -135,9 +212,12 @@ I will use the cutoffs below to translate your overall course average into a fin
 I now explain each of these grading components in more detail. 
 
 1.	**Homework assignments (20%)**
+
+
+
 -	There will be three homework assignments in this course, with the following submission deadlines:
 	- HW1: February 15th, 12:00 PM (noon)
-	- HW2: March 3rd, 12:00 PM (noon)
+	- HW2: March 8th, 12:00 PM (noon)
 	- HW3: April 12th, 12:00 PM (noon)
 -	Homework assignments will be posted on Canvas and submitted through Canvas.  
 -	You must submit your homework write-up as a PDF. No other file format is acceptable. Both MS Word and Google Docs have an option to save your document as a PDF.
