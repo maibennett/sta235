@@ -37,7 +37,7 @@ You can also reach our teaching assistant here:
 
 All office hours are held via Zoom and you can register through [calendly](https://calendly.com/maibennett/sta-235-office-hours?month=2021-01). The teaching assistants will also hold office hours based on a scheduled TBD. 
 
-{{% notice info %}}
+{{% notice note %}}
 If you have a conflict with office hours (e.g. another class is scheduled at the same time), please email us so we can set up another time to meet.
 {{% /notice %}}
 
@@ -82,24 +82,97 @@ For the optimal in-class experience, I suggest that you:
 
 Below you will find a general outline of the topics we’ll cover in this course. All other materials regarding homework assignments, readings, and other information will be posted on Canvas. Depending on how the class progresses, the order of these topics might change, so check Canvas regularly for an updated version of this outline:
 
-|Week| Class Date| Topics|
-|-------|-------|-------|
-|1|Jan 25| Syllabus overview and course motivation; Multiple regression models, comparing effect sizes and uncertainty quantification in multiple regression.|
-|2|Feb 1| Multiple regression models (cont.): Statistical adjustment and collinearity; Models with discrete responses: Binary outcomes.|
-|3|Feb 8| Introduction to Causal Inference: Potential outcomes framework, the fundamental problem of causal inference, causal estimands, and study design.|
-|4|Feb 15| Randomized-Controlled trials: The gold standard? How can we use RCTs to answer causal questions? Limitations of RCTs. Internal and external validity. A/B testing.|
-|5|Feb 22| Introduction to Observational Studies: Can we use data outside experiments to make causal claims? Matching and its comparison to RCTs. Overt and hidden biases. Propensity score matching & weighting. Other forms of matching. How does matching compare to regression adjustment?|
-|6|Mar 1| Observational studies: Using real-world variation to estimate causal effects. Natural experiments, Diff-in-Diff.|
-|7|Mar 8| Observational studies (cont.): Regression discontinuity design (RDD).|
-|8|Mar 15| SRPING BREAK|
-|9|Mar 22| Observational studies (cont.): Instrumental variables (IV).|
-|10|Mar 29| MIDTERM|
-|11|Apr 5| Building models: Overview of model checking; Dealing with outliers; Bias-variance tradeoff; out-of-sample validation and cross-validation; Variable selection (e.g. stepwise selection)|
-|12|Apr 12| Introduction to prediction models: K-nearest neighbors’ regression and classification.|
-|13|Apr 19| Prediction models (cont.): Classification and regression trees (CART).|
-|14|Apr 26| Prediction models (cont.): Random forests, boosting, and ensemble methods.|
-|15|May 3|Modeling trends and seasonality with time-series data.|
-|16|May 13|FINAL EXAM|
+<table>
+<thead>
+<tr>
+<th>Week</th>
+<th>Class Date</th>
+<th>Topics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Jan 25</td>
+<td>Syllabus overview and course motivation; Multiple regression models, comparing effect sizes and uncertainty quantification in multiple regression.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Feb 1</td>
+<td>Multiple regression models (cont.): Statistical adjustment and collinearity; Models with discrete responses: Binary outcomes.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Feb 8</td>
+<td>Introduction to Causal Inference: Potential outcomes framework, the fundamental problem of causal inference, causal estimands, and study design.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Feb 15</td>
+<td>Randomized-Controlled trials: The gold standard? How can we use RCTs to answer causal questions? Limitations of RCTs. Internal and external validity. A/B testing.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Feb 22</td>
+<td>Introduction to Observational Studies: Can we use data outside experiments to make causal claims? Matching and its comparison to RCTs. Overt and hidden biases. Propensity score matching &amp; weighting. Other forms of matching. How does matching compare to regression adjustment?</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Mar 1</td>
+<td>Observational studies: Using real-world variation to estimate causal effects. Natural experiments, Diff-in-Diff.</td>
+</tr>
+<tr style="color: white; background-color: MediumSeaGreen;">
+<td>7</td>
+<td>Mar 8</td>
+<td>Observational studies (cont.): Regression discontinuity design (RDD).</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Mar 15</td>
+<td>SRPING BREAK</td>
+</tr>
+<tr style="color: white; background-color: MediumSeaGreen;">
+<td>9</td>
+<td>Mar 22</td>
+<td>Observational studies (cont.): Instrumental variables (IV).</td>
+</tr>
+<tr style="color: white; background-color: MediumSeaGreen;">
+<td>10</td>
+<td>Mar 29</td>
+<td>MIDTERM</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Apr 5</td>
+<td>Building models: Overview of model checking; Dealing with outliers; Bias-variance tradeoff; out-of-sample validation and cross-validation; Variable selection (e.g. stepwise selection)</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Apr 12</td>
+<td>Introduction to prediction models: K-nearest neighbors’ regression and classification.</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Apr 19</td>
+<td>Prediction models (cont.): Classification and regression trees (CART).</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Apr 26</td>
+<td>Prediction models (cont.): Random forests, boosting, and ensemble methods.</td>
+</tr>
+<tr>
+<td>15</td>
+<td>May 3</td>
+<td>Modeling trends and seasonality with time-series data.</td>
+</tr>
+<tr>
+<td>16</td>
+<td>May 13</td>
+<td>FINAL EXAM</td>
+</tr>
+</tbody>
+</table>
 
 
 ## Course Requirements and Grading
