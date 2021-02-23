@@ -87,7 +87,7 @@ No more chance[s]
 
 
 ---
-# Observational studies
+# Introduction to observational studies
 
 - Most times, we will not be able to randomize, and we need to work with **.darkorange[existing data]**
 
@@ -99,7 +99,7 @@ No more chance[s]
 
 --
 
-- Data that has not been manipulated for an experiment, e.g. data in its "natural state".
+- Data for which we can't manipulate the treatment assignment, e.g. data in its "natural state".
 
 --
 &lt;br&gt;
@@ -107,13 +107,45 @@ No more chance[s]
 
 .box-7[Can we reasonably assume that the ignorability assumption holds?]
 
+---
+# Introduction to observational studies (cont.)
+
+.pull-left[
+.center[
+.![](https://media.giphy.com/media/fu2rIw18eIDz1YCrCT/giphy.gif)
+]
+]
+
+.pull-right[
+- Moving away from the core assumption of RCTs: that **.darkorange["the probability of treatment assignment is a known function"]** (Imbens &amp; Rubin, 2015).
+
+]
+
+---
+# Introduction to observational studies (cont.)
+
+.pull-left[
+.center[
+.![](https://media.giphy.com/media/fu2rIw18eIDz1YCrCT/giphy.gif)
+]
+]
+
+.pull-right[
+- Moving away from the core assumption of RCTs: that **.darkorange["the probability of treatment assignment is a known function"]** (Imbens &amp; Rubin, 2015).
+
+- We will maintain the assumption of **.darkorange[unconfoundnedness]** (to a certain extent).
+
+.box-4t[What is that?]
+]
 
 ---
 # Calling in the CIA
 
+- **.darkorange[Unconfoundnedness]** means that the treatment assignment is independent from the potential outcomes.
+
 - If you recall, the ignorability assumption assumes that: 
 
-`$$Y(z) \perp\!\!\!\perp Z \ \ \ \forall \ z \in \{Z\}$$`
+`$$Y(0), Y(1) \perp\!\!\!\perp Z$$`
 
 --
 
@@ -123,8 +155,27 @@ No more chance[s]
 
 .box-2LA[Conditional Independence Assumption (CIA)]
 &lt;br&gt;
-`$$Y(z) \perp\!\!\!\perp Z|X \ \ \ \forall \ z \in \{Z\}$$`
-  
+`$$Y(0), Y(1) \perp\!\!\!\perp Z|X$$`
+---
+# Selection on observables
+
+- Units select into treatment based on characteristics **.darkorange[I can observe]**.
+
+--
+
+.center[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week5/1_Matching/images/unconfound1.png)]
+]
+
+---
+# Selection on observables
+
+- Units select into treatment based on characteristics **.darkorange[I can observe]**.
+
+
+.center[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week5/1_Matching/images/unconfound2.png)]
+]
 
 ---
 # References
