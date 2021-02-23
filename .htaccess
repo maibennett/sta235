@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Password Protected Area"
+AuthUserFile /YOUR_WEBSITE_ROOT_FOLDER/.htpasswd
+Require valid-user
