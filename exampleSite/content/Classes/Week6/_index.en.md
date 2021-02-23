@@ -24,7 +24,7 @@ In this class we will dive deeper into observational studies, and how we can use
 
 ## JITT
 
-Complete before **Sunday Feb 28th (11:59 pm)**. You can find the assignment <a href=”https://forms.gle/C9iaUUgi6wKMHSX98” onClick=”_gaq.push([‘_trackEvent’, ‘jitt’, ‘click’, ‘jitt4’, ‘0’]);”> here</a>.
+Complete before **Sunday Feb 28th (11:59 pm)**. You can find the assignment [here](https://forms.gle/C9iaUUgi6wKMHSX98).
 
 ## Slides
 
