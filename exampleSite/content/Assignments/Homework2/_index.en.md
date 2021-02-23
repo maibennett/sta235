@@ -23,7 +23,7 @@ Remember that you need to submit both a **written assignment** with your answers
 - Load **all** packages you are using at the beginning of your script (follow the R scripts we see in class as an example).
 - Don't edit **anything** in your data outside your script (everything should be done on the same R file).
 - **Load the data from the URL provided**. Don't load csv files locally, if possible.
-- An example code that loads all the data can be found {{% button href="https://sta235.netlify.app/Assignments/Homework2/code/STA235_Homework2_examplescript.R" icon="fas fa-download" icon-position="right" %}}here{{% /button %}} 
+- An example code that loads all the data can be found <a onclick="ga('send', 'event', 'External-Link','click','HW2code','0','Link');" href="https://sta235.netlify.app/Assignments/Homework2/code/STA235_Homework2_examplescript.R" target="_blank" class="btn btn-default">here<i class="fas fa-download"></i></a>
 
 
 {{% notice tip %}}
