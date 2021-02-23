@@ -38,6 +38,6 @@ Remember that you need to submit both a **written assignment** with your answers
 
 ### Files
 
-You can view the first homework assignment on a different tab {{% button href="https://sta235.netlify.app/Assignments/Homework2/code/STA235_Homework2.html" %}}here{{% /button %}}:
+You can view the first homework assignment on a different tab <a onclick="ga('send', 'event', 'External-Link','click','HW2','0','Link');" href="https://sta235.netlify.app/Assignments/Homework2/code/STA235_Homework2.html" target="_blank" class="btn btn-default">here</a>:
 
 {{< slides src="https://sta235.netlify.app/Assignments/Homework2/code/STA235_Homework2.html" >}}

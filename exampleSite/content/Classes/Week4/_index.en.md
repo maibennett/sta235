@@ -46,7 +46,8 @@ Complete before **Sunday Feb 14th (11:59 pm)**. You can find the JITT assignment
 
 ## Code
 
-Here is the R code we will review in class, with some additional data and questions {{% button href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/code/sp2021_sta235_6_RCT.R" icon="fas fa-code" icon-position="right" %}}Download{{% /button %}}
+Here is the R code we will review in class, with some additional data and questions <a onclick="ga('send', 'event', 'External-Link','click','code4','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/code/sp2021_sta235_6_RCT.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+
 
 ## Class Videos
 
