@@ -1473,7 +1473,7 @@ D <- distmat(z, x)
 ```
 
 ---
-# How matchy-matchy
+# Making groups comparable
 
 - Using the previous balancing scores (or covariates directly!) we can **.darkorange[match observations between the treatment and control group]**
 
@@ -1517,6 +1517,28 @@ D <- distmat(z, x)
 .center2[
 .box-5LA[Let's go to R]
 ]
+
+---
+# Propensity score matching
+
+.box-1[Super popular method]
+
+--
+
+.box-3[There are mathy reasons why it's not great<br>for matching *for identification purposes*]
+
+--
+
+.box-7[Some reserachers argue propensity scores are fine!<br>Using them for matching isn't!]
+
+---
+
+class: bg-full
+background-image: url("https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week5/1_Matching/images/gary-king.png")
+
+???
+
+https://gking.harvard.edu/files/gking/files/pan1900011_rev.pdf
 
 ---
 # Weighting, the cousin of matching
