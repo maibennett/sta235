@@ -1563,7 +1563,7 @@ $$w_{ATT} = \frac{e_i\cdot Z_i}{e_i} + \frac{e_i(1-Z_i)}{1-e_i}$$
 
 --
 
-- We can use the same formulas, but now $e_i$ is not the probability of being assigned to treatment, but the probability of **.darkorange[being in the population sample]**.
+- We can use the same formula for $ATT$, but now $e_i$ is not the probability of being assigned to treatment, but the probability of **.darkorange[being in the population sample]**.
 
 --
 

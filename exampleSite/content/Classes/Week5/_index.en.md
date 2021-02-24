@@ -38,4 +38,4 @@ There will be **no JITT** this week.
 
 ## Code
 
-<!-- [Here](https://github.com/maibennett/sta235/blob/main/exampleSite/content/Classes/Week3/1_PotentialOutcomes/code/sp2021_sta235_5_PO.R) is the R code we will review in class, with some additional data and questions. -->
+Here is the R code we will review in class, with some additional data and questions <a onclick="ga('send', 'event', 'External-Link','click','code5','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/code/sp2021_sta235_7_Matching.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
