@@ -1529,16 +1529,13 @@ D <- distmat(z, x)
 
 --
 
-.box-7[Some reserachers argue propensity scores are fine!<br>Using them for matching isn't!]
+.box-7[Some researchers argue propensity scores are fine!<br>Using them for matching isn't!]
 
 ---
 
-class: bg-full
-background-image: url("https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week5/1_Matching/images/gary-king.png")
-
-???
-
-https://gking.harvard.edu/files/gking/files/pan1900011_rev.pdf
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week5/1_Matching/images/gary-king.png)
+]
 
 ---
 # Weighting, the cousin of matching
