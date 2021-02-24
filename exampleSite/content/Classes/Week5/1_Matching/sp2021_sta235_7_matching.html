@@ -112,7 +112,7 @@ No more chance[s]
 
 .pull-left[
 .center[
-.![](https://media.giphy.com/media/fu2rIw18eIDz1YCrCT/giphy.gif)
+.![:scale 80%](https://media.giphy.com/media/fu2rIw18eIDz1YCrCT/giphy.gif)
 ]
 ]
 
@@ -161,14 +161,18 @@ No more chance[s]
 ---
 # The assignment mechanism
 
+.pull-left[
 - **.darkorange[Key component]** in causal analysis:
 
   - In RCTs, **.darkorange[assignment mechanism]** is *known*.
   
   - But in **.darkorange[observational studies?]**
-  
+
+]
+.pull-right[
 .center[
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week5/1_Matching/images/confusion.png)]
+![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week5/1_Matching/images/confusion.png)]
+]
 
 ---
 # The assignment mechanism (cont.)
@@ -187,22 +191,6 @@ No more chance[s]
 
 .box-7[Unconfounded assignment]
 
----
-# The assignment mechanism (cont.)
-
-- For now, we will consider 3 assumptions:
-
-
-
-.box-2t[Assignment probability is a function of potential outcomes and covariates]
-
---
-
-.box-4t[Nonzero probability for each treatment value, for each unit]
-
---
-
-.box-7t[Assignment mechanism doesn't depend on potential outcomes]
 
 ---
 # Individualistic assignment
@@ -260,15 +248,564 @@ No more chance[s]
 ]
 
 ---
+# How do we adjust for observables?
+
+- One way we have seen so far is **.darkorange[regression adjustment]**
+
+`$$Y_i = \beta_0 + \beta_1 Z_i + \beta_2 X_i + \varepsilon_i$$`
+--
+&lt;br&gt;
+&lt;br&gt;
+.box-2[Under unconfoundedness, how would we interpret &amp;beta;&lt;sub&gt;1&lt;/sub&gt;?]
+
+---
+# How do we adjust for observables?
+
+- One way we have seen so far is **.darkorange[regression adjustment]**
+
+`$$Y_i = \beta_0 + \beta_1 Z_i + \beta_2 X_i + \varepsilon_i$$`
+
+&lt;br&gt;
+&lt;br&gt;
+.box-2[&amp;beta;&lt;sub&gt;1&lt;/sub&gt; is the effect of Z on Y, holding X constant]
+
+---
+# How do we adjust for observables?
+
+- But what if our data looks like this? Do you see a problem?
+
+&lt;img src="sp2021_sta235_7_matching_files/figure-html/extrapolate_ols1-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# How do we adjust for observables?
+
+- But what if our data looks like this? Do you see a problem?
+
+&lt;img src="sp2021_sta235_7_matching_files/figure-html/extrapolate_ols2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# How do we adjust for observables?
+
+- But what if our data looks like this? Do you see a problem?
+
+&lt;img src="sp2021_sta235_7_matching_files/figure-html/extrapolate_ols3-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Finding your perfect match...
+]
+
+---
+# Two peas in a pod
+
+- One other route we could take is to **.darkorange[find similar units]** in our sample and **.darkorange[group them together]**.
+
+--
+
+.pull-left[
+- There are different ways to do it:
+
+  - E.g. subclassification, matching.
+]
+.pull-right[
+![](https://media.giphy.com/media/l36kU80xPf0ojG0Erg/giphy.gif)
+]
+
+---
+# Two peas in a pod
+
+- One other route we could take is to **.darkorange[find similar units]** in our sample and **.darkorange[group them together]**.
+
+
+
+.pull-left[
+- There are different ways to do it:
+
+  - E.g. subclassification, matching.
+  
+.box-2t[What do we gain?]  
+]
+.pull-right[
+![](https://media.giphy.com/media/l36kU80xPf0ojG0Erg/giphy.gif)
+]
+
+---
+# Advantages of matching methods
+
+.box-2[Reduce model dependence]
+--
+&lt;br&gt;
+.box-2t[Imbalance → model dependence → researcher discretion → bias]
+
+--
+
+.box-4[Compare like to like]
+--
+&lt;br&gt;
+.box-4t[No extrapolation!]
+
+--
+
+.box-7[Can adjust closely by covariates]
+--
+&lt;br&gt;
+.box-7t[Exact matching, coarsened exact matching, fine balance..]
+
+---
+
+$$
+\color{white}{\beta_0 \text{E}^2}
+$$
+
+
+&lt;img src="sp2021_sta235_7_matching_files/figure-html/matching-general-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+$$
+\color{white}{\beta_0 \text{E}^2} \text{Outcome} = \beta_0 + \beta_1 \text{Education} + \beta_2 \text{Treatment} \color{white}{\beta_0 \text{E}^2}
+$$
+
+
+&lt;img src="sp2021_sta235_7_matching_files/figure-html/matching-dependency1-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+$$
+\text{Outcome} = \beta_0 + \beta_1 \text{Education} + \beta_2 \text{Education}^2 + \beta_3 \text{Treatment}
+$$
+
+
+&lt;img src="sp2021_sta235_7_matching_files/figure-html/dependency2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+$$
+\color{white}{\beta_0 \text{E}^2}
+$$
+
+
+&lt;img src="sp2021_sta235_7_matching_files/figure-html/reduced-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+$$
+\color{white}{\beta_0 \text{E}^2} \text{Outcome} = \beta_0 + \beta_1 \text{Education} + \beta_2 \text{Treatment} \color{white}{\beta_0 \text{E}^2}
+$$
+
+
+&lt;img src="sp2021_sta235_7_matching_files/figure-html/reduced-dependency1-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+$$
+\text{Outcome} = \beta_0 + \beta_1 \text{Education} + \beta_2 \text{Education}^2 + \beta_3 \text{Treatment}
+$$
+
+
+&lt;img src="sp2021_sta235_7_matching_files/figure-html/reduced-dependency2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+.box-4[How do we know we can remove those observations?]
+
+&lt;img src="sp2021_sta235_7_matching_files/figure-html/reduced2-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Subclassification
+
+.pull-left[
+- Very similar to **.darkorange[stratifying]**.
+
+]
+
+.pull-right[
+&lt;img src="sp2021_sta235_7_matching_files/figure-html/subclass1-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Subclassification
+
+.pull-left[
+- Very similar to **.darkorange[stratifying]**.
+
+- Build **.darkorange[combination]** of X1 and X2 (strata).
+]
+
+.pull-right[
+&lt;img src="sp2021_sta235_7_matching_files/figure-html/subclass2-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Subclassification
+
+.pull-left[
+- Very similar to **.darkorange[stratifying]**.
+
+- Build **.darkorange[combination]** of X1 and X2 (strata).
+
+- Compare **.darkorange[within stratum]**.
+]
+
+.pull-right[
+&lt;img src="sp2021_sta235_7_matching_files/figure-html/subclass3-1-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Subclassification
+
+.pull-left[
+- Very similar to **.darkorange[stratifying]**.
+
+- Build **.darkorange[combination]** of X1 and X2 (strata).
+
+- Compare **.darkorange[within stratum]**.
+]
+
+.pull-right[
+&lt;img src="sp2021_sta235_7_matching_files/figure-html/subclass3-2-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Subclassification
+
+.pull-left[
+- Very similar to **.darkorange[stratifying]**.
+
+- Build **.darkorange[combination]** of X1 and X2 (strata).
+
+- Compare **.darkorange[within stratum]**.
+]
+
+.pull-right[
+&lt;img src="sp2021_sta235_7_matching_files/figure-html/subclass3-3-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Subclassification
+
+.pull-left[
+- Very similar to **.darkorange[stratifying]**.
+
+- Build **.darkorange[combination]** of X1 and X2 (strata).
+
+- Compare **.darkorange[within stratum]**.
+]
+
+.pull-right[
+&lt;img src="sp2021_sta235_7_matching_files/figure-html/subclass3-4-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Subclassification
+
+.pull-left[
+- Very similar to **.darkorange[stratifying]**.
+
+- Build **.darkorange[combination]** of X1 and X2 (strata).
+
+- Compare **.darkorange[within stratum]**.
+]
+
+.pull-right[
+&lt;img src="sp2021_sta235_7_matching_files/figure-html/subclass3-5-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Subclassification
+
+.pull-left[
+- Very similar to **.darkorange[stratifying]**.
+
+- Build **.darkorange[combination]** of X1 and X2 (strata).
+
+- Compare **.darkorange[within stratum]**.
+
+]
+
+.pull-right[
+&lt;img src="sp2021_sta235_7_matching_files/figure-html/subclass3-6-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Subclassification
+
+- To estimate the Average Treatment Effect, we take a **.darkorange[weighted average]**:
+
+`$$\hat{ATE}=\sum_{s=1}^S\frac{N_s}{N}(\bar{Y}_{1s}-\bar{Y}_{0s})$$`
+--
+
+.box-3[What happens when we have too many variables to build strata?]
+
+---
+# The curse of dimentionality
+
+.pull-left[
+- When we have too many covariates, the number of strata or groups grow **.darkorange[exponentially]**!
+
+  - E.g. with 4 covariates, each with 5 categories, we have **.darkorange[625 combinations]**!
+
+- Very possible that a stratum only has treatment or control units.
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://media.giphy.com/media/eZkKm90RRqfHrL1MUe/giphy.gif)
+]
+]
+
+---
+# The curse of dimentionality
+
+.pull-left[
+- When we have too many covariates, the number of strata or groups grow **.darkorange[exponentially]**!
+
+  - E.g. with 4 covariates, each with 5 categories, we have **.darkorange[625 combinations]**!
+
+- Very possible that a stratum only has treatment or control units.
+
+.box-5t[What to do?]
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://media.giphy.com/media/eZkKm90RRqfHrL1MUe/giphy.gif)
+]
+]
+
+---
+# Breaking the curse: Balancing scores
+
+- Want to **.darkorange[reduce the dimentionality]** of our covariates
+
+--
+&lt;br&gt;
+&lt;br&gt;
+- A balancing score `\(b(x)\)` is a function of the covariates such that:
+
+`$$Z_i \perp\!\!\!\perp X_i|b(X_i)$$`
+--
+
+- This means that conditioning on the balancing score is **.darkorange[enough to remove bias]** associated to the covariates.
+
+- Under unconfoundedness:
+
+`$$Z_i \perp\!\!\!\perp Y_i(0),Y_i(1)|b(X_i)$$`
+
+--
+
+- There are different balancing scores:
+
+  - E.g. propensity scores, mahalanobis distance.
+  
+---
+# Estimating balancing scores
+
+.box-5LA[Propensity score]
+
+`$$\log(\frac{p}{1-p}) = \beta_0 + beta_1X_1 + \beta_2X_2 + ... + \beta_p X_p + \varepsilon$$`
+where `\(p = Pr(Z=1)\)`
+
+--
+
+```r
+e &lt;- predict(glm(z ~ x1 + x2 + x3, data = d, family = binomial(link="logit")),
+             type="response")
+```
+
+---
+# Estimating balancing scores
+
+.box-7LA[Mahalanobis Distance]
+
+$$D_M(\mathbf{x}) = \sqrt{(\mathbf{x}-\mathbf{\mu})^TS^{-1}(\mathbf{x}-\mathbf{\mu})} $$
+where `\(\mathbf{x}\)` is the covariate vector for observation `\(i\)`, `\(\mathbf{\mu}\)` is the mean vector of covariates for the sample, and `\(S\)` is the covariance matrix. 
+
+--
+
+```r
+Sx &lt;- cov(x)
+D &lt;- mahalanobis(x, colMeans(x), Sx)
+
+# We can also use a rank-based Mahalanobis distance matrix
+library(designmatch)
+
+D &lt;- distmat(z, x)
+```
+
+---
+# How matchy-matchy
+
+- Using the previous balancing scores (or covariates directly!) we can **.darkorange[match observations between the treatment and control group]**
+
+--
+
+.box-4[Step 1: Preprocessing]
+
+.box-4t[Try to model the treatment assignment]
+
+--
+
+.box-5[Step 2: Estimation]
+
+.box-5t[Use the new trimmed/preprocessed data to build a model, calculate difference in means, etc.]
+
+---
+# How matchy-matchy
+
+- There are different matching methods (and different ways to use them!)
+
+--
+
+.box-2[Nearest neighbor (NN)]
+
+.box-2t[Use balancing scores; Greedy algorithm]
+
+--
+
+.box-4[Optimal matching]
+
+.box-4t[Solves an optimization problem; slow on large samples]
+
+--
+
+.box-7[Mixed Integer Programming (MIP) matching]
+
+.box-7t[Balances covariates directly; can generate smaller samples]
+
+---
+
+.center2[
+.box-5LA[Let's go to R]
+]
+
+---
+# Weighting, the cousin of matching
+
+- We can also use **.darkorange[weights]** to make two samples look alike.
+
+--
+&lt;br&gt;
+&lt;br&gt;
+.box-4[Inverse Probability Weighting (IPW)]
+
+- Make some observations more important than others.
+
+---
+# Weighting, the cousin of matching
+
+- You can make the treatment and the control group look more like each other:
+
+`$$w_{ATE} = \frac{Z_i}{e_i} + \frac{1-Z_i}{1-e_i}$$`
+
+- Observations in the control group will have a weight of `\(\frac{1}{1-e_i}\)`, while observations in the treatment group will have weights of `\(\frac{1}{e_i}\)`
+
+--
+
+.box-3[What happens with obs that are very likely to be in the treatment group?]
+
+---
+# Weighting, the cousin of matching
+
+- You can make the treatment and the control group look more like each other:
+
+`$$w_{ATT} = \frac{e_i\cdot Z_i}{e_i} + \frac{e_i(1-Z_i)}{1-e_i}$$`
+
+- Observations in the control group will have a weight of `\(\frac{e_i}{1-e_i}\)`, while observations in the treatment group will have weights of 1
+
+--
+
+.box-5[Why do observations in the treatment group get a weight of 1?]
+
+---
+# Weighting for approximating a population
+
+- If we assume that our sample was selected on observables, and we want it to **.darkorange[look more like a population of interest]**, we can also do that!
+
+--
+
+- We can use the same formulas, but now `\(e_i\)` is not the probability of being assigned to treatment, but the probability of **.darkorange[being in the population sample]**.
+
+--
+
+- For this type of weighting, we only need population covariates.
+
+---
+
+.center2[
+.box-3LA[Let's go to R]
+]
+
+---
+# The shortcomings of matching
+
+- Many researchers missuse matching and **.darkorange[confuse it with an identification strategy]**
+
+--
+
+- In terms of identification, **.darkorange[matching still relies on selection on observables]**
+
+--
+
+.box-2[You need other source of exogeneous variation!]
+
+--
+
+- Claiming that you can identify a **.darkorange[causal effect]** just by using matching is almost the same as claiming this using a regression approach.
+
+.box-7[Not a good idea...]
+
+---
+# Don't get it twisted
+
+.pull-left[
+
+- Matching works great as an **.darkorange[adjustment method]**.
+
+- Combined with **.darkorange[other identification strategies]**, it can improve results!
+
+]
+.pull-right[
+.center[
+![](https://media.giphy.com/media/kBNhZkdEPOgoB8p2nT/giphy.gif)
+]
+]
+
+---
+# Main takeaways
+
+.pull-left[
+.center[
+![](https://media.giphy.com/media/xThtalMViID4iGemWI/giphy-downsized-large.gif)
+]
+]
+.pull-right[
+- Matching and weighting methods can be great tools for your analysis.
+
+  - Create more similar groups of comparisons.
+
+  - Reduce model dependence
+  
+  - Even help with external validity (under assumptions)
+]
+
+---
+# Next week
+
+- We will look at some **.darkorange[identification strategies]** for observational studies:
+
+  - Natural experiments and differences-in-differences.
+  
+- What **.darkorange[assumptions]** need to hold?
+
+- How do we **.darkorange[identify a natural experiment]**?
+
+- What does **.darkorange[DD]** buy us?
+
+---
 # References
 
-- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 1*.
+- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 2*.
 
 - Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 7: Randomization and Matching, Course at BYU*
 
-- Imbens, G. and D. Rubin. (2015). "Causal Inference for Statistics, Social, and Biomedical Sciences: An Introduction". *Chapter 1*
+- Imbens, G. and D. Rubin. (2015). "Causal Inference for Statistics, Social, and Biomedical Sciences: An Introduction". *Chapter 3*
 
-- Young, S. (2014). "Improving Library User Experience with A/B Testing: Principles and Process". *Weave. Vol 1, Issue 1.*
+- Cunningham, S. (2021). "Causal Inference: The Mixtape". *Chapter 5*
 
 
 &lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week4/1_RCT/sp2021_sta235_6_RCT.html') --&gt;

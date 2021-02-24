@@ -32,9 +32,9 @@ There will be **no JITT** this week.
 
 ## Slides
 
-<!-- You can find the first slides for the class [here](https://sta235.netlify.app/Classes/Week3/1_PotentialOutcomes/sp2021_sta235_5_PotentialOutcomes.html):
+{{% button href="https://sta235.netlify.app/Classes/Week5/1_Matching/sp2021_sta235_7_matching.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week5/1_Matching/sp2021_sta235_7_matching.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week3/1_PotentialOutcomes/sp2021_sta235_5_PotentialOutcomes.html" >}} -->
+{{< slides src="https://sta235.netlify.app/Classes/Week5/1_Matching/sp2021_sta235_7_matching.html" >}}
 
 ## Code
 
