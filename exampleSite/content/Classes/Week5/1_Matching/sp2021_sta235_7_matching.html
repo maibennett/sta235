@@ -597,7 +597,7 @@ $$
 
 .box-5LA[Propensity score]
 
-`$$\log(\frac{p}{1-p}) = \beta_0 + beta_1X_1 + \beta_2X_2 + ... + \beta_p X_p + \varepsilon$$`
+`$$\log(\frac{p}{1-p}) = \beta_0 + \beta_1X_1 + \beta_2X_2 + ... + \beta_p X_p + \varepsilon$$`
 where `\(p = Pr(Z=1)\)`
 
 --
@@ -606,6 +606,17 @@ where `\(p = Pr(Z=1)\)`
 e &lt;- predict(glm(z ~ x1 + x2 + x3, data = d, family = binomial(link="logit")),
              type="response")
 ```
+
+---
+# Estimating balancing scores
+
+.box-5LA[Propensity score]
+
+- Importance of overlap region
+
+--
+&lt;img src="sp2021_sta235_7_matching_files/figure-html/overlap-1.svg" style="display: block; margin: auto;" /&gt;
+
 
 ---
 # Estimating balancing scores
