@@ -126,7 +126,7 @@ No more chance[s]
 
 .pull-left[
 .center[
-.![](https://media.giphy.com/media/fu2rIw18eIDz1YCrCT/giphy.gif)
+.![:scale 80%](https://media.giphy.com/media/fu2rIw18eIDz1YCrCT/giphy.gif)
 ]
 ]
 
@@ -168,7 +168,7 @@ No more chance[s]
   - But in **.darkorange[observational studies?]**
   
 .center[
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week5/1_Matching/images/unconfound1.png)]
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week5/1_Matching/images/confusion.png)]
 
 ---
 # The assignment mechanism (cont.)
@@ -204,6 +204,39 @@ No more chance[s]
 
 .box-7t[Assignment mechanism doesn't depend on potential outcomes]
 
+---
+# Individualistic assignment
+
+- Limits the dependence of treatment assignment for unit `\(i\)` on the outcomes and assignments for other units.
+
+- For some function `\(q(\cdot) \in [0,1]\)`:
+
+`$$p_i(\mathbf{X},\mathbf{Y}(0),\mathbf{Y}(1)) = q(X_i,Y_i(0),Y_i(1))$$`
+--
+&lt;br&gt;
+&lt;br&gt;
+.box-6LA[From last class, can you think of an example where this doesn't hold?]
+
+---
+# Probabilistic assignment
+
+- Nonzero probability for each treatment value, for each unit.
+
+`$$0 &lt; p_i(\mathbf{X},\mathbf{Y}(0),\mathbf{Y}(1)) &lt; 1 \ \ \forall \ i = 1,...,N$$`
+  ,for each possible `\(\mathbf{X},\mathbf{Y}(0),\mathbf{Y}(1)\)`
+  
+--
+&lt;br&gt;
+&lt;br&gt;
+.box-4LA[When could this assumption fail?]
+---
+#Unconfounded assignment
+
+- The assignment mechanism does not depend on the potential outcomes:
+
+`$$Pr(\mathbf{Z}|\mathbf{X},\mathbf{Y}(0),\mathbf{Y}(1)) = Pr(\mathbf{Z}|\mathbf{X},\mathbf{Y'}(0),\mathbf{Y'}(1))$$`
+  ,for all possible `\(\mathbf{Z}, \mathbf{X},\mathbf{Y}(0),\mathbf{Y}(1), \mathbf{Y'}(0),\)` and `\(\mathbf{Y'}(1)\)`
+  
 ---
 # Selection on observables
 
