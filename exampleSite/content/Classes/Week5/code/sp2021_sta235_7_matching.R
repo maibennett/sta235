@@ -18,7 +18,7 @@ library(generics)
 library(estimatr)
 library(designmatch)
 library(MatchIt)
-
+library(broom)
 
 #####################################################################
 
@@ -132,6 +132,9 @@ for(i in 1:length(slice)){
   }
 }
 
+# I'll save this smaller sample so you can download it directly
+# You can load it directly from here:
+#d_sample <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/1_RCT/data/sample_govt.csv") 
 
 ## Analyze the results of the RCT
 
@@ -139,6 +142,8 @@ for(i in 1:length(slice)){
 summary(estimatr::lm_robust(vote02 ~ treat_real + strata, data = d_sample))
 
 summary(estimatr::lm_robust(vote02 ~ treat_real + strata + persons + vote00 + vote98 + newreg + age + female2, data = d_sample))
+
+#Question: Why are results different between both models? Look at the SE too!
 
 #########################################
 
@@ -166,17 +171,94 @@ d_m1 <- d_sample[t_id,] %>% add_row(d_sample[c_id,])
 # Check whether it looks good:
 table(d_m1$contact) #Same number of treatment and controls!
 
+# Let's check for balance
+d_m1_covs <- d_m1 %>% dplyr::select(persons,vote00,vote98,newreg,age,female2)
+
+meantab(d_m1_covs,d_m1$contact,which(d_m1$contact==1),which(d_m1$contact==0))
+
 # We can run the same OLS as before (now using contact instead of treatment assignment):
 summary(estimatr::lm_robust(vote02 ~ contact + strata + persons + vote00 + vote98 + newreg + age + female2, data = d_sample))
 
 # Let's compare it to the matched sample (remember that we matched them on their covariates, so we don't adjust for anything... should we?):
 summary(estimatr::lm_robust(vote02 ~ contact, data = d_m1))
 
+#Questions: Should I use covariates in the matching model?
+
+# Let's do some IPW!
+
+# Estimate the model for the PS
+logit_e <- glm(contact ~ strata + persons + vote00 + vote98 + newreg + age + female2, data = d_sample, family = binomial(link = "logit"))
+
+#Calculate the PS
+d_sample_aug <- broom::augment(logit_e, d_sample, type.predict = "response")
+
+#Let's calculate the weights for the ATE and ATT:
+d_sample_aug <- d_sample_aug %>% mutate(w_ate = contact/.fitted + (1-contact)/(1-.fitted),
+                                        w_att = .fitted*contact/.fitted + .fitted*(1-contact)/(1-.fitted))
+
+# Let's check the balance table using weights. Here, the cobalt package is useful
+library(cobalt)
+
+d_sample_covs <- d_sample_aug %>% dplyr::select(persons,vote00,vote98,newreg,age,female2)
+
+bal.tab(d_sample_covs,d_sample_aug$contact, weights = d_sample_aug$w_ate) #Question: How does it compare with the balance through matching?
+
+# We use weights in the Linear Regression to estimate the ATE or ATT.
+summary(estimatr::lm_robust(vote02 ~ contact, data = d_sample_aug, weights = w_ate))
+
+summary(estimatr::lm_robust(vote02 ~ contact, data = d_sample_aug, weights = w_att))
+
+## Question: Why are results different? Did you expect that?
 
 #######################
 
-# Now we run the same but using a optimal matching. (Note: Usually to run this option you need to install the optmatch package)
-m1opt <- matchit(contact ~ strata + persons + vote00 + vote98 + newreg + age + female2, data = d_sample,
-               method = "subclass", exact = ~ strata)
+# Now we run the same but using subclassification
+m1sub <- matchit(contact ~ strata + persons + vote00 + vote98 + newreg + age + female2, data = d_sample,
+               method = "subclass")
 
-# Question: How do results change between m1 and m1opt? Complete the code with the same stuff we did before.
+# Question: How do results change between m1 and m1sub? Complete the code with the same stuff we did before.
+
+
+#####################
+
+# Finally, let's do some MIP matching. We will need designmatch package:
+
+t_ind <- d_sample$contact #the treatment variable
+subset_weight <- 1 #We are doing cardinality matching (finding the largest sample possible under the balancing restrictions), so we set it to 1
+
+#Moment balance
+mom_covs <- d_sample[,c("persons","vote00","vote98","age")] #covariates we will balance at the mean
+mom_tols <- round(absstddif(mom_covs, t_ind, .05), 2) #We want a max difference of .05 SD 
+mom = list(covs = mom_covs, tols = mom_tols)
+
+# Fine balance
+fine_covs = d_sample[,c("newreg","female2")] #I want to match the distribution of new registered voters and female. 
+fine = list(covs = fine_covs)
+
+# Exact matching
+exact_covs = cbind(d_sample$state,d_sample$competiv)
+exact = list(covs = exact_covs)
+
+# Solver options
+t_max = 60*5
+solver = "glpk"
+approximate = 1
+solver = list(name = solver, t_max = t_max, approximate = approximate,
+              round_cplex = 0, trace = 0)
+
+# Match                   
+out = bmatch(t_ind = t_ind, dist_mat = NULL, subset_weight = subset_weight, 
+             mom = mom, fine = fine, exact = exact, solver = solver)              
+
+# Indices of the treated units and matched controls
+t_id = out$t_id  
+c_id = out$c_id	
+
+# Time
+out$time/60
+
+# Matched group identifier (who is matched to whom)
+out$group_id
+
+# Assess mean balance
+meantab(mom_covs, t_ind, t_id, c_id)
