@@ -1141,3 +1141,10 @@ pre .copy-to-clipboard:hover {
 option {
     color: initial;
 }
+
+code.has-jax {
+    -webkit-font-smoothing: antialiased;
+    background: inherit !important;
+    border: none !important;
+    font-size: 100%;
+}
