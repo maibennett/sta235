@@ -265,6 +265,28 @@ library(extrafont)
 
 ```
 
+# Reminders
+
+.box-3LA[Homework 2 is due next Monday (noon)]
+
+--
+- Remember to ask your questions **.darkorange[before the weekend]**
+--
+
+- I will make **.darkorange[additional OH]** available if they get full.
+
+- Remember to **.darkorange[contact me]** if you need to meet another time.
+
+---
+# Reminders (cont.)
+
+.box-5LA[Class participation increases learning]
+
+--
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_Natural_Experiments/images/tweet_question.png)]
+
+---
 # Last class
 
 .pull-left[
@@ -338,25 +360,38 @@ Is there randomness out there?
 .box-6[Context matters!]
 
 ---
-# Introduction to observational studies (cont.)
+# Potential outcomes in Observational Studies
 
-.pull-left[
-.center[
-.![:scale 80%](https://media.giphy.com/media/fu2rIw18eIDz1YCrCT/giphy.gif)
-]
-]
+- The same **.darkorange[potential outcomes framework]** that we reviewed for RCTs also work with observational studies.
 
-.pull-right[
-- Moving away from the core assumption of RCTs: that **.darkorange["the probability of treatment assignment is a known function"]** (Imbens & Rubin, 2015).
+--
 
-]
+.box-2[Steps to identify a Natural Experiment:]
+
+--
+
+.box-3t[1. Identify treatment groups: What is the control status?]
+
+--
+
+.box-5t[2. Identify your estimand of interest: Write it down in terms of PO!]
+
+--
+
+.box-7t[3. Identify potential threats to causality: Is this as good as random?]
 
 ---
-# Introduction to observational studies (cont.)
+# A true natural experiment: The Oregon Health Plan
 
-.pull-left[
+.pull-left[- In 2008, Oregon implemented a **.darkorange[limited expansion of Medicaid]**.
+
+- **.darkorange[Target population]**: Low-income adults.
+
+- People selected through a **.darkorange[lottery]**.]
+
+.pull-right[
 .center[
-.![:scale 80%](https://media.giphy.com/media/fu2rIw18eIDz1YCrCT/giphy.gif)
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_Natural_Experiments/images/map1_edited.png))
 ]
 ]
 
