@@ -8,7 +8,7 @@ disableToc: true
 
 ## What we will cover
 
-In this class we will cover Regression Discontinuity Designs, and how we can use assignment through running variables as to invoke the CIA.  
+In this class we will cover Regression Discontinuity Designs, and how we can use assignment through a running variable to invoke the CIA.  
 
 ## Recommended readings/videos
 
