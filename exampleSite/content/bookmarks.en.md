@@ -32,7 +32,7 @@ Questions some time arise either in class or on the JITTs. Here, I'll leave some
 
 - *How do I interpret log transformations of variables in a linear regression?*
 
-**Answer**: A lot of the time, we want to transform our dependent variable `$y$` to `$\log(y)$`, so that it's normally distributed (e.g. income), or sometimes we could also have a covariates included in our model in a log form. How do we interpret the coefficients in a linear regression model under these transformations? A simple approximation can be made given the differentiation of the logarithm (e.g. `$\frac{\partial \log(x)}{\partial x} = \frac{1}{x}$`), and you can actually interpret them as percentage changes! Take a look at this article to see how to exactly interpret these coefficients, depending on whether your dependent or independent variable (or both!) are in log form. {{% button href="https://data.library.virginia.edu/interpreting-log-transformations-in-a-linear-model/" icon="fas fa-external-link-alt" icon-position="right" %}}Go to article{{% /button %}}
+**Answer**: A lot of the time, we want to transform our dependent variable `$ y $` to `$ \log(y) $`, so that it's normally distributed (e.g. income), or sometimes we could also have a covariates included in our model in a log form. How do we interpret the coefficients in a linear regression model under these transformations? A simple approximation can be made given the differentiation of the logarithm (e.g. `$ \frac{\partial \log(x)}{\partial x} = \frac{1}{x} $`), and you can actually interpret them as percentage changes! Take a look at this article to see how to exactly interpret these coefficients, depending on whether your dependent or independent variable (or both!) are in log form. {{% button href="https://data.library.virginia.edu/interpreting-log-transformations-in-a-linear-model/" icon="fas fa-external-link-alt" icon-position="right" %}}Go to article{{% /button %}}
 
 - *How can I use a function in R if I haven't seen it before?*
 
@@ -45,6 +45,6 @@ Questions some time arise either in class or on the JITTs. Here, I'll leave some
 
 - *Can you explain again the plot for statistical power?*
 
-**Answer**: Yes! Here's a short clip that I hope makes it more clear. Be sure to reach out if you are still having questions about this. PS: In the Lady Tasting Tea example, as someone noted, what we obtained is the exact p-value for that test, and we were able to reject the null at a 5% significance level. If you had set a 1% threshold of `$\alpha$`, though, we wouldn't have been able to reject it and our test wouldn't have had enough power!
+**Answer**: Yes! Here's a short clip that I hope makes it more clear. Be sure to reach out if you are still having questions about this. PS: In the Lady Tasting Tea example, as someone noted, what we obtained is the exact p-value for that test, and we were able to reject the null at a 5% significance level. If you had set a 1% threshold of `$ \alpha $`, though, we wouldn't have been able to reject it and our test wouldn't have had enough power!
 
 {{< youtube src="https://www.youtube.com/embed/fPNcC1Ta6dI?controls=0" >}}
