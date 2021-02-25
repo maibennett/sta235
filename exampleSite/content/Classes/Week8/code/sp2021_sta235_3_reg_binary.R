@@ -1,0 +1,211 @@
+##############################################################
+### Title: "Week 2 - Multiple Regression and Binary Outcomes"
+### Course: STA 235
+### Semester: Spring 2021
+### Professor: Magdalena Bennett
+##############################################################
+
+# Clears memory
+rm(list = ls())
+# Clears console
+cat("\014")
+
+### Load libraries
+# If you don't have one of these packages installed already, you will need to run install.packages() line
+library(tidyverse)
+library(ggplot2)
+library(generics)
+library(ggcorrplot)
+
+################################################################################
+### Statistical adjustment
+################################################################################
+
+# Read weekly sales data:
+# p1: price for product 1
+# p2: price for product 2
+# Sales: sales for product 1 (compared to a baseline)
+
+sales <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/PricesSales.csv")
+
+#Look at some of the data
+head(sales)
+
+
+# Let's run a linear model
+# - Use lm() to run a linear model
+# - The function `summary()` provides additional information (like SE and R2)
+summary(lm(Sales ~ p1 + p2, data = sales))
+
+# Obtain fitted values and residuals (you can do this with the predict function as well)
+# augment() created the dataset immediately
+
+sales_fitted <- augment(lm(Sales ~ p1 + p2, data = sales))
+
+# Plot the density function of the residuals (check for normality)
+ggplot(data = sales_fitted, aes(x = .std.resid)) + 
+  geom_density(color = "#E16462", lwd = 1.3)+
+  theme_bw()+
+  xlab("Std. Residuals") + ylab("Density")
+
+
+# Plot the residuals against the fitted values to check for homoskedasticity (or heteroskedasticity)
+ggplot(data = sales_fitted, aes(x = .fitted, y = .std.resid)) + 
+  geom_point(color = "#E16462", fill = alpha("#E16462",0.4), pch=22, size = 3)+ #scatter plot
+  geom_smooth(method = "lm", color = "dark grey", se = FALSE, lty = 2, lwd = 1.3) + #fit the regression line
+  theme_bw()+
+  xlab("Sales_hat") + ylab("Residuals") 
+
+# Plot the observed sales values against the fitted values (see how well we are predicting)
+ggplot(data = sales_fitted, aes(x = .fitted, y = Sales)) + 
+  geom_point(color = "#900DA4", fill = alpha("#900DA4",0.4), pch=22, size = 3)+
+  geom_smooth(method = "lm", color = "dark grey", se = FALSE, lty = 2, lwd = 1.3) +
+  theme_bw()+
+  xlab("Sales_hat") + ylab("Sales")
+
+
+# What if we only had p1 and not p2? How would the plot look?
+summary(lm(Sales ~ p1, data = sales))
+
+sales_fitted_p1 <- augment(lm(Sales ~ p1, data = sales))
+
+ggplot(data = sales, aes(x = p1, y = Sales)) + 
+  geom_point(color = "#F89441", fill = alpha("#F89441",0.4), pch=22, size = 3)+
+  geom_smooth(method = "lm", color = "dark grey", se = FALSE, lty = 2, lwd = 1.3) +
+  theme_bw()+
+  xlab("Sales_hat") + ylab("Sales")
+
+
+### Beer data
+
+beers <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/beer.csv")
+
+head(beers)
+
+# How does the relationship between height and beers look like?
+ggplot(data = beers, aes(x = height, y = nbeer)) + 
+  geom_point(color = "#F89441", fill = alpha("#F89441",0.4), pch=22, size = 3)+
+  geom_smooth(method = "lm", color = "dark grey", se = FALSE, lty = 2, lwd = 1.3) +
+  theme_bw()+
+  xlab("height") + ylab("nbeer") 
+
+# Let's check out the model
+summary(lm(nbeer ~ height, data = beers))
+
+# What happens now if we control for weight?
+summary(lm(nbeer ~ weight + height, data = beers))
+
+# We can also regress the residuals from the simple model (sales on weight) on height
+# to see what's left there to explain:
+
+beers_fitted_weight <- augment(lm(nbeer ~ weight, data = beers))
+beers_fitted_weight$height <- beers$height
+
+ggplot(data = beers_fitted_weight, aes(x = height, y = .std.resid)) + 
+  geom_point(color = "#F89441", fill = alpha("#F89441",0.4), pch=22, size = 3)+
+  geom_smooth(method = "lm", color = "dark grey", se = FALSE, lty = 2, lwd = 1.3) +
+  theme_bw()+
+  xlab("height") + ylab("resid(nbeer|weight)")
+
+# Let's look at the correlation between variables:
+M <-cor(beers)
+
+ggcorrplot(M, method = "circle", outline.color = "white", ggtheme = ggplot2::theme_bw)
+
+# You can keep playing with the data! Add female, age, etc.
+
+# For example, add weight and weight^2
+summary(lm(nbeer ~ weight + I(weight^2), data = beers)) 
+
+# Create a new factor variable (it's fake, but it will help to illustrate the point)
+set.seed(100) # we set a seed to ensure replication
+beers$year = sample(c("freshmen","sophmore","junior","senior"),nrow(beers),replace = TRUE) # generate a random variable of the year the student is in.
+
+table(beers$year)
+
+summary(lm(nbeer ~ weight + factor(year), data = beers)) # Which one is the base category?
+
+# Is there a difference between the association between weight and nbeers for males and females?
+# Let's look at a plot!
+
+ggplot(data = beers, aes(x = weight, y = nbeer, fill = factor(female), color = factor(female))) + # Include the grouping variable as a factor.
+  geom_point(pch=22, size = 3)+
+  geom_smooth(method = "lm", se = FALSE, lty = 2, lwd = 1.3) +
+  theme_bw()+
+  xlab("weight") + ylab("nbeer")
+
+####### Binary outcomes
+
+library(AER)
+data("HMDA")
+
+# To know what the variables are, you can type ?HMDA on the console
+hmda <- data.frame(HMDA)
+
+head(hmda)
+
+#Let's transform the variable deny into a 0-1 variable:
+hmda$deny = as.numeric(hmda$deny) - 1
+
+## Linear Probability Model
+
+# Let's run a simple model:
+summary(lm(deny ~ pirat, data = hmda))
+
+# Let's look at the fitted regression line and the data:
+ggplot(data = hmda, aes(x = pirat, y = deny)) + 
+  geom_point(color = "#5601A4", fill = alpha("#5601A4",0.4), pch=21, size = 3)+
+  geom_smooth(method = "lm", color = "#BF3984", se = FALSE, lty = 1, lwd = 1.3) +
+  
+  geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1)+
+  geom_hline(aes(yintercept = 1), color="dark grey", lty = 2, lwd=1)+
+  
+  theme_bw()+
+  xlab("Payment/Income ratio") + ylab("Deny")
+
+# Let's run robust standard errors now
+library(estimatr)
+
+model2 <- estimatr::lm_robust(deny ~ pirat, data = hmda)
+
+summary(model2)
+
+# We can add more variables too:
+model3 <- estimatr::lm_robust(deny ~ pirat + factor(afam), data = hmda)
+summary(model3)
+
+## Logistic Regression
+logit1 <- glm(deny ~ pirat, family = binomial(link = "logit"),
+              data = hmda)
+
+prob <- predict(logit1, type = "response") # probabilities
+
+# Let's plot the predicted probabilities using logit and the data that we have!
+ggplot(data = hmda, aes(x = pirat, y = deny)) + 
+  geom_point(color = "#5601A4", fill = alpha("#5601A4",0.4), pch=21, size = 3)+ # This is a scatter plot for the data
+  geom_line(aes(x = pirat, y = prob), color = "#BF3984", lty = 1, lwd = 1.3) + #This are the fitted probabilities
+  
+  geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1)+
+  geom_hline(aes(yintercept = 1), color="dark grey", lty = 2, lwd=1)+
+  
+  theme_bw()+
+  xlab("Payment/Income ratio") + ylab("Deny")
+
+
+# To interpret coefficients, we need to choose the values for the other variables (in this case,
+# the mean for payments to income ratio)
+logit2 <- glm(deny ~ pirat + factor(afam), family = binomial(link = "logit"),
+              data = hmda) # This is the model we are fitting with two covariates
+
+# We need to pass to predict: The model we fitted, the new data we want to fit our probabilities (if we leave blank, it uses the original hmda data)
+# and we need to say type = "response" to get *probabilities* (and not odds, or log odds, or anything else)
+predictions_afam <- predict(logit2, newdata = data.frame("afam" = c("no", "yes"),
+                                                         "pirat" = c(mean(hmda$pirat), mean(hmda$pirat))),
+                            type = "response") 
+
+# These are the predictions for two observations with the same payment/income ratio (the mean of our data)
+# and where one is african american and the other one is not.
+predictions_afam
+
+# Difference between both predictions
+diff(predictions_afam)
