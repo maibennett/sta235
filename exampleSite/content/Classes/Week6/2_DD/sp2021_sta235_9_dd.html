@@ -367,16 +367,96 @@ where `\(Treat = 1\)` for the treatment group, and `\(Post=1\)` for the after pe
 
 
 .box-7[&amp;beta;&lt;sub&gt;3&lt;/sub&gt; is the causal effect!]
+
+---
+# Some examples: Pokemon Go!
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/2_DD/images/pokemon1.png)]
+
+---
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/2_DD/images/pokemon2.png)]
+---
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/2_DD/images/pokemon3.png)]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Diff-in-Diff Assumptions
+]
+---
+# Assumptions
+
+.box-3LA[Parallel Trends]
+
+--
+
+.box-3tL[In the absence of the intervention, treatment and control group would have changed in the same way]
+
+---
+&lt;br&gt;
+
+&lt;img src="sp2021_sta235_9_dd_files/figure-html/plot-trends-1-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;br&gt;
+
+&lt;img src="sp2021_sta235_9_dd_files/figure-html/plot-trends-2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;br&gt;
+
+
+&lt;img src="sp2021_sta235_9_dd_files/figure-html/plot-trends-3-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Robustness Check
+
+.box-3LA[Parallel Trends]
+
+--
+
+.box-3tL[Check by pretending the treatment happened earlier; if there's an effect, there's likely an underlying trend]
+
+---
+&lt;img src="sp2021_sta235_9_dd_files/figure-html/plot-trends-2-back-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="sp2021_sta235_9_dd_files/figure-html/plot-trends-3-back-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="sp2021_sta235_9_dd_files/figure-html/plot-trends-1-back-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Assumptions
+
+.box-3LA[Treatment timing]
+
+--
+
+.box-3tL[Units often receive treatment at different times,&lt;br&gt;which can distort your estimate!]
+
+---
+
+&lt;img src="sp2021_sta235_9_dd_files/figure-html/gb-trends-1-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="sp2021_sta235_9_dd_files/figure-html/gb-trends-2-1.svg" style="display: block; margin: auto;" /&gt;
+
+
 ---
 # References
 
-- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 2*.
+- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 5*.
 
-- NBER (2021). ["Oregon Health Insurance Experiment Background"](https://www.nber.org/programs-projects/projects-and-centers/oregon-health-insurance-experiment/oregon-health-insurance-experiment-background). *Summary of the policy*.
 
-- Jensen, R. (2007). "The Digital Provide: Information (Technology), Market Performance, and Welfare in the South Indian Fisheries Sector". *Quarterly Journal of Economics*.
-
-&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week6/1_Natural_Experiments/sp2021_sta235_8_natural_experiments.html') --&gt;
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week6/2_DD/sp2021_sta235_9_dd.html') --&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
