@@ -21,7 +21,7 @@ library(MatchIt)
 library(broom)
 library(vtable) #Useful package to visualize data
 library(cobalt)
-library(bacondecomp)
+library(bacondecomp) # for goodman-bacon decomposition
 
 #####################################################################
 
@@ -105,64 +105,233 @@ summary(estimatr::lm_robust(smk_curr_12m ~ treatment, data = d_12m_aug, weights 
 
 #####################################################################
 
-################ Look what Taylor Swift made me do
+############## Candles reviews before and after COVID 
 
-# Create simulated data from Google Trends
-d1 <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/data/taylorswift.csv")
-d2 <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/data/taylorswift_time.csv")
+# Source: Data from Kate Petrova (https://github.com/kateptrv/Candles)
 
-d1 <- d1 %>% mutate(Category..All.categories = as.numeric(Category..All.categories)) %>%
-  filter(!is.na(Category..All.categories))
+# We are going to be looking at a random sample of reviews for the top 3(5) scented and unscented candles before and after COVID, to see how the pandemic affected this product.
+scented <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/data/Scented_all.csv")
+unscented <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/data/Unscented_all.csv")
 
-d2 <- d2 %>% mutate(Category..All.categories = as.numeric(Category..All.categories)) %>%
-  filter(!is.na(Category..All.categories))
+# Scented candles
+s <- scented %>%
+  mutate(Date = as.Date(Date, format = "%d-%b-%y")) %>% # We transform this character variable into date (look at the as.Date() function. You need to be careful with this and give it the right format your date is in)
+  arrange(Date) %>% # We order the dataset by date
+  filter(Date >= "2017-01-01") %>% # We just keep data from 2017 to 2020
+  filter(CandleID <= 3) %>% # Let's keep only the top 3
+  group_by(Date) %>% # Group all this by date and get the mean rating by date
+  summarise(Rating=mean(Rating))
 
-states <- sort(rownames(d1)[-1])
+# Unscented candles
+us <- unscented %>%
+  mutate(Date = as.Date(Date, format = "%d-%b-%y")) %>%
+  arrange(Date) %>%
+  filter(Date >= "2017-01-01") %>%
+  group_by(Date) %>%
+  summarise(Rating = mean(Rating))
 
-for(s in 1:length(states)){
+
+# Let's look at the data
+ggplot(s, aes(x = Date, y = Rating)) + # We first use the scented dataset.
+  geom_vline(xintercept = as.numeric(as.Date("2020-01-20")), colour = "#E16462", lty = 2, lwd = 1.3)+ # We include a vertical line to mark the first COVID case in the US (line is dashed, and instead of 2 you can use "dashed"; I also increase the width of the line (lwd))
+  geom_smooth(method = "loess", size = 1.5, colour = "#900DA4", fill = "#900DA4") + # We will generate a smooth function to see how our data behaves (loess is a local polynomial regression fit for our data)
+  geom_point(alpha = 0.2, colour = "#900DA4")+
+  # Now, we include uscented candles
+  geom_smooth(data = us, aes(x = (as.Date(Date, format = "%d-%b-%y")), y = Rating), method = "loess", size = 1.5, colour = "#F89441", fill = "#F89441") +
+  geom_point(data = us, aes(x = (as.Date(Date, format = "%d-%b-%y")), y = Rating), alpha = 0.2, colour = "#F89441")+
   
-  set.seed(s)
+  labs(x = "Date", y = "Average daily rating (1-5)", title = "Top 3 scented and unscented candles Amazon reviews 2017-2020")+
+  theme_bw()+
+  theme(plot.title = element_text(size=16))+
+  scale_x_date(date_labels = "%m-%Y", date_breaks = "6 month") +
+
+#Question: Do you think pre-trends look parallel? Generate the same plot but only for 2018-2020
+
+#### What if we only look at the pre-intervention period?
+
+ggplot(s, aes(x = Date, y = Rating)) + # We first use the scented dataset.
+  geom_vline(xintercept = as.numeric(as.Date("2020-01-20")), colour = "#E16462", lty = 2, lwd = 1.3)+ # We include a vertical line to mark the first COVID case in the US (line is dashed, and instead of 2 you can use "dashed"; I also increase the width of the line (lwd))
   
-  state <- states[s]
-  m_state <- d1[rownames(d1)==state,1]/100*d2$Category..All.categories
+  geom_smooth(data = s[s$Date<as.numeric(as.Date("2020-01-20")),], aes(x = Date, y = Rating), method = "loess", size = 1.5, colour = "#900DA4", fill = "#900DA4") + # We will generate a smooth function for the pre-pandemic era
+  geom_point(alpha = 0.2, colour = "#900DA4")+
   
-  S_matrix <- diag(10, nrow = 52, ncol = 52) 
+  # Now, we include uscented candles
+  geom_smooth(data = us[us$Date<as.numeric(as.Date("2020-01-20")),], aes(x = (as.Date(Date, format = "%d-%b-%y")), y = Rating), method = "loess", size = 1.5, colour = "#F89441", fill = "#F89441") +
+  geom_point(data = us, aes(x = (as.Date(Date, format = "%d-%b-%y")), y = Rating), alpha = 0.2, colour = "#F89441")+
   
-  pop_s <- mvrnorm(n=1,m_state,S_matrix)
-  
-  if(s==1){
-    dates <- rownames(d2)
-    
-    swift <- data.frame("state" = state,
-                        "dates" = dates,
-                        "popularity" = pop_s)
-    
-  }
-  
-  if(s>1){
-    
-    dates <- rownames(d2)
-    
-    swift <- swift %>% add_row(data.frame("state" = state,
-                                          "dates" = dates,
-                                          "popularity" = pop_s))
-    
-  }
-  
+  labs(x = "Date", y = "Average daily rating (1-5)", title = "Top 3 scented and unscented candles Amazon reviews 2017-2020")+
+  theme_bw()+
+  theme(plot.title = element_text(size=16))+
+  scale_x_date(date_labels = "%m-%Y", date_breaks = "6 month")
+####################
+
+# Let's only use data for 2018 to 2020:
+
+# Scented candles
+s1820 <- scented %>%
+  mutate(Date = as.Date(Date, format = "%d-%b-%y")) %>%
+  arrange(Date) %>% 
+  filter(Date >= "2018-01-01") %>% # Now we just keep data for 2018 to 2020
+  filter(CandleID <= 3) %>%
+  group_by(Date) %>% 
+  summarise(Rating=mean(Rating))
+
+# Unscented candles
+us1820 <- unscented %>%
+  mutate(Date = as.Date(Date, format = "%d-%b-%y")) %>%
+  arrange(Date) %>%
+  filter(Date >= "2018-01-01") %>%
+  group_by(Date) %>%
+  summarise(Rating = mean(Rating))
+
+# Generate one dataframe with both datasets
+candles <- s1820 %>% mutate(scented = 1) %>% #generate a "scented" variable to identify those reviews
+  add_row(us1820) %>% #Append unscented dataset
+  mutate(scented = replace(scented, is.na(scented), 0)) # Replace the missing values of the scented variable to 0 (because they are unscented)
+
+
+## Let's run a diff-in-diff
+
+#Create the dimension variables:
+
+candles <- candles %>% mutate(post = 0, #Generaate a post variable = 0
+                              post = replace(post, Date >= "2020-01-20", 1), #Since the first case of a COVID case in the US, change post to 1
+                              treat = scented) # Treatment in this case will be whether the candle is scented or not.
+
+# Let's fit the model:
+
+summary(lm(Rating ~ treat + post + treat*post, data = candles))
+
+# Question: Interpret each of the coefficients. Under the DD assumptions, what is the treatment effect?
+
+##################
+# Let's run a placebo test
+
+candles <- candles %>% mutate(post_fake = 0, #I will assume a fake placebo date: 01/20/2019
+                              post_fake = replace(post, Date >= "2019-01-20", 1))
+
+# And now let's run the same model:
+
+summary(lm(Rating ~ treat + post_fake + treat*post_fake, data = candles))
+
+# Question: What can you say after seeing these results?
+
+
+################
+## Let's explore why could this be
+
+#### NO SCENT FUNCTION #### --> A quick function that detects whether a review says anything about lack of scent 
+no_scent <- function(x){
+  case_when(
+    str_detect(x, "[Nn]o scent") ~ "1", 
+    str_detect(x, "[Nn]o smell") ~ "1",
+    str_detect(x, "[Dd]oes not smell like") ~ "1",
+    str_detect(x, "[Dd]oesn't smell like") ~ "1",
+    str_detect(x, "[Cc]an't smell") ~ "1",
+    str_detect(x, "[Cc]annot smell") ~ "1",
+    str_detect(x, "[Ff]aint smell") ~ "1",
+    str_detect(x, "[Ff]aint scent") ~ "1",
+    str_detect(x, "[Dd]on't smell") ~ "1",
+    str_detect(x, "[Ll]ike nothing") ~ "1",
+    TRUE ~ x
+  )
   
 }
 
+# Scented candles
+s1820_2 <- scented %>%
+  mutate(Date = as.Date(Date, format = "%d-%b-%y")) %>%
+  arrange(Date) %>% 
+  filter(Date >= "2019-01-01") %>% # Now we just keep data for 2019 to 2020
+  filter(CandleID <= 3) %>%
+  mutate(noscent = no_scent(Review)) %>%
+  mutate(noscent = ifelse(noscent != 1, 0, 1)) %>%# Generate a dummy variable whether no_scent = TRUE
+  mutate(month = reorder(format(Date, '%B'), Date)) %>%
+  mutate(year = reorder(format(Date, '%Y'), Date)) %>%
+  arrange(year, month) %>% 
+  group_by(year, month) %>%
+  add_tally() %>%
+  summarise(n =n, noscent = sum(noscent)) %>%
+  mutate(nsprop = noscent/n) %>%
+  mutate(se = sqrt((nsprop*(1-nsprop))/n)) %>%
+  summarise(n=mean(n), se=mean(se), nsprop=mean(nsprop)) 
 
-# July 19 there's a new release
-west_coast <- c("California","Oregon","Washington","Nevada")
-
-swift$west_coast <- as.numeric(swift$state %in% west_coast)
-
-swift$new_album <- 0
-swift$new_album[swift$dates=="2020-07-19" & swift$west_coast==1] <- 1
-swift$new_album[swift$dates=="2020-07-26" & swift$west_coast==0] <- 1
+ggplot(s1820_2, aes(x=as.factor(month), y = nsprop, group = month))+
+  geom_bar(stat = "identity", fill = "lightseagreen")+
+  geom_errorbar(aes(ymin = (nsprop-se), ymax = (nsprop+se)), width=0.2, colour = "gray30")+
+  labs(x = "Month", y = "Proportion of reviews", title = "Top 5 scented candles on Amazon: \nProportion of reviews mentioning lack of scent by month 2020")+
+  theme_light()+
+  theme(plot.title = element_text(size=16))
 
 
-swift %>% group_by(dates, west_coast) %>% summarize(mean_pop = mean(pop_s)) %>% 
-  ggplot(data = ., aes(x = as.factor(dates), y = pop_s, color = west_coast)) +
-  geom_line()
+# Plot the proportion of "no scent" reviews over time
+ggplot(s1820_2, aes(x = Date, y = Noscent)) +
+  geom_vline(xintercept = as.numeric(as.Date("2020-01-20")), colour = "#E16462", lty = 2, lwd = 1.3)+ # We include a vertical line to mark the first COVID case in the US (line is dashed, and instead of 2 you can use "dashed"; I also increase the width of the line (lwd))
+  geom_smooth(method = "loess", size = 1.5, colour = "#900DA4", fill = "#900DA4") + # We will generate a smooth function to see how our data behaves (loess is a local polynomial regression fit for our data)
+  geom_point(alpha = 0.2, colour = "#900DA4")+
+  
+  labs(x = "Date", y = "% of daily reviews arguing 'No scent'", title = "Top 3 scented candles Amazon reviews 2017-2020")+
+  theme_bw()+
+  theme(plot.title = element_text(size=16))+
+  scale_x_date(date_labels = "%m-%Y", date_breaks = "6 month")
+
+
+####################################################################################
+################ Look what Taylor Swift made me do
+
+# This is simulated data using real Google trends of popularity for Taylor Swift.
+
+# this shows popularity over time, including the release of one of her albums (on the week of 07/19/2020 for the west coast, and 08/09/2020 for the rest).
+swift <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/data/swift.csv")
+
+# Data shows for each state and week of the year (past 12 months), a popularity index, whether the state belongs to the "west coast" glitch or not, and the week the album was released in each place.
+head(swift)
+
+# Let's plot the data!
+
+swift %>% group_by(west_coast, dates) %>% summarize_all(mean) %>% # We first group our data (an summarize it) by date and whether the state was part of the glitch or not
+  ggplot(data = ., aes(x = as.Date(dates), y = popularity, color = factor(west_coast), group = factor(west_coast))) + # Then we plot the data
+  geom_line(lwd = 1.3) +
+  
+  scale_color_manual(values = c("#F89441","#900DA4"), name = "West Coast") + # We include personalized colors (to not use the default ones)
+  
+  geom_vline(aes(xintercept=as.Date("2020-07-19")), lty = 2, lwd=1.1, color = "#5601A4") + #Release of the album in the west coast
+  geom_vline(aes(xintercept=as.Date("2020-08-09")), lty = 2, lwd=1.1, color = "#E16462") + #Release of the album everywhere else
+  
+  labs(x = "Date", y = "Popularity Index", title = "Taylor Swift's popularity in the past 12 months")+
+  theme_bw()+
+  theme(plot.title = element_text(size=16))+
+  scale_x_date(date_labels = "%m-%Y", date_breaks = "2 month")
+
+
+#########
+
+# It seems that popularity moves very close together between west coast and non-west coast, so we might want to run a diff-in-diff. In this case, we have two post periods, though!
+
+swift <- swift %>% mutate(post1 = ifelse(dates >= as.Date("2020-07-19"), 1, 0),
+                          post2 = ifelse(dates >= as.Date("2020-08-09"), 1, 0))
+
+# Let's assume that "treatment" is having the album available. Then,
+
+swift <- swift %>% mutate(treat = ifelse(west_coast==1 & post1==1, 1,
+                                         ifelse(west_coast==0 & post2==1, 1, 0)),
+                          date_num = as.numeric(as.Date(dates))) # Look closely at this condition! What is does is: 1) If the state is in the west coast and it's after 07/19, treat = 1, 
+                                                                                  # then if west_coast = 0 and it's after 08/09, treat = 1. It will be 0 in all other cases. 
+
+# Let's look at two states, like CA and PA:
+
+swift %>% filter(state == "California") # Variable treat looks food
+
+swift %>% filter(state == "Pennsylvania") # Variable treat looks food
+
+## What if we just ran the stack DD?
+
+summary(lm(popularity ~ west_coast + post1 + post2 + treat, data = swift))
+
+## Ok, let's do the Goodman-Bacon Decomposition:
+df_bacon <- bacon(popularity ~ treat, data = swift, id_var = "state", time_var = "date_num") # Make sure the time_var is numeric
+
+df_bacon
+
+coef_bacon <- sum(df_bacon$estimate * df_bacon$weight)
+print(paste("Weighted sum of decomposition =", round(coef_bacon, 4)))
