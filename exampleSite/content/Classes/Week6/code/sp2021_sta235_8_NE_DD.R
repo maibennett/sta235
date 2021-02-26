@@ -107,4 +107,62 @@ summary(estimatr::lm_robust(smk_curr_12m ~ treatment, data = d_12m_aug, weights 
 
 ################ Look what Taylor Swift made me do
 
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/data/taylorswift.csv")
+# Create simulated data from Google Trends
+d1 <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/data/taylorswift.csv")
+d2 <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/data/taylorswift_time.csv")
+
+d1 <- d1 %>% mutate(Category..All.categories = as.numeric(Category..All.categories)) %>%
+  filter(!is.na(Category..All.categories))
+
+d2 <- d2 %>% mutate(Category..All.categories = as.numeric(Category..All.categories)) %>%
+  filter(!is.na(Category..All.categories))
+
+states <- sort(rownames(d1)[-1])
+
+for(s in 1:length(states)){
+  
+  set.seed(s)
+  
+  state <- states[s]
+  m_state <- d1[rownames(d1)==state,1]/100*d2$Category..All.categories
+  
+  S_matrix <- diag(10, nrow = 52, ncol = 52) 
+  
+  pop_s <- mvrnorm(n=1,m_state,S_matrix)
+  
+  if(s==1){
+    dates <- rownames(d2)
+    
+    swift <- data.frame("state" = state,
+                        "dates" = dates,
+                        "popularity" = pop_s)
+    
+  }
+  
+  if(s>1){
+    
+    dates <- rownames(d2)
+    
+    swift <- swift %>% add_row(data.frame("state" = state,
+                                          "dates" = dates,
+                                          "popularity" = pop_s))
+    
+  }
+  
+  
+}
+
+
+# July 19 there's a new release
+west_coast <- c("California","Oregon","Washington","Nevada")
+
+swift$west_coast <- as.numeric(swift$state %in% west_coast)
+
+swift$new_album <- 0
+swift$new_album[swift$dates=="2020-07-19" & swift$west_coast==1] <- 1
+swift$new_album[swift$dates=="2020-07-26" & swift$west_coast==0] <- 1
+
+
+swift %>% group_by(dates, west_coast) %>% summarize(mean_pop = mean(pop_s)) %>% 
+  ggplot(data = ., aes(x = as.factor(dates), y = pop_s, color = west_coast)) +
+  geom_line()
