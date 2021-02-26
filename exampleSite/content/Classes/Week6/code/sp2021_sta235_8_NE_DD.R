@@ -24,9 +24,13 @@ library(cobalt)
 
 #####################################################################
 
-## Oregon Insurance Plan example
+################ Oregon Insurance Plan example
 
 d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/data/oregonhie_simplified.csv") #Load the data (almost 75k obs)
+
+# This is data from the Oregon Health Insurance Experiment (publicly available at NBER)
+# These are two datasets combined: Variables that end in *_list are from the individuals that applied to the lottery. Variables ending in *_12m are from a survey sent out to a subsample 12 months later.
+# You can read more documentation about the variables and the data here: https://github.com/maibennett/sta235/tree/main/exampleSite/content/Classes/Week6/data/OHIE_docs
 
 #First, always inspect the data:
 
@@ -46,7 +50,8 @@ meantab(d_covs, d$treatment, which(d$treatment==1), which(d$treatment==0))
 
 # Question: Statistically significant differences. What can we do?
 
-## Let's look at a subsample (the ones that were surveyed 12months later)
+
+#### Let's look at a subsample (the ones that were surveyed 12months later)
 
 d_12m <- d %>% dplyr::filter(sample_12m==1)
 
@@ -54,7 +59,9 @@ d_12m_covs <- d_12m %>% dplyr::select(birthyear_list, have_phone_list, english_l
 
 meantab(d_12m_covs, d_12m$treatment, which(d_12m$treatment==1), which(d_12m$treatment==0))
 
-## What about survey responses?
+
+
+#### What about survey responses?
 
 table(d_12m$treatment,d_12m$returned_12m) #Look at responses by treatment status
 
@@ -66,7 +73,9 @@ summary(estimatr::lm_robust(returned_12m ~ treatment, data = d_12m)) #The differ
 
 # Question: What is this nonresponse called? (as we saw in the context of RCTs)
 
-## Let's use weights to approximate response:
+
+
+#### Let's use weights to approximate response:
 
 m1 <- glm(returned_12m ~ birthyear_list + have_phone_list + english_list + female_list + week_list + zip_msa_list + pobox_list,
           data = d_12m, family = binomial(link = "logit")) # Fit a response model
@@ -77,7 +86,9 @@ d_12m_aug <- broom::augment(m1, newdata = d_12m, type.predict = "response")
 # Create the weights: We want the responders to look more like the whole sample. Which weight should we use?
 d_12m_aug <- d_12m_aug %>% mutate(weights = returned_12m/prob_response + (1-returned_12m)/(1-prob_response))
 
-## Let's analyze some results! (Question: What are the assumptions we need to rely on for weights to be enough to yield a causal treatment effect?)
+
+
+#### Let's analyze some results! (Question: What are the assumptions we need to rely on for weights to be enough to yield a causal treatment effect?)
 
 # Have any insurance:
 summary(estimatr::lm_robust(ins_any_12m ~ treatment, data = d_12m_aug, weights = weights))
@@ -87,3 +98,10 @@ summary(estimatr::lm_robust(needmet_med_cor_12m ~ treatment, data = d_12m_aug, w
 
 # Current smoker
 summary(estimatr::lm_robust(smk_curr_12m ~ treatment, data = d_12m_aug, weights = weights))
+
+
+
+
+#####################################################################
+
+################ Oregon Insurance Plan example
