@@ -85,7 +85,7 @@ m1 <- glm(returned_12m ~ birthyear_list + have_phone_list + english_list + femal
 d_12m_aug <- broom::augment(m1, newdata = d_12m, type.predict = "response")
 
 # Create the weights: We want the responders to look more like the whole sample. Which weight should we use?
-d_12m_aug <- d_12m_aug %>% mutate(weights = returned_12m/prob_response + (1-returned_12m)/(1-prob_response))
+d_12m_aug <- d_12m_aug %>% mutate(weights = returned_12m/.fitted + (1-returned_12m)/(1-.fitted))
 
 
 
@@ -143,7 +143,7 @@ ggplot(s, aes(x = Date, y = Rating)) + # We first use the scented dataset.
   labs(x = "Date", y = "Average daily rating (1-5)", title = "Top 3 scented and unscented candles Amazon reviews 2017-2020")+
   theme_bw()+
   theme(plot.title = element_text(size=16))+
-  scale_x_date(date_labels = "%m-%Y", date_breaks = "6 month") +
+  scale_x_date(date_labels = "%m-%Y", date_breaks = "6 month")
 
 #Question: Do you think pre-trends look parallel? Generate the same plot but only for 2018-2020
 
@@ -264,17 +264,6 @@ ggplot(s1820_2, aes(x=as.factor(month), y = nsprop, group = month))+
   theme(plot.title = element_text(size=16))
 
 
-# Plot the proportion of "no scent" reviews over time
-ggplot(s1820_2, aes(x = Date, y = Noscent)) +
-  geom_vline(xintercept = as.numeric(as.Date("2020-01-20")), colour = "#E16462", lty = 2, lwd = 1.3)+ # We include a vertical line to mark the first COVID case in the US (line is dashed, and instead of 2 you can use "dashed"; I also increase the width of the line (lwd))
-  geom_smooth(method = "loess", size = 1.5, colour = "#900DA4", fill = "#900DA4") + # We will generate a smooth function to see how our data behaves (loess is a local polynomial regression fit for our data)
-  geom_point(alpha = 0.2, colour = "#900DA4")+
-  
-  labs(x = "Date", y = "% of daily reviews arguing 'No scent'", title = "Top 3 scented candles Amazon reviews 2017-2020")+
-  theme_bw()+
-  theme(plot.title = element_text(size=16))+
-  scale_x_date(date_labels = "%m-%Y", date_breaks = "6 month")
-
 
 ####################################################################################
 ################ Look what Taylor Swift made me do
@@ -290,13 +279,26 @@ head(swift)
 # Let's look at the states
 table(swift$state)
 
+# Let's create some additional variables:
+
+swift <- swift %>% mutate(post1 = ifelse(dates >= as.Date("2020-07-19"), 1, 0), #This is when the glitch happen
+                          post2 = ifelse(dates >= as.Date("2020-08-09"), 1, 0)) #The the album became available for almost everyone
+
+# Let's assume that "treatment" is having the album available. Then,
+
+swift <- swift %>% mutate(treat = ifelse(west_coast==1 & post1==1, 1,
+                                         ifelse(west_coast==0 & post2==1 & controls == 0, 1, 0)),# Look closely at this condition! What is does is: 1) If the state is in the west coast and it's after 07/19, treat = 1, then if west_coast = 0 and it's after 08/09, treat = 1. It will be 0 in all other cases. 
+                          period = factor(ifelse(post1==0 & post2==0, 0, ifelse(post1==1 & post2==0, 1, 2))), #Time 0 is before the album was available to anyone, time 1 is after it was available for the 1st group but not the 2nd, time 2 is when it's available for everyone.
+                          group = factor(ifelse(controls==1,0,ifelse(west_coast==1,1,2))), # Group 0 is the ones that never receive it, group 1 is the ones that receive it early, group 2 the ones that receive it late.
+                          date_num = as.numeric(as.Date(dates))) 
+
 # Let's plot the data!
 
-swift %>% group_by(west_coast, dates) %>% summarise_all(mean) %>% # We first group our data (an summarize it) by date and whether the state was part of the glitch or not
-  ggplot(data = ., aes(x = as.Date(dates), y = popularity, color = factor(west_coast), group = factor(west_coast))) + # Then we plot the data
+swift %>% group_by(group, dates) %>% summarise_all(mean) %>% # We first group our data (an summarize it) by date and whether the state was part of the glitch or not
+  ggplot(data = ., aes(x = as.Date(dates), y = popularity, color = factor(group), group = factor(group))) + # Then we plot the data
   geom_line(lwd = 1.3) +
   
-  scale_color_manual(values = c("#F89441","#900DA4"), name = "West Coast") + # We include personalized colors (to not use the default ones)
+  scale_color_manual(values = c("#FCCE25","#900DA4","#F89441"), name = "Group", label = c("0" = "Weird", "1" = "West Coast", "2" = "Non west coast") ) + # We include personalized colors (to not use the default ones)
   
   geom_vline(aes(xintercept=as.Date("2020-07-19")), lty = 2, lwd=1.1, color = "#5601A4") + #Release of the album in the west coast
   geom_vline(aes(xintercept=as.Date("2020-08-09")), lty = 2, lwd=1.1, color = "#E16462") + #Release of the album everywhere else
@@ -304,22 +306,22 @@ swift %>% group_by(west_coast, dates) %>% summarise_all(mean) %>% # We first gro
   labs(x = "Date", y = "Popularity Index", title = "Taylor Swift's popularity in the past 12 months")+
   theme_bw()+
   theme(plot.title = element_text(size=16))+
-  scale_x_date(date_labels = "%m-%Y", date_breaks = "2 month")
+  scale_x_date(date_labels = "%m-%Y", date_breaks = "2 month")+
+  theme(plot.margin=unit(c(0.5,1,1,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 14),legend.position=c(0.9,0.9),
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
 
-
-#########
-
-# It seems that popularity moves very close together between west coast and non-west coast, so we might want to run a diff-in-diff. In this case, we have two post periods, though!
-
-swift <- swift %>% mutate(post1 = ifelse(dates >= as.Date("2020-07-19"), 1, 0),
-                          post2 = ifelse(dates >= as.Date("2020-08-09"), 1, 0))
-
-# Let's assume that "treatment" is having the album available. Then,
-
-swift <- swift %>% mutate(treat = ifelse(west_coast==1 & post1==1, 1,
-                                         ifelse(west_coast==0 & post2==1, 1, 0)),
-                          date_num = as.numeric(as.Date(dates))) # Look closely at this condition! What is does is: 1) If the state is in the west coast and it's after 07/19, treat = 1, 
-                                                                                  # then if west_coast = 0 and it's after 08/09, treat = 1. It will be 0 in all other cases. 
 
 # Let's look at two states, like CA and PA:
 
@@ -327,9 +329,9 @@ swift %>% filter(state == "California") # Variable treat looks food
 
 swift %>% filter(state == "Pennsylvania") # Variable treat looks food
 
-## What if we just ran the stack DD?
+## What if we just ran the TWFE model?
 
-summary(lm(popularity ~ west_coast + post1 + post2 + treat, data = swift))
+summary(lm(popularity ~ factor(group) + factor(period) + treat, data = swift))
 
 ## Ok, let's do the Goodman-Bacon Decomposition:
 df_bacon <- bacon(popularity ~ treat, data = swift, id_var = "state", time_var = "date_num") # Make sure the time_var is numeric
@@ -337,4 +339,4 @@ df_bacon <- bacon(popularity ~ treat, data = swift, id_var = "state", time_var =
 df_bacon
 
 coef_bacon <- sum(df_bacon$estimate * df_bacon$weight)
-print(paste("Weighted sum of decomposition =", round(coef_bacon, 4)))
+print(paste("Weighted sum of decomposition =", round(coef_bacon, 4))) #It's the same as the TWFE model!

@@ -963,7 +963,24 @@ plot_early + plot_late
 ```
 
 ---
-# Assumptions
+# Staggered treatment adoptions
+
+- Units receive treatment at **.darkorange[different points in time]**
+
+--
+
+- Common solution so far has been a Two-Way Fixed Effect (TWFE) model
+
+.box-7[Y<sub>i</sub> = &alpha;<sub>i</sub> + &alpha;<sub>t</sub> + &beta;<sup>DD</sup>D<sub>it</sub> + &epsilon;<sub>it</sub>]
+
+--
+
+- **.darkorange[Problem]: Weighted average of treatment effects
+
+.box-2[Not easily interpretable]
+
+---
+# Staggered treatment adoptions
 
 .box-3[You can check how big of an issue this is<br>with Goodman-Bacon decomposition]
 
@@ -976,10 +993,20 @@ plot_early + plot_late
   <img src="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/2_DD/images/goodman-bacon.png" alt="Goodman-Bacon paper" title="Goodman-Bacon paper" width="45%">
 </figure>
 ]
+
+---
+.center2[
+.box-3LA[Let's look at an example]]
+
+---
+# Look at what T.s. made me do
+
+- Like in the JITT, we will have data for Taylor Swift's popularity in the past 12 months.
 ---
 # References
 
 - Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 5*.
 
+- Baker, A. (2019). ["Difference-in-Differences Methodology"](https://andrewcbaker.netlify.app/2019/09/25/difference-in-differences-methodology/).
 
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week6/2_DD/sp2021_sta235_9_dd.html') -->
