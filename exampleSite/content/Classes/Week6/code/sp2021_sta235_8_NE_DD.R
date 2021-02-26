@@ -287,9 +287,12 @@ swift <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exam
 # Data shows for each state and week of the year (past 12 months), a popularity index, whether the state belongs to the "west coast" glitch or not, and the week the album was released in each place.
 head(swift)
 
+# Let's look at the states
+table(swift$state)
+
 # Let's plot the data!
 
-swift %>% group_by(west_coast, dates) %>% summarize_all(mean) %>% # We first group our data (an summarize it) by date and whether the state was part of the glitch or not
+swift %>% group_by(west_coast, dates) %>% summarise_all(mean) %>% # We first group our data (an summarize it) by date and whether the state was part of the glitch or not
   ggplot(data = ., aes(x = as.Date(dates), y = popularity, color = factor(west_coast), group = factor(west_coast))) + # Then we plot the data
   geom_line(lwd = 1.3) +
   
