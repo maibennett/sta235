@@ -21,6 +21,7 @@ library(MatchIt)
 library(broom)
 library(vtable) #Useful package to visualize data
 library(cobalt)
+library(bacondecomp)
 
 #####################################################################
 
@@ -104,4 +105,6 @@ summary(estimatr::lm_robust(smk_curr_12m ~ treatment, data = d_12m_aug, weights 
 
 #####################################################################
 
-################ Oregon Insurance Plan example
+################ Look what Taylor Swift made me do
+
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/data/taylorswift.csv")
