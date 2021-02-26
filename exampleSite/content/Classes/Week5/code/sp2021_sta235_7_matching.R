@@ -1,5 +1,5 @@
 ##############################################################
-### Title: "Week 5 - Introduction to Observational Studies"
+### Title: "Week 6 - Natural Experiments and Diff-in-Diff"
 ### Course: STA 235
 ### Semester: Spring 2021
 ### Professor: Magdalena Bennett
@@ -22,9 +22,17 @@ library(broom)
 
 #####################################################################
 
-## Get out the vote example
+## Oregon Insurance Plan example
 
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/1_RCT/data/voters_covariates.csv") #This might take a while (it's a lot of data!)
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/data/oregonhie_simplified.csv") #Load the data (almost 75k obs)
+
+#First, always inspect the data:
+
+table(d$treatment)
+
+table(d$treatment, d$applied_app)
+
+View(d) #This is also good to look at all your data
 
 ## Show balance by stratum (we saw this the previous class! Same code)
 
