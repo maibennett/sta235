@@ -516,7 +516,7 @@ $$ATE_2 = E[Y(2) - Y(0)]$$
 ]  
 .pull-right[
 .center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_Natural_Experiments/images/fish.png)
+![:scale 90%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_Natural_Experiments/images/fish.png)
 ]
 ]
 
@@ -557,6 +557,23 @@ $$ATE_2 = E[Y(2) - Y(0)]$$
 - You want to study the effect of this natural disaster on unemployment. **.darkorange[Could you use this setting?]**
 
 ---
+# Takeaway points
+
+.pull-left[
+.center[
+![:scale 90%](https://media.giphy.com/media/Y076VcCyqVMbs2Adwb/giphy-downsized-large.gif)
+]
+]
+
+.pull-right[
+- We don't always need to **.darkorange["randomize"]**.
+
+- We can exploit **.darkorange[natural variation]**.
+
+  - In **.darkorange[natural experiments]** we are approximating an ideal RCT very straightforwardly.
+  
+]
+---
 # References
 
 - Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 2*.
@@ -565,4 +582,4 @@ $$ATE_2 = E[Y(2) - Y(0)]$$
 
 - Jensen, R. (2007). "The Digital Provide: Information (Technology), Market Performance, and Welfare in the South Indian Fisheries Sector". *Quarterly Journal of Economics*.
 
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week4/1_RCT/sp2021_sta235_6_RCT.html') -->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week6/1_Natural_Experiments/sp2021_sta235_8_natural_experiments.html') -->
