@@ -22,7 +22,7 @@
 @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:200,300,400,500,600,700&display=swap);
 @import url(https://fonts.googleapis.com/css?family=Fira+Mono&display=swap);
 @import url(https://fonts.googleapis.com/css?family=Fira+Sans:200,300,400,500,600&display=swap);
-@import url(https://fonts.googleapis.com/css?family=Fira+Sans+Condensed&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Fira+Sans+Condensed:200,300,400,500,600&display=swap);
 
 :root {
   /* Fonts */
@@ -59,6 +59,7 @@
   --base: #333f48;
   --white: #FFFFFF;
   --black: #272822;
+  --lightgrey: #C0C0C0;
   --red: #f34213;
   --purple: #900DA4;
   --darkpurple: #61077a;
@@ -259,6 +260,12 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 .bg-black {
   background-color: var(--black);
 }
+.lightgrey {
+  color: var(--lightgrey);
+}
+.bg-lightgrey {
+  background-color: var(--lightgrey);
+}
 .red {
   color: var(--red);
 }
@@ -324,6 +331,9 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 .small {
   font-size: 80%;
 }
+.tiny {
+  font-size: 50%;
+}
 .large {
   font-size: 150%;
 }
@@ -355,6 +365,14 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+}
+.bottom2 {
+  margin: 0;
+  position: absolute;
+  top: 90%;
+  left: 10%;
+  -ms-transform: translate(-10%, -90%);
+  transform: translate(-10%, -90%);
 }
 .section-title h1 {
   color: #FFFFFF;
