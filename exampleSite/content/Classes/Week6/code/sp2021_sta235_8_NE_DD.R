@@ -36,9 +36,54 @@ table(d$treatment, d$applied_app)
 
 vtable(d) #This is also good to look at all your data
 
-#Note that variables ending in _list come from one dataset and variables ending in _ed come from another dataset. Not all of them merge! (1: Only in _list dataset, 2: Only in _ed dataset, 3: In both)
+#Note that variables ending in _list come from one dataset and variables ending in _1m come from another dataset (12 month survey)
 
 ## Let's look at the balance
 
-d_covs <- d %>% dplyr::select(birthyear_list, have_phone_list, english_list, female_list, week_list, zip_msa_list, pobox_list, 
-                              any_visit_pre_ed, num_visit_pre_cens_ed, any_hosp_pre_ed, num_hosp_pre_cens_ed, charg_tot_pre_ed)
+d_covs <- d %>% dplyr::select(birthyear_list, have_phone_list, english_list, female_list, week_list, zip_msa_list, pobox_list)
+
+meantab(d_covs, d$treatment, which(d$treatment==1), which(d$treatment==0))
+
+# Question: Statistically significant differences. What can we do?
+
+## Let's look at a subsample (the ones that were surveyed 12months later)
+
+d_12m <- d %>% dplyr::filter(sample_12m==1)
+
+d_12m_covs <- d_12m %>% dplyr::select(birthyear_list, have_phone_list, english_list, female_list, week_list, zip_msa_list, pobox_list)
+
+meantab(d_12m_covs, d_12m$treatment, which(d_12m$treatment==1), which(d_12m$treatment==0))
+
+## What about survey responses?
+
+table(d_12m$treatment,d_12m$returned_12m) #Look at responses by treatment status
+
+#That was not very clear.. let's use the tidyverse!
+
+d_12m %>% group_by(treatment) %>% summarise(mean_response = mean(returned_12m, na.rm = TRUE))
+
+summary(estimatr::lm_robust(returned_12m ~ treatment, data = d_12m)) #The difference in non-response is significant.
+
+# Question: What is this nonresponse called? (as we saw in the context of RCTs)
+
+## Let's use weights to approximate response:
+
+m1 <- glm(returned_12m ~ birthyear_list + have_phone_list + english_list + female_list + week_list + zip_msa_list + pobox_list,
+          data = d_12m, family = binomial(link = "logit")) # Fit a response model
+
+#Notice that we need to use the "newdata" because we can't estimate all probabilities (there's one observation where we can't predict a probability)
+d_12m_aug <- broom::augment(m1, newdata = d_12m, type.predict = "response")
+
+# Create the weights: We want the responders to look more like the whole sample. Which weight should we use?
+d_12m_aug <- d_12m_aug %>% mutate(weights = returned_12m/prob_response + (1-returned_12m)/(1-prob_response))
+
+## Let's analyze some results! (Question: What are the assumptions we need to rely on for weights to be enough to yield a causal treatment effect?)
+
+# Have any insurance:
+summary(estimatr::lm_robust(ins_any_12m ~ treatment, data = d_12m_aug, weights = weights))
+
+# Got all needed medical care in the last 6 months (or didn't need any)
+summary(estimatr::lm_robust(needmet_med_cor_12m ~ treatment, data = d_12m_aug, weights = weights))
+
+# Current smoker
+summary(estimatr::lm_robust(smk_curr_12m ~ treatment, data = d_12m_aug, weights = weights))

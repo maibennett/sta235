@@ -500,6 +500,8 @@ $$ATE_2 = E[Y(2) - Y(0)]$$
 
 - Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 2*.
 
+- NBER (2021). ["Oregon Health Insurance Experiment Background"](https://www.nber.org/programs-projects/projects-and-centers/oregon-health-insurance-experiment/oregon-health-insurance-experiment-background)
+
 - Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 7: Randomization and Matching, Course at BYU*
 
 - Imbens, G. and D. Rubin. (2015). "Causal Inference for Statistics, Social, and Biomedical Sciences: An Introduction". *Chapter 3*
