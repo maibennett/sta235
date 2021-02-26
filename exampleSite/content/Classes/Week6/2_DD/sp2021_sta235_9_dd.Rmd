@@ -725,6 +725,9 @@ dd_trends_3
 .box-3tL[Check by pretending the treatment happened earlier; if there's an effect, there's likely an underlying trend]
 
 ---
+<br>
+
+
 ```{r plot-trends-2-back, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 state_a_start <- filter(trends, state == "State A", month == 1)$income_flat
 state_b_end <- filter(trends, state == "State B", month == 3)$income_flat
@@ -735,7 +738,7 @@ ggplot(filter(trends, month <= 6),
        aes(x = month, y = income_flat, color = state, group = state)) +
   geom_ribbon(data = filter(trends, state == "State B", month <= 3),
               aes(x = month, ymin = -Inf, ymax = Inf, color = NULL), 
-              fill = "#7FDBFF", alpha = 0.2) +
+              fill = "dark grey", alpha = 0.2) +
   ggplot2::annotate(geom = "segment", x = 2, xend = 3,
                    y = hypothetical_start, yend = hypothetical_end,
                color = "#0074D9", size = 1, linetype = "22") +
@@ -762,6 +765,8 @@ ggplot(filter(trends, month <= 6),
 ```
 
 ---
+<br>
+
 
 ```{r plot-trends-3-back, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 state_a_start <- filter(trends, state == "State A", month == 1)$income_down
@@ -773,7 +778,7 @@ ggplot(filter(trends, month <= 6),
        aes(x = month, y = income_down, color = state, group = state)) +
   geom_ribbon(data = filter(trends, state == "State B", month <= 3),
               aes(x = month, ymin = -Inf, ymax = Inf, color = NULL), 
-              fill = "#7FDBFF", alpha = 0.2) +
+              fill = "dark grey", alpha = 0.2) +
   ggplot2::annotate(geom = "segment", x = 2, xend = 3,
                    y = hypothetical_start, yend = hypothetical_end,
                color = "#0074D9", size = 1, linetype = "22") +
@@ -800,6 +805,8 @@ ggplot(filter(trends, month <= 6),
 ```
 
 ---
+<br>
+
 
 ```{r plot-trends-1-back, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 hypothetical_start <- filter(trends, state == "State B", month == 2)$income_parallel
@@ -808,7 +815,7 @@ ggplot(filter(trends, month <= 6),
        aes(x = month, y = income_parallel, color = state, group = state)) +
   geom_ribbon(data = filter(trends, state == "State B", month <= 3),
               aes(x = month, ymin = -Inf, ymax = Inf, color = NULL), 
-              fill = "#7FDBFF", alpha = 0.2) +
+              fill = "dark grey", alpha = 0.2) +
   geom_vline(xintercept = 2, size = 1) +
   geom_line(size = 3) +
   ggplot2::annotate(geom = "segment", x = 2, xend = 3,
@@ -841,6 +848,8 @@ ggplot(filter(trends, month <= 6),
 .box-3tL[Units often receive treatment at different times,<br>which can distort your estimate!]
 
 ---
+<br>
+
 
 ```{r gb-trends-1, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 gb_trends <- expand_grid(type = c("Early", "Late"), month = 1:12) %>% 
@@ -881,12 +890,14 @@ ggplot(gb_trends, aes(x = month, y = income, color = type)) +
 ```
 
 ---
+<br>
+
 
 ```{r gb-trends-2, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 plot_early <- ggplot(gb_trends, aes(x = month, y = income, color = type)) +
   geom_ribbon(data = filter(gb_trends, type == "Early", month <= 6),
               aes(x = month, ymin = -Inf, ymax = Inf, color = NULL), 
-              fill = "grey20", alpha = 0.2) +
+              fill = "dark grey", alpha = 0.2) +
   geom_smooth(data = filter(gb_trends, type == "Early", month <= 4),
               aes(x = month, y = income), inherit.aes = FALSE,
               method = "lm", fullrange = TRUE, se = FALSE,
@@ -904,6 +915,7 @@ plot_early <- ggplot(gb_trends, aes(x = month, y = income, color = type)) +
        subtitle = "Positive effect for early group") +
   guides(color = FALSE) +
   theme_bw(base_size = 21, base_family = "Fira Sans Condensed") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) +
   theme(panel.grid.major.x = element_blank())+
       theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
         axis.text.x = element_text(size=18),
@@ -918,7 +930,7 @@ plot_early <- ggplot(gb_trends, aes(x = month, y = income, color = type)) +
 plot_late <- ggplot(gb_trends, aes(x = month, y = income, color = type)) +
   geom_ribbon(data = filter(gb_trends, type == "Early", month >= 7),
               aes(x = month, ymin = -Inf, ymax = Inf, color = NULL), 
-              fill = "grey20", alpha = 0.2) +
+              fill = "dark grey", alpha = 0.2) +
   geom_smooth(data = filter(gb_trends, type == "Early", month <= 4),
               aes(x = month, y = income), inherit.aes = FALSE,
               method = "lm", fullrange = TRUE, se = FALSE,
@@ -950,7 +962,20 @@ plot_late <- ggplot(gb_trends, aes(x = month, y = income, color = type)) +
 plot_early + plot_late
 ```
 
+---
+# Assumptions
 
+.box-3[You can check how big of an issue this is<br>with Goodman-Bacon decomposition]
+
+--
+
+.box-3t[R package: `bacondecomp`]
+
+.center[
+<figure>
+  <img src="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/2_DD/images/goodman-bacon.png" alt="Goodman-Bacon paper" title="Goodman-Bacon paper" width="45%">
+</figure>
+]
 ---
 # References
 
