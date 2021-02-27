@@ -1,9 +1,9 @@
-##############################################################
+################################################################################
 ### Title: "Week 6 - Natural Experiments and Diff-in-Diff"
 ### Course: STA 235
 ### Semester: Spring 2021
 ### Professor: Magdalena Bennett
-##############################################################
+################################################################################
 
 # Clears memory
 rm(list = ls())
@@ -11,7 +11,8 @@ rm(list = ls())
 cat("\014")
 
 ### Load libraries
-# If you don't have one of these packages installed already, you will need to run install.packages() line
+# If you don't have one of these packages installed already, you will need to 
+#run install.packages() line
 library(tidyverse)
 library(ggplot2)
 library(generics)
@@ -23,9 +24,10 @@ library(vtable) #Useful package to visualize data
 library(cobalt)
 library(bacondecomp) # for goodman-bacon decomposition
 
-#####################################################################
+################################################################################
+################ Oregon Insurance Plan example #################################
+################ Example for a Natural Experiment ##############################
 
-################ Oregon Insurance Plan example
 
 d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/data/oregonhie_simplified.csv") #Load the data (almost 75k obs)
 
