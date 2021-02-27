@@ -217,7 +217,7 @@ summary(lm(Rating ~ treat + post_fake + treat*post_fake, data = candles))
 # Question: What can you say after seeing these results?
 
 
-################
+####################################
 ## Let's explore why could this be
 
 #### NO SCENT FUNCTION #### --> A quick function that detects whether a review says anything about lack of scent 
@@ -239,30 +239,40 @@ no_scent <- function(x){
 }
 
 # Scented candles
-s1820_2 <- scented %>%
+s1920 <- scented %>%
   mutate(Date = as.Date(Date, format = "%d-%b-%y")) %>%
   arrange(Date) %>% 
   filter(Date >= "2019-01-01") %>% # Now we just keep data for 2019 to 2020
   filter(CandleID <= 3) %>%
-  mutate(noscent = no_scent(Review)) %>%
+  mutate(noscent = no_scent(Review)) %>% # Apply the no scent function we created before
   mutate(noscent = ifelse(noscent != 1, 0, 1)) %>%# Generate a dummy variable whether no_scent = TRUE
-  mutate(month = reorder(format(Date, '%B'), Date)) %>%
-  mutate(year = reorder(format(Date, '%Y'), Date)) %>%
-  arrange(year, month) %>% 
-  group_by(year, month) %>%
+  mutate(month_year = reorder(format(Date, '%B-%Y'), Date)) %>% # I just want to keep data at the month level, so create a new variable
+  group_by(month_year) %>%
   add_tally() %>%
   summarise(n =n, noscent = sum(noscent)) %>%
   mutate(nsprop = noscent/n) %>%
   mutate(se = sqrt((nsprop*(1-nsprop))/n)) %>%
   summarise(n=mean(n), se=mean(se), nsprop=mean(nsprop)) 
 
-ggplot(s1820_2, aes(x=as.factor(month), y = nsprop, group = month))+
-  geom_bar(stat = "identity", fill = "lightseagreen")+
-  geom_errorbar(aes(ymin = (nsprop-se), ymax = (nsprop+se)), width=0.2, colour = "gray30")+
-  labs(x = "Month", y = "Proportion of reviews", title = "Top 5 scented candles on Amazon: \nProportion of reviews mentioning lack of scent by month 2020")+
-  theme_light()+
-  theme(plot.title = element_text(size=16))
 
+ggplot(s1920, aes(x=factor(month_year), y = nsprop, group = month_year))+
+  geom_bar(stat = "identity", fill = alpha("#BF3984",0.5), col = "#BF3984", lwd=1.5)+
+  geom_errorbar(aes(ymin = (nsprop-se), ymax = (nsprop+se)), width=0.2, colour = "gray30")+
+  
+  geom_vline(aes(xintercept = "January-2020"), color = "#5601A4", lty = 2, lwd = 1.3) + 
+  
+  labs(x = "Month", y = "Proportion of reviews", title = "Top 5 scented candles on Amazon: \nProportion of reviews mentioning lack of scent by month 2020")+
+  theme_bw()+
+  theme(plot.title = element_text(size=16),
+        axis.text.x = element_text(size = 14, angle = 45)) + #Puts the x-labels in a 45 degree angle
+  theme(panel.grid.major.x = element_blank(), # All this basically eliminate the gridlines and the border
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        panel.border = element_blank(),
+        axis.line = element_line(colour = "dark grey"))
+
+# Question: Interpret the plot. Make sure to look at the seasonality in the reviews for 2019!
 
 
 ####################################################################################
@@ -294,7 +304,8 @@ swift <- swift %>% mutate(treat = ifelse(west_coast==1 & post1==1, 1,
 
 # Let's plot the data!
 
-swift %>% group_by(group, dates) %>% summarise_all(mean) %>% # We first group our data (an summarize it) by date and whether the state was part of the glitch or not
+swift %>% dplyr::select(group, dates, popularity) %>% 
+  group_by(group, dates) %>% summarise_all(mean) %>% # We first group our data (an summarize it) by date and whether the state was part of the glitch or not
   ggplot(data = ., aes(x = as.Date(dates), y = popularity, color = factor(group), group = factor(group))) + # Then we plot the data
   geom_line(lwd = 1.3) +
   
@@ -306,37 +317,25 @@ swift %>% group_by(group, dates) %>% summarise_all(mean) %>% # We first group ou
   labs(x = "Date", y = "Popularity Index", title = "Taylor Swift's popularity in the past 12 months")+
   theme_bw()+
   theme(plot.title = element_text(size=16))+
-  scale_x_date(date_labels = "%m-%Y", date_breaks = "2 month")+
-  theme(plot.margin=unit(c(0.5,1,1,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size = 14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size = 14),legend.position=c(0.9,0.9),
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
+  scale_x_date(date_labels = "%m-%Y", date_breaks = "2 month")
 
 
-# Let's look at two states, like CA and PA:
 
-swift %>% filter(state == "California") # Variable treat looks food
+# Let's look at two states, like CA and PA: (uncomment to run)
 
-swift %>% filter(state == "Pennsylvania") # Variable treat looks food
+#swift %>% filter(state == "California") # Variable treat looks food
+#swift %>% filter(state == "Pennsylvania") # Variable treat looks food
 
 ## What if we just ran the TWFE model?
 
 summary(lm(popularity ~ factor(group) + factor(period) + treat, data = swift))
 
+###############################
+
 ## Ok, let's do the Goodman-Bacon Decomposition:
 df_bacon <- bacon(popularity ~ treat, data = swift, id_var = "state", time_var = "date_num") # Make sure the time_var is numeric
 
-df_bacon
+df_bacon # Question: Can you interpret these effects looking at the popularity plot?
 
 coef_bacon <- sum(df_bacon$estimate * df_bacon$weight)
 print(paste("Weighted sum of decomposition =", round(coef_bacon, 4))) #It's the same as the TWFE model!

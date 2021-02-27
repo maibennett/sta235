@@ -461,7 +461,24 @@ Diff-in-Diff Assumptions
 &lt;img src="sp2021_sta235_9_dd_files/figure-html/gb-trends-2-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
-# Assumptions
+# Staggered treatment adoptions
+
+- Units receive treatment at **.darkorange[different points in time]**
+
+--
+
+- Common solution so far has been a Two-Way Fixed Effect (TWFE) model
+
+.box-7[Y&lt;sub&gt;i&lt;/sub&gt; = &amp;alpha;&lt;sub&gt;i&lt;/sub&gt; + &amp;alpha;&lt;sub&gt;t&lt;/sub&gt; + &amp;beta;&lt;sup&gt;DD&lt;/sup&gt;D&lt;sub&gt;it&lt;/sub&gt; + &amp;epsilon;&lt;sub&gt;it&lt;/sub&gt;]
+
+--
+
+- **.darkorange[Problem]: Weighted average of treatment effects
+
+.box-2[Not easily interpretable]
+
+---
+# Staggered treatment adoptions
 
 .box-3[You can check how big of an issue this is&lt;br&gt;with Goodman-Bacon decomposition]
 
@@ -474,11 +491,63 @@ Diff-in-Diff Assumptions
   &lt;img src="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/2_DD/images/goodman-bacon.png" alt="Goodman-Bacon paper" title="Goodman-Bacon paper" width="45%"&gt;
 &lt;/figure&gt;
 ]
+
+---
+.center2[
+.box-3LA[Let's look at an example]]
+
+---
+# Look at what T.S. made me do
+
+- Like in the JITT, we will have data for Taylor Swift's popularity in the past 12 months.
+
+&lt;img src="sp2021_sta235_9_dd_files/figure-html/TS1-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# How many comparisons can we do?
+
+.center[
+![:scale 60%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/2_DD/images/bacon_goodman_1.jpg)]
+
+---
+
+.center2[
+.box-4LA[Let's go to R]
+]
+
+---
+# Takeaway points
+
+.pull-left[
+
+.center[
+&lt;br&gt;
+&lt;br&gt;
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/2_DD/images/bumpersticker.jpg)]
+
+]
+
+.pull-right[
+- There are other ways to **.darkorange[estimate causal effects beyond randomization]**
+
+- Always be careful of the **.darkorange[assumptions]**.
+
+  - Run robustness checks!
+
+- Don't confuse *assignment mechanisms* with *identification assumptions* 
+
+  - Note: Assignment mechanisms might make our identification assumption credible, **.darkorange[but they are not the same thing!]**
+]
+
 ---
 # References
 
 - Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 5*.
 
+- Baker, A. (2019). ["Difference-in-Differences Methodology"](https://andrewcbaker.netlify.app/2019/09/25/difference-in-differences-methodology/).
+
+- Goodman-Bacon, A. (2019). "Difference-in-Differences with variation in treatment timing". *NBER working paper*.
+
+- Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 8-9: Diff-in-diff I and II, Course at BYU*. 
 
 &lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week6/2_DD/sp2021_sta235_9_dd.html') --&gt;
     </textarea>

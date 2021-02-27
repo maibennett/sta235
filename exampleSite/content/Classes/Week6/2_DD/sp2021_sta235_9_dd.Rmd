@@ -999,14 +999,104 @@ plot_early + plot_late
 .box-3LA[Let's look at an example]]
 
 ---
-# Look at what T.s. made me do
+# Look at what T.S. made me do
 
 - Like in the JITT, we will have data for Taylor Swift's popularity in the past 12 months.
+
+```{r TS1, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+# this shows popularity over time, including the release of one of her albums (on the week of 07/19/2020 for the west coast, and 08/09/2020 for the rest).
+swift <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/data/swift.csv")
+
+# Let's create some additional variables:
+
+swift <- swift %>% mutate(post1 = ifelse(dates >= as.Date("2020-07-19"), 1, 0), #This is when the glitch happen
+                          post2 = ifelse(dates >= as.Date("2020-08-09"), 1, 0)) #The the album became available for almost everyone
+
+# Let's assume that "treatment" is having the album available. Then,
+
+swift <- swift %>% mutate(treat = ifelse(west_coast==1 & post1==1, 1,
+                                         ifelse(west_coast==0 & post2==1 & controls == 0, 1, 0)),# Look closely at this condition! What is does is: 1) If the state is in the west coast and it's after 07/19, treat = 1, then if west_coast = 0 and it's after 08/09, treat = 1. It will be 0 in all other cases. 
+                          period = factor(ifelse(post1==0 & post2==0, 0, ifelse(post1==1 & post2==0, 1, 2))), #Time 0 is before the album was available to anyone, time 1 is after it was available for the 1st group but not the 2nd, time 2 is when it's available for everyone.
+                          group = factor(ifelse(controls==1,0,ifelse(west_coast==1,1,2))), # Group 0 is the ones that never receive it, group 1 is the ones that receive it early, group 2 the ones that receive it late.
+                          date_num = as.numeric(as.Date(dates))) 
+
+# Let's plot the data!
+
+swift %>% dplyr::select(group, dates, popularity) %>% 
+  group_by(group, dates) %>% summarise_all(mean) %>% # We first group our data (an summarize it) by date and whether the state was part of the glitch or not
+  ggplot(data = ., aes(x = as.Date(dates), y = popularity, color = factor(group), group = factor(group))) + # Then we plot the data
+  geom_line(lwd = 1.3) +
+  
+  scale_color_manual(values = c("#FCCE25","#900DA4","#F89441"), name = "Group", label = c("0" = "Weird", "1" = "West Coast", "2" = "Non west coast") ) + # We include personalized colors (to not use the default ones)
+  
+  geom_vline(aes(xintercept=as.Date("2020-07-19")), lty = 2, lwd=1.1, color = "#5601A4") + #Release of the album in the west coast
+  geom_vline(aes(xintercept=as.Date("2020-08-09")), lty = 2, lwd=1.1, color = "#E16462") + #Release of the album everywhere else
+  
+  labs(x = "Date", y = "Popularity Index")+
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  scale_x_date(date_labels = "%m-%Y", date_breaks = "2 month")+
+  theme(plot.margin=unit(c(0.5,1,1,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 14),legend.position=c(0.9,0.8),
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+``` 
+---
+# How many comparisons can we do?
+
+.center[
+![:scale 60%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/2_DD/images/bacon_goodman_1.jpg)]
+
+---
+
+.center2[
+.box-4LA[Let's go to R]
+]
+
+---
+# Takeaway points
+
+.pull-left[
+
+.center[
+<br>
+<br>
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/2_DD/images/bumpersticker.jpg)]
+
+]
+
+.pull-right[
+- There are other ways to **.darkorange[estimate causal effects beyond randomization]**
+
+- Always be careful of the **.darkorange[assumptions]**.
+
+  - Run robustness checks!
+
+- Don't confuse *assignment mechanisms* with *identification assumptions* 
+
+  - Note: Assignment mechanisms might make our identification assumption credible, **.darkorange[but they are not the same thing!]**
+]
+
 ---
 # References
 
 - Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 5*.
 
 - Baker, A. (2019). ["Difference-in-Differences Methodology"](https://andrewcbaker.netlify.app/2019/09/25/difference-in-differences-methodology/).
+
+- Goodman-Bacon, A. (2019). "Difference-in-Differences with variation in treatment timing". *NBER working paper*.
+
+- Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 8-9: Diff-in-diff I and II, Course at BYU*. 
 
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week6/2_DD/sp2021_sta235_9_dd.html') -->
