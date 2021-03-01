@@ -62,6 +62,39 @@ class: center, middle, inverse, title-slide
 ![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_Natural_Experiments/images/tweet_question.png)]
 
 ---
+# Some questions in the JITT
+
+- Q: Difference between **.darkorange[ATE]** and **.darkorange[ATT]**:
+--
+`$$ATE = E[Y(1) - Y(0)]$$`
+`$$ATT = E[Y(1) - Y(0) | Z=1]$$`
+--
+
+  - Under strong ignorability, `\(ATE = ATT\)`. **.darkorange[Why?]**
+  
+--
+
+  - Under CIA, it could be that `\(ATE \neq ATT\)`. **.darkorange[Why?]**
+  
+---
+# Some question in the JITT (cont.)
+
+- Q: How can we use the same example (GOTV) as an experiment and an observational study?
+
+--
+
+  - The data comes from a **.darkorange[field experiment]** (Green et al., 2006).
+  
+  - You can assume that you can get **.darkorange[similar observational data]**.
+  
+--
+
+  - To compare between an **.darkorange[RCT]** and an **.darkorange[observational study]**, you can abstract yourself from the experimental data (e.g. treatment assignment) and assume you only observe the treatment itself (i.e. contact).
+
+--
+  - **.darkorange[How does the experimental results compare to the observational ones?]**
+
+---
 # Last class
 
 .pull-left[
@@ -129,10 +162,9 @@ Is there randomness out there?
 
 1. **.darkorange[Random]**: Assignment to an intervention is random (e.g. lottery).
 
-2. **.darkorange[As if random]**: Assignment to an intervention is not random, but it's not correlated with potential confounders.
+2. **.darkorange[As if random]**: Assignment to an intervention is not random, but it's not correlated with potential outcomes.
 
 --
-
 .box-6[Context matters!]
 
 ---
@@ -291,7 +323,7 @@ Is there randomness out there?
 ]  
 .pull-right[
 .center[
-![:scale 90%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_Natural_Experiments/images/fish.png)
+![:scale 85%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_Natural_Experiments/images/fish.png)
 ]
 ]
 

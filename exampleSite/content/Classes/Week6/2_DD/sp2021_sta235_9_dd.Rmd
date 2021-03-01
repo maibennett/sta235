@@ -975,7 +975,7 @@ plot_early + plot_late
 
 --
 
-- **.darkorange[Problem]: Weighted average of treatment effects
+- **.darkorange[Problem]**: Weighted average of treatment effects
 
 .box-2[Not easily interpretable]
 
