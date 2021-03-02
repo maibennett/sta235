@@ -22,7 +22,7 @@ In this class we will cover Regression Discontinuity Designs, and how we can use
 
 ## JITT
 
-Complete before **Sunday March 7th (11:59 pm)**. Link will be posted soon.
+Complete before **Sunday March 7th (11:59 pm)**. You can find the assignment <a onclick="ga('send', 'event', 'External-Link','click','JITT5','0','Link');" href="https://forms.gle/a6FnnkeEdpSmNasM9" target="_blank">here</a>.
 
 ## Slides
 
