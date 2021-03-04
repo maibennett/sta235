@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235 - Multiple Regression: Statistical Adjustment</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA 235 - Multiple Regression: Statistical Adjustment
+## Spring 2021
+### McCombs School of Business, UT Austin
+
+---
+
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+&lt;/style&gt;
+
+# Quick reminders
+
+.box-2LA[sta235.netlify.app]
+
+- Slides are posted on the website before the class.
+
+- Required readings are posted in the *Classes* folder at least a week before.
+
+- Check the code for each class.
+
+---
+# Last week
+
+.pull-left[
+- Quick **.darkorange[multiple regression]** review
+  
+- Comparing **.darkorange[effect sizes]**: Standardizing variables (i.e. all `\(\hat{\beta}\)`'s in the same scale)
+
+- **.darkorange[Uncertainty quantification]** in regression: Adj-R&lt;sup&gt;2&lt;/sup&gt; and RSE.
+]
+
+.pull-right[
+![](https://media.giphy.com/media/hsCb46pXn9qVmS5mdC/giphy.gif)
+]
+---
+# Today
+
+.pull-left[
+![](https://media.giphy.com/media/3oEjHZPivwdJ0syhKE/source.gif)]
+
+.pull-right[
+- **.darkorange[Statistical adjustment in regressions]**:
+  - How do we interpret coefficients?
+  - What are those standard errors?
+  - Multicollinearity?
+  
+- Regression models with **.darkorange[binary outcomes]**
+
+]
+
+---
+# But first... JITTs!
+
+- (Almost) **.darkorange[everyone]** answered the JITT.
+
+- Answers are very useful and **.darkorange[we will use them in today's class]**.
+
+- People want **.darkorange[more plots!]**
+  
+  - *Ask and you shall receive.*
+  
+.box-4LA[Remember to ask questions!]
+
+---
+# Multiple Regression
+
+.box-5[$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_p X_p + \varepsilon$$]
+
+Assumptions of the linear regression model:
+
+(i) The conditional mean of `\(Y\)` is **.darkorange[linear]** in the `\(X_j\)` variables
+
+(ii) The error terms are:
+  - normally distributed
+  - independent from each other
+  - identically distributed (i.e. constant variance)
+
+- Last two assumptions are the ones that we refer to when saying `\(\varepsilon \sim iid\)`
+---
+# How can we check these assumptions?
+
+Remember last week's Bechdel test example:
+
+
+
+```r
+ggplot(data = bechdel_fitted, aes(x = .std.resid)) + 
+  geom_density()
+```
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/bechdel_res-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# How can we check these assumptions?
+
+Remember last week's Bechdel test example:
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/bechdel5r-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# What happens if the assumptions break?
+
+.pull-left[
+![](https://media.giphy.com/media/fA1OFzprOfRjteYADG/giphy.gif)
+]
+
+.pull-right[
+- **.darkorange[Don't panic!]** There's still much to be done.
+
+- **.darkorange[Heteroskedasticity]** (non-constant variance) does not bias your estimates.
+
+- Can be fixed many times with **.darkorange[robust standard errors]**
+]
+
+---
+# What happens if the assumptions break?
+
+.pull-left[
+![](https://media.giphy.com/media/fA1OFzprOfRjteYADG/giphy.gif)
+]
+
+.pull-right[
+- **.darkorange[Don't panic!]** There's still much to be done.
+
+- **.darkorange[Heteroskedasticity]** (non-constant variance) does not bias your estimates.
+
+- Can be fixed many times with **.darkorange[robust standard errors]**:
+  
+  - Easy to implement in `R`!
+]
+
+---
+# Statistical Adjusment
+
+- Remember that an important part of our job is to **.darkorange[correctly estimate]** the `\(\beta\)` parameters:
+
+  - Point estimates
+  - Standard errors
+  
+- **.darkorange[Two ways]** to estimate standard errors:
+
+  - .darkorange[Direct estimation:] Use probability theory (e.g. `\(SE(\bar{x}) = \frac{\hat{\sigma}}{\sqrt{n}}\)`)
+  - .darkorange[Simulation:] Repeat the sampling process and estimates how much our estimate changes from one sample to the next (e.g. bootstrapping)
+
+---
+
+# Statistical Adjusment
+
+- Remember that an important part of our job is to **.darkorange[correctly estimate]** the `\(\beta\)` parameters:
+
+  - Point estimates
+  - Standard errors
+  
+- **.darkorange[Two ways]** to estimate standard errors:
+
+  - .darkorange[Direct estimation:] Use probability theory (e.g. `\(SE(\bar{x}) = \frac{\hat{\sigma}}{\sqrt{n}}\)`)
+  - .darkorange[Simulation:] Repeat the sampling process and estimates how much our estimate changes from one sample to the next (e.g. bootstrapping)
+
+.box-6tL[Important to understand R output!]
+
+---
+# Let's look at some data
+
+- I have some data for price and sales of product 1, but also I'm tracking the prices of its competitor, product 2.
+
+- The data looks like this:
+
+.center[
+
+```
+##     p1    p2  Sales
+## 1 5.14  5.20 144.49
+## 2 3.50  8.06 637.25
+## 3 7.28 11.68 620.79
+## 4 4.66  8.36 549.01
+## 5 3.58  2.15  20.43
+## 6 5.17 10.15 713.01
+```
+]
+
+---
+# Let's fit a model
+
+`$$Sales_i = \beta_0 + \beta_1 p1_{i} + \beta_2 p2_i + \varepsilon_i$$`
+.small[
+
+```r
+summary(lm(Sales ~ p1 + p2, data = sales))
+```
+
+```
+## 
+## Call:
+## lm(formula = Sales ~ p1 + p2, data = sales)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -66.916 -15.663  -0.509  18.904  63.302 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  115.717      8.548   13.54   &lt;2e-16 ***
+## p1           -97.657      2.669  -36.59   &lt;2e-16 ***
+## p2           108.800      1.409   77.20   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 28.42 on 97 degrees of freedom
+## Multiple R-squared:  0.9871,	Adjusted R-squared:  0.9869 
+## F-statistic:  3717 on 2 and 97 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+---
+# Do assumptions hold?
+
+`$$\varepsilon_i \sim N(0, \sigma^2)$$`
+
+.small[
+
+```r
+sales_fitted &lt;- augment(lm(Sales ~ p1 + p2, data = sales))
+
+ggplot(data = sales_fitted, aes(x = .std.resid)) + 
+  geom_density()
+```
+]
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/sales_res-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Do assumptions hold? (cont.)
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/sales5r-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Let's go back to our model
+
+`$$Sales_i = \beta_0 + \beta_1 p1_{i} + \beta_2 p2_i + \varepsilon_i$$`
+
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 1 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (Intercept) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 115.717*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (8.548) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; p1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -97.657*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (2.669) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; p2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 108.800*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (1.409) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Num.Obs. &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 100 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; F &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3717.292 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="padding: 0; border:0;" colspan="100%"&gt;
+&lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+---
+# How is the prediction working?
+
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/sales_fitted-1.svg" style="display: block; margin: auto;" /&gt;
+- **.darkorange[Can you guess the slope?]**
+
+---
+# What if we only had p1 and not p2?
+
+
+```r
+ggplot(data = sales, aes(x = p1, y = Sales)) + 
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/sales_p1-1.svg" style="display: block; margin: auto;" /&gt;
+- If I increase the price sales go up?
+
+---
+# What if we only had p1 and not p2?
+
+
+```r
+ggplot(data = sales, aes(x = p1, y = Sales)) + 
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/sales_p1_2-1.svg" style="display: block; margin: auto;" /&gt;
+- If I increase the price sales go up? **.darkorange[NO!]**
+
+---
+# Relationship between p1 and p2
+
+- Let's compare two different observations: Week 82 and week 99.
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/sales_p1_p2_a-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Relationship between p1 and p2
+
+- Let's compare two different observations: Week 82 and week 99.
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/sales_p1_p2_b-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Relationship between p1 and p2 (cont.)
+
+- Same thing happens when looking at a set of obs where `\(p2 \sim\)` constant.
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/sales_p1_p2_all1-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Relationship between p1 and p2 (cont.)
+
+- Same thing happens when looking at a set of obs where `\(p2 \sim\)` constant.
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/sales_p1_p2_all2-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Conclusions?
+
+
+.box-3tL[A larger p1 is associated with a larger p2, and overall, with more sales!]
+
+&lt;br&gt;
+
+.box-5tL[If we keep p2 constant, a larger p1 is associated with lower sales.]
+
+
+---
+# Let's look at more data: Beer limit
+
+- From the JITT assignment, we have `beers` data
+
+  - `nbeer`: Number of beers before getting tipsy
+  - `height`, `weight`, `age`
+  - `female`: Whether the student is female or not
+.center[
+
+```
+##   nbeer weight height age female
+## 1    12    192     72  26      0
+## 2    12    160     66  27      0
+## 3     5    155     65  25      0
+## 4     5    120     66  28      0
+## 5     7    150     67  28      0
+## 6    13    175     71  31      0
+```
+]
+
+---
+# Is the number of beers related to height
+
+- What model would you run?
+
+---
+# Is the number of beers related to height
+
+- What model would you run?
+
+`$$nbeers_i = \beta_0 + \beta_1 \cdot height_i + \varepsilon_i$$`
+---
+# Is the number of beers related to height
+
+- What model would you run?
+
+`$$nbeers_i = \beta_0 + \beta_1 \cdot height_i + \varepsilon$$`
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/beers_height-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Is the number of beers related to height
+
+- What model would you run?
+
+`$$nbeers_i = \beta_0 + \beta_1 \cdot height_i + \varepsilon$$`
+.small[
+
+```r
+summary(lm(nbeer ~ height, data = beers))
+```
+
+```
+## 
+## Call:
+## lm(formula = nbeer ~ height, data = beers)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -6.164 -2.005 -0.093  1.738  9.978 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -36.9200     8.9560  -4.122 0.000148 ***
+## height        0.6430     0.1296   4.960 9.23e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.109 on 48 degrees of freedom
+## Multiple R-squared:  0.3389,	Adjusted R-squared:  0.3251 
+## F-statistic:  24.6 on 1 and 48 DF,  p-value: 9.23e-06
+```
+]
+
+---
+# Is this the explanation that I want?
+
+- Height can be a **.darkorange[proxy]** for "bigger" people.
+
+---
+# Is this the explanation that I want?
+
+- Height can be a **.darkorange[proxy]** for "bigger" people.
+
+- What do you think will happen when I control for **.darkorange[weight]**?
+
+
+---
+# Is this the explanation that I want?
+
+- Height can be a **.darkorange[proxy]** for "bigger" people.
+
+- What do you think will happen when I control for **.darkorange[weight]**?
+
+
+```r
+beers_fitted_weight &lt;- augment(lm(nbeer ~ weight, data = beers))
+```
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/beers_height_weight-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Is this the explanation that I want?
+
+- Height can be a **.darkorange[proxy]** for "bigger" people.
+
+.small[
+
+```r
+summary(lm(nbeer ~ weight + height, data = beers))
+```
+
+```
+## 
+## Call:
+## lm(formula = nbeer ~ weight + height, data = beers)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -8.5080 -2.0269  0.0652  1.5576  5.9087 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -11.18709   10.76821  -1.039 0.304167    
+## weight        0.08530    0.02381   3.582 0.000806 ***
+## height        0.07751    0.19598   0.396 0.694254    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.784 on 47 degrees of freedom
+## Multiple R-squared:  0.4807,	Adjusted R-squared:  0.4586 
+## F-statistic: 21.75 on 2 and 47 DF,  p-value: 2.056e-07
+```
+]
+
+---
+# Is this the explanation that I want?
+
+- Height can be a **.darkorange[proxy]** for "bigger" people.
+
+
+```r
+M &lt;-cor(beers)
+
+ggcorrplot(M, method = "circle", outline.color = "white", ggtheme = ggplot2::theme_bw,
+           colors = viridis(3))
+```
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/corrplot-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Let's look at the two models closer!
+
+.pull-left[
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 1 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 2 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (Intercept) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -7.021*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -11.187 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (2.213) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (10.768) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weight &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.093*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.085*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.014) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.024) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; height &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.078 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (0.196) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Num.Obs. &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 50 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 50 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.479 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.481 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 Adj. &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.468 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.459 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; F &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 44.119 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 21.750 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="padding: 0; border:0;" colspan="100%"&gt;
+&lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+]
+.pull-right[
+- Which model do you prefer?
+]
+
+---
+# Let's look at the two models closer!
+
+.pull-left[
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 1 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 2 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (Intercept) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -7.021*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -11.187 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (2.213) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (10.768) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weight &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.093*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.085*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.014) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.024) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; height &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.078 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (0.196) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Num.Obs. &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 50 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 50 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.479 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.481 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 Adj. &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.468 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.459 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; F &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 44.119 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 21.750 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="padding: 0; border:0;" colspan="100%"&gt;
+&lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+]
+.pull-right[
+- Which model do you prefer?
+
+- What happened to the SE for `weight`? Why?
+]
+
+---
+# Let's look at the two models closer!
+
+.pull-left[
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 1 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 2 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (Intercept) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -7.021*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -11.187 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (2.213) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (10.768) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weight &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.093*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.085*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.014) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.024) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; height &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.078 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (0.196) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Num.Obs. &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 50 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 50 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.479 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.481 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 Adj. &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.468 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.459 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; F &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 44.119 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 21.750 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="padding: 0; border:0;" colspan="100%"&gt;
+&lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+]
+.pull-right[
+- Which model do you prefer?
+
+- What happened to the SE for `weight`? Why?
+
+.box-5t[Multicollinearity]
+]
+
+---
+# Multicollinearity
+
+- If variable `x1` and `x2` are highly correlated, it is difficult to disentangle their effects
+  
+  - **.darkorange[Context matters!]**
+  
+---
+# Multicollinearity
+
+- If variable `x1` and `x2` are highly correlated, it is difficult to disentangle their effects
+  
+  - **.darkorange[Context matters!]**
+  
+- Limit scenario: `\(|Cor(x_1,x_2)| = 1\)`
+
+  - Cannot estimate both parameters: One is dropped!
+  
+  
+---
+# Multicollinearity
+
+- If variable `x1` and `x2` are highly correlated, it is difficult to disentangle their effects
+  
+  - **.darkorange[Context matters!]**
+  
+- Limit scenario: `\(|Cor(x_1,x_2)| = 1\)`
+
+  - Cannot estimate both parameters: One is dropped!
+  
+.box-4t[Can I add both binary variables `US_born` and `Foreign_born` to a regression?]
+
+---
+# Does gender matter?
+
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 1 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 2 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 3 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 4 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (Intercept) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -7.021*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -11.187 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -7.830** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -12.067 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (2.213) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (10.768) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (3.013) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (11.084) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weight &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.093*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.085*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.097*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.090*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.014) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.024) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.018) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.027) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; height &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.078 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.079 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.196) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.198) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.528 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.536 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (1.320) &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (1.333) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.479 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.481 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.481 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.482 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 Adj. &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.468 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.459 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.459 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.449 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="padding: 0; border:0;" colspan="100%"&gt;
+&lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+
+---
+# Some of your answers in the JITT Assignment
+
+&lt;img src="sp2021_sta235_3_reg_files/figure-html/pie1-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Other ways to control for variables
+
+- **.darkorange[Interactions]**:
+
+  - E.g. The relationship between `weight` and `nbeers` is different for males and females.
+  
+
+---
+# Other ways to control for variables
+
+- **.darkorange[Interactions]**:
+
+  - E.g. The relationship between `weight` and `nbeers` is different for males and females.
+  
+
+```r
+lm(nbeer ~ weight*female, data = beers)
+```
+
+```
+## 
+## Call:
+## lm(formula = nbeer ~ weight * female, data = beers)
+## 
+## Coefficients:
+##   (Intercept)         weight         female  weight:female  
+##     -7.790193       0.097234       0.225748       0.002465
+```
+
+- How do we interpret these results?
+
+---
+# Other ways to control for variables
+
+- **.darkorange[Other polynomial terms]**:
+
+  - E,g, The relationship between `weight` and `nbeers` is quadratic.
+
+
+---
+# Other ways to control for variables
+
+- **.darkorange[Other polynomial terms]**:
+
+  - E,g, The relationship between `weight` and `nbeers` is quadratic.
+  
+
+```r
+lm(nbeer ~ weight + I(weight^2), data = beers)
+```
+
+```
+## 
+## Call:
+## lm(formula = nbeer ~ weight + I(weight^2), data = beers)
+## 
+## Coefficients:
+## (Intercept)       weight  I(weight^2)  
+##   0.1078784   -0.0016255    0.0003033
+```
+- How do we interpret these results?
+
+---
+# Other ways to control for variables
+
+- **.darkorange[Other polynomial terms]**:
+
+  - E,g, The relationship between `weight` and `nbeers` is quadratic.
+  
+
+```r
+lm(nbeer ~ weight + I(weight^2), data = beers)
+```
+
+```
+## 
+## Call:
+## lm(formula = nbeer ~ weight + I(weight^2), data = beers)
+## 
+## Coefficients:
+## (Intercept)       weight  I(weight^2)  
+##   0.1078784   -0.0016255    0.0003033
+```
+- How do we interpret these results?
+`$$\frac{\partial Y_{beers}}{\partial X_w} = \beta_1 + 2\cdot\beta_2 X_w$$`
+
+---
+# Other ways to control for variables
+
+- **.darkorange[Categorical variables]**:
+
+  - E,g, You want to include a factor variable for year the student is in.
+  
+---
+# Other ways to control for variables
+
+- **.darkorange[Categorical variables]**:
+
+  - E,g, You want to include a factor variable for year the student is in.
+  
+
+---
+# Other ways to control for variables
+
+- **.darkorange[Categorical variables]**:
+
+  - E,g, You want to include a factor variable for year the student is in.
+  
+
+
+
+```r
+table(beers$year)
+```
+
+```
+## 
+## freshmen   junior   senior sophmore 
+##        7       14       14       15
+```
+
+```r
+lm(nbeer ~ weight + factor(year), data = beers)
+```
+
+```
+## 
+## Call:
+## lm(formula = nbeer ~ weight + factor(year), data = beers)
+## 
+## Coefficients:
+##          (Intercept)                weight    factor(year)junior  
+##             -6.85394               0.09237              -0.35244  
+##   factor(year)senior  factor(year)sophmore  
+##             -0.03144               0.07474
+```
+
+---
+# What should I control for?
+
+.pull-left[
+- If your goal is **.darkorange[prediction]**:
+  
+.box-3[Overfitting]
+]
+---
+# What should I control for?
+
+.pull-left[
+- If your goal is **.darkorange[prediction]**:
+  
+.box-3[Overfitting]
+  
+- If your goal is **.darkorange[description]**:
+
+.box-5[Confidence Intervals]
+]
+
+---
+# What should I control for?
+
+.pull-left[
+- If your goal is **.darkorange[prediction]**:
+  
+.box-3[Overfitting]
+  
+- If your goal is **.darkorange[description]**:
+
+.box-5[Confidence Intervals]
+
+- If your goal is **.darkorange[causality]**:
+
+.box-7[Bias]
+]
+
+---
+# What should I control for?
+
+.pull-left[
+- If your goal is **.darkorange[prediction]**:
+  
+.box-3[Overfitting]
+  
+- If your goal is **.darkorange[description]**:
+
+.box-5[Confidence Intervals]
+
+- If your goal is **.darkorange[causality]**:
+
+.box-7[Bias]
+]
+
+.pull-right[
+&lt;br&gt;
+&lt;br&gt;
+.box-1LA[All of them matter!]
+]
+
+---
+# References
+
+- Hanck, C. et al. (2020). ["Econometrics with R"](https://www.econometrics-with-r.org/6-2-tmrm.html). *The Multiple Regression Model* 
+
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week2/1_OLS/sp2021_sta235_3_reg.html') --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
