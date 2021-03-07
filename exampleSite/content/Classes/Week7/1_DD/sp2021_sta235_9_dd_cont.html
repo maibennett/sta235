@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235 - Causal Inference: Differences-in-Differences (Cont.)</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA 235 - Causal Inference: Differences-in-Differences (Cont.)
+## Spring 2021
+### McCombs School of Business, UT Austin
+
+---
+
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+# Reminders
+
+.box-3LA[In-class midterm March 29th]
+
+--
+- You need a **.darkorange[webcam]**
+
+- You will be required to **.darkorange[code]**
+
+---
+# Some results from the JITTs
+
+
+---
+# Last Class
+
+.pull-left[
+- **.darkorange[Diff-in-Diff]** as an identification strategy:
+
+  - Applies for two groups that have *different levels* but *the same trend*.
+  
+  - Don't need covariates to be the same.
+  
+  - **.darkorange[Time-invariant confounders]**.
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/UGEjhP90uJ7Mc/giphy.gif)]
+]
+---
+# Today
+
+.pull-left[
+.center[
+![](https://media.giphy.com/media/l0G18fLplAh4leq88/giphy.gif)]
+]
+.pull-right[
+- Finish with **.darkorange[diff-in-diff]**:
+
+  - Assumptions.
+
+- **.darkorange[Regression Discontinuity Designs]**:
+  
+  - Finding natural "jumps" in assignment.
+  
+  - Use that variation in treatment assignment for causal inference.
+  
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Diff-in-Diff Assumptions
+]
+---
+# Assumptions
+
+.box-3LA[Parallel Trends]
+
+--
+
+.box-3tL[In the absence of the intervention, treatment and control group would have changed in the same way]
+
+---
+&lt;br&gt;
+
+&lt;img src="sp2021_sta235_9_dd_cont_files/figure-html/plot-trends-1-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;br&gt;
+
+&lt;img src="sp2021_sta235_9_dd_cont_files/figure-html/plot-trends-2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;br&gt;
+
+
+&lt;img src="sp2021_sta235_9_dd_cont_files/figure-html/plot-trends-3-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Robustness Check
+
+.box-3LA[Parallel Trends]
+
+--
+
+.box-3tL[Check by pretending the treatment happened earlier; if there's an effect, there's likely an underlying trend]
+
+---
+&lt;br&gt;
+
+
+&lt;img src="sp2021_sta235_9_dd_cont_files/figure-html/plot-trends-2-back-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;br&gt;
+
+
+&lt;img src="sp2021_sta235_9_dd_cont_files/figure-html/plot-trends-3-back-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;br&gt;
+
+
+&lt;img src="sp2021_sta235_9_dd_cont_files/figure-html/plot-trends-1-back-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Assumptions
+
+.box-3LA[Treatment timing]
+
+--
+
+.box-3tL[Units often receive treatment at different times,&lt;br&gt;which can distort your estimate!]
+
+---
+&lt;br&gt;
+
+
+&lt;img src="sp2021_sta235_9_dd_cont_files/figure-html/gb-trends-1-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;br&gt;
+
+
+&lt;img src="sp2021_sta235_9_dd_cont_files/figure-html/gb-trends-2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Staggered treatment adoptions
+
+- Units receive treatment at **.darkorange[different points in time]**
+
+--
+
+- Common solution so far has been a Two-Way Fixed Effect (TWFE) model
+
+.box-7[Y&lt;sub&gt;i&lt;/sub&gt; = &amp;alpha;&lt;sub&gt;i&lt;/sub&gt; + &amp;alpha;&lt;sub&gt;t&lt;/sub&gt; + &amp;beta;&lt;sup&gt;DD&lt;/sup&gt;D&lt;sub&gt;it&lt;/sub&gt; + &amp;epsilon;&lt;sub&gt;it&lt;/sub&gt;]
+
+--
+
+- **.darkorange[Problem]**: Weighted average of treatment effects
+
+.box-2[Not easily interpretable]
+
+---
+# Staggered treatment adoptions
+
+.box-3[You can check how big of an issue this is&lt;br&gt;with Goodman-Bacon decomposition]
+
+--
+
+.box-3t[R package: `bacondecomp`]
+
+.center[
+&lt;figure&gt;
+  &lt;img src="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/2_DD/images/goodman-bacon.png" alt="Goodman-Bacon paper" title="Goodman-Bacon paper" width="45%"&gt;
+&lt;/figure&gt;
+]
+
+---
+.center2[
+.box-3LA[Let's look at an example]]
+
+---
+# Look at what T.S. made me do
+
+- Like in the JITT, we will have data for Taylor Swift's popularity in the past 12 months.
+
+&lt;img src="sp2021_sta235_9_dd_cont_files/figure-html/TS1-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# How many comparisons can we do?
+
+.center[
+![:scale 60%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/2_DD/images/bacon_goodman_1.jpg)]
+
+---
+
+.center2[
+.box-4LA[Let's go to R]
+]
+
+---
+# Takeaway points
+
+.pull-left[
+
+.center[
+&lt;br&gt;
+&lt;br&gt;
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/2_DD/images/bumpersticker.jpg)]
+
+]
+
+.pull-right[
+- There are other ways to **.darkorange[estimate causal effects beyond randomization]**
+
+- Always be careful of the **.darkorange[assumptions]**.
+
+  - Run robustness checks!
+
+- Don't confuse *assignment mechanisms* with *identification assumptions* 
+
+  - Note: Assignment mechanisms might make our identification assumption credible, **.darkorange[but they are not the same thing!]**
+]
+
+---
+# References
+
+- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 5*.
+
+- Baker, A. (2019). ["Difference-in-Differences Methodology"](https://andrewcbaker.netlify.app/2019/09/25/difference-in-differences-methodology/).
+
+- Goodman-Bacon, A. (2019). "Difference-in-Differences with variation in treatment timing". *NBER working paper*.
+
+- Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 8-9: Diff-in-diff I and II, Course at BYU*. 
+
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week6/2_DD/sp2021_sta235_9_dd.html') --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script src="cols_macro.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
