@@ -855,4 +855,4 @@ swift %>% dplyr::select(group, dates, popularity) %>%
 
 - Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 8-9: Diff-in-diff I and II, Course at BYU*. 
 
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week6/2_DD/sp2021_sta235_9_dd.html') -->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/1_DD/sp2021_sta235_9_d_cont.html') -->

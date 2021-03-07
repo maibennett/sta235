@@ -265,17 +265,6 @@ library(extrafont)
 
 ```
 
-# Reminders
-
-.box-3LA[In-class midterm March 29th]
-
---
-- You need a **.darkorange[webcam]**
-
-- You will be required to **.darkorange[code]**
-
----
-# Some results from the JITTs
 
 
 ---
@@ -295,22 +284,6 @@ library(extrafont)
 
 .box-7LA[Regression Discontinuity Designs]
 
-
----
-# Today
-
-.pull-left[
-.center[
-![](https://media.giphy.com/media/l0G18fLplAh4leq88/giphy.gif)]
-]
-.pull-right[
-- **.darkorange[Regression Discontinuity Designs]**:
-  
-  - Finding natural "jumps" in assignment.
-  
-  - Use that variation in treatment assignment for causal inference.
-  
-]
 
 ---
 background-position: 50% 50%
