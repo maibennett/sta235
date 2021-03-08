@@ -498,13 +498,22 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 ---
 # Geographic discontinuities
 
+.center[
+![](https://raw.githubusercontent.com/andrewheiss/evalf20.classes.andrewheiss.com/master/static/slides/img/10/timezones-1.png)
+]
 
 ---
 # Time discontinuities
 
+.center[
+![:scale 60%](https://raw.githubusercontent.com/andrewheiss/evalf20.classes.andrewheiss.com/master/static/slides/img/10/hospitals-1.png)
+]
 
 ---
 # Voting discontinuities
+
+.center[
+![:scale 55%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_RD/images/voting_share.png)]
 
 ---
 background-position: 50% 50%
@@ -964,18 +973,23 @@ ggplot(data = sales_mod, aes(x = time, y = income)) +
 ```
 
 ---
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Let's get into estimation
-]
-
----
 # How do we actually estimate an RD?
 
 - The simplest way to do this is to fit a regression:
 
 $$Y_i = \beta_0 + \beta_1(R_i-c) + \beta_2\mathrm{I}[R_i>c] + \beta_3(R_i-c)\mathrm{I}[R_i> c]$$
+---
+# How do we actually estimate an RD?
+
+- The simplest way to do this is to fit a regression:
+
+$$Y_i = \beta_0 + \beta_1\color{#900DA4}{\underbrace{(R_i-c)}_\text{Distance to the cutoff}} + \beta_2\mathrm{I}[R_i>c] + \beta_3\color{#900DA4}{\overbrace{(R_i-c)}^\text{Distance to the cutoff}}\mathrm{I}[R_i> c]$$
+---
+# How do we actually estimate an RD?
+
+- The simplest way to do this is to fit a regression:
+
+$$Y_i = \beta_0 + \beta_1(R_i-c) + \beta_2\color{#F89441}{\underbrace{\mathrm{I}[R_i>c]}_\text{Treatment}} + \beta_3(R_i-c)\color{#F89441}{\overbrace{\mathrm{I}[R_i> c]}^\text{Treatment}}$$
 --
 
 - You want to add **.darkorange[flexibility]** for each side of the cutoff.
@@ -1083,4 +1097,4 @@ summary(lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data
 .center2[
 .box-5LA[Have a good Spring Break!]
 ]
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/1_DD/sp2021_sta235_9_d_cont.html') -->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/1_DD/sp2021_sta235_9_dd_cont.html') -->
