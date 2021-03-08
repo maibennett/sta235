@@ -835,7 +835,7 @@ plot_early + plot_late
 
 - Common solution so far has been a Two-Way Fixed Effect (TWFE) model
 
-.box-7[Y<sub>i</sub> = &alpha;<sub>i</sub> + &alpha;<sub>t</sub> + &beta;<sup>DD</sup>D<sub>it</sub> + &epsilon;<sub>it</sub>]
+.box-7[Y<sub>it</sub> = &alpha;<sub>i</sub> + &alpha;<sub>t</sub> + &beta;<sup>DD</sup>D<sub>it</sub> + &epsilon;<sub>it</sub>]
 
 --
 
