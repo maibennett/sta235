@@ -589,8 +589,8 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
   scale_color_manual(values = c("#900DA4", "#F89441")) +
   theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
   theme_ipsum_fsc() +
-  geom_segment(aes(x=80,y=85,xend=70,yend=85),lwd=0.8,lty=1,
-               arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="dark grey",col="dark grey") +
+  geom_segment(aes(x=80,y=85,xend=70,yend=85),lwd=0.8,lty=1.5,
+               arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="#E16462",col="white") +
   #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
         #axis.line = element_line(colour = "dark grey"))+
   theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
@@ -620,10 +620,10 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
   scale_color_manual(values = c("#900DA4", "#F89441")) +
   theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
   theme_ipsum_fsc() +
-  geom_segment(aes(x=80,y=85,xend=70,yend=85),lwd=0.8,lty=1,
-               arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="dark grey",col="dark grey") +
-  geom_segment(aes(x=60,y=70,xend=70,yend=70),lwd=0.8,lty=1,
-               arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="dark grey",col="dark grey") +
+  geom_segment(aes(x=80,y=85,xend=70,yend=85),lwd=0.8,lty=1.5,
+               arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="#E16462",col="white") +
+  geom_segment(aes(x=60,y=70,xend=70,yend=70),lwd=0.8,lty=1.5,
+               arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="#E16462",col="white") +
   #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
         #axis.line = element_line(colour = "dark grey"))+
   theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
@@ -647,17 +647,19 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 ]
 
 ---
-.center2[
+
 .box-3[Is that what we want?]
 
 --
-
+<br>
+<br>
 .box-5[Probably not ideal, there may not be *any* variables with R=c]
 
 --
-
+<br>
+<br>
 .box-7[... but better LATE than nothing!]
-]
+
 ---
 # Conditions required for identificaton
 --
@@ -798,6 +800,13 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 
 .center2[
 .box-2LA[Can you think situations where that could happen?]
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Now it's your turn!
 ]
 
 ---
@@ -979,6 +988,43 @@ ggplot(data = sales_mod, aes(x = time, y = income)) +
         legend.background = element_rect(fill="white",colour ="white"),
         title = element_text(size=14))
 ```
+
+---
+# Group 4: Check histogram of arrivals
+
+```{r, echo = TRUE, eval = FALSE}
+ggplot(data = sales_mod, aes(x = time)) +
+  geom_histogram(fill="grey", color = "white", bins = 60) + 
+  geom_vline(aes(xintercept = 180), color = "#900DA4", lwt=2, lwd=1.4)
+  theme_bw()
+
+```
+
+```{r group4b, fig.height=4, fig.width=8, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+ggplot(data = sales_mod, aes(x = time)) +
+  geom_histogram(fill="grey", color = "white", bins = 60) + 
+  geom_vline(aes(xintercept = 180), color = "#900DA4", lwt=2, lwd=1.4)
+  theme_bw()
+  theme_ipsum_fsc() +
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Estimation in practice
+]
 
 ---
 # How do we actually estimate an RD?
