@@ -710,7 +710,7 @@ ggplot(data = jitt2, aes(x="", y=as.numeric(value),fill=bin)) +
 ```
 
 ---
-# Conditions required for identificaton
+# Conditions required for identification
 --
 
 - Threshold rule **.darkorange[exists]** and cutoff point is **.darkorange[known]**
