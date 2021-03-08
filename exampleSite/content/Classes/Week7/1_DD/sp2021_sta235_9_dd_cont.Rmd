@@ -300,7 +300,7 @@ jitt2 <- as.data.frame(cbind(table(jitt$pace),rownames(table(jitt$pace))))
 names(jitt2) = c("value","pace")
 jitt2$pace <- factor(jitt2$pace,levels = c("Too slow-paced","Pace was ok","Too fast-paced"))
 
-jitt3 <- as.data.frame(cbind(table(jitt$pace),rownames(table(jitt$useful))))
+jitt3 <- as.data.frame(cbind(table(jitt$useful),rownames(table(jitt$useful))))
 names(jitt3) = c("value","useful")
 jitt3$useful <- factor(jitt3$useful,levels = c("1","2","3","4","5"))
 
@@ -956,4 +956,4 @@ swift %>% dplyr::select(group, dates, popularity) %>%
 
 - Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 8-9: Diff-in-diff I and II, Course at BYU*. 
 
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/1_DD/sp2021_sta235_9_d_cont.html') -->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/1_DD/sp2021_sta235_9_dd_cont.html') -->
