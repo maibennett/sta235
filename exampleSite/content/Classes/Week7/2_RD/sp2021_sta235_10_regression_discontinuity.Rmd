@@ -551,7 +551,7 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
   scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
   scale_color_manual(values = c("#900DA4", "#F89441")) +
   theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
-  theme_ipsum() +
+  theme_ipsum_fsc() +
   #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
   theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
         panel.grid.major.x = element_blank(),
@@ -584,7 +584,7 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
   scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
   scale_color_manual(values = c("#900DA4", "#F89441")) +
   theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
-  theme_ipsum() +
+  theme_ipsum_fsc() +
   geom_segment(aes(x=60,y=70,xend=70,yend=70),lwd=0.8,lty=1,
                arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="dark grey",col="dark grey") +
   #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
@@ -620,7 +620,7 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
   scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
   scale_color_manual(values = c("#900DA4", "#F89441")) +
   theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
-  theme_ipsum() +
+  theme_ipsum_fsc() +
   geom_segment(aes(x=80,y=85,xend=70,yend=85),lwd=0.8,lty=1,
                arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="dark grey",col="dark grey") +
   geom_segment(aes(x=60,y=70,xend=70,yend=70),lwd=0.8,lty=1,
@@ -711,7 +711,7 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
   scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
   scale_color_manual(values = c("#900DA4", "#F89441")) +
   theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
-  theme_ipsum() +
+  theme_ipsum_fsc() +
   #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
   theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
         panel.grid.major.x = element_blank(),
@@ -774,7 +774,7 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
   scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
   scale_color_manual(values = c("#900DA4", "#F89441")) +
   theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
-  theme_ipsum() +
+  theme_ipsum_fsc() +
   #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
   theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
         panel.grid.major.x = element_blank(),
@@ -803,7 +803,8 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 
 - Customers are given discounts based on their **.darkorange[order of arrival]**
 
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_RD/images/queue.png)
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_RD/images/queue.png)]
 
 --
 
@@ -822,6 +823,163 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 .box-5[2) You need to complete the code and discuss the results]
 
 ---
+# Group 1
+
+.center2[
+.box-3LA[What did you have to do?]
+]
+
+---
+# Group 1: Check the treatment assignment
+
+```{r, echo = TRUE, eval = FALSE}
+c = max(sales$time[sales$treat==1])
+
+ggplot(data = sales, aes(x = time, y = treat)) +
+  geom_point(data = filter(sales, time<=c), pch = 21, color = "white", fill="#900DA4", position = pos) +
+  geom_point(data = filter(sales, time>c), pch = 21, color = "white", fill="#F89441", position = pos) +
+
+```
+
+```{r group1, fig.height=4, fig.width=8, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+sales <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/data/sales.csv")
+c = max(sales$time[sales$treat==1])
+
+ggplot(data = sales, aes(x = time, y = treat)) +
+  geom_point(data = filter(sales, time<=c), size = 5, pch = 21, color = "white", fill="#900DA4", position = position_jitter(width = 0, height = 0.1, seed = 1234)) +
+  geom_point(data = filter(sales, time>c), size = 5, pch = 21, color = "white", fill="#F89441", position = position_jitter(width = 0, height = 0.1, seed = 1234)) +
+  theme_ipsum_fsc() +
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# Group 2
+
+.center2[
+.box-4LA[What did you have to do?]
+]
+
+---
+# Group 2: Check the regression discontinuity on the outcome
+
+```{r, echo = TRUE, eval = FALSE}
+ggplot(data = sales, aes(x = time, y = sales)) +
+  geom_point(pch = 21, color = "white", fill="grey") +
+  geom_smooth(data = filter(sales, time>c), method = "loess", se=TRUE, color = "#F89441", fill = "#F89441") +
+  geom_smooth(data = filter(sales, time<=c), method = "loess", se=TRUE, color = "#F89441", fill = "#900DA4")
+
+```
+
+```{r group2, fig.height=4, fig.width=8, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+ggplot(data = sales, aes(x = time, y = sales)) +
+  geom_point(size = 5, pch = 21, color = "white", fill="grey") +
+  geom_smooth(data = filter(sales, time>c), method = "loess", se=TRUE, color = "#F89441", fill = "#F89441") +
+  geom_smooth(data = filter(sales, time<=c), method = "loess", se=TRUE, color = "#900DA4", fill = "#900DA4") +
+  theme_ipsum_fsc() +
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# Group 3
+
+.center2[
+.box-6LA[What did you have to do?]
+]
+
+---
+# Group 3: Check smoothness of income
+
+```{r, echo = TRUE, eval = FALSE}
+ggplot(data = sales, aes(x = time, y = income)) +
+  geom_point(pch = 21, color = "white", fill="grey") +
+  geom_smooth(data = filter(sales, time>c), method = "loess", se=TRUE, color = "#F89441", fill = "#F89441") +
+  geom_smooth(data = filter(sales, time<=c), method = "loess", se=TRUE, color = "#F89441", fill = "#900DA4")
+
+```
+
+```{r group3, fig.height=4, fig.width=8, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+ggplot(data = sales, aes(x = time, y = income)) +
+  geom_point(size = 5, pch = 21, color = "white", fill="grey") +
+  geom_smooth(data = filter(sales, time>c), method = "loess", se=TRUE, color = "#F89441", fill = "#F89441") +
+  geom_smooth(data = filter(sales, time<=c), method = "loess", se=TRUE, color = "#900DA4", fill = "#900DA4") +
+  theme_ipsum_fsc() +
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+
+
+---
+# Group 4
+
+.center2[
+.box-7LA[What did you have to do?]
+]
+
+---
+# Group 4: Check smoothness of income under different assignment
+
+```{r, echo = TRUE, eval = FALSE}
+ggplot(data = sales_mod, aes(x = time, y = income)) +
+  geom_point(pch = 21, color = "white", fill="grey") +
+  geom_smooth(data = filter(sales, time>c), method = "loess", se=TRUE, color = "#F89441", fill = "#F89441") +
+  geom_smooth(data = filter(sales, time<=c), method = "loess", se=TRUE, color = "#F89441", fill = "#900DA4")
+
+```
+
+```{r group4, fig.height=4, fig.width=8, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+sales <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/data/sales_mod.csv")
+c = max(sales$time[sales$treat==1])
+
+ggplot(data = sales_mod, aes(x = time, y = income)) +
+  geom_point(size = 5, pch = 21, color = "white", fill="grey") +
+  geom_smooth(data = filter(sales, time>c), method = "loess", se=TRUE, color = "#F89441", fill = "#F89441") +
+  geom_smooth(data = filter(sales, time<=c), method = "loess", se=TRUE, color = "#900DA4", fill = "#900DA4") +
+  theme_ipsum_fsc() +
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+
+---
 # Group 1: Estimate the RD
 
 - The simplest way to do this is to fit a regression:
@@ -831,39 +989,5 @@ $$Y_i = \beta_0 + \beta_1(R_i-c) + \beta_2\mathrm{I}[R_i>c] + \beta_3(R_i-c)\mat
 --
 
 .box-2LA[Let's identify the parameters in a plot]
-
----
-# Group 1: Estimate the RD
-
-```{r group1, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-
-ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
-  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
-  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
-  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
-              method = "loess", size = 2, show.legend = FALSE) +
-  geom_smooth(data = filter(tutoring, entrance_exam > 70),
-              method = "loess", size = 2, show.legend = FALSE) +
-  labs(x = "Running Variable", y = "Outcome") + 
-  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
-  scale_color_manual(values = c("#900DA4", "#F89441")) +
-  theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
-  theme_ipsum() +
-  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank())+
-        #axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_blank(),
-        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
 
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/1_DD/sp2021_sta235_9_d_cont.html') -->

@@ -1,10 +1,12 @@
 ######################
-## Group 1 ###########
+## Group 4 ###########
 ######################
 
 # You receive the sales data for the sales example we saw a couple of weeks ago
 
-sales <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/data/sales.csv")
+sales <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/data/sales_mod.csv")
+
+# The difference here is that the discount was given to all the customers that arrived before noon (the store opened at 9.00am)
 
 # Check out the data
 head(sales)
@@ -15,11 +17,11 @@ head(sales)
 # female: whether the customer is female or not
 # income: average income for the customer
 # sales: amount of the purchase
-# treat: whether the person received a discount or not (e.g. was within the first 1,000 customers)
+# treat: whether the person received a discount or not (e.g. arrived before noon or not)
 
-# Task 1) Create a plot with the running variable in the x-axis and the treatment variable in the y-axis.
+# Task 1) Create a plot with the running variable in the x-axis and income in the y-axis.
 # Questions to answer: 
-# i) What is the running variable? Can you obtain the cutoff for treatment assignment?
+# i) What is the running variable? Can you obtain the cutoff for treatment assignment from your data?
 # ii) What does this plot tells you?
 
 library(ggplot2)

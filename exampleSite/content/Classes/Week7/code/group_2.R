@@ -1,5 +1,5 @@
 ######################
-## Group 1 ###########
+## Group 2 ###########
 ######################
 
 # You receive the sales data for the sales example we saw a couple of weeks ago
@@ -17,9 +17,9 @@ head(sales)
 # sales: amount of the purchase
 # treat: whether the person received a discount or not (e.g. was within the first 1,000 customers)
 
-# Task 1) Create a plot with the running variable in the x-axis and the treatment variable in the y-axis.
+# Task 1) Create a plot with the running variable in the x-axis and sales in the y-axis.
 # Questions to answer: 
-# i) What is the running variable? Can you obtain the cutoff for treatment assignment?
+# i) What is the running variable? Can you obtain the cutoff for treatment assignment from your data?
 # ii) What does this plot tells you?
 
 library(ggplot2)
