@@ -799,6 +799,17 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 ]
 
 ---
+# Let's go back to our discount example
+
+- Customers are given discounts based on their **.darkorange[order of arrival]**
+
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_RD/images/queue.png)
+
+--
+
+- We could think of this as an **.darkorange[RD in time]**, where $c$ is the time of arrival of customer 1,000.
+
+---
 # Work in groups
 
 <br>
@@ -809,4 +820,50 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 <br>
 
 .box-5[2) You need to complete the code and discuss the results]
+
+---
+# Group 1: Estimate the RD
+
+- The simplest way to do this is to fit a regression:
+
+$$Y_i = \beta_0 + \beta_1(R_i-c) + \beta_2\mathrm{I}[R_i>c] + \beta_3(R_i-c)\mathrm{I}[R_i> c]$$
+
+--
+
+.box-2LA[Let's identify the parameters in a plot]
+
+---
+# Group 1: Estimate the RD
+
+```{r group1, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
+  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
+              method = "loess", size = 2, show.legend = FALSE) +
+  geom_smooth(data = filter(tutoring, entrance_exam > 70),
+              method = "loess", size = 2, show.legend = FALSE) +
+  labs(x = "Running Variable", y = "Outcome") + 
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  scale_color_manual(values = c("#900DA4", "#F89441")) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
+  theme_ipsum() +
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/1_DD/sp2021_sta235_9_d_cont.html') -->
