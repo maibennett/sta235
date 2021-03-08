@@ -170,3 +170,45 @@ rdplotdensity(rd, sales_mod$time) # we can plot this
 rd <- rddensity(sales$time, c=max(sales$time[sales$treat==1]))
 
 rdplotdensity(rd, sales$time)
+
+
+###########################################
+#### Checking different specifications ####
+###########################################
+
+# We will use the same example and check two different especifications:
+
+sales <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/data/sales.csv")
+c = max(sales$time[sales$treat==1])
+
+sales <- sales %>% mutate(dist = c-time) # We are going to create a distance variable (distance to the cutoff)
+
+lm1 <- lm(sales ~ dist + treat + dist*treat, data = sales) # Then we will fit a linear model, allowing for different intercept and slopes for the two groups.
+
+sales_aug <- broom::augment(lm1, data = sales)
+
+ggplot(data = sales_aug, aes(x = time, y = sales)) +
+  geom_point(size = 5, pch = 21, color = "white", fill="grey") +
+  geom_line(data = filter(sales_aug, time>c), aes(x = time, y = .fitted), color = "#F89441", lwd = 2) +
+  geom_line(data = filter(sales_aug, time<=c), aes(x = time, y = .fitted), color = "#900DA4", lwd = 2) +
+  theme_bw()
+
+
+summary(lm1)
+
+# Now let's fit a quadratic model!
+
+lm2 <- lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales) # Remember that we need to include both the linear and quadratic term of the running variable
+
+sales_aug <- broom::augment(lm2, data = sales)
+
+ggplot(data = sales_aug, aes(x = time, y = sales)) +
+  geom_point(size = 5, pch = 21, color = "white", fill="grey") +
+  geom_line(data = filter(sales_aug, time>c), aes(x = time, y = .fitted), color = "#F89441", lwd = 2) +
+  geom_line(data = filter(sales_aug, time<=c), aes(x = time, y = .fitted), color = "#900DA4", lwd = 2) +
+  theme_bw()
+
+summary(lm2)
+
+# Question: What differences do you see in both plots? Which one should you believe? 
+# Task: Fit now a cubic model. What do you find?
