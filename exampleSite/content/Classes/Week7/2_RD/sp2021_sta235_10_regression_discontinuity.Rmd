@@ -519,7 +519,7 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
-How do we do RDs in practice?
+Let's get [a bit] math-y...
 ]
 
 ---
@@ -589,7 +589,7 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
   scale_color_manual(values = c("#900DA4", "#F89441")) +
   theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
   theme_ipsum_fsc() +
-  geom_segment(aes(x=60,y=70,xend=70,yend=70),lwd=0.8,lty=1,
+  geom_segment(aes(x=80,y=85,xend=70,yend=85),lwd=0.8,lty=1,
                arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="dark grey",col="dark grey") +
   #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
         #axis.line = element_line(colour = "dark grey"))+
@@ -645,8 +645,22 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 .center2[
 .box-2LA[Local Average Treatment Effect (LATE) for units at R=c]
 ]
+
+---
+.center2[
+.box-3[Is that what we want?]
+
+--
+
+.box-5[Probably not ideal, there may not be *any* variables with R=c]
+
+--
+
+.box-7[... but better LATE than nothing!]
+]
 ---
 # Conditions required for identificaton
+--
 
 - Threshold rule **.darkorange[exists]** and cutoff point is **.darkorange[known]**
 
@@ -659,6 +673,10 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 - Key assumption:
 
 .box-5LA[Continuity of E[Y(1)|R] and E[Y(0)|R] at R=c]
+
+--
+
+.box-5t[That's the math-y way to say what most of you answered on the JITT!]
 
 ---
 # Potential outcomes need to be smooth across the threshold
@@ -707,11 +725,6 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
   theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
   theme_ipsum_fsc() +
   #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank())+
         #axis.line = element_line(colour = "dark grey"))+
   theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
         axis.text.x = element_blank(),
@@ -770,11 +783,6 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
   theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
   theme_ipsum_fsc() +
   #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank())+
         #axis.line = element_line(colour = "dark grey"))+
   theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
         axis.text.x = element_blank(),
