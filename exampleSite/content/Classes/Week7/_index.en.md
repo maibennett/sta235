@@ -40,10 +40,10 @@ Complete before **Sunday March 7th (11:59 pm)**. You can find the assignment <a 
 
 ## Activities
 
-<!-- - For group 1: {{% button href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/code/group_1.R" icon="fas fa-code" icon-position="right" %}}Download{{% /button %}} 
+- For group 1: {{% button href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/code/group_1.R" icon="fas fa-code" icon-position="right" %}}Download{{% /button %}} 
 
 - For group 2: {{% button href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/code/group_2.R" icon="fas fa-code" icon-position="right" %}}Download{{% /button %}} 
 
 - For group 3: {{% button href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/code/group_3.R" icon="fas fa-code" icon-position="right" %}}Download{{% /button %}} 
 
-- For group 4: {{% button href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/code/group_4.R" icon="fas fa-code" icon-position="right" %}}Download{{% /button %}}  -->
+- For group 4: {{% button href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/code/group_4.R" icon="fas fa-code" icon-position="right" %}}Download{{% /button %}} 
