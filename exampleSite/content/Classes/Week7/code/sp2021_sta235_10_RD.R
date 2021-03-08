@@ -174,8 +174,8 @@ rdplotdensity(rd, sales$time)
 # We can also check an histogram to see what's going on:
 
 ggplot(data = sales_mod, aes(x = time)) +
-  geom_histogram(fill="grey", color = "white", bins = 60) + #This is giving the frequency of people arriving within each "bin" of time. I also set the histogram to have 60 bins (60 groups of time within our time period)
-  geom_vline(aes(xintercept = 180), color = "#900DA4", lwt=2, lwd=1.4)
+  geom_histogram(fill="grey", color = "white", bins = 70) + #This is giving the frequency of people arriving within each "bin" of time. I also set the histogram to have 60 bins (60 groups of time within our time period)
+  geom_vline(aes(xintercept = 180), color = "#900DA4", lwt=2, lwd=1.4) +
   theme_bw()
 
 # Question: What happens if you play around with the bins argument? Set it to 40 or 50.. What can you see?

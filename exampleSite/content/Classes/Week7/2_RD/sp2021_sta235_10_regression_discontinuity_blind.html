@@ -182,7 +182,7 @@ I'm on the edge [of glory?]
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
-How do we do RDs in practice?
+Let's get [a bit] math-y...
 ]
 
 ---
@@ -229,8 +229,33 @@ How do we do RDs in practice?
 .center2[
 .box-2LA[Local Average Treatment Effect (LATE) for units at R=c]
 ]
+
+---
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+.box-3[Is that what we want?]
+
+--
+&lt;br&gt;
+&lt;br&gt;
+.box-5[Probably not ideal, there may not be *any* units with R=c]
+
+--
+&lt;br&gt;
+&lt;br&gt;
+.box-7[... but better LATE than nothing!]
+
+---
+# JITT: Can we estimate an effect for R=25 vs R=75?
+
+&lt;img src="sp2021_sta235_10_regression_discontinuity_blind_files/figure-html/jitt_rd-1.svg" style="display: block; margin: auto;" /&gt;
+
 ---
 # Conditions required for identificaton
+--
 
 - Threshold rule **.darkorange[exists]** and cutoff point is **.darkorange[known]**
 
@@ -243,6 +268,10 @@ How do we do RDs in practice?
 - Key assumption:
 
 .box-5LA[Continuity of E[Y(1)|R] and E[Y(0)|R] at R=c]
+
+--
+
+.box-5t[That's the math-y way to say what most of you answered on the JITT!]
 
 ---
 # Potential outcomes need to be smooth across the threshold
@@ -258,6 +287,13 @@ How do we do RDs in practice?
 
 .center2[
 .box-2LA[Can you think situations where that could happen?]
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Now it's your turn!
 ]
 
 ---
@@ -316,7 +352,7 @@ How do we do RDs in practice?
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
-Let's get into estimation
+Estimation in practice
 ]
 
 ---
@@ -451,7 +487,16 @@ summary(lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data
 .center2[
 .box-5LA[Have a good Spring Break!]
 ]
-&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/1_DD/sp2021_sta235_9_dd_cont.html') --&gt;
+
+---
+# References
+
+- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 4*.
+
+- Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 10: Regression Discontinuity I, Course at BYU*.
+
+- Lee, D. and T. Lemieux. (2010). "Regression Discontinuity in Economics". *Journal of Economic Literature 48, pp 281-355*.
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/2_RD/sp2021_sta235_10_regression_discontinuity.html') --&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

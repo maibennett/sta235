@@ -519,7 +519,7 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
-How do we do RDs in practice?
+Let's get [a bit] math-y...
 ]
 
 ---
@@ -589,8 +589,8 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
   scale_color_manual(values = c("#900DA4", "#F89441")) +
   theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
   theme_ipsum_fsc() +
-  geom_segment(aes(x=60,y=70,xend=70,yend=70),lwd=0.8,lty=1,
-               arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="dark grey",col="dark grey") +
+  geom_segment(aes(x=80,y=85,xend=70,yend=85),lwd=2.5,lty=1,
+               arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="#E16462",col="#E16462") +
   #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
         #axis.line = element_line(colour = "dark grey"))+
   theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
@@ -620,10 +620,10 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
   scale_color_manual(values = c("#900DA4", "#F89441")) +
   theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
   theme_ipsum_fsc() +
-  geom_segment(aes(x=80,y=85,xend=70,yend=85),lwd=0.8,lty=1,
-               arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="dark grey",col="dark grey") +
-  geom_segment(aes(x=60,y=70,xend=70,yend=70),lwd=0.8,lty=1,
-               arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="dark grey",col="dark grey") +
+  geom_segment(aes(x=80,y=85,xend=70,yend=85),lwd=2.5,lty=1,
+               arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="#E16462",col="#E16462") +
+  geom_segment(aes(x=60,y=70,xend=70,yend=70),lwd=2.5,lty=1,
+               arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="#E16462",col="#E16462") +
   #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
         #axis.line = element_line(colour = "dark grey"))+
   theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
@@ -645,8 +645,73 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 .center2[
 .box-2LA[Local Average Treatment Effect (LATE) for units at R=c]
 ]
+
+---
+<br>
+<br>
+<br>
+<br>
+
+.box-3[Is that what we want?]
+
+--
+<br>
+<br>
+.box-5[Probably not ideal, there may not be *any* units with R=c]
+
+--
+<br>
+<br>
+.box-7[... but better LATE than nothing!]
+
+---
+# JITT: Can we estimate an effect for R=25 vs R=75?
+
+```{r jitt_rd, fig.height=5.5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+library(ggplot2)
+library(gridExtra)
+library(hrbrthemes)
+library(firasans)
+
+jitt <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/data/jitt_rd.csv")
+
+jitt2 <- as.data.frame(cbind(table(jitt$external),rownames(table(jitt$external))))
+names(jitt2) = c("value","bin")
+jitt2$bin <- factor(jitt2$bin,levels = c("0","1"))
+
+levels(jitt2$bin)[levels(jitt2$bin)=="0"] <- "No"
+levels(jitt2$bin)[levels(jitt2$bin)=="1"] <- "Yes"
+
+cols1 = c("#FCCE25","#F89441")
+
+ggplot(data = jitt2, aes(x="", y=as.numeric(value),fill=bin)) + 
+  geom_bar(lwd=1.5, stat="identity", color="white") +
+  coord_polar("y",start = 0)+
+  scale_fill_manual(values=cols1, name = "") + 
+  theme_void()+
+  theme_ipsum_fsc() + #plain 
+  #ggtitle("How do you find the pace of the class?")+
+  #ylim(0,5)+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_blank())+
+  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank(),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position="right",
+        legend.title = element_text(size=12),
+        legend.text = element_text(size=10),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=12))
+
+```
+
 ---
 # Conditions required for identificaton
+--
 
 - Threshold rule **.darkorange[exists]** and cutoff point is **.darkorange[known]**
 
@@ -659,6 +724,10 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 - Key assumption:
 
 .box-5LA[Continuity of E[Y(1)|R] and E[Y(0)|R] at R=c]
+
+--
+
+.box-5t[That's the math-y way to say what most of you answered on the JITT!]
 
 ---
 # Potential outcomes need to be smooth across the threshold
@@ -707,11 +776,6 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
   theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
   theme_ipsum_fsc() +
   #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank())+
         #axis.line = element_line(colour = "dark grey"))+
   theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
         axis.text.x = element_blank(),
@@ -770,11 +834,6 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
   theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
   theme_ipsum_fsc() +
   #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank())+
         #axis.line = element_line(colour = "dark grey"))+
   theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
         axis.text.x = element_blank(),
@@ -790,6 +849,13 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 
 .center2[
 .box-2LA[Can you think situations where that could happen?]
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Now it's your turn!
 ]
 
 ---
@@ -848,7 +914,7 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
-Let's get into estimation
+Estimation in practice
 ]
 
 ---
@@ -976,4 +1042,13 @@ summary(lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data
 .center2[
 .box-5LA[Have a good Spring Break!]
 ]
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/1_DD/sp2021_sta235_9_dd_cont.html') -->
+
+---
+# References
+
+- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 4*.
+
+- Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 10: Regression Discontinuity I, Course at BYU*.
+
+- Lee, D. and T. Lemieux. (2010). "Regression Discontinuity in Economics". *Journal of Economic Literature 48, pp 281-355*.
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/2_RD/sp2021_sta235_10_regression_discontinuity.html') -->
