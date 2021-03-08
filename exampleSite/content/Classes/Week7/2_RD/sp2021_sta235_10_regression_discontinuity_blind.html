@@ -113,17 +113,17 @@ I'm on the edge [of glory?]
 ---
 # Assignment based on entrance score
 
-&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/tutoring-running-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="sp2021_sta235_10_regression_discontinuity_blind_files/figure-html/tutoring-running-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Let's look at the area close to the cutoff
 
-&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/tutoring-running-threshold-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="sp2021_sta235_10_regression_discontinuity_blind_files/figure-html/tutoring-running-threshold-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Let's get closer
 
-&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/tutoring-running-threshold-zoomed-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="sp2021_sta235_10_regression_discontinuity_blind_files/figure-html/tutoring-running-threshold-zoomed-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 # Causal inference intuition
 
@@ -140,17 +140,17 @@ I'm on the edge [of glory?]
 ---
 # Exit exam results according to running variable
 
-&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/tutoring-outcome-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="sp2021_sta235_10_regression_discontinuity_blind_files/figure-html/tutoring-outcome-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Fit a regression at the right and left side of the cutoff
 
-&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/tutoring-outcome-lines-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="sp2021_sta235_10_regression_discontinuity_blind_files/figure-html/tutoring-outcome-lines-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Fit a regression at the right and left side of the cutoff
 
-&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/tutoring-outcome-edlta-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="sp2021_sta235_10_regression_discontinuity_blind_files/figure-html/tutoring-outcome-edlta-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -200,16 +200,16 @@ How do we do RDs in practice?
 ---
 # What does the limit expression mean?
 
-&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/tutoring-limit-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="sp2021_sta235_10_regression_discontinuity_blind_files/figure-html/tutoring-limit-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 # What does the limit expression mean?
 
-&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/tutoring-limit2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="sp2021_sta235_10_regression_discontinuity_blind_files/figure-html/tutoring-limit2-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # What does the limit expression mean?
 
-&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/tutoring-limit3-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="sp2021_sta235_10_regression_discontinuity_blind_files/figure-html/tutoring-limit3-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 .center2[
@@ -238,12 +238,12 @@ How do we do RDs in practice?
 ---
 # Potential outcomes need to be smooth across the threshold
 
-&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/po-smooth-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="sp2021_sta235_10_regression_discontinuity_blind_files/figure-html/po-smooth-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Potential outcomes need to be smooth across the threshold
 
-&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/po-not-smooth2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="sp2021_sta235_10_regression_discontinuity_blind_files/figure-html/po-not-smooth2-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -283,38 +283,11 @@ How do we do RDs in practice?
 ]
 
 ---
-# Group 1: Check the treatment assignment
-
-
-```r
-c = max(sales$time[sales$treat==1])
-
-ggplot(data = sales, aes(x = time, y = treat)) +
-  geom_point(data = filter(sales, time&lt;=c), pch = 21, color = "white", fill="#900DA4", position = pos) +
-  geom_point(data = filter(sales, time&gt;c), pch = 21, color = "white", fill="#F89441", position = pos) +
-```
-
-&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/group1-1.svg" style="display: block; margin: auto;" /&gt;
-
----
 # Group 2
 
 .center2[
 .box-4LA[What did you have to do?]
 ]
-
----
-# Group 2: Check the regression discontinuity on the outcome
-
-
-```r
-ggplot(data = sales, aes(x = time, y = sales)) +
-  geom_point(pch = 21, color = "white", fill="grey") +
-  geom_smooth(data = filter(sales, time&gt;c), method = "loess", se=TRUE, color = "#F89441", fill = "#F89441") +
-  geom_smooth(data = filter(sales, time&lt;=c), method = "loess", se=TRUE, color = "#F89441", fill = "#900DA4")
-```
-
-&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/group2-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Group 3
@@ -324,39 +297,11 @@ ggplot(data = sales, aes(x = time, y = sales)) +
 ]
 
 ---
-# Group 3: Check smoothness of income
-
-
-```r
-ggplot(data = sales, aes(x = time, y = income)) +
-  geom_point(pch = 21, color = "white", fill="grey") +
-  geom_smooth(data = filter(sales, time&gt;c), method = "loess", se=TRUE, color = "#F89441", fill = "#F89441") +
-  geom_smooth(data = filter(sales, time&lt;=c), method = "loess", se=TRUE, color = "#F89441", fill = "#900DA4")
-```
-
-&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/group3-1.svg" style="display: block; margin: auto;" /&gt;
-
-
-
----
 # Group 4
 
 .center2[
 .box-7LA[What did you have to do?]
 ]
-
----
-# Group 4: Check smoothness of income under different assignment
-
-
-```r
-ggplot(data = sales_mod, aes(x = time, y = income)) +
-  geom_point(pch = 21, color = "white", fill="grey") +
-  geom_smooth(data = filter(sales, time&gt;c), method = "loess", se=TRUE, color = "#F89441", fill = "#F89441") +
-  geom_smooth(data = filter(sales, time&lt;=c), method = "loess", se=TRUE, color = "#F89441", fill = "#900DA4")
-```
-
-&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/group4-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 background-position: 50% 50%
@@ -388,7 +333,7 @@ sales &lt;- sales %&gt;% mutate(dist = c-time)
 lm(sales ~ dist + treat + dist*treat, data = sales)
 ```
 
-&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/rd_linear-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="sp2021_sta235_10_regression_discontinuity_blind_files/figure-html/rd_linear-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Let's see some examples: Sales using a linear model
@@ -429,7 +374,7 @@ summary(lm(sales ~ dist + treat + dist*treat, data = sales))
 lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales)
 ```
 
-&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/rd_quad-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="sp2021_sta235_10_regression_discontinuity_blind_files/figure-html/rd_quad-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # What happens if we fit a quadratic model?
