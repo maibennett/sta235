@@ -40,20 +40,7 @@ class: center, middle, inverse, title-slide
 
 
 
-# Reminders
 
-.box-3LA[In-class midterm March 29th]
-
---
-- You need a **.darkorange[webcam]**
-
-- You will be required to **.darkorange[code]**
-
----
-# Some results from the JITTs
-
-
----
 # Another identification strategy
 
 - We have seen:
@@ -72,29 +59,192 @@ class: center, middle, inverse, title-slide
 
 
 ---
-# Today
-
-.pull-left[
-.center[
-![](https://media.giphy.com/media/l0G18fLplAh4leq88/giphy.gif)]
-]
-.pull-right[
-- **.darkorange[Regression Discontinuity Designs]**:
-  
-  - Finding natural "jumps" in assignment.
-  
-  - Use that variation in treatment assignment for causal inference.
-  
-]
-
----
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
 I'm on the edge [of glory?]
 ]
+---
+# Introduction to Regression Discontinuity Designs
 
 
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.box-2LA[Regression Discontinuity (RD) Designs]
+--
+&lt;br&gt;
+&lt;br&gt;
+.box-2tL[Arbitrary rules determine treatment assignment]
+
+--
+&lt;br&gt;
+&lt;br&gt;
+.box-3t[E.g.: If you are above a threshold, you are assigned to treatment, and if your below, you are not (or vice versa)]
+
+---
+# Key Terms
+
+.box-4LA[Running/ forcing variable]
+
+.box-4t[Index or measure that determines eligibility]
+
+--
+
+.box-7LA[Cutoff/ cutpoint/ threshold]
+
+.box-7t[Number that formally assigns you to a program or treatment]
+
+---
+# Hypothetical tutoring program
+
+--
+
+.box-5[Students take an entrance exam]
+
+--
+
+.box-5tL[Those who score 70 or lower&lt;br&gt;get a free tutor for the year]
+
+--
+
+.box-5[Students then take an exit exam&lt;br&gt;at the end of the year]
+
+---
+# Assignment based on entrance score
+
+&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/tutoring-running-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Let's look at the area close to the cutoff
+
+&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/tutoring-running-threshold-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Let's get closer
+
+&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/tutoring-running-threshold-zoomed-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Causal inference intuition
+
+.box-2LA[Observations right before and after the threshold are essentially the same]
+
+--
+
+.box-4LA[Pseudo treatment and control groups!]
+
+--
+
+.box-7LA[Compare outcomes right at the cutoff]
+
+---
+# Exit exam results according to running variable
+
+&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/tutoring-outcome-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Fit a regression at the right and left side of the cutoff
+
+&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/tutoring-outcome-lines-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Fit a regression at the right and left side of the cutoff
+
+&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/tutoring-outcome-edlta-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+.center2[
+.box-5LA[You can find discontinuities everywhere!]
+]
+
+---
+# Geographic discontinuities
+
+
+---
+# Time discontinuities
+
+
+---
+# Voting discontinuities
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+How do we do RDs in practice?
+]
+
+---
+# Behind the scenes of RDs
+
+- Basically, regression discontinuities work under an **.darkorange[asymptotic assumption]**:
+
+--
+
+- Let `\(Y_i\)` be the outcome of interest, `\(Z_i\)` the treatment assignment, `\(R_i\)` the running variable, and `\(c\)` the cutoff score:
+
+`$$Z_i =   \left\{
+\begin{array}{ll}
+      0 &amp; R_i\leq c \\
+      1 &amp; R_i&gt;c \\
+\end{array} 
+\right.$$`
+
+--
+
+- Then, we can define the treatment effect `\(\delta\)` as:
+
+`$$\delta = \lim_{\epsilon \rightarrow 0^+}E[Y_i| R_i = c + \epsilon] - \lim_{\epsilon \rightarrow 0^-}E[Y_i| R_i = c + \epsilon]$$`
+---
+# What does the limit expression mean?
+
+&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/tutoring-limit-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# What does the limit expression mean?
+
+&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/tutoring-limit2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# What does the limit expression mean?
+
+&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/tutoring-limit3-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+.center2[
+.box-2LA[What is the estimand we are estimating?]
+]
+
+---
+.center2[
+.box-2LA[Local Average Treatment Effect (LATE) for units at R=c]
+]
+---
+# Conditions required for identificaton
+
+- Threshold rule **.darkorange[exists]** and cutoff point is **.darkorange[known]**
+
+--
+
+- The running variable `\(R_i\)` is **.darkorange[continuous]** near `\(c\)`.
+
+--
+
+- Key assumption:
+
+.box-5LA[Continuity of E[Y(1)|R] and E[Y(0)|R] at R=c]
+
+---
+# Potential outcomes need to be smooth across the threshold
+
+&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/po-smooth-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Potential outcomes need to be smooth across the threshold
+
+&lt;img src="sp2021_sta235_10_regression_discontinuity_files/figure-html/po-not-smooth2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/1_DD/sp2021_sta235_9_d_cont.html') --&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

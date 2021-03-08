@@ -287,6 +287,107 @@ library(patchwork)
 ---
 # Some results from the JITTs
 
+.pull-left[
+```{r jitt, fig.height=5, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+library(ggplot2)
+library(gridExtra)
+library(hrbrthemes)
+library(firasans)
+
+jitt <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/data/jitts.csv")
+
+jitt2 <- as.data.frame(cbind(table(jitt$pace),rownames(table(jitt$pace))))
+names(jitt2) = c("value","pace")
+jitt2$pace <- factor(jitt2$pace,levels = c("Too slow-paced","Pace was ok","Too fast-paced"))
+
+jitt3 <- as.data.frame(cbind(table(jitt$pace),rownames(table(jitt$useful))))
+names(jitt3) = c("value","useful")
+jitt3$useful <- factor(jitt3$useful,levels = c("1","2","3","4","5"))
+
+cols1 = c("#5601A4","#BF3984","#F89441","#FCCE25","#0D0887")
+cols2 = c("#0D0887","#BF3984","#FCCE25")
+
+ggplot(data = jitt2, aes(x="", y=as.numeric(value),fill=pace)) + 
+  geom_bar(lwd=1.5, stat="identity", color="white") +
+  coord_polar("y",start = 0)+
+  scale_fill_manual(values=cols2, name = "Pace") + 
+  theme_void()+
+  theme_ipsum_fsc() + #plain 
+  ggtitle("How do you find the pace of the class?")+
+  #ylim(0,5)+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_blank())+
+  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank(),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position="right",
+        legend.title = element_text(size=12),
+        legend.text = element_text(size=10),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=12))
+
+```
+]
+
+.pull-right[
+- Most of you think the **.darkorange[pace of the class is ok]**
+
+- Still, it's important that not a small portion thinks it might be **.darkorange[too fast-paced]**
+
+  - You can manage the pace by asking questions!
+  
+- Regarding slides and notes:
+
+  - Slides are a **.darkorange[support]** for the presenter.
+
+  - Take note of **.darkorange[what's not in the slides]**
+
+]
+---
+# Some results from the JITTs (cont.)
+
+.pull-left[
+
+- Some of you find live R coding **.darkorange[useful]**, but some of you **.darkorange[not so much]**
+
+  - Shorten live R code
+  
+  - **.darkorange[You will code now]**.
+]
+
+.pull-right[
+```{r jitt2, fig.height=5, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+ggplot(data = jitt3, aes(x="", y=as.numeric(value),fill=useful)) + 
+  geom_bar(lwd=1.5, stat="identity", color="white") +
+  coord_polar("y",start = 0)+
+  scale_fill_manual(values=cols1, name = "Useful") + 
+  theme_void()+
+  theme_ipsum_fsc() + #plain 
+  ggtitle("How useful do you find live R coding?")+
+  #ylim(0,5)+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_blank())+
+  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank(),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position="right",
+        legend.title = element_text(size=12),
+        legend.text = element_text(size=10),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=12))
+
+```
+]
+
 
 ---
 # Last Class

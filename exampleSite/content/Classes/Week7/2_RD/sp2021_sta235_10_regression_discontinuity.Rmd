@@ -266,8 +266,6 @@ library(extrafont)
 ```
 
 
-
----
 # Another identification strategy
 
 - We have seen:
@@ -291,5 +289,524 @@ class: left, bottom, inverse
 .big[
 I'm on the edge [of glory?]
 ]
+---
+# Introduction to Regression Discontinuity Designs
 
 
+<br>
+<br>
+<br>
+.box-2LA[Regression Discontinuity (RD) Designs]
+--
+<br>
+<br>
+.box-2tL[Arbitrary rules determine treatment assignment]
+
+--
+<br>
+<br>
+.box-3t[E.g.: If you are above a threshold, you are assigned to treatment, and if your below, you are not (or vice versa)]
+
+---
+# Key Terms
+
+.box-4LA[Running/ forcing variable]
+
+.box-4t[Index or measure that determines eligibility]
+
+--
+
+.box-7LA[Cutoff/ cutpoint/ threshold]
+
+.box-7t[Number that formally assigns you to a program or treatment]
+
+---
+# Hypothetical tutoring program
+
+--
+
+.box-5[Students take an entrance exam]
+
+--
+
+.box-5tL[Those who score 70 or lower<br>get a free tutor for the year]
+
+--
+
+.box-5[Students then take an exit exam<br>at the end of the year]
+
+---
+# Assignment based on entrance score
+
+```{r tutoring-running, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+library(tidyverse)
+library(broom)
+library(kableExtra)
+library(scales)
+library(patchwork)
+library(latex2exp)
+library(rdrobust)
+library(rddensity)
+
+# Fake program data
+set.seed(1234)
+num_students <- 1000
+tutoring <- tibble(
+  id = 1:num_students,
+  entrance_exam = rbeta(num_students, shape1 = 7, shape2 = 2),
+  exit_exam = rbeta(num_students, shape1 = 5, shape2 = 3)
+) %>% 
+  mutate(entrance_exam = entrance_exam * 100,
+         tutoring = entrance_exam <= 70) %>% 
+  mutate(exit_exam = exit_exam * 40 + 10 * tutoring + entrance_exam / 2) %>% 
+  mutate(tutoring_fuzzy = ifelse(entrance_exam > 60 & entrance_exam < 80,
+                                 sample(c(TRUE, FALSE), n(), replace = TRUE),
+                                 tutoring)) %>% 
+  mutate(tutoring_text = factor(tutoring, levels = c(FALSE, TRUE),
+                                labels = c("No tutor", "Tutor")),
+         tutoring_fuzzy_text = factor(tutoring_fuzzy, levels = c(FALSE, TRUE),
+                                      labels = c("No tutor", "Tutor"))) %>% 
+  mutate(entrance_centered = entrance_exam - 70)
+
+ggplot(tutoring, aes(x = entrance_exam, y = tutoring_text, fill = tutoring_text)) +
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  geom_point(size = 5, pch = 21, color = "white", alpha = 0.7,
+             position = position_jitter(width = 0, height = 0.2, seed = 1234)) + 
+  labs(x = "Entrance exam score", y = NULL) + 
+  guides(fill = FALSE) +
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed")
+```
+
+---
+# Let's look at the area close to the cutoff
+
+```{r tutoring-running-threshold, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+ggplot(tutoring, aes(x = entrance_exam, y = tutoring_text, fill = tutoring_text)) +
+  ggplot2::annotate(geom = "rect", fill = "grey50", alpha = 0.25, ymin = -Inf, ymax = Inf,
+           xmin = 70 - 5,  xmax = 70 + 5) +
+  ggplot2::annotate(geom = "rect", fill = "grey50", alpha = 0.5, ymin = -Inf, ymax = Inf,
+           xmin = 70 - 2,  xmax = 70 + 2) +
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  geom_point(size = 5, pch = 21, color = "white", alpha = 0.7,
+             position = position_jitter(width = 0, height = 0.2, seed = 1234)) + 
+  labs(x = "Entrance exam score", y = NULL) + 
+  guides(fill = FALSE) +
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed")
+```
+
+---
+# Let's get closer
+
+```{r tutoring-running-threshold-zoomed, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+ggplot(tutoring, aes(x = entrance_exam, y = tutoring_text, fill = tutoring_text)) +
+  ggplot2::annotate(geom = "rect", fill = "grey50", alpha = 0.25, ymin = -Inf, ymax = Inf,
+           xmin = 70 - 5,  xmax = 70 + 5) +
+  ggplot2::annotate(geom = "rect", fill = "grey50", alpha = 0.5, ymin = -Inf, ymax = Inf,
+           xmin = 70 - 2,  xmax = 70 + 2) +
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  geom_point(size = 5, pch = 21, color = "white", alpha = 0.7,
+             position = position_jitter(width = 0, height = 0.2, seed = 1234)) + 
+  labs(x = "Entrance exam score", y = NULL) + 
+  guides(fill = FALSE) +
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  coord_cartesian(xlim = c(70 - 6, 70 + 6)) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed")
+```
+---
+# Causal inference intuition
+
+.box-2LA[Observations right before and after the threshold are essentially the same]
+
+--
+
+.box-4LA[Pseudo treatment and control groups!]
+
+--
+
+.box-7LA[Compare outcomes right at the cutoff]
+
+---
+# Exit exam results according to running variable
+
+```{r tutoring-outcome, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text)) +
+  geom_point(size = 4, pch = 21, color = "white", alpha = 1) + 
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  labs(x = "Entrance exam score", y = "Exit exam score") + 
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  guides(fill = guide_legend(reverse = TRUE)) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed")
+```
+
+---
+# Fit a regression at the right and left side of the cutoff
+
+```{r tutoring-outcome-lines, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
+  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
+              method = "lm", size = 2, show.legend = FALSE) +
+  geom_smooth(data = filter(tutoring, entrance_exam > 70),
+              method = "lm", size = 2, show.legend = FALSE) +
+  labs(x = "Entrance exam score", y = "Exit exam score") + 
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  scale_color_manual(values = c("#900DA4", "#F89441")) +
+  guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed")
+```
+
+---
+# Fit a regression at the right and left side of the cutoff
+
+```{r tutoring-outcome-edlta, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+rdd_tutoring <- lm(exit_exam ~ entrance_centered + tutoring, data = tutoring) %>% 
+  tidy()
+effect_control <- filter(rdd_tutoring, term == "(Intercept)")$estimate
+late <- filter(rdd_tutoring, term == "tutoringTRUE")$estimate
+effect_treatment <- effect_control + late
+ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
+  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
+              method = "lm", size = 2, show.legend = FALSE) +
+  geom_smooth(data = filter(tutoring, entrance_exam > 70),
+              method = "lm", size = 2, show.legend = FALSE) +
+  ggplot2::annotate(geom = "segment", x = 70, xend = 70, 
+           y = effect_control, yend = effect_treatment,
+           size = 4, color = "#5601A4") +
+  ggplot2::annotate(geom = "label", x = 82, y = effect_treatment - (late / 2),
+           label = latex2exp("$\\delta$\n(Causal effect)"), family = "Fira Sans Condensed", fontface = "bold",
+           color = "white", fill = "#5601A4", size = 7, label.padding = unit(0.75, "lines")) +
+  labs(x = "Entrance exam score", y = "Exit exam score") + 
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  scale_color_manual(values = c("#900DA4", "#F89441")) +
+  guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed")
+```
+
+---
+
+.center2[
+.box-5LA[You can find discontinuities everywhere!]
+]
+
+---
+# Geographic discontinuities
+
+
+---
+# Time discontinuities
+
+
+---
+# Voting discontinuities
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+How do we do RDs in practice?
+]
+
+---
+# Behind the scenes of RDs
+
+- Basically, regression discontinuities work under an **.darkorange[asymptotic assumption]**:
+
+--
+
+- Let $Y_i$ be the outcome of interest, $Z_i$ the treatment assignment, $R_i$ the running variable, and $c$ the cutoff score:
+
+$$Z_i =   \left\{
+\begin{array}{ll}
+      0 & R_i\leq c \\
+      1 & R_i>c \\
+\end{array} 
+\right.$$
+
+--
+
+- Then, we can define the treatment effect $\delta$ as:
+
+$$\delta = \lim_{\epsilon \rightarrow 0^+}E[Y_i| R_i = c + \epsilon] - \lim_{\epsilon \rightarrow 0^-}E[Y_i| R_i = c + \epsilon]$$
+---
+# What does the limit expression mean?
+
+```{r tutoring-limit, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+tutoring$exit_exam[tutoring$entrance_exam>70] = tutoring$exit_exam[tutoring$entrance_exam>70] + 25
+
+ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
+  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
+              method = "loess", size = 2, show.legend = FALSE) +
+  geom_smooth(data = filter(tutoring, entrance_exam > 70),
+              method = "loess", size = 2, show.legend = FALSE) +
+  labs(x = "Running Variable", y = "Outcome") + 
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  scale_color_manual(values = c("#900DA4", "#F89441")) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
+  theme_ipsum() +
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+---
+# What does the limit expression mean?
+
+```{r tutoring-limit2, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
+  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
+              method = "loess", size = 2, show.legend = FALSE) +
+  geom_smooth(data = filter(tutoring, entrance_exam > 70),
+              method = "loess", size = 2, show.legend = FALSE) +
+  labs(x = "Running Variable", y = "Outcome") + 
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  scale_color_manual(values = c("#900DA4", "#F89441")) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
+  theme_ipsum() +
+  geom_segment(aes(x=60,y=70,xend=70,yend=70),lwd=0.8,lty=1,
+               arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="dark grey",col="dark grey") +
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# What does the limit expression mean?
+
+```{r tutoring-limit3, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
+  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
+              method = "loess", size = 2, show.legend = FALSE) +
+  geom_smooth(data = filter(tutoring, entrance_exam > 70),
+              method = "loess", size = 2, show.legend = FALSE) +
+  labs(x = "Running Variable", y = "Outcome") + 
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  scale_color_manual(values = c("#900DA4", "#F89441")) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
+  theme_ipsum() +
+  geom_segment(aes(x=80,y=85,xend=70,yend=85),lwd=0.8,lty=1,
+               arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="dark grey",col="dark grey") +
+  geom_segment(aes(x=60,y=70,xend=70,yend=70),lwd=0.8,lty=1,
+               arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="dark grey",col="dark grey") +
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+.center2[
+.box-2LA[What is the estimand we are estimating?]
+]
+
+---
+.center2[
+.box-2LA[Local Average Treatment Effect (LATE) for units at R=c]
+]
+---
+# Conditions required for identificaton
+
+- Threshold rule **.darkorange[exists]** and cutoff point is **.darkorange[known]**
+
+--
+
+- The running variable $R_i$ is **.darkorange[continuous]** near $c$.
+
+--
+
+- Key assumption:
+
+.box-5LA[Continuity of E[Y(1)|R] and E[Y(0)|R] at R=c]
+
+---
+# Potential outcomes need to be smooth across the threshold
+
+```{r po-smooth, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+# Fake program data
+set.seed(1234)
+num_students <- 1000
+tutoring <- tibble(
+  id = 1:num_students,
+  entrance_exam = rbeta(num_students, shape1 = 7, shape2 = 2),
+  exit_exam = rbeta(num_students, shape1 = 5, shape2 = 3)
+) %>% 
+  mutate(entrance_exam = entrance_exam * 100,
+         tutoring = entrance_exam <= 70) %>% 
+  mutate(po = exit_exam * 40 + entrance_exam / 2,
+    exit_exam = exit_exam * 40 + 10 * tutoring + entrance_exam / 2) %>% 
+  mutate(tutoring_fuzzy = ifelse(entrance_exam > 60 & entrance_exam < 80,
+                                 sample(c(TRUE, FALSE), n(), replace = TRUE),
+                                 tutoring)) %>% 
+  mutate(tutoring_text = factor(tutoring, levels = c(FALSE, TRUE),
+                                labels = c("No tutor", "Tutor")),
+         tutoring_fuzzy_text = factor(tutoring_fuzzy, levels = c(FALSE, TRUE),
+                                      labels = c("No tutor", "Tutor"))) %>% 
+  mutate(entrance_centered = entrance_exam - 70)
+
+tutoring$exit_exam[tutoring$entrance_exam>70] = tutoring$exit_exam[tutoring$entrance_exam>70] + 25
+#tutoring$po = tutoring$po + 25
+
+ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
+  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
+              method = "loess", size = 2, show.legend = FALSE) +
+  geom_smooth(data = filter(tutoring, entrance_exam > 70),
+              method = "loess", size = 2, show.legend = FALSE) +
+  
+  geom_smooth(data = filter(tutoring, entrance_exam <= 70), aes(x = entrance_exam, y = po + 25),
+              method = "loess", se = FALSE, lty = 2,size = 2, show.legend = FALSE, color = "#900DA4") +
+  geom_smooth(data = filter(tutoring, entrance_exam > 70),aes(x = entrance_exam, y = po + 10),
+              method = "loess", size = 2, se = FALSE, lty = 2, show.legend = FALSE, color = "#F89441") +
+  
+  labs(x = "Running Variable", y = "Outcome") + 
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  scale_color_manual(values = c("#900DA4", "#F89441")) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
+  theme_ipsum() +
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# Potential outcomes need to be smooth across the threshold
+
+```{r po-not-smooth2, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+# Fake program data
+set.seed(1234)
+num_students <- 1000
+tutoring <- tibble(
+  id = 1:num_students,
+  entrance_exam = rbeta(num_students, shape1 = 7, shape2 = 2),
+  exit_exam = rbeta(num_students, shape1 = 5, shape2 = 3)
+) %>% 
+  mutate(entrance_exam = entrance_exam * 100,
+         tutoring = entrance_exam <= 70) %>% 
+  mutate(po = exit_exam * 40 + entrance_exam / 2,
+    exit_exam = exit_exam * 40 + 10 * tutoring + entrance_exam / 2) %>% 
+  mutate(tutoring_fuzzy = ifelse(entrance_exam > 60 & entrance_exam < 80,
+                                 sample(c(TRUE, FALSE), n(), replace = TRUE),
+                                 tutoring)) %>% 
+  mutate(tutoring_text = factor(tutoring, levels = c(FALSE, TRUE),
+                                labels = c("No tutor", "Tutor")),
+         tutoring_fuzzy_text = factor(tutoring_fuzzy, levels = c(FALSE, TRUE),
+                                      labels = c("No tutor", "Tutor"))) %>% 
+  mutate(entrance_centered = entrance_exam - 70)
+
+tutoring$exit_exam[tutoring$entrance_exam>70] = tutoring$exit_exam[tutoring$entrance_exam>70] + 25
+#tutoring$po = tutoring$po + 25
+
+ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
+  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
+              method = "loess", size = 2, show.legend = FALSE) +
+  geom_smooth(data = filter(tutoring, entrance_exam > 70),
+              method = "loess", size = 2, show.legend = FALSE) +
+  
+  geom_smooth(data = filter(tutoring, entrance_exam <= 70), aes(x = entrance_exam, y = po + 15),
+              method = "loess", se = FALSE, lty = 2,size = 2, show.legend = FALSE, color = "#900DA4") +
+  geom_smooth(data = filter(tutoring, entrance_exam > 70),aes(x = entrance_exam, y = po + 10),
+              method = "loess", size = 2, se = FALSE, lty = 2, show.legend = FALSE, color = "#F89441") +
+  
+  labs(x = "Running Variable", y = "Outcome") + 
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  scale_color_manual(values = c("#900DA4", "#F89441")) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
+  theme_ipsum() +
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+
+.center2[
+.box-2LA[Can you think situations where that could happen?]
+]
+
+---
+# Work in groups
+
+<br>
+.box-3[1) Each group will be given a task and some code]
+
+--
+<br>
+<br>
+
+.box-5[2) You need to complete the code and discuss the results]
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/1_DD/sp2021_sta235_9_d_cont.html') -->
