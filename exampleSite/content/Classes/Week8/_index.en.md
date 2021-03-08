@@ -23,9 +23,9 @@ In this class we will cover Instrumental Variables, how it relates to a Fuzzy Re
 {{< youtube src="https://www.youtube.com/embed/vacBsxBgFMY?controls=0" >}}
 
 
-## JITT
+## JITT 
 
-Complete before **Sunday March 21th (11:59 pm)**. Link will be posted soon.
+Complete before **Sunday March 21th (11:59 pm)**. You can find the assignment <a onclick="ga('send', 'event', 'External-Link','click','JITT6','0','Link');" href="https://forms.gle/8aVCRiGgPmiuuBkd8" target="_blank">here</a>.
 
 ## Slides
 
