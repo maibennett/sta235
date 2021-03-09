@@ -30,9 +30,9 @@ Complete before **Sunday March 7th (11:59 pm)**. You can find the assignment <a 
 
 {{< slides src="https://sta235.netlify.app/Classes/Week7/1_DD/sp2021_sta235_9_dd_cont.html" >}}
 
-{{% button href="https://sta235.netlify.app/Classes/Week7/2_RD/sp2021_sta235_10_regression_discontinuity_blind.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week7/2_RD/sp2021_sta235_10_regression_discontinuity_blind.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.netlify.app/Classes/Week7/2_RD/sp2021_sta235_10_regression_discontinuity.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week7/2_RD/sp2021_sta235_10_regression_discontinuity.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week7/2_RD/sp2021_sta235_10_regression_discontinuity_blind.html" >}}
+{{< slides src="https://sta235.netlify.app/Classes/Week7/2_RD/sp2021_sta235_10_regression_discontinuity.html" >}}
 
 ## Code
 

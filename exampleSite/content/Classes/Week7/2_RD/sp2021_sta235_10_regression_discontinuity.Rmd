@@ -234,6 +234,9 @@ knitr::opts_chunk$set(message = FALSE)
 ```{r setup2, echo=FALSE, message=FALSE}
 library(knitr)
 library(showtext)
+library(xaringanExtra)
+
+xaringanExtra::use_scribble()
 ```
 
 ```{r fonts, message=FALSE, echo=FALSE}
