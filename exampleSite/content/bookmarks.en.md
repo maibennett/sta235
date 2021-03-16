@@ -57,6 +57,6 @@ Questions some time arise either in class or on the JITTs. Here, I'll leave some
 
 - *Can you go over the Taylor Swift example again when talking about Two-Way Fixed Effects (TWFE) models?*
 
-**Answer**: I got a question at the end of our last DD class asking to explain the Taylor Swift example again, and how it works in the context of a TWFE model. Here's a video with a more in-depth explanation. Note: If you feel comfortable with the R coding part, you can skip that part of the video and just watch the conceptual explanation at the beginning.
+**Answer**: I got a question at the end of our last DD class asking to explain the Taylor Swift example again, and how it works in the context of a TWFE model. Here's a video with a more in-depth explanation. Note: If you feel comfortable with the R coding part, you can skip that part of the video and just watch the conceptual explanation at the beginning (up to min 13).
 
 {{< youtube src="https://www.youtube.com/embed/MeHJe_oj-Lc" >}}
