@@ -54,3 +54,9 @@ Questions some time arise either in class or on the JITTs. Here, I'll leave some
 **Answer**: So I got a couple of questions both on office hours and on the JITT as well about weighting, so I thought I would just make a brief video explaining the idea behind it. This is a toy example made for you to understand the main idea behind weighting. In reality, you need to fit `glm(y ~ x1 + x2 + ..., data, family = binomial(link="logistic"))`, but hopefully you get that exact procedure both from class and the R code that's available (both Week 5 and Week 6). This is meant to give you an idea of what is going on behind the scenes when we build weights!
 
 {{< youtube src="https://www.youtube.com/embed/xetSfegjPko?controls=0" >}}
+
+- *Can you go over the Taylor Swift example again when talking about Two-Way Fixed Effects (TWFE) models?*
+
+**Answer**: I got a question at the end of our last DD class asking to explain the Taylor Swift example again, and how it works in the context of a TWFE model. Here's a video with a more in-depth explanation. Note: If you feel comfortable with the R coding part, you can skip that part of the video and just watch the conceptual explanation at the beginning.
+
+{{< youtube src="https://www.youtube.com/embed/MeHJe_oj-Lc" >}}

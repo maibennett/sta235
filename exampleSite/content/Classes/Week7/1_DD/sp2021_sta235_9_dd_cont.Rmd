@@ -243,6 +243,9 @@ knitr::opts_chunk$set(message = FALSE)
 ```{r setup2, echo=FALSE, message=FALSE}
 library(knitr)
 library(showtext)
+library(xaringanExtra)
+
+xaringanExtra::use_scribble()
 ```
 
 ```{r fonts, message=FALSE, echo=FALSE}
@@ -924,6 +927,7 @@ swift %>% dplyr::select(group, dates, popularity) %>%
 
 ---
 
+---
 .center2[
 .box-4LA[Let's go to R]
 ]
