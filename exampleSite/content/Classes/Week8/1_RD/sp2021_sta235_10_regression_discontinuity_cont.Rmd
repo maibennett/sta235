@@ -814,20 +814,21 @@ g1 + g2
 ---
 # How do they compare?
 
-.pull-left[
 .small[
 ```{r, warning=FALSE, message=FALSE}
 summary(lm(sales ~ dist + treat + dist*treat + treat, data = sales_close))
 ```
-]]
+]
 
-.pull-right[
+
+---
+# How do they compare?
+
 .small[
 ```{r, warning=FALSE, message=FALSE}
 summary(lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales_close))
 ```
-]]
-
+]
 
 ---
 # Potential problems
@@ -836,12 +837,18 @@ summary(lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data
 
   - Which polynomial function should we choose? Linear, quadratic, other?
   
-  - We are estimating an effect for the population at the cutoff but using the entire sample, is that right?
+  - What bandwidth should we choose? Whole sample? [-100,100]?
   
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RD/images/confusion.png)]
 --
 
 - There are some ways to address these concerns.
 
+.bottom[
+.source[
+.tiny[
+<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>]]]
 ---
 # Package `rdrobust`
 

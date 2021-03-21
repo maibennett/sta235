@@ -318,7 +318,6 @@ lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales
 ---
 # How do they compare?
 
-.pull-left[
 .small[
 
 ```r
@@ -347,9 +346,12 @@ summary(lm(sales ~ dist + treat + dist*treat + treat, data = sales_close))
 ## Multiple R-squared:  0.5261,	Adjusted R-squared:  0.5243 
 ## F-statistic: 289.4 on 3 and 782 DF,  p-value: &lt; 2.2e-16
 ```
-]]
+]
 
-.pull-right[
+
+---
+# How do they compare?
+
 .small[
 
 ```r
@@ -381,8 +383,7 @@ summary(lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data
 ## Multiple R-squared:  0.5328,	Adjusted R-squared:  0.5298 
 ## F-statistic: 177.9 on 5 and 780 DF,  p-value: &lt; 2.2e-16
 ```
-]]
-
+]
 
 ---
 # Potential problems
@@ -391,12 +392,18 @@ summary(lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data
 
   - Which polynomial function should we choose? Linear, quadratic, other?
   
-  - We are estimating an effect for the population at the cutoff but using the entire sample, is that right?
+  - What bandwidth should we choose? Whole sample? [-100,100]?
   
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RD/images/confusion.png)]
 --
 
 - There are some ways to address these concerns.
 
+.bottom[
+.source[
+.tiny[
+&lt;div&gt;Icons made by &lt;a href="https://www.freepik.com" title="Freepik"&gt;Freepik&lt;/a&gt; from &lt;a href="https://www.flaticon.com/" title="Flaticon"&gt;www.flaticon.com&lt;/a&gt;&lt;/div&gt;]]]
 ---
 # Package `rdrobust`
 
