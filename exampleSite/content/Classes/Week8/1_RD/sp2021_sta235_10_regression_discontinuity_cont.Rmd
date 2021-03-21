@@ -315,7 +315,8 @@ options(scipen = 0)
 # Today
 
 .pull-left[
-- Finish with **.darkorange[regression discontinuity design]**:
+
+- Quick recap and finish with **.darkorange[regression discontinuity design]**:
 
   - How do we estimate an effect in an RD?
   
@@ -325,7 +326,8 @@ options(scipen = 0)
 ]
 
 .pull-right[
-
+.center[
+![](https://media.giphy.com/media/l2Sq8cCzDCwhbFr1e/giphy.gif)]
 ]
 
 ---
@@ -840,11 +842,13 @@ summary(lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data
   - What bandwidth should we choose? Whole sample? [-100,100]?
   
 .center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RD/images/confusion.png)]
+![:scale 20%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RD/images/confusion.svg)
+]
 --
 
 - There are some ways to address these concerns.
-
+<br>
+<br>
 .bottom[
 .source[
 .tiny[
@@ -852,15 +856,174 @@ summary(lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data
 ---
 # Package `rdrobust`
 
-- Robust Regression Discontinuity (introduced by Cattaneo, Calonico, & Frandsen)
+- Robust Regression Discontinuity introduced by Cattaneo, Calonico, Farrell & Titiunik (2014).
 
-- What does it do
+- Use of **.darkorange[local polynomial]** for fit.
 
+- **.darkorange[Data-driven optimal bandwidth]** (bias vs variance).
 
+--
+
+- `rdrobust`: Estimation of LATE and opt. bandwidth
+
+- `rdplot`: Plotting RD with nonparametric local polynomial.
+
+---
+# Let's compare with previous parametric results
+
+```{r, echo = TRUE, eval = FALSE}
+rdplot(y = sales$sales, x = sales$time, c = c, 
+       title = "RD plot", x.label = "time", y.label = "sales")
+```
+
+```{r rdplot, fig.height=4.5, fig.width=8, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+library(rdrobust)
+
+c = min(sales$time[sales$treat==0])
+
+rdplot(y = sales$sales, x = sales$time, c = c, title = "RD plot",
+       x.label = "time", y.label = "sales", col.dots = "#F89441", col.lines = "#900DA4")
+```
+
+---
+# Let's compare with previous parametric results
+
+```{r, echo = TRUE, eval = FALSE}
+rdplot(y = sales$sales, x = sales$time, c = c, 
+       title = "RD plot", x.label = "time", y.label = "sales")
+```
+
+.pull-left[
+```{r rdplot2a, fig.height=4.5, fig.width=6, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+lm1 <- lm(sales ~ dist + treat + dist*treat, data = sales)
+
+sales_aug <- broom::augment(lm1, data = sales)
+
+ggplot(data = sales_aug, aes(x = time, y = sales)) +
+  geom_point(size = 5, pch = 21, color = "white", fill="grey") +
+  geom_line(data = filter(sales_aug, time>c), aes(x = time, y = .fitted), color = "#F89441", lwd = 2) +
+  geom_line(data = filter(sales_aug, time<c), aes(x = time, y = .fitted), color = "#900DA4", lwd = 2) +
+  theme_ipsum_fsc() +
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+```
+]
+
+.pull-right[
+```{r rdplot2b, fig.height=4.5, fig.width=6, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+rdplot(y = sales$sales, x = sales$time, c = c, title = "RD plot",
+       x.label = "time", y.label = "sales", col.dots = "#F89441", col.lines = "#900DA4")
+
+```
+]
+
+---
+# Let's compare with previous parametric results
+
+.small[
+```{r, warning=FALSE, message=FALSE}
+summary(rdrobust(y = sales$sales, x = sales$time, c = c))
+```
+]
+
+---
+# How do we weight observations?
+
+- `rdrobust` uses `rdbwselect()` function (by default) to estimate a data-driven bandwidth (i.e. what observations we are going to use for estimation).
+
+  - If we use a bandwidth, does this mean that the RD is estimating an effect for that population within the bandwidth?
+  
+--
+
+- **.darkorange[Kernels]** are also important in this context:
+
+  - How do I weight observations within the bandwidth (e.g. uniform, triangle)
+  
+---
+# Observing kernels
+
+```{r kernels, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+data <- data.frame(u = c(0,0,1,1,1,1,1,0,0),
+                   t = c(0,0,0,0.5,1,0.5,0,0,0),
+                   r = c(-3,-2,-2,-1,0,1,2,2,3))
+
+g1 <- ggplot(data = data, aes(x = r, y = u)) +
+  geom_line(color = "#F89441", lwd = 2) +
+  geom_vline(aes(xintercept = -2.05), lwd = 1.5, color = "#E16462", lty = 2) +
+  geom_vline(aes(xintercept = 2.05), lwd = 1.5, color = "#E16462", lty = 2) +
+  geom_vline(aes(xintercept = 0), lwd = 1.2, color = "dark grey", lty = 2) +
+  theme_ipsum_fsc() +
+  xlab("Running variable") + ylab("Weights") + ggtitle("Uniform Kernel") + 
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+g2 <- ggplot(data = data, aes(x = r, y = t)) +
+  geom_line(color = "#F89441", lwd = 2) +
+  geom_vline(aes(xintercept = -2), lwd = 1.5, color = "#E16462", lty = 2) +
+  geom_vline(aes(xintercept = 2), lwd = 1.5, color = "#E16462", lty = 2) +
+  geom_vline(aes(xintercept = 0), lwd = 1.2, color = "dark grey", lty = 2) +
+  theme_ipsum_fsc() +
+  xlab("Running variable") + ylab("Weights") + ggtitle("Triangle Kernel") + 
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+g1 + g2
+```
+
+---
+# Takeaway points
+
+.pull-left[
+- RD designs are **.darkorange[great]** for causal inference!
+
+  - Strong internal validity
+  - Number of robustness checks
+  
+- **.darkorange[Limited]** external validity.
+
+- Make sure to check your data:
+
+  - Discontinuity in treatment assignment
+  - Density across the cutoff
+  - Smoothness of covariates
+]
+
+.pull-right[
+![](https://media.giphy.com/media/yQF1MwG7u9OvgVAjmr/giphy.gif)
+]
 ---
 # References
 
 - Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 4*.
+
+- Calonico, Cattaneo and Titiunik. (2015). "rdrobust: An R Package for Robust Nonparametric Inference in Regression-Discontinuity Designs". R Journal 7(1): 38-51.
 
 - Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 10: Regression Discontinuity I, Course at BYU*.
 

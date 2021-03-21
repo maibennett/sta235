@@ -22,7 +22,7 @@
 @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:200,300,400,500,600,700&display=swap);
 @import url(https://fonts.googleapis.com/css?family=Fira+Mono&display=swap);
 @import url(https://fonts.googleapis.com/css?family=Fira+Sans:200,300,400,500,600&display=swap);
-@import url(https://fonts.googleapis.com/css?family=Fira+Sans+Condensed&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Fira+Sans+Condensed:200,300,400,500,600&display=swap);
 
 :root {
   /* Fonts */
@@ -59,6 +59,7 @@
   --base: #333f48;
   --white: #FFFFFF;
   --black: #272822;
+  --lightgrey: #C0C0C0;
   --red: #f34213;
   --purple: #900DA4;
   --darkpurple: #61077a;
@@ -259,6 +260,12 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 .bg-black {
   background-color: var(--black);
 }
+.lightgrey {
+  color: var(--lightgrey);
+}
+.bg-lightgrey {
+  background-color: var(--lightgrey);
+}
 .red {
   color: var(--red);
 }
@@ -324,6 +331,9 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 .small {
   font-size: 80%;
 }
+.tiny {
+  font-size: 50%;
+}
 .large {
   font-size: 150%;
 }
@@ -355,6 +365,14 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+}
+.bottom2 {
+  margin: 0;
+  position: absolute;
+  top: 90%;
+  left: 10%;
+  -ms-transform: translate(-10%, -90%);
+  transform: translate(-10%, -90%);
 }
 .section-title h1 {
   color: #FFFFFF;
@@ -392,45 +410,53 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   background-color: rgba(13, 8, 135,0.3);
   color: rgba(13, 8, 135,1);
   font-family: Yanone Kaffeesatz;
+  border-radius: 15px;
 }
 .box-2t,.box-2tL,.section-title-2t {
   background-color: rgba(86, 1, 164,0.3);
   color: rgba(86, 1, 164,1);
   font-family: Yanone Kaffeesatz;
+  border-radius: 15px;
 }
 .box-3t,.box-3tL,.section-title-3t {
   background-color: rgba(144, 13, 164,0.3);
   color: rgba(144, 13, 164,1);
   font-family: Yanone Kaffeesatz;
+  border-radius: 15px;
 }
 .box-4t,.box-4tL,.section-title-4t {
   background-color: rgba(191, 57, 132,0.3);
   color: rgba(191, 57, 132,1);
   font-family: Yanone Kaffeesatz;
+  border-radius: 15px;
 }
 .box-5t,.box-5tL,.section-title-5t {
   background-color: rgba(225, 100, 98,0.3);
   color: rgba(225, 100, 98,1);
   font-family: Yanone Kaffeesatz;
+  border-radius: 15px;
 }
 .box-6t,.box-6tL,.section-title-6t {
   background-color: rgba(248, 148, 65,0.3);
   color: rgba(248, 148, 65,1);
   font-family: Yanone Kaffeesatz;
+  border-radius: 15px;
 }
 .box-7t,.box-7tL,.section-title-7t {
   background-color: rgba(252, 206, 37,0.3);
   color: rgba(252, 206, 37,1);
   font-family: Yanone Kaffeesatz;
+  border-radius: 15px;
 }
 .box-7t, .box-6t, .box-5t, .box-4t, .box-3t, .box-2t, .box-1t {
   margin: 0em auto;
   overflow: hidden;
   padding: 0.4em 0.4em;
   font-weight: 600;
-  font-size: 27px;
+  font-size: 31px;
   display: table;
-  text-align: left;
+  text-align: center;
+  border-radius: 15px;
 }
 .box-7tL, .box-6tL, .box-5tL, .box-4tL, .box-3tL, .box-2tL, .box-1tL {
   margin: 0em auto;
@@ -440,6 +466,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   font-size: 50px;
   display: table;
   text-align: center;
+  border-radius: 15px;
 }
 .box-7, .box-6, .box-5, .box-4, .box-3, .box-2, .box-1 {
   color: #FFFFFF;
@@ -451,6 +478,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   display: table;
   text-align: center;
   font-family: Fira Sans;
+  border-radius: 15px;
 }
 .box-7a, .box-6a, .box-5a, .box-4a, .box-3a, .box-2a, .box-1a {
   color: #FFFFFF;
@@ -462,6 +490,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   display: table;
   text-align: center;
   font-family: Fira Sans;
+  border-radius: 15px;
 }
 .box-7s, .box-6s, .box-5s, .box-4s, .box-3s, .box-2s, .box-1s {
   color: #FFFFFF;
@@ -473,6 +502,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   display: inline;
   text-align: center;
   font-family: Fira Sans;
+  border-radius: 15px;
 }
 .box-7b, .box-6b, .box-5b, .box-4b, .box-3b, .box-2b, .box-1b {
   color: #FFFFFF;
@@ -484,6 +514,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   display: table;
   text-align: left;
   font-family: Fira Sans;
+  border-radius: 15px;
 }
 .box-7l, .box-6l, .box-5l, .box-4l, .box-3l, .box-2l, .box-1l {
   color: #FFFFFF;
@@ -495,6 +526,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   display: table;
   text-align: center;
   font-family: Yanone Kaffeesatz;
+  border-radius: 15px;
 }
 .box-7LA, .box-6LA, .box-5LA, .box-4LA, .box-3LA, .box-2LA, .box-1LA {
   color: #FFFFFF;
@@ -506,6 +538,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   display: table;
   text-align: center;
   font-family: Yanone Kaffeesatz;
+  border-radius: 15px;
 }
 .image-80 img {
   scale: 80%;

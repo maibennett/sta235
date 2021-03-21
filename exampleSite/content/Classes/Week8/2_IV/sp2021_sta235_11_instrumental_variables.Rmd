@@ -1,5 +1,5 @@
 ---
-title: "STA 235 - Causal Inference: Regression Discontinuity Design (Cont.)"
+title: "STA 235 - Causal Inference: Instrumental Variables"
 subtitle: "Spring 2021"
 author: "McCombs School of Business, UT Austin"
 output:
@@ -292,430 +292,125 @@ library(extrafont)
 options(scipen = 0)
 ```
 
-# Reminders
-
-.box-3LA[In-class midterm March 29th]
-
---
-- **.darkorange[What will the midterm look like?]**
-
-  - Shorter version of a homework: Examples/cases with data (conceptual + R code)
-
---
-- **.darkorange[Where should I study from?]**
-
-  - R code posted for class (includes conceptual questions), R code example questions for midterm, examples/questions seen in class,
-  JITTs, etc.
-  
-  - Other resources posted on the bookmark section (websites have *a lot* of data exercises)
-  
-  - **.darkorange[Don't memorize anything.]**
-  
----
-# Today
+# Introduction to instrumental variables
 
 .pull-left[
-- Finish with **.darkorange[regression discontinuity design]**:
+- We have seen that controlling for covariates is usually **.darkorange[not enough]**.
 
-  - How do we estimate an effect in an RD?
-  
-- **.darkorange[Instrumental variables]**:
+- We might not have **.darkorange[randomization]** or **.darkorange[a nice RD]**.
 
-  - Fuzzy regression discontinuity designs.
+.box-7t[What to do?]
 ]
 
 .pull-right[
-
+.center[
+![](https://media.giphy.com/media/oGzFZek2lszlK/giphy.gif)]
 ]
 
-
 ---
-# Behind the scenes of RDs
 
-- Basically, regression discontinuities work under an **.darkorange[asymptotic assumption]**:
-
+.center2[
+.box-3[Instrumental variables could help!]
 --
 
-- Let $Y_i$ be the outcome of interest, $Z_i$ the treatment assignment, $R_i$ the running variable, and $c$ the cutoff score:
-
-$$Z_i =   \left\{
-\begin{array}{ll}
-      0 & R_i\leq c \\
-      1 & R_i>c \\
-\end{array} 
-\right.$$
-
---
-
-- Then, we can define the treatment effect $\delta$ as:
-
-$$\delta = \lim_{\epsilon \rightarrow 0^+}E[Y_i| R_i = c + \epsilon] - \lim_{\epsilon \rightarrow 0^-}E[Y_i| R_i = c + \epsilon]$$
+.box-3t[... but first let's review some concepts.]
+]
 ---
-# What does the limit expression mean?
+# Endogeneity vs Exogeneity
 
-```{r tutoring-limit, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-tutoring$exit_exam[tutoring$entrance_exam>70] = tutoring$exit_exam[tutoring$entrance_exam>70] + 25
+Does education cause higher earnings?
 
-ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
-  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
-  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
-  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
-              method = "loess", size = 2, show.legend = FALSE) +
-  geom_smooth(data = filter(tutoring, entrance_exam > 70),
-              method = "loess", size = 2, show.legend = FALSE) +
-  labs(x = "Running Variable", y = "Outcome") + 
-  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
-  scale_color_manual(values = c("#900DA4", "#F89441")) +
-  theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
-  theme_ipsum_fsc() +
-  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
-        #axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_blank(),
-        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
----
-# What does the limit expression mean?
+```{r iv-dag-simple, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 
-```{r tutoring-limit2, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-
-ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
-  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
-  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
-  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
-              method = "loess", size = 2, show.legend = FALSE) +
-  geom_smooth(data = filter(tutoring, entrance_exam > 70),
-              method = "loess", size = 2, show.legend = FALSE) +
-  labs(x = "Running Variable", y = "Outcome") + 
-  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
-  scale_color_manual(values = c("#900DA4", "#F89441")) +
-  theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
-  theme_ipsum_fsc() +
-  geom_segment(aes(x=80,y=85,xend=70,yend=85),lwd=2.5,lty=1,
-               arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="#E16462",col="#E16462") +
-  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
-        #axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_blank(),
-        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-# What does the limit expression mean?
-
-```{r tutoring-limit3, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-
-ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
-  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
-  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
-  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
-              method = "loess", size = 2, show.legend = FALSE) +
-  geom_smooth(data = filter(tutoring, entrance_exam > 70),
-              method = "loess", size = 2, show.legend = FALSE) +
-  labs(x = "Running Variable", y = "Outcome") + 
-  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
-  scale_color_manual(values = c("#900DA4", "#F89441")) +
-  theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
-  theme_ipsum_fsc() +
-  geom_segment(aes(x=80,y=85,xend=70,yend=85),lwd=2.5,lty=1,
-               arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="#E16462",col="#E16462") +
-  geom_segment(aes(x=60,y=70,xend=70,yend=70),lwd=2.5,lty=1,
-               arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="#E16462",col="#E16462") +
-  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
-        #axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_blank(),
-        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-# Conditions required for identification
---
-
-- Threshold rule **.darkorange[exists]** and cutoff point is **.darkorange[known]**
-
---
-
-- The running variable $R_i$ is **.darkorange[continuous]** near $c$.
-
---
-
-- Key assumption:
-
-.box-5LA[Continuity of E[Y(1)|R] and E[Y(0)|R] at R=c]
-
-
----
-# Potential outcomes need to be smooth across the threshold
-
-```{r po-smooth, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-# Fake program data
-set.seed(1234)
-num_students <- 1000
-tutoring <- tibble(
-  id = 1:num_students,
-  entrance_exam = rbeta(num_students, shape1 = 7, shape2 = 2),
-  exit_exam = rbeta(num_students, shape1 = 5, shape2 = 3)
+library(tidyverse)
+library(broom)
+library(ggdag)
+library(kableExtra)
+library(scales)
+library(patchwork)
+library(estimatr)
+library(modelsummary)
+set.seed(123456)
+nrows <- 1000
+father_education <- tibble(
+  ability = rnorm(nrows, 35000, 10000),  # Ability
+  fathereduc = rnorm(nrows, 15000, 20000),  # Father's education (IV)
+  e_y = 0.43 * rnorm(nrows, 50000, 10000)  # Error for outcome
 ) %>% 
-  mutate(entrance_exam = entrance_exam * 100,
-         tutoring = entrance_exam <= 70) %>% 
-  mutate(po = exit_exam * 40 + entrance_exam / 2,
-    exit_exam = exit_exam * 40 + 10 * tutoring + entrance_exam / 2) %>% 
-  mutate(tutoring_fuzzy = ifelse(entrance_exam > 60 & entrance_exam < 80,
-                                 sample(c(TRUE, FALSE), n(), replace = TRUE),
-                                 tutoring)) %>% 
-  mutate(tutoring_text = factor(tutoring, levels = c(FALSE, TRUE),
-                                labels = c("No tutor", "Tutor")),
-         tutoring_fuzzy_text = factor(tutoring_fuzzy, levels = c(FALSE, TRUE),
-                                      labels = c("No tutor", "Tutor"))) %>% 
-  mutate(entrance_centered = entrance_exam - 70)
+  mutate(educ = 3.7 + 0.52*fathereduc + 0.40*ability,  # Education (policy variable)
+         wage = 5 + 0.23*educ + 0.5*ability - e_y) %>%  # Wage (outcome variable)
+  mutate(wage = rescale(wage, to = c(7.75, 300)),  # Rescale from minimum wage to director wage (hourly)
+         educ = rescale(educ, to = c(10, 23)),  # Rescale as years of school. Min 10 to max 23 (PhD)
+         fathereduc = rescale(fathereduc, to = c(10, 23)),  # Rescale father's education
+         ability = rescale(ability, to = c(0, 600))) %>%  # Rescale as Hypothetical test scores
+  select(wage, educ, ability, fathereduc) %>% 
+  mutate(across(everything(), ~round(., 2)))
 
-tutoring$exit_exam[tutoring$entrance_exam>70] = tutoring$exit_exam[tutoring$entrance_exam>70] + 25
-#tutoring$po = tutoring$po + 25
 
-ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
-  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
-  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
-  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
-              method = "loess", size = 2, show.legend = FALSE) +
-  geom_smooth(data = filter(tutoring, entrance_exam > 70),
-              method = "loess", size = 2, show.legend = FALSE) +
-  
-  geom_smooth(data = filter(tutoring, entrance_exam <= 70), aes(x = entrance_exam, y = po + 25),
-              method = "loess", se = FALSE, lty = 2,size = 2, show.legend = FALSE, color = "#900DA4") +
-  geom_smooth(data = filter(tutoring, entrance_exam > 70),aes(x = entrance_exam, y = po + 10),
-              method = "loess", size = 2, se = FALSE, lty = 2, show.legend = FALSE, color = "#F89441") +
-  
-  labs(x = "Running Variable", y = "Outcome") + 
-  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
-  scale_color_manual(values = c("#900DA4", "#F89441")) +
-  theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
-  theme_ipsum_fsc() +
-  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
-        #axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_blank(),
-        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
+status_colors <- c(exposure = "#0074D9", outcome = "#FF851B", latent = "grey50")
+status_colors_backdoor <- c(exposure = "#0074D9", outcome = "#FF851B", latent = "#FF4136")
+node_details <- tribble(
+  ~plot1, ~plot2, ~plot3, ~name, ~label, ~x, ~y, ~generic, ~mathy,
+  TRUE, TRUE, TRUE, "treatment", "Education", 1, 1, "Program/policy", "X",
+  TRUE, TRUE, TRUE, "outcome", "Earnings", 3, 1, "Outcome", "Y",
+  FALSE, TRUE, TRUE, "unmeasured", "Ability", 2, 2, "Unmeasured confounders", "U",
+  FALSE, FALSE, TRUE, "instrument", "Father's education", 0, 1, "Instrument", "Z"
+)
+node_labels <- node_details$label %>% 
+  set_names(node_details$name)
+node_labels_generic <- node_details$generic %>% 
+  set_names(node_details$name)
+iv_dag1 <- dagify(outcome ~ treatment,
+                  exposure = "treatment",
+                  outcome = "outcome",
+                  coords = filter(node_details, plot1),
+                  labels =  node_labels) %>% 
+  tidy_dagitty() %>% 
+  node_status()
+ggplot(iv_dag1, aes(x = x, y = y, xend = xend, yend = yend)) +
+  geom_dag_edges(start_cap = ggraph::circle(3, "lines"),
+                 end_cap = ggraph::circle(3, "lines"),
+                 edge_width = 1.5, 
+                 arrow_directed = grid::arrow(length = grid::unit(0.75, "lines"), type = "closed")) +
+  geom_dag_point(aes(color = status), size = 20) +
+  geom_dag_label_repel(aes(label = label, fill = status), seed = 1234,
+                       color = "white", fontface = "bold", size = 7,
+                       family = "Fira Sans Condensed",
+                       label.padding = grid::unit(0.75, "lines"),
+                       # box.padding = grid::unit(2.5, "lines"),
+                       direction = "y") +
+  scale_color_manual(values = status_colors, na.value = "grey20") +
+  scale_fill_manual(values = status_colors, na.value = "grey20") +
+  guides(color = FALSE, fill = FALSE) + 
+  theme_dag(base_size = 20)
 ```
 
+--
+
+.medium[
+$$\color{#FF851B}{\text{Earnings}_i} = \beta_0 + \beta_1 \color{#0074D9}{\text{Education}_i} + \varepsilon_i$$
+]
 ---
-# Potential outcomes need to be smooth across the threshold
+# Instrumental variables to the rescue?
 
-```{r po-not-smooth2, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-# Fake program data
-set.seed(1234)
-num_students <- 1000
-tutoring <- tibble(
-  id = 1:num_students,
-  entrance_exam = rbeta(num_students, shape1 = 7, shape2 = 2),
-  exit_exam = rbeta(num_students, shape1 = 5, shape2 = 3)
-) %>% 
-  mutate(entrance_exam = entrance_exam * 100,
-         tutoring = entrance_exam <= 70) %>% 
-  mutate(po = exit_exam * 40 + entrance_exam / 2,
-    exit_exam = exit_exam * 40 + 10 * tutoring + entrance_exam / 2) %>% 
-  mutate(tutoring_fuzzy = ifelse(entrance_exam > 60 & entrance_exam < 80,
-                                 sample(c(TRUE, FALSE), n(), replace = TRUE),
-                                 tutoring)) %>% 
-  mutate(tutoring_text = factor(tutoring, levels = c(FALSE, TRUE),
-                                labels = c("No tutor", "Tutor")),
-         tutoring_fuzzy_text = factor(tutoring_fuzzy, levels = c(FALSE, TRUE),
-                                      labels = c("No tutor", "Tutor"))) %>% 
-  mutate(entrance_centered = entrance_exam - 70)
-
-tutoring$exit_exam[tutoring$entrance_exam>70] = tutoring$exit_exam[tutoring$entrance_exam>70] + 25
-#tutoring$po = tutoring$po + 25
-
-ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
-  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
-  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
-  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
-              method = "loess", size = 2, show.legend = FALSE) +
-  geom_smooth(data = filter(tutoring, entrance_exam > 70),
-              method = "loess", size = 2, show.legend = FALSE) +
-  
-  geom_smooth(data = filter(tutoring, entrance_exam <= 70), aes(x = entrance_exam, y = po + 15),
-              method = "loess", se = FALSE, lty = 2,size = 2, show.legend = FALSE, color = "#900DA4") +
-  geom_smooth(data = filter(tutoring, entrance_exam > 70),aes(x = entrance_exam, y = po + 10),
-              method = "loess", size = 2, se = FALSE, lty = 2, show.legend = FALSE, color = "#F89441") +
-  
-  labs(x = "Running Variable", y = "Outcome") + 
-  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
-  scale_color_manual(values = c("#900DA4", "#F89441")) +
-  theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
-  theme_ipsum_fsc() +
-  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
-        #axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_blank(),
-        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Estimation in practice
+.pull-left[
+.center[
+![](https://media.giphy.com/media/LXRumZ7dCGBhvD9IyY/giphy.gif)
+]
 ]
 
----
-# How do we actually estimate an RD?
+.pull-right[
+**.darkorange[Instrumental variables (IV)]** can help.
 
-- The simplest way to do this is to fit a regression:
+- An IV is a variable that:
 
-$$Y_i = \beta_0 + \beta_1(R_i-c) + \beta_2\mathrm{I}[R_i>c] + \beta_3(R_i-c)\mathrm{I}[R_i> c]$$
-
----
-# How do we actually estimate an RD?
-
-- The simplest way to do this is to fit a regression:
-
-$$Y_i = \beta_0 + \beta_1\color{#900DA4}{\underbrace{(R_i-c)}_\text{Distance to the cutoff}} + \beta_2\mathrm{I}[R_i>c] + \beta_3\color{#900DA4}{\overbrace{(R_i-c)}^\text{Distance to the cutoff}}\mathrm{I}[R_i> c]$$
----
-# How do we actually estimate an RD?
-
-- The simplest way to do this is to fit a regression:
-
-$$Y_i = \beta_0 + \beta_1(R_i-c) + \beta_2\color{#F89441}{\underbrace{\mathrm{I}[R_i>c]}_\text{Treatment}} + \beta_3(R_i-c)\color{#F89441}{\overbrace{\mathrm{I}[R_i> c]}^\text{Treatment}}$$
---
-
-- You want to add **.darkorange[flexibility]** for each side of the cutoff.
-
---
-
-.box-2LA[Can you identify these parameters in a plot?]
-
----
-# Let's see some examples: Sales using a linear model
-```{r, echo = TRUE, eval = FALSE}
-sales <- sales %>% mutate(dist = c-time)
-
-lm(sales ~ dist + treat + dist*treat, data = sales)
-```
-
-```{r rd_linear, fig.height=4, fig.width=8, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-
-sales <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/data/sales.csv")
-c = max(sales$time[sales$treat==1])
-sales <- sales %>% mutate(dist = c-time)
-
-lm1 <- lm(sales ~ dist + treat + dist*treat, data = sales)
-
-sales_aug <- broom::augment(lm1, data = sales)
-
-ggplot(data = sales_aug, aes(x = time, y = sales)) +
-  geom_point(size = 5, pch = 21, color = "white", fill="grey") +
-  geom_line(data = filter(sales_aug, time>c), aes(x = time, y = .fitted), color = "#F89441", lwd = 2) +
-  geom_line(data = filter(sales_aug, time<=c), aes(x = time, y = .fitted), color = "#900DA4", lwd = 2) +
-  theme_ipsum_fsc() +
-  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
-        #axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size = 10),
-        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size = 10),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-# Let's see some examples: Sales using a linear model
-.small[
-```{r, echo = TRUE}
-summary(lm(sales ~ dist + treat + dist*treat, data = sales))
-```
+  - ... is correlated to the treatment and **.darkorange[not]** to other confounders.
+  - ... is correlated to the outcome **.darkorange[only]** through the treatment
 ]
 
----
-# We can be more flexible
-
-- The previous example just included linear terms, but you can also be more flexible:
 
 
-$$Y_i = \beta_0 + \beta_1f(R_i-c) + \beta_2\mathrm{I}[R_i>c] + \beta_3f(R_i-c)\mathrm{I}[R_i> c]$$
 
-   - Where $f$ is any function you want.
-   
----
-# What happens if we fit a quadratic model?
-```{r, echo = TRUE, eval = FALSE}
-lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales)
-```
-
-```{r rd_quad, fig.height=4, fig.width=8, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-
-lm2 <- lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales)
-
-sales_aug <- broom::augment(lm2, data = sales)
-
-ggplot(data = sales_aug, aes(x = time, y = sales)) +
-  geom_point(size = 5, pch = 21, color = "white", fill="grey") +
-  geom_line(data = filter(sales_aug, time>c), aes(x = time, y = .fitted), color = "#F89441", lwd = 2) +
-  geom_line(data = filter(sales_aug, time<=c), aes(x = time, y = .fitted), color = "#900DA4", lwd = 2) +
-  theme_ipsum_fsc() +
-  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
-        #axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size = 10),
-        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size = 10),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-# What happens if we fit a quadratic model?
-
-```{r, warning=FALSE}
-summary(lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales))
-```
-
----
-# Potential problems
-
-- There are **.darkorange[many potential problems]** with the previous examples:
-
-  - Which polynomial function should we choose? Linear, quadratic, other?
-  
-  - We are estimating an effect for the population at the cutoff but using the entire sample, is that right?
-  
---
-
-- There are some ways to address these concerns.
-
----
-# Package `rdrobust`
-
-- Robust Regression Discontinuity (introduced by Cattaneo, Calonico )
 
 
 

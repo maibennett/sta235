@@ -73,7 +73,8 @@ class: center, middle, inverse, title-slide
 # Today
 
 .pull-left[
-- Finish with **.darkorange[regression discontinuity design]**:
+
+- Quick recap and finish with **.darkorange[regression discontinuity design]**:
 
   - How do we estimate an effect in an RD?
   
@@ -83,7 +84,8 @@ class: center, middle, inverse, title-slide
 ]
 
 .pull-right[
-
+.center[
+![](https://media.giphy.com/media/l2Sq8cCzDCwhbFr1e/giphy.gif)]
 ]
 
 ---
@@ -395,11 +397,13 @@ summary(lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data
   - What bandwidth should we choose? Whole sample? [-100,100]?
   
 .center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RD/images/confusion.png)]
+![:scale 20%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RD/images/confusion.svg)
+]
 --
 
 - There are some ways to address these concerns.
-
+&lt;br&gt;
+&lt;br&gt;
 .bottom[
 .source[
 .tiny[
@@ -407,15 +411,126 @@ summary(lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data
 ---
 # Package `rdrobust`
 
-- Robust Regression Discontinuity (introduced by Cattaneo, Calonico, &amp; Frandsen)
+- Robust Regression Discontinuity introduced by Cattaneo, Calonico, Farrell &amp; Titiunik (2014).
 
-- What does it do
+- Use of **.darkorange[local polynomial]** for fit.
+
+- **.darkorange[Data-driven optimal bandwidth]** (bias vs variance).
+
+--
+
+- `rdrobust`: Estimation of LATE and opt. bandwidth
+
+- `rdplot`: Plotting RD with nonparametric local polynomial.
+
+---
+# Let's compare with previous parametric results
 
 
+```r
+rdplot(y = sales$sales, x = sales$time, c = c, 
+       title = "RD plot", x.label = "time", y.label = "sales")
+```
+
+&lt;img src="sp2021_sta235_10_regression_discontinuity_cont_files/figure-html/rdplot-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Let's compare with previous parametric results
+
+
+```r
+rdplot(y = sales$sales, x = sales$time, c = c, 
+       title = "RD plot", x.label = "time", y.label = "sales")
+```
+
+.pull-left[
+&lt;img src="sp2021_sta235_10_regression_discontinuity_cont_files/figure-html/rdplot2a-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="sp2021_sta235_10_regression_discontinuity_cont_files/figure-html/rdplot2b-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Let's compare with previous parametric results
+
+.small[
+
+```r
+summary(rdrobust(y = sales$sales, x = sales$time, c = c))
+```
+
+```
+## Call: rdrobust
+## 
+## Number of Obs.                 2000
+## BW type                       mserd
+## Kernel                   Triangular
+## VCE method                       NN
+## 
+## Number of Obs.                1000        1000
+## Eff. Number of Obs.            202         213
+## Order est. (p)                   1           1
+## Order bias  (q)                  2           2
+## BW est. (h)                 54.304      54.304
+## BW bias (b)                 87.787      87.787
+## rho (h/b)                    0.619       0.619
+## Unique Obs.                   1000        1000
+## 
+## =============================================================================
+##         Method     Coef. Std. Err.         z     P&gt;|z|      [ 95% C.I. ]       
+## =============================================================================
+##   Conventional   -37.434     4.344    -8.618     0.000   [-45.948 , -28.921]   
+##         Robust         -         -    -7.610     0.000   [-48.596 , -28.691]   
+## =============================================================================
+```
+]
+
+---
+# How do we weight observations?
+
+- `rdrobust` uses `rdbwselect()` function (by default) to estimate a data-driven bandwidth (i.e. what observations we are going to use for estimation).
+
+  - If we use a bandwidth, does this mean that the RD is estimating an effect for that population within the bandwidth?
+  
+--
+
+- **.darkorange[Kernels]** are also important in this context:
+
+  - How do I weight observations within the bandwidth (e.g. uniform, triangle)
+  
+---
+# Observing kernels
+
+&lt;img src="sp2021_sta235_10_regression_discontinuity_cont_files/figure-html/kernels-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Takeaway points
+
+.pull-left[
+- RD designs are **.darkorange[great]** for causal inference!
+
+  - Strong internal validity
+  - Number of robustness checks
+  
+- **.darkorange[Limited]** external validity.
+
+- Make sure to check your data:
+
+  - Discontinuity in treatment assignment
+  - Density across the cutoff
+  - Smoothness of covariates
+]
+
+.pull-right[
+![](https://media.giphy.com/media/yQF1MwG7u9OvgVAjmr/giphy.gif)
+]
 ---
 # References
 
 - Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 4*.
+
+- Calonico, Cattaneo and Titiunik. (2015). "rdrobust: An R Package for Robust Nonparametric Inference in Regression-Discontinuity Designs". R Journal 7(1): 38-51.
 
 - Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 10: Regression Discontinuity I, Course at BYU*.
 
