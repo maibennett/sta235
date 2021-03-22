@@ -1078,4 +1078,4 @@ summary(rdrobust(y = tutoring$exit_exam, x = tutoring$entrance_exam, c = 70))
 - Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 10: Regression Discontinuity I, Course at BYU*.
 
 - Lee, D. and T. Lemieux. (2010). "Regression Discontinuity in Economics". *Journal of Economic Literature 48, pp 281-355*.
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/2_RD/sp2021_sta235_10_regression_discontinuity.html') -->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week8/1_RD/sp2021_sta235_10_regression_discontinuity_cont.html', timeout = 120) -->

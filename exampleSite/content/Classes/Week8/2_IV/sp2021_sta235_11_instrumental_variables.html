@@ -204,6 +204,21 @@ $$
 .box-7t[Not testable with stats (only story!)]
 
 ---
+# Who do instruments work for?
+
+- When doing an IV analysis, we are only estimating an effect **.darkorange[for those who are moved by our instrument]**
+&lt;br&gt;
+&lt;br&gt;
+.box-4[Compliers]
+
+--
+
+- We are not identifying and effect for "always-takers" or "never-takers" (also, we assume no defiers).
+&lt;br&gt;
+&lt;br&gt;
+.box-5[LATE]
+
+---
 # Finding instruments is hard!
 
 - Usually the **.darkorange[exclusion restriction fails]**.
@@ -254,6 +269,17 @@ $$
 ---
 # GOTV compliance
 
+
+```r
+d &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/1_RCT/data/voters_covariates.csv")
+
+# Drop variables with unlisted phone numbers
+d_s1 &lt;- d[!is.na(d$treat_real),]
+
+table(d_s1$treat_real, d_s1$contact)
+
+d_s1 %&gt;% group_by(treat_real) %&gt;% summarise(contact = mean(contact))
+```
 
 
 ```
@@ -392,17 +418,120 @@ summary(iv_robust(vote02 ~ contact | treat_real, data = d_s1))
 ---
 # Fuzzy Regression Discontinuity 
 
-- The same principal applies when we don't have
+- The same principal applies when we **.darkorange[don't have full compliance]** in an RDD
 
+--
+
+- **.darkorange[Fuzzy regression discontinuity]**
+
+  - If `\(Z = I(R_i&gt;c)\)`, then `\(\text{Pr}(D=1| Z=1)&lt;1\)` and/or `\(\text{Pr}(D=1| Z=0)&gt;0\)`
+  
+--
+
+
+```r
+rdrobust(y = y, x = x, c = c, fuzzy = treat)
+```
+
+---
+# Example: Entrance exam and tutoring
+
+
+
+&lt;img src="sp2021_sta235_11_instrumental_variables_files/figure-html/tutoring-fuzzy-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Use above/below cutoff as instrument: A parametric approach
+small.[
+
+```r
+tutoring &lt;- tutoring %&gt;% mutate(distance = entrance_exam - 70,
+                                below_cutoff = entrance_exam &lt;= 70)
+
+
+summary(iv_robust(exit_exam ~ distance + tutoring | distance + below_cutoff,
+  data = filter(tutoring, distance &gt;= -10 &amp; distance &lt;= 10)))
+```
+
+```
+## 
+## Call:
+## iv_robust(formula = exit_exam ~ distance + tutoring | distance + 
+##     below_cutoff, data = filter(tutoring, distance &gt;= -10 &amp; distance &lt;= 
+##     10))
+## 
+## Standard error type:  HC2 
+## 
+## Coefficients:
+##              Estimate Std. Error t value   Pr(&gt;|t|) CI Lower CI Upper  DF
+## (Intercept)   60.1414     1.0177  59.098 9.747e-200  58.1407  62.1420 400
+## distance       0.4366     0.0993   4.397  1.407e-05   0.2414   0.6318 400
+## tutoringTRUE   9.7410     1.9118   5.095  5.384e-07   5.9825  13.4996 400
+## 
+## Multiple R-squared:  0.3646 ,	Adjusted R-squared:  0.3615 
+## F-statistic: 13.06 on 2 and 400 DF,  p-value: 3.19e-06
+```
+]
+---
+# Use above/below cutoff as instrument: A nonparametric approach
+
+
+```r
+library(rdrobust)
+
+summary(rdrobust(y = tutoring$exit_exam, x = tutoring$distance, c = 0, fuzzy = tutoring$tutoring))
+```
+
+```
+## Call: rdrobust
+## 
+## Number of Obs.                 1000
+## BW type                       mserd
+## Kernel                   Triangular
+## VCE method                       NN
+## 
+## Number of Obs.                 238         762
+## Eff. Number of Obs.            170         347
+## Order est. (p)                   1           1
+## Order bias  (q)                  2           2
+## BW est. (h)                 12.985      12.985
+## BW bias (b)                 19.733      19.733
+## rho (h/b)                    0.658       0.658
+## Unique Obs.                    238         762
+## 
+## =============================================================================
+##         Method     Coef. Std. Err.         z     P&gt;|z|      [ 95% C.I. ]       
+## =============================================================================
+##   Conventional     9.683     1.893     5.116     0.000     [5.973 , 13.393]    
+##         Robust         -         -     4.258     0.000     [5.210 , 14.095]    
+## =============================================================================
+```
+
+
+---
+# Takeaways
+
+.pull-left[
+- Instruments can be **.darkorange[useful]** for recovering treatment effects, even under no random assignment.
+
+- Finding good instruments is **.darkorange[hard]**.
+
+- We can easily use them in RCTs or RD designs to go **.darkorange[from an ITT to a LATE]**.
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/WVAP0Z0Ue0UA64FNN7/giphy.gif)
+]
+]
 ---
 # References
 
-- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 4*.
+- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 3*.
 
-- Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 10: Regression Discontinuity I, Course at BYU*.
+- Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 11: Instrumental Variables, Course at BYU*.
 
-- Lee, D. and T. Lemieux. (2010). "Regression Discontinuity in Economics". *Journal of Economic Literature 48, pp 281-355*.
-&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/2_RD/sp2021_sta235_10_regression_discontinuity.html') --&gt;
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week8/1_RD/sp2021_sta235_11_instrumental_variables.html', timeout = 500)--&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
