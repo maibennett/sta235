@@ -8,5 +8,5 @@ disableToc: true
 
 ## MIDTERM
 
-It's midterm day. Check out the instructions and exercises <p href="https://sta235.netlify.app/exams"> here </p>p>
+It's midterm day. Check out the instructions and exercises <a href="https://sta235.netlify.app/exams"> here </a>
 
