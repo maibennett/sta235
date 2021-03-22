@@ -837,7 +837,7 @@ tutoring <- tutoring %>% mutate(distance = entrance_exam - 70,
                                 below_cutoff = entrance_exam <= 70)
 
 
-summary(iv_robust(exit_exam ~ distance + tutoring | distance + below_cutoff,
+summary(iv_robust(exit_exam ~ distance + tutoring | distance + below_cutoff,#<<
   data = filter(tutoring, distance >= -10 & distance <= 10))) #<<
 ```
 ]
@@ -874,4 +874,4 @@ summary(rdrobust(y = tutoring$exit_exam, x = tutoring$distance, c = 0, fuzzy = t
 
 - Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 11: Instrumental Variables, Course at BYU*.
 
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week8/1_RD/sp2021_sta235_11_instrumental_variables.html', timeout = 500)-->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week8/2_IV/sp2021_sta235_11_instrumental_variables.html', timeout = 500)-->

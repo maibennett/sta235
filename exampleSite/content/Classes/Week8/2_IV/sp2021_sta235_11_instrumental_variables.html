@@ -209,14 +209,14 @@ $$
 - When doing an IV analysis, we are only estimating an effect **.darkorange[for those who are moved by our instrument]**
 &lt;br&gt;
 &lt;br&gt;
-.box-4[Compliers]
+.box-2[Compliers]
 
 --
 
 - We are not identifying and effect for "always-takers" or "never-takers" (also, we assume no defiers).
 &lt;br&gt;
 &lt;br&gt;
-.box-5[LATE]
+.box-7[LATE]
 
 ---
 # Finding instruments is hard!
@@ -276,11 +276,32 @@ d &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/examp
 # Drop variables with unlisted phone numbers
 d_s1 &lt;- d[!is.na(d$treat_real),]
 
+# Treatment assignment vs Actual treatment
 table(d_s1$treat_real, d_s1$contact)
 
+# % of treated by assignment
 d_s1 %&gt;% group_by(treat_real) %&gt;% summarise(contact = mean(contact))
 ```
 
+
+---
+# GOTV compliance
+
+
+```r
+d &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/1_RCT/data/voters_covariates.csv")
+
+# Drop variables with unlisted phone numbers
+d_s1 &lt;- d[!is.na(d$treat_real),]
+
+# Treatment assignment vs Actual treatment
+*table(d_s1$treat_real, d_s1$contact)
+
+# % of treated by assignment
+d_s1 %&gt;% group_by(treat_real) %&gt;% summarise(contact = mean(contact))
+```
+
+.small[
 
 ```
 ##    
@@ -288,6 +309,26 @@ d_s1 %&gt;% group_by(treat_real) %&gt;% summarise(contact = mean(contact))
 ##   0 1845348       0
 ##   1   34929   25043
 ```
+]
+
+---
+# GOTV compliance
+
+
+```r
+d &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/1_RCT/data/voters_covariates.csv")
+
+# Drop variables with unlisted phone numbers
+d_s1 &lt;- d[!is.na(d$treat_real),]
+
+# Treatment assignment vs Actual treatment
+table(d_s1$treat_real, d_s1$contact) 
+
+# % of treated by assignment
+*d_s1 %&gt;% group_by(treat_real) %&gt;% summarise(contact = mean(contact))
+```
+
+.small[
 
 ```
 ## # A tibble: 2 x 2
@@ -296,6 +337,42 @@ d_s1 %&gt;% group_by(treat_real) %&gt;% summarise(contact = mean(contact))
 ## 1          0   0    
 ## 2          1   0.418
 ```
+]
+
+---
+# GOTV: First stage
+
+
+
+
+```r
+library(estimatr)
+
+*lm1 &lt;- estimatr::lm_robust(contact ~ treat_real, data = d_s1)
+
+summary(lm1)
+```
+
+```
+## 
+## Call:
+## estimatr::lm_robust(formula = contact ~ treat_real, data = d_s1)
+## 
+## Standard error type:  HC2 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)  CI Lower  CI Upper      DF
+## (Intercept) 5.176e-13  8.601e-16   601.8        0 5.160e-13 5.193e-13 1905318
+## treat_real  4.176e-01  2.014e-03   207.4        0 4.136e-01 4.215e-01 1905318
+## 
+## Multiple R-squared:  0.4098 ,	Adjusted R-squared:  0.4098 
+## F-statistic: 4.3e+04 on 1 and 1905318 DF,  p-value: &lt; 2.2e-16
+```
+
+```r
+d_s1$contact_fitted = lm1$fitted.values
+```
+
 ---
 # GOTV: First stage
 
@@ -327,7 +404,7 @@ summary(lm1)
 ```
 
 ```r
-d_s1$contact_fitted = lm1$fitted.values
+*d_s1$contact_fitted = lm1$fitted.values
 ```
 
 ---
@@ -337,7 +414,7 @@ d_s1$contact_fitted = lm1$fitted.values
 
 
 ```r
-estimatr::lm_robust(vote02 ~ contact_fitted, data = d_s1)
+*estimatr::lm_robust(vote02 ~ contact_fitted, data = d_s1)
 ```
 
 ```
@@ -356,7 +433,7 @@ estimatr::lm_robust(vote02 ~ contact_fitted, data = d_s1)
 
 
 ```r
-lm2 &lt;- estimatr::lm_robust(vote02 ~ treat_real, data = d_s1)
+*lm2 &lt;- estimatr::lm_robust(vote02 ~ treat_real, data = d_s1)
 
 summary(lm2)
 ```
@@ -379,6 +456,43 @@ summary(lm2)
 
 ```r
 lm2$coefficients[2]/lm1$coefficients[2]
+```
+
+```
+## treat_real 
+## 0.08728695
+```
+
+---
+# GOTV: Intention to Treat
+
+
+
+
+```r
+lm2 &lt;- estimatr::lm_robust(vote02 ~ treat_real, data = d_s1) 
+
+summary(lm2)
+```
+
+```
+## 
+## Call:
+## estimatr::lm_robust(formula = vote02 ~ treat_real, data = d_s1)
+## 
+## Standard error type:  HC2 
+## 
+## Coefficients:
+##             Estimate Std. Error t value  Pr(&gt;|t|) CI Lower CI Upper      DF
+## (Intercept)  0.54529  0.0003666  1487.6 0.000e+00  0.54457  0.54601 1905318
+## treat_real   0.03645  0.0020473    17.8 6.778e-71  0.03244  0.04046 1905318
+## 
+## Multiple R-squared:  0.0001634 ,	Adjusted R-squared:  0.0001629 
+## F-statistic: 316.9 on 1 and 1905318 DF,  p-value: &lt; 2.2e-16
+```
+
+```r
+*lm2$coefficients[2]/lm1$coefficients[2]
 ```
 
 ```
@@ -442,15 +556,15 @@ rdrobust(y = y, x = x, c = c, fuzzy = treat)
 
 ---
 # Use above/below cutoff as instrument: A parametric approach
-small.[
+.small[
 
 ```r
 tutoring &lt;- tutoring %&gt;% mutate(distance = entrance_exam - 70,
                                 below_cutoff = entrance_exam &lt;= 70)
 
 
-summary(iv_robust(exit_exam ~ distance + tutoring | distance + below_cutoff,
-  data = filter(tutoring, distance &gt;= -10 &amp; distance &lt;= 10)))
+*summary(iv_robust(exit_exam ~ distance + tutoring | distance + below_cutoff,
+* data = filter(tutoring, distance &gt;= -10 &amp; distance &lt;= 10)))
 ```
 
 ```
@@ -474,12 +588,12 @@ summary(iv_robust(exit_exam ~ distance + tutoring | distance + below_cutoff,
 ]
 ---
 # Use above/below cutoff as instrument: A nonparametric approach
-
+.small[
 
 ```r
 library(rdrobust)
 
-summary(rdrobust(y = tutoring$exit_exam, x = tutoring$distance, c = 0, fuzzy = tutoring$tutoring))
+*summary(rdrobust(y = tutoring$exit_exam, x = tutoring$distance, c = 0, fuzzy = tutoring$tutoring))
 ```
 
 ```
@@ -506,7 +620,7 @@ summary(rdrobust(y = tutoring$exit_exam, x = tutoring$distance, c = 0, fuzzy = t
 ##         Robust         -         -     4.258     0.000     [5.210 , 14.095]    
 ## =============================================================================
 ```
-
+]
 
 ---
 # Takeaways
@@ -531,7 +645,7 @@ summary(rdrobust(y = tutoring$exit_exam, x = tutoring$distance, c = 0, fuzzy = t
 
 - Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 11: Instrumental Variables, Course at BYU*.
 
-&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week8/1_RD/sp2021_sta235_11_instrumental_variables.html', timeout = 500)--&gt;
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week8/2_IV/sp2021_sta235_11_instrumental_variables.html', timeout = 500)--&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
