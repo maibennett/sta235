@@ -43,4 +43,4 @@ Complete before **Sunday March 21th (11:59 pm)**. You can find the assignment <a
 
 ## Activities
 
-<!-- {{% button href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/code/week8_in_class_activity.R" icon="fas fa-code" icon-position="right" %}}Download{{% /button %}}  -->
+{{% button href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/code/week8_in_class_activity.R" icon="fas fa-code" icon-position="right" %}}Download{{% /button %}}
