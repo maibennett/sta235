@@ -39,7 +39,7 @@ Complete before **Sunday March 21th (11:59 pm)**. You can find the assignment <a
 
 ## Code
 
-<!-- Here is the R code we will review in class, with some additional data and questions <a onclick="ga('send', 'event', 'External-Link','click','code8','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/code/sp2021_sta235_11_RD_IV.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>  -->
+Here is the R code we will review in class, with some additional data and questions <a onclick="ga('send', 'event', 'External-Link','click','code8','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/code/sp2021_sta235_11_RD_IV.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
 ## Activities
 
