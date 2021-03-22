@@ -29,9 +29,9 @@ Complete before **Sunday March 21th (11:59 pm)**. You can find the assignment <a
 
 ## Slides
 
-{{% button href="https://sta235.netlify.app/Classes/Week8/1_RD/sp2021_sta235_10_regression_discontinuity_cont_blind.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week8/1_RD/sp2021_sta235_10_regression_discontinuity_cont_blind.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.netlify.app/Classes/Week8/1_RD/sp2021_sta235_10_regression_discontinuity_cont.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week8/1_RD/sp2021_sta235_10_regression_discontinuity_cont.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week8/1_RD/sp2021_sta235_10_regression_discontinuity_cont_blind.html" >}}
+{{< slides src="https://sta235.netlify.app/Classes/Week8/1_RD/sp2021_sta235_10_regression_discontinuity_cont.html" >}}
 
 {{% button href="https://sta235.netlify.app/Classes/Week8/2_IV/sp2021_sta235_11_instrumental_variables.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week8/2_IV/sp2021_sta235_11_instrumental_variables.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
