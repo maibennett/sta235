@@ -506,6 +506,75 @@ summary(rdrobust(y = sales$sales, x = sales$time, c = c))
 &lt;img src="sp2021_sta235_10_regression_discontinuity_cont_files/figure-html/kernels-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
+
+.center2[
+.box-4LA[Now it's your turn]
+]
+
+---
+
+.center2[
+.box-2[Example: Tutoring program according to entrance exam]
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.box-7[Outcome: Exit exam]
+]
+
+---
+# In-class exercise
+
+**Instructions**:
+
+- You will be sorted into groups.
+
+- Download the R Script for the course website or link provided.
+
+- **.darkorange[Discuss with your group]**. You will need to talk to each other.
+
+- Write down your answers in your script, and upload it to Canvas if you want to submit it.
+
+---
+# What did you find?
+
+&lt;img src="sp2021_sta235_10_regression_discontinuity_cont_files/figure-html/rdplot_inclass-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# What did you find?
+
+.small[
+
+```r
+summary(rdrobust(y = tutoring$exit_exam, x = tutoring$entrance_exam, c = 70))
+```
+
+```
+## Call: rdrobust
+## 
+## Number of Obs.                 1000
+## BW type                       mserd
+## Kernel                   Triangular
+## VCE method                       NN
+## 
+## Number of Obs.                 238         762
+## Eff. Number of Obs.            133         212
+## Order est. (p)                   1           1
+## Order bias  (q)                  2           2
+## BW est. (h)                  8.540       8.540
+## BW bias (b)                 12.946      12.946
+## rho (h/b)                    0.660       0.660
+## Unique Obs.                    238         762
+## 
+## =============================================================================
+##         Method     Coef. Std. Err.         z     P&gt;|z|      [ 95% C.I. ]       
+## =============================================================================
+##   Conventional    -6.984     1.891    -3.692     0.000   [-10.691 , -3.277]    
+##         Robust         -         -    -3.234     0.001   [-11.619 , -2.850]    
+## =============================================================================
+```
+]
+---
 # Takeaway points
 
 .pull-left[

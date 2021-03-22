@@ -194,6 +194,8 @@ summary(iv_robust(vote02 ~ contact | treat_real, data = d_s1))
 
 ########## Fuzzy regression discontinuity design
 
+read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/2_IV/data/tutoring.csv")
+
 tutoring <- tutoring %>% mutate(distance = entrance_exam - 70,
                                 below_cutoff = entrance_exam <= 70) # Create a distance variable and a treatment assignment variable (below_cutoff)
 

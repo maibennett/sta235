@@ -999,6 +999,55 @@ g1 + g2
 ```
 
 ---
+
+.center2[
+.box-4LA[Now it's your turn]
+]
+
+---
+
+.center2[
+.box-2[Example: Tutoring program according to entrance exam]
+
+<br>
+<br>
+<br>
+.box-7[Outcome: Exit exam]
+]
+
+---
+# In-class exercise
+
+**Instructions**:
+
+- You will be sorted into groups.
+
+- Download the R Script for the course website or link provided.
+
+- **.darkorange[Discuss with your group]**. You will need to talk to each other.
+
+- Write down your answers in your script, and upload it to Canvas if you want to submit it.
+
+---
+# What did you find?
+
+```{r rdplot_inclass, fig.height=4.5, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+tutoring <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/2_IV/data/tutoring.csv")
+
+rdplot(y = tutoring$tutoring, x = tutoring$entrance_exam, c = 70, title = "RD plot",
+       x.label = "Entrance exam", y.label = "Pr(tutoring)", col.dots = "#F89441", col.lines = "#900DA4")
+
+```
+
+---
+# What did you find?
+
+.small[
+```{r}
+summary(rdrobust(y = tutoring$exit_exam, x = tutoring$entrance_exam, c = 70))
+```
+]
+---
 # Takeaway points
 
 .pull-left[
