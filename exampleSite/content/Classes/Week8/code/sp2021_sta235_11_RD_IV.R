@@ -142,3 +142,67 @@ rdplot(y = sales$sales, x = sales$time, c = c, title = "RD plot",
 summary(rdrobust(y = sales$sales, x = sales$time, c = c)) #To which previous model is this result more similar to?
 
 # Question: By default, rdrobust uses a triangular kernel. What happens if we change it to uniform? Why?
+
+
+##################################################################################
+########## IV regressions ########################################################
+#################################################################################
+
+## Get out the vote example (from week 4)
+
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/1_RCT/data/voters_covariates.csv")
+
+# Drop variables with unlisted phone numbers
+d_s1 <- d[!is.na(d$treat_real),]
+
+table(d_s1$treat_real, d_s1$contact) # Get a 2x2 table for who was assigned to treatment (rows) vs who actually was treated (columns)
+
+d_s1 %>% group_by(treat_real) %>% summarise(contact = mean(contact)) #Get % of treated by treatment assignment status.
+
+
+# Let's estimate the treatment effect!
+
+# First stage: Regress the endogenous variable (whether someone was contacted or not) on our instrument (treatment assignment)
+library(estimatr)
+
+lm1 <- estimatr::lm_robust(contact ~ treat_real, data = d_s1)
+
+summary(lm1)
+
+d_s1$contact_fitted = lm1$fitted.values # We need to save the fitted values (this is our exogeneous variation of `contact`)
+
+# Question: How would argue that the instrument is relevant? How would you argue is exogeneous?
+
+# Second stage: Regress the fitted values (exogenous variation in contact) on our outcome
+
+estimatr::lm_robust(vote02 ~ contact_fitted, data = d_s1) 
+
+#Question: This effect is called a LATE. It's local to whom? Which individuals are not being captured in this effect?
+
+# We can also estimat the intent to treat (ITT) effect (this is the effect of being *assigned* to treatment, which is different to the effect of *actually* being treated)
+lm2 <- estimatr::lm_robust(vote02 ~ treat_real, data = d_s1)
+
+summary(lm2)
+
+lm2$coefficients[2]/lm1$coefficients[2] # Recover treatment effect by dividing ITT by compliance (first stage)
+
+# Remember that your point-estimate is going to be right, but unless you adjust them, your SE are going to be wrong:
+
+#You can use other packages for this, such as ivreg or the function iv_robust from estimatr package.
+summary(iv_robust(vote02 ~ contact | treat_real, data = d_s1))
+
+
+########## Fuzzy regression discontinuity design
+
+tutoring <- tutoring %>% mutate(distance = entrance_exam - 70,
+                                below_cutoff = entrance_exam <= 70) # Create a distance variable and a treatment assignment variable (below_cutoff)
+
+summary(iv_robust(exit_exam ~ distance + tutoring | distance + below_cutoff,
+                  data = filter(tutoring, distance >= -10 & distance <= 10))) # Running a regression only in a bandwidth of [-10,10] away from the cutoff (in terms of distance)
+
+summary(rdrobust(y = tutoring$exit_exam, x = tutoring$distance, c = 0, fuzzy = tutoring$tutoring)) #Now, let's do it nonparametrically with rdrobust.
+
+# Question: Here, I am using distance as a running variable. Can you re-write the same function but using entrance_exam as your running variable? How would you change your other arguments of the function?
+# do your estimated effect change?
+
+# Question: We now want to estimate the Intention to Treat effect. How would you estimate that? 

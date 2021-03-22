@@ -230,12 +230,169 @@ $$
 `$$\widehat{\text{Education}}_i = \gamma_0 + \gamma_1\text{Distance}_i + \eta_i$$`
 --
 
-- **.darkorange[Second stage]**: Regress outcome (e.g. income) on predicted values of endogenous variable (e.g. `\(wide\hat{\text{Education}}_i\)`).
+- **.darkorange[Second stage]**: Regress outcome (e.g. income) on predicted values of endogenous variable (e.g. `\(\widehat{\text{Education}}_i\)`).
 
 `$$\text{income}_i = \beta_0 + \beta_1\widehat{\text{Education}}_i + \varepsilon_i$$`
 ---
 # Let's go back to GOTV example
 
+- RCT were households were randomized into GOTV calls.
+
+- We had random treatment assignment, but high noncompliance (e.g. people did not pick up their phone).
+--
+&lt;br&gt;
+&lt;br&gt;
+.box-2[What was the outcome of interest?]
+
+--
+&lt;br&gt;
+.box-4[What is the endogenous variable?]
+
+--
+&lt;br&gt;
+.box-7[What could be an instrument?]
+---
+# GOTV compliance
+
+
+
+```
+##    
+##           0       1
+##   0 1845348       0
+##   1   34929   25043
+```
+
+```
+## # A tibble: 2 x 2
+##   treat_real contact
+##        &lt;int&gt;   &lt;dbl&gt;
+## 1          0   0    
+## 2          1   0.418
+```
+---
+# GOTV: First stage
+
+
+
+
+```r
+library(estimatr)
+
+lm1 &lt;- estimatr::lm_robust(contact ~ treat_real, data = d_s1)
+
+summary(lm1)
+```
+
+```
+## 
+## Call:
+## estimatr::lm_robust(formula = contact ~ treat_real, data = d_s1)
+## 
+## Standard error type:  HC2 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)  CI Lower  CI Upper      DF
+## (Intercept) 5.176e-13  8.601e-16   601.8        0 5.160e-13 5.193e-13 1905318
+## treat_real  4.176e-01  2.014e-03   207.4        0 4.136e-01 4.215e-01 1905318
+## 
+## Multiple R-squared:  0.4098 ,	Adjusted R-squared:  0.4098 
+## F-statistic: 4.3e+04 on 1 and 1905318 DF,  p-value: &lt; 2.2e-16
+```
+
+```r
+d_s1$contact_fitted = lm1$fitted.values
+```
+
+---
+# GOTV: Second stage
+
+
+
+
+```r
+estimatr::lm_robust(vote02 ~ contact_fitted, data = d_s1)
+```
+
+```
+##                  Estimate   Std. Error    t value     Pr(&gt;|t|)   CI Lower
+## (Intercept)    0.54528902 0.0003665575 1487.59488 0.000000e+00 0.54457058
+## contact_fitted 0.08728695 0.0049029128   17.80308 6.778072e-71 0.07767741
+##                  CI Upper      DF
+## (Intercept)    0.54600746 1905318
+## contact_fitted 0.09689648 1905318
+```
+
+---
+# GOTV: Intention to Treat
+
+
+
+
+```r
+lm2 &lt;- estimatr::lm_robust(vote02 ~ treat_real, data = d_s1)
+
+summary(lm2)
+```
+
+```
+## 
+## Call:
+## estimatr::lm_robust(formula = vote02 ~ treat_real, data = d_s1)
+## 
+## Standard error type:  HC2 
+## 
+## Coefficients:
+##             Estimate Std. Error t value  Pr(&gt;|t|) CI Lower CI Upper      DF
+## (Intercept)  0.54529  0.0003666  1487.6 0.000e+00  0.54457  0.54601 1905318
+## treat_real   0.03645  0.0020473    17.8 6.778e-71  0.03244  0.04046 1905318
+## 
+## Multiple R-squared:  0.0001634 ,	Adjusted R-squared:  0.0001629 
+## F-statistic: 316.9 on 1 and 1905318 DF,  p-value: &lt; 2.2e-16
+```
+
+```r
+lm2$coefficients[2]/lm1$coefficients[2]
+```
+
+```
+## treat_real 
+## 0.08728695
+```
+
+---
+# GOTV: 2SLS
+
+- You can recover point estimates with the previous methods, but **.darkorange[standard errors will be wrong]** (unless you adjust them).
+
+--
+
+- You can use packages designed for this, e.g. `ivreg` or `iv_robust()` from `estimatr`
+
+
+```r
+summary(iv_robust(vote02 ~ contact | treat_real, data = d_s1))
+```
+
+```
+## 
+## Call:
+## iv_robust(formula = vote02 ~ contact | treat_real, data = d_s1)
+## 
+## Standard error type:  HC2 
+## 
+## Coefficients:
+##             Estimate Std. Error t value  Pr(&gt;|t|) CI Lower CI Upper      DF
+## (Intercept)  0.54529  0.0003666  1487.6 0.000e+00  0.54457  0.54601 1905318
+## contact      0.08729  0.0048760    17.9 1.166e-71  0.07773  0.09684 1905318
+## 
+## Multiple R-squared:  0.0005131 ,	Adjusted R-squared:  0.0005126 
+## F-statistic: 320.5 on 1 and 1905318 DF,  p-value: &lt; 2.2e-16
+```
+---
+# Fuzzy Regression Discontinuity 
+
+- The same principal applies when we don't have
 
 ---
 # References

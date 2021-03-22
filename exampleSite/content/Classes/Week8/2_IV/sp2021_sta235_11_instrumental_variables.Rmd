@@ -538,6 +538,21 @@ $$
 .box-7t[Not testable with stats (only story!)]
 
 ---
+# Who do instruments work for?
+
+- When doing an IV analysis, we are only estimating an effect **.darkorange[for those who are moved by our instrument]**
+<br>
+<br>
+.box-4[Compliers]
+
+--
+
+- We are not identifying and effect for "always-takers" or "never-takers" (also, we assume no defiers).
+<br>
+<br>
+.box-5[LATE]
+
+---
 # Finding instruments is hard!
 
 - Usually the **.darkorange[exclusion restriction fails]**.
@@ -588,20 +603,206 @@ $$\text{income}_i = \beta_0 + \beta_1\widehat{\text{Education}}_i + \varepsilon_
 ---
 # GOTV compliance
 
-```{r}
+```{r, echo=TRUE,include=FALSE, message = FALSE, warning=FALSE}
 d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/1_RCT/data/voters_covariates.csv")
 
 # Drop variables with unlisted phone numbers
 d_s1 <- d[!is.na(d$treat_real),]
 
+table(d_s1$treat_real, d_s1$contact)
+
+d_s1 %>% group_by(treat_real) %>% summarise(contact = mean(contact))
+```
+
+```{r, echo=FALSE, warning=FALSE, message = FALSE}
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/1_RCT/data/voters_covariates.csv")
+
+# Drop variables with unlisted phone numbers
+d_s1 <- d[!is.na(d$treat_real),]
+
+table(d_s1$treat_real, d_s1$contact)
+
+d_s1 %>% group_by(treat_real) %>% summarise(contact = mean(contact))
+```
+---
+# GOTV: First stage
+
+```{r, include=FALSE, message = FALSE, warning=FALSE}
+library(estimatr)
+
+lm1 <- estimatr::lm_robust(contact ~ treat_real, data = d_s1)
+
+summary(lm1)
+
+d_s1$contact_fitted = lm1$fitted.values
+```
+
+```{r, echo=TRUE, warning=FALSE, message = FALSE}
+library(estimatr)
+
+lm1 <- estimatr::lm_robust(contact ~ treat_real, data = d_s1)
+
+summary(lm1)
+
+d_s1$contact_fitted = lm1$fitted.values
 ```
 
 ---
+# GOTV: Second stage
+
+```{r, include=FALSE, message = FALSE, warning=FALSE}
+estimatr::lm_robust(vote02 ~ contact_fitted, data = d_s1)
+```
+
+```{r, echo=TRUE, warning=FALSE, message = FALSE}
+estimatr::lm_robust(vote02 ~ contact_fitted, data = d_s1)
+```
+
+---
+# GOTV: Intention to Treat
+
+```{r, include=FALSE, message = FALSE, warning=FALSE}
+lm2 <- estimatr::lm_robust(vote02 ~ treat_real, data = d_s1)
+
+summary(lm2)
+
+lm2$coefficients[2]/lm1$coefficients[2] # Recover treatment effect
+```
+
+```{r, echo=TRUE, warning=FALSE, message = FALSE}
+lm2 <- estimatr::lm_robust(vote02 ~ treat_real, data = d_s1)
+
+summary(lm2)
+
+lm2$coefficients[2]/lm1$coefficients[2]
+```
+
+---
+# GOTV: 2SLS
+
+- You can recover point estimates with the previous methods, but **.darkorange[standard errors will be wrong]** (unless you adjust them).
+
+--
+
+- You can use packages designed for this, e.g. `ivreg` or `iv_robust()` from `estimatr`
+
+```{r, echo=TRUE, warning=FALSE, message = FALSE}
+summary(iv_robust(vote02 ~ contact | treat_real, data = d_s1))
+```
+---
+# Fuzzy Regression Discontinuity 
+
+- The same principal applies when we **.darkorange[don't have full compliance]** in an RDD
+
+--
+
+- **.darkorange[Fuzzy regression discontinuity]**
+
+  - If $Z = I(R_i>c)$, then $\text{Pr}(D=1| Z=1)<1$ and/or $\text{Pr}(D=1| Z=0)>0$
+  
+--
+
+```{r, include = FALSE, warning=FALSE, message=FALSE}
+rdrobust(y = y, x = x, c = c, fuzzy = treat)
+```
+
+---
+# Example: Entrance exam and tutoring
+
+```{r, echo = false}
+library(tidyverse)
+library(broom)
+library(ggdag)
+library(kableExtra)
+library(scales)
+library(patchwork)
+library(estimatr)
+library(rdrobust)
+# Fake program data
+set.seed(1234)
+num_students <- 1000
+tutoring <- tibble(
+  id = 1:num_students,
+  entrance_exam = rbeta(num_students, shape1 = 7, shape2 = 2),
+  exit_exam_base = rbeta(num_students, shape1 = 5, shape2 = 3)
+) %>% 
+  mutate(entrance_exam = entrance_exam * 100) %>% 
+  mutate(tutoring_sharp = entrance_exam <= 70) %>%
+  mutate(tutoring_fuzzy = case_when(
+    entrance_exam >= 50 & entrance_exam <= 70 ~ sample(c(TRUE, FALSE), n(), replace = TRUE, prob = c(0.8, 0.2)),
+    entrance_exam > 70 & entrance_exam <= 90 ~ sample(c(TRUE, FALSE), n(), replace = TRUE, prob = c(0.2, 0.8)),
+    entrance_exam < 50 ~ TRUE,
+    entrance_exam > 90 ~ FALSE
+  )) %>% 
+  mutate(tutoring_text = factor(tutoring_sharp, levels = c(FALSE, TRUE),
+                                labels = c("No tutor", "Tutor")),
+         tutoring_fuzzy_text = factor(tutoring_fuzzy, levels = c(FALSE, TRUE),
+                                      labels = c("No tutor", "Tutor"))) %>% 
+  mutate(exit_exam = exit_exam_base * 40 + 10 * tutoring_sharp + entrance_exam / 2) %>% 
+  mutate(exit_exam_fuzzy = exit_exam_base * 40 + 10 * tutoring_fuzzy + entrance_exam / 2) %>% 
+  mutate(entrance_centered = entrance_exam - 70) %>% 
+  mutate(below_cutoff = entrance_exam <= 70)
+tutoring <- tutoring %>% 
+  select(id, entrance_exam, tutoring = tutoring_fuzzy, 
+         tutoring_text = tutoring_fuzzy_text, exit_exam = exit_exam_fuzzy)
+
+```
+
+```{r tutoring-fuzzy, fig.height=6, fig.width=8, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+ggplot(tutoring, aes(x = entrance_exam, y = tutoring_text, fill = entrance_exam <= 70)) +
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  geom_point(size = 5, pch = 21, color = "white", alpha = 0.7,
+             position = position_jitter(width = 0, height = 0.2, seed = 1234)) + 
+  labs(x = "Entrance exam score", y = NULL, fill = "Entrance exam ≤ 70") + 
+  scale_fill_manual(values = c("#85144b", "#0074D9")) +
+  guides(fill = guide_legend(reverse = TRUE)) +
+  theme_bw(base_size = 22, base_family = "Fira Sans Condensed") +
+  theme(legend.position = "bottom") +
+  theme(legend.box.spacing = unit(0.5, "lines"),
+        legend.margin = margin(t = 1, b = 0, unit = "lines"))
+```
+
+---
+# Use above/below cutoff as instrument: A parametric approach
+small.[
+```{r}
+tutoring <- tutoring %>% mutate(distance = entrance_exam - 70,
+                                below_cutoff = entrance_exam <= 70)
+
+
+summary(iv_robust(exit_exam ~ distance + tutoring | distance + below_cutoff,
+  data = filter(tutoring, distance >= -10 & distance <= 10)))
+```
+]
+---
+# Use above/below cutoff as instrument: A nonparametric approach
+
+```{r}
+summary(rdrobust(y = tutoring$exit_exam, x = tutoring$distance, c = 0, fuzzy = tutoring$tutoring))
+```
+
+
+---
+# Takeaways
+
+.pull-left[
+- Instruments can be **.darkorange[useful]** for recovering treatment effects, even under no random assignment.
+
+- Finding good instruments is **.darkorange[hard]**.
+
+- We can easily use them in RCTs or RD designs to go **.darkorange[from an ITT to a LATE]**.
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/WVAP0Z0Ue0UA64FNN7/giphy.gif)
+]
+]
+---
 # References
 
-- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 4*.
+- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 3*.
 
-- Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 10: Regression Discontinuity I, Course at BYU*.
+- Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 11: Instrumental Variables, Course at BYU*.
 
-- Lee, D. and T. Lemieux. (2010). "Regression Discontinuity in Economics". *Journal of Economic Literature 48, pp 281-355*.
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/2_RD/sp2021_sta235_10_regression_discontinuity.html') -->
