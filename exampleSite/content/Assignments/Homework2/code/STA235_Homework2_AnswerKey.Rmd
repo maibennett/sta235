@@ -250,7 +250,7 @@ meantab(matched_opt_covs, matched_opt$treat, which(matched_opt$treat==1),which(m
 **Compare the results of the matched sample (using optmatch) to those of the experimental sample, both using and not using covariates. Can you replicate an experimental result with this observational data? Why or why not?**
 
 *Answer: There are important changes because the samples are not very well balanced, even after doing optmatch (we should have set a caliper for better matches)*
-```{r, echo=TRUE, message=FALSE}
+```{r, echo=TRUE, message=FALSE, warning = FALSE}
 control_id_all <- as.numeric(m.opt$match.matrix)
 treat_id_all <- as.numeric(rownames(m.opt$match.matrix))
 
@@ -268,7 +268,7 @@ modelsummary(list(lm3,lm4), stars = TRUE)
 
 *Answer: We want our RCT sample to look like our general sample, so in this case, because we will append both dataframes, we will use the ATT formula for weights.*
 
-```{r, echo = TRUE}
+```{r, echo = TRUE, warning = FALSE}
 # Generate a whole sample:
 sample_rct <- sample_rct %>% mutate(general = 0)
 
@@ -337,7 +337,7 @@ Now, you want to assess the effect of your treatment.
 **Write down the model and estimate the necessary parameters. If you include covariates, remember to justify your choices!**
 
 *Answer: We first check balance, and then run a simple regression. We include covariates later to see if the point estimate changes. It does decrease a little bit, and so does the SE (because we included covariates). Note: Not necessary to show balance first, but it helps to justify why they would include covariates or not.*
-```{r, , warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE}
 meantab(pilot_mc[,-c(5,6)],pilot_mc$algorithm=="B",which(pilot_mc$algorithm=="B"), which(pilot_mc$algorithm=="A"))
 
 library(estimatr)
@@ -366,7 +366,7 @@ full_mc <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/ex
 
 *Answer: The estimate in this second model is much smaller in magnitude, most likely because of spillovers. People in different groups might be talking to each other about the app, so SUTVA doesn't hold.*
 
-```{r, , warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE}
 summary(estimatr::lm_robust(installed ~ factor(algorithm), data = full_mc))
 
 ```
@@ -375,7 +375,7 @@ summary(estimatr::lm_robust(installed ~ factor(algorithm), data = full_mc))
 **Show (in a plot or a table) the outcome for both treatment and control groups by sample (original pilot sample and the expanded sample). What differences do you see? Is this a problem for causal identification?**
 
 *Answer: Given that the characteristics don't look that different between the two samples, we can assume that maybe there was some interference. Given that a large portion of McCombs got treated, this could have affected people in the control group if they shared information', thus diluting the effect.*
-```{r, , warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE}
 d_total <- pilot_mc %>% mutate(pilot = 1) %>%
   add_row(full_mc)
 
@@ -402,7 +402,7 @@ data_ut <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/ex
 **Estimate the treatment effect on this new stratified sample. How did it change compared to your pilot?**
 
 *Answer: The effect is slightly smaller (in magnitude), most likely because we are estimating an effect for different populations.*
-```{r, , warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE}
 summary(estimatr::lm_robust(installed ~ factor(algorithm) + factor(unit), data = data_ut))
 ```
 
@@ -411,7 +411,7 @@ summary(estimatr::lm_robust(installed ~ factor(algorithm) + factor(unit), data =
 
 *Answer: Because we are calculating these results for a different population (McCombs students are not necessarily the same as all UT students), and if treatment is different based on certain characteristics, we should expect a different estimate. We can compare the characteristics between both samples (pilot and full UT, for example), and clearly see that students at McCombs have a higher level of activity than those at UT in general, which could be driving some of these differences.*
 
-```{r, , warning=FALSE, message=FALSE}
+```{r,warning=FALSE, message=FALSE}
 d_total2 <- pilot_mc %>% mutate(pilot = 1,
                                 unit = NA) %>%
   add_row(data_ut)

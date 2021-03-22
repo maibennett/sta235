@@ -1597,9 +1597,9 @@ sample_all_append &lt;- sample_all %&gt;% mutate(general = 1) %&gt;% add_row(sam
 
 m1 &lt;- glm(general ~ age + education + black + hispanic + married + nodegree + re74 + re75,
           data = sample_all_append,
-          family = binomial(link = &quot;logit&quot;))</code></pre>
-<pre><code>## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</code></pre>
-<pre class="r"><code>library(generics)</code></pre>
+          family = binomial(link = &quot;logit&quot;))
+
+library(generics)</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;generics&#39;</code></pre>
 <pre><code>## The following object is masked from &#39;package:dplyr&#39;:
