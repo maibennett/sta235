@@ -11,6 +11,23 @@ output:
     toc: no
 ---
 
+<style type="text/css">
+.main-container {
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media only screen and (max-width: 700px) {
+   body {
+      margin: 0;
+      padding: 0;
+   }
+   .sample {
+      width: 100%;
+   }
+}
+</style>
 
 # Task 1: The fundamental causal problem
 
@@ -67,9 +84,8 @@ Now, we are going to slice our data!
 
 *Tip: `pivot_wider()` is a function from the `tidyverse` package that transforms data from long format to wide format. See the following vignette for an example:*
 
-.center[
+
 ![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Assignments/Homework2/images/pivot_wider.png)
-]
 
 
 *Answer: *
