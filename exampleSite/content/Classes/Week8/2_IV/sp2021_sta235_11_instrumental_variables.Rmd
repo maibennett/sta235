@@ -299,7 +299,7 @@ options(scipen = 0)
 
 - We might not have **.darkorange[randomization]** or **.darkorange[a nice RD]**.
 
-.box-7t[What to do?]
+.box-7[What to do?]
 ]
 
 .pull-right[
@@ -318,9 +318,9 @@ options(scipen = 0)
 ---
 # Endogeneity vs Exogeneity
 
-Does education cause higher earnings?
+.center[Does education cause higher earnings?]
 
-```{r iv-dag-simple, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+```{r iv-dag-simple, fig.height=2.5, fig.width=8, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 
 library(tidyverse)
 library(broom)
@@ -347,8 +347,8 @@ father_education <- tibble(
   mutate(across(everything(), ~round(., 2)))
 
 
-status_colors <- c(exposure = "#0074D9", outcome = "#FF851B", latent = "grey50")
-status_colors_backdoor <- c(exposure = "#0074D9", outcome = "#FF851B", latent = "#FF4136")
+status_colors <- c(exposure = "#900DA4", outcome = "#F89441", latent = "grey50")
+status_colors_backdoor <- c(exposure = "#900DA4", outcome = "#F89441", latent = "#FF4136")
 node_details <- tribble(
   ~plot1, ~plot2, ~plot3, ~name, ~label, ~x, ~y, ~generic, ~mathy,
   TRUE, TRUE, TRUE, "treatment", "Education", 1, 1, "Program/policy", "X",
@@ -387,9 +387,95 @@ ggplot(iv_dag1, aes(x = x, y = y, xend = xend, yend = yend)) +
 
 --
 
-.medium[
-$$\color{#FF851B}{\text{Earnings}_i} = \beta_0 + \beta_1 \color{#0074D9}{\text{Education}_i} + \varepsilon_i$$
-]
+$$\color{#F89441}{\text{Earnings}_i} = \beta_0 + \beta_1 \color{#900DA4}{\text{Education}_i} + \varepsilon_i$$
+--
+
+.box-4t[Would &beta;<sub>1</sub> give us the causal effect of Education on Earnings?]
+
+---
+# Endogeneity vs Exogeneity
+
+.box-5[Endogenous variable]
+
+.center[*"A variable is said to be endogenous within the causal model M if its value is determined or influenced by one or more of the independent variables (excluding itself)." (Little, 2011)*]
+
+--
+<br>
+<br>
+.box-6[Exogenous variable]
+
+.center[*"An exogenous variable is a variable that is not affected by other variables in the system"*]
+
+---
+# Back to earnings and education
+
+- **.darkorange[Education]** could be considered and *endogeneous* variable.
+
+- **.darkorange[Ability]** could be considered an *exogenous* variable.
+
+```{r iv-dag-endogenous, fig.height=4, fig.width=8, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+iv_dag2 <- dagify(outcome ~ treatment + unmeasured,
+                  treatment ~ unmeasured,
+                  exposure = "treatment",
+                  outcome = "outcome",
+                  latent = "unmeasured",
+                  coords = filter(node_details, plot2),
+                  labels =  node_labels) %>% 
+  tidy_dagitty() %>% 
+  node_status() %>% 
+  node_exogenous() %>% 
+  node_dconnected() %>% 
+  control_for("unmeasured")
+ggplot(iv_dag2, aes(x = x, y = y, xend = xend, yend = yend)) +
+  geom_dag_edges(start_cap = ggraph::circle(3, "lines"),
+                 end_cap = ggraph::circle(3, "lines"),
+                 edge_width = 1.5, 
+                 arrow_directed = grid::arrow(length = grid::unit(0.75, "lines"), type = "closed")) +
+  geom_dag_point(aes(color = status), size = 20) +
+  geom_dag_label_repel(aes(label = label, fill = status), seed = 1234,
+                       color = "white", fontface = "bold", size = 7,
+                       family = "Fira Sans Condensed",
+                       label.padding = grid::unit(0.75, "lines"),
+                       box.padding = grid::unit(5, "lines"),
+                       direction = "both") +
+  scale_color_manual(values = status_colors, na.value = "grey20") +
+  scale_fill_manual(values = status_colors, na.value = "grey20") +
+  guides(color = FALSE, fill = FALSE) + 
+  theme_dag(base_size = 20)
+```
+
+---
+# Can we do something about this?
+
+- We want some **.darkorange[exogeneous variation]** in education: 
+
+  - E.g. choices to get more or less education are essentially random (or unless uncorrelated with omitted variables)
+  
+--
+
+- We would like education to be **.darkorange[exogeneous]**, but it's not! Part of it is caused by **.darkorange[ability]**
+
+
+--
+<br>
+<br>
+.box-2[... but part of it is not. Can we separate both parts?]
+
+---
+# Separate an edogenous variable
+
+$$
+\begin{aligned}
+\color{#FF851B}{\text{Earnings}_i} =& \beta_0 + \beta_1 \color{#B10DC9}{\text{Education}_i} + \varepsilon_i \\
+& \beta_0 + \beta_1 (\color{#0074D9}{\text{Education}_i^\text{exog.}} + \color{#FF4136}{\text{Education}_i^\text{endog.}}) + \varepsilon_i \\
+& \beta_0 + \beta_1 \color{#0074D9}{\text{Education}_i^\text{exog.}} + \underbrace{\beta_1 \color{#FF4136}{\text{Education}_i^{\text{endog.}}} + \varepsilon_i}_{\color{#AAAAAA}{\omega_i}} \\
+& \beta_0 + \beta_1 \color{#0074D9}{\text{Education}_i^\text{exog.}} + \color{#AAAAAA}{\omega_i}
+\end{aligned}
+$$
+--
+
+- How do we find $\text{Education}_i^{\text{exog}}$?
+
 ---
 # Instrumental variables to the rescue?
 
@@ -402,17 +488,113 @@ $$\color{#FF851B}{\text{Earnings}_i} = \beta_0 + \beta_1 \color{#0074D9}{\text{E
 .pull-right[
 **.darkorange[Instrumental variables (IV)]** can help.
 
-- An IV is a variable that:
+- What is an IV?
 
-  - ... is correlated to the treatment and **.darkorange[not]** to other confounders.
-  - ... is correlated to the outcome **.darkorange[only]** through the treatment
+  - Something that is correlated with the treatment: **.darkorange[Relevance]**  
+  
+  - Something that does not directly cause the outcome: **.darkorange[Exclusion]**
+  
+  - Something that is not correlated with the ommited variables: **.darkorange[Exogeneity]** 
+  
 ]
 
+---
+# Assumptions behind IVs
+
+.box-6[**.white[Relevance]**<br>Correlated with treatment]
+
+.box-6t[Z → D &emsp; Cor(Z, D) ≠ 0]
+
+--
+<br>
+<br>
+.box-7t[testable with stats]
 
 
 
+---
+# Assumptions behind IVs
 
 
+.box-6[**.white[Exclusion]**<br>Correlated with outcome *only through* treatment]
+
+.box-6t[Z → D → Y &emsp; Z &nrarr; Y &emsp; Cor(Z, Y | D) = 0]
+
+--
+<br>
+<br>
+.box-7t[testable with stats + story]
+
+---
+# Assumptions behind IVs
+
+.box-6[**.white[Exogeneity]**<br>*Not* correlated with omitted variables]
+
+.box-6t[U &nrarr; Z &emsp; Cor(Z, U) = 0]
+
+--
+<br>
+<br>
+.box-7t[Not testable with stats (only story!)]
+
+---
+# Finding instruments is hard!
+
+- Usually the **.darkorange[exclusion restriction fails]**.
+
+--
+
+- In the previous example of education, researchers have used **.darkorange[distance to college]** as an instrument. 
+
+  - **.darkorange[Is this valid?]** Why yes or why not?
+
+--
+
+- However, good examples for an instrument could be treatment assignment in:
+
+.box-5[Fuzzy Regression Discontinuity Design]
+<br>
+.box-5[Noncompliance in RCTs]
+
+---
+# Two-stage least squares (2SLS)
+
+- **.darkorange[First stage]**: Regress endogenous variable (e.g. education) on instrument (e.g. distance to college), and get fitted values.
+
+$$\widehat{\text{Education}}_i = \gamma_0 + \gamma_1\text{Distance}_i + \eta_i$$
+--
+
+- **.darkorange[Second stage]**: Regress outcome (e.g. income) on predicted values of endogenous variable (e.g. $\widehat{\text{Education}}_i$).
+
+$$\text{income}_i = \beta_0 + \beta_1\widehat{\text{Education}}_i + \varepsilon_i$$
+---
+# Let's go back to GOTV example
+
+- RCT were households were randomized into GOTV calls.
+
+- We had random treatment assignment, but high noncompliance (e.g. people did not pick up their phone).
+--
+<br>
+<br>
+.box-2[What was the outcome of interest?]
+
+--
+<br>
+.box-4[What is the endogenous variable?]
+
+--
+<br>
+.box-7[What could be an instrument?]
+---
+# GOTV compliance
+
+```{r}
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/1_RCT/data/voters_covariates.csv")
+
+# Drop variables with unlisted phone numbers
+d_s1 <- d[!is.na(d$treat_real),]
+
+```
 
 ---
 # References

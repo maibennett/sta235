@@ -57,13 +57,91 @@ class: center, middle, inverse, title-slide
 
 - We might not have **.darkorange[randomization]** or **.darkorange[a nice RD]**.
 
-.box-7t[What to do?]
+.box-7[What to do?]
 ]
 
 .pull-right[
 .center[
-![](https://media.giphy.com/media/oGzFZek2lszlK/giphy.gif)
+![](https://media.giphy.com/media/oGzFZek2lszlK/giphy.gif)]
 ]
+
+---
+
+.center2[
+.box-3[Instrumental variables could help!]
+--
+
+.box-3t[... but first let's review some concepts.]
+]
+---
+# Endogeneity vs Exogeneity
+
+.center[Does education cause higher earnings?]
+
+&lt;img src="sp2021_sta235_11_instrumental_variables_files/figure-html/iv-dag-simple-1.svg" style="display: block; margin: auto;" /&gt;
+
+--
+
+`$$\color{#F89441}{\text{Earnings}_i} = \beta_0 + \beta_1 \color{#900DA4}{\text{Education}_i} + \varepsilon_i$$`
+--
+
+.box-4t[Would &amp;beta;&lt;sub&gt;1&lt;/sub&gt; give us the causal effect of Education on Earnings?]
+
+---
+# Endogeneity vs Exogeneity
+
+.box-5[Endogenous variable]
+
+.center[*"A variable is said to be endogenous within the causal model M if its value is determined or influenced by one or more of the independent variables (excluding itself)." (Little, 2011)*]
+
+--
+&lt;br&gt;
+&lt;br&gt;
+.box-6[Exogenous variable]
+
+.center[*"An exogenous variable is a variable that is not affected by other variables in the system"*]
+
+---
+# Back to earnings and education
+
+- **.darkorange[Education]** could be considered and *endogeneous* variable.
+
+- **.darkorange[Ability]** could be considered an *exogenous* variable.
+
+&lt;img src="sp2021_sta235_11_instrumental_variables_files/figure-html/iv-dag-endogenous-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Can we do something about this?
+
+- We want some **.darkorange[exogeneous variation]** in education: 
+
+  - E.g. choices to get more or less education are essentially random (or unless uncorrelated with omitted variables)
+  
+--
+
+- We would like education to be **.darkorange[exogeneous]**, but it's not! Part of it is caused by **.darkorange[ability]**
+
+
+--
+&lt;br&gt;
+&lt;br&gt;
+.box-2[... but part of it is not. Can we separate both parts?]
+
+---
+# Separate an edogenous variable
+
+$$
+`\begin{aligned}
+\color{#FF851B}{\text{Earnings}_i} =&amp; \beta_0 + \beta_1 \color{#B10DC9}{\text{Education}_i} + \varepsilon_i \\
+&amp; \beta_0 + \beta_1 (\color{#0074D9}{\text{Education}_i^\text{exog.}} + \color{#FF4136}{\text{Education}_i^\text{endog.}}) + \varepsilon_i \\
+&amp; \beta_0 + \beta_1 \color{#0074D9}{\text{Education}_i^\text{exog.}} + \underbrace{\beta_1 \color{#FF4136}{\text{Education}_i^{\text{endog.}}} + \varepsilon_i}_{\color{#AAAAAA}{\omega_i}} \\
+&amp; \beta_0 + \beta_1 \color{#0074D9}{\text{Education}_i^\text{exog.}} + \color{#AAAAAA}{\omega_i}
+\end{aligned}`
+$$
+--
+
+- How do we find `\(\text{Education}_i^{\text{exog}}\)`?
+
 ---
 # Instrumental variables to the rescue?
 
@@ -76,18 +154,87 @@ class: center, middle, inverse, title-slide
 .pull-right[
 **.darkorange[Instrumental variables (IV)]** can help.
 
-- An IV is a variable that:
+- What is an IV?
 
-  - ... is correlated to the treatment and **.darkorange[not]** to other confounders.
-  - ... is correlated to the outcome **.darkorange[only]** through the treatment
+  - Something that is correlated with the treatment: **.darkorange[Relevance]**  
+  
+  - Something that does not directly cause the outcome: **.darkorange[Exclusion]**
+  
+  - Something that is not correlated with the ommited variables: **.darkorange[Exogeneity]** 
+  
 ]
 
 ---
-# Endogeneity vs Exogeneity
+# Assumptions behind IVs
+
+.box-6[**.white[Relevance]**&lt;br&gt;Correlated with treatment]
+
+.box-6t[Z → D &amp;emsp; Cor(Z, D) ≠ 0]
+
+--
+&lt;br&gt;
+&lt;br&gt;
+.box-7t[testable with stats]
 
 
 
+---
+# Assumptions behind IVs
 
+
+.box-6[**.white[Exclusion]**&lt;br&gt;Correlated with outcome *only through* treatment]
+
+.box-6t[Z → D → Y &amp;emsp; Z &amp;nrarr; Y &amp;emsp; Cor(Z, Y | D) = 0]
+
+--
+&lt;br&gt;
+&lt;br&gt;
+.box-7t[testable with stats + story]
+
+---
+# Assumptions behind IVs
+
+.box-6[**.white[Exogeneity]**&lt;br&gt;*Not* correlated with omitted variables]
+
+.box-6t[U &amp;nrarr; Z &amp;emsp; Cor(Z, U) = 0]
+
+--
+&lt;br&gt;
+&lt;br&gt;
+.box-7t[Not testable with stats (only story!)]
+
+---
+# Finding instruments is hard!
+
+- Usually the **.darkorange[exclusion restriction fails]**.
+
+--
+
+- In the previous example of education, researchers have used **.darkorange[distance to college]** as an instrument. 
+
+  - **.darkorange[Is this valid?]** Why yes or why not?
+
+--
+
+- However, good examples for an instrument could be treatment assignment in:
+
+.box-5[Fuzzy Regression Discontinuity Design]
+&lt;br&gt;
+.box-5[Noncompliance in RCTs]
+
+---
+# Two-stage least squares (2SLS)
+
+- **.darkorange[First stage]**: Regress endogenous variable (e.g. education) on instrument (e.g. distance to college), and get fitted values.
+
+`$$\widehat{\text{Education}}_i = \gamma_0 + \gamma_1\text{Distance}_i + \eta_i$$`
+--
+
+- **.darkorange[Second stage]**: Regress outcome (e.g. income) on predicted values of endogenous variable (e.g. `\(wide\hat{\text{Education}}_i\)`).
+
+`$$\text{income}_i = \beta_0 + \beta_1\widehat{\text{Education}}_i + \varepsilon_i$$`
+---
+# Let's go back to GOTV example
 
 
 ---

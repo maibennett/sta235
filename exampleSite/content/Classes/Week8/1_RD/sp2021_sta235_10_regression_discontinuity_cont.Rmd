@@ -322,6 +322,7 @@ options(scipen = 0)
   
 - **.darkorange[Instrumental variables]**:
 
+  - Noncompliance in RCTs.
   - Fuzzy regression discontinuity designs.
 ]
 
