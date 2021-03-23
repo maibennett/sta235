@@ -26,4 +26,4 @@ chapter: true
 
 Magdalena Bennett
 
-<a onclick="ga('send', 'event', 'External-Link','click','mc72574','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/code/sp2021_sta235_10_RD.R" target="_blank" class="btn btn-default"> Accept <i class="fa-check-square"></i></a> 
+<a onclick="ga('send', 'event', 'External-Link','click','mc72574','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/code/sp2021_sta235_10_RD.R" target="_blank" class="btn btn-default"> Accept <i class="fa-check"></i></a> 
