@@ -26,4 +26,4 @@ chapter: true
 
 Magdalena Bennett
 
-<a onclick="ga('send', 'event', 'External-Link','click','mc72574','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/code/sp2021_sta235_10_RD.R" target="_blank" class="btn btn-default"> Accept <i class="fa-check"></i></a> 
+<a onclick="ga('send', 'event', 'External-Link','click','mc72574','0','Link');" href="https://sta235.netlify.app/exams/midterm/mc72574/mc72574_midterm.html" target="_blank" class="btn btn-default"> Accept <i class="fa-check"></i></a> 
