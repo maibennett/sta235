@@ -4,11 +4,12 @@ weight: 10
 chapter: true
 ---
 
+{{% notice info %}}
+This exam was created exclusively for Magdalena Bennett (EID: mc72574), and every exam is different. You will be graded on the context of this exam.
+{{% /notice %}}
+
+
 # Instructions
-
-- This exam was created exclusively for Magdalena Bennett (EID: mc72574), and every exam is different. You will be graded on the context of this exam.
-
-- **Please don't communicate with anyone during the exam time, including after you have finished.** If there is any evidence of plagiarism or copy, all involved students will be referred to the Dean's Office.
 
 - Take a moment to **read the exam**, and ask any questions you might have promptly through the chat.
 
@@ -20,10 +21,14 @@ chapter: true
 
 - If you use any outside sources or ideas that are not your own, **please reference them appropriately**. 
 
+- **Please don't communicate with anyone during the exam time, including after you have finished.** If there is any evidence of plagiarism or copy, all involved students will be referred to the Dean's Office.
+
+<br>
+<br>
 
 **By clicking in the following link, I declare that I will abide by the University of Texas Honor Code.**
 
 
 Magdalena Bennett
 
-<a onclick="ga('send', 'event', 'External-Link','click','mc72574','0','Link');" href="https://sta235.netlify.app/exams/midterm/mc72574/mc72574_midterm.html" target="_blank" class="btn btn-default"> Accept <i class="fa-check"></i></a> 
+<a onclick="ga('send', 'event', 'External-Link','click','mc72574','0','Link');" href="https://sta235.netlify.app/exams/midterm/mc72574/mc72574_midterm.html" target="_blank" class="btn btn-default"> Accept <i class="fas fa-check-square"></i></a> 
