@@ -5,7 +5,7 @@ chapter: true
 ---
 
 {{% notice info %}}
-This exam was created exclusively for Magdalena Bennett (EID: mc72574), and every exam is different. You will be graded based on the version of this exam.
+This exam was created exclusively for Magdalena Bennett (EID: mc72574), and every exam is different. You will be graded based on this version of the exam.
 {{% /notice %}}
 
 
