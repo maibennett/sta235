@@ -5,7 +5,7 @@ chapter: true
 ---
 
 {{% notice info %}}
-This exam was created exclusively for Magdalena Bennett (EID: mc72574), and every exam is different. You will be graded on the context of this exam.
+This exam was created exclusively for Magdalena Bennett (EID: mc72574), and every exam is different. You will be graded based on the version of this exam.
 {{% /notice %}}
 
 
@@ -31,4 +31,4 @@ This exam was created exclusively for Magdalena Bennett (EID: mc72574), and ever
 
 Magdalena Bennett
 
-<a onclick="ga('send', 'event', 'External-Link','click','mc72574','0','Link');" href="https://sta235.netlify.app/exams/midterm/mc72574/mc72574_midterm.html" target="_blank" class="btn btn-default"> Accept <i class="fas fa-check-square"></i></a> 
+<a onclick="ga('send', 'event', 'External-Link','click','mc72574_midterm','0','Link');" href="https://sta235.netlify.app/exams/midterm/mc72574/mc72574_midterm.html" target="_blank" class="btn btn-default"> Accept <i class="fas fa-check-square"></i></a> 
