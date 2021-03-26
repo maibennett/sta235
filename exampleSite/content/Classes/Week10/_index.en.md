@@ -8,7 +8,7 @@ disableToc: true
 
 ## What we will cover
 
-In this class finish with Instrumental Variables, and start diving into prediction and model selection problems. We'll be talking about model cheking cross-validation, bias-variance tradeoff, and variable selection.
+In this class we will finish with Instrumental Variables, and start diving into prediction and model selection problems. We'll be talking about model cheking, cross-validation, bias-variance tradeoff, and variable selection.
 
 ## Recommended readings/videos
 
