@@ -17,7 +17,7 @@ Please read the syllabus. It has important information about the course, includi
 
 ## Introduction
 
-Our class meets on Mondays (Section 1: 12:30 – 2:15 PM, Section 2: 2:30 - 4:30 PM), streaming online via our course website on Canvas.
+Our class meets on Mondays (Section 1: 12:30 – 2:30 PM, Section 2: 2:30 - 4:30 PM), streaming online via our course website on Canvas.
 
 The objective of this course is for you to gain the tools you need to tackle real-world problems from a quantitative perspective. We will be covering topics on regression modelling, causal inference, and predictive modelling. You will have the opportunity to be exposed to an array of different real-world examples, get hands-on experience in working with data, and improve your R coding skills for data science. 
 

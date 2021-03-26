@@ -8,7 +8,7 @@ disableToc: true
 
 ## What we will cover
 
-In this class we will cover Instrumental Variables, how it relates to a Fuzzy Regression Discontinuity Desing, and also take time for some questions and review for the midterm.  
+In this class we will finish with estimation in an RDD setting, and cover Instrumental Variables, how it relates to noncompliance in an RCT and Fuzzy Regression Discontinuity Desings.
 
 ## Recommended readings/videos
 
