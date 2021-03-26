@@ -294,7 +294,7 @@ options(scipen = 0)
 
 # Midterm
 
-.box-2[Go to <a href="https://sta235.netlify.app/exams/midterm/YOUR_EID" style = "color: white;">https://sta235.netlify.app/exams/midterm/YOUR_EID</a>]
+.box-2[sta235.netlify.app/exams/midterm/YOUR_EID]
 <br>
 .box-3[This exam is open-book. But you can't communicate with anyone.]
 <br>
@@ -313,7 +313,8 @@ options(scipen = 0)
 
 ]
 .pull-right[
-![:scale 110%](https://media.giphy.com/media/QvBoMEcQ7DQXK/source.gif)
+.center[
+![:scale 100%](https://media.giphy.com/media/QvBoMEcQ7DQXK/source.gif)]
 ]
 
 
