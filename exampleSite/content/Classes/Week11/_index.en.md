@@ -16,11 +16,11 @@ In this class we will cover some model selection and regularization topics, such
 
 - Intuitive Machine Learning. (2020). "K Nearest Neighbors | Intuitive explained | Machine Learning Basics". *Video materials from Intuitive Machine Learning. Note: You can ignore the Python code part of the video*.
 
-{{< youtube src="https://www.youtube.com/embed/0p0o5cmgLdE?controls=0" >}}
+{{< youtube src="https://www.youtube.com/embed/0p0o5cmgLdE" >}}
 
 - Josh Starmer. (2018). "Regularization Part 1: Ridge (L2) Regression". *Video materials from StatQuest. Note: I usually watch his videos at x1.5 speed*.
 
-{{< youtube src="https://www.youtube.com/embed/Q81RR3yKn30?controls=0" >}}
+{{< youtube src="https://www.youtube.com/embed/Q81RR3yKn30" >}}
 
 
 
