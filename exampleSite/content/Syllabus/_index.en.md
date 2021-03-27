@@ -151,7 +151,7 @@ Below you will find a general outline of the topics we’ll cover in this course
 <tr>
 <td>12</td>
 <td>Apr 12</td>
-<td>Introduction to prediction models: K-nearest neighbors’ regression and classification.</td>
+<td>Model Selection and Regularization: Ridge regression and Lasso; Introduction to prediction models: K-nearest neighbors’ regression and classification.</td>
 </tr>
 <tr>
 <td>13</td>
