@@ -218,7 +218,7 @@ I now explain each of these grading components in more detail.
 -	There will be three homework assignments in this course, with the following submission deadlines:
 	- HW1: February 15th, 12:00 PM (noon)
 	- **HW2: March 8th, 12:00 PM (noon)** (*Note: Date was changed to accommodate suspended classes due to winter storm.*)
-	- HW3: April 12th, 12:00 PM (noon)
+	- **HW3: April 14th, 12:00 PM (noon)**
 -	Homework assignments will be posted on Canvas and submitted through Canvas.  
 -	You must submit your homework write-up as a PDF. No other file format is acceptable. Both MS Word and Google Docs have an option to save your document as a PDF.
 -	You need to submit the R script(s) that you use to complete each and every homework assignment, and submit it along with your write-up. Failure to submit your script will be considered as an incomplete homework. The code you submit with your homework should be fully reproducible (i.e. another person running it on their machine should be able to get the same results as you). See guidelines in our course website for R scripts.

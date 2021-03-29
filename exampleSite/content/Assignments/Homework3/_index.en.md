@@ -11,7 +11,7 @@ This homework will cover the second part of our causal inference chapter, includ
 ### Submission
 
 {{% notice warning %}}
-Due on **Monday April 12th, by 12:00pm (noon)**
+Due on **Wednesday April 14th, by 12:00pm (noon)**
 {{% /notice %}}
 
 Remember that you need to submit both a **written assignment** with your answers (pdfs only) and your **R code script**. Your assignment will be considered incomplete if you don't hand in both files.
