@@ -288,6 +288,7 @@ library("RColorBrewer")
 library("firasans")
 library(hrbrthemes)
 library(extrafont)
+library(countdown)
 
 options(scipen = 0)
 ```
@@ -306,15 +307,22 @@ options(scipen = 0)
 <br>
 .box-7[Good luck!]
 
+
 ---
-# Instructions
+<br>
 
-.pull-left[
+.box-7LA[sta235.netlify.app/exams/midterm/YOUR_EID]
 
-]
-.pull-right[
-.center[
-![:scale 100%](https://media.giphy.com/media/QvBoMEcQ7DQXK/source.gif)]
-]
-
-
+<br>
+<br>
+```{r, echo=FALSE}
+countdown(minutes = 90, seconds = 0, update_every = 60, play_sound = TRUE, box_shadow = TRUE, right = "33%", bottom = "33%",
+          color_border = "#5601A4",
+          color_text = "#5601A4",
+          color_running_background  = "#900DA4",
+          color_running_text        = "white",
+          color_finished_background = "#E16462",
+          color_finished_text       = "white",
+          border_width = "5px",
+          font_size = "4em")
+```
