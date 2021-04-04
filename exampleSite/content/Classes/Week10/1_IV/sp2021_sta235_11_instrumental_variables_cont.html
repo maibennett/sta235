@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235 - Causal Inference: Instrumental Variables (Cont.)</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA 235 - Causal Inference: Instrumental Variables (Cont.)
+## Spring 2021
+### McCombs School of Business, UT Austin
+
+---
+
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+# Some reminders
+
+.box-2LA[Homework 3 is due next Wed.]
+
+&lt;br&gt;
+- This homework has a bit less guidance than previous homework. **.darkorange[Make assumptions and use Google!]**
+
+- Remember to post questions on **.darkorange[Piazza]** or **.darkorange[come to OH]**.
+  
+  - If you are having question with a specific part of your code, post privately on Piazza, so you don't inadvertently share your answer.
+  
+.box-2tL[No questions will be answered after 7pm 4/13]
+
+---
+# Some reminders (Cont.)
+
+&lt;br&gt;
+.box-7LA[Highlight sessions on Thur. 5:00-5:30pm]
+
+&lt;br&gt;
+- Review session to cover the highlights of that week's class.
+
+- Objective: Get all students on the **.darkorange[same page]** regarding that week's material.
+
+- **.darkorange[Not an exercise class.]**
+  
+.box-7tL[Not a replacement for OH]
+
+---
+# Roadmap
+
+.pull-left[
+
+**.darkorange[Last class:]** 
+
+- Introduction to instrumental variables (IV)
+
+- How we can use **.darkorange[noncompliance in an RCT]** as a good setting for IV
+
+**.darkorange[Today's class:]** 
+
+- Recap of IV
+
+- Fuzzy RD
+
+- Model selection (new chapter!)
+]
+
+
+.pull-right[
+.center[
+![:scale 80%](https://media.giphy.com/media/d2jjuAZzDSVLZ5kI/giphy.gif)
+]
+]
+
+---
+# Recap of instrumental variables
+
+- An **.darkorange[instrumental variable]** (or instrument) `\(Z\)` is a variable that allows us to **.darkorange[separate the endogenous part from the exogenous part]** of our treatment variable `\(D\)` (or the variable for which we want to estimate an effect for).
+
+--
+
+.box-6[Conditions for an IV:]
+
+--
+
+.box-7[Relevance: `\(Cor(D,Z) \neq 0\)`]
+
+--
+
+.box-7[Exclusion: `\(Cor(Z,Y|D) = 0\)`]
+
+--
+
+.box-7[Exogeneity: `\(Cor(Z,U) = 0\)`]
+
+---
+
+.center2[
+.box-5LA[Poll time!]
+]
+---
+&lt;br&gt;
+&lt;br&gt;
+If our treatment is "going to college", and we want to estimate an effect on future earnings:
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.box-3[Is "distance to college" a good instrument?]
+
+
+---
+
+.center2[
+.box-3LA[How do we use IVs to estimate LATEs?]
+]
+---
+# Two-stage least squares (2SLS)
+
+- **.darkorange[First stage]**: Regress endogenous variable (e.g. education) on instrument (e.g. distance to college), and get fitted values.
+
+`$$\widehat{\text{Education}}_i = \gamma_0 + \gamma_1\text{Distance}_i + \eta_i$$`
+--
+
+- **.darkorange[Second stage]**: Regress outcome (e.g. income) on predicted values of endogenous variable (e.g. `\(\widehat{\text{Education}}_i\)`).
+
+`$$\text{income}_i = \beta_0 + \beta_1\widehat{\text{Education}}_i + \varepsilon_i$$`
+---
+# Let's go back to GOTV example
+
+- RCT were households were randomized into GOTV calls.
+
+- We had random treatment assignment, but high noncompliance (e.g. people did not pick up their phone).
+--
+&lt;br&gt;
+&lt;br&gt;
+.box-2[What was the outcome of interest?]
+
+--
+&lt;br&gt;
+.box-4[What is the endogenous variable?]
+
+--
+&lt;br&gt;
+.box-7[What could be an instrument?]
+---
+
+.center2[
+.box-2LA[Let's go to R]
+]
+
+
+
+---
+# GOTV: First stage
+
+
+
+
+```r
+library(estimatr)
+
+*lm1 &lt;- estimatr::lm_robust(contact ~ treat_real, data = d_s1)
+
+summary(lm1)
+```
+
+```
+## 
+## Call:
+## estimatr::lm_robust(formula = contact ~ treat_real, data = d_s1)
+## 
+## Standard error type:  HC2 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)  CI Lower  CI Upper      DF
+## (Intercept) 5.176e-13  8.601e-16   601.8        0 5.160e-13 5.193e-13 1905318
+## treat_real  4.176e-01  2.014e-03   207.4        0 4.136e-01 4.215e-01 1905318
+## 
+## Multiple R-squared:  0.4098 ,	Adjusted R-squared:  0.4098 
+## F-statistic: 4.3e+04 on 1 and 1905318 DF,  p-value: &lt; 2.2e-16
+```
+
+```r
+d_s1$contact_fitted = lm1$fitted.values
+```
+
+---
+# GOTV: First stage
+
+
+
+
+```r
+library(estimatr)
+
+lm1 &lt;- estimatr::lm_robust(contact ~ treat_real, data = d_s1)
+
+summary(lm1)
+```
+
+```
+## 
+## Call:
+## estimatr::lm_robust(formula = contact ~ treat_real, data = d_s1)
+## 
+## Standard error type:  HC2 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)  CI Lower  CI Upper      DF
+## (Intercept) 5.176e-13  8.601e-16   601.8        0 5.160e-13 5.193e-13 1905318
+## treat_real  4.176e-01  2.014e-03   207.4        0 4.136e-01 4.215e-01 1905318
+## 
+## Multiple R-squared:  0.4098 ,	Adjusted R-squared:  0.4098 
+## F-statistic: 4.3e+04 on 1 and 1905318 DF,  p-value: &lt; 2.2e-16
+```
+
+```r
+*d_s1$contact_fitted = lm1$fitted.values
+```
+
+---
+# GOTV: Second stage
+
+
+
+
+```r
+*estimatr::lm_robust(vote02 ~ contact_fitted, data = d_s1)
+```
+
+```
+##                  Estimate   Std. Error    t value     Pr(&gt;|t|)   CI Lower
+## (Intercept)    0.54528902 0.0003665575 1487.59488 0.000000e+00 0.54457058
+## contact_fitted 0.08728695 0.0049029128   17.80308 6.778072e-71 0.07767741
+##                  CI Upper      DF
+## (Intercept)    0.54600746 1905318
+## contact_fitted 0.09689648 1905318
+```
+
+---
+# GOTV: Intention to Treat
+
+
+
+
+```r
+*lm2 &lt;- estimatr::lm_robust(vote02 ~ treat_real, data = d_s1)
+
+summary(lm2)
+```
+
+```
+## 
+## Call:
+## estimatr::lm_robust(formula = vote02 ~ treat_real, data = d_s1)
+## 
+## Standard error type:  HC2 
+## 
+## Coefficients:
+##             Estimate Std. Error t value  Pr(&gt;|t|) CI Lower CI Upper      DF
+## (Intercept)  0.54529  0.0003666  1487.6 0.000e+00  0.54457  0.54601 1905318
+## treat_real   0.03645  0.0020473    17.8 6.778e-71  0.03244  0.04046 1905318
+## 
+## Multiple R-squared:  0.0001634 ,	Adjusted R-squared:  0.0001629 
+## F-statistic: 316.9 on 1 and 1905318 DF,  p-value: &lt; 2.2e-16
+```
+
+```r
+lm2$coefficients[2]/lm1$coefficients[2]
+```
+
+```
+## treat_real 
+## 0.08728695
+```
+
+---
+# GOTV: Intention to Treat
+
+
+
+
+```r
+lm2 &lt;- estimatr::lm_robust(vote02 ~ treat_real, data = d_s1) 
+
+summary(lm2)
+```
+
+```
+## 
+## Call:
+## estimatr::lm_robust(formula = vote02 ~ treat_real, data = d_s1)
+## 
+## Standard error type:  HC2 
+## 
+## Coefficients:
+##             Estimate Std. Error t value  Pr(&gt;|t|) CI Lower CI Upper      DF
+## (Intercept)  0.54529  0.0003666  1487.6 0.000e+00  0.54457  0.54601 1905318
+## treat_real   0.03645  0.0020473    17.8 6.778e-71  0.03244  0.04046 1905318
+## 
+## Multiple R-squared:  0.0001634 ,	Adjusted R-squared:  0.0001629 
+## F-statistic: 316.9 on 1 and 1905318 DF,  p-value: &lt; 2.2e-16
+```
+
+```r
+*lm2$coefficients[2]/lm1$coefficients[2]
+```
+
+```
+## treat_real 
+## 0.08728695
+```
+
+---
+# GOTV: 2SLS
+
+- You can recover point estimates with the previous methods, but **.darkorange[standard errors will be wrong]** (unless you adjust them).
+
+--
+
+- You can use packages designed for this, e.g. `ivreg` or `iv_robust()` from `estimatr`
+
+
+```r
+summary(iv_robust(vote02 ~ contact | treat_real, data = d_s1))
+```
+
+```
+## 
+## Call:
+## iv_robust(formula = vote02 ~ contact | treat_real, data = d_s1)
+## 
+## Standard error type:  HC2 
+## 
+## Coefficients:
+##             Estimate Std. Error t value  Pr(&gt;|t|) CI Lower CI Upper      DF
+## (Intercept)  0.54529  0.0003666  1487.6 0.000e+00  0.54457  0.54601 1905318
+## contact      0.08729  0.0048760    17.9 1.166e-71  0.07773  0.09684 1905318
+## 
+## Multiple R-squared:  0.0005131 ,	Adjusted R-squared:  0.0005126 
+## F-statistic: 320.5 on 1 and 1905318 DF,  p-value: &lt; 2.2e-16
+```
+
+---
+# Fuzzy Regression Discontinuity 
+
+- The same principal applies when we **.darkorange[don't have full compliance]** in an RDD
+
+--
+
+- **.darkorange[Fuzzy regression discontinuity]**
+
+  - If `\(Z = I(R_i&gt;c)\)`, then `\(\text{Pr}(D=1| Z=1)&lt;1\)` and/or `\(\text{Pr}(D=1| Z=0)&gt;0\)`
+  
+--
+
+
+```r
+rdrobust(y = y, x = x, c = c, fuzzy = treat)
+```
+
+---
+# Example: Entrance exam and tutoring
+
+
+
+&lt;img src="sp2021_sta235_11_instrumental_variables_cont_files/figure-html/tutoring-fuzzy-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+.center2[
+.box-5LA[Poll time!]
+]
+---
+.center2[
+.box-3[What is the treatment assignment variable and the treatment variable?]
+]
+
+---
+.center2[
+.box-3[Do you think the ITT&gt;LATE or LATE&gt;ITT?]
+]
+
+---
+# Use above/below cutoff as instrument: A parametric approach
+.small[
+
+```r
+tutoring &lt;- tutoring %&gt;% mutate(distance = entrance_exam - 70,
+                                below_cutoff = entrance_exam &lt;= 70)
+
+
+*summary(iv_robust(exit_exam ~ distance + tutoring | distance + below_cutoff,
+* data = filter(tutoring, distance &gt;= -10 &amp; distance &lt;= 10)))
+```
+
+```
+## 
+## Call:
+## iv_robust(formula = exit_exam ~ distance + tutoring | distance + 
+##     below_cutoff, data = filter(tutoring, distance &gt;= -10 &amp; distance &lt;= 
+##     10))
+## 
+## Standard error type:  HC2 
+## 
+## Coefficients:
+##              Estimate Std. Error t value   Pr(&gt;|t|) CI Lower CI Upper  DF
+## (Intercept)   60.1414     1.0177  59.098 9.747e-200  58.1407  62.1420 400
+## distance       0.4366     0.0993   4.397  1.407e-05   0.2414   0.6318 400
+## tutoringTRUE   9.7410     1.9118   5.095  5.384e-07   5.9825  13.4996 400
+## 
+## Multiple R-squared:  0.3646 ,	Adjusted R-squared:  0.3615 
+## F-statistic: 13.06 on 2 and 400 DF,  p-value: 3.19e-06
+```
+]
+---
+# Use above/below cutoff as instrument: A nonparametric approach
+.small[
+
+```r
+library(rdrobust)
+
+*summary(rdrobust(y = tutoring$exit_exam, x = tutoring$distance, c = 0, fuzzy = tutoring$tutoring))
+```
+
+```
+## Call: rdrobust
+## 
+## Number of Obs.                 1000
+## BW type                       mserd
+## Kernel                   Triangular
+## VCE method                       NN
+## 
+## Number of Obs.                 238         762
+## Eff. Number of Obs.            170         347
+## Order est. (p)                   1           1
+## Order bias  (q)                  2           2
+## BW est. (h)                 12.985      12.985
+## BW bias (b)                 19.733      19.733
+## rho (h/b)                    0.658       0.658
+## Unique Obs.                    238         762
+## 
+## =============================================================================
+##         Method     Coef. Std. Err.         z     P&gt;|z|      [ 95% C.I. ]       
+## =============================================================================
+##   Conventional     9.683     1.893     5.116     0.000     [5.973 , 13.393]    
+##         Robust         -         -     4.258     0.000     [5.210 , 14.095]    
+## =============================================================================
+```
+]
+
+---
+# Takeaways
+
+.pull-left[
+- Instruments can be **.darkorange[useful]** for recovering treatment effects, even under no random assignment.
+
+- Finding good instruments is **.darkorange[hard]**.
+
+- We can easily use them in RCTs or RD designs to go **.darkorange[from an ITT to a LATE]**.
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/WVAP0Z0Ue0UA64FNN7/giphy.gif)
+]
+]
+---
+# References
+
+- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 3*.
+
+- Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 11: Instrumental Variables, Course at BYU*.
+
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week8/2_IV/sp2021_sta235_11_instrumental_variables.html', timeout = 500)--&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script src="cols_macro.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
