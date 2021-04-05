@@ -40,4 +40,4 @@ Complete before **Sunday April 4th (11:59 pm)**. You can find the assignment <a 
 
 ## Code
 
-Here is the R code we will review in class, with some additional data and questions <a onclick="ga('send', 'event', 'External-Link','click','code10','0','Link');" href="sp2021_sta235_12_prediction1.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> 
+Here is the R code we will review in class, with some additional data and questions <a onclick="ga('send', 'event', 'External-Link','click','code10','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/code/sp2021_sta235_12_prediction1.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> 
