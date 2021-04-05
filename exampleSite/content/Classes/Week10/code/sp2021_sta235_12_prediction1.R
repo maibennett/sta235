@@ -78,13 +78,21 @@ set.seed(100) # Set seed for replication!
 train.control <- trainControl(method = "cv", number = 10) #This is a function from the package caret. We are telling our data that we will use a cross validation approach (cv) with 10 folds (number). Use ?trainControl to see the different methods we could use!
 
 lm_simple <- train(logins ~ mandalorian, data = disney, method="lm",
-               trControl = train.control, metric = "RMSE") #See that here (in the train function), we just pass all the data. The function will divide it in folds and do all that!
+               trControl = train.control) #See that here (in the train function), we just pass all the data. The function will divide it in folds and do all that!
 
 lm_simple
 
 lm_complex <- train(logins ~ female + city + age + I(age^2) + mandalorian, data = disney, method="lm",
-                   trControl = train.control, metric = "RMSE") #See that here (in the train function), we just pass all the data. The function will divide it in folds and do all that!
+                   trControl = train.control) #See that here (in the train function), we just pass all the data. The function will divide it in folds and do all that!
 
 lm_complex
+
+
+#Let's try a even more complex model to see how it fares
+
+lm_more_complex <- train(logins ~ female + city + poly(age,5) + mandalorian, data = disney, method="lm",
+                    trControl = train.control) #See that here (in the train function), we just pass all the data. The function will divide it in folds and do all that!
+
+lm_more_complex
 
 
