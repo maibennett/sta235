@@ -550,7 +550,7 @@ g2 <- ggplot(data = data.frame(x = c(2,4,20), y = c(acc$RMSE_lm1,acc$RMSE_lm2,ac
   geom_point(data = acc, aes(x = 20, y = RMSE_s1, fill="#FCCE25"),color="white", pch=21,size = 4) +
   geom_point(data = acc, aes(x = 20, y = RMSE_s1_t, fill="#FCCE25"),color="white", pch=22, size = 4) +
   theme_bw()+
-  scale_fill_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Quad","Spline")) +
+  scale_fill_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Cubic","Spline")) +
   scale_color_manual(values = c("#E16462", "dark grey"), name = "Dataset", label=c("Testing","Training")) +
   theme_ipsum_fsc()+xlim(0,20)+
   xlab("Flexibility") + ylab("RMSE") + ggtitle("RMSE for training and testing dataset") + 
@@ -619,7 +619,7 @@ g2 <- ggplot(data = data.frame(x = c(2,4,20), y = c(acc$RMSE_lm1,acc$RMSE_lm2,ac
   ggplot2::annotate("text",x = 5, y = 17.5, hjust = 0.5, label="RMSE decreases with \nflexibility for training data", family = "Fira Sans Condensed", size = 4.5, color = "white")+
   
   theme_bw()+
-  scale_fill_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Quad","Spline")) +
+  scale_fill_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Cubic","Spline")) +
   scale_color_manual(values = c("#E16462", "dark grey"), name = "Dataset", label=c("Testing","Training")) +
   theme_ipsum_fsc()+
   xlab("Flexibility") + ylab("RMSE") + ggtitle("RMSE for training and testing dataset") + 
@@ -688,7 +688,7 @@ g2 <- ggplot(data = data.frame(x = c(2,4,20), y = c(acc$RMSE_lm1,acc$RMSE_lm2,ac
   ggplot2::annotate("text",x = 5, y = 17.5, hjust = 0.5, label="U-shape on flexibility\nfor testing data", family = "Fira Sans Condensed", size = 5, color = "white")+
   
   theme_bw()+
-  scale_fill_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Quad","Spline")) +
+  scale_fill_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Cubic","Spline")) +
   scale_color_manual(values = c("#E16462", "dark grey"), name = "Dataset", label=c("Testing","Training")) +
   theme_ipsum_fsc()+
   xlab("Flexibility") + ylab("RMSE") + ggtitle("RMSE for training and testing dataset") + 
@@ -758,7 +758,7 @@ g2 <- ggplot(data = data.frame(x = c(2,4,20), y = c(acc$RMSE_lm1,acc$RMSE_lm2,ac
   ggplot2::annotate("text",x = 16.5, y = 11.75, hjust = 0.5, label="Overfitting", family = "Fira Sans Condensed", size = 6, color = "white")+
   
   theme_bw()+xlim(0,20)+
-  scale_fill_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Quad","Spline")) +
+  scale_fill_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Cubic","Spline")) +
   scale_color_manual(values = c("#E16462", "dark grey"), name = "Dataset", label=c("Testing","Training")) +
   theme_ipsum_fsc()+
   xlab("Flexibility") + ylab("RMSE") + ggtitle("RMSE for training and testing dataset") + 
@@ -915,7 +915,7 @@ $$
 
 **.darkorange[Procedure for *k-fold* cross-validation]**:
 
-  1. Divide your data in *k-folds* (usually, $K=5$ or $K=1$).
+  1. Divide your data in *k-folds* (usually, $K=5$ or $K=10$).
   
   2. Use $k=1$ as the testing data and $k=2,..,K$ as the training data.
   
