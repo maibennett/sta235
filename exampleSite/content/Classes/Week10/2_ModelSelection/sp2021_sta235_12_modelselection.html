@@ -257,14 +257,33 @@ head(disney)
 ```
 
 ```
-##   id female city      age logins mandalorian unsubscribe
-## 1  1      1    1 52.84556      7           0           0
-## 2  2      1    1 48.02111     10           1           0
-## 3  3      0    1 45.41524      6           1           1
-## 4  4      1    1 50.68664     10           1           1
-## 5  5      1    1 44.78347      8           0           0
-## 6  6      1    0 40.13201      0           1           1
+##   id female city age logins mandalorian unsubscribe
+## 1  1      1    1  53      7           0           0
+## 2  2      1    1  48     10           1           0
+## 3  3      0    1  45      6           1           1
+## 4  4      1    1  51     10           1           1
+## 5  5      1    1  45      8           0           0
+## 6  6      1    0  40      0           1           1
 ```
+
+---
+# Two candidates: Simple vs Complex
+
+- **.darkorange[Simple Model]**:
+
+  `$$unsubscribe_i = \beta_0 + \beta_1\times mandalorian + \beta_2 \times \mathrm{I}(logins=0) + \varepsilon_i$$`
+  
+- **.darkorange[Complex Model]**:
+
+$$
+`\begin{aligned}
+unsubscribe_i =&amp; \beta_0 + \beta_1\times mandalorian + \mathbf{\beta_2} \times logins + beta_3\times age +\\
+&amp;\beta_4\times age^2 + \beta_5\times city + \beta_6\times female + \varepsilon_i
+\end{aligned}`
+$$
+
+
+
 ---
 # Cross-Validation
 
