@@ -17,7 +17,7 @@ library(tidyverse)
 library(ggplot2)
 library(estimatr)
 library(broom)
-library(rdrobust)
+library(caret)
 
 ################################################################################
 ################ Measuring churn ###############################################
@@ -42,32 +42,47 @@ train.data <- disney[c(train_u,train_s),] #use only the rows that were selected 
 test.data <- disney[-c(train_u,train_s),] #the rest are used for testing
 
 ### Simple model
-lm_simple <- lm(unsubscribe ~ mandalorian + (logins==0), data = train.data) #Train the model on the TRAINING DATASET
+lm_simple <- glm(unsubscribe ~ mandalorian + (logins==0), data = train.data, family = binomial(link = logit)) #Train the model on the TRAINING DATASET
 
 ### Complex model
-lm_complex <- lm(unsubscribe ~ female + city + age + I(age^2) + factor(logins) + mandalorian, data = train.data) #Train the model on the TRAINING DATASET
-
-# Create a function to calculate the Root Mean Squared Error (RMSE): It takes two arguments, y (obs outcome) and y_hat (predicted outcome)
-# It substracts both vectors, squares the difference, calculates de mean, and then take the square root.
-RMSE <- function(y, y_hat){
-  sqrt(mean((y - y_hat)^2))
-}
+lm_complex <- glm(unsubscribe ~ female + city + age + I(age^2) + factor(logins) + mandalorian, data = train.data, family = binomial(link = logit)) #Train the model on the TRAINING DATASET
 
 
 # Estimate RMSE for these models on the TRAINING dataset:
 # For simple model:
-RMSE(train.data$unsubscribe, predict(lm_simple))
+pred_simple_train <- lm_simple %>% predict(train.data, type="response")
+RMSE(pred_simple_train, train.data$unsubscribe)
 
 # For complex model:
-RMSE(train.data$unsubscribe, predict(lm_complex))
+pred_complex_train <- lm_complex %>% predict(train.data, type="response")
+RMSE(pred_complex_train, train.data$unsubscribe)
 
-## Question: Which mode is better?
+## Question: Which model is better?
 
 # Estimate RMSE for these models on the TESTING dataset:
 # For simple model:
-RMSE(test.data$unsubscribe, predict(lm_simple, newdata = test.data))
+pred_simple_test <- lm_simple %>% predict(test.data, type="response")
+RMSE(pred_simple_test, test.data$unsubscribe)
 
 # For complex model:
-RMSE(test.data$unsubscribe, predict(lm_complex, newdata = test.data))
+pred_complex_test <- lm_complex %>% predict(test.data, type="response")
+RMSE(pred_complex_test, test.data$unsubscribe)
 
-## Question: Which mode is better?
+## Question: Which model is better?
+
+###############################################################################
+#### Cross-validation
+###############################################################################
+
+# We will typically use 5 or 10-fold cross validation
+
+set.seed(100) # Set seed for replication!
+
+train.control <- trainControl(method = "cv", number = 10) #This is a function from the package caret. We are telling our data that we will use a cross validation approach (cv) with 10 folds (number). Use ?trainControl to see the different methods we could use!
+
+lm_simple <- train(factor(unsubscribe) ~ mandalorian + (logins==0), data = disney, method="glm",family=binomial(),
+               trControl = train.control) #See that here (in the train function), we just pass all the data. The function will divide it in folds and do all that!
+
+lm_simple
+
+
