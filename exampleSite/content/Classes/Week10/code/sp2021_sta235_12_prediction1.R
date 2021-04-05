@@ -26,36 +26,48 @@ disney <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exa
 
 head(disney)
 
-# Create a new variable:
-
-disney <- disney %>% mutate(logins_0 = as.numeric(logins==0))
-
 # Divide data: 80% vs 20% split
 
-set.seed(100) #Always set seed for replicability!
+set.seed(100) #Always set seed for replication!
 
-n = nrow(disney) #number of observations in the dataset
+# We will stratify for selection (so we get unsubcribers in both datasets):
+id_u <- disney %>% dplyr::filter(unsubscribe==1) %>% dplyr::select(id) #id for users that unsubscribed
+id_s <- disney %>% dplyr::filter(unsubscribe==0) %>% dplyr::select(id) #id for users that have not unsubscribed
 
-train <- sample(1:n, n*0.8) #randomly select 80% of the rows
+train_u <- sample(id_u$id, nrow(id_u)*0.8) #randomly select 80% of the rows
+train_s <- sample(id_s$id, nrow(id_s)*0.8) #randomly select 80% of the rows
 
-train.data <- disney[train,] #use only the rows that were selected for training
+train.data <- disney[c(train_u,train_s),] #use only the rows that were selected for training
 
-test.data <- disney[-train,] #the rest are used for testing
+test.data <- disney[-c(train_u,train_s),] #the rest are used for testing
 
 ### Simple model
-lm_simple <- lm(unsubscribe ~ mandalorian + logins_0, data = train.data) #Train the model on the TRAINING DATASET
+lm_simple <- lm(unsubscribe ~ mandalorian + (logins==0), data = train.data) #Train the model on the TRAINING DATASET
 
 ### Complex model
 lm_complex <- lm(unsubscribe ~ female + city + age + I(age^2) + factor(logins) + mandalorian, data = train.data) #Train the model on the TRAINING DATASET
 
-# Estimate RMSE for these models on the TRAINING dataset:
-
+# Create a function to calculate the Root Mean Squared Error (RMSE): It takes two arguments, y (obs outcome) and y_hat (predicted outcome)
+# It substracts both vectors, squares the difference, calculates de mean, and then take the square root.
 RMSE <- function(y, y_hat){
   sqrt(mean((y - y_hat)^2))
 }
 
+
+# Estimate RMSE for these models on the TRAINING dataset:
 # For simple model:
 RMSE(train.data$unsubscribe, predict(lm_simple))
 
 # For complex model:
 RMSE(train.data$unsubscribe, predict(lm_complex))
+
+## Question: Which mode is better?
+
+# Estimate RMSE for these models on the TESTING dataset:
+# For simple model:
+RMSE(test.data$unsubscribe, predict(lm_simple, newdata = test.data))
+
+# For complex model:
+RMSE(test.data$unsubscribe, predict(lm_complex, newdata = test.data))
+
+## Question: Which mode is better?
