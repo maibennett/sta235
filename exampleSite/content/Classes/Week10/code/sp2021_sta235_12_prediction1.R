@@ -47,22 +47,22 @@ lm_complex <- lm(logins ~ female + city + age + I(age^2) + mandalorian, data = t
 
 # Estimate RMSE for these models on the TRAINING dataset:
 # For simple model:
-pred_simple_train <- lm_simple %>% predict(train.data, type="response")
+pred_simple_train <- lm_simple %>% predict(train.data)
 RMSE(pred_simple_train, train.data$unsubscribe)
 
 # For complex model:
-pred_complex_train <- lm_complex %>% predict(train.data, type="response")
+pred_complex_train <- lm_complex %>% predict(train.data)
 RMSE(pred_complex_train, train.data$unsubscribe)
 
 ## Question: Which model is better?
 
 # Estimate RMSE for these models on the TESTING dataset:
 # For simple model:
-pred_simple_test <- lm_simple %>% predict(test.data, type="response")
+pred_simple_test <- lm_simple %>% predict(test.data)
 RMSE(pred_simple_test, test.data$unsubscribe)
 
 # For complex model:
-pred_complex_test <- lm_complex %>% predict(test.data, type="response")
+pred_complex_test <- lm_complex %>% predict(test.data)
 RMSE(pred_complex_test, test.data$unsubscribe)
 
 ## Question: Which model is better?
