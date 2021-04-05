@@ -834,6 +834,44 @@ disney <- data.frame(id = 1:n,
 
 disney <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/2_ModelSelection/data/disney.csv")
 
+# Divide data: 80% vs 20% split
+
+set.seed(100) #Always set seed for replication!
+
+n <- nrow(disney)
+
+train <- sample(1:n, n*0.8) #randomly select 80% of the rows
+
+train.data <- disney[train,] #use only the rows that were selected for training
+
+test.data <- disney[-train,] #the rest are used for testing
+
+### Simple model
+lm_simple <- lm(logins ~ mandalorian + city, data = train.data) #Train the model on the TRAINING DATASET
+
+### Complex model
+lm_complex <- lm(logins ~ female + city + age + I(age^2) + mandalorian, data = train.data) #Train the model on the TRAINING DATASET
+
+
+# Estimate RMSE for these models on the TRAINING dataset:
+# For simple model:
+pred_simple_train <- lm_simple %>% predict(train.data, type="response")
+#RMSE(pred_simple_train, train.data$unsubscribe)
+
+# For complex model:
+pred_complex_train <- lm_complex %>% predict(train.data, type="response")
+#RMSE(pred_complex_train, train.data$unsubscribe)
+
+## Question: Which model is better?
+
+# Estimate RMSE for these models on the TESTING dataset:
+# For simple model:
+pred_simple_test <- lm_simple %>% predict(test.data, type="response")
+#RMSE(pred_simple_test, test.data$unsubscribe)
+
+# For complex model:
+pred_complex_test <- lm_complex %>% predict(test.data, type="response")
+#RMSE(pred_complex_test, test.data$unsubscribe)
 ```
 
 ```{r, echo=TRUE}
@@ -867,13 +905,192 @@ $$
 ---
 # Cross-Validation
 
-- To avoid using 
+- To avoid using only **.darkorange[one training and testing dataset]**, we can iterate over *k-fold* division of our data:
 
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/2_ModelSelection/images/cv.png)]
+
+---
+# Cross-Validation
+
+**.darkorange[Procedure for *k-fold* cross-validation]**:
+
+  1. Divide your data in *k-folds* (usually, $K=5$ or $K=1$).
+  
+  2. Use $k=1$ as the testing data and $k=2,..,K$ as the training data.
+  
+  3. Calculate the accuracy measure $A_k$ on the testing data.
+  
+  4. Repeat for each $k$.
+  
+  5. Average $A_k$ for all $k \in K$.
+
+--
+
+Main advantage: Use the entire dataset for training **.darkorange[AND]** testing.
+
+Extreme scenario: $K=n$ $\rightarrow$ Leave One Out Cross-Validation (LOOCV)
+
+---
+
+.center2[
+.box-7LA[Do you think 5-fold CV is better or worse than a LOOCV?]
+]
+
+---
+# How do we do CV in R?
+
+```{r, eval = FALSE}
+library(caret) #<<
+
+set.seed(100)
+
+train.control <- trainControl(method = "cv", number = 10)
+
+lm_simple <- train(logins ~ mandalorian + city, data = disney, method="lm", trControl = train.control)
+
+lm_simple
+```
+
+---
+# How do we do CV in R?
+
+```{r, eval = FALSE}
+library(caret) 
+
+set.seed(100)#<<
+
+train.control <- trainControl(method = "cv", number = 10)
+
+lm_simple <- train(logins ~ mandalorian + city, data = disney, method="lm", trControl = train.control)
+
+lm_simple
+```
+
+---
+# How do we do CV in R?
+
+```{r, eval = FALSE}
+library(caret) 
+
+set.seed(100)
+
+train.control <- trainControl(method = "cv", number = 10)#<<
+
+lm_simple <- train(logins ~ mandalorian + city, data = disney, method="lm", trControl = train.control)
+
+lm_simple
+```
+
+---
+# How do we do CV in R?
+.small[
+```{r}
+library(caret) 
+
+set.seed(100)#<<
+
+train.control <- trainControl(method = "cv", number = 10)
+
+lm_simple <- train(logins ~ mandalorian + city, data = disney, method="lm", trControl = train.control) #<<
+
+lm_simple
+```
+]
 ---
 # Stepwise selection
 
+- We have seen how to choose between some given models. **.darkorange[But what if we want to test all possible models?]**
+
+- **.darkorange[Stepwise selection]**: Computationally-efficient algorithm to select a model based on the data we have (subset selection).
+
+--
+
+Algorithm for forward stepwise selection:
+
+1. Start with the *null model*, $M_0$ (no predictors)
+
+2. For $k=0, ..., p-1$:
+  (a) Consider all $p-k$ models that augment $M_k$ with one additional predictor.
+  (b) Choose the *best* among these $p-k$ models and call it $M_{k+1}$.
+  
+3. Select the single best model from $M_{0},...,M_p$ using CV.
+
+.source[Backwards stepwise follows the same procedure, but starts with the full model.]
+
+---
+
+.center2[
+.box-2LA[Will forward stepwise subsetting yield the same results as backwards stepwise selection?]
+]
+
+---
+# How do we do stepwise selection in R?
+.small[
+```{r}
+library(leaps)
+
+regfit.fwd <- regsubsets(logins ~ . - unsubscribe, data=disney, method = "forward")
+summary(regfit.fwd)
+```
+]
+
+---
+# How do we do stepwise selection in R?
+.small[
+```{r}
+set.seed(100)
+
+train.control <- trainControl(method = "cv", number = 10) #set up a 10-fold cv
+
+lm.fwd <- train(logins ~ . - unsubscribe, data = disney, method = "leapForward",#<< 
+                tuneGrid = data.frame(nvmax = 1:5), trControl = train.control)#<<
+lm.fwd$results
+```
+]
+
+
+---
+# Takeaway points
+
+.pull-left[
+
+- In prediction, everything is going to be about **.darkorange[bias vs variance]**.
+
+- Importance of **.darkorange[validation sets]**.
+
+- We have methods to **.darkorange[select models]**.
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/n8SkNR77udWlG/giphy.gif)
+]
+]
+
+---
+# Next class
+
+.pull-left[
+
+- **.darkorange[Shrinkage methods]**: Ridge regression and Lasso.
+
+- **.darkorange[K-nearest neighbors]**: classification and regression.
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/oYtVHSxngR3lC/giphy.gif)
+]
+]
 ---
 # References
+
+- James, G. et al. (2013). "Introduction to Statistical Learning with Applications in R". *Springer*. *Chapter 2, 5, and 6*.
+
+- STDHA. (2018). ["Stepwise Regression Essentials in R."](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/154-stepwise-regression-essentials-in-r/)
+
+- STDHA. (2018). ["Cross-Validation Essentials in R."](http://www.sthda.com/english/articles/38-regression-model-validation/157-cross-validation-essentials-in-r/)
 
 
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week8/2_IV/sp2021_sta235_11_instrumental_variables.html', timeout = 500)-->

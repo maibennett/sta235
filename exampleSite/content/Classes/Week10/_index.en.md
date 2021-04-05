@@ -30,18 +30,14 @@ Complete before **Sunday April 4th (11:59 pm)**. You can find the assignment <a 
 
 ## Slides
 
-<!-- {{% button href="https://sta235.netlify.app/Classes/Week8/1_RD/sp2021_sta235_10_regression_discontinuity_cont.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week8/1_RD/sp2021_sta235_10_regression_discontinuity_cont.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.netlify.app/Classes/Week10/1_IV/sp2021_sta235_11_instrumental_variables_cont.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week10/1_IV/sp2021_sta235_11_instrumental_variables_cont.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week8/1_RD/sp2021_sta235_10_regression_discontinuity_cont.html" >}}
+{{< slides src="https://sta235.netlify.app/Classes/Week10/1_IV/sp2021_sta235_11_instrumental_variables_cont.html" >}}
 
-{{% button href="https://sta235.netlify.app/Classes/Week8/2_IV/sp2021_sta235_11_instrumental_variables.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week8/2_IV/sp2021_sta235_11_instrumental_variables.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.netlify.app/Classes/Week10/2_ModelSelection/sp2021_sta235_12_modelselection.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href=https://sta235.netlify.app/Classes/Week10/2_ModelSelection/sp2021_sta235_12_modelselection.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week8/2_IV/sp2021_sta235_11_instrumental_variables.html" >}} -->
+{{< slides src="https://sta235.netlify.app/Classes/Week10/2_ModelSelection/sp2021_sta235_12_modelselection.html" >}}
 
 ## Code
 
-<!-- Here is the R code we will review in class, with some additional data and questions <a onclick="ga('send', 'event', 'External-Link','click','code8','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/code/sp2021_sta235_11_RD_IV.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> -->
-
-## Activities
-
-<!-- {{% button href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/code/week8_in_class_activity.R" icon="fas fa-code" icon-position="right" %}}Download{{% /button %}} -->
+Here is the R code we will review in class, with some additional data and questions <a onclick="ga('send', 'event', 'External-Link','click','code10','0','Link');" href="sp2021_sta235_12_prediction1.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> 

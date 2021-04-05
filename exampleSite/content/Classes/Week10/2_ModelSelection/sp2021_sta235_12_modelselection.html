@@ -154,7 +154,7 @@ class: center, middle, inverse, title-slide
 
 - Remember that the goal of prediction is to have a method that is accurate in predicting outcomes on **.darkorange[previously unseen data]**.
 
-  - **.darkorange[Training]** vs **.darkorange[Testing]** data
+  - **.darkorange[Validation set approach:]** Training and testing data
 
 --
 
@@ -243,9 +243,9 @@ where `\(\hat{\sigma}^2\)`: Estimate of the error variance (full model), `\(d\)`
 &lt;img src="sp2021_sta235_12_modelselection_files/figure-html/bias_variance4-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
-# Example: Let's predict churn!
+# Example: Let's predict pre-churn!
 
-- You work at Disney+ and want to predict the probability of someone unsubscribing to the platform.
+- You work at Disney+ and you know that a good measure for someone at risk of unsubscribing is the times they've logged in the past week:
 
 
 
@@ -258,12 +258,12 @@ head(disney)
 
 ```
 ##   id female city age logins mandalorian unsubscribe
-## 1  1      1    1  53      7           0           0
-## 2  2      1    1  48     10           1           0
-## 3  3      0    1  45      6           1           1
-## 4  4      1    1  51     10           1           1
-## 5  5      1    1  45      8           0           0
-## 6  6      1    0  40      0           1           1
+## 1  1      1    1  53     10           0           1
+## 2  2      1    1  48      7           1           0
+## 3  3      0    1  45      7           1           0
+## 4  4      1    1  51      5           1           0
+## 5  5      1    1  45     10           0           0
+## 6  6      1    0  40      0           1           0
 ```
 
 ---
@@ -271,27 +271,264 @@ head(disney)
 
 - **.darkorange[Simple Model]**:
 
-  `$$unsubscribe_i = \beta_0 + \beta_1\times mandalorian + \beta_2 \times \mathrm{I}(logins=0) + \varepsilon_i$$`
+  `$$logins_i = \beta_0 + \beta_1\times mandalorian + \beta_2 \times city + \varepsilon_i$$`
   
 - **.darkorange[Complex Model]**:
 
 $$
 `\begin{aligned}
-unsubscribe_i =&amp; \beta_0 + \beta_1\times mandalorian + \mathbf{\beta_2} \times logins + beta_3\times age +\\
-&amp;\beta_4\times age^2 + \beta_5\times city + \beta_6\times female + \varepsilon_i
+logins_i =&amp; \beta_0 + \beta_1\times mandalorian + \beta_2\times age + \beta_3\times age^2 +\\
+&amp;\beta_4\times city + \beta_5\times female + \varepsilon_i
 \end{aligned}`
 $$
 
+---
 
+.center2[
+.box-4LA[Let's go to R]
+]
 
 ---
 # Cross-Validation
 
+- To avoid using only **.darkorange[one training and testing dataset]**, we can iterate over *k-fold* division of our data:
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/2_ModelSelection/images/cv.png)]
+
+---
+# Cross-Validation
+
+**.darkorange[Procedure for *k-fold* cross-validation]**:
+
+  1. Divide your data in *k-folds* (usually, `\(K=5\)` or `\(K=1\)`).
+  
+  2. Use `\(k=1\)` as the testing data and `\(k=2,..,K\)` as the training data.
+  
+  3. Calculate the accuracy measure `\(A_k\)` on the testing data.
+  
+  4. Repeat for each `\(k\)`.
+  
+  5. Average `\(A_k\)` for all `\(k \in K\)`.
+
+--
+
+Main advantage: Use the entire dataset for training **.darkorange[AND]** testing.
+
+Extreme scenario: `\(K=n\)` `\(\rightarrow\)` Leave One Out Cross-Validation (LOOCV)
+
+---
+
+.center2[
+.box-7LA[Do you think 5-fold CV is better or worse than a LOOCV?]
+]
+
+---
+# How do we do CV in R?
+
+
+```r
+*library(caret)
+
+set.seed(100)
+
+train.control &lt;- trainControl(method = "cv", number = 10)
+
+lm_simple &lt;- train(logins ~ mandalorian + city, data = disney, method="lm", trControl = train.control)
+
+lm_simple
+```
+
+---
+# How do we do CV in R?
+
+
+```r
+library(caret) 
+
+*set.seed(100)
+
+train.control &lt;- trainControl(method = "cv", number = 10)
+
+lm_simple &lt;- train(logins ~ mandalorian + city, data = disney, method="lm", trControl = train.control)
+
+lm_simple
+```
+
+---
+# How do we do CV in R?
+
+
+```r
+library(caret) 
+
+set.seed(100)
+
+*train.control &lt;- trainControl(method = "cv", number = 10)
+
+lm_simple &lt;- train(logins ~ mandalorian + city, data = disney, method="lm", trControl = train.control)
+
+lm_simple
+```
+
+---
+# How do we do CV in R?
+.small[
+
+```r
+library(caret) 
+
+*set.seed(100)
+
+train.control &lt;- trainControl(method = "cv", number = 10)
+
+*lm_simple &lt;- train(logins ~ mandalorian + city, data = disney, method="lm", trControl = train.control)
+
+lm_simple
+```
+
+```
+## Linear Regression 
+## 
+## 5000 samples
+##    2 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold) 
+## Summary of sample sizes: 4500, 4501, 4499, 4500, 4500, 4501, ... 
+## Resampling results:
+## 
+##   RMSE      Rsquared   MAE     
+##   2.087314  0.6724741  1.639618
+## 
+## Tuning parameter 'intercept' was held constant at a value of TRUE
+```
+]
 ---
 # Stepwise selection
 
+- We have seen how to choose between some given models. **.darkorange[But what if we want to test all possible models?]**
+
+- **.darkorange[Stepwise selection]**: Computationally-efficient algorithm to select a model based on the data we have (subset selection).
+
+--
+
+Algorithm for forward stepwise selection:
+
+1. Start with the *null model*, `\(M_0\)` (no predictors)
+
+2. For `\(k=0, ..., p-1\)`:
+  (a) Consider all `\(p-k\)` models that augment `\(M_k\)` with one additional predictor.
+  (b) Choose the *best* among these `\(p-k\)` models and call it `\(M_{k+1}\)`.
+  
+3. Select the single best model from `\(M_{0},...,M_p\)` using CV.
+
+.source[Backwards stepwise follows the same procedure, but starts with the full model.]
+
+---
+
+.center2[
+.box-2LA[Will forward stepwise subsetting yield the same results as backwards stepwise selection?]
+]
+
+---
+# How do we do stepwise selection in R?
+.small[
+
+```r
+library(leaps)
+
+regfit.fwd &lt;- regsubsets(logins ~ . - unsubscribe, data=disney, method = "forward")
+summary(regfit.fwd)
+```
+
+```
+## Subset selection object
+## Call: regsubsets.formula(logins ~ . - unsubscribe, data = disney, method = "forward")
+## 5 Variables  (and intercept)
+##             Forced in Forced out
+## id              FALSE      FALSE
+## female          FALSE      FALSE
+## city            FALSE      FALSE
+## age             FALSE      FALSE
+## mandalorian     FALSE      FALSE
+## 1 subsets of each size up to 5
+## Selection Algorithm: forward
+##          id  female city age mandalorian
+## 1  ( 1 ) " " " "    " "  " " "*"        
+## 2  ( 1 ) " " " "    "*"  " " "*"        
+## 3  ( 1 ) " " " "    "*"  "*" "*"        
+## 4  ( 1 ) " " "*"    "*"  "*" "*"        
+## 5  ( 1 ) "*" "*"    "*"  "*" "*"
+```
+]
+
+---
+# How do we do stepwise selection in R?
+.small[
+
+```r
+set.seed(100)
+
+train.control &lt;- trainControl(method = "cv", number = 10) #set up a 10-fold cv
+
+*lm.fwd &lt;- train(logins ~ . - unsubscribe, data = disney, method = "leapForward",
+*               tuneGrid = data.frame(nvmax = 1:5), trControl = train.control)
+lm.fwd$results
+```
+
+```
+##   nvmax     RMSE  Rsquared      MAE     RMSESD RsquaredSD      MAESD
+## 1     1 2.273269 0.6113410 1.847755 0.04250683 0.01688996 0.04353289
+## 2     2 2.087314 0.6724741 1.639618 0.04920703 0.01434646 0.04889721
+## 3     3 2.087994 0.6722625 1.640315 0.04919353 0.01436182 0.04904907
+## 4     4 2.088156 0.6722088 1.640489 0.04919301 0.01435653 0.04904416
+## 5     5 2.088235 0.6721845 1.640525 0.04925197 0.01438207 0.04908729
+```
+]
+
+
+---
+# Takeaway points
+
+.pull-left[
+
+- In prediction, everything is going to be about **.darkorange[bias vs variance]**.
+
+- Importance of **.darkorange[validation sets]**.
+
+- We have methods to **.darkorange[select models]**.
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/n8SkNR77udWlG/giphy.gif)
+]
+]
+
+---
+# Next class
+
+.pull-left[
+
+- **.darkorange[Shrinkage methods]**: Ridge regression and Lasso.
+
+- **.darkorange[K-nearest neighbors]**: classification and regression.
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/oYtVHSxngR3lC/giphy.gif)
+]
+]
 ---
 # References
+
+- James, G. et al. (2013). "Introduction to Statistical Learning with Applications in R". *Springer*. *Chapter 2, 5, and 6*.
+
+- STDHA. (2018). ["Stepwise Regression Essentials in R."](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/154-stepwise-regression-essentials-in-r/)
+
+- STDHA. (2018). ["Cross-Validation Essentials in R."](http://www.sthda.com/english/articles/38-regression-model-validation/157-cross-validation-essentials-in-r/)
 
 
 &lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week8/2_IV/sp2021_sta235_11_instrumental_variables.html', timeout = 500)--&gt;

@@ -90,3 +90,29 @@ lm_complex
 
 # Exercise: use the function `trainControl(method = "LOOCV")` to do a Leave One Out (LOO) cross validation. Do your results change? How? What are the advantages and disadvantages of using LOO?
 
+###############################################################################
+##### Stepwise selection
+###############################################################################
+
+library(leaps)
+
+regfit.fwd <- regsubsets(logins ~ . - unsubscribe, data=disney, method = "forward") # do forward stepwise selection
+
+summary(regfit.fwd) #interpret these results. 
+
+#Questions: Do the same procedure, but backwards. Do you get the same results?
+
+### Adding cross-validation
+set.seed(100)
+
+train.control <- trainControl(method = "cv", number = 10) #set up a 10-fold cv
+
+lm.fwd <- train(logins ~ . - unsubscribe, data = disney,
+                    method = "leapForward", 
+                    tuneGrid = data.frame(nvmax = 1:5), #We are saying that we will use max 5 covariates
+                    trControl = train.control)
+lm.fwd$results
+
+# Question: Which model do you choose?
+
+# Excercise: Do the same CV procedure, but with backwards stepwise. Which model do you choose in that case?
