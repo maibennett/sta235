@@ -30,22 +30,19 @@ head(disney)
 
 set.seed(100) #Always set seed for replication!
 
-# We will stratify for selection (so we get unsubcribers in both datasets):
-id_u <- disney %>% dplyr::filter(unsubscribe==1) %>% dplyr::select(id) #id for users that unsubscribed
-id_s <- disney %>% dplyr::filter(unsubscribe==0) %>% dplyr::select(id) #id for users that have not unsubscribed
+n <- nrow(disney)
 
-train_u <- sample(id_u$id, nrow(id_u)*0.8) #randomly select 80% of the rows
-train_s <- sample(id_s$id, nrow(id_s)*0.8) #randomly select 80% of the rows
+train <- sample(1:n, n*0.8) #randomly select 80% of the rows
 
-train.data <- disney[c(train_u,train_s),] #use only the rows that were selected for training
+train.data <- disney[train,] #use only the rows that were selected for training
 
-test.data <- disney[-c(train_u,train_s),] #the rest are used for testing
+test.data <- disney[-train,] #the rest are used for testing
 
 ### Simple model
-lm_simple <- glm(unsubscribe ~ mandalorian + (logins==0), data = train.data, family = binomial(link = logit)) #Train the model on the TRAINING DATASET
+lm_simple <- lm(logins ~ mandalorian, data = train.data) #Train the model on the TRAINING DATASET
 
 ### Complex model
-lm_complex <- glm(unsubscribe ~ female + city + age + I(age^2) + factor(logins) + mandalorian, data = train.data, family = binomial(link = logit)) #Train the model on the TRAINING DATASET
+lm_complex <- lm(logins ~ female + city + age + I(age^2) + mandalorian, data = train.data) #Train the model on the TRAINING DATASET
 
 
 # Estimate RMSE for these models on the TRAINING dataset:
@@ -80,9 +77,14 @@ set.seed(100) # Set seed for replication!
 
 train.control <- trainControl(method = "cv", number = 10) #This is a function from the package caret. We are telling our data that we will use a cross validation approach (cv) with 10 folds (number). Use ?trainControl to see the different methods we could use!
 
-lm_simple <- train(factor(unsubscribe) ~ mandalorian + (logins==0), data = disney, method="glm",family=binomial(),
-               trControl = train.control) #See that here (in the train function), we just pass all the data. The function will divide it in folds and do all that!
+lm_simple <- train(logins ~ mandalorian, data = disney, method="lm",
+               trControl = train.control, metric = "RMSE") #See that here (in the train function), we just pass all the data. The function will divide it in folds and do all that!
 
 lm_simple
+
+lm_complex <- train(logins ~ female + city + age + I(age^2) + mandalorian, data = disney, method="lm",
+                   trControl = train.control, metric = "RMSE") #See that here (in the train function), we just pass all the data. The function will divide it in folds and do all that!
+
+lm_complex
 
 

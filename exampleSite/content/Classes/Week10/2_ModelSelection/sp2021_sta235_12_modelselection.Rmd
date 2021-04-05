@@ -782,9 +782,9 @@ g1 + g2
 ```
 
 ---
-# Example: Let's predict churn!
+# Example: Let's predict pre-churn!
 
-- You work at Disney+ and want to predict the probability of someone unsubscribing to the platform.
+- You work at Disney+ and you know that a good measure for someone at risk of unsubscribing is the times they've logged in the past week:
 
 ```{r, echo=FALSE}
 library(scales)
@@ -801,7 +801,14 @@ age <- rnorm(n,45,15)
 
 age <- round(rescale(age, to=c(18,73)),0)
 
-logins <- sample(seq(0,10),n,replace=TRUE, prob=c(0.19,0.09,0.09,0.08,0.07,0.07,0.06,0.05,0.04,0.03,0.23))
+#logins <- sample(seq(0,10),n,replace=TRUE, prob=c(0.19,0.09,0.09,0.08,0.07,0.07,0.06,0.05,0.04,0.03,0.23))
+
+xb_l <- 2 - 5*mandalorian - age^2*0.05 - female + city*2 + rnorm(n, 0, 2)
+
+logins <- ifelse(xb_l < -135,0,ifelse(xb_l< -130, 1, ifelse(xb_l < -120, 2,
+                                                            ifelse(xb_l < -110, 3, ifelse(xb_l < -105, 4,
+                                                                                          ifelse(xb_l < -100, 5, ifelse(xb_l < -90,
+                                                                                                                        6, ifelse(xb_l < -80, 7, ifelse(xb_l < -70, 8, ifelse(xb_l < -65, 9, 10))))))))))
 
 xb <- 0.15 - 0.01*city + mandalorian*0.2 + (logins==0)*0.1 + rnorm(n, 0, 0.05)
 
@@ -838,14 +845,14 @@ head(disney)
 
 - **.darkorange[Simple Model]**:
 
-  $$unsubscribe_i = \beta_0 + \beta_1\times mandalorian + \beta_2 \times \mathrm{I}(logins=0) + \varepsilon_i$$
+  $$logins_i = \beta_0 + \beta_1\times mandalorian + \varepsilon_i$$
   
 - **.darkorange[Complex Model]**:
 
 $$
 \begin{aligned}
-unsubscribe_i =& \beta_0 + \beta_1\times mandalorian + \mathbf{\beta_2} \times logins + \beta_3\times age +\\
-&\beta_4\times age^2 + \beta_5\times city + \beta_6\times female + \varepsilon_i
+logins_i =& \beta_0 + \beta_1\times mandalorian + \beta_2\times age + \beta_3\times age^2 +\\
+&\beta_4\times city + \beta_5\times female + \varepsilon_i
 \end{aligned}
 $$
 
