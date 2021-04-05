@@ -71,14 +71,181 @@ class: center, middle, inverse, title-slide
 ---
 # Differences between inference and prediction
 
+- Inference `\(\rightarrow\)` focus on **.darkorange[covariate]**
+  
+  - **.darkorange[Interpretability]** of model.
+  
+- Prediction `\(\rightarrow\)` focus on **.darkorange[outcome variable]**
+
+  - **.darkorange[Accuracy]** of model.
+  
+.box-2[Both can be complementary!]
+
+---
+# Example: What is churn?
+
+.pull-left[
+- **.darkorange[Churn:]** Measure of how many customers stop using your product (e.g. cancel a subscription).
+
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/2_ModelSelection/images/churn1.png)]
+]
+
+---
+# Example: What is churn?
+
+.pull-left[
+- **.darkorange[Churn:]** Measure of how many customers stop using your product (e.g. cancel a subscription).
+
+.box-2[Less costly to keep a customer than bring a new one]
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/2_ModelSelection/images/churn1.png)]
+]
+
+
+---
+# Example: What is churn?
+
+.pull-left[
+- **.darkorange[Churn:]** Measure of how many customers stop using your product (e.g. cancel a subscription).
+
+.box-2[Less costly to keep a customer than bring a new one]
+
+.box-4[Prevent churn]
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/2_ModelSelection/images/churn1.png)]
+]
+
+---
+# Example: What is churn?
+
+.pull-left[
+- **.darkorange[Churn:]** Measure of how many customers stop using your product (e.g. cancel a subscription).
+
+.box-2[Less costly to keep a customer than bring a new one]
+
+.box-4[Prevent churn]
+
+.box-7[Identify customer that are likely to cancel/quit/fail to renew]
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/2_ModelSelection/images/churn1.png)]
+]
+
 ---
 # Bias vs Variance
 
+.box-4["There are no free lunches in statistics"]
+
+--
+
+- Not one method dominates others: Context/dataset dependent.
+
+- Remember that the goal of prediction is to have a method that is accurate in predicting outcomes on **.darkorange[previously unseen data]**.
+
+  - **.darkorange[Training]** vs **.darkorange[Testing]** data
+
+--
+
+.box-2[Balance between flexibility and accuracy]
+
+
 ---
-# Cross-Validation
+# Bias vs Variance
+
+.box-2[Variance]
+
+.box-2t["[T]he amount by which f would change if we estimated it using a different training dataset"]
+
+--
+
+.box-7[Bias]
+
+.box-7t["[E]rror introduced by approximating a real-life problem with a model"]
+
+
+---
+
+.center2[
+.box-5LA[Which models do you think are higher variance: More flexible models or less flexible models?]
+]
+
+---
+# Bias vs. Variance: The  ultimate battle
+
+- In inference, **.darkorange[bias &gt;&gt; variance]**
+
+- In prediction, we care about **.darkorange[both]**:
+
+  - Measures of accuracy will have both bias and variance.
+  
+  .box-4[Trade-off at different rates]
 
 ---
 # How do we measure accuracy?
+
+Different measures:
+
+- Remember `\(Adj-R^2\)`?
+
+--
+
+- **.darkorange[Mean Squared Error (MSE)]**: *Can be decomposed into variance and bias terms*
+`$$MSE = \frac{1}{n}\sum_{i=1}^n(y_i-\hat{f}(x_i))^2$$`
+
+---
+# How do we measure accuracy?
+
+Different measures:
+
+
+- **.darkorange[Akaike Information Criterion (AIC)]**: *Balances goodness of fit while penalizing for number of predictors*
+
+`$$AIC = 2(d+1) - 2\log(\hat{L}) \overset{OLS}{=} \frac{1}{n\hat{\sigma}^2}(RSS + 2d\hat{\sigma}^2)$$`
+
+--
+
+- **.darkorange[Bayesian Information Criterion (BIC)]**: *Balances goodness of fit while penalizing for number of predictors*
+
+`$$BIC = (d+1)\log(n) - 2\log(\hat{L}) ={\text{OLS} \frac{1}{n\hat{\sigma}^2}(RSS + \log(n)d\hat{\sigma}^2)$$`
+
+where `\(\hat{\sigma}^2\)`: Estimate of the error variance (full model), `\(d\)`: Number of predictors, `\(\hat{L}\)`: Maximum likehood estimate.
+
+---
+# Is flexibility always better?
+
+&lt;img src="sp2021_sta235_12_modelselection_files/figure-html/bias_variance-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Is flexibility always better?
+
+&lt;img src="sp2021_sta235_12_modelselection_files/figure-html/bias_variance2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Is flexibility always better?
+
+&lt;img src="sp2021_sta235_12_modelselection_files/figure-html/bias_variance3-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Is flexibility always better?
+
+&lt;img src="sp2021_sta235_12_modelselection_files/figure-html/bias_variance4-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Train and test
+---
+# Cross-Validation
 
 ---
 # Stepwise selection
@@ -86,9 +253,6 @@ class: center, middle, inverse, title-slide
 ---
 # References
 
-- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 3*.
-
-- Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 11: Instrumental Variables, Course at BYU*.
 
 &lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week8/2_IV/sp2021_sta235_11_instrumental_variables.html', timeout = 500)--&gt;
     </textarea>

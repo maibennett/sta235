@@ -288,6 +288,7 @@ library("RColorBrewer")
 library("firasans")
 library(hrbrthemes)
 library(extrafont)
+library(patchwork)
 
 options(scipen = 0)
 ```
@@ -313,14 +314,519 @@ options(scipen = 0)
 ---
 # Differences between inference and prediction
 
+- Inference $\rightarrow$ focus on **.darkorange[covariate]**
+  
+  - **.darkorange[Interpretability]** of model.
+  
+- Prediction $\rightarrow$ focus on **.darkorange[outcome variable]**
+
+  - **.darkorange[Accuracy]** of model.
+  
+.box-2[Both can be complementary!]
+
+---
+# Example: What is churn?
+
+.pull-left[
+- **.darkorange[Churn:]** Measure of how many customers stop using your product (e.g. cancel a subscription).
+
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/2_ModelSelection/images/churn1.png)]
+]
+
+---
+# Example: What is churn?
+
+.pull-left[
+- **.darkorange[Churn:]** Measure of how many customers stop using your product (e.g. cancel a subscription).
+
+.box-2[Less costly to keep a customer than bring a new one]
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/2_ModelSelection/images/churn1.png)]
+]
+
+
+---
+# Example: What is churn?
+
+.pull-left[
+- **.darkorange[Churn:]** Measure of how many customers stop using your product (e.g. cancel a subscription).
+
+.box-2[Less costly to keep a customer than bring a new one]
+
+.box-4[Prevent churn]
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/2_ModelSelection/images/churn1.png)]
+]
+
+---
+# Example: What is churn?
+
+.pull-left[
+- **.darkorange[Churn:]** Measure of how many customers stop using your product (e.g. cancel a subscription).
+
+.box-2[Less costly to keep a customer than bring a new one]
+
+.box-4[Prevent churn]
+
+.box-7[Identify customer that are likely to cancel/quit/fail to renew]
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/2_ModelSelection/images/churn1.png)]
+]
+
 ---
 # Bias vs Variance
 
+.box-4["There are no free lunches in statistics"]
+
+--
+
+- Not one method dominates others: Context/dataset dependent.
+
+- Remember that the goal of prediction is to have a method that is accurate in predicting outcomes on **.darkorange[previously unseen data]**.
+
+  - **.darkorange[Training]** vs **.darkorange[Testing]** data
+
+--
+
+.box-2[Balance between flexibility and accuracy]
+
+
 ---
-# Cross-Validation
+# Bias vs Variance
+
+.box-2[Variance]
+
+.box-2t["[T]he amount by which f would change if we estimated it using a different training dataset"]
+
+--
+
+.box-7[Bias]
+
+.box-7t["[E]rror introduced by approximating a real-life problem with a model"]
+
+
+---
+
+.center2[
+.box-5LA[Which models do you think are higher variance: More flexible models or less flexible models?]
+]
+
+---
+# Bias vs. Variance: The  ultimate battle
+
+- In inference, **.darkorange[bias >> variance]**
+
+- In prediction, we care about **.darkorange[both]**:
+
+  - Measures of accuracy will have both bias and variance.
+  
+  .box-4[Trade-off at different rates]
 
 ---
 # How do we measure accuracy?
+
+Different measures:
+
+- Remember $Adj-R^2$?
+
+--
+
+- **.darkorange[Mean Squared Error (MSE)]**: *Can be decomposed into variance and bias terms*
+$$MSE = \frac{1}{n}\sum_{i=1}^n(y_i-\hat{f}(x_i))^2$$
+
+---
+# How do we measure accuracy?
+
+Different measures:
+
+
+- **.darkorange[Akaike Information Criterion (AIC)]**: *Balances goodness of fit while penalizing for number of predictors*
+
+$$AIC = 2(d+1) - 2\log(\hat{L}) \overset{OLS}{=} \frac{1}{n\hat{\sigma}^2}(RSS + 2d\hat{\sigma}^2)$$
+
+--
+
+- **.darkorange[Bayesian Information Criterion (BIC)]**: *Balances goodness of fit while penalizing for number of predictors*
+
+$$BIC = (d+1)\log(n) - 2\log(\hat{L}) \overset{OLS}{=} \frac{1}{n\hat{\sigma}^2}(RSS + \log(n)d\hat{\sigma}^2)$$
+<br>
+where $\hat{\sigma}^2$: Estimate of the error variance (full model), $d$: Number of predictors, $\hat{L}$: Maximum likehood estimate.
+
+---
+# Is flexibility always better?
+
+```{r bias_variance, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+set.seed(100)
+
+n <- 100
+x <- rnorm(n, 0, 1)
+y <- x^3 - x^2 + x + 1 + rnorm(n, 0, 5)
+
+d <- data.frame(id = 1:100, x = x, y = y)
+
+id_train <- sample(d$id, nrow(d)*0.8)
+id_test <- d$id[-id_train]
+
+d_train <- d[id_train,]
+d_test <- d[id_test,]
+
+lm1 <- lm(y ~ x, data = d_train)
+lm2 <- lm(y ~ I(x^3)+I(x^2) + x, data = d_train)
+
+library(splines)
+
+knots <- quantile(d_train$x, p = seq(0.05,0.95, 0.05))
+
+s1 <- lm (y ~ bs(x, df=20), data = d_train)
+
+pred_lm1 <- lm1 %>% predict(d_test)
+pred_lm2 <- lm2 %>% predict(d_test)
+pred_s1 <- s1 %>% predict(d_test)
+
+RMSE = function(m, o){
+  sqrt(mean((m - o)^2))
+}
+
+
+pred_lm1_t <- lm1 %>% predict(d_train)
+pred_lm2_t <- lm2 %>% predict(d_train)
+pred_s1_t <- s1 %>% predict(d_train)
+
+acc <- data.frame(RMSE_lm1 = RMSE(pred_lm1, d_test$y),
+                  RMSE_lm2 = RMSE(pred_lm2, d_test$y),
+                  RMSE_s1 = RMSE(pred_s1, d_test$y),
+                  RMSE_lm1_t = RMSE(pred_lm1_t, d_train$y),
+                  RMSE_lm2_t = RMSE(pred_lm2_t, d_train$y),
+                  RMSE_s1_t = RMSE(pred_s1_t, d_train$y),
+                  flex = 2)
+
+g1 <- ggplot(data = d_train, aes(x = x, y = y)) +
+  geom_point(pch=21,color="dark grey", fill="white", size = 4) +
+  geom_line(aes(y = pred_lm1_t, x=x, color = "#5601A4"), lwd=1.2)+
+  geom_line(aes(y = pred_lm2_t, x=x, color = "#BF3984"), lwd=1.2)+
+  geom_line(aes(y = pred_s1_t, x=x, color = "#FCCE25"), lwd=1.2)+
+  scale_color_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Cubic","Spline")) +
+  theme_bw()+
+  theme_ipsum_fsc()+
+  xlab("X") + ylab("Y") + ggtitle("Fit on training dataset") + 
+    theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        #panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_blank())+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position=c(0.9,0.2),
+        legend.title = element_text(size=14),
+        legend.text = element_text(size=14),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+
+g2 <- ggplot(data = data.frame(x = c(2,4,20), y = c(acc$RMSE_lm1,acc$RMSE_lm2,acc$RMSE_s1)),
+              aes(x = x, y = y)) +
+  geom_smooth(aes(color = "#E16462"),fill="white",method = "loess")+
+  geom_smooth(data = data.frame(x = c(2,4,20), y = c(acc$RMSE_lm1_t,acc$RMSE_lm2_t,acc$RMSE_s1_t)),
+              aes(x = x, y = y,color = "dark grey"), method = "loess")+
+  geom_point(data = acc, aes(x = flex, y = RMSE_lm1_t, fill="#5601A4"), color="white", pch=21, size = 4) +
+  geom_point(data = acc, aes(x = flex, y = RMSE_lm1, fill="#5601A4"), color="white", pch=22, size = 4) +
+  geom_point(data = acc, aes(x = 4, y = RMSE_lm2_t, fill="#BF3984"),color="white", pch=21,size = 4) +
+  geom_point(data = acc, aes(x = 4, y = RMSE_lm2, fill="#BF3984"),color="white", pch=22, size = 4) +
+  geom_point(data = acc, aes(x = 20, y = RMSE_s1, fill="#FCCE25"),color="white", pch=21,size = 4) +
+  geom_point(data = acc, aes(x = 20, y = RMSE_s1_t, fill="#FCCE25"),color="white", pch=22, size = 4) +
+  theme_bw()+
+  scale_fill_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Quad","Spline")) +
+  scale_color_manual(values = c("#E16462", "dark grey"), name = "Dataset", label=c("Testing","Training")) +
+  theme_ipsum_fsc()+xlim(0,20)+
+  xlab("Flexibility") + ylab("RMSE") + ggtitle("RMSE for training and testing dataset") + 
+    theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        #panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_blank())+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position=c(0.9,0.5),
+        legend.title = element_text(size=14),
+        legend.text = element_text(size=14),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+  
+g1 + g2
+
+```
+
+---
+# Is flexibility always better?
+
+```{r bias_variance2, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+g1 <- ggplot(data = d_train, aes(x = x, y = y)) +
+  geom_point(pch=21,color="dark grey", fill="white", size = 4) +
+  geom_line(aes(y = pred_lm1_t, x=x, color = "#5601A4"), lwd=1.2)+
+  geom_line(aes(y = pred_lm2_t, x=x, color = "#BF3984"), lwd=1.2)+
+  geom_line(aes(y = pred_s1_t, x=x, color = "#FCCE25"), lwd=1.2)+
+  scale_color_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Cubic","Spline")) +
+  theme_bw()+
+  theme_ipsum_fsc()+
+  xlab("X") + ylab("Y") + ggtitle("Fit on training dataset") + 
+    theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        #panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_blank())+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position=c(0.9,0.2),
+        legend.title = element_text(size=14),
+        legend.text = element_text(size=14),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+
+g2 <- ggplot(data = data.frame(x = c(2,4,20), y = c(acc$RMSE_lm1,acc$RMSE_lm2,acc$RMSE_s1)),
+              aes(x = x, y = y)) +
+  geom_smooth(aes(color = "#E16462"),fill="white",method = "loess")+
+  geom_smooth(data = data.frame(x = c(2,4,20), y = c(acc$RMSE_lm1_t,acc$RMSE_lm2_t,acc$RMSE_s1_t)),
+              aes(x = x, y = y,color = "dark grey"), method = "loess")+
+  geom_point(data = acc, aes(x = flex, y = RMSE_lm1_t, fill="#5601A4"), color="white", pch=21, size = 4) +
+  geom_point(data = acc, aes(x = flex, y = RMSE_lm1, fill="#5601A4"), color="white", pch=22, size = 4) +
+  geom_point(data = acc, aes(x = 4, y = RMSE_lm2_t, fill="#BF3984"),color="white", pch=21,size = 4) +
+  geom_point(data = acc, aes(x = 4, y = RMSE_lm2, fill="#BF3984"),color="white", pch=22, size = 4) +
+  geom_point(data = acc, aes(x = 20, y = RMSE_s1, fill="#FCCE25"),color="white", pch=21,size = 4) +
+  geom_point(data = acc, aes(x = 20, y = RMSE_s1_t, fill="#FCCE25"),color="white", pch=22, size = 4) +
+  
+  ggplot2::annotate("rect",xmin = 0, xmax = 10, ymin = 16, ymax=19, color = "#F89441", fill="#F89441")+
+  ggplot2::annotate("text",x = 5, y = 17.5, hjust = 0.5, label="RMSE decreases with \nflexibility for training data", family = "Fira Sans Condensed", size = 4.5, color = "white")+
+  
+  theme_bw()+
+  scale_fill_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Quad","Spline")) +
+  scale_color_manual(values = c("#E16462", "dark grey"), name = "Dataset", label=c("Testing","Training")) +
+  theme_ipsum_fsc()+
+  xlab("Flexibility") + ylab("RMSE") + ggtitle("RMSE for training and testing dataset") + 
+    theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        #panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_blank())+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position=c(0.9,0.5),
+        legend.title = element_text(size=14),
+        legend.text = element_text(size=14),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+  
+g1 + g2
+
+```
+
+---
+# Is flexibility always better?
+
+```{r bias_variance3, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+g1 <- ggplot(data = d_train, aes(x = x, y = y)) +
+  geom_point(pch=21,color="dark grey", fill="white", size = 4) +
+  geom_line(aes(y = pred_lm1_t, x=x, color = "#5601A4"), lwd=1.2)+
+  geom_line(aes(y = pred_lm2_t, x=x, color = "#BF3984"), lwd=1.2)+
+  geom_line(aes(y = pred_s1_t, x=x, color = "#FCCE25"), lwd=1.2)+
+  scale_color_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Cubic","Spline")) +
+  theme_bw()+
+  theme_ipsum_fsc()+
+  xlab("X") + ylab("Y") + ggtitle("Fit on training dataset") + 
+    theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        #panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_blank())+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position=c(0.9,0.2),
+        legend.title = element_text(size=14),
+        legend.text = element_text(size=14),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+
+g2 <- ggplot(data = data.frame(x = c(2,4,20), y = c(acc$RMSE_lm1,acc$RMSE_lm2,acc$RMSE_s1)),
+              aes(x = x, y = y)) +
+  geom_smooth(aes(color = "#E16462"),fill="white",method = "loess")+
+  geom_smooth(data = data.frame(x = c(2,4,20), y = c(acc$RMSE_lm1_t,acc$RMSE_lm2_t,acc$RMSE_s1_t)),
+              aes(x = x, y = y,color = "dark grey"), method = "loess")+
+  geom_point(data = acc, aes(x = flex, y = RMSE_lm1_t, fill="#5601A4"), color="white", pch=21, size = 4) +
+  geom_point(data = acc, aes(x = flex, y = RMSE_lm1, fill="#5601A4"), color="white", pch=22, size = 4) +
+  geom_point(data = acc, aes(x = 4, y = RMSE_lm2_t, fill="#BF3984"),color="white", pch=21,size = 4) +
+  geom_point(data = acc, aes(x = 4, y = RMSE_lm2, fill="#BF3984"),color="white", pch=22, size = 4) +
+  geom_point(data = acc, aes(x = 20, y = RMSE_s1, fill="#FCCE25"),color="white", pch=21,size = 4) +
+  geom_point(data = acc, aes(x = 20, y = RMSE_s1_t, fill="#FCCE25"),color="white", pch=22, size = 4) +
+  
+  ggplot2::annotate("rect",xmin = 0, xmax = 10, ymin = 16, ymax=19, color = "#F89441", fill="#F89441")+
+  ggplot2::annotate("text",x = 5, y = 17.5, hjust = 0.5, label="U-shape on flexibility\nfor testing data", family = "Fira Sans Condensed", size = 5, color = "white")+
+  
+  theme_bw()+
+  scale_fill_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Quad","Spline")) +
+  scale_color_manual(values = c("#E16462", "dark grey"), name = "Dataset", label=c("Testing","Training")) +
+  theme_ipsum_fsc()+
+  xlab("Flexibility") + ylab("RMSE") + ggtitle("RMSE for training and testing dataset") + 
+    theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        #panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_blank())+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position=c(0.9,0.5),
+        legend.title = element_text(size=14),
+        legend.text = element_text(size=14),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+  
+g1 + g2
+
+```
+
+---
+# Is flexibility always better?
+
+```{r bias_variance4, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+g1 <- ggplot(data = d_train, aes(x = x, y = y)) +
+  geom_point(pch=21,color="dark grey", fill="white", size = 4) +
+  geom_line(aes(y = pred_lm1_t, x=x, color = "#5601A4"), lwd=1.2)+
+  geom_line(aes(y = pred_lm2_t, x=x, color = "#BF3984"), lwd=1.2)+
+  geom_line(aes(y = pred_s1_t, x=x, color = "#FCCE25"), lwd=1.2)+
+  scale_color_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Cubic","Spline")) +
+  theme_bw()+
+  theme_ipsum_fsc()+
+  xlab("X") + ylab("Y") + ggtitle("Fit on training dataset") + 
+    theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        #panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_blank())+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position=c(0.9,0.2),
+        legend.title = element_text(size=14),
+        legend.text = element_text(size=14),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+
+g2 <- ggplot(data = data.frame(x = c(2,4,20), y = c(acc$RMSE_lm1,acc$RMSE_lm2,acc$RMSE_s1)),
+              aes(x = x, y = y)) +
+  geom_ribbon(aes(xmin=6.5,xmax=20), fill=alpha("light grey",0.5))+
+  geom_smooth(aes(color = "#E16462"),fill="white",method = "loess")+
+  geom_smooth(data = data.frame(x = c(2,4,20), y = c(acc$RMSE_lm1_t,acc$RMSE_lm2_t,acc$RMSE_s1_t)),
+              aes(x = x, y = y,color = "dark grey"), method = "loess")+
+  geom_point(data = acc, aes(x = flex, y = RMSE_lm1_t, fill="#5601A4"), color="white", pch=21, size = 4) +
+  geom_point(data = acc, aes(x = flex, y = RMSE_lm1, fill="#5601A4"), color="white", pch=22, size = 4) +
+  geom_point(data = acc, aes(x = 4, y = RMSE_lm2_t, fill="#BF3984"),color="white", pch=21,size = 4) +
+  geom_point(data = acc, aes(x = 4, y = RMSE_lm2, fill="#BF3984"),color="white", pch=22, size = 4) +
+  geom_point(data = acc, aes(x = 20, y = RMSE_s1, fill="#FCCE25"),color="white", pch=21,size = 4) +
+  geom_point(data = acc, aes(x = 20, y = RMSE_s1_t, fill="#FCCE25"),color="white", pch=22, size = 4) +
+  
+  ggplot2::annotate("rect",xmin = 14, xmax = 19, ymin = 10.5, ymax=13, color = "#E16462", fill="#E16462")+
+  ggplot2::annotate("text",x = 16.5, y = 11.75, hjust = 0.5, label="Overfitting", family = "Fira Sans Condensed", size = 6, color = "white")+
+  
+  theme_bw()+xlim(0,20)+
+  scale_fill_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Quad","Spline")) +
+  scale_color_manual(values = c("#E16462", "dark grey"), name = "Dataset", label=c("Testing","Training")) +
+  theme_ipsum_fsc()+
+  xlab("Flexibility") + ylab("RMSE") + ggtitle("RMSE for training and testing dataset") + 
+    theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        #panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_blank())+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position="none",
+        legend.title = element_text(size=14),
+        legend.text = element_text(size=14),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+  
+g1 + g2
+
+```
+
+---
+# Example: Let's predict churn!
+
+- You work at Disney+ and want to predict the probability of someone unsubscribing to the platform.
+
+```{r, echo=FALSE}
+library(scales)
+
+set.seed(100)
+
+n <- 5000
+
+female <- sample(c(0,1),n,replace=TRUE, prob=c(0.5,0.5))
+mandalorian <- sample(c(0,1),n,replace=TRUE, prob=c(0.3,0.7))
+city <- sample(c(0,1),n,replace=TRUE, prob=c(0.15,0.85))
+
+age <- rnorm(n,45,15)
+
+age <- rescale(age, to=c(18,73))
+
+logins <- sample(seq(0,10),n,replace=TRUE, prob=c(0.19,0.09,0.09,0.08,0.07,0.07,0.06,0.05,0.04,0.03,0.23))
+
+xb <- 0.15 - 0.001*age + female*0.08 - city*0.07 + mandalorian*0.2 + (logins==0)*0.1 + rnorm(n, 0, 0.05)
+
+prob <- rescale(xb, to = c(0.01,0.52))
+
+unsubscribe <- rep(NA, n)
+
+for(i in 1:n){
+  
+  unsubscribe[i] <- sample(c(0,1), 1, replace = TRUE, prob = c(1-prob[i],prob[i]))
+
+}
+
+disney <- data.frame(id = 1:n,
+                     female = female,
+                     city = city,
+                     age = age,
+                     logins = logins,
+                     mandalorian = mandalorian,
+                     unsubscribe = unsubscribe)
+
+```
+
+---
+# Cross-Validation
 
 ---
 # Stepwise selection
