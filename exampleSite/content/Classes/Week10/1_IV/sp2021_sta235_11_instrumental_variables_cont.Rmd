@@ -301,8 +301,6 @@ options(scipen = 0)
 
 - Remember to post questions on **.darkorange[Piazza]** or **.darkorange[come to OH]**.
   
-  - If you are having question with a specific part of your code, post privately on Piazza, so you don't inadvertently share your answer.
-  
 .box-2tL[No questions will be answered after 7pm 4/13]
 
 ---
@@ -319,6 +317,20 @@ options(scipen = 0)
 - **.darkorange[Not an exercise class.]**
   
 .box-7tL[Not a replacement for OH]
+
+---
+# Before we start: About JITTs
+
+<br>
+.box-6LA[Remember to do the readings]
+
+<br>
+- It's clear when someone doesn't do the readings. **.darkorange[Those submissions will not be counted]**.
+
+--
+
+- 
+
 
 ---
 # Roadmap
