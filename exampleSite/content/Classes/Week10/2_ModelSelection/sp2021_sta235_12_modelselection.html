@@ -218,8 +218,8 @@ Different measures:
 
 - **.darkorange[Bayesian Information Criterion (BIC)]**: *Balances goodness of fit while penalizing for number of predictors*
 
-`$$BIC = (d+1)\log(n) - 2\log(\hat{L}) ={\text{OLS} \frac{1}{n\hat{\sigma}^2}(RSS + \log(n)d\hat{\sigma}^2)$$`
-
+`$$BIC = (d+1)\log(n) - 2\log(\hat{L}) \overset{OLS}{=} \frac{1}{n\hat{\sigma}^2}(RSS + \log(n)d\hat{\sigma}^2)$$`
+&lt;br&gt;
 where `\(\hat{\sigma}^2\)`: Estimate of the error variance (full model), `\(d\)`: Number of predictors, `\(\hat{L}\)`: Maximum likehood estimate.
 
 ---
@@ -243,7 +243,28 @@ where `\(\hat{\sigma}^2\)`: Estimate of the error variance (full model), `\(d\)`
 &lt;img src="sp2021_sta235_12_modelselection_files/figure-html/bias_variance4-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
-# Train and test
+# Example: Let's predict churn!
+
+- You work at Disney+ and want to predict the probability of someone unsubscribing to the platform.
+
+
+
+
+```r
+disney &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/2_ModelSelection/data/disney.csv")
+
+head(disney)
+```
+
+```
+##   id female city      age logins mandalorian unsubscribe
+## 1  1      1    1 52.84556      7           0           0
+## 2  2      1    1 48.02111     10           1           0
+## 3  3      0    1 45.41524      6           1           1
+## 4  4      1    1 50.68664     10           1           1
+## 5  5      1    1 44.78347      8           0           0
+## 6  6      1    0 40.13201      0           1           1
+```
 ---
 # Cross-Validation
 
