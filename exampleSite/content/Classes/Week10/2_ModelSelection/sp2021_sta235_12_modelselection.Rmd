@@ -397,7 +397,7 @@ options(scipen = 0)
 
 - Remember that the goal of prediction is to have a method that is accurate in predicting outcomes on **.darkorange[previously unseen data]**.
 
-  - **.darkorange[Training]** vs **.darkorange[Testing]** data
+  - **.darkorange[Validation set approach:]** Training and testing data
 
 --
 
@@ -847,7 +847,7 @@ head(disney)
 
 - **.darkorange[Simple Model]**:
 
-  $$logins_i = \beta_0 + \beta_1\times mandalorian + \varepsilon_i$$
+  $$logins_i = \beta_0 + \beta_1\times mandalorian + \beta_2 \times city + \varepsilon_i$$
   
 - **.darkorange[Complex Model]**:
 
@@ -866,6 +866,8 @@ $$
 
 ---
 # Cross-Validation
+
+- To avoid using 
 
 ---
 # Stepwise selection

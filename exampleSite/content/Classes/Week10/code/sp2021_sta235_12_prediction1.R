@@ -88,3 +88,5 @@ lm_complex <- train(logins ~ female + city + age + I(age^2) + mandalorian, data 
 lm_complex
 
 
+# Exercise: use the function `trainControl(method = "LOOCV")` to do a Leave One Out (LOO) cross validation. Do your results change? How? What are the advantages and disadvantages of using LOO?
+
