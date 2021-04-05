@@ -823,6 +823,8 @@ disney <- data.frame(id = 1:n,
                      mandalorian = mandalorian,
                      unsubscribe = unsubscribe)
 
+disney <- read.csv()
+
 ```
 
 ---
