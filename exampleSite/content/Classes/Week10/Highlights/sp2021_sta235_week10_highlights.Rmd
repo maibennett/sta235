@@ -293,466 +293,151 @@ library(patchwork)
 options(scipen = 0)
 ```
 
-# Instrumental Variables
+# Today
 
-.center[
-![]()
+.pull-left[
+- Istrumental Variables
+
+- Bias vs Variance
+
+- Validation sets and Cross-validation
+]
+.pull-right[
+![](https://media.giphy.com/media/3o6Zt8JVG0K3BqXMCA/giphy.gif)
 ]
 ---
-# Some reminders (Cont.)
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Highlights #1: IV
+]
 
+---
+# Instrumental Variables: How do they work?
+
+Treatment variable $D$ is **.darkorange[endogenous]** (i.e. affected by a confounder $U$).
 <br>
-.box-7LA[Highlight sessions on Thur. 5:00-5:30pm]
-
 <br>
-- Review session to cover the highlights of that week's class.
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/Highlights/images/iv1.png)
+]
 
-- Objective: Get all students on the **.darkorange[same page]** regarding that week's material.
+---
+# Instrumental Variables: How do they work?
 
-- **.darkorange[Not an exercise class.]**
+Instrumental variable $Z$ helps us separate $D$ into an **.darkorange[endogenous]** part ($D$<sub>en</sub>, affected by confunder $U$) and an **.darkorange[exogenous]** part ($D$<sub>ex</sub>, not affected by $U$).
+<br>
+<br>
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/Highlights/images/iv2.png)
+]
+
+---
+# Instrumental Variables: Relevance condition
+
+The **.darkorange[instrument]** needs to be **.darkorange[correlated]** with the **.darkorange[treatment]** (e.g. needs to "move" it)
+
+.center[
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/Highlights/images/iv3.png)
+]
+
+---
+# Instrumental Variables: Exclusion condition
+
+The **.darkorange[instrument]** can only affect the outcome **.darkorange[through the treatment]** (i.e. can't affect it directly or through another path).
+
+.center[
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/Highlights/images/iv4.png)
+]
+
+
+---
+# Instrumental Variables: Exogeneity condition
+
+The **.darkorange[instrument]** can't be affected by a **.darkorange[confounder]**.
+
+.center[
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/Highlights/images/iv5.png)
+]
+
+---
+
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Highlights #2: Bias vs. Variance
+]
+
+---
+# Bias vs. Variance
+
+- In prediction, we want models with **.darkorange[low bias]** AND **.darkorange[low variance]**.
+
+--
+
+.box-2[Difficulty: Trade-off]
+
+--
+
+- **.darkorange[Variance:]** I train a model $f$ on a dataset $A$. How much will that model change if now I train it on dataset $B$?
+
+  - If the model $f$ picks up on every singularity of dataset $A$, it will change a lot!
+
+--
+
+.box-4[More flexibility &#x2192; more variance]
+
+
+
+---
+# Bias vs. Variance
+
+- In prediction, we want models with **.darkorange[low bias]** AND **.darkorange[low variance]**.
+
+
+
+.box-2[Difficulty: Trade-off]
+
+--
+
+- **.darkorange[Bias:]** Error term we get from simplifying reality with a model.
+
+  - If the model $f$ is too simple, bias will be large!
+
+--
+
+.box-4[Less flexibility &#x2192; more bias]
+
+---
+
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Highlights #3: Validation sets
+]
+
+---
+# Validation sets
+
+.box-7[All accuracy measures need to be done on unseen data!]
+
+--
+
+- That's why we need to divide our data into **.darkorange[training]** (seen by the model) and **.darkorange[testing]** (unseen by the model) datasets.
+
+--
+
+- **.darkorange[Cross-validation]**: Iterative process where in each iteration we use a different part of the data for testing.
+
+  - The **.darkorange[main advantage]** is that we will be using ALL the data for testing and training, and not be subject to the random variability of a specific partition.
   
-.box-7tL[Not a replacement for OH]
 
 ---
-# Before we start: About JITTs
 
-<br>
-.box-6LA[Remember to do the readings]
-
-<br>
-- It's clear when someone doesn't do the readings. **.darkorange[Those submissions will not be counted]**.
-
-
----
-# About JITTs: How comfortable are you with R?
-
-
-```{r hist1, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/1_Intro/code/STA%20235%20-%20Intro%20Survey.csv")
-
-
-g1 <- ggplot(data = d, aes(x = factor(How.comfortable.are.you.with.coding.in.R.,
-                                levels = seq(1,10,1)))) + 
-  geom_bar(color="#900DA4", fill = alpha("#900DA4",0.5), lwd=1.5) +
-  scale_x_discrete(labels = c("1" = "1\nVery\nuncomfortable","2" = "2","3" = "3","4" = "4","5" = "5","6" = "6",
-                              "7" = "7","8" = "8","9" = "9","10" = "10\nSuper\ncomfortable"), drop = FALSE) +
-  theme_bw()+
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  xlab("") + ylab("Count")+ggtitle("Beginning of semester")+
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-
-
-d2 <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_IV/data/JITT7.csv")
-
-d2 <- d2[!is.na(d2$R_now),]
-
-
-g2 <- ggplot(data = d2, aes(x = factor(R_now,
-                                levels = seq(1,10,1)))) + 
-  geom_bar(color="#900DA4", fill = alpha("#900DA4",0.5), lwd=1.5) +
-  scale_x_discrete(labels = c("1" = "1\nVery\nuncomfortable","2" = "2","3" = "3","4" = "4","5" = "5","6" = "6",
-                              "7" = "7","8" = "8","9" = "9","10" = "10\nSuper\ncomfortable"), drop = FALSE) +
-  theme_bw()+
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  xlab("") + ylab("Count")+ggtitle("Now")+
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-g1 + g2
-```
-
-
----
-# About JITTs: How comfortable are you with R?
-
-.pull-left[
-```{r hist2, fig.height=6, fig.width=6, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-
-d2 <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_IV/data/JITT7.csv")
-
-d2 <- d2[!is.na(d2$Difference),]
-
-ggplot(data = d2, aes(x = factor(Difference,
-                                levels = seq(-5,5,1)))) + 
-  geom_bar(color="#900DA4", fill = alpha("#900DA4",0.5), lwd=1.5) +
-  theme_bw()+
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  xlab("Change") + ylab("Count")+ggtitle("Difference Now - Beginning")+
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-```
-]
-
-.pull-right[
-<br>
-<br>
-.center[
-![:scale 100%](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/r_rollercoaster.png)]
+background-position: 50% 50%
+class: center, middle
+.big[
+Questions?
 ]
 
 ---
-# Roadmap
-
-.pull-left[
-
-**.darkorange[Last class:]** 
-
-- Introduction to instrumental variables (IV)
-
-- How we can use **.darkorange[noncompliance in an RCT]** as a good setting for IV
-
-**.darkorange[Today's class:]** 
-
-- Recap of IV
-
-- Fuzzy RD
-
-- Model selection (new chapter!)
-]
-
-
-.pull-right[
-.center[
-![:scale 80%](https://media.giphy.com/media/d2jjuAZzDSVLZ5kI/giphy.gif)
-]
-]
-
----
-# Recap of instrumental variables
-
-- An **.darkorange[instrumental variable]** (or instrument) $Z$ is a variable that allows us to **.darkorange[separate the endogenous part from the exogenous part]** of our treatment variable $D$ (or the variable for which we want to estimate an effect for).
-
---
-
-.box-6[Conditions for an IV:]
-
---
-
-.box-7[Relevance: Cor(D,Z) != 0]
-
---
-
-.box-7[Exclusion: Cor(Z,Y|D) = 0]
-
---
-
-.box-7[Exogeneity: Cor(Z,U) = 0]
-
----
-
-.center2[
-.box-5LA[Poll time!]
-]
----
-<br>
-<br>
-If our treatment is "going to college", and we want to estimate an effect on future earnings:
-<br>
-<br>
-<br>
-.box-3[Is "distance to college" a good instrument?]
-
-
----
-
-.center2[
-.box-3LA[How do we use IVs to estimate LATEs?]
-]
----
-# Two-stage least squares (2SLS)
-
-- **.darkorange[First stage]**: Regress endogenous variable (e.g. education) on instrument (e.g. distance to college), and get fitted values.
-
-$$\widehat{\text{Education}}_i = \gamma_0 + \gamma_1\text{Distance}_i + \eta_i$$
---
-
-- **.darkorange[Second stage]**: Regress outcome (e.g. income) on predicted values of endogenous variable (e.g. $\widehat{\text{Education}}_i$).
-
-$$\text{income}_i = \beta_0 + \beta_1\widehat{\text{Education}}_i + \varepsilon_i$$
----
-# Let's go back to GOTV example
-
-- RCT were households were randomized into GOTV calls.
-
-- We had random treatment assignment, but high noncompliance (e.g. people did not pick up their phone).
---
-<br>
-<br>
-.box-2[What was the outcome of interest?]
-
---
-<br>
-.box-4[What is the endogenous variable?]
-
---
-<br>
-.box-7[What could be an instrument?]
----
-
-.center2[
-.box-2LA[Let's go to R]
-]
-
-```{r, echo=FALSE, message = FALSE, warning=FALSE, eval = TRUE}
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/1_RCT/data/voters_covariates.csv")
-
-# Drop variables with unlisted phone numbers
-d_s1 <- d[!is.na(d$treat_real),]
-
-```
-
----
-# GOTV: First stage
-
-```{r, include=FALSE, message = FALSE, warning=FALSE}
-library(estimatr)
-
-lm1 <- estimatr::lm_robust(contact ~ treat_real, data = d_s1) #<<
-
-summary(lm1)
-
-d_s1$contact_fitted = lm1$fitted.values
-```
-
-```{r, echo=TRUE, warning=FALSE, message = FALSE}
-library(estimatr)
-
-lm1 <- estimatr::lm_robust(contact ~ treat_real, data = d_s1) #<<
-
-summary(lm1)
-
-d_s1$contact_fitted = lm1$fitted.values
-```
-
----
-# GOTV: First stage
-
-```{r, include=FALSE, message = FALSE, warning=FALSE}
-library(estimatr)
-
-lm1 <- estimatr::lm_robust(contact ~ treat_real, data = d_s1) 
-
-summary(lm1)
-
-d_s1$contact_fitted = lm1$fitted.values #<<
-```
-
-```{r, echo=TRUE, warning=FALSE, message = FALSE}
-library(estimatr)
-
-lm1 <- estimatr::lm_robust(contact ~ treat_real, data = d_s1)
-
-summary(lm1)
-
-d_s1$contact_fitted = lm1$fitted.values #<<
-```
-
----
-# GOTV: Second stage
-
-```{r, include=FALSE, message = FALSE, warning=FALSE}
-estimatr::lm_robust(vote02 ~ contact_fitted, data = d_s1) #<<
-```
-
-```{r, echo=TRUE, warning=FALSE, message = FALSE}
-estimatr::lm_robust(vote02 ~ contact_fitted, data = d_s1) #<<
-```
-
----
-# GOTV: Intention to Treat
-
-```{r, include=FALSE, message = FALSE, warning=FALSE}
-lm2 <- estimatr::lm_robust(vote02 ~ treat_real, data = d_s1)
-
-summary(lm2)
-
-lm2$coefficients[2]/lm1$coefficients[2] # Recover treatment effect
-```
-
-```{r, echo=TRUE, warning=FALSE, message = FALSE}
-lm2 <- estimatr::lm_robust(vote02 ~ treat_real, data = d_s1) #<<
-
-summary(lm2)
-
-lm2$coefficients[2]/lm1$coefficients[2]
-```
-
----
-# GOTV: Intention to Treat
-
-```{r, include=FALSE, message = FALSE, warning=FALSE}
-lm2 <- estimatr::lm_robust(vote02 ~ treat_real, data = d_s1)
-
-summary(lm2)
-
-lm2$coefficients[2]/lm1$coefficients[2] # Recover treatment effect
-```
-
-```{r, echo=TRUE, warning=FALSE, message = FALSE}
-lm2 <- estimatr::lm_robust(vote02 ~ treat_real, data = d_s1) 
-
-summary(lm2)
-
-lm2$coefficients[2]/lm1$coefficients[2] #<<
-```
-
----
-# GOTV: 2SLS
-
-- You can recover point estimates with the previous methods, but **.darkorange[standard errors will be wrong]** (unless you adjust them).
-
---
-
-- You can use packages designed for this, e.g. `ivreg` or `iv_robust()` from `estimatr`
-
-```{r, echo=TRUE, warning=FALSE, message = FALSE}
-summary(iv_robust(vote02 ~ contact | treat_real, data = d_s1))
-```
-
----
-# Fuzzy Regression Discontinuity 
-
-- The same principal applies when we **.darkorange[don't have full compliance]** in an RDD
-
---
-
-- **.darkorange[Fuzzy regression discontinuity]**
-
-  - If $Z = I(R_i>c)$, then $\text{Pr}(D=1| Z=1)<1$ and/or $\text{Pr}(D=1| Z=0)>0$
-  
---
-
-```{r, eval=FALSE, warning=FALSE, message=FALSE}
-rdrobust(y = y, x = x, c = c, fuzzy = treat)
-```
-
----
-# Example: Entrance exam and tutoring
-
-```{r, echo = FALSE}
-library(tidyverse)
-library(broom)
-library(ggdag)
-library(kableExtra)
-library(scales)
-library(patchwork)
-library(estimatr)
-
-tutoring <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/2_IV/data/tutoring.csv")
-```
-
-```{r tutoring-fuzzy, fig.height=6, fig.width=8, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-ggplot(tutoring, aes(x = entrance_exam, y = tutoring_text, fill = entrance_exam <= 70)) +
-  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
-  geom_point(size = 5, pch = 21, color = "white", alpha = 0.7,
-             position = position_jitter(width = 0, height = 0.2, seed = 1234)) + 
-  labs(x = "Entrance exam score", y = NULL, fill = "Entrance exam ≤ 70") + 
-  scale_fill_manual(values = c("#F89441", "#900DA4")) +
-  guides(fill = guide_legend(reverse = TRUE)) +
-  theme_bw(base_size = 22, base_family = "Fira Sans Condensed") +
-  theme(legend.position = "bottom") +
-  theme(legend.box.spacing = unit(0.5, "lines"),
-        legend.margin = margin(t = 1, b = 0, unit = "lines"))
-```
-
----
-
-.center2[
-.box-5LA[Poll time!]
-]
----
-.center2[
-.box-3[What is the treatment assignment variable and the treatment variable?]
-]
-
----
-.center2[
-.box-3[Do you think the ITT>LATE or LATE>ITT?]
-]
-
----
-# Use above/below cutoff as instrument: A parametric approach
-.small[
-```{r}
-tutoring <- tutoring %>% mutate(distance = entrance_exam - 70,
-                                below_cutoff = entrance_exam <= 70)
-
-
-summary(iv_robust(exit_exam ~ distance + tutoring | distance + below_cutoff,#<<
-  data = filter(tutoring, distance >= -10 & distance <= 10))) #<<
-```
-]
----
-# Use above/below cutoff as instrument: A nonparametric approach
-.small[
-```{r}
-library(rdrobust)
-
-summary(rdrobust(y = tutoring$exit_exam, x = tutoring$distance, c = 0, fuzzy = tutoring$tutoring)) #<<
-```
-]
-
----
-# Takeaways
-
-.pull-left[
-- Instruments can be **.darkorange[useful]** for recovering treatment effects, even under no random assignment.
-
-- Finding good instruments is **.darkorange[hard]**.
-
-- We can easily use them in RCTs or RD designs to go **.darkorange[from an ITT to a LATE]**.
-]
-
-.pull-right[
-.center[
-![](https://media.giphy.com/media/WVAP0Z0Ue0UA64FNN7/giphy.gif)
-]
-]
----
-# References
-
-- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 3*.
-
-- Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 11: Instrumental Variables, Course at BYU*.
-
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week10/1_IV/sp2021_sta235_11_instrumental_variables_cont.html', timeout = 10)-->
