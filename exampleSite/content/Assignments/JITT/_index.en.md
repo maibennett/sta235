@@ -18,4 +18,7 @@ disableToc: true
 
 - <a onclick="ga('send', 'event', 'External-Link','click','JITT6','0','Link');" href="https://forms.gle/8aVCRiGgPmiuuBkd8" target="_blank">JITT 6</a>: due on Sunday Mar 21st by 11:59 PM.
 
-- <a onclick="ga('send', 'event', 'External-Link','click','JITT7','0','Link');" href="https://forms.gle/uzu611mo6dnRRDCE8" target="_blank">JITT 6</a>: due on Sunday April 4th by 11:59 PM.
+- <a onclick="ga('send', 'event', 'External-Link','click','JITT7','0','Link');" href="https://forms.gle/uzu611mo6dnRRDCE8" target="_blank">JITT 7</a>: due on Sunday April 4th by 11:59 PM.
+
+- <a onclick="ga('send', 'event', 'External-Link','click','JITT8','0','Link');" href="https://forms.gle/bBj6oQJTJxh2wCwH7" target="_blank">JITT 8</a>: due on Sunday April 11th by 11:59 PM.
+
