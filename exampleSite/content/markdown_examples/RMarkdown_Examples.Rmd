@@ -219,7 +219,7 @@ output:
     toc: no
 ---
 
-I've included a separate R markdown file with this, that you can knit and see how the HTML file looks. I've also uploaded it [here]() just for fun `r emo::ji("partying_face")`.
+I've included a separate R markdown file with this, that you can knit and see how the HTML file looks. I've also uploaded it [here](https://sta235.netlify.app/markdown_examples/Rmarkdown_Examples_HTML.html) just for fun `r emo::ji("partying_face")`.
 
 If you want to share your HTML files, a super quick way is [Grant McDermottt's](https://twitter.com/grant_mcdermott) suggestion using Github:
 
