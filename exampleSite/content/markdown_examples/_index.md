@@ -32,4 +32,4 @@ Like everything in life right now, this page is under construction.
 {{% button href="https://sta235.netlify.app/markdown_examples/Rmarkdown_Examples_HTML.html" icon="fas fa-external-link-alt" icon-position="right" %}}HTML file{{% /button %}} 
 <br>
 <br>
-{{% button href="https://github.com/maibennett/sta235/tree/main/exampleSite/content/markdown_examples" icon="fas fa-github" icon-position="right" %}}Github Repository{{% /button %}} 
+{{% button href="https://github.com/maibennett/sta235/tree/main/exampleSite/content/markdown_examples" icon="fas fa-github-square" icon-position="right" %}}Github Repository{{% /button %}} 
