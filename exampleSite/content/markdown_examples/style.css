@@ -35,7 +35,7 @@ body{
 }
 
 /*Changed the font for the code*/
-.code{
+code{
     font-family: 'Fira Code';
     font-size: 100%;
 }
