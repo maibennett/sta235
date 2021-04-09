@@ -230,9 +230,9 @@ If you want to share your HTML files, a super quick way is [Grant McDermottt's](
 
 There are **tons** of resources out there, but some of my favorite almost always come for [Alison Preshill](https://twitter.com/apreshill). Check out her website!
 
-<note-box>
+<span class="note-box">
 One of the R-Ladies chapter is having a cool seminar on their Rmarkdown series on 04/22. Check it out [here](https://www.meetup.com/rladies-dammam/events/277394961/)
-</note-box>
+</span>
 
 Some additional material that could be useful:
 

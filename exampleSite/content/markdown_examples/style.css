@@ -35,19 +35,19 @@ body{
 }
 
 /*Changed the font for the code*/
-code{
+.code{
     font-family: 'Fira Code';
     font-size: 100%;
 }
 
-/*Created a new tag called source. Color is grey and font size is slightly smaller (I use it for sources under tables, for example)*/
-source{
+/*Created a new class called source. Color is grey and font size is slightly smaller (I use it for sources under tables, for example)*/
+.source{
 	color: rgba(105,105,105,0.5); /*This is for writing colors that include transparency*/
 	font-size: 80%;
 }
 
-/*New tag for an information box, like the ones I use in class. You can change the name and create different ones!*/
-note-box{
+/*New class for an information box, like the ones I use in class. You can change the name and create different ones!*/
+.note-box{
 	background-color: #E16462; /*Change the background color here*/
 	color: #FFFFFF;
     margin: 0em auto;
@@ -63,7 +63,7 @@ note-box{
 
 /*I want the links to not be the default color, so I'll tell Rmarkdown to color it white, but underline it*/
 /*This is saying: for all the `a` tags WITHIN note-box, do this:*/
-note-box a{
+.note-box a{
     color: #FFFFFF;
     font-weight: 600;
     font-family: 'Fira Sans';
