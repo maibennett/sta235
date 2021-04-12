@@ -28,6 +28,8 @@ data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/examp
 
 set.seed(100) # Remember to set a seed!
 
+n <- nrow(data)
+
 train.row <- sample(1:n, 0.8*n) # We generate a random sample for the training data
 
 test.data <- data[-train.row,] #Select testing data
