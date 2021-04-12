@@ -530,14 +530,24 @@ OLS regression:
 
 ```r
 lm1 &lt;- lm(spend ~ freq + female,
-          data = data)
+          data = train.data)
 
 coef(lm1)
 ```
 
 ```
 ## (Intercept)        freq      female 
-## 118.2639712  -3.3959024  -0.6819001
+## 118.2605090  -3.4339875  -0.6391956
+```
+
+```r
+pred.lm &lt;- lm1 %&gt;% predict(test.data)
+
+RMSE(pred.lm, test.data$spend)
+```
+
+```
+## [1] 22.79557
 ```
 ]
 
@@ -555,6 +565,16 @@ coef(cv$finalModel, cv$bestTune$lambda)
 ## (Intercept) 117.4837717
 ## freq         -9.4095221
 ## female       -0.2773666
+```
+
+```r
+pred.ridge &lt;- cv %&gt;% predict(test.data)
+
+RMSE(pred.ridge, test.data$spend)
+```
+
+```
+## [1] 22.7896
 ```
 ]
 
@@ -655,6 +675,16 @@ coef(cv$finalModel, cv$bestTune$lambda)
 ## freq         -9.4095221
 ## female       -0.2773666
 ```
+
+```r
+pred.ridge &lt;- cv %&gt;% predict(test.data)
+
+RMSE(pred.ridge, test.data$spend)
+```
+
+```
+## [1] 22.7896
+```
 ]
 
 .pull-right[
@@ -671,6 +701,16 @@ coef(cvl$finalModel, cvl$bestTune$lambda)
 ## (Intercept) 117.032965
 ## freq         -3.296245
 ## female        .
+```
+
+```r
+pred.lasso &lt;- cvl %&gt;% predict(test.data)
+
+RMSE(pred.lasso, test.data$spend)
+```
+
+```
+## [1] 22.79291
 ```
 ]
 

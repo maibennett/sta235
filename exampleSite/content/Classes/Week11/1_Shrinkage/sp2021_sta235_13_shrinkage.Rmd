@@ -1163,7 +1163,7 @@ OLS regression:
 
 ```{r}
 lm1 <- lm(spend ~ freq + female,
-          data = data)
+          data = train.data)
 
 coef(lm1)
 
