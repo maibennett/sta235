@@ -146,6 +146,58 @@ Algorithm:
 ]
 
 ---
+.center2[
+.box-3LA[Poll time!]
+]
+---
+.center2[
+.box-3LA[A lower number of neighbors K yields...]
+]
+---
+# KNN Classifier in R?
+
+.pull-left[
+
+```r
+d &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/data/purchases_type.csv")
+
+d &lt;- d %&gt;% mutate(type = factor(type))
+
+set.seed(100)
+
+n &lt;- nrow(d)
+
+train.row &lt;- sample(1:n, 0.8*n)
+
+test.data &lt;- d[-train.row,]
+train.data &lt;- d[train.row,]
+
+knn &lt;- train(
+  type ~., data = train.data, method = "knn",
+  trControl = trainControl("cv", number = 10),
+  preProcess = c("center","scale"),
+  tuneLength = 20
+  )
+```
+]
+
+.pull-right[
+- Again, we'll be using the `caret` package.
+]
+
+---
+# How many neighbors?
+
+We can see the optimal K using `bestTune` parameter (41).
+
+&lt;img src="sp2021_sta235_14_knn_files/figure-html/knn_plot-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# KNN for regression
+
+- We can also use KNN for **.darkorange[continuous outcomes]**
+
+---
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[

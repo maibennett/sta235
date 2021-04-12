@@ -292,6 +292,23 @@ library(rvest)
 library(ggtext)
 
 options(scipen = 0)
+
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
+
+prob <- rescale(d$freq, to = c(0.01,0.99))
+
+set.seed(100)
+
+d$type = NA
+
+for(i in 1:nrow(d)){
+  set.seed(i)
+  
+  d$type[i] = sample(c(1,2),1,prob=c(prob[i],1-prob[i]))
+  
+}
+
+  
 ```
 
 # Prediction tasks
@@ -390,12 +407,57 @@ Algorithm:
 ]
 
 ---
-
+.center2[
 .box-3LA[Poll time!]
+]
+---
+.center2[
+.box-3LA[A lower number of neighbors K yields...]
+]
+---
+# KNN Classifier in R?
+
+.pull-left[
+```{r, echo=TRUE, warning=FALSE, message = FALSE}
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/data/purchases_type.csv")
+
+d <- d %>% mutate(type = factor(type))
+
+set.seed(100)
+
+n <- nrow(d)
+
+train.row <- sample(1:n, 0.8*n)
+
+test.data <- d[-train.row,]
+train.data <- d[train.row,]
+
+knn <- train(
+  type ~., data = train.data, method = "knn",
+  trControl = trainControl("cv", number = 10),
+  preProcess = c("center","scale"),
+  tuneLength = 20
+  )
+```
+]
+
+.pull-right[
+- Again, we'll be using the `caret` package.
+]
 
 ---
+# How many neighbors?
 
-.box-3LA[A lower number of neighbors K yields...]
+We can see the optimal K using `bestTune` parameter (`r knn$bestTune`).
+
+```{r knn_plot, fig.height=4.7, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+plot(knn)
+```
+
+---
+# KNN for regression
+
+- We can also use KNN for **.darkorange[continuous outcomes]**
 
 ---
 background-position: 50% 50%
