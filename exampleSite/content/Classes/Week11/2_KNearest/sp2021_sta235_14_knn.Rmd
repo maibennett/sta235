@@ -310,7 +310,7 @@ options(scipen = 0)
 - Again: Window shoppers vs high rollers
 
 .center[
-![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_intro.svg)
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_intro.svg)
 ]
 
 
@@ -386,7 +386,7 @@ Algorithm:
 .box-6[Classifier: Window-shopper]
 
 .center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_knn7.svg)
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_knn9.svg)
 ]
 
 ---
@@ -402,6 +402,6 @@ Let's build a ridge.
 
 - James, G. et al. (2013). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 2, .*
 
-- STDHA. (2018). ["Penalized Regression Essentials: Ridge, Lasso & Elastic Net"](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/153-penalized-regression-essentials-ridge-lasso-elastic-net)
+- STDHA. (2018). ["KNN: K-Nearest Neighbors Essentials"](http://www.sthda.com/english/articles/35-statistical-machine-learning-essentials/142-knn-k-nearest-neighbors-essentials)
 
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week11/1_shrinkage/sp2021_sta235_13_shrinkage.html', timeout = 10)-->
