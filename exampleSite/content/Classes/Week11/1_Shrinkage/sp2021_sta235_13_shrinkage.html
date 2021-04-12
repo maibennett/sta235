@@ -130,7 +130,14 @@ Honey, I shrunk the coefficients!
   - Ridge regression
   
   - Lasso regression
-  
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Let's build a ridge.
+]
+
 ---
 # Ridge Regression: An example
 
@@ -303,6 +310,382 @@ Honey, I shrunk the coefficients!
 ---
 # How do we choose &amp;lambda;?
 
+--
+
+.box-5[Cross-validation!]
+
+--
+
+1) Choose a grid of `\(\lambda\)` values
+
+2) Compute cross-validation error (e.g. RMSE) for each
+
+3) Choose the smallest one.
+
+---
+# &amp;lambda; vs RMSE?
+
+
+&lt;img src="sp2021_sta235_13_shrinkage_files/figure-html/lambda_rmse-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# &amp;lambda; vs RMSE? A zoom
+
+
+&lt;img src="sp2021_sta235_13_shrinkage_files/figure-html/lambda_rmse_zoom-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# How do we do this in R?
+
+.pull-left[
+
+```r
+*library(caret)
+
+set.seed(100)
+
+data &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
+
+lambda_seq &lt;- 10^seq(-3, 3, length = 100)
+
+cv &lt;- train(spend ~., data = train.data, 
+            method = "glmnet",
+            trControl = trainControl("cv", number = 10),
+            tuneGrid = expand.grid(alpha = 0, 
+                         lambda = lambda_seq)
+  )
+
+cv_lambda &lt;- data.frame(lambda = cv$results$lambda,
+                        rmse = cv$results$RMSE)
+```
+]
+
+.pull-right[
+- We will be using the `caret` package
+]
+
+---
+# How do we do this in R?
+
+.pull-left[
+
+```r
+library(caret) 
+
+*set.seed(100)
+
+data &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
+
+lambda_seq &lt;- 10^seq(-3, 3, length = 100)
+
+cv &lt;- train(spend ~., data = train.data, 
+            method = "glmnet",
+            trControl = trainControl("cv", number = 10),
+            tuneGrid = expand.grid(alpha = 0, 
+                         lambda = lambda_seq)
+  )
+
+cv_lambda &lt;- data.frame(lambda = cv$results$lambda,
+                        rmse = cv$results$RMSE)
+```
+]
+
+.pull-right[
+- We will be using the `caret` package
+
+- We are doing **.darkorange[cross-validation]**, so remember to set a seed!
+]
+
+---
+# How do we do this in R?
+
+.pull-left[
+
+```r
+library(caret) 
+
+set.seed(100)
+
+data &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
+
+*lambda_seq &lt;- 10^seq(-3, 3, length = 100)
+
+cv &lt;- train(spend ~., data = train.data, 
+            method = "glmnet",
+            trControl = trainControl("cv", number = 10),
+            tuneGrid = expand.grid(alpha = 0, 
+                         lambda = lambda_seq)
+  )
+
+cv_lambda &lt;- data.frame(lambda = cv$results$lambda,
+                        rmse = cv$results$RMSE)
+```
+]
+
+.pull-right[
+- We will be using the `caret` package
+
+- We are doing **.darkorange[cross-validation]**, so remember to set a seed!
+
+- You need to create a grid for the `\(\lambda\)`'s **.darkorange[that will be tested]**
+
+]
+
+
+---
+# How do we do this in R?
+
+.pull-left[
+
+```r
+library(caret) 
+
+set.seed(100)
+
+data &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
+
+lambda_seq &lt;- 10^seq(-3, 3, length = 100)
+
+*cv &lt;- train(spend ~., data = train.data,
+*           method = "glmnet",
+*           trControl = trainControl("cv", number = 10),
+*           tuneGrid = expand.grid(alpha = 0,
+*                        lambda = lambda_seq)
+  )
+
+cv_lambda &lt;- data.frame(lambda = cv$results$lambda,
+                        rmse = cv$results$RMSE)
+```
+]
+
+.pull-right[
+- We will be using the `caret` package
+
+- We are doing **.darkorange[cross-validation]**, so remember to set a seed!
+
+- You need to create a grid for the `\(\lambda\)`'s **.darkorange[that will be tested]**
+
+- The function we will use is `train`: Same as before
+.small[
+
+  - `method="glmnet"` means that it will run an elastic net.
+- `alpha=0` means is a **.darkorange[ridge regression]**
+- `lambda = lambda_seq` is not necessary (you can provide your own grid)]
+]
+
+---
+# How do we do this in R?
+
+.pull-left[
+
+```r
+library(caret) 
+
+set.seed(100)
+
+data &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
+
+lambda_seq &lt;- 10^seq(-3, 3, length = 100)
+
+cv &lt;- train(spend ~., data = train.data, 
+            method = "glmnet", 
+            trControl = trainControl("cv", number = 10), 
+            tuneGrid = expand.grid(alpha = 0, 
+                         lambda = lambda_seq)
+  )
+
+*cv_lambda &lt;- data.frame(lambda = cv$results$lambda,
+*                       rmse = cv$results$RMSE)
+```
+]
+
+.pull-right[
+- We will be using the `caret` package
+
+- We are doing **.darkorange[cross-validation]**, so remember to set a seed!
+
+- You need to create a grid for the `\(\lambda\)`'s **.darkorange[that will be tested]**
+
+- The function we will use is `train`: Same as before
+
+- Important objects in `cv`:
+.small[
+
+  - `results$lambda`: Vector of `\(\lambda\)` that was tested
+- `results$RMSE`: RMSE for each `\(\lambda\)`
+- `bestTune$lambda`: `\(\lambda\)` that minimizes the error term.]
+]
+
+---
+# How do we do this in R?
+
+.pull-left[
+OLS regression:
+
+
+```r
+lm1 &lt;- lm(spend ~ freq + female,
+          data = data)
+
+coef(lm1)
+```
+
+```
+## (Intercept)        freq      female 
+## 118.2639712  -3.3959024  -0.6819001
+```
+]
+
+.pull-right[
+Ridge regression:
+
+
+```r
+coef(cv$finalModel, cv$bestTune$lambda)
+```
+
+```
+## 3 x 1 sparse Matrix of class "dgCMatrix"
+##                      1
+## (Intercept) 117.483772
+## freq         -3.289314
+## female       -0.645621
+```
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Throwing a lasso
+]
+
+---
+# Lasso regression
+
+- Very similar to ridge regression, except it **.darkorange[changes the penalty term]**:
+
+`$$\min_\beta \sum_{i=1}^n\underbrace{(y_i - \sum_{k=0}^px_i\beta_k)^2}_{OLS} + \color{#F89441}{\underbrace{\lambda\cdot \sum_{k=1}^p|\beta_k|}_{Lasso Penalty}}$$`
+
+--
+
+- In our previous example:
+
+`$$\min_\beta \sum_{i=1}^n(\text{spend}_i - \beta_0 - \beta_1\text{female}_i - \beta_2\text{freq}_i)^2 + \lambda\cdot (|\beta_1| + |\beta_2|)$$`
+--
+
+- Lasso regression is also called `\(l_1\)` regularization:
+
+`$$||\beta||_1 = \sum_{k=1}^p |\beta|$$`
+---
+# Ridge vs Lasso
+
+.pull-left[
+.box-2[Ridge]
+
+.box-2t[Final model will have p coefficients]
+
+.box-2t[Usually better with multicollinearity]
+]
+
+--
+
+.pull-left[
+.box-4[Lasso]
+
+.box-4t[Can set coefficients = 0]
+
+.box-4t[Improves interpretability of model]
+
+.box-4t[Can be used for model selection]
+]
+
+---
+# And how do we do Lasso in R?
+
+.pull-left[
+
+```r
+library(caret) 
+
+set.seed(100)
+
+data &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
+
+lambda_seq &lt;- 10^seq(-3, 3, length = 100)
+
+cvl &lt;- train(spend ~., data = train.data, 
+            method = "glmnet",
+            trControl = trainControl("cv", number = 10),
+*           tuneGrid = expand.grid(alpha = 1,
+                         lambda = lambda_seq)
+  )
+
+cvl_lambda &lt;- data.frame(lambda = cvl$results$lambda,
+                         rmse = cvl$results$RMSE)
+```
+]
+
+.pull-right[
+.box-7[Exactly the same!]
+
+- ... But change `alpha=1`!!
+]
+
+---
+# And how do we do Lasso in R?
+
+.pull-left[
+Ridge regression:
+
+
+```r
+coef(cv$finalModel, cv$bestTune$lambda)
+```
+
+```
+## 3 x 1 sparse Matrix of class "dgCMatrix"
+##                      1
+## (Intercept) 117.483772
+## freq         -3.289314
+## female       -0.645621
+```
+]
+
+.pull-right[
+Lasso regression:
+
+
+```r
+coef(cvl$finalModel, cvl$bestTune$lambda)
+```
+
+```
+## 3 x 1 sparse Matrix of class "dgCMatrix"
+##                      1
+## (Intercept) 117.032965
+## freq         -3.296245
+## female        .
+```
+]
+
+---
+# Main takeway points
+
+.pull-left[
+- You can **.darkorange[shrink coefficients]** to introduce bias and decrease variance.
+
+- Ridge and Lasso regression are **.darkorange[similar]**:
+
+  - Lasso can be used for model selection.
+
+- Importance of understanding **.darkorange[how to estimate the penalty coefficient]**.
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/2AsEweF761Dji/source.gif)]
+]
 ---
 # References
 
@@ -310,9 +693,7 @@ Honey, I shrunk the coefficients!
 
 - STDHA. (2018). ["Penalized Regression Essentials: Ridge, Lasso &amp; Elastic Net"](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/153-penalized-regression-essentials-ridge-lasso-elastic-net)
 
-- Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 11: Instrumental Variables, Course at BYU*.
-
-&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week10/1_IV/sp2021_sta235_11_instrumental_variables_cont.html', timeout = 10)--&gt;
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week11/1_shrinkage/sp2021_sta235_13_shrinkage.html', timeout = 10)--&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

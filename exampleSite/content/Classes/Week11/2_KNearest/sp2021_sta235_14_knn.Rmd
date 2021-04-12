@@ -895,25 +895,25 @@ train.row <- sample(1:n, 0.8*n)
 test.data <- data[-train.row,]
 train.data <- data[train.row,]
 
-lambda_seq <- c(0,10^seq(-3, 3, length = 100))
+x <- data.matrix(train.data %>% 
+                   dplyr::select(-spend))
+y <- train.data$spend
 
-cv <- train(spend ~., data = train.data, 
-            method = "glmnet",
-            trControl = trainControl("cv", number = 10),
-            tuneGrid = expand.grid(alpha = 0, 
-                         lambda = lambda_seq)
-  )
+lambda_seq <- seq(0,1000,0.1)
 
+cv <- cv.glmnet(x, y, alpha = 0, 
+                lambda = lambda_seq, 
+                type.measure="mse")
 
-lambda <- cv$results$lambda
-rmse <- cv$results$RMSE
+lambda <- cv$lambda
+rmse <- sqrt(cv$cvm)
 
 cv_lambda <- data.frame(lambda = lambda,
                         rmse = rmse)
 
 ggplot(data = cv_lambda, aes(x = lambda, y = rmse)) + 
   geom_line(aes(color = "#BF3984"), lwd = 2) +
-  geom_vline(aes(xintercept = cv$bestTune$lambda, color = "dark grey"), lty=2, lwd = 1.5) +
+  geom_vline(aes(xintercept = cv$lambda.min, color = "dark grey"), lty=2, lwd = 1.5) +
   scale_color_manual(values=c("#BF3984","dark grey"),labels = c("#BF3984" = "CV-RMSE","dark grey" = "Min \u03BB")) +
   theme_bw()+
   theme_ipsum_fsc() + #plain 
@@ -945,7 +945,7 @@ cv_lambda_close <- cv_lambda %>% dplyr::filter(lambda<5)
 
 ggplot(data = cv_lambda_close, aes(x = lambda, y = rmse)) + 
   geom_line(aes(color = "#BF3984"), lwd = 2) +
-  geom_vline(aes(xintercept = cv$bestTune$lambda, color = "dark grey"), lty=2, lwd = 1.5) +
+  geom_vline(aes(xintercept = cv$lambda.min, color = "dark grey"), lty=2, lwd = 1.5) +
   scale_color_manual(values=c("#BF3984","dark grey"),labels = c("#BF3984" = "CV-RMSE","dark grey" = "Min \u03BB")) +
   theme_bw()+
   theme_ipsum_fsc() + #plain 
@@ -972,29 +972,30 @@ ggplot(data = cv_lambda_close, aes(x = lambda, y = rmse)) +
 
 .pull-left[
 ```{r, echo=TRUE, warning=FALSE, message = FALSE}
-library(caret) #<<
+library(glmnet) #<<
 
 set.seed(100)
 
 data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
 
-lambda_seq <- 10^seq(-3, 3, length = 100)
+x <- data.matrix(train.data %>% 
+                   dplyr::select(-spend))
+y <- train.data$spend
 
-cv <- train(spend ~., data = train.data, 
-            method = "glmnet",
-            trControl = trainControl("cv", number = 10),
-            tuneGrid = expand.grid(alpha = 0, 
-                         lambda = lambda_seq)
-  )
+lambda_seq <- seq(0,1000,0.1)
 
-cv_lambda <- data.frame(lambda = cv$results$lambda,
-                        rmse = cv$results$RMSE)
+cv <- cv.glmnet(x, y, alpha = 0, 
+                lambda = lambda_seq, 
+                type.measure="mse")
+
+cv_lambda <- data.frame(lambda = cv$lambda,
+                        rmse = sqrt(cv$cvm))
 
 ```
 ]
 
 .pull-right[
-- We will be using the `caret` package
+- We will be using the `glmnet` package
 ]
 
 ---
@@ -1002,29 +1003,30 @@ cv_lambda <- data.frame(lambda = cv$results$lambda,
 
 .pull-left[
 ```{r, echo=TRUE, warning=FALSE, message = FALSE}
-library(caret) 
+library(glmnet) 
 
 set.seed(100) #<<
 
 data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
 
-lambda_seq <- 10^seq(-3, 3, length = 100)
+x <- data.matrix(train.data %>% 
+                   dplyr::select(-spend))
+y <- train.data$spend
 
-cv <- train(spend ~., data = train.data, 
-            method = "glmnet",
-            trControl = trainControl("cv", number = 10),
-            tuneGrid = expand.grid(alpha = 0, 
-                         lambda = lambda_seq)
-  )
+lambda_seq <- seq(0,1000,0.1)
 
-cv_lambda <- data.frame(lambda = cv$results$lambda,
-                        rmse = cv$results$RMSE)
+cv <- cv.glmnet(x, y, alpha = 0, 
+                lambda = lambda_seq, 
+                type.measure="mse")
+
+cv_lambda <- data.frame(lambda = cv$lambda,
+                        rmse = sqrt(cv$cvm))
 
 ```
 ]
 
 .pull-right[
-- We will be using the `caret` package
+- We will be using the `glmnet` package
 
 - We are doing **.darkorange[cross-validation]**, so remember to set a seed!
 ]
@@ -1034,76 +1036,76 @@ cv_lambda <- data.frame(lambda = cv$results$lambda,
 
 .pull-left[
 ```{r, echo=TRUE, warning=FALSE, message = FALSE}
-library(caret) 
+library(glmnet) 
 
 set.seed(100)
 
 data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
 
-lambda_seq <- 10^seq(-3, 3, length = 100) #<<
+x <- data.matrix(train.data %>% #<<
+                   dplyr::select(-spend)) #<<
+y <- train.data$spend
 
-cv <- train(spend ~., data = train.data, 
-            method = "glmnet",
-            trControl = trainControl("cv", number = 10),
-            tuneGrid = expand.grid(alpha = 0, 
-                         lambda = lambda_seq)
-  )
+lambda_seq <- seq(0,1000,0.1)
 
-cv_lambda <- data.frame(lambda = cv$results$lambda,
-                        rmse = cv$results$RMSE)
+cv <- cv.glmnet(x, y, alpha = 0, 
+                lambda = lambda_seq, 
+                type.measure="mse")
+
+cv_lambda <- data.frame(lambda = cv$lambda,
+                        rmse = sqrt(cv$cvm))
 
 ```
 ]
 
 .pull-right[
-- We will be using the `caret` package
+- We will be using the `glmnet` package
 
 - We are doing **.darkorange[cross-validation]**, so remember to set a seed!
 
-- You need to create a grid for the $\lambda$'s **.darkorange[that will be tested]**
-
+- Functions in `glmnet` usually don't take data.frames $\rightarrow$ **.darkorange[transform to matrix]**
 ]
-
 
 ---
 # How do we do this in R?
 
 .pull-left[
 ```{r, echo=TRUE, warning=FALSE, message = FALSE}
-library(caret) 
+library(glmnet) 
 
 set.seed(100)
 
 data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
 
-lambda_seq <- 10^seq(-3, 3, length = 100)
+x <- data.matrix(train.data %>% 
+                   dplyr::select(-spend))
+y <- train.data$spend
 
-cv <- train(spend ~., data = train.data, #<<
-            method = "glmnet", #<<
-            trControl = trainControl("cv", number = 10), #<<
-            tuneGrid = expand.grid(alpha = 0, #<<
-                         lambda = lambda_seq)#<<
-  )
+lambda_seq <- seq(0,1000,0.1)
 
-cv_lambda <- data.frame(lambda = cv$results$lambda,
-                        rmse = cv$results$RMSE)
+cv <- cv.glmnet(x, y, alpha = 0, #<<
+                lambda = lambda_seq, #<<
+                type.measure="mse") #<<
+
+cv_lambda <- data.frame(lambda = cv$lambda,
+                        rmse = sqrt(cv$cvm))
 
 ```
 ]
 
 .pull-right[
-- We will be using the `caret` package
+- We will be using the `glmnet` package
 
 - We are doing **.darkorange[cross-validation]**, so remember to set a seed!
 
-- You need to create a grid for the $\lambda$'s **.darkorange[that will be tested]**
+- Functions in `glmnet` usually don't take data.frames $\rightarrow$ **.darkorange[transform to matrix]**
 
-- The function we will use is `train`: Same as before
+- The function we will use is `cv.glmnet`: Ridge regression with cross-validation
 .small[
 
-  - `method="glmnet"` means that it will run an elastic net.
-- `alpha=0` means is a **.darkorange[ridge regression]**
-- `lambda = lambda_seq` is not necessary (you can provide your own grid)]
+  - `alpha=0` means is a **.darkorange[ridge regression]**
+- `lambda = lambda_seq` is not necessary (you can provide your own grid)
+- `type.measure="mse"` uses MSE for the error term.]
 ]
 
 ---
@@ -1111,42 +1113,43 @@ cv_lambda <- data.frame(lambda = cv$results$lambda,
 
 .pull-left[
 ```{r, echo=TRUE, warning=FALSE, message = FALSE}
-library(caret) 
+library(glmnet) 
 
 set.seed(100)
 
 data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
 
-lambda_seq <- 10^seq(-3, 3, length = 100)
+x <- data.matrix(train.data %>% 
+                   dplyr::select(-spend))
+y <- train.data$spend
 
-cv <- train(spend ~., data = train.data, 
-            method = "glmnet", 
-            trControl = trainControl("cv", number = 10), 
-            tuneGrid = expand.grid(alpha = 0, 
-                         lambda = lambda_seq)
-  )
+lambda_seq <- seq(0,1000,0.1)
 
-cv_lambda <- data.frame(lambda = cv$results$lambda,#<<
-                        rmse = cv$results$RMSE)#<<
+cv <- cv.glmnet(x, y, alpha = 0, 
+                lambda = lambda_seq, 
+                type.measure="mse") 
+
+cv_lambda <- data.frame(lambda = cv$lambda,#<<
+                        rmse = sqrt(cv$cvm))#<<
 
 ```
 ]
 
 .pull-right[
-- We will be using the `caret` package
+- We will be using the `glmnet` package
 
 - We are doing **.darkorange[cross-validation]**, so remember to set a seed!
 
-- You need to create a grid for the $\lambda$'s **.darkorange[that will be tested]**
+- Functions in `glmnet` usually don't take data.frames $\rightarrow$ **.darkorange[transform to matrix]**
 
-- The function we will use is `train`: Same as before
+- The function we will use is `cv.glmnet`: Ridge regression with cross-validation
 
 - Important objects in `cv`:
 .small[
 
-  - `results$lambda`: Vector of $\lambda$ that was tested
-- `results$RMSE`: RMSE for each $\lambda$
-- `bestTune$lambda`: $\lambda$ that minimizes the error term.]
+  - `lambda`: Vector of $\lambda$ that was tested
+- `cvm`: Mean cross-validated error (e.g. MSE) for each $\lambda$
+- `lambda.min`: $\lambda$ that minimizes the error term.]
 ]
 
 ---
@@ -1167,7 +1170,10 @@ coef(lm1)
 Ridge regression:
 
 ```{r}
-coef(cv$finalModel, cv$bestTune$lambda)
+rr1 <- glmnet(x, y, alpha = 0, 
+                lambda = cv$lambda.min)
+
+coef(rr1)
 ```
 ]
 
@@ -1223,23 +1229,25 @@ $$||\beta||_1 = \sum_{k=1}^p |\beta|$$
 
 .pull-left[
 ```{r, echo=TRUE, warning=FALSE, message = FALSE}
-library(caret) 
+library(glmnet) 
 
 set.seed(100)
 
 data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
 
-lambda_seq <- 10^seq(-3, 3, length = 100)
+x <- data.matrix(train.data %>% 
+                   dplyr::select(-spend))
+y <- train.data$spend
 
-cvl <- train(spend ~., data = train.data, 
-            method = "glmnet",
-            trControl = trainControl("cv", number = 10),
-            tuneGrid = expand.grid(alpha = 1, #<<
-                         lambda = lambda_seq)
-  )
+lambda_seq <- seq(0,1000,0.1)
 
-cvl_lambda <- data.frame(lambda = cvl$results$lambda,
-                         rmse = cvl$results$RMSE)
+cvl <- cv.glmnet(x, y, alpha = 1, #<<
+                lambda = lambda_seq, 
+                type.measure="mse") 
+
+cv_lambda <- data.frame(lambda = cvl$lambda,
+                        rmse = sqrt(cvl$cvm))
+
 ```
 ]
 
@@ -1256,7 +1264,10 @@ cvl_lambda <- data.frame(lambda = cvl$results$lambda,
 Ridge regression:
 
 ```{r}
-coef(cv$finalModel, cv$bestTune$lambda)
+rr1 <- glmnet(x, y, alpha = 0, 
+                lambda = cv$lambda.min)
+
+coef(rr1)
 ```
 ]
 
@@ -1264,7 +1275,10 @@ coef(cv$finalModel, cv$bestTune$lambda)
 Lasso regression:
 
 ```{r}
-coef(cvl$finalModel, cvl$bestTune$lambda)
+lr1 <- glmnet(x, y, alpha = 1, 
+                lambda = cvl$lambda.min)
+
+coef(lr1)
 ```
 ]
 
