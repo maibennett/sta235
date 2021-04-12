@@ -1,5 +1,5 @@
 ---
-title: "STA 235 - Causal Inference: Shrinkage"
+title: "STA 235 - Causal Inference: K-nearest neighbors"
 subtitle: "Spring 2021"
 author: "McCombs School of Business, UT Austin"
 output:
@@ -287,90 +287,58 @@ library(patchwork)
 library(scales)
 library(glmnet)
 library(caret)
+library(emo)
+library(rvest)
+library(ggtext)
 
 options(scipen = 0)
 ```
 
-# Some reminders
+# Prediction tasks
 
-.box-2LA[Homework 3 is due this Wednesday]
+- We have seen the main issue with **.darkorange[bias vs variance trade-off]**
 
-<br>
-
-.box-2tL[No questions will be answered after 7pm 4/13]
-
----
-# Some reminders (Cont.)
-
-<br>
-.box-7LA[Highlight sessions on Thur. 5:00-5:30pm]
-
-<br>
-- Same link every week.
-
-- If you feel you are **.darkorange[falling behind]**, I highly encourage you to attend.
-
+- Beyond regression, **.darkorange[what methods can we use for prediction?]**
 --
 
-- Same as last class, extra point will be given for **.darkorange[participation]**:
-
-  - That means **.darkorange[answering polls]** AND **.darkorange[participating in class]** (e.g. asking/answering a questions, etc.)
+.box-3[K-nearest neighbor]
 
 ---
-# Coming soon: Prediction project
+# KNN as a classification problem
 
-<br>
-.box-6LA[Data Challenge!]
+- Again: Window shoppers vs high rollers
 
-<br>
-- Will be posted this week.
+```{r}
+data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
 
-- You will be allowed to work **.darkorange[pairs]**:
-  - That means that your group can be one (1) or two (2) persons (I encourage you to find a partner).
-  - **.darkorange[Don't email me asking me if you can be a group of 3, 4, etc.]**
+data$id <- seq(1,nrow(data))
 
----
-# Continuing our journey
+set.seed(100)
 
-.pull-left[
-**.darkorange[Last class:]**
+sample.id1 <- sample(data$id[data$freq>=5],8)
+sample.id2 <- sample(data$id[data$freq<5],8)
 
-  - Bias vs Variance
-  - Validation sets and cross-validation
-  - Model selection: Stepwise
-  
-**.darkorange[Today:]**
+sample <- data[c(sample.id1, sample.id2),]
 
-  - Regularization and model selection: Shrinkage
-  - Prediction: K-nearest neighbors
-]
+sample$type <- NA
 
-.pull-right[
-.center[
-![](https://media.giphy.com/media/nyPZB25Mg1pe/giphy.gif)]
-]
+emoji_to_link <- function(x) {
+  paste0("https://emojipedia.org/emoji/",x) %>%
+    read_html() %>%
+    html_nodes("tr td a") %>%
+    .[1] %>%
+    html_attr("href") %>%
+    paste0("https://emojipedia.org/", .) %>%
+    read_html() %>%
+    html_node('div[class="vendor-image"] img') %>%
+    html_attr("src")
+}
 
----
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Honey, I shrunk the coefficients!
-]
+link_to_img <- function(x, size = 25) {
+  paste0("<img src='", x, "' width='", size, "'/>")
+}
 
----
-# What is shrinkage?
-
-- Last class, we saw **.darkorange[stepwise procedure]**: Subsetting model selection approach.
-  
-  - Select $k$ out of $p$ total predictors
-  
---
-  
-- **.darkorange[Shrinkage *(a.k.a Regularization)*]**: Fitting a model with all $p$ predictors, but introducing bias (i.e. shrinking coefficients towards 0) for improvement in variance.
-
-  - Ridge regression
-  
-  - Lasso regression
+```
 
 ---
 background-position: 50% 50%
