@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+
 @page { margin: 0; }
 
 @page {
@@ -36,4 +39,9 @@
 
 .remark-slide-content.header_background {
   padding-top: 0rem;
+}
+
+.MJXc-TeX-math-I{
+	font-family: Computer Modern, sans-serif;
+	font-size: 100%;
 }
