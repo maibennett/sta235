@@ -50,7 +50,7 @@ cv <- train(spend ~., data = train.data, # We give the function `train` the form
 )
 
 
-lambda <- cv$results$lambda #We can extract the vector of tested lambas here
+lambda <- cv$results$lambda #We can extract the vector of tested lambdas here
 rmse <- cv$results$RMSE # We can extract the C-V RMSE for each of those lambdas!
 
 ## Exercise: What other important things do you see in the matrix `results`? Explore it!

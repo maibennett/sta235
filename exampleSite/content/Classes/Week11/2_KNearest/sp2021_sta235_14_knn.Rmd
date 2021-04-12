@@ -365,7 +365,7 @@ Algorithm:
 
 --
 
-2) Choose a **.darkorange[number of neighbors]**, $N$ (*Note: Choose an odd number!*).
+2) Choose a **.darkorange[number of neighbors]**, $K$ (*Note: Choose an odd number!*).
 
 --
 
@@ -373,7 +373,7 @@ Algorithm:
 
 --
 
-4) Calculate the **.darkorange[rate for each class]** according to $N$: $Pr(Y=j|X=x_0) = \frac{1}{K}\sum_{i \in N_0}\mathrm{I}(y_i=j)$.
+4) Calculate the **.darkorange[rate for each class]** according to $K$: $Pr(Y=j|X=x_0) = \frac{1}{K}\sum_{i \in N_0}\mathrm{I}(y_i=j)$.
 
 --
 
