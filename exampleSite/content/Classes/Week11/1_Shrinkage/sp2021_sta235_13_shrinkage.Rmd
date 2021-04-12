@@ -1166,6 +1166,10 @@ lm1 <- lm(spend ~ freq + female,
           data = data)
 
 coef(lm1)
+
+pred.lm <- lm1 %>% predict(test.data)
+
+RMSE(pred.lm, test.data$spend)
 ```
 ]
 
@@ -1174,6 +1178,10 @@ Ridge regression:
 
 ```{r}
 coef(cv$finalModel, cv$bestTune$lambda)
+
+pred.ridge <- cv %>% predict(test.data)
+
+RMSE(pred.ridge, test.data$spend)
 ```
 ]
 
@@ -1263,6 +1271,10 @@ Ridge regression:
 
 ```{r}
 coef(cv$finalModel, cv$bestTune$lambda)
+
+pred.ridge <- cv %>% predict(test.data)
+
+RMSE(pred.ridge, test.data$spend)
 ```
 ]
 
@@ -1271,6 +1283,10 @@ Lasso regression:
 
 ```{r}
 coef(cvl$finalModel, cvl$bestTune$lambda)
+
+pred.lasso <- cvl %>% predict(test.data)
+
+RMSE(pred.lasso, test.data$spend)
 ```
 ]
 
