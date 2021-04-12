@@ -56,7 +56,8 @@ class: center, middle, inverse, title-slide
 
 - Beyond regression, **.darkorange[what methods can we use for prediction?]**
 --
-
+&lt;br&gt;
+&lt;br&gt;
 .box-3[K-nearest neighbor]
 
 ---
@@ -64,23 +65,31 @@ class: center, middle, inverse, title-slide
 
 - Again: Window shoppers vs high rollers
 
-&lt;img src="sp2021_sta235_14_knn_files/figure-html/emoji_intro-1.svg" style="display: block; margin: auto;" /&gt;
+.center[
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_intro.svg)
+]
 
 
 ---
 # How would you classify this unit?
 
-&lt;img src="sp2021_sta235_14_knn_files/figure-html/emoji_class1-1.png" style="display: block; margin: auto;" /&gt;
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_class1.svg)
+]
 
 ---
 # How would you classify this unit?
 
-&lt;img src="sp2021_sta235_14_knn_files/figure-html/emoji_class2-1.svg" style="display: block; margin: auto;" /&gt;
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_class2.svg)
+]
 
 ---
 # But what about this one?
 
-&lt;img src="sp2021_sta235_14_knn_files/figure-html/emoji_class3-1.svg" style="display: block; margin: auto;" /&gt;
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_class3.svg)
+]
 
 ---
 # K-nearest neighbor classifier
@@ -94,15 +103,19 @@ Algorithm:
 1) Choose a **.darkorange[distance measure]** (e.g. eucledian).
 
 --
+
 2) Choose a **.darkorange[number of neighbors]**, `\(N\)` (*Note: Choose an odd number!*).
 
 --
+
 3) **.darkorange[Calculate the distance]** between data and other points.
 
 --
+
 4) Calculate the **.darkorange[rate for each class]** according to `\(N\)`.
 
 --
+
 5) **.darkorange[Assign the majority class]**.
 
 ---
@@ -110,22 +123,27 @@ Algorithm:
 
 .box-6[Classifier: High-roller]
 
-&lt;img src="sp2021_sta235_14_knn_files/figure-html/emoji_knn1-1.svg" style="display: block; margin: auto;" /&gt;
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_knn1.svg)
+]
 
 ---
 # KNN with `\(K=3\)`
 
 .box-6[Classifier: High-roller]
 
-&lt;img src="sp2021_sta235_14_knn_files/figure-html/emoji_knn3-1.svg" style="display: block; margin: auto;" /&gt;
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_knn3.svg)
+]
 
 ---
 # KNN with `\(K=7\)`
 
 .box-6[Classifier: Window-shopper]
 
-&lt;img src="sp2021_sta235_14_knn_files/figure-html/emoji_knn7-1.svg" style="display: block; margin: auto;" /&gt;
-
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_knn7.svg)
+]
 
 ---
 background-position: 50% 50%

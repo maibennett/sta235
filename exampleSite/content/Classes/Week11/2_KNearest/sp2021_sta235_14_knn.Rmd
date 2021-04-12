@@ -300,7 +300,8 @@ options(scipen = 0)
 
 - Beyond regression, **.darkorange[what methods can we use for prediction?]**
 --
-
+<br>
+<br>
 .box-3[K-nearest neighbor]
 
 ---
@@ -308,189 +309,31 @@ options(scipen = 0)
 
 - Again: Window shoppers vs high rollers
 
-```{r emoji_intro, fig.height=5, fig.width=7, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
-
-data$id <- seq(1,nrow(data))
-
-set.seed(100)
-
-sample.id1 <- sample(data$id[data$freq>=5],8)
-sample.id2 <- sample(data$id[data$freq<5],8)
-
-sample <- data[c(sample.id1, sample.id2),]
-
-sample$freq[sample$spend==117] <- 3
-sample$freq[sample$spend==99 & sample$freq==2] <- 5
-
-sample$type <- NA
-
-emoji_to_link <- function(x) {
-  paste0("https://emojipedia.org/emoji/",x) %>%
-    read_html() %>%
-    html_nodes("tr td a") %>%
-    .[1] %>%
-    html_attr("href") %>%
-    paste0("https://emojipedia.org/", .) %>%
-    read_html() %>%
-    html_node('div[class="vendor-image"] img') %>%
-    html_attr("src")
-}
-
-link_to_img <- function(x, size = 25) {
-  paste0("<img src='", x, "' width='", size, "'/>")
-}
-
-# https://emojipedia.org/emoji/
-
-sample$type[sample$freq>5] <- emoji_to_link("🛍%EF%B8%8F/")
-
-sample$type[sample$freq<=5] <- emoji_to_link("🧐/")
-
-sample$type[sample$freq==6] <- emoji_to_link("🧐/")
-
-sample$type[sample$freq==4 & sample$spend<100] <- emoji_to_link("🛍%EF%B8%8F/")
-
-sample$label <- link_to_img(sample$type)
-
-
-sample %>%
-  ggplot(aes(x = freq, y = spend, label = label)) +
-  geom_richtext(aes(y = spend), fill = NA, label.color = NA, # remove background and outline
-                label.padding = grid::unit(rep(0, 4), "pt") # remove padding
-  ) +
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("Frequency") + ylab("Spending ($)")+
-  ylim(0,150) + xlim(0,10) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.9),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-  
-```
+.center[
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_intro.svg)
+]
 
 
 ---
 # How would you classify this unit?
 
-```{r emoji_class1, fig.height=5, fig.width=7, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-
-sample1 <- sample %>% add_row(freq = 8,
-                              female = 0,
-                              spend = 48,
-                              type = emoji_to_link("❓/"),
-                              label = link_to_img(emoji_to_link("❓/")))
-
-sample1 %>%
-  ggplot(aes(x = freq, y = spend, label = label)) +
-  geom_richtext(aes(y = spend), fill = NA, label.color = NA, # remove background and outline
-                label.padding = grid::unit(rep(0, 4), "pt") # remove padding
-  ) +
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("Frequency") + ylab("Spending ($)")+
-  ylim(0,150) + xlim(0,10) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.9),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-  
-```
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_class1.svg)
+]
 
 ---
 # How would you classify this unit?
 
-```{r emoji_class2, fig.height=5, fig.width=7, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-
-sample1 <- sample %>% add_row(freq = 1,
-                              female = 1,
-                              spend = 100,
-                              type = emoji_to_link("❓/"),
-                              label = link_to_img(emoji_to_link("❓/")))
-
-sample1 %>%
-  ggplot(aes(x = freq, y = spend, label = label)) +
-  geom_richtext(aes(y = spend), fill = NA, label.color = NA, # remove background and outline
-                label.padding = grid::unit(rep(0, 4), "pt") # remove padding
-  ) +
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("Frequency") + ylab("Spending ($)")+
-  ylim(0,150) + xlim(0,10) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.9),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-  
-```
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_class2.svg)
+]
 
 ---
 # But what about this one?
 
-```{r emoji_class3, fig.height=5, fig.width=7, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-
-sample1 <- sample %>% add_row(freq = 6,
-                              female = 0,
-                              spend = 90,
-                              type = emoji_to_link("❓/"),
-                              label = link_to_img(emoji_to_link("❓/")))
-
-sample1 %>%
-  ggplot(aes(x = freq, y = spend, label = label)) +
-  geom_richtext(aes(y = spend), fill = NA, label.color = NA, # remove background and outline
-                label.padding = grid::unit(rep(0, 4), "pt") # remove padding
-  ) +
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("Frequency") + ylab("Spending ($)")+
-  ylim(0,150) + xlim(0,10) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.9),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-  
-```
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_class3.svg)
+]
 
 ---
 # K-nearest neighbor classifier
@@ -504,15 +347,19 @@ Algorithm:
 1) Choose a **.darkorange[distance measure]** (e.g. eucledian).
 
 --
+
 2) Choose a **.darkorange[number of neighbors]**, $N$ (*Note: Choose an odd number!*).
 
 --
+
 3) **.darkorange[Calculate the distance]** between data and other points.
 
 --
+
 4) Calculate the **.darkorange[rate for each class]** according to $N$.
 
 --
+
 5) **.darkorange[Assign the majority class]**.
 
 ---
@@ -520,118 +367,27 @@ Algorithm:
 
 .box-6[Classifier: High-roller]
 
-```{r emoji_knn1, fig.height=4, fig.width=7, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-xc = 6
-yc = 90
-r=10
-
-sample1 %>%
-  ggplot(aes(x = freq, y = spend, label = label)) +
-  geom_richtext(aes(y = spend), fill = NA, label.color = NA, # remove background and outline
-                label.padding = grid::unit(rep(0, 4), "pt") # remove padding
-  ) +
-  ggplot2::annotate("path",
-   x=xc+r/15*cos(seq(0,2*pi,length.out=100)),
-   y=yc+r*sin(seq(0,2*pi,length.out=100)), color = "dark grey", lwd = 2) +
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("Frequency") + ylab("Spending ($)")+
-  ylim(0,150) + xlim(0,10) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.9),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-  
-```
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_knn1.svg)
+]
 
 ---
 # KNN with $K=3$
 
 .box-6[Classifier: High-roller]
 
-```{r emoji_knn3, fig.height=5, fig.width=7, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-xc = 6
-yc = 90
-r=17
-
-sample1 %>%
-  ggplot(aes(x = freq, y = spend, label = label)) +
-  geom_richtext(aes(y = spend), fill = NA, label.color = NA, # remove background and outline
-                label.padding = grid::unit(rep(0, 4), "pt") # remove padding
-  ) +
-  ggplot2::annotate("path",
-   x=xc+r/15*cos(seq(0,2*pi,length.out=100)),
-   y=yc+r*sin(seq(0,2*pi,length.out=100)), color = "dark grey", lwd = 2) +
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("Frequency") + ylab("Spending ($)")+
-  ylim(0,150) + xlim(0,10) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.9),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-  
-```
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_knn3.svg)
+]
 
 ---
 # KNN with $K=7$
 
 .box-6[Classifier: Window-shopper]
 
-```{r emoji_knn7, fig.height=5, fig.width=7, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-xc = 6
-yc = 90
-r=29
-
-sample1 %>%
-  ggplot(aes(x = freq, y = spend, label = label)) +
-  geom_richtext(aes(y = spend), fill = NA, label.color = NA, # remove background and outline
-                label.padding = grid::unit(rep(0, 4), "pt") # remove padding
-  ) +
-  ggplot2::annotate("path",
-   x=xc+r/15*cos(seq(0,2*pi,length.out=100)),
-   y=yc+r*sin(seq(0,2*pi,length.out=100)), color = "dark grey", lwd = 2) +
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("Frequency") + ylab("Spending ($)")+
-  ylim(0,150) + xlim(0,10) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.9),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-  
-```
-
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_knn7.svg)
+]
 
 ---
 background-position: 50% 50%
