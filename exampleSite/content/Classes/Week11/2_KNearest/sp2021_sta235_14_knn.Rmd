@@ -310,7 +310,7 @@ options(scipen = 0)
 - Again: Window shoppers vs high rollers
 
 .center[
-![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_intro.svg)
+![:scale 60%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_intro.svg)
 ]
 
 
@@ -318,21 +318,21 @@ options(scipen = 0)
 # How would you classify this unit?
 
 .center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_class1.svg)
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_class1.svg)
 ]
 
 ---
 # How would you classify this unit?
 
 .center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_class2.svg)
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_class2.svg)
 ]
 
 ---
 # But what about this one?
 
 .center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_class3.svg)
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_class3.svg)
 ]
 
 ---
@@ -368,7 +368,7 @@ Algorithm:
 .box-6[Classifier: High-roller]
 
 .center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_knn1.svg)
+![:scale 65%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_knn1.svg)
 ]
 
 ---
@@ -377,17 +377,25 @@ Algorithm:
 .box-6[Classifier: High-roller]
 
 .center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_knn3.svg)
+![:scale 65%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_knn3.svg)
 ]
 
 ---
-# KNN with $K=7$
+# KNN with $K=9$
 
 .box-6[Classifier: Window-shopper]
 
 .center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_knn9.svg)
+![:scale 65%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/images/emoji_knn9.svg)
 ]
+
+---
+
+.box-3LA[Poll time!]
+
+---
+
+.box-3LA[A lower number of neighbors K yields...]
 
 ---
 background-position: 50% 50%
