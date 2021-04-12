@@ -30,7 +30,7 @@ Complete before **Sunday April 11th (11:59 pm)**. You can find the assignment <a
 
 ## Slides
 
-{{% button href="https://sta235.netlify.app/Classes/Week11/1_shrinkage/sp2021_sta235_13_shrinkage.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href=https://sta235.netlify.app/Classes/Week11/1_shrinkage/sp2021_sta235_13_shrinkage.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.netlify.app/Classes/Week11/1_shrinkage/sp2021_sta235_13_shrinkage.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week11/1_shrinkage/sp2021_sta235_13_shrinkage.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
 {{< slides src="https://sta235.netlify.app/Classes/Week11/1_shrinkage/sp2021_sta235_13_shrinkage.html" >}}
 
