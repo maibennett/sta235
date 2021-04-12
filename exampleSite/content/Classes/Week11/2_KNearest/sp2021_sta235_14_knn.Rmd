@@ -419,9 +419,9 @@ Algorithm:
 
 .pull-left[
 ```{r, echo=TRUE, warning=FALSE, message = FALSE}
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/data/purchases_type.csv")
+library(caret)#<<
 
-d <- d %>% mutate(type = factor(type))
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/data/purchases_type.csv")
 
 set.seed(100)
 
@@ -433,10 +433,11 @@ test.data <- d[-train.row,]
 train.data <- d[train.row,]
 
 knn <- train(
-  type ~., data = train.data, method = "knn",
+  factor(type) ~., data = train.data, 
+  method = "knn",
   trControl = trainControl("cv", number = 10),
   preProcess = c("center","scale"),
-  tuneLength = 20
+  tuneLength = 15
   )
 ```
 ]
@@ -446,6 +447,155 @@ knn <- train(
 ]
 
 ---
+# KNN Classifier in R?
+
+.pull-left[
+```{r, echo=TRUE, warning=FALSE, message = FALSE}
+library(caret)
+
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/data/purchases_type.csv")
+
+set.seed(100)
+
+n <- nrow(d)
+
+train.row <- sample(1:n, 0.8*n) #<<
+
+test.data <- d[-train.row,] #<<
+train.data <- d[train.row,] #<<
+
+knn <- train(
+  factor(type) ~., data = train.data, 
+  method = "knn",
+  trControl = trainControl("cv", number = 10),
+  preProcess = c("center","scale"),
+  tuneLength = 15
+  )
+```
+]
+
+.pull-right[
+- Again, we'll be using the `caret` package.
+
+- Create a **.darkorange[training]** and **.darkorange[testing]** dataset.
+]
+
+---
+# KNN Classifier in R?
+
+.pull-left[
+```{r, echo=TRUE, warning=FALSE, message = FALSE}
+library(caret)
+
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/data/purchases_type.csv")
+
+set.seed(100)
+
+n <- nrow(d)
+
+train.row <- sample(1:n, 0.8*n)
+
+test.data <- d[-train.row,]
+train.data <- d[train.row,]
+
+knn <- train(
+  factor(type) ~., data = train.data, 
+  method = "knn", #<<
+  trControl = trainControl("cv", number = 10),
+  preProcess = c("center","scale"),
+  tuneLength = 15
+  )
+```
+]
+
+.pull-right[
+- Again, we'll be using the `caret` package.
+
+- Create a **.darkorange[training]** and **.darkorange[testing]** dataset.
+
+- Use the method `knn` on a factor variable (i.e. classification)
+]
+
+---
+# KNN Classifier in R?
+
+.pull-left[
+```{r, echo=TRUE, warning=FALSE, message = FALSE}
+library(caret)
+
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/data/purchases_type.csv")
+
+set.seed(100)
+
+n <- nrow(d)
+
+train.row <- sample(1:n, 0.8*n)
+
+test.data <- d[-train.row,]
+train.data <- d[train.row,]
+
+knn <- train(
+  factor(type) ~., data = train.data, 
+  method = "knn",
+  trControl = trainControl("cv", number = 10),
+  preProcess = c("center","scale"), #<<
+  tuneLength = 15
+  )
+```
+]
+
+.pull-right[
+- Again, we'll be using the `caret` package.
+
+- Create a **.darkorange[training]** and **.darkorange[testing]** dataset.
+
+- Use the method `knn` on a factor variable (i.e. classification)
+
+- We also **.darkorange[pre-process]** the data. Why?
+]
+
+---
+# KNN Classifier in R?
+
+.pull-left[
+```{r, echo=TRUE, warning=FALSE, message = FALSE}
+library(caret)
+
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/data/purchases_type.csv")
+
+set.seed(100)
+
+n <- nrow(d)
+
+train.row <- sample(1:n, 0.8*n)
+
+test.data <- d[-train.row,]
+train.data <- d[train.row,]
+
+knn <- train(
+  factor(type) ~., data = train.data, 
+  method = "knn",
+  trControl = trainControl("cv", number = 10),
+  preProcess = c("center","scale"),
+  tuneLength = 15 #<<
+  )
+```
+]
+
+.pull-right[
+- Again, we'll be using the `caret` package.
+
+- Create a **.darkorange[training]** and **.darkorange[testing]** dataset.
+
+- Use the method `knn` on a factor variable (i.e. classification)
+
+- We also **.darkorange[pre-process]** the data. Why?
+
+- `tuneLength` is the level of granularity for searching $K$.
+]
+
+
+---
 # How many neighbors?
 
 We can see the optimal K using `bestTune` parameter (`r knn$bestTune`).
@@ -453,6 +603,24 @@ We can see the optimal K using `bestTune` parameter (`r knn$bestTune`).
 ```{r knn_plot, fig.height=4.7, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
 plot(knn)
 ```
+
+---
+# How accurate is this?
+
+.pull-left[
+- For **.darkorange[classification]** problems, we care about *false positive* and *false negative*.
+
+- Say 1: window-shoppers and 2: high-rollers.
+
+]
+
+.pull-right[
+```{r}
+pred.type <- knn %>% predict(test.data)
+
+table(pred.type, test.data$type)
+```
+]
 
 ---
 # KNN for regression

@@ -350,6 +350,7 @@ lambda_seq &lt;- 10^seq(-3, 3, length = 100)
 
 cv &lt;- train(spend ~., data = train.data, 
             method = "glmnet",
+            preProcess = "scale",
             trControl = trainControl("cv", number = 10),
             tuneGrid = expand.grid(alpha = 0, 
                          lambda = lambda_seq)
@@ -380,6 +381,7 @@ lambda_seq &lt;- 10^seq(-3, 3, length = 100)
 
 cv &lt;- train(spend ~., data = train.data, 
             method = "glmnet",
+            preProcess = "scale",
             trControl = trainControl("cv", number = 10),
             tuneGrid = expand.grid(alpha = 0, 
                          lambda = lambda_seq)
@@ -412,6 +414,7 @@ data &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/ex
 
 cv &lt;- train(spend ~., data = train.data, 
             method = "glmnet",
+            preProcess = "scale",
             trControl = trainControl("cv", number = 10),
             tuneGrid = expand.grid(alpha = 0, 
                          lambda = lambda_seq)
@@ -448,6 +451,7 @@ lambda_seq &lt;- 10^seq(-3, 3, length = 100)
 
 *cv &lt;- train(spend ~., data = train.data,
 *           method = "glmnet",
+            preProcess = "scale",
 *           trControl = trainControl("cv", number = 10),
 *           tuneGrid = expand.grid(alpha = 0,
 *                        lambda = lambda_seq)
@@ -488,7 +492,8 @@ data &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/ex
 lambda_seq &lt;- 10^seq(-3, 3, length = 100)
 
 cv &lt;- train(spend ~., data = train.data, 
-            method = "glmnet", 
+            method = "glmnet",
+            preProcess = "scale",
             trControl = trainControl("cv", number = 10), 
             tuneGrid = expand.grid(alpha = 0, 
                          lambda = lambda_seq)
@@ -546,10 +551,10 @@ coef(cv$finalModel, cv$bestTune$lambda)
 
 ```
 ## 3 x 1 sparse Matrix of class "dgCMatrix"
-##                      1
-## (Intercept) 117.483772
-## freq         -3.289314
-## female       -0.645621
+##                       1
+## (Intercept) 117.4837717
+## freq         -9.4095221
+## female       -0.2773666
 ```
 ]
 
@@ -645,10 +650,10 @@ coef(cv$finalModel, cv$bestTune$lambda)
 
 ```
 ## 3 x 1 sparse Matrix of class "dgCMatrix"
-##                      1
-## (Intercept) 117.483772
-## freq         -3.289314
-## female       -0.645621
+##                       1
+## (Intercept) 117.4837717
+## freq         -9.4095221
+## female       -0.2773666
 ```
 ]
 

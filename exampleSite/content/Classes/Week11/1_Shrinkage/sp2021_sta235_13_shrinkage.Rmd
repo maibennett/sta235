@@ -899,6 +899,7 @@ lambda_seq <- c(0,10^seq(-3, 3, length = 100))
 
 cv <- train(spend ~., data = train.data, 
             method = "glmnet",
+            preProcess = "scale",
             trControl = trainControl("cv", number = 10),
             tuneGrid = expand.grid(alpha = 0, 
                          lambda = lambda_seq)
@@ -982,6 +983,7 @@ lambda_seq <- 10^seq(-3, 3, length = 100)
 
 cv <- train(spend ~., data = train.data, 
             method = "glmnet",
+            preProcess = "scale",
             trControl = trainControl("cv", number = 10),
             tuneGrid = expand.grid(alpha = 0, 
                          lambda = lambda_seq)
@@ -1012,6 +1014,7 @@ lambda_seq <- 10^seq(-3, 3, length = 100)
 
 cv <- train(spend ~., data = train.data, 
             method = "glmnet",
+            preProcess = "scale",
             trControl = trainControl("cv", number = 10),
             tuneGrid = expand.grid(alpha = 0, 
                          lambda = lambda_seq)
@@ -1044,6 +1047,7 @@ lambda_seq <- 10^seq(-3, 3, length = 100) #<<
 
 cv <- train(spend ~., data = train.data, 
             method = "glmnet",
+            preProcess = "scale",
             trControl = trainControl("cv", number = 10),
             tuneGrid = expand.grid(alpha = 0, 
                          lambda = lambda_seq)
@@ -1080,6 +1084,7 @@ lambda_seq <- 10^seq(-3, 3, length = 100)
 
 cv <- train(spend ~., data = train.data, #<<
             method = "glmnet", #<<
+            preProcess = "scale",
             trControl = trainControl("cv", number = 10), #<<
             tuneGrid = expand.grid(alpha = 0, #<<
                          lambda = lambda_seq)#<<
@@ -1120,7 +1125,8 @@ data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/examp
 lambda_seq <- 10^seq(-3, 3, length = 100)
 
 cv <- train(spend ~., data = train.data, 
-            method = "glmnet", 
+            method = "glmnet",
+            preProcess = "scale",
             trControl = trainControl("cv", number = 10), 
             tuneGrid = expand.grid(alpha = 0, 
                          lambda = lambda_seq)

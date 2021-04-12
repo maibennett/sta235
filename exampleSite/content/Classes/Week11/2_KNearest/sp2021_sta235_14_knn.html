@@ -159,9 +159,9 @@ Algorithm:
 .pull-left[
 
 ```r
-d &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/data/purchases_type.csv")
+*library(caret)
 
-d &lt;- d %&gt;% mutate(type = factor(type))
+d &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/data/purchases_type.csv")
 
 set.seed(100)
 
@@ -173,10 +173,11 @@ test.data &lt;- d[-train.row,]
 train.data &lt;- d[train.row,]
 
 knn &lt;- train(
-  type ~., data = train.data, method = "knn",
+  factor(type) ~., data = train.data, 
+  method = "knn",
   trControl = trainControl("cv", number = 10),
   preProcess = c("center","scale"),
-  tuneLength = 20
+  tuneLength = 15
   )
 ```
 ]
@@ -186,9 +187,120 @@ knn &lt;- train(
 ]
 
 ---
+# KNN Classifier in R?
+
+.pull-left[
+
+```r
+library(caret)
+
+d &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/data/purchases_type.csv")
+
+set.seed(100)
+
+n &lt;- nrow(d)
+
+*train.row &lt;- sample(1:n, 0.8*n)
+
+*test.data &lt;- d[-train.row,]
+*train.data &lt;- d[train.row,]
+
+knn &lt;- train(
+  factor(type) ~., data = train.data, 
+  method = "knn",
+  trControl = trainControl("cv", number = 10),
+  preProcess = c("center","scale"),
+  tuneLength = 15
+  )
+```
+]
+
+.pull-right[
+- Again, we'll be using the `caret` package.
+
+- Create a **.darkorange[training]** and **.darkorange[testing]** dataset.
+]
+
+---
+# KNN Classifier in R?
+
+.pull-left[
+
+```r
+library(caret)
+
+d &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/data/purchases_type.csv")
+
+set.seed(100)
+
+n &lt;- nrow(d)
+
+train.row &lt;- sample(1:n, 0.8*n)
+
+test.data &lt;- d[-train.row,]
+train.data &lt;- d[train.row,]
+
+knn &lt;- train(
+  factor(type) ~., data = train.data, 
+* method = "knn",
+  trControl = trainControl("cv", number = 10),
+  preProcess = c("center","scale"),
+  tuneLength = 15
+  )
+```
+]
+
+.pull-right[
+- Again, we'll be using the `caret` package.
+
+- Create a **.darkorange[training]** and **.darkorange[testing]** dataset.
+
+- Use the method `knn` on a factor variable (i.e. classification)
+]
+
+---
+# KNN Classifier in R?
+
+.pull-left[
+
+```r
+library(caret)
+
+d &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/data/purchases_type.csv")
+
+set.seed(100)
+
+n &lt;- nrow(d)
+
+train.row &lt;- sample(1:n, 0.8*n)
+
+test.data &lt;- d[-train.row,]
+train.data &lt;- d[train.row,]
+
+knn &lt;- train(
+  factor(type) ~., data = train.data, 
+  method = "knn",
+  trControl = trainControl("cv", number = 10),
+* preProcess = c("center","scale"),
+  tuneLength = 15
+  )
+```
+]
+
+.pull-right[
+- Again, we'll be using the `caret` package.
+
+- Create a **.darkorange[training]** and **.darkorange[testing]** dataset.
+
+- Use the method `knn` on a factor variable (i.e. classification)
+
+- We also **.darkorange[pre-process]** the data. Why?
+]
+
+---
 # How many neighbors?
 
-We can see the optimal K using `bestTune` parameter (41).
+We can see the optimal K using `bestTune` parameter (21).
 
 &lt;img src="sp2021_sta235_14_knn_files/figure-html/knn_plot-1.svg" style="display: block; margin: auto;" /&gt;
 
