@@ -22,3 +22,5 @@ disableToc: true
 
 - <a onclick="ga('send', 'event', 'External-Link','click','JITT8','0','Link');" href="https://forms.gle/bBj6oQJTJxh2wCwH7" target="_blank">JITT 8</a>: due on Sunday April 11th by 11:59 PM.
 
+- <a onclick="ga('send', 'event', 'External-Link','click','JITT9','0','Link');" href="https://forms.gle/v5bL8to6jkauTArr7" target="_blank">JITT 9</a>: due on Sunday April 18th by 11:59 PM.
+

@@ -22,7 +22,7 @@ In this class we will go over CART: Classification and Regression Trees.
 
 ## JITT 
 
-Complete before **Sunday April 18th (11:59 pm)**. JITT will be posted soon. <!-- You can find the assignment <a onclick="ga('send', 'event', 'External-Link','click','JITT7','0','Link');" href="https://forms.gle/2esQgBHEeMDaqxKd6" target="_blank">here</a>. -->
+Complete before **Sunday April 18th (11:59 pm)**. You can find the assignment <a onclick="ga('send', 'event', 'External-Link','click','JITT9','0','Link');" href="https://forms.gle/v5bL8to6jkauTArr7" target="_blank">here</a>.
 
 ## Slides
 
