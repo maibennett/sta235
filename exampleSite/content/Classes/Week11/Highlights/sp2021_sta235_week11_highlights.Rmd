@@ -1,5 +1,5 @@
 ---
-title: "STA 235 - Week 10: Highlight Session"
+title: "STA 235 - Week 11: Highlight Session"
 subtitle: "Spring 2021"
 author: "McCombs School of Business, UT Austin"
 output:
@@ -289,6 +289,7 @@ library("firasans")
 library(hrbrthemes)
 library(extrafont)
 library(patchwork)
+library(scales)
 
 options(scipen = 0)
 ```
@@ -296,141 +297,345 @@ options(scipen = 0)
 # Today
 
 .pull-left[
-- Istrumental Variables
+Main points about:
 
-- Bias vs Variance
+- **.darkorange[Shrinkage]**: Ridge vs Lasso regression.
 
-- Validation sets and Cross-validation
+- **.darkorange[K-Nearest Neighbors]**: Classification and regression.
 ]
 .pull-right[
-![](https://media.giphy.com/media/3o6Zt8JVG0K3BqXMCA/giphy.gif)
+
+.center[
+![](https://media.giphy.com/media/SSirUu2TrV65ymCi4J/source.gif)]
 ]
 ---
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
-Highlights #1: IV
+Highlights #1: Ridge and Lasso Regression
 ]
 
 ---
-# Instrumental Variables: How do they work?
+# Ridge and Lasso Regression
 
-Treatment variable $D$ is **.darkorange[endogenous]** (i.e. affected by a confounder $U$).
-<br>
-<br>
-.center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/Highlights/images/iv1.png)
+- Same as typical OLS regression + **.darkorange[penalty term]**
+
+--
+
+- Remember that **.darkorange[OLS is trying to minimize the sum of squared errors!]**
+
+--
+
+- Now, we are minimizing:
+
+$$\min_\beta \sum_{i=1}^n\underbrace{(y_i - \sum_{k=0}^px_i\beta_k)^2}_{OLS} + \color{#F89441}{\underbrace{\lambda\cdot \sum_{k=1}^p\beta_k^2}_{\text{Ridge Penalty}}}$$
+
+$$\min_\beta \sum_{i=1}^n\underbrace{(y_i - \sum_{k=0}^px_i\beta_k)^2}_{OLS} + \color{#900DA4}{\underbrace{\lambda\cdot \sum_{k=1}^p|\beta_k|}_{\text{Lasso Penalty}}}$$
+
+---
+# Ridge and Lasso Regression
+
+.box-2[Why do we do this?]
+
+--
+
+.box-3[We want to make the predicted outcome *less sensitive* to the covariates]
+
+--
+
+.box-4[BUT WHY??]
+
+--
+
+.box-5[Because when we bring in a new dataset ("unseen"), our model won't change that much!]
+
+.box-5t[(because is less sensitive to the covariates)]
+
+--
+
+.box-7[So we are reducing VARIANCE!]
+
+---
+# Remember our example from class?
+
+.pull-left[
+- With OLS: $\widehat{spend}_i = 172 - 9\cdot freq_i$
+
+```{r ols1, fig.height=4.9, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+
+set.seed(100)
+
+n <- 50
+
+freq <- sample(1:10, n, replace = TRUE)
+
+spend <- 150 - sqrt(15)*freq^2 - 45*freq + rnorm(n, 0, 60) + freq*rnorm(n, 0, 45)
+
+#spend <- 150 - sqrt(25)*freq^2 - 95*freq + rnorm(n, 0, 60) + freq*rnorm(n, 0, 45)
+
+spend <- round(rescale(spend, to = c(0,189)),0)
+
+female <- sample(c(0,1), n, replace = TRUE, prob = c(0.25,0.75))
+
+data <- data.frame(freq = freq,
+                   female = female,
+                   spend = spend) 
+
+ggplot(data = data, aes(x = freq, y = spend)) + 
+  geom_point(aes(fill = alpha("#BF3984",0.5)), pch = 21, color = "white", size = 5) +
+  geom_smooth(method = "lm", se = FALSE, color = "#BF3984", lwd = 2, lty = 2) +
+  scale_fill_manual(values=c(alpha("#BF3984",0.5)),labels = c("Training 1"), name = "Data") +
+  theme_bw()+
+  theme_ipsum_fsc() + #plain 
+  xlab("Frequency") + ylab("Spending ($)")+ggtitle("OLS for Train 1") + 
+  ylim(0,200) + xlim(0,10) +
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position=c(0.2,0.2),
+        legend.title = element_text(size = 16),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="dark grey"),
+        title = element_text(size=14))
+```
+]
+
+.pull-right[
+- With Ridge: $\widehat{spend}_i = 150 - 5.5\cdot freq_i$
+
+```{r ridge1, fig.height=4.9, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+
+data$spend_ridge = 150 - 5.5*data$freq
+
+ggplot(data = data, aes(x = freq, y = spend)) + 
+  geom_point(aes(fill = alpha("#BF3984",0.5)), pch = 21, color = "white", size = 5) +
+  geom_line(aes(y = spend_ridge), color = "#BF3984", lwd = 2, lty = 2) +
+  scale_fill_manual(values=c(alpha("#BF3984",0.5)),labels = c("Training 1"), name = "Data") +
+  theme_bw()+
+  theme_ipsum_fsc() + #plain 
+  xlab("Frequency") + ylab("Spending ($)")+ ggtitle("Ridge for Train 1") + 
+  ylim(0,200) + xlim(0,10) +
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position=c(0.2,0.2),
+        legend.title = element_text(size = 16),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="dark grey"),
+        title = element_text(size=14))
+```
 ]
 
 ---
-# Instrumental Variables: How do they work?
+# If we use another training dataset...
 
-Instrumental variable $Z$ helps us separate $D$ into an **.darkorange[endogenous]** part (<i>D<sub>en</sub></i>, affected by confunder $U$) and an **.darkorange[exogenous]** part (<i>D<sub>ex</sub></i>, not affected by $U$).
-<br>
-<br>
-.center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/Highlights/images/iv2.png)
+.pull-left[
+- With OLS: $\widehat{spend}_i = 179 - 11.4\cdot freq_i$
+
+```{r ols2, fig.height=4.9, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+
+set.seed(102)
+
+n <- 50
+
+freq <- sample(1:10, n, replace = TRUE)
+
+spend <- 150 - sqrt(19)*freq^2 - 70*freq + rnorm(n, 0, 60) + freq*rnorm(n, 0, 45)
+
+#spend <- 150 - sqrt(25)*freq^2 - 95*freq + rnorm(n, 0, 60) + freq*rnorm(n, 0, 45)
+
+spend <- round(rescale(spend, to = c(0,189)),0)
+
+female <- sample(c(0,1), n, replace = TRUE, prob = c(0.25,0.75))
+
+data2 <- data.frame(freq = freq,
+                   female = female,
+                   spend = spend) 
+
+ggplot(data = data2, aes(x = freq, y = spend)) + 
+  geom_point(aes(fill = alpha("#F89441",0.5)), pch = 21, color = "white", size = 5) +
+  geom_point(data = data, aes(fill = alpha("#BF3984",0.5)), pch = 21, color = "white", size = 5) +
+  geom_smooth(data = data2, aes(x = freq, y = spend), method = "lm", se = FALSE, color = "#F89441", lwd = 2, lty = 2) +
+  geom_smooth(data = data, aes(x = freq, y = spend), method = "lm", se = FALSE, color = "#BF3984", lwd = 2, lty = 2) +
+  scale_fill_manual(values=c(alpha("#BF3984",0.5),alpha("#F89441",0.5)),labels = c("Training 1", "Training 2"), name = "Data") +
+  theme_bw()+
+  theme_ipsum_fsc() + #plain 
+  xlab("Frequency") + ylab("Spending ($)")+ ggtitle("OLS for Train 1 vs Train 2") + 
+  ylim(0,200) + xlim(0,10) +
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position=c(0.2,0.2),
+        legend.title = element_text(size = 16),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="dark grey"),
+        title = element_text(size=14))
+```
+]
+
+.pull-right[
+- With Ridge: $\widehat{spend}_i = 155 - 6\cdot freq_i$
+
+```{r ridge2, fig.height=4.9, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+
+data2$spend_ridge = 155 - 6*data2$freq
+
+ggplot(data = data2, aes(x = freq, y = spend)) + 
+  geom_point(aes(fill = alpha("#F89441",0.5)), pch = 21, color = "white", size = 5) +
+  geom_point(data = data, aes(fill = alpha("#BF3984",0.5)), pch = 21, color = "white", size = 5) +
+  geom_line(data = data, aes(y = spend_ridge, x = freq), color = "#BF3984", lwd = 2, lty = 2) +
+  geom_line(data = data2, aes(y = spend_ridge, x = freq), color = "#F89441", lwd = 2, lty = 2) +
+  scale_fill_manual(values=c(alpha("#BF3984",0.5),alpha("#F89441",0.5)),labels = c("Training 1", "Training 2"), name = "Data") +
+  theme_bw()+
+  theme_ipsum_fsc() + #plain 
+  xlab("Frequency") + ylab("Spending ($)")+ ggtitle("Ridge for Train 1 vs Train 2") + 
+  ylim(0,200) + xlim(0,10) +
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position=c(0.2,0.2),
+        legend.title = element_text(size = 16),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="dark grey"),
+        title = element_text(size=14))
+```
+]
+---
+# Ridge and Lasso Regression
+
+.pull-left[
+.box-2[Ridge]
+
+.box-2t[Final model will have p coefficients (more flexible?)]
+
+.box-2t[Usually better with multicollinearity]
+]
+
+--
+
+.pull-left[
+.box-4[Lasso]
+
+.box-4t[Can set coefficients = 0]
+
+.box-4t[Improves interpretability of model]
+
+.box-4t[Can be used for model selection]
 ]
 
 ---
-# Instrumental Variables: Relevance condition
-
-The **.darkorange[instrument]** needs to be **.darkorange[correlated]** with the **.darkorange[treatment]** (e.g. needs to "move" it)
-
-.center[
-![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/Highlights/images/iv3.png)
-]
-
----
-# Instrumental Variables: Exclusion condition
-
-The **.darkorange[instrument]** can only affect the outcome **.darkorange[through the treatment]** (i.e. can't affect it directly or through another path).
-
-.center[
-![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/Highlights/images/iv4.png)
-]
-
-
----
-# Instrumental Variables: Exogeneity condition
-
-The **.darkorange[instrument]** can't be affected by a **.darkorange[confounder]**.
-
-.center[
-![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/Highlights/images/iv5.png)
-]
-
----
-
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
-Highlights #2: Bias vs. Variance
+Highlights #2: K-Nearest Neighbor
+]
+---
+# K-nearest neighbor
+
+- One of the **.darkorange[simplest methods]** for prediction.
+
+--
+
+- We are **.darkorange[information about a unit's neighbors]** to predict their outcome (*both in classification and continuous outcomes!*)
+
+--
+
+- In a classification setting (i.e. **.darkorange[outcome is categorical]**):
+
+$$\max_{j} Pr(Y = j) = \max_{j}\frac{1}{K}\sum_{i \in \mathrm{N}_0}I(y_i=j)$$
+
+--
+
+- In a regression setting (i.e. **.darkorange[outcome is continuous]**):
+
+$$\hat{f}(x_0) = \frac{1}{K}\sum_{i \in \mathrm{N}_0} y_i$$
+---
+# K-nearest neighbor: Important things to know
+
+.box-3[It's a nonparametric approach (no functional form!)]
+
+--
+
+.box-3t[If I'm not imposing a functional form, do you think that's better for variance or bias?]
+
+---
+# K-nearest neighbor: Important things to know
+
+.box-3[It's a nonparametric approach (no functional form!)]
+
+--
+
+.box-4[Results depend on K!]
+
+--
+
+.box-4t[Larger Ks make my model more or less flexible? How does it affect variance?]
+
+---
+# K-nearest neighbor: Important things to know
+
+.box-3[It's a nonparametric approach (no functional form!)]
+
+
+.box-4[Results depend on K!]
+
+--
+
+.box-7[We choose best K through cross-validation]
+
+--
+
+.box-7t[... and remember that afterwards we test accuracy/error on testing dataset!]
+
+
+---
+# K-nearest neighbor: How do we measure how good a model is?
+
+.pull-left[
+.box-2[Classification Task]
+
+.box-2t[Accuracy: What % of units I classify correctly]
+
+.box-2t[(Eventually you can also introduce a penalty for false positive or false negatives)]
 ]
 
----
-# Bias vs. Variance
-
-- In prediction, we want models with **.darkorange[low bias]** AND **.darkorange[low variance]**.
-
 --
 
-.box-2[Difficulty: Trade-off]
+.pull-left[
+.box-4[Regression Tasks]
 
---
+.box-4t[RMSE: Root mean squared error]
 
-- **.darkorange[Variance:]** I train a model $f$ on a dataset $A$. How much will that model change if now I train it on dataset $B$?
+.box-4t[Adj-R<sup>2</sup>]
 
-  - If the model $f$ picks up on every singularity of dataset $A$, it will change a lot!
-
---
-
-.box-4[More flexibility &#x2192; more variance]
-
-
-
----
-# Bias vs. Variance
-
-- In prediction, we want models with **.darkorange[low bias]** AND **.darkorange[low variance]**.
-
-
-
-.box-2[Difficulty: Trade-off]
-
---
-
-- **.darkorange[Bias:]** Error term we get from simplifying reality with a model.
-
-  - If the model $f$ is too simple, bias will be large!
-
---
-
-.box-4[Less flexibility &#x2192; more bias]
-
----
-
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Highlights #3: Validation sets
+.box-4t[(Usually, we use error terms, and the smaller the better (not for Adj-R<sup>2</sup>, though!))]
 ]
 
----
-# Validation sets
 
-.box-7[All accuracy measures need to be done on unseen data!]
-
---
-
-- That's why we need to divide our data into **.darkorange[training]** (seen by the model) and **.darkorange[testing]** (unseen by the model) datasets.
-
---
-
-- **.darkorange[Cross-validation]**: Iterative process where in each iteration we use a different part of the data for testing.
-
-  - The **.darkorange[main advantage]** is that we will be using ALL the data for testing and training, and not be subject to the random variability of a specific partition.
-  
 
 ---
 
