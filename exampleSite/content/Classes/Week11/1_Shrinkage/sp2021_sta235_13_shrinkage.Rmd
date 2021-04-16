@@ -1,5 +1,5 @@
 ---
-title: "STA 235 - Shrinkage"
+title: "STA 235 - Model Selection II: Shrinkage"
 subtitle: "Spring 2021"
 author: "McCombs School of Business, UT Austin"
 output:

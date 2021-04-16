@@ -1,5 +1,5 @@
 ---
-title: "STA 235 - Model Selection I: Prediction, Stepwise, and Cross-Validation"
+title: "STA 235 - Model Selection I: Bias vs Variance, Cross-Validation, and Stepwise"
 subtitle: "Spring 2021"
 author: "McCombs School of Business, UT Austin"
 output:
