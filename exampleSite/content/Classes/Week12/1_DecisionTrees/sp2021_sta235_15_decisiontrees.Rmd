@@ -293,28 +293,59 @@ options(scipen = 0)
 
 # Some reminders
 
-.box-2LA[Homework 3 is due this Wednesday]
+.box-2LA[Prediction Project has been posted]
 
 <br>
 
-.box-2tL[No questions will be answered after 7pm 4/13]
-
----
-# Some reminders (Cont.)
-
-<br>
-.box-7LA[Highlight sessions on Thur. 5:00-5:30pm]
-
-<br>
-- Same link every week.
-
-- If you feel you are **.darkorange[falling behind]**, I highly encourage you to attend.
+--
+.box-2t[Remember: Teams of two (max)]
 
 --
 
-- Same as last class, extra point will be given for **.darkorange[participation]**:
+.box-2t[Two tasks: Binary outcome (classification) and continuous outcome (regression)]
 
-  - That means **.darkorange[answering polls]** AND **.darkorange[participating in class]** (e.g. asking/answering a questions, etc.)
+--
+
+.box-2t[Need to use two (2) different methods for each]
+
+--
+
+.box-4t[Make sure you read the instructions!]
+
+---
+# Where we've been,,,
+
+.pull-left[
+- Talking about **.darkorange[bias vs variance]** trade-off.
+
+- **.darkorange[Model selection and regularization]**: Stepwise selection, Ridge and Lasso regression.
+
+- **.darkorange[K-nearest neighbors]**
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/xld5ngDPQm1piFSYUe/source.gif)
+]
+]
+
+---
+# ... and where we're going.
+
+.pull-left[
+.center[
+![](https://media.giphy.com/media/xT5LMAsVINr1Zwsjmw/giphy.gif)
+]
+]
+
+.pull-right[
+- Continue on our **.darkorange[prediction]** journey:
+
+  - **.darkorange[Decision Trees]**: Classification and Regression Trees (CART)
+
+- **.darkorange[Participation]**: Activity in R.
+
+]
 
 ---
 # Coming soon: Prediction project
