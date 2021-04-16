@@ -1,5 +1,5 @@
 ---
-title: "STA 235 - Causal Inference: K-nearest neighbors"
+title: "STA 235 - Prediction II: K-nearest neighbors"
 subtitle: "Spring 2021"
 author: "McCombs School of Business, UT Austin"
 output:
