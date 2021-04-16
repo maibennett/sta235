@@ -72,7 +72,7 @@ class: center, middle, inverse, title-slide
 .box-4t[Make sure you read the instructions!]
 
 ---
-# Where we've been,,,
+# Where we've been...
 
 .pull-left[
 - Talking about **.darkorange[bias vs variance]** trade-off.
@@ -106,61 +106,32 @@ class: center, middle, inverse, title-slide
 
 ]
 
----
-# Coming soon: Prediction project
-
-&lt;br&gt;
-.box-6LA[Data Challenge!]
-
-&lt;br&gt;
-- Will be posted this week.
-
-- You will be allowed to work **.darkorange[pairs]**:
-  - That means that your group can be one (1) or two (2) persons (I encourage you to find a partner).
-  - **.darkorange[Don't email me asking me if you can be a group of 3, 4, etc.]**
-
----
-# Continuing our journey
-
-.pull-left[
-**.darkorange[Last class:]**
-
-  - Bias vs Variance
-  - Validation sets and cross-validation
-  - Model selection: Stepwise
-  
-**.darkorange[Today:]**
-
-  - Regularization and model selection: Shrinkage
-  - Prediction: K-nearest neighbors
-]
-
-.pull-right[
-.center[
-![](https://media.giphy.com/media/nyPZB25Mg1pe/giphy.gif)]
-]
 
 ---
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
-Honey, I shrunk the coefficients!
+Trees, trees everywhere!
 ]
 
 ---
-# What is shrinkage?
+# Let's start with a simple example
 
-- Last class, we saw **.darkorange[stepwise procedure]**: Subsetting model selection approach.
-  
-  - Select `\(k\)` out of `\(p\)` total predictors
-  
+.box-5[Remember our Disney+ example?]
+
 --
-  
-- **.darkorange[Shrinkage *(a.k.a Regularization)*]**: Fitting a model with all `\(p\)` predictors, but introducing bias (i.e. shrinking coefficients towards 0) for improvement in variance.
 
-  - Ridge regression
-  
-  - Lasso regression
+.box-5t[Predict who will cancel their subscription]
+
+--
+
+We have some **.darkorange[information:]**
+
+- `City`: Whether the customer lives in a big city or not
+- `female`: Whether the customer is female or not
+- `logins`: Number of logins to the platform in the past week.
+- `mandalorian`: Whether the person has watched the Mandalorian or not.
+- `cancel`: Whether they canceled their subscription or not.
 
 ---
 background-position: 50% 50%
