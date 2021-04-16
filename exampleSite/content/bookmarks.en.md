@@ -15,6 +15,8 @@ For those that want some R refresher, these resources can be useful:
 
 - [A ModernDive into R and the tidyverse](https://moderndive.com/index.html) (by Ismai and Kim).
 
+- [R for the Rest of Us](https://rfortherestofus.com/resources/). (by David Keyes)
+
 Cheatsheets for R are amazing! Here are two of my favorite so you can look up functions we will be using frequently explained in a simple way:
 
 - [Data Visualization with ggplot2: Cheatsheet](https://sta235.netlify.com/images/data-visualization.pdf)
