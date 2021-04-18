@@ -667,6 +667,7 @@ $$\begin{align}
 --
 
 .pull-left[
+.center[
 ![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/tree_example.png)]
 ]
 
