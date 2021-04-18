@@ -778,6 +778,13 @@ Classification Trees
   $$G = \sum_{k=1}^K\hat{p}_{mk}(1-\hat{p}_{mk})$$
 where $\hat{p}_{mk}$ is the proportion of training obs in region $m$ for class $k$.
 
+--
+.small[
+- In our previous example:
+$$\begin{align}
+G_{mandalorian=0} =& \frac{1240}{1240 + 225}(1-\frac{1240}{1240 + 225}) + \frac{225}{1240 + 225}(1-\frac{225}{1240 + 225}) = 0.26
+\end{align}$$]
+
 ---
 
 .center2[
@@ -797,15 +804,16 @@ $$G = \sum_{k=1}^K\hat{p}_{mk}(1-\hat{p}_{mk})$$
 # Ok, but how about including other variables?
 
 .center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian4.png)]
+![:scale 60%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian4.png)]
 
 
 ---
-# Let's start from our previous tree
+# Let's see how to do it in R!
 
-.center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian2.png)]
+```{r}
+library(caret)
 
+```
 
 ---
 background-position: 50% 50%
