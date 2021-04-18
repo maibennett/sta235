@@ -397,7 +397,7 @@ We have some **.darkorange[information:]**
 
 ```{r, echo=TRUE,eval = FALSE, warning=FALSE}
 
-disney <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/2_ModelSelection/data/disney.csv")
+disney <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/data/disney2.csv")
 
 #Whole data
 table(disney %>% dplyr::select(unsubscribe))
@@ -407,7 +407,7 @@ table(disney %>% dplyr::select(city, mandalorian))
 .center[
 ```{r, echo=FALSE, warning=FALSE, results = 'asis'}
 
-disney <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/2_ModelSelection/data/disney.csv")
+disney <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/data/disney2.csv")
 
 disney_subs <- disney %>% dplyr::select(unsubscribe)
 
@@ -443,7 +443,7 @@ knitr::kables(list(k1_all,k2_all))
 
 ```{r, echo=TRUE,eval = FALSE, warning=FALSE}
 
-disney <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/2_ModelSelection/data/disney.csv")
+disney <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/data/disney2.csv")
 
 #Subscribers
 table(disney %>% dplyr::filter(unsubscribe==0) %>%
@@ -456,7 +456,7 @@ table(disney %>% dplyr::filter(unsubscribe==1) %>%
 .center[
 ```{r, echo=FALSE, warning=FALSE, results = 'asis'}
 
-disney <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/2_ModelSelection/data/disney.csv")
+disney <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/data/disney2.csv")
 
 disney_subs <- disney %>% dplyr::filter(unsubscribe==0)
 disney_unsubs <- disney %>% dplyr::filter(unsubscribe==1)
@@ -584,8 +584,8 @@ $$\text{Pr[Correct | city = 0]} = ?$$
 ]
 
 .pull-right-little_r[
-$$\text{Pr[Correct | city = 0]} = (\frac{507}{507 + 205})^2 + (\frac{205}{507 + 205})^2$$
-$$\text{Pr[Correct | city = 0]} = 0.59$$
+$$\text{Pr[Correct | city = 0]} = (\frac{328}{328 + 384})^2 + (\frac{384}{328 + 384})^2$$
+$$\text{Pr[Correct | city = 0]} = 0.503$$
 ]
 
 ---
@@ -597,8 +597,8 @@ $$\text{Pr[Correct | city = 0]} = 0.59$$
 ]
 
 .pull-right-little_r[
-$$\text{Pr[Correct | city = 1]} = (\frac{3141}{3141 + 1147})^2 + (\frac{1147}{3141 + 1147})^2$$
-$$\text{Pr[Correct | city = 1]} = 0.61$$
+$$\text{Pr[Correct | city = 1]} = (\frac{2572}{2572 + 1716})^2 + (\frac{1716}{2572 + 1716})^2$$
+$$\text{Pr[Correct | city = 1]} = 0.52$$
 ]
 
 ---
@@ -613,8 +613,8 @@ $$\text{Pr[Correct | city = 1]} = 0.61$$
 $$\begin{align}
 \text{Pr[Correct]} =& \text{Pr[Correct|city = 0]} \times \text{Pr[city = 0]} +\\
 &\text{Pr[Correct | city = 1]} \times  \text{Pr[city = 1]} = \\
-=& 0.59\times\frac{507+205}{5000} + 0.61\times\frac{3141 + 1147}{5000} = \\
-=& 0.607
+=& 0.5\times\frac{328 + 324}{5000} + 0.52\times\frac{2572 + 1716}{5000} = \\
+=& 0.518
 \end{align}$$
 ]
 
@@ -630,8 +630,8 @@ $$\begin{align}
 $$\begin{align}
 \text{Pr[Correct]} =& \text{Pr[Correct|mandlr = 0]} \times \text{Pr[mandlr = 0]} +\\
 &\text{Pr[Correct | mandlr = 1]} \times  \text{Pr[mandlr = 1]} = \\
-=& 0.79\times\frac{1291 + 174}{5000} + 0.56\times\frac{2357 + 1178}{5000} = \\
-=& 0.627
+=& 0.74\times\frac{1240 + 225}{5000} + 0.502\times\frac{1660 + 1875}{5000} = \\
+=& 0.572
 \end{align}$$
 ]
 
@@ -648,7 +648,7 @@ $$\begin{align}
 ---
 # Choosing predictors
 
-- From the previous exercise, we can see that **.darkorange[using `mandalorian` yields a higher accuracy]** (0.63 vs. 0.61)
+- From the previous exercise, we can see that **.darkorange[using `mandalorian` yields a higher accuracy]** (0.57 vs. 0.52)
 
 --
 <br>
@@ -660,11 +660,33 @@ $$\begin{align}
 .box-3[How do we choose?]
 
 ---
-# Classification and Regression Trees
+# Decision Trees
 
 - Main idea $\rightarrow$ **.darkorange[flowchart!]**
 
 --
+
+- We will **.darkorange[stratify]** (or segment) the predictor space into regions (ISLR, Ch. 8).
+
+--
+
+- Similar to KNN, we assign the **.darkorange[mean]** or **.darkorange[mode]** of the training obs in the region.
+--
+
+.pull-left[
+.box-4[Main advantages]
+<br>
+.box-4t[Simple interpretation]
+]
+
+.pull-left[
+.box-7[Main disadvantages]
+<br>
+.box-7t[Overfitting]
+]
+
+---
+# Structure of Decision Trees
 
 .pull-left[
 .center[
@@ -679,6 +701,12 @@ $$\begin{align}
   - Leaves
 ]
 
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Classification Trees
+]
 ---
 # Classification  Tree
 
@@ -701,9 +729,25 @@ $$\begin{align}
 ]
 
 .pull-right-little_r[
-- $\text{Pr[U | Leave 1]} = 0.12$
+- $\text{Pr[U | Leave 1]} = 0.15$
 
-- $\text{Pr[U | Leave 2]} = 0.33$
+- $\text{Pr[U | Leave 2]} = 0.53$
+]
+
+---
+# Let's go back to our drawing
+
+.pull-left-little_r[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian3.png)]
+]
+
+.pull-right-little_r[
+- $\text{Pr[U | Leave 1]} = 0.15$
+
+- $\text{Pr[U | Leave 2]} = 0.53$
+
+.box-7[Classification error: 42%]
 ]
 
 ---
