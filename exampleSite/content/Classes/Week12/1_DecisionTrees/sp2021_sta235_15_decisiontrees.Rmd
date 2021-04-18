@@ -723,12 +723,12 @@ Classification Trees
 ---
 # Let's go back to our drawing
 
-.pull-left-little_r[
+.pull-left[
 .center[
 ![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian2.png)]
 ]
 
-.pull-right-little_r[
+.pull-right[
 - $\text{Pr[U | Leave 1]} = 0.15$
 
 - $\text{Pr[U | Leave 2]} = 0.53$
@@ -737,12 +737,12 @@ Classification Trees
 ---
 # Let's go back to our drawing
 
-.pull-left-little_r[
+.pull-left[
 .center[
 ![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian3.png)]
 ]
 
-.pull-right-little_r[
+.pull-right[
 - $\text{Pr[U | Leave 1]} = 0.15$
 
 - $\text{Pr[U | Leave 2]} = 0.53$
@@ -750,6 +750,61 @@ Classification Trees
 .box-7[Classification error: 42%]
 ]
 
+---
+# Measures for accuracy
+
+- The classification error rate is **.darkorange[not very sensitive for tree-growing]**.
+
+---
+
+.center2[
+.box-2LA[Poll time!]
+]
+
+---
+
+.center2[
+.box-2LA[What is the main problem if our measure is not very sensitive for tree-growing?]
+]
+---
+# Measures for accuracy
+
+- The classification error rate is **.darkorange[not very sensitive for tree-growing]**.
+
+- Another measure is called **.darkorange[Gini index]**:
+
+  - Total variance across classes:
+  
+  $$G = \sum_{k=1}^K\hat{p}_{mk}(1-\hat{p}_{mk})$$
+where $\hat{p}_{mk}$ is the proportion of training obs in region $m$ for class $k$.
+
+---
+
+.center2[
+.box-5LA[Poll time!]
+]
+
+---
+
+.center2[
+.box-5LA[According to the Gini Index, is it better or worse to have a high p<sub>mk</sub>?]
+<br>
+<br>
+$$G = \sum_{k=1}^K\hat{p}_{mk}(1-\hat{p}_{mk})$$
+]
+
+---
+# Ok, but how about including other variables?
+
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian4.png)]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Regression Trees
+]
 ---
 # References
 
