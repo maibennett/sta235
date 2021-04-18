@@ -1,5 +1,5 @@
 ---
-title: "STA 235 - Prediction II: Decision Trees (CART)"
+title: "STA 235 - Prediction II: Classification and Regression Trees (CART)"
 subtitle: "Spring 2021"
 author: "McCombs School of Business, UT Austin"
 output:
@@ -282,6 +282,7 @@ library(reactable)
 library(caret)
 library(xtable)
 library(kableExtra)
+library(rpart)
 
 options(scipen = 0)
 ```
@@ -627,17 +628,60 @@ $$\begin{align}
 
 .pull-right-little_r[
 $$\begin{align}
-\text{Pr[Correct]} =& \text{Pr[Correct|mandalorian = 0]} \times \text{Pr[mandalorian = 0]} +\\
-&\text{Pr[Correct | mandalorian = 1]} \times  \text{Pr[mandalorian = 1]} = \\
-=& 0.59\times\frac{507+205}{5000} + 0.61\times\frac{3141 + 1147}{5000} = \\
-=& 0.607
+\text{Pr[Correct]} =& \text{Pr[Correct|mandlr = 0]} \times \text{Pr[mandlr = 0]} +\\
+&\text{Pr[Correct | mandlr = 1]} \times  \text{Pr[mandlr = 1]} = \\
+=& 0.79\times\frac{1291 + 174}{5000} + 0.56\times\frac{2357 + 1178}{5000} = \\
+=& 0.627
 \end{align}$$
+]
+
+---
+.center2[
+.box-4LA[Poll Time!]
+]
+
+---
+.center2[
+.box-4LA[Which variable would you choose for prediction?]
+]
+
+---
+# Choosing predictors
+
+- From the previous exercise, we can see that **.darkorange[using `mandalorian` yields a higher accuracy]** (0.63 vs. 0.61)
+
+--
+<br>
+<br>
+.box-2[But we have more variables]
+
+--
+
+.box-3[How do we choose?]
+
+---
+# Classification and Regression Trees
+
+- Main idea $\rightarrow$ **.darkorange[flowchart for making decisions]**
+
+--
+
+.pull-left[
+![]()
+]
+
+.pull-right[
+**.darkorange[Structure:]**
+
+  - Root node
+  - Internal nodes
+  - Leaves
 ]
 ---
 # References
 
-- James, G. et al. (2013). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 6.*
+- James, G. et al. (2013). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 8.*
 
-- STDHA. (2018). ["Penalized Regression Essentials: Ridge, Lasso & Elastic Net"](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/153-penalized-regression-essentials-ridge-lasso-elastic-net)
+- STDHA. (2018). ["CART Model: Decision Tree Essentials"](http://www.sthda.com/english/articles/35-statistical-machine-learning-essentials/141-cart-model-decision-tree-essentials)
 
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week11/1_shrinkage/sp2021_sta235_13_shrinkage.html', timeout = 10)-->

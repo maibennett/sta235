@@ -619,10 +619,40 @@ table(disney %&gt;% dplyr::filter(unsubscribe==1) %&gt;%
 `$$\begin{align}
 \text{Pr[Correct]} =&amp; \text{Pr[Correct|mandalorian = 0]} \times \text{Pr[mandalorian = 0]} +\\
 &amp;\text{Pr[Correct | mandalorian = 1]} \times  \text{Pr[mandalorian = 1]} = \\
-=&amp; 0.59\times\frac{507+205}{5000} + 0.61\times\frac{3141 + 1147}{5000} = \\
-=&amp; 0.607
+=&amp; 0.79\times\frac{1291 + 174}{5000} + 0.56\times\frac{2357 + 1178}{5000} = \\
+=&amp; 0.627
 \end{align}$$`
 ]
+
+---
+.center2[
+.box-4LA[Poll Time!]
+]
+
+---
+.center2[
+.box-4LA[Which variable would you choose for prediction?]
+]
+
+---
+# Choosing predictors
+
+- From the previous exercise, we can see that **.darkorange[using `mandalorian` yields a higher accuracy]** (0.63 vs. 0.61)
+
+--
+
+.box-2[But we have more variables]
+
+--
+
+.box-3[How do we choose?]
+
+---
+# Decision Trees
+
+- Main idea `\(\rightarrow\)` **.darkorange[flowchart for making decisions]**
+
+
 ---
 # References
 
