@@ -662,12 +662,12 @@ $$\begin{align}
 ---
 # Classification and Regression Trees
 
-- Main idea $\rightarrow$ **.darkorange[flowchart for making decisions]**
+- Main idea $\rightarrow$ **.darkorange[flowchart!]**
 
 --
 
 .pull-left[
-![]()
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/tree_example.png)]
 ]
 
 .pull-right[
@@ -677,6 +677,37 @@ $$\begin{align}
   - Internal nodes
   - Leaves
 ]
+
+---
+# Classification  Tree
+
+- Outcome is **.darkorange[categorical]** (e.g. binary)
+
+--
+
+- Previous example: Chose splitting variable based on $\text{Pr(Correct)}$
+
+--
+
+- What if we just assigned **.darkorange[based on the proportion in each leave?]** (i.e. similar to KNN)
+
+---
+# Let's go back to our drawing
+
+.pull-left-little_r[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian2.png)]
+]
+
+.pull-right-little_r[
+$$\begin{align}
+\text{Pr[Correct]} =& \text{Pr[Correct|mandlr = 0]} \times \text{Pr[mandlr = 0]} +\\
+&\text{Pr[Correct | mandlr = 1]} \times  \text{Pr[mandlr = 1]} = \\
+=& 0.79\times\frac{1291 + 174}{5000} + 0.56\times\frac{2357 + 1178}{5000} = \\
+=& 0.627
+\end{align}$$
+]
+
 ---
 # References
 

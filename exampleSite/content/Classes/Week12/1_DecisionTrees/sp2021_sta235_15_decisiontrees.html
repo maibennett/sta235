@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>STA 235 - Prediction II: Decision Trees (CART)</title>
+    <title>STA 235 - Prediction II: Classification and Regression Trees (CART)</title>
     <meta charset="utf-8" />
     <meta name="author" content="McCombs School of Business, UT Austin" />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -23,7 +23,7 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# STA 235 - Prediction II: Decision Trees (CART)
+# STA 235 - Prediction II: Classification and Regression Trees (CART)
 ## Spring 2021
 ### McCombs School of Business, UT Austin
 
@@ -617,8 +617,8 @@ table(disney %&gt;% dplyr::filter(unsubscribe==1) %&gt;%
 
 .pull-right-little_r[
 `$$\begin{align}
-\text{Pr[Correct]} =&amp; \text{Pr[Correct|mandalorian = 0]} \times \text{Pr[mandalorian = 0]} +\\
-&amp;\text{Pr[Correct | mandalorian = 1]} \times  \text{Pr[mandalorian = 1]} = \\
+\text{Pr[Correct]} =&amp; \text{Pr[Correct|mandlr = 0]} \times \text{Pr[mandlr = 0]} +\\
+&amp;\text{Pr[Correct | mandlr = 1]} \times  \text{Pr[mandlr = 1]} = \\
 =&amp; 0.79\times\frac{1291 + 174}{5000} + 0.56\times\frac{2357 + 1178}{5000} = \\
 =&amp; 0.627
 \end{align}$$`
@@ -640,7 +640,8 @@ table(disney %&gt;% dplyr::filter(unsubscribe==1) %&gt;%
 - From the previous exercise, we can see that **.darkorange[using `mandalorian` yields a higher accuracy]** (0.63 vs. 0.61)
 
 --
-
+&lt;br&gt;
+&lt;br&gt;
 .box-2[But we have more variables]
 
 --
@@ -648,17 +649,60 @@ table(disney %&gt;% dplyr::filter(unsubscribe==1) %&gt;%
 .box-3[How do we choose?]
 
 ---
-# Decision Trees
+# Classification and Regression Trees
 
-- Main idea `\(\rightarrow\)` **.darkorange[flowchart for making decisions]**
+- Main idea `\(\rightarrow\)` **.darkorange[flowchart!]**
 
+--
+
+.pull-left[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/tree_example.png)]
+]
+
+.pull-right[
+**.darkorange[Structure:]**
+
+  - Root node
+  - Internal nodes
+  - Leaves
+]
+
+---
+# Classification  Tree
+
+- Outcome is **.darkorange[categorical]** (e.g. binary)
+
+--
+
+- Previous example: Chose splitting variable based on `\(\text{Pr(Correct)}\)`
+
+--
+
+- What if we just assigned **.darkorange[based on the proportion in each leave?]** (i.e. similar to KNN)
+
+---
+# Let's go back to our drawing
+
+.pull-left-little_r[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian2.png)]
+]
+
+.pull-right-little_r[
+`$$\begin{align}
+\text{Pr[Correct]} =&amp; \text{Pr[Correct|mandlr = 0]} \times \text{Pr[mandlr = 0]} +\\
+&amp;\text{Pr[Correct | mandlr = 1]} \times  \text{Pr[mandlr = 1]} = \\
+=&amp; 0.79\times\frac{1291 + 174}{5000} + 0.56\times\frac{2357 + 1178}{5000} = \\
+=&amp; 0.627
+\end{align}$$`
+]
 
 ---
 # References
 
-- James, G. et al. (2013). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 6.*
+- James, G. et al. (2013). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 8.*
 
-- STDHA. (2018). ["Penalized Regression Essentials: Ridge, Lasso &amp; Elastic Net"](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/153-penalized-regression-essentials-ridge-lasso-elastic-net)
+- STDHA. (2018). ["CART Model: Decision Tree Essentials"](http://www.sthda.com/english/articles/35-statistical-machine-learning-essentials/141-cart-model-decision-tree-essentials)
 
 &lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week11/1_shrinkage/sp2021_sta235_13_shrinkage.html', timeout = 10)--&gt;
     </textarea>
