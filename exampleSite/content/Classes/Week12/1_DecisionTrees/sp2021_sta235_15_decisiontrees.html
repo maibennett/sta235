@@ -129,9 +129,10 @@ We have some **.darkorange[information:]**
 
 - `city`: Whether the customer lives in a big city or not
 - `female`: Whether the customer is female or not
+- `age`: Customer's age (in years)
 - `logins`: Number of logins to the platform in the past week.
 - `mandalorian`: Whether the person has watched the Mandalorian or not.
-- `cancel`: Whether they canceled their subscription or not.
+- `unsubscribe`: Whether they canceled their subscription or not.
 
 ---
 # The prediction task: Classification
@@ -157,593 +158,565 @@ We have some **.darkorange[information:]**
 # City vs. Mandalorian
 
 
-&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/ridge_intro-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-# Ordinary Least Squares
-
-- In an **.darkorange[OLS]**: Minimize sum of squared-errors, i.e. `\(\min_\beta \sum_{i=1}^n(\text{spend}_i - \text{freq}_i\beta)^2\)`
-
-
-&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/ridge_ols-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-# What about fit?
-
-- Does the OLS fit the testing data well?
-
-
-&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/ridge_test-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-# Ridge Regression
-
-- Let's shrink the coefficients!: **.darkorange[Ridge Regression]**
-
-
-&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/ridge-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-
-.center2[
-.box-7LA[Poll time!]
-]
-
----
-
-.center2[
-.box-7LA[Why does Ridge Regression reduce its slope compared to OLS?]
-]
-
----
-# Ridge Regression: What does it do?
-
-- Ridge regression **.darkorange[introduces bias to reduce variance]** in the testing data set.
-
-- In a simple regression (i.e. one regressor/covariate):
-
-`$$\min_\beta \sum_{i=1}^n\underbrace{(y_i - x_i\beta)^2}_{OLS}$$`
----
-# Ridge Regression: What does it do?
-
-- Ridge regression **.darkorange[introduces bias to reduce variance]** in the testing data set.
-
-- In a simple regression (i.e. one regressor/covariate):
-
-`$$\min_\beta \sum_{i=1}^n\underbrace{(y_i - x_i\beta)^2}_{OLS} + \color{#F89441}{\underbrace{\lambda\cdot \beta^2}_{Ridge Penalty}}$$`
---
-
-- `\(\lambda\)` is the **.darkorange[penalty factor]** `\(\rightarrow\)` indicates how much we want to shrink the coefficients.
-
----
-# Back to the plots...
-
-- Let's solve the minimization problem for ridge regression. **.darkorange[What line do we choose?]**
-
-&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/ridge_ols2_a-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-# For the OLS line
-
-`$$0 + \lambda \cdot (-16.25)^2 = 264.1\lambda$$`
-
-&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/ridge_ols2_b-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-# For the OLS line
-
-`$$0 + \lambda \cdot (-16.25)^2 = 264.1\times 3 = 792.3$$`
-
-&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/ridge_ols2_c-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-# Now, for the ridge regression line
-
-`$$(3^2 + (-17)^2) + \lambda \cdot (-11.25)^2 = 298 + 126.6\times 3 = 677.8$$`
-
-&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/ridge_2-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-
-.center2[
-.box-3LA[But remember... we care about accuracy in the testing dataset!]
-]
-
----
-# RMSE on the testing dataset: OLS
-
-`$$RMSE = \sqrt{\frac{1}{4}\sum_{i=1}^4(\text{spend}_i - (132.5 -16.25\cdot\text{freq}_i))^2} = 28.36$$`
-
-&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/ols_mse-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-# RMSE on the testing dataset: Ridge Regression
-
-`$$RMSE = \sqrt{\frac{1}{4}\sum_{i=1}^4(\text{spend}_i - (119.5 -11.25\cdot\text{freq}_i))^2} = 12.13$$`
-
-&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/ridge_mse-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-
-.center2[
-.box-2LA[Poll time!]
-]
-
----
-
-.center2[
-.box-2LA[What problem is Ridge Regression looking to fix?]
-]
-
----
-# Ridge Regression in general
-
-- For regressions that include **.darkorange[more than one regressor]**:
-
-`$$\min_\beta \sum_{i=1}^n\underbrace{(y_i - \sum_{k=0}^px_i\beta_k)^2}_{OLS} + \color{#F89441}{\underbrace{\lambda\cdot \sum_{k=1}^p\beta_k^2}_{Ridge Penalty}}$$`
---
-
-- In our previous example, if we had two regressors, `\(female\)` and `\(freq\)`:
-
-`$$\min_\beta \sum_{i=1}^n(\text{spend}_i - \beta_0 - \beta_1\text{female}_i - \beta_2\text{freq}_i)^2 + \lambda\cdot (\beta_1^2 + \beta_2^2)$$`
-
---
-
-- Because the ridge penalty includes the `\(\beta\)`'s coefficients, **.darkorange[scale matters]**:
-
-  - Standardize coefficients to `\(SD=1 \rightarrow x'_{ij} = \frac{x_{ij}}{\sqrt{\frac{1}{n}(x_{ij}-\bar{x}_j)^2}}\)`
-  
----
-# Some jargon
-
-- Ridge regression is also referred to as `\(l_2\)` regularization:
-   
-   - `\(l_2\)` norm `\(\rightarrow ||\beta||_2 = \sum_{k=1}^p \beta^2\)`
-
---
-- Some important notes:
-
-  - `\(||\hat{\beta}^R_\lambda||_2\)` will always decrease in `\(\lambda\)`.
-  
-  - `\(||\hat{\beta}^R_\lambda||_2/||\hat{\beta}||_2\)` will always decrease in `\(\lambda\)`.
-
----
-
-.center2[
-.box-4LA[Poll time!]
-]
-
----
-
-.center2[
-.box-4LA[If &amp;lambda;=0, what is the value of l&lt;sub&gt;2&lt;/sub&gt; norm for the ridge regression over the l&lt;sub&gt;2&lt;/sub&gt; norm of OLS?]
-]
-
----
-# How do we choose &amp;lambda;?
-
---
-
-.box-5[Cross-validation!]
-
---
-
-1) Choose a grid of `\(\lambda\)` values
-
-2) Compute cross-validation error (e.g. RMSE) for each
-
-3) Choose the smallest one.
-
----
-# &amp;lambda; vs RMSE?
-
-
-&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/lambda_rmse-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-# &amp;lambda; vs RMSE? A zoom
-
-
-&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/lambda_rmse_zoom-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-# How do we do this in R?
-
-.pull-left[
 
 ```r
-*library(caret)
+disney &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/2_ModelSelection/data/disney.csv")
 
-set.seed(100)
+#Whole data
+table(disney %&gt;% dplyr::select(unsubscribe))
 
-data &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
-
-lambda_seq &lt;- 10^seq(-3, 3, length = 100)
-
-cv &lt;- train(spend ~., data = train.data, 
-            method = "glmnet",
-            preProcess = "scale",
-            trControl = trainControl("cv", number = 10),
-            tuneGrid = expand.grid(alpha = 0, 
-                         lambda = lambda_seq)
-  )
-
-cv_lambda &lt;- data.frame(lambda = cv$results$lambda,
-                        rmse = cv$results$RMSE)
+table(disney %&gt;% dplyr::select(city, mandalorian))
 ```
-]
-
-.pull-right[
-- We will be using the `caret` package
-]
-
----
-# How do we do this in R?
-
-.pull-left[
-
-```r
-library(caret) 
-
-*set.seed(100)
-
-data &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
-
-lambda_seq &lt;- 10^seq(-3, 3, length = 100)
-
-cv &lt;- train(spend ~., data = train.data, 
-            method = "glmnet",
-            preProcess = "scale",
-            trControl = trainControl("cv", number = 10),
-            tuneGrid = expand.grid(alpha = 0, 
-                         lambda = lambda_seq)
-  )
-
-cv_lambda &lt;- data.frame(lambda = cv$results$lambda,
-                        rmse = cv$results$RMSE)
-```
-]
-
-.pull-right[
-- We will be using the `caret` package
-
-- We are doing **.darkorange[cross-validation]**, so remember to set a seed!
-]
-
----
-# How do we do this in R?
-
-.pull-left[
-
-```r
-library(caret) 
-
-set.seed(100)
-
-data &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
-
-*lambda_seq &lt;- 10^seq(-3, 3, length = 100)
-
-cv &lt;- train(spend ~., data = train.data, 
-            method = "glmnet",
-            preProcess = "scale",
-            trControl = trainControl("cv", number = 10),
-            tuneGrid = expand.grid(alpha = 0, 
-                         lambda = lambda_seq)
-  )
-
-cv_lambda &lt;- data.frame(lambda = cv$results$lambda,
-                        rmse = cv$results$RMSE)
-```
-]
-
-.pull-right[
-- We will be using the `caret` package
-
-- We are doing **.darkorange[cross-validation]**, so remember to set a seed!
-
-- You need to create a grid for the `\(\lambda\)`'s **.darkorange[that will be tested]**
-
-]
-
-
----
-# How do we do this in R?
-
-.pull-left[
-
-```r
-library(caret) 
-
-set.seed(100)
-
-data &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
-
-lambda_seq &lt;- 10^seq(-3, 3, length = 100)
-
-*cv &lt;- train(spend ~., data = train.data,
-*           method = "glmnet",
-            preProcess = "scale",
-*           trControl = trainControl("cv", number = 10),
-*           tuneGrid = expand.grid(alpha = 0,
-*                        lambda = lambda_seq)
-  )
-
-cv_lambda &lt;- data.frame(lambda = cv$results$lambda,
-                        rmse = cv$results$RMSE)
-```
-]
-
-.pull-right[
-- We will be using the `caret` package
-
-- We are doing **.darkorange[cross-validation]**, so remember to set a seed!
-
-- You need to create a grid for the `\(\lambda\)`'s **.darkorange[that will be tested]**
-
-- The function we will use is `train`: Same as before
-.small[
-
-  - `method="glmnet"` means that it will run an elastic net.
-- `alpha=0` means is a **.darkorange[ridge regression]**
-- `lambda = lambda_seq` is not necessary (you can provide your own grid)]
-]
-
----
-# How do we do this in R?
-
-.pull-left[
-
-```r
-library(caret) 
-
-set.seed(100)
-
-data &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
-
-lambda_seq &lt;- 10^seq(-3, 3, length = 100)
-
-cv &lt;- train(spend ~., data = train.data, 
-            method = "glmnet",
-            preProcess = "scale",
-            trControl = trainControl("cv", number = 10), 
-            tuneGrid = expand.grid(alpha = 0, 
-                         lambda = lambda_seq)
-  )
-
-*cv_lambda &lt;- data.frame(lambda = cv$results$lambda,
-*                       rmse = cv$results$RMSE)
-```
-]
-
-.pull-right[
-- We will be using the `caret` package
-
-- We are doing **.darkorange[cross-validation]**, so remember to set a seed!
-
-- You need to create a grid for the `\(\lambda\)`'s **.darkorange[that will be tested]**
-
-- The function we will use is `train`: Same as before
-
-- Important objects in `cv`:
-.small[
-
-  - `results$lambda`: Vector of `\(\lambda\)` that was tested
-- `results$RMSE`: RMSE for each `\(\lambda\)`
-- `bestTune$lambda`: `\(\lambda\)` that minimizes the error term.]
-]
-
----
-# How do we do this in R?
-
-.pull-left[
-OLS regression:
-
-
-```r
-lm1 &lt;- lm(spend ~ freq + female,
-          data = train.data)
-
-coef(lm1)
-```
-
-```
-## (Intercept)        freq      female 
-## 118.2605090  -3.4339875  -0.6391956
-```
-
-```r
-pred.lm &lt;- lm1 %&gt;% predict(test.data)
-
-RMSE(pred.lm, test.data$spend)
-```
-
-```
-## [1] 22.79557
-```
-]
-
-.pull-right[
-Ridge regression:
-
-
-```r
-coef(cv$finalModel, cv$bestTune$lambda)
-```
-
-```
-## 3 x 1 sparse Matrix of class "dgCMatrix"
-##                       1
-## (Intercept) 117.4837717
-## freq         -9.4095221
-## female       -0.2773666
-```
-
-```r
-pred.ridge &lt;- cv %&gt;% predict(test.data)
-
-RMSE(pred.ridge, test.data$spend)
-```
-
-```
-## [1] 22.7896
-```
-]
-
----
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Throwing a lasso
-]
-
----
-# Lasso regression
-
-- Very similar to ridge regression, except it **.darkorange[changes the penalty term]**:
-
-`$$\min_\beta \sum_{i=1}^n\underbrace{(y_i - \sum_{k=0}^px_i\beta_k)^2}_{OLS} + \color{#F89441}{\underbrace{\lambda\cdot \sum_{k=1}^p|\beta_k|}_{Lasso Penalty}}$$`
-
---
-
-- In our previous example:
-
-`$$\min_\beta \sum_{i=1}^n(\text{spend}_i - \beta_0 - \beta_1\text{female}_i - \beta_2\text{freq}_i)^2 + \lambda\cdot (|\beta_1| + |\beta_2|)$$`
---
-
-- Lasso regression is also called `\(l_1\)` regularization:
-
-`$$||\beta||_1 = \sum_{k=1}^p |\beta|$$`
----
-# Ridge vs Lasso
-
-.pull-left[
-.box-2[Ridge]
-
-.box-2t[Final model will have p coefficients]
-
-.box-2t[Usually better with multicollinearity]
-]
-
---
-
-.pull-left[
-.box-4[Lasso]
-
-.box-4t[Can set coefficients = 0]
-
-.box-4t[Improves interpretability of model]
-
-.box-4t[Can be used for model selection]
-]
-
----
-# And how do we do Lasso in R?
-
-.pull-left[
-
-```r
-library(caret) 
-
-set.seed(100)
-
-data &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
-
-lambda_seq &lt;- 10^seq(-3, 3, length = 100)
-
-cvl &lt;- train(spend ~., data = train.data, 
-            method = "glmnet",
-            trControl = trainControl("cv", number = 10),
-*           tuneGrid = expand.grid(alpha = 1,
-                         lambda = lambda_seq)
-  )
-
-cvl_lambda &lt;- data.frame(lambda = cvl$results$lambda,
-                         rmse = cvl$results$RMSE)
-```
-]
-
-.pull-right[
-.box-7[Exactly the same!]
-
-- ... But change `alpha=1`!!
-]
-
----
-# And how do we do Lasso in R?
-
-.pull-left[
-Ridge regression:
-
-
-```r
-coef(cv$finalModel, cv$bestTune$lambda)
-```
-
-```
-## 3 x 1 sparse Matrix of class "dgCMatrix"
-##                       1
-## (Intercept) 117.4837717
-## freq         -9.4095221
-## female       -0.2773666
-```
-
-```r
-pred.ridge &lt;- cv %&gt;% predict(test.data)
-
-RMSE(pred.ridge, test.data$spend)
-```
-
-```
-## [1] 22.7896
-```
-]
-
-.pull-right[
-Lasso regression:
-
-
-```r
-coef(cvl$finalModel, cvl$bestTune$lambda)
-```
-
-```
-## 3 x 1 sparse Matrix of class "dgCMatrix"
-##                      1
-## (Intercept) 117.032965
-## freq         -3.296245
-## female        .
-```
-
-```r
-pred.lasso &lt;- cvl %&gt;% predict(test.data)
-
-RMSE(pred.lasso, test.data$spend)
-```
-
-```
-## [1] 22.79291
-```
-]
-
----
-# Main takeway points
-
-.pull-left[
-- You can **.darkorange[shrink coefficients]** to introduce bias and decrease variance.
-
-- Ridge and Lasso regression are **.darkorange[similar]**:
-
-  - Lasso can be used for model selection.
-
-- Importance of understanding **.darkorange[how to estimate the penalty coefficient]**.
-]
-
-.pull-right[
 .center[
-![](https://media.giphy.com/media/2AsEweF761Dji/source.gif)]
+&lt;table class="kable_wrapper"&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td&gt; 
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Subscribers vs Unsubscribers&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; Unsubscribe &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Freq &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3648 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1352 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+ &lt;/td&gt;
+   &lt;td&gt; 
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;2x2 Frequency table&lt;/caption&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Mandalorian&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; City &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 0 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 1 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 212 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 500 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1253 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3035 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+ &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+
+---
+# City vs. Mandalorian
+
+
+
+```r
+disney &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/2_ModelSelection/data/disney.csv")
+
+#Subscribers
+table(disney %&gt;% dplyr::filter(unsubscribe==0) %&gt;%
+        dplyr::select(city, mandalorian))
+#Unsubscribers
+table(disney %&gt;% dplyr::filter(unsubscribe==1) %&gt;%
+        dplyr::select(city, mandalorian))
+```
+.center[
+&lt;table class="kable_wrapper"&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td&gt; 
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Subscribers&lt;/caption&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Mandalorian&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; City &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 0 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 1 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 190 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 317 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1101 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2040 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+ &lt;/td&gt;
+   &lt;td&gt; 
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Unsubscribers&lt;/caption&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Mandalorian&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; City &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 0 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 1 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 183 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 152 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 995 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+ &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+
+---
+# City vs. Mandalorian
+
+.pull-left[
+&lt;table class="kable_wrapper"&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td&gt; 
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Subscribers&lt;/caption&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Mandalorian&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; City &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 0 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 1 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 190 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 317 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1101 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2040 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+ &lt;/td&gt;
+   &lt;td&gt; 
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Unsubscribers&lt;/caption&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Mandalorian&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; City &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 0 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 1 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 183 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 152 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 995 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+ &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+
+.pull-right[
+If we split on `City`:
+- `\(\text{Pr(unsubs|city=1)} = ?\)`
+]
+
+---
+# City vs. Mandalorian
+
+.pull-left[
+&lt;table class="kable_wrapper"&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td&gt; 
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Subscribers&lt;/caption&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Mandalorian&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; City &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 0 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 1 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 190 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 317 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;font-weight: bold;color: white !important;background-color: #E16462 !important;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;font-weight: bold;color: white !important;background-color: #E16462 !important;"&gt; 1101 &lt;/td&gt;
+   &lt;td style="text-align:center;font-weight: bold;color: white !important;background-color: #E16462 !important;"&gt; 2040 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+ &lt;/td&gt;
+   &lt;td&gt; 
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Unsubscribers&lt;/caption&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Mandalorian&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; City &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 0 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 1 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 183 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;font-weight: bold;color: white !important;background-color: #E16462 !important;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;font-weight: bold;color: white !important;background-color: #E16462 !important;"&gt; 152 &lt;/td&gt;
+   &lt;td style="text-align:center;font-weight: bold;color: white !important;background-color: #E16462 !important;"&gt; 995 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+ &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+
+.pull-right[
+If we split on `City`:
+- `\(\text{Pr(unsubs|city=1)} = \frac{152}{4288}\)`
+]
+
+---
+# City vs. Mandalorian
+
+.pull-left[
+&lt;table class="kable_wrapper"&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td&gt; 
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Subscribers&lt;/caption&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Mandalorian&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; City &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 0 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 1 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;font-weight: bold;color: white !important;background-color: #E16462 !important;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;font-weight: bold;color: white !important;background-color: #E16462 !important;"&gt; 190 &lt;/td&gt;
+   &lt;td style="text-align:center;font-weight: bold;color: white !important;background-color: #E16462 !important;"&gt; 317 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1101 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2040 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+ &lt;/td&gt;
+   &lt;td&gt; 
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Unsubscribers&lt;/caption&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Mandalorian&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; City &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 0 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 1 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;font-weight: bold;color: white !important;background-color: #E16462 !important;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;font-weight: bold;color: white !important;background-color: #E16462 !important;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:center;font-weight: bold;color: white !important;background-color: #E16462 !important;"&gt; 183 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 152 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 995 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+ &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+
+.pull-right[
+If we split on `City`:
+
+- `\(\text{Pr(unsubs|city=1)} = \frac{152}{4288}\)`
+
+- `\(\text{Pr(unsubs|city=0)} = \frac{22}{712}\)`
+]
+
+---
+# City vs. Mandalorian
+
+.pull-left[
+&lt;table class="kable_wrapper"&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td&gt; 
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Subscribers&lt;/caption&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Mandalorian&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; City &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 0 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 1 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 190 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 317 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1101 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2040 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+ &lt;/td&gt;
+   &lt;td&gt; 
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Unsubscribers&lt;/caption&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Mandalorian&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; City &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 0 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 1 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 183 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 152 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 995 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+ &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+
+.pull-right[
+If we split on `City`:
+
+- `\(\text{Pr(unsubs|city=1)} = \frac{152}{4288} = p_1\)`
+
+- `\(\text{Pr(unsubs|city=0)} = \frac{22}{712} = p_2\)`
+
+`$$\text{Pr(unsubs)} = \text{Pr(city=1)}\cdot p_1 + \text{Pr(city=0)}\cdot p_2$$`
+]
+
+---
+# City vs. Mandalorian
+
+.pull-left[
+&lt;table class="kable_wrapper"&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td&gt; 
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Subscribers&lt;/caption&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Mandalorian&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; City &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 0 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 1 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 190 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 317 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1101 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2040 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+ &lt;/td&gt;
+   &lt;td&gt; 
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Unsubscribers&lt;/caption&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Mandalorian&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; City &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 0 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 1 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 183 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 152 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 995 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+ &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+
+.pull-right[
+If we split on `City`:
+
+- `\(\text{Pr(unsubs|city=1)} = \frac{152}{4288} = p_1\)`
+
+- `\(\text{Pr(unsubs|city=0)} = \frac{22}{712} = p_2\)`
+
+`$$\text{Pr(unsubs)} = \text{Pr(city=1)}\cdot p_1 + \text{Pr(city=0)}\cdot p_2$$`
+$$ = \frac{4288}{5000}\cdot p_1 + \frac{712}{5000}\cdot p_2 = $$
 ]
 ---
 # References
