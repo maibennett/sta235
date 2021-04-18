@@ -799,6 +799,14 @@ $$G = \sum_{k=1}^K\hat{p}_{mk}(1-\hat{p}_{mk})$$
 .center[
 ![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian4.png)]
 
+
+---
+# Let's start from our previous tree
+
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian2.png)]
+
+
 ---
 background-position: 50% 50%
 class: left, bottom, inverse
