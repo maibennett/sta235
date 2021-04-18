@@ -611,112 +611,27 @@ $$\text{Pr[Correct | city = 1]} = 0.61$$
 .pull-right-little_r[
 $$\begin{align}
 \text{Pr[Correct]} =& \text{Pr[Correct|city = 0]} \times \text{Pr[city = 0]} +\\
-&\text{Pr[Correct | city = 0]} \times  \text{Pr[city = 0]} = \\
+&\text{Pr[Correct | city = 1]} \times  \text{Pr[city = 1]} = \\
 =& 0.59\times\frac{507+205}{5000} + 0.61\times\frac{3141 + 1147}{5000} = \\
 =& 0.607
 \end{align}$$
 ]
 
 ---
-# City vs. Mandalorian
+# And we can do the same for `mandalorian`
 
-.pull-left[
-```{r, echo=FALSE, warning=FALSE, results = 'asis'}
-k1p <- kable(tab1, booktabs = TRUE, caption = "Subscribers", escape = FALSE, row.names = FALSE, align = 'c',
-            stripe_color = 'white') %>% add_header_above(c(" ", "Mandalorian"=2)) %>% 
-  kable_styling(latex_options = "basic") %>%
-  column_spec(1, bold=TRUE) %>%
-  collapse_rows(columns = 1) %>%
-   row_spec(2, bold = T, color = "white", background = "#E16462")
-
-k2p <- kable(tab2, booktabs = TRUE, caption = "Unsubscribers", escape = FALSE, row.names = FALSE, align = 'c',
-            stripe_color = 'white') %>% add_header_above(c(" ", "Mandalorian"=2)) %>% 
-  kable_styling(latex_options = "basic") %>%
-  column_spec(1, bold=TRUE) %>%
-  collapse_rows(columns = 1) %>%
-   row_spec(2, bold = T, color = "white", background = "#E16462")
-
-knitr::kables(list(k1p,k2p))
-```
-
+.pull-left-little_r[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian2.png)]
 ]
 
-.pull-right[
-If we split on `City`:
-- $\text{Pr(unsubs|city=1)} = \frac{152}{4288}$
-]
-
----
-# City vs. Mandalorian
-
-.pull-left[
-```{r, echo=FALSE, warning=FALSE, results = 'asis'}
-k1p <- kable(tab1, booktabs = TRUE, caption = "Subscribers", escape = FALSE, row.names = FALSE, align = 'c',
-            stripe_color = 'white') %>% add_header_above(c(" ", "Mandalorian"=2)) %>% 
-  kable_styling(latex_options = "basic") %>%
-  column_spec(1, bold=TRUE) %>%
-  collapse_rows(columns = 1) %>%
-   row_spec(1, bold = T, color = "white", background = "#E16462")
-
-k2p <- kable(tab2, booktabs = TRUE, caption = "Unsubscribers", escape = FALSE, row.names = FALSE, align = 'c',
-            stripe_color = 'white') %>% add_header_above(c(" ", "Mandalorian"=2)) %>% 
-  kable_styling(latex_options = "basic") %>%
-  column_spec(1, bold=TRUE) %>%
-  collapse_rows(columns = 1) %>%
-   row_spec(1, bold = T, color = "white", background = "#E16462")
-
-knitr::kables(list(k1p,k2p))
-```
-
-]
-
-.pull-right[
-If we split on `City`:
-
-- $\text{Pr(unsubs|city=1)} = \frac{152}{4288}$
-
-- $\text{Pr(unsubs|city=0)} = \frac{22}{712}$
-]
-
----
-# City vs. Mandalorian
-
-.pull-left[
-```{r, echo=FALSE, warning=FALSE, results = 'asis'}
-knitr::kables(list(k1,k2))
-```
-
-]
-
-.pull-right[
-If we split on `City`:
-
-- $\text{Pr(unsubs|city=1)} = \frac{152}{4288} = p_1$
-
-- $\text{Pr(unsubs|city=0)} = \frac{22}{712} = p_2$
-
-$$\text{Pr(unsubs)} = \text{Pr(city=1)}\cdot p_1 + \text{Pr(city=0)}\cdot p_2$$
-]
-
----
-# City vs. Mandalorian
-
-.pull-left[
-```{r, echo=FALSE, warning=FALSE, results = 'asis'}
-knitr::kables(list(k1,k2))
-```
-
-]
-
-.pull-right[
-If we split on `City`:
-
-- $\text{Pr(unsubs|city=1)} = \frac{152}{4288} = p_1$
-
-- $\text{Pr(unsubs|city=0)} = \frac{22}{712} = p_2$
-
-$$\text{Pr(unsubs)} = \text{Pr(city=1)}\cdot p_1 + \text{Pr(city=0)}\cdot p_2$$
-$$ = \frac{4288}{5000}\cdot p_1 + \frac{712}{5000}\cdot p_2 = $$
+.pull-right-little_r[
+$$\begin{align}
+\text{Pr[Correct]} =& \text{Pr[Correct|mandalorian = 0]} \times \text{Pr[mandalorian = 0]} +\\
+&\text{Pr[Correct | mandalorian = 1]} \times  \text{Pr[mandalorian = 1]} = \\
+=& 0.59\times\frac{507+205}{5000} + 0.61\times\frac{3141 + 1147}{5000} = \\
+=& 0.607
+\end{align}$$
 ]
 ---
 # References
