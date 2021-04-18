@@ -701,12 +701,9 @@ $$\begin{align}
 ]
 
 .pull-right-little_r[
-$$\begin{align}
-\text{Pr[Correct]} =& \text{Pr[Correct|mandlr = 0]} \times \text{Pr[mandlr = 0]} +\\
-&\text{Pr[Correct | mandlr = 1]} \times  \text{Pr[mandlr = 1]} = \\
-=& 0.79\times\frac{1291 + 174}{5000} + 0.56\times\frac{2357 + 1178}{5000} = \\
-=& 0.627
-\end{align}$$
+- $\text{Pr[U | Leave 1]} = 0.12$
+
+- $\text{Pr[U | Leave 2]} = 0.33$
 ]
 
 ---
