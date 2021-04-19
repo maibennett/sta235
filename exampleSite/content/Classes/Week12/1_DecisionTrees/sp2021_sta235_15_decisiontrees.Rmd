@@ -399,19 +399,26 @@ We have some **.darkorange[information:]**
 
 disney <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/data/disney2.csv")
 
-#Whole data
-table(disney %>% dplyr::select(unsubscribe))
+disney.train <- disney %>% dplyr::filter(train==1)
 
-table(disney %>% dplyr::select(city, mandalorian))
+#Whole data
+table(disney.train %>% dplyr::select(unsubscribe))
+
+table(disney.train %>% dplyr::select(city, mandalorian))
 ```
 .center[
 ```{r, echo=FALSE, warning=FALSE, results = 'asis'}
 
 disney <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/data/disney2.csv")
 
-disney_subs <- disney %>% dplyr::select(unsubscribe)
+disney <- disney %>% mutate(mandalorian = factor(ifelse(mandalorian==0,"No","Yes")),
+                            city = factor(ifelse(city==0,"No","Yes")))
 
-disney_covs <- disney %>% dplyr::select(city, mandalorian)
+disney.train <- disney %>% dplyr::filter(train==1)
+
+disney_subs <- disney.train %>% dplyr::select(unsubscribe)
+
+disney_covs <- disney.train %>% dplyr::select(city, mandalorian)
 
 tab1 <- table(disney_subs)
 
@@ -442,14 +449,11 @@ knitr::kables(list(k1_all,k2_all))
 
 
 ```{r, echo=TRUE,eval = FALSE, warning=FALSE}
-
-disney <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/data/disney2.csv")
-
 #Subscribers
-table(disney %>% dplyr::filter(unsubscribe==0) %>%
+table(disney.train %>% dplyr::filter(unsubscribe==0) %>%
         dplyr::select(city, mandalorian))
 #Unsubscribers
-table(disney %>% dplyr::filter(unsubscribe==1) %>%
+table(disney.train %>% dplyr::filter(unsubscribe==1) %>%
         dplyr::select(city, mandalorian))
 
 ```
@@ -458,8 +462,10 @@ table(disney %>% dplyr::filter(unsubscribe==1) %>%
 
 disney <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/data/disney2.csv")
 
-disney_subs <- disney %>% dplyr::filter(unsubscribe==0)
-disney_unsubs <- disney %>% dplyr::filter(unsubscribe==1)
+disney.train <- disney %>% dplyr::filter(train==1)
+
+disney_subs <- disney.train %>% dplyr::filter(unsubscribe==0)
+disney_unsubs <- disney.train %>% dplyr::filter(unsubscribe==1)
 
 tab1 <- as.data.frame.matrix(table(disney_subs$city,disney_subs$mandalorian))
 tab1$City <- c(0,1)
@@ -729,9 +735,9 @@ Classification Trees
 ]
 
 .pull-right[
-- $\text{Pr[U | Leave 1]} = 0.15$
+- $\text{Pr[U | Leaf 1]} = 0.15$
 
-- $\text{Pr[U | Leave 2]} = 0.53$
+- $\text{Pr[U | Leaf 2]} = 0.53$
 ]
 
 ---
@@ -743,9 +749,9 @@ Classification Trees
 ]
 
 .pull-right[
-- $\text{Pr[U | Leave 1]} = 0.15$
+- $\text{Pr[U | Leaf 1]} = 0.15$
 
-- $\text{Pr[U | Leave 2]} = 0.53$
+- $\text{Pr[U | Leaf 2]} = 0.53$
 
 .box-7[Classification error: 42%]
 ]
@@ -810,11 +816,188 @@ $$G = \sum_{k=1}^K\hat{p}_{mk}(1-\hat{p}_{mk})$$
 ---
 # Let's see how to do it in R!
 
-```{r}
-library(caret)
+```{r, echo=TRUE}
+library(rpart) #<<
+
+d.train <- disney.train %>% dplyr::select(mandalorian, city, unsubscribe)
+
+set.seed(100)
+
+m1 <- rpart(unsubscribe ~., data = d.train, method = "class", cp=-1)
 
 ```
 
+---
+# Let's see how to do it in R!
+
+```{r, eval=FALSE}
+library(rpart)
+
+d.train <- disney.train %>% dplyr::select(mandalorian, city, unsubscribe)
+
+set.seed(100) #<<
+
+m1 <- rpart(unsubscribe ~., data = d.train, method = "class", cp=-1)
+
+```
+
+---
+# Let's see how to do it in R!
+
+```{r, eval=FALSE}
+library(rpart)
+
+d.train <- disney.train %>% dplyr::select(mandalorian, city, unsubscribe)
+
+set.seed(100)
+
+m1 <- rpart(unsubscribe ~., data = d.train, method = "class", cp=-1) #<<
+
+```
+
+
+---
+# Fully-grown tree
+
+```{r full_tree, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+library(rpart.plot)
+
+rpart.plot(m1)
+```
+
+---
+
+.center2[
+.box-4LA[Poll time!]
+]
+
+---
+<br>
+.box-4LA[What do you think the percentages in the leaves represent?]
+
+```{r full_tree2, fig.height=4, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+library(rpart.plot)
+
+rpart.plot(m1)
+```
+
+---
+# Some parameters that might be important
+
+```{r}
+m1 <- rpart(unsubscribe ~., data = d.train, method = "class", 
+            control = rpart.control(cp=-1, #<<
+                                    minsplit = 20))
+
+```
+
+- `cp`: Complexity parameter
+
+  - Split must decrease the overall lack of fit by a factor of `cp`, or is not attempted.
+  
+  - Parameter for **.darkorange[pruning the tree]**.
+  
+  - Higher `cp`, smaller the tree!
+  
+---
+# Some parameters that might be important
+
+```{r}
+m1 <- rpart(unsubscribe ~., data = d.train, method = "class", 
+            control = rpart.control(cp=-1,
+                                    minsplit = 20)) #<<
+
+```
+
+- `minsplit`: Min. number of obs in a node to attempt a split.
+  
+---
+# If we set `minsplit` to 1500...
+
+```{r tree_minsplit, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+m2 <- rpart(unsubscribe ~., data = d.train, method = "class", 
+            control = rpart.control(cp=-1,
+                                    minsplit = 1500))
+
+rpart.plot(m2)
+```
+
+---
+# If we don't set `cp`...
+
+```{r tree_cp, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+m3 <- rpart(unsubscribe ~., data = d.train, method = "class", 
+            control = rpart.control(minsplit = 20))
+
+rpart.plot(m3)
+```
+
+---
+# If we don't set `cp`...
+
+```{r}
+m1$cptable
+
+m3$cptable
+```
+
+---
+# How can we use this for selecting the size of our tree?
+
+```{r plot_cp, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+plotcp(m1)
+```
+  
+---
+# Basic Algorithm
+
+.box-2[1) Start at the root node]
+<br>
+.box-4[2) Split the parent node at covariate x<sub>i</sub> to minimize the sum of child node impurities]
+<br>
+.box-6[3) Assign training samples to new child nodes]
+<br>
+.box-7[4) Stop if leaves are pure or early stopping criteria is satisfied, else repeat step (1) and (2) for each new child nodes]
+
+.source["Machine Learning FAQs" (Raschka, 2021)]
+---
+.center2[
+.box-3LA[Now it's your turn!]
+]
+
+---
+
+.box-5LA[Instructions]
+
+- Using the code **.darkorange[provided on the course's website]**:
+
+  - Fit a classification tree using **.darkorange[all the covariates]**
+
+--
+<br>
+<br>
+.box-5t[Interpret the tree. What is the optimal size?]
+
+<br>
+.box-5t[What's the best cp?]
+
+---
+# Results
+
+.pull-left[
+```{r plot_mex, fig.height=3.8, fig.width=5, fig.align='center', dev='svg', echo=TRUE, warning=FALSE}
+set.seed(100)
+mex <- rpart(unsubscribe ~., data = disney.train,
+             method = "class")
+rpart.plot(mex) #<<
+```
+]
+
+.pull-right[
+```{r plot_cp2, fig.height=5, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+plotcp(mex)
+```
+]
 ---
 background-position: 50% 50%
 class: left, bottom, inverse
@@ -822,10 +1005,226 @@ class: left, bottom, inverse
 Regression Trees
 ]
 ---
+# Regression Trees
+
+- Outcome is **.darkorange[continuous]**
+
+--
+
+- Very similar to what we have seen with **.darkorange[classification trees]**:
+
+  - Predicted outcome is the **.darkorange[mean outcome for the leaf/region]**.
+
+---
+# In R is basically the same
+
+```{r plot_reg, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+set.seed(100)
+r1 <- rpart(logins ~. - unsubscribe, data = disney.train,
+            method = "anova")#<<
+
+rpart.plot(r1)
+```
+
+---
+# Let's incorporate cross-validation!
+
+.pull-left[
+```{r, echo=TRUE, warning=FALSE, fig.show='hide'}
+library(caret)
+set.seed(100)
+
+mcv <- train(
+  logins ~. - unsubscribe, data = disney.train, 
+  method = "rpart",
+  trControl = trainControl("cv", number = 10),
+  tuneLength = 50
+  )
+
+plot(mcv)
+```
+]
+
+.pull-right[
+```{r plot_cv, fig.height=5, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, results=FALSE}
+library(caret)
+set.seed(100)
+
+mcv <- train(
+  logins ~. - unsubscribe, data = disney.train, 
+  method = "rpart",
+  trControl = trainControl("cv", number = 10),
+  tuneLength = 50 #<<
+  )
+
+plot(mcv)
+```
+]
+
+---
+# Let's incorporate cross-validation!
+
+.pull-left[
+```{r, echo=TRUE, warning=FALSE, fig.show='hide'}
+library(caret)
+set.seed(100)
+
+tuneGrid <- expand.grid(cp = seq(0, 0.1, 0.005)) #<<
+
+mcv <- train(
+  logins ~. - unsubscribe, data = disney.train, 
+  method = "rpart",
+  trControl = trainControl("cv", number = 10),
+  tuneGrid = tuneGrid #<<
+  )
+
+plot(mcv)
+```
+]
+
+.pull-right[
+```{r plot_cv2, fig.height=5, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, results=FALSE}
+library(caret)
+set.seed(100)
+
+tuneGrid <- expand.grid(cp = seq(0, 0.1, 0.005))
+
+mcv2 <- train(
+  logins ~. - unsubscribe, data = disney.train, 
+  method = "rpart",
+  trControl = trainControl("cv", number = 10),
+  tuneGrid = tuneGrid
+  )
+
+plot(mcv2)
+```
+]
+
+---
+# Plot the tree
+
+.pull-left[
+```{r plot_tree_reg, fig.height=5, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, results=FALSE}
+par(xpd = NA) # Avoid clipping the text in some device
+plot(mcv$finalModel)
+text(mcv$finalModel, digits = 3)
+```
+]
+
+.pull-right[
+```{r}
+mcv$finalModel
+```
+]
+
+---
+
+.center2[
+.box-6LA[Poll time!]
+]
+
+---
+.box-6LA[What would the predicted value be for a customer who hasn't watched The Mandalorian and lives in a city?]
+
+.pull-left[
+```{r plot_tree_reg2, fig.height=4, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, results=FALSE}
+par(xpd = NA) # Avoid clipping the text in some device
+plot(mcv$finalModel)
+text(mcv$finalModel, digits = 3)
+```
+]
+
+.pull-right[
+```{r}
+mcv$finalModel
+```
+]
+
+---
+# Remember that we care about predictions outside our training sample
+
+.pull-left[
+- For predicting **.darkorange[unsubscribe]**
+
+```{r}
+disney.test <- disney %>% dplyr::filter(train==0)
+
+mclass <- train(
+  factor(unsubscribe) ~., data = disney.train, 
+  method = "rpart",
+  trControl = trainControl("cv", number = 10),
+  tuneLength = 50
+  )
+
+pred.class <- mclass %>% predict(disney.test)
+
+mean(pred.class==disney.test$unsubscribe)
+```
+]
+
+--
+.pull-right[
+- For predicting **.darkorange[logins]**:
+
+```{r}
+pred.reg <- mcv %>% predict(disney.test)
+
+RMSE(pred.reg, disney.test$logins)
+```
+]
+
+---
+# Main takeaways of decision trees
+
+.pull-left[
+.center[
+![](https://media.giphy.com/media/1xOyKwXRD0a96CcCfT/giphy.gif)
+]
+]
+
+.pull-right[
+**".darkorange[Main advantages:]**
+
+- Easy to interpret and explain (you can plot them!)
+  
+- Mirrors human decision-making.
+  
+- Can handle qualitative predictors (without need for dummies).
+  
+**".darkorange[Main disadvantages:]**
+
+  - Accuracy not as high as other methods
+  
+  - Very sensitive to training data (e.g. overfitting)
+]
+
+---
+# Next class
+
+.pull-left[
+Use of decision trees as building blocks for **".darkorange[more powerful prediction methods!]**
+
+- Bagging
+  
+- Random Forests
+  
+- Boosting]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/cRH5deQTgTMR2/giphy.gif)
+]
+]
+
+---
 # References
 
 - James, G. et al. (2013). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 8.*
 
+- Ritvik Kharkar. (2019). “Decision Trees”. *Video materials from ritvikmath (YouTube)*.
+
+- Starmer, J.. (2018). "Decision Trees". *Video materials from StatQuest (YouTube)*.
+
 - STDHA. (2018). ["CART Model: Decision Tree Essentials"](http://www.sthda.com/english/articles/35-statistical-machine-learning-essentials/141-cart-model-decision-tree-essentials)
 
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week11/1_shrinkage/sp2021_sta235_13_shrinkage.html', timeout = 10)-->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week12/1_DecisionTrees/sp2021_sta235_15_decisiontrees.html', timeout = 10)-->

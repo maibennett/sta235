@@ -162,10 +162,12 @@ We have some **.darkorange[information:]**
 ```r
 disney &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/data/disney2.csv")
 
-#Whole data
-table(disney %&gt;% dplyr::select(unsubscribe))
+disney.train &lt;- disney %&gt;% dplyr::filter(train==1)
 
-table(disney %&gt;% dplyr::select(city, mandalorian))
+#Whole data
+table(disney.train %&gt;% dplyr::select(unsubscribe))
+
+table(disney.train %&gt;% dplyr::select(city, mandalorian))
 ```
 .center[
 &lt;table class="kable_wrapper"&gt;
@@ -205,8 +207,8 @@ table(disney %&gt;% dplyr::select(city, mandalorian))
 &lt;/tr&gt;
   &lt;tr&gt;
    &lt;th style="text-align:center;"&gt; City &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; 0 &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; 1 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; No &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Yes &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
@@ -236,13 +238,11 @@ table(disney %&gt;% dplyr::select(city, mandalorian))
 
 
 ```r
-disney &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/data/disney2.csv")
-
 #Subscribers
-table(disney %&gt;% dplyr::filter(unsubscribe==0) %&gt;%
+table(disney.train %&gt;% dplyr::filter(unsubscribe==0) %&gt;%
         dplyr::select(city, mandalorian))
 #Unsubscribers
-table(disney %&gt;% dplyr::filter(unsubscribe==1) %&gt;%
+table(disney.train %&gt;% dplyr::filter(unsubscribe==1) %&gt;%
         dplyr::select(city, mandalorian))
 ```
 .center[
@@ -718,9 +718,9 @@ Classification Trees
 ]
 
 .pull-right[
-- `\(\text{Pr[U | Leave 1]} = 0.15\)`
+- `\(\text{Pr[U | Leaf 1]} = 0.15\)`
 
-- `\(\text{Pr[U | Leave 2]} = 0.53\)`
+- `\(\text{Pr[U | Leaf 2]} = 0.53\)`
 ]
 
 ---
@@ -732,9 +732,9 @@ Classification Trees
 ]
 
 .pull-right[
-- `\(\text{Pr[U | Leave 1]} = 0.15\)`
+- `\(\text{Pr[U | Leaf 1]} = 0.15\)`
 
-- `\(\text{Pr[U | Leave 2]} = 0.53\)`
+- `\(\text{Pr[U | Leaf 2]} = 0.53\)`
 
 .box-7[Classification error: 42%]
 ]
@@ -771,8 +771,7 @@ where `\(\hat{p}_{mk}\)` is the proportion of training obs in region `\(m\)` for
 .small[
 - In our previous example:
 `$$\begin{align}
-G_{mandalorian=0} =&amp; \frac{1240}{1240 + 225}(1-\frac{1240}{1240 + 225}) \\
-&amp;+ \frac{225}{1240 + 225}(1-\frac{225}{1240 + 225}) = 0.26
+G_{mandalorian=0} =&amp; \frac{1240}{1240 + 225}(1-\frac{1240}{1240 + 225}) + \frac{225}{1240 + 225}(1-\frac{225}{1240 + 225}) = 0.26
 \end{align}$$]
 
 ---
@@ -794,14 +793,190 @@ G_{mandalorian=0} =&amp; \frac{1240}{1240 + 225}(1-\frac{1240}{1240 + 225}) \\
 # Ok, but how about including other variables?
 
 .center[
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian4.png)]
+![:scale 60%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian4.png)]
 
 
 ---
 # Let's see how to do it in R!
 
 
+```r
+*library(rpart)
 
+d.train &lt;- disney.train %&gt;% dplyr::select(mandalorian, city, unsubscribe)
+
+set.seed(100)
+
+m1 &lt;- rpart(unsubscribe ~., data = d.train, method = "class", cp=-1)
+```
+
+---
+# Let's see how to do it in R!
+
+
+```r
+library(rpart)
+
+d.train &lt;- disney.train %&gt;% dplyr::select(mandalorian, city, unsubscribe)
+
+*set.seed(100)
+
+m1 &lt;- rpart(unsubscribe ~., data = d.train, method = "class", cp=-1)
+```
+
+---
+# Let's see how to do it in R!
+
+
+```r
+library(rpart)
+
+d.train &lt;- disney.train %&gt;% dplyr::select(mandalorian, city, unsubscribe)
+
+set.seed(100)
+
+*m1 &lt;- rpart(unsubscribe ~., data = d.train, method = "class", cp=-1)
+```
+
+
+---
+# Fully-grown tree
+
+&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/full_tree-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+.center2[
+.box-4LA[Poll time!]
+]
+
+---
+&lt;br&gt;
+.box-4LA[What do you think the percentages in the leaves represent?]
+
+&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/full_tree2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Some parameters that might be important
+
+
+```r
+m1 &lt;- rpart(unsubscribe ~., data = d.train, method = "class", 
+*           control = rpart.control(cp=-1,
+                                    minsplit = 20))
+```
+
+- `cp`: Complexity parameter
+
+  - Split must decrease the overall lack of fit by a factor of `cp`, or is not attempted.
+  
+  - Parameter for **.darkorange[pruning the tree]**.
+  
+  - Higher `cp`, smaller the tree!
+  
+---
+# Some parameters that might be important
+
+
+```r
+m1 &lt;- rpart(unsubscribe ~., data = d.train, method = "class", 
+            control = rpart.control(cp=-1,
+*                                   minsplit = 20))
+```
+
+- `minsplit`: Min. number of obs in a node to attempt a split.
+  
+---
+# If we set `minsplit` to 1500...
+
+&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/tree_minsplit-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# If we don't set `cp`...
+
+&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/tree_cp-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# If we don't set `cp`...
+
+
+```r
+m1$cptable
+```
+
+```
+##          CP nsplit rel error    xerror       xstd
+## 1  0.102381      0  1.000000 1.0000000 0.01661898
+## 2  0.000000      1  0.897619 0.9328571 0.01643695
+## 3 -1.000000      3  0.897619 0.9328571 0.01643695
+```
+
+```r
+m3$cptable
+```
+
+```
+##         CP nsplit rel error   xerror       xstd
+## 1 0.102381      0  1.000000 1.000000 0.01661898
+## 2 0.010000      1  0.897619 0.897619 0.01631851
+```
+
+---
+# How can we use this for selecting the size of our tree?
+
+&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/plot_cp-1.svg" style="display: block; margin: auto;" /&gt;
+  
+---
+# Basic Algorithm
+
+.box-2[1) Start at the root node]
+&lt;br&gt;
+.box-4[2) Split the parent node at covariate x&lt;sub&gt;i&lt;/sub&gt; to minimize the sum of child node impurities]
+&lt;br&gt;
+.box-6[3) Assign training samples to new child nodes]
+&lt;br&gt;
+.box-7[4) Stop if leaves are pure or early stopping criteria is satisfied, else repeat step (1) and (2) for each new child nodes]
+
+.source["Machine Learning FAQs" (Raschka, 2021)]
+---
+.center2[
+.box-3LA[Now it's your turn!]
+]
+
+---
+
+.box-5LA[Instructions]
+
+- Using the code **.darkorange[provided on the course's website]**:
+
+  - Fit a classification tree using **.darkorange[all the covariates]**
+
+--
+&lt;br&gt;
+&lt;br&gt;
+.box-5t[Interpret the tree. What is the optimal size?]
+
+&lt;br&gt;
+.box-5t[What's the best cp?]
+
+---
+# Results
+
+.pull-left[
+
+```r
+set.seed(100)
+mex &lt;- rpart(unsubscribe ~., data = disney.train,
+             method = "class")
+*rpart.plot(mex)
+```
+
+&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/plot_mex-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/plot_cp2-1.svg" style="display: block; margin: auto;" /&gt;
+]
 ---
 background-position: 50% 50%
 class: left, bottom, inverse
@@ -809,13 +984,233 @@ class: left, bottom, inverse
 Regression Trees
 ]
 ---
+# Regression Trees
+
+- Outcome is **.darkorange[continuous]**
+
+--
+
+- Very similar to what we have seen with **.darkorange[classification trees]**:
+
+  - Predicted outcome is the **.darkorange[mean outcome for the leaf/region]**.
+
+---
+# In R is basically the same
+
+&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/plot_reg-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Let's incorporate cross-validation!
+
+.pull-left[
+
+```r
+library(caret)
+set.seed(100)
+
+mcv &lt;- train(
+  logins ~. - unsubscribe, data = disney.train, 
+  method = "rpart",
+  trControl = trainControl("cv", number = 10),
+  tuneLength = 50
+  )
+
+plot(mcv)
+```
+]
+
+.pull-right[
+&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/plot_cv-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Let's incorporate cross-validation!
+
+.pull-left[
+
+```r
+library(caret)
+set.seed(100)
+
+*tuneGrid &lt;- expand.grid(cp = seq(0, 0.1, 0.005))
+
+mcv &lt;- train(
+  logins ~. - unsubscribe, data = disney.train, 
+  method = "rpart",
+  trControl = trainControl("cv", number = 10),
+* tuneGrid = tuneGrid
+  )
+
+plot(mcv)
+```
+]
+
+.pull-right[
+&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/plot_cv2-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Plot the tree
+
+.pull-left[
+&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/plot_tree_reg-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+
+```r
+mcv$finalModel
+```
+
+```
+## n= 5000 
+## 
+## node), split, n, deviance, yval
+##       * denotes terminal node
+## 
+## 1) root 5000 66387.3700 4.806800  
+##   2) mandalorian&gt;=0.5 3535 24633.5000 2.973409  
+##     4) city&lt; 0.5 500   517.1580 0.322000 *
+##     5) city&gt;=0.5 3035 20022.2800 3.410214 *
+##   3) mandalorian&lt; 0.5 1465  1200.0180 9.230717  
+##     6) city&lt; 0.5 212   132.2028 8.061321 *
+##     7) city&gt;=0.5 1253   728.8571 9.428571 *
+```
+]
+
+---
+
+.center2[
+.box-6LA[Poll time!]
+]
+
+---
+.box-6LA[What would the predicted value be for a customer who hasn't watched The Mandalorian and lives in a city?]
+
+.pull-left[
+&lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/plot_tree_reg2-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+
+```r
+mcv$finalModel
+```
+
+```
+## n= 5000 
+## 
+## node), split, n, deviance, yval
+##       * denotes terminal node
+## 
+## 1) root 5000 66387.3700 4.806800  
+##   2) mandalorian&gt;=0.5 3535 24633.5000 2.973409  
+##     4) city&lt; 0.5 500   517.1580 0.322000 *
+##     5) city&gt;=0.5 3035 20022.2800 3.410214 *
+##   3) mandalorian&lt; 0.5 1465  1200.0180 9.230717  
+##     6) city&lt; 0.5 212   132.2028 8.061321 *
+##     7) city&gt;=0.5 1253   728.8571 9.428571 *
+```
+]
+
+---
+# Remember that we care about predictions outside our training sample
+
+.pull-left[
+- For predicting **.darkorange[unsubscribe]**
+
+
+```r
+disney.test &lt;- disney %&gt;% dplyr::filter(train==0)
+
+mclass &lt;- train(
+  factor(unsubscribe) ~., data = disney.train, 
+  method = "rpart",
+  trControl = trainControl("cv", number = 10),
+  tuneLength = 50
+  )
+
+pred.class &lt;- mclass %&gt;% predict(disney.test)
+
+mean(pred.class==disney.test$unsubscribe)
+```
+
+```
+## [1] 0.639
+```
+]
+
+--
+.pull-right[
+- For predicting **.darkorange[logins]**:
+
+
+```r
+pred.reg &lt;- mcv %&gt;% predict(disney.test)
+
+RMSE(pred.reg, disney.test$logins)
+```
+
+```
+## [1] 2.099631
+```
+]
+
+---
+# Main takeaways of decision trees
+
+.pull-left[
+.center[
+![](https://media.giphy.com/media/1xOyKwXRD0a96CcCfT/giphy.gif)
+]
+]
+
+.pull-right[
+**".darkorange[Main advantages:]**
+
+- Easy to interpret and explain (you can plot them!)
+  
+- Mirrors human decision-making.
+  
+- Can handle qualitative predictors (without need for dummies).
+  
+**".darkorange[Main disadvantages:]**
+
+  - Accuracy not as high as other methods
+  
+  - Very sensitive to training data (e.g. overfitting)
+]
+
+---
+# Next class
+
+.pull-left[
+Use of decision trees as building blocks for **".darkorange[more powerful prediction methods!]**
+
+- Bagging
+  
+- Random Forests
+  
+- Boosting]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/cRH5deQTgTMR2/giphy.gif)
+]
+]
+
+---
 # References
 
 - James, G. et al. (2013). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 8.*
 
+- Ritvik Kharkar. (2019). “Decision Trees”. *Video materials from ritvikmath (YouTube)*.
+
+- Starmer, J.. (2018). "Decision Trees". *Video materials from StatQuest (YouTube)*.
+
 - STDHA. (2018). ["CART Model: Decision Tree Essentials"](http://www.sthda.com/english/articles/35-statistical-machine-learning-essentials/141-cart-model-decision-tree-essentials)
 
-&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week11/1_shrinkage/sp2021_sta235_13_shrinkage.html', timeout = 10)--&gt;
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week12/1_DecisionTrees/sp2021_sta235_15_decisiontrees.html', timeout = 10)--&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
