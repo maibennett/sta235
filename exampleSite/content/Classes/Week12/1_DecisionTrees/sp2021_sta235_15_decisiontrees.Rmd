@@ -1183,7 +1183,7 @@ RMSE(pred.reg, disney.test$logins)
 ]
 
 .pull-right[
-**".darkorange[Main advantages:]**
+**.darkorange[Main advantages:]**
 
 - Easy to interpret and explain (you can plot them!)
   
@@ -1191,7 +1191,7 @@ RMSE(pred.reg, disney.test$logins)
   
 - Can handle qualitative predictors (without need for dummies).
   
-**".darkorange[Main disadvantages:]**
+**.darkorange[Main disadvantages:]**
 
   - Accuracy not as high as other methods
   
@@ -1202,7 +1202,7 @@ RMSE(pred.reg, disney.test$logins)
 # Next class
 
 .pull-left[
-Use of decision trees as building blocks for **".darkorange[more powerful prediction methods!]**
+Use of decision trees as building blocks for **.darkorange[more powerful prediction methods!]**
 
 - Bagging
   
@@ -1227,4 +1227,4 @@ Use of decision trees as building blocks for **".darkorange[more powerful predic
 
 - STDHA. (2018). ["CART Model: Decision Tree Essentials"](http://www.sthda.com/english/articles/35-statistical-machine-learning-essentials/141-cart-model-decision-tree-essentials)
 
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week12/1_DecisionTrees/sp2021_sta235_15_decisiontrees.html', timeout = 10)-->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week12/1_DecisionTrees/sp2021_sta235_15_decisiontrees.html', timeout = 20)-->
