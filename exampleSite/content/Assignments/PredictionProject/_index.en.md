@@ -10,7 +10,7 @@ disableToc: true
 
 - This is a **data challenge**, which means that the main task is to predict outcomes as accurately as possible by **training different models**.
 
-- You will have two tasks: A classification task (`bankrupcytrain.csv`) and a regression task (`newstrain.csv`).
+- You will have two tasks: A classification task (`bankruptcytrain.csv`) and a regression task (`newstrain.csv`).
 
 - **For each task**, you need to complete the following:
 
@@ -54,6 +54,9 @@ Remember that you need to submit both a **written assignment** with your answers
 
 #### Classification task
 
+<a onclick="ga('send', 'event', 'External-Link','click','class_info','0','Link');" href="https://sta235.netlify.app/assignments/predictionproject/code/bank.html" target="_blank" class="btn btn-default">Dataset Information<i class="fas fa-info-circle"></i></a>
+
+<a onclick="ga('send', 'event', 'External-Link','click','class_code','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/PredictionProject/data/banktrain.csv" target="_blank" class="btn btn-default">Download data<i class="fas fa-download"></i></a>
 
 #### Regression task
 
