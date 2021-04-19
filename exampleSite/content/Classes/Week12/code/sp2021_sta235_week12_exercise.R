@@ -18,6 +18,7 @@ library(ggplot2)
 library(broom)
 library(caret)
 library(rpart)
+#install.packages("rpart.plot") #If you haven't installed it, un-comment this line
 library(rpart.plot)
 
 ############################################
