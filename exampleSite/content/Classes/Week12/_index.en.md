@@ -26,9 +26,9 @@ Complete before **Sunday April 18th (11:59 pm)**. You can find the assignment <a
 
 ## Slides
 
-{{% button href="https://sta235.netlify.app/Classes/Week12/1_DecisionTrees/sp2021_sta235_15_decisiontrees.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week12/1_DecisionTrees/sp2021_sta235_15_decisiontrees.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.netlify.app/Classes/Week12/1_DecisionTrees/sp2021_sta235_15_decisiontrees_blind.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week12/1_DecisionTrees/sp2021_sta235_15_decisiontrees_blind.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week12/1_DecisionTrees/sp2021_sta235_15_decisiontrees.html" >}}
+{{< slides src="https://sta235.netlify.app/Classes/Week12/1_DecisionTrees/sp2021_sta235_15_decisiontrees_blind.html" >}}
 
 ## Code
 
