@@ -30,7 +30,8 @@ disney <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exa
 
 # For simplicity, we are going to make dummy covariates into factor variables
 disney <- disney %>% mutate(mandalorian = factor(ifelse(mandalorian==0,"No","Yes")),
-                            city = factor(ifelse(city==0,"No","Yes")))
+                            city = factor(ifelse(city==0,"No","Yes"))) %>%
+  dplyr::select(-id) # I leave id out because it's not a predictor
 
 # I already provide a training dataset (identified by train==1)
 disney.train <- disney %>% dplyr::filter(train==1)
