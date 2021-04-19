@@ -52,3 +52,9 @@ Remember that you need to submit both a **written assignment** with your answers
 
 ### Files
 
+#### Classification task
+
+
+#### Regression task
+
+<a onclick="ga('send', 'event', 'External-Link','click','reg','0','Link');" href="https://sta235.netlify.app/assignments/predictionproject/code/news.html" target="_blank" class="btn btn-default">Dataset Information<i class="fas fa-info-circle"></i></a>
