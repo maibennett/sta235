@@ -857,7 +857,7 @@ m1 <- rpart(unsubscribe ~., data = d.train, method = "class", cp=-1) #<<
 
 
 ---
-# Fully-grown tree
+# Tree using all the covariates
 
 ```{r full_tree, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
 library(rpart.plot)
