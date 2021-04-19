@@ -33,3 +33,8 @@ Complete before **Sunday April 18th (11:59 pm)**. You can find the assignment <a
 ## Code
 
 Here is the R code we will review in class, with some additional data and questions <a onclick="ga('send', 'event', 'External-Link','click','code15','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/code/sp2021_sta235_15_decisiontrees.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+
+## In-class activity
+
+<!-- Code for in-class activity <a onclick="ga('send', 'event', 'External-Link','click','class_act12','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/code/sp2021_sta235_week12_exercise.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+ -->

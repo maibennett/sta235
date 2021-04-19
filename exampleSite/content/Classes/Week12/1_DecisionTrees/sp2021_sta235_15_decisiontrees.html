@@ -954,10 +954,10 @@ m3$cptable
 --
 &lt;br&gt;
 &lt;br&gt;
-.box-5t[Interpret the tree. What is the optimal size?]
+.box-5t[Play around with cp. What happens?]
 
 &lt;br&gt;
-.box-5t[What's the best cp?]
+.box-5t[Interpret your tree!]
 
 ---
 # Results
@@ -967,7 +967,7 @@ m3$cptable
 ```r
 set.seed(100)
 mex &lt;- rpart(unsubscribe ~., data = disney.train,
-             method = "class")
+             method = "class", cp = 0.01)
 *rpart.plot(mex)
 ```
 

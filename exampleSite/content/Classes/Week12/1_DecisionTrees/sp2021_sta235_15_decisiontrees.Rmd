@@ -976,10 +976,10 @@ plotcp(m1)
 --
 <br>
 <br>
-.box-5t[Interpret the tree. What is the optimal size?]
+.box-5t[Play around with cp. What happens?]
 
 <br>
-.box-5t[What's the best cp?]
+.box-5t[Interpret your tree!]
 
 ---
 # Results
@@ -988,7 +988,7 @@ plotcp(m1)
 ```{r plot_mex, fig.height=3.8, fig.width=5, fig.align='center', dev='svg', echo=TRUE, warning=FALSE}
 set.seed(100)
 mex <- rpart(unsubscribe ~., data = disney.train,
-             method = "class")
+             method = "class", cp = 0.01)
 rpart.plot(mex) #<<
 ```
 ]
