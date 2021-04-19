@@ -1,5 +1,5 @@
 ################################################################################
-### Title: "Week 11 - Shrinkage and KNN"
+### Title: "Week 12 - CART"
 ### Course: STA 235
 ### Semester: Spring 2021
 ### Professor: Magdalena Bennett
@@ -17,154 +17,128 @@ library(tidyverse)
 library(ggplot2)
 library(broom)
 library(caret)
+library(rpart)
+library(rpart.plot)
 
 ############################################
-#### Shrinkage
+#### Classification Trees
 ############################################
 
-#### Rdige regression
+# Load the data for this exercise
+disney <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/data/disney2.csv")
 
-data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv") # Load data
+# For simplicity, we are going to make dummy covariates into factor variables
+disney <- disney %>% mutate(mandalorian = factor(ifelse(mandalorian==0,"No","Yes")),
+                            city = factor(ifelse(city==0,"No","Yes")))
 
-set.seed(100) # Remember to set a seed!
+# I already provide a training dataset (identified by train==1)
+disney.train <- disney %>% dplyr::filter(train==1)
 
-n <- nrow(data)
+# Exercise: Ignore the variable train, and create your own train and testing dataset! Do you get the same results?
 
-train.row <- sample(1:n, 0.8*n) # We generate a random sample for the training data
+# Let's create 2x2 table for subscribers and unsubscribers:
 
-test.data <- data[-train.row,] #Select testing data
-train.data <- data[train.row,] #Select training data
+disney_subs <- disney.train %>% dplyr::filter(unsubscribe==0) #data for subscribers
+disney_unsubs <- disney.train %>% dplyr::filter(unsubscribe==1) #data for unsubscribers
 
-## Exercise: Play around with the proportions. What happens if you hold-out just 10% of the sample? (i.e. use only 10% of the sample for testing). How do your results change?
+# Table for subscribers
+table(disney_subs$city,disney_subs$mandalorian)
 
-lambda_seq <- c(0,10^seq(-3, 3, length = 100)) # Create a vector for different values of lambda
+# Table for unsubscribers
+table(disney_unsubs$city,disney_unsubs$mandalorian)
 
-## Question: Why do we use an exponential vector?
-
-cv <- train(spend ~., data = train.data, # We give the function `train` the formula (`spend` regressed on everything else that's on the dataset). Note: If there are variables *you don't want to include* (e.g. an id variable), you can exlude it with a - sign (e.g. spend ~ . - id).
-            method = "glmnet", # We will be using an "Elastic Net" method (which is basically the method family for ridge and lasso reg)
-            preProcess = "scale", # Pre-process the data (remember that lasso and ridge are affected by scales!)
-            trControl = trainControl("cv", number = 10), # We are using a cross-validation method, with 10 folds. What happens if you change the number of folds?
-            tuneGrid = expand.grid(alpha = 0, # alpha is the "mixing" parameter. All you need to know is that `alpha=0` is for ridge regression (and `alpha=1` is for lasso)
-                                   lambda = lambda_seq) # values of lambda we are going to test out
-)
+# Exercise: Recreate the calculations we made in class. Can you calculate the Gini Index to build regression trees?
 
 
-lambda <- cv$results$lambda #We can extract the vector of tested lambdas here
-rmse <- cv$results$RMSE # We can extract the C-V RMSE for each of those lambdas!
-
-## Exercise: What other important things do you see in the matrix `results`? Explore it!
-
-# I create a new dataframe to be able to plot lambda against RMSE
-cv_lambda <- data.frame(lambda = lambda,
-                        rmse = rmse)
-
-# Plot lambda vs RMSE
-ggplot(data = cv_lambda, aes(x = lambda, y = rmse)) + 
-  geom_line(aes(color = "#BF3984"), lwd = 2) +
-  geom_vline(aes(xintercept = cv$bestTune$lambda, color = "dark grey"), lty=2, lwd = 1.5) +
-  scale_color_manual(values=c("#BF3984","dark grey"),labels = c("#BF3984" = "CV-RMSE","dark grey" = "Min \u03BB")) +
-  theme_bw()+
-  xlab("\u03BB") + ylab("RMSE")+
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.1),
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-
-## Exercise: Use the function `filter` from dplyr to zoom into lambda, and see the more interesting part (like we did in class!)
-
-# Check out `bestTune` in the cv object: That will have the lambda that yields the smallest RMSE!
-cv$bestTune$lambda
-
-# Finally, check out the final model:
-## Exercise: Interpret these results
-coef(cv$finalModel, cv$bestTune$lambda)
-
-# Remember that predictions need to be made on testing data!
-pred.ridge <- cv %>% predict(test.data)
-
-# Model prediction performance
-data.frame(
-  RMSE = RMSE(pred.ridge, test.data$spend),
-  Rsquare = R2(pred.ridge, test.data$spend)
-)
-
-#### Lasso
-
-## Exercise: Repeat the same steps for Lasso (remember that now `alpha=1`).
-
-cvl <- train(spend ~., data = train.data, 
-             method = "glmnet",
-             trControl = trainControl("cv", number = 10),
-             tuneGrid = expand.grid(alpha = 1, #<<
-                                    lambda = lambda_seq)
-)
-
-############################################
-### KNN
-###########################################
-
-## Classifier
-
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/2_KNearest/data/purchases_type.csv")
+# Let's create a smaller dataset that just has two binary covariates:
+d.train <- disney.train %>% dplyr::select(mandalorian, city, unsubscribe)
 
 set.seed(100)
 
-n <- nrow(d)
+# Remember to include the method "class" for a classification tree (you can also omit it, and use factor(unsubscribe) as a dependent variable) 
+m1 <- rpart(unsubscribe ~., data = d.train, method = "class", cp=-1) # Why do we set cp=-1?
 
-train.row <- sample(1:n, 0.8*n) # Same thing as before. We need to divide our data
+rpart.plot(m1) #Interpret this tree!
 
-test.data <- d[-train.row,]
-train.data <- d[train.row,]
+# Now, let's play with some parameters:
 
-knn <- train(
-  type ~., data = train.data, # `type` is a factor variable now
-  method = "knn", # The method will be KNN
-  trControl = trainControl("cv", number = 10), # cross-validation with 10 fold
-  preProcess = c("center","scale"), # Again, we need to center and scale because we will be working with distances! (we want all distances to mean the same, meaning be in the same scale)
-  tuneLength = 15 # Play around with this parameter: Is the granularity for the search of the best K
-)
+m1 <- rpart(unsubscribe ~., data = d.train, method = "class", 
+            control = rpart.control(cp = 0.05, minsplit = 20)) #Let's use a cp of 0.05
 
-# Exercise: Omit the tuneLength parameter. What do you see when you do plot(knn)? Increase tuneLength=35. What are the differences now?
+# Question: What does this do? Change it around and see how your tree changes!
 
-plot(knn)
+rpart.plot(m1)
 
-# You can also find the opt K:
-knn$bestTune
+# Exercise: Change minsplit = 1500. What happens now? Why? (You can use ?rpart.control to gain some insight)
 
-#Exercise: Interpret this plot!
+m1 <- rpart(unsubscribe ~., data = d.train, method = "class", 
+            control = rpart.control(minsplit = 20)) #Let's not fix any cp. What happens then?
 
-pred.type <- knn %>% predict(test.data) #Use the testing data for prediction
+m1$cptable #cptable gives you the value of CPs tested, the number of splits for each cp, the relative error (relative to no split), the mean error, and the std dev of that error.
 
-table(pred.type, test.data$type) # This table shows the predicted types (rows) and the actual types (columns). You want the diagonals to have the most observations and hopefully the off-diagonals to be 0. Why?
+plotcp(m1) # Question: Which cp would you choose? What does "size of tree" mean?
 
-## Regression
+# Finally, let's test the accuracy of our model!
 
-# Let's do the same as before, but now with a continous outcome
-knnr <- train(
-  spend ~. - type, data = train.data, #<<
-  method = "knn",
+disney.test <- disney %>% dplyr::filter(train==0)
+
+# We use cross-validation to find the cp parameter.
+mclass <- train(
+  factor(unsubscribe) ~., data = disney.train, 
+  method = "rpart",
   trControl = trainControl("cv", number = 10),
-  preProcess = c("center","scale"),
-  tuneLength = 50 #Again, play around with this parameter.
+  tuneLength = 50
 )
 
-plot(knnr) #Exercise: Interpret this plot. What is on the Y axis? Is it better to have high values of Y or low?
+pred.class <- mclass %>% predict(disney.test)
 
-#Question: What's the best K in this case?
+mean(pred.class==disney.test$unsubscribe) # This gives us the accuracy rate.
 
-# Let's test the error rates:
 
-pred.spend <- knnr %>% predict(test.data)
+#####################################################
+########## Regression Tree
+#####################################################
 
-RMSE(pred.spend, test.data$spend)
+#Let's predict logins now.
+
+set.seed(100)
+r1 <- rpart(logins ~. - unsubscribe, data = disney.train,
+            method = "anova")#<<
+
+rpart.plot(r1)
+
+# Question: What's the cp for r1? Can you find it?
+
+# We might want to obtain our cp parameter through cross-validation. For that, we can use the caret package:
+mcv <- train(
+  logins ~. - unsubscribe, data = disney.train, # We give it our model and data (look that I use -unsubscribe so I don't use it as a predictor!)
+  method = "rpart", #Method is rpart (any decision tree will use rpart)
+  trControl = trainControl("cv", number = 10), # We want cross-validation with 10 fold
+  tuneLength = 50 #That basically gives the number of values that will search for cp
+)
+
+plot(mcv)
+
+# Exercise: We saw in class that we can also give the train() function an explicit grid for it to search cp. Can you recreate that code here?
+
+# We can also plot the model
+par(xpd = NA) # Avoid clipping the text in some device
+plot(mcv$finalModel) # This will plot the tree
+text(mcv$finalModel, digits = 3) # This will plot the labels!
+
+# Question: Look at the final model. Can you interpret it from this table?
+mcv$finalModel
+
+# Let's predict the RMSE
+
+pred.reg <- mcv %>% predict(disney.test)
+
+RMSE(pred.reg, disney.test$logins)
+
+# Question: How would you interpret that RMSE?
+
+
+###########################################################
+#### Additional exercises
+###########################################################
+
