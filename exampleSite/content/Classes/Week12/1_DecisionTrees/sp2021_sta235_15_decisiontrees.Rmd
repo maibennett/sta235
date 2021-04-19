@@ -1018,7 +1018,7 @@ Regression Trees
 ---
 # In R is basically the same
 
-```{r plot_reg, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+```{r plot_reg, fig.height=4, fig.width=10, fig.align='center', dev='svg', echo=TRUE, warning=FALSE}
 set.seed(100)
 r1 <- rpart(logins ~. - unsubscribe, data = disney.train,
             method = "anova")#<<

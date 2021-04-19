@@ -997,6 +997,15 @@ Regression Trees
 ---
 # In R is basically the same
 
+
+```r
+set.seed(100)
+r1 &lt;- rpart(logins ~. - unsubscribe, data = disney.train,
+*           method = "anova")
+
+rpart.plot(r1)
+```
+
 &lt;img src="sp2021_sta235_15_decisiontrees_files/figure-html/plot_reg-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
