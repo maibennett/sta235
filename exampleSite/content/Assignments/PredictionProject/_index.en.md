@@ -56,7 +56,7 @@ Remember that you need to submit both a **written assignment** with your answers
 
 <a onclick="ga('send', 'event', 'External-Link','click','class_info','0','Link');" href="https://sta235.netlify.app/assignments/predictionproject/code/bankruptcy.html" target="_blank" class="btn btn-default">Dataset Information<i class="fas fa-info-circle"></i></a>
 
-<a onclick="ga('send', 'event', 'External-Link','click','class_code','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/PredictionProject/data/banktrain.csv" target="_blank" class="btn btn-default">Download data<i class="fas fa-download"></i></a>
+<a onclick="ga('send', 'event', 'External-Link','click','class_code','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/PredictionProject/data/bankruptcytrain.csv" target="_blank" class="btn btn-default">Download data<i class="fas fa-download"></i></a>
 
 #### Regression task
 
