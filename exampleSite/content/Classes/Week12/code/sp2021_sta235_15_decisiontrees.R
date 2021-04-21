@@ -147,7 +147,3 @@ RMSE(pred.reg, disney.test$logins)
 # Let's plot this tree now:
 fancyRpartPlot(mcv$finalModel)
 
-###########################################################
-#### Additional exercises
-###########################################################
-
