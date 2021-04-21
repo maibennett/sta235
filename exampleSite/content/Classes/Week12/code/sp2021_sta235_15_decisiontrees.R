@@ -19,6 +19,7 @@ library(broom)
 library(caret)
 library(rpart)
 library(rpart.plot)
+library(rattle) # This is to make pretty tree plots with the caret package.
 
 ############################################
 #### Classification Trees
@@ -94,6 +95,12 @@ pred.class <- mclass %>% predict(disney.test)
 
 mean(pred.class==disney.test$unsubscribe) # This gives us the accuracy rate.
 
+# This is how you plot the traditional models
+plot(mclass$finalModel)
+text(mclass$finalModel)
+
+# But you can make it prettier!
+fancyRpartPlot(mclass$finalModel)
 
 #####################################################
 ########## Regression Tree
@@ -137,6 +144,8 @@ RMSE(pred.reg, disney.test$logins)
 
 # Question: How would you interpret that RMSE?
 
+# Let's plot this tree now:
+fancyRpartPlot(mcv$finalModel)
 
 ###########################################################
 #### Additional exercises

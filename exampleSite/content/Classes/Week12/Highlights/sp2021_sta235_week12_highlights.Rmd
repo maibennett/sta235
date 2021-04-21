@@ -1,5 +1,5 @@
 ---
-title: "STA 235 - Week 10: Highlight Session"
+title: "STA 235 - Week 12: Highlight Session"
 subtitle: "Spring 2021"
 author: "McCombs School of Business, UT Austin"
 output:
@@ -296,14 +296,17 @@ options(scipen = 0)
 # Today
 
 .pull-left[
-- Istrumental Variables
+- Trees and more trees:
 
-- Bias vs Variance
+  - What do we mean by impurity and how do we calculate it?
+  
+  - Complexity parameter
+  
+  - Advantages and disadvantages of decision trees
 
-- Validation sets and Cross-validation
 ]
 .pull-right[
-![](https://media.giphy.com/media/3o6Zt8JVG0K3BqXMCA/giphy.gif)
+![](https://media.giphy.com/media/a7NBvg3Ss8UYo/giphy.gif)
 ]
 ---
 background-position: 50% 50%
