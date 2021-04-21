@@ -166,7 +166,7 @@ Below you will find a general outline of the topics we’ll cover in this course
 <tr>
 <td>15</td>
 <td>May 3</td>
-<td>Modeling trends and seasonality with time-series data.</td>
+<td>Text data analysis. Bringing everything together.</td>
 </tr>
 <tr>
 <td>16</td>
