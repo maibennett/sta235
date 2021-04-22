@@ -37,3 +37,9 @@ Here is the R code we will review in class, with some additional data and questi
 ## In-class activity
 
 Code for in-class activity <a onclick="ga('send', 'event', 'External-Link','click','class_act12','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/code/sp2021_sta235_week12_exercise.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+
+## Highlight session
+
+{{% button href="https://sta235.netlify.app/Classes/Week12/highlights/sp2021_sta235_week12_highlights.html" icon="fas fa-external-link-alt" icon-position="right" %}}Slides{{% /button %}}
+
+<a onclick="ga('send', 'event', 'External-Link','click','HL12code','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/highlights/sp2021_sta235_week12_code.R" target="_blank" class="btn btn-default">Code<i class="fas fa-code"></i></a>
