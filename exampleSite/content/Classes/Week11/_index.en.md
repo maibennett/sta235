@@ -41,3 +41,7 @@ Complete before **Sunday April 11th (11:59 pm)**. You can find the assignment <a
 ## Code
 
 Here is the R code we will review in class, with some additional data and questions <a onclick="ga('send', 'event', 'External-Link','click','code11','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/code/sp2021_sta235_13_shrinkage_knn.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+
+## Highlight session
+
+{{% button href="https://sta235.netlify.app/Classes/Week11/Highlights/sp2021_sta235_week11_highlights.html" icon="fas fa-external-link-alt" icon-position="right" %}}Slides{{% /button %}}
