@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235 - Bagging, Random Forests, and Boosting</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA 235 - Bagging, Random Forests, and Boosting
+## Spring 2021
+### McCombs School of Business, UT Austin
+
+---
+
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+# Some reminders
+
+.box-2LA[Prediction Project due next Friday]
+
+&lt;br&gt;
+
+.box-2tL[Remember not to leave it for the last minute!]
+
+---
+# Some reminders (Cont.)
+
+&lt;br&gt;
+.box-7LA[No highlight session this week + OH moved to Wednesday]
+
+&lt;br&gt;
+
+.box-7[There is going to be a review session (+ highlight) the week of May 3rd]
+
+&lt;br&gt;
+
+.box-7t[I'll send out a Doodle to pick the best time]
+
+---
+# What we have seen...
+
+.pull-left[
+.center[
+![](https://media.giphy.com/media/RJNUfl6G1jNJvJfY11/giphy.gif)
+]
+]
+
+.pull-right[
+- **.darkorange[Decision trees:]**
+
+  - Classification and Regression Trees
+  - When to split? Complexity parameter
+  - Advantages and disadvantages.
+]
+
+---
+# What we'll cover today
+
+.pull-left[
+
+- **.darkorange[Bagging]**
+
+  - Tree bagging
+  
+- **.darkorange[Random Forests]**
+
+  - Combining many trees!
+  
+- **.darkorange[Boosting]**
+
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/ZoAa7lsmym6UE/source.gif)
+]
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Quick recap on trees
+]
+---
+# Quick refresher on decision trees
+
+.pull-left[
+- A decision tree is a structure that **.darkorange[works like a flowchart]**
+
+- You start at the **.darkorange[root node]**, made your way down the branches through the **.darkorange[(internal) nodes]**, and get to the **.darkorange[leaves (terminal nodes)]**.
+
+  - At the leaves is where prediction happens!
+]
+
+.pull-right[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/tree_example.png)]
+]
+
+---
+# To split or not to split
+
+.pull-left[
+- In general, we will only increase the size of our tree (additional split) **.darkorange[if we gain some additional information for prediction]**
+
+- How do we measure that information gain?
+  - **.darkorange[Classification:]** Impurity measure (like Gini Index).
+  - **.darkorange[Regression:]** Decrease in RSS.
+
+]
+
+.pull-right[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/tree_example.png)]
+]
+---
+# One tree, two ways
+
+- We mentioned in class that there are **.darkorange[two ways to build trees]**:
+
+  - **.darkorange[Recursive binary splitting]**: Top-down approach, greedy algorithm.
+  
+  - **.darkorange[Tree pruning]**: Build full-grown tree and prune it.
+  
+- The complexity parameter (in R) works in both these settings.
+
+---
+
+.center2[
+.box-4LA[Poll Time!]
+]
+
+---
+
+.center2[
+.box-4LA[In term of bias, which one is better: A deep tree or a shallow tree?]
+]
+
+---
+# Let's look at an example: Carseat sales
+
+.small[
+
+```r
+library(ISLR)
+data("Carseats")
+
+head(Carseats)
+```
+
+```
+##   Sales CompPrice Income Advertising Population Price ShelveLoc Age Education
+## 1  9.50       138     73          11        276   120       Bad  42        17
+## 2 11.22       111     48          16        260    83      Good  65        10
+## 3 10.06       113     35          10        269    80    Medium  59        12
+## 4  7.40       117    100           4        466    97    Medium  55        14
+## 5  4.15       141     64           3        340   128       Bad  38        13
+## 6 10.81       124    113          13        501    72       Bad  78        16
+##   Urban  US
+## 1   Yes Yes
+## 2   Yes Yes
+## 3   Yes Yes
+## 4   Yes Yes
+## 5   Yes  No
+## 6    No Yes
+```
+]
+
+---
+# Do you wanna build a... tree?
+
+
+```r
+*library(caret)
+library(rattle)
+
+set.seed(100)
+
+train.id &lt;- sample(1:nrow(Carseats), 0.8*nrow(Carseats))
+
+carseats.train &lt;- Carseats[train.id,]
+carseats.test &lt;- Carseats[-train.id,]
+
+tuneGrid &lt;- expand.grid(cp = seq(0, 0.01, 0.0001))
+
+mcv &lt;- train(Sales ~., data = carseats.train, method = "rpart", 
+  trControl = trainControl("cv", number = 10), tuneGrid = tuneGrid)
+```
+
+---
+# Do you wanna build a... tree?
+
+
+```r
+library(caret) 
+*library(rattle)
+
+set.seed(100)
+
+train.id &lt;- sample(1:nrow(Carseats), 0.8*nrow(Carseats))
+
+carseats.train &lt;- Carseats[train.id,]
+carseats.test &lt;- Carseats[-train.id,]
+
+tuneGrid &lt;- expand.grid(cp = seq(0, 0.01, 0.0001))
+
+mcv &lt;- train(Sales ~., data = carseats.train, method = "rpart", 
+  trControl = trainControl("cv", number = 10), tuneGrid = tuneGrid)
+```
+---
+# Do you wanna build a... tree?
+
+
+```r
+library(caret) 
+library(rattle)
+
+*set.seed(100)
+
+train.id &lt;- sample(1:nrow(Carseats), 0.8*nrow(Carseats))
+
+carseats.train &lt;- Carseats[train.id,]
+carseats.test &lt;- Carseats[-train.id,]
+
+tuneGrid &lt;- expand.grid(cp = seq(0, 0.01, 0.0001))
+
+mcv &lt;- train(Sales ~., data = carseats.train, method = "rpart", 
+  trControl = trainControl("cv", number = 10), tuneGrid = tuneGrid)
+```
+
+---
+# Do you wanna build a... tree?
+
+
+```r
+library(caret) 
+library(rattle)
+
+set.seed(100)
+
+train.id &lt;- sample(1:nrow(Carseats), 0.8*nrow(Carseats))
+
+carseats.train &lt;- Carseats[train.id,]
+carseats.test &lt;- Carseats[-train.id,]
+
+*tuneGrid &lt;- expand.grid(cp = seq(0, 0.01, 0.0001))
+
+mcv &lt;- train(Sales ~., data = carseats.train, method = "rpart", 
+  trControl = trainControl("cv", number = 10), tuneGrid = tuneGrid)
+```
+
+
+---
+# Do you wanna build a... tree?
+
+
+```r
+library(caret) 
+library(rattle)
+
+set.seed(100)
+
+train.id &lt;- sample(1:nrow(Carseats), 0.8*nrow(Carseats))
+
+carseats.train &lt;- Carseats[train.id,]
+carseats.test &lt;- Carseats[-train.id,]
+
+tuneGrid &lt;- expand.grid(cp = seq(0, 0.01, 0.0001))
+
+*mcv &lt;- train(Sales ~., data = carseats.train, method = "rpart",
+* trControl = trainControl("cv", number = 10), tuneGrid = tuneGrid)
+```
+
+---
+# Do you wanna build a... tree?
+
+
+```r
+fancyRpartPlot(mcv$finalModel, caption="")
+```
+
+&lt;img src="sp2021_sta235_16_randomforests_files/figure-html/fancy_mcv-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Main takeaway points
+
+.pull-left[
+
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/l2Je66zG6mAAZxgqI/giphy.gif)
+]
+]
+
+---
+# Next week
+
+.pull-left[
+.center[
+![](https://media.giphy.com/media/TI32JwHmWQEi4/giphy.gif)
+]
+]
+
+.pull-right[
+- **.darkorange[Text data]**: Scrape and analyze different type of data.
+
+- We will also **.darkorange[bring everything together]**: Causal inference + prediction.
+
+- No readings for next week, only a **.darkorange[small task]** (*there will still be a JITT!*)
+
+.box-5[Final class!]
+]
+
+---
+# References
+
+- James, G. et al. (2013). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 6.*
+
+- STDHA. (2018). ["Penalized Regression Essentials: Ridge, Lasso &amp; Elastic Net"](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/153-penalized-regression-essentials-ridge-lasso-elastic-net)
+
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week11/1_shrinkage/sp2021_sta235_13_shrinkage.html', timeout = 10)--&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script src="cols_macro.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
