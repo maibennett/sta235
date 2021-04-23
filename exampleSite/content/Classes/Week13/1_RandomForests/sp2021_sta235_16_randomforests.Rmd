@@ -555,8 +555,79 @@ Bagging
 
 --
 
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/bootstrap1.png)
+
+---
+# Introduction to Bagging
+
+- **.darkorange[Bagging (Bootstrap Aggregation)]**: Meant to reduce variance.
 
 
+- Remember **.darkorange[bootstrap sampling]**?
+
+
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/bootstrap2.png)
+---
+# Introduction to Bagging
+
+- **.darkorange[Bagging (Bootstrap Aggregation)]**: Meant to reduce variance.
+
+
+- Remember **.darkorange[bootstrap sampling]**?
+
+
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/bootstrap3.png)
+---
+# Introduction to Bagging
+
+- **.darkorange[Bagging (Bootstrap Aggregation)]**: Meant to reduce variance.
+
+
+- Remember **.darkorange[bootstrap sampling]**?
+
+
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/bootstrap4.png)
+---
+# Introduction to Bagging
+
+- **.darkorange[Bagging (Bootstrap Aggregation)]**: Meant to reduce variance.
+
+
+- Remember **.darkorange[bootstrap sampling]**?
+
+
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/bootstrap5.png)
+
+---
+# Bagging and Decision Trees
+
+1. Bootstrap your training sample $B$ times
+
+--
+
+2. For each sample $b$, build a tree.
+
+--
+
+3. Predict your outcomes!
+
+-- 
+
+  a. Regression: Average the outcomes
+  
+  b. Classification: Majority vote
+
+---
+# But... how does this reduce variance?
+
+--
+
+$$\hat{f}_{bag}(x) = \frac{1}{B}\sum_{b=1}^B\hat{f}^b(x)$$
+--
+
+- If $Var(\hat{f}^b(x)) = \sigma^2 \ \ \forall \ b$, then:
+
+$$Var(\hat{f}_{bag}(x)) = Var(\frac{1}{B}\sum_{b=1}^B\hat{f}^b(x)) = \frac{B}{B^2}\sigma^2 = \frac{\sigma^2}{B}$$
 ---
 # Main takeaway points
 
