@@ -574,17 +574,17 @@ pred.mcv &lt;- mcv %&gt;% predict(carseats.test)
 ---
 # Best DT vs Bagging
 
-.center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/sp2021_sta235_16_randomforests_files/figure-html/dt_vs_bag-1.svg)
-]
-
+&lt;img src="sp2021_sta235_16_randomforests_files/figure-html/dt_vs_bag-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 # Interpretability?
 
 
 ```r
 library(vip)
-vip::vip(mcv, num_features = 10, geom = "point")
+bt &lt;- train(Sales ~ ., data = carseats.train, method = "treebag", trControl = trainControl("cv", number = 10),
+            nbagg = 100, control = rpart.control(cp = 0))
+
+vip::vip(bt, num_features = 10, geom = "point")
 ```
 
 &lt;img src="sp2021_sta235_16_randomforests_files/figure-html/dt_vs_bag2-1.svg" style="display: block; margin: auto;" /&gt;
@@ -680,12 +680,43 @@ plot(rfcv)
 ]
 
 ---
-# Back to our example! (Runs faster: 36s vs  15s)
+
+.center2[
+.box-6LA[Our dataset has 11 variables (1 outcome + 10 predictors)... why does the precitors go from 2 to 11?]
+]
+
+---
+# We need to look at the model.matrix
+
+
+```r
+head(model.matrix(Sales ~ ., data = carseats.train))
+```
+
+```
+##    (Intercept) CompPrice Income Advertising Population Price ShelveLocGood
+## 1            1       138     73          11        276   120             0
+## 2            1       111     48          16        260    83             1
+## 4            1       117    100           4        466    97             0
+## 5            1       141     64           3        340   128             0
+## 7            1       115    105           0         45   108             0
+## 11           1       121     78           9        150   100             0
+##    ShelveLocMedium Age Education UrbanYes USYes
+## 1                0  42        17        1     1
+## 2                0  65        10        1     1
+## 4                1  55        14        1     1
+## 5                0  38        13        1     0
+## 7                1  71        15        1     0
+## 11               0  26        10        0     1
+```
+
+---
+# Back to our example! (Runs faster: 30s vs 11s)
 
 
 ```r
 library(doParallel)
-cl &lt;- makePSOCKcluster(8)
+cl &lt;- makePSOCKcluster(7)
 registerDoParallel(cl)
 
 set.seed(100)
@@ -696,8 +727,8 @@ rfcv_fast &lt;- train(Sales ~ ., data = carseats.train,
                    tuneLength = 10)
 
 stopCluster(cl)
+registerDoSEQ()
 ```
-
 ---
 # Covariance importance?
 
@@ -707,6 +738,18 @@ vip::vip(rfcv, num_features = 10, geom = "point")
 ```
 
 &lt;img src="sp2021_sta235_16_randomforests_files/figure-html/cov_importance-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+.center2[
+.box-3LA[Poll time]
+]
+
+---
+
+.center2[
+.box-3LA[In a Random Forest, a higher number of trees will yield a[n]...]
+]
 
 ---
 # Let's compare our models:
@@ -723,11 +766,11 @@ RMSE(mcv %&gt;% predict(carseats.test), carseats.test$Sales)
 
 ```r
 # Bagged trees
-RMSE(b1 %&gt;% predict(carseats.test), carseats.test$Sales)
+RMSE(bt %&gt;% predict(carseats.test), carseats.test$Sales)
 ```
 
 ```
-## [1] 1.567368
+## [1] 1.604022
 ```
 
 ```r
@@ -758,16 +801,201 @@ Boosting!
 - Similar to bagging, but now **.darkorange[trees grow sequentially]**.
 
 - Slowly learning!
+
+- More effective on models with **.darkorange[high bias]** and **.darkorange[low variance]**
 ]
 
 .pull-right[
-![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/bagging.jpg)]
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/boosting.jpg)]
 
+---
+# Basic Algorithm for Gradient Boosting
+
+    1.  Set `\(\hat{f}(x)=0\)` and `\(r_i=y_i\)` for all `\(i\)` in the training dataset
+    2.  Select number of trees to build (n_trees)
+    3.  for i = 1 to n_trees do
+    4.  |  Fit a tree `\(\hat{f}^b\)` with `\(d\)` splits to the training data `\((X,r)\)`
+    5.  |  Update `\(\hat{b}\)` by adding a shrunken version of the new tree
+    6.  |  `$$\hat{f}(x) \leftarrow \hat{f}(x) + \lambda\hat{f}^b(x)$$`
+    7.  |  Update the residuals
+    8.  |  `$$r_i \leftarrow r_i - \lambda\hat{f}^b(x_i)$$`
+    9.  end
+    10. Output the boosted model
+    11. `$$\hat{f}(x) = \sum_{b=1}^B\lambda\hat{f}^b(x)$$`
+
+.source[Source: ISLR (2015)]
+
+---
+# Tuning parameters for boosting
+
+- **.darkorange[Number of trees:]** We need to select the `\(B\)` number of trees we will fit. We can get this through cross-validation.
+
+--
+
+- **.darkorange[Shrinkage parameter:]** `\(\lambda\)` determines how fast the boosting will learn. Typical numbers range are 0.001 to 0.01. If your algorithm is learning too slow (low `\(\lambda\)`), you're going to need a lot of trees!
+
+--
+
+- **.darkorange[Number of splits:]** Number of splits `\(d\)` controls the complexity of your trees. We usually work with low-complexity trees ($d=1$) 
+
+
+---
+
+.center2[
+.box-6LA[Poll time]
+]
+
+---
+
+.center2[
+.box-6LA[A tree with just a root and two leaves is called a stomp. Are these high or low-bias trees?]
+]
+
+---
+
+.center2[
+.box-4LA[Poll time]
+]
+
+---
+
+.center2[
+.box-4LA[In boosting, a higher number of trees will yield a[n]...]
+]
+
+---
+# Boosting in R
+
+.pull-left[
+- We have seen **.darkorange[gradient boosting]** so far.
+
+- There are other types of boosting, like **.darkkorange[adaptative boosting]** (you saw it in the video!)
+
+  - For classification problems
+]
+
+.pull-right[
+
+```r
+modelLookup("ada")
+```
+
+```
+##   model parameter          label forReg forClass probModel
+## 1   ada      iter         #Trees  FALSE     TRUE      TRUE
+## 2   ada  maxdepth Max Tree Depth  FALSE     TRUE      TRUE
+## 3   ada        nu  Learning Rate  FALSE     TRUE      TRUE
+```
+
+```r
+modelLookup("gbm")
+```
+
+```
+##   model         parameter                   label forReg forClass probModel
+## 1   gbm           n.trees   # Boosting Iterations   TRUE     TRUE      TRUE
+## 2   gbm interaction.depth          Max Tree Depth   TRUE     TRUE      TRUE
+## 3   gbm         shrinkage               Shrinkage   TRUE     TRUE      TRUE
+## 4   gbm    n.minobsinnode Min. Terminal Node Size   TRUE     TRUE      TRUE
+```
+]
+
+---
+# Gradient Boosting in R
+
+```r
+cl &lt;- makePSOCKcluster(7)
+registerDoParallel(cl)
+
+set.seed(100)
+
+gbm &lt;- train(Sales ~ ., data = carseats.train,
+             method = "gbm", 
+             trControl = trainControl("cv", number = 10, allowParallel = TRUE),
+             tuneLength = 20)
+
+stopCluster(cl)
+registerDoSEQ()
+```
+
+---
+# Gradient Boosting in R
+
+```r
+# Final Model information
+gbm$finalModel
+```
+
+```
+## A gradient boosted model with gaussian loss function.
+## 350 iterations were performed.
+## There were 11 predictors of which 11 had non-zero influence.
+```
+
+```r
+# Best Tuning parameters?
+gbm$bestTune
+```
+
+```
+##   n.trees interaction.depth shrinkage n.minobsinnode
+## 7     350                 1       0.1             10
+```
+
+---
+# Let's do a comparison!
+--
+
+```r
+# Pruned tree
+RMSE(mcv %&gt;% predict(carseats.test), carseats.test$Sales)
+```
+
+```
+## [1] 2.082905
+```
+
+```r
+# Bagged trees
+RMSE(bt %&gt;% predict(carseats.test), carseats.test$Sales)
+```
+
+```
+## [1] 1.604022
+```
+
+```r
+# Random Forest
+RMSE(rfcv %&gt;% predict(carseats.test), carseats.test$Sales)
+```
+
+```
+## [1] 1.50476
+```
+
+```r
+# Gradient Boosting
+RMSE(gbm %&gt;% predict(carseats.test), carseats.test$Sales)
+```
+
+```
+## [1] 1.201098
+```
+---
+.center2[
+![](https://media.giphy.com/media/5aLrlDiJPMPFS/source.gif)
+]
 ---
 # Main takeaway points
 
 .pull-left[
+- There's a lot we can do to **.darkorange[improve our prediction models!]**
 
+- Decision trees by itself are not great...
+
+  - ... but they are awesome for building other stuff like **.darkorange[random forests]**.
+  
+- **.darkorange[Bagging]** and **.darkorange[boosting]** can be used with other learners, not only DT! 
 ]
 
 .pull-right[
@@ -798,15 +1026,13 @@ Boosting!
 ---
 # References
 
-- James, G. et al. (2013). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 6.*
+- Boehmke, B. &amp; B. Greenwell. (2020). ["Hands-on Machine Learning with R"](https://bradleyboehmke.github.io/HOML/bagging.html)
+
+- James, G. et al. (2013). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 8.*
 
 - Singhal, G. (2020). ["Ensemble methods in Machine Learning: Bagging vs. Boosting"](https://www.pluralsight.com/guides/ensemble-methods:-bagging-versus-boosting)
 
-- Boehmke, B. &amp; B. Greenwell. (2020). ["Hands-on Machine Learning with R"](https://bradleyboehmke.github.io/HOML/bagging.html)
-
-- STDHA. (2018). ["Penalized Regression Essentials: Ridge, Lasso &amp; Elastic Net"](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/153-penalized-regression-essentials-ridge-lasso-elastic-net)
-
-&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week11/1_shrinkage/sp2021_sta235_13_shrinkage.html', timeout = 10)--&gt;
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week13/1_RandomForests/sp2021_sta235_16_randomforests.html', timeout = 10)--&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
