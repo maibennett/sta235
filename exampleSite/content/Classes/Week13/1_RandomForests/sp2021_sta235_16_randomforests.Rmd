@@ -953,7 +953,8 @@ set.seed(100)
 
 rfcv_fast <- train(Sales ~ ., data = carseats.train,
                    method = "rf", 
-                   trControl = trainControl("cv", number = 10),
+                   trControl = trainControl("cv", number = 10, 
+                                            allowParallel = TRUE),
                    tuneLength = 10)
 
 stopCluster(cl)
@@ -975,7 +976,7 @@ vip::vip(rfcv, num_features = 10, geom = "point")
 ---
 
 .center2[
-.box-3LA[In a Random Forest, a higher number of trees will yield a[n]...]
+.box-3LA[In a Random Forest, a higher number of trees will yield an...]
 ]
 
 ---
@@ -1005,16 +1006,14 @@ Boosting!
 ---
 # What is boosting?
 
-.pull-left[
 - Similar to bagging, but now **.darkorange[trees grow sequentially]**.
 
 - Slowly learning!
 
 - More effective on models with **.darkorange[high bias]** and **.darkorange[low variance]**
-]
 
-.pull-right[
-![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/boosting2.png)]
+.center[
+![:scale 120%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/boosting2.png)]
 
 ---
 # Basic Algorithm for Gradient Boosting
@@ -1024,9 +1023,9 @@ Boosting!
     3.  for b = 1 to n_trees do
     4.  |  Fit a tree f^b with d splits to the training data (X,r)
     5.  |  Update f by adding a shrunken version of the new tree
-    6.  |  f(x) <-- f(x) + \lambda f^b(x)$$
+    6.  |  f(x) <-- f(x) + \lambda f^b(x)
     7.  |  Update the residuals
-    8.  |  r_i <-- r_i - \lambda f^b(x_i)$$
+    8.  |  r_i <-- r_i - \lambda f^b(x_i)
     9.  end
     10. Output the boosted model
     11. f(x) = \sum_{b=1}^B\lambda f^b(x)
@@ -1044,7 +1043,7 @@ Boosting!
 
 --
 
-- **.darkorange[Number of splits:]** Number of splits $d$ controls the complexity of your trees. We usually work with low-complexity trees ($d=1$) 
+- **.darkorange[Number of splits:]** Number of splits $d$ controls the complexity of your trees. We usually work with low-complexity trees (d=1) 
 
 
 ---
@@ -1068,7 +1067,7 @@ Boosting!
 ---
 
 .center2[
-.box-4LA[In boosting, a higher number of trees will yield a[n]...]
+.box-4LA[In boosting, a higher number of trees will yield an...]
 ]
 
 ---
@@ -1077,17 +1076,19 @@ Boosting!
 .pull-left[
 - We have seen **.darkorange[gradient boosting]** so far.
 
-- There are other types of boosting, like **.darkkorange[adaptative boosting]** (you saw it in the video!)
+- There are other types of boosting, like **.darkorange[adaptative boosting]** (you saw it in the video!)
 
   - For classification problems
 ]
 
 .pull-right[
+.small[
 ```{r}
 modelLookup("ada")
 
 modelLookup("gbm")
 ```
+]
 ]
 
 ---
