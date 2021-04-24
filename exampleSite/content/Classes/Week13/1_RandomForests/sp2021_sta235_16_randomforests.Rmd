@@ -318,7 +318,7 @@ options(scipen = 0)
 
 .pull-left[
 .center[
-![](https://media.giphy.com/media/RJNUfl6G1jNJvJfY11/giphy.gif)
+![:scale 80%](https://media.giphy.com/media/RJNUfl6G1jNJvJfY11/giphy.gif)
 ]
 ]
 
@@ -326,7 +326,9 @@ options(scipen = 0)
 - **.darkorange[Decision trees:]**
 
   - Classification and Regression Trees
+  
   - When to split? Complexity parameter
+  
   - Advantages and disadvantages.
 ]
 
@@ -365,7 +367,7 @@ Quick recap on trees
 .pull-left[
 - A decision tree is a structure that **.darkorange[works like a flowchart]**
 
-- You start at the **.darkorange[root node]**, made your way down the branches through the **.darkorange[(internal) nodes]**, and get to the **.darkorange[leaves (terminal nodes)]**.
+- You start at the **.darkorange[root node]**, make your way down the branches through the **.darkorange[(internal) nodes]**, and get to the **.darkorange[leaves (terminal nodes)]**.
 
   - At the leaves is where prediction happens!
 ]
@@ -415,12 +417,12 @@ Quick recap on trees
 ]
 
 ---
-# Let's look at an example: Carseat sales
+# Let's look at an example: Housing prices in Ames, Iowa
 
 .small[
 ```{r, warning=FALSE, message=FALSE}
 library(ISLR)
-data("Carseats")
+data(Carseats)
 
 head(Carseats)
 ```
@@ -432,13 +434,14 @@ head(Carseats)
 ```{r, echo=TRUE, warning=FALSE, message=FALSE}
 library(caret) #<<
 library(rattle)
+library(rsample)
 
 set.seed(100)
 
-train.id <- sample(1:nrow(Carseats), 0.8*nrow(Carseats))
+split <- initial_split(Carseats, prop = 0.7, strata = "Sales")
 
-carseats.train <- Carseats[train.id,]
-carseats.test <- Carseats[-train.id,]
+carseats.train  <- training(split)
+carseats.test   <- testing(split)
 
 tuneGrid <- expand.grid(cp = seq(0, 0.01, 0.0001))
 
@@ -449,35 +452,37 @@ mcv <- train(Sales ~., data = carseats.train, method = "rpart",
 ---
 # Do you wanna build a... tree?
 
-```{r, echo=TRUE, warning=FALSE, message=FALSE}
-library(caret) 
-library(rattle) #<<
-
-set.seed(100)
-
-train.id <- sample(1:nrow(Carseats), 0.8*nrow(Carseats))
-
-carseats.train <- Carseats[train.id,]
-carseats.test <- Carseats[-train.id,]
-
-tuneGrid <- expand.grid(cp = seq(0, 0.01, 0.0001))
-
-mcv <- train(Sales ~., data = carseats.train, method = "rpart", 
-  trControl = trainControl("cv", number = 10), tuneGrid = tuneGrid)
-```
----
-# Do you wanna build a... tree?
-
-```{r, echo=TRUE, warning=FALSE, message=FALSE}
+```{r, echo=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
 library(caret) 
 library(rattle)
+library(rsample) #<<
+
+set.seed(100)
+
+split <- initial_split(Carseats, prop = 0.7, strata = "Sales")
+
+carseats.train  <- training(split)
+carseats.test   <- testing(split)
+
+tuneGrid <- expand.grid(cp = seq(0, 0.01, 0.0001))
+
+mcv <- train(Sales ~., data = carseats.train, method = "rpart", 
+  trControl = trainControl("cv", number = 10), tuneGrid = tuneGrid)
+```
+---
+# Do you wanna build a... tree?
+
+```{r, echo=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
+library(caret) 
+library(rattle)
+library(rsample)
 
 set.seed(100) #<<
 
-train.id <- sample(1:nrow(Carseats), 0.8*nrow(Carseats))
+split <- initial_split(Carseats, prop = 0.7, strata = "Sales")
 
-carseats.train <- Carseats[train.id,]
-carseats.test <- Carseats[-train.id,]
+carseats.train  <- training(split)
+carseats.test   <- testing(split)
 
 tuneGrid <- expand.grid(cp = seq(0, 0.01, 0.0001))
 
@@ -488,16 +493,17 @@ mcv <- train(Sales ~., data = carseats.train, method = "rpart",
 ---
 # Do you wanna build a... tree?
 
-```{r, echo=TRUE, warning=FALSE, message=FALSE}
+```{r, echo=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
 library(caret) 
 library(rattle)
+library(rsample)
 
 set.seed(100)
 
-train.id <- sample(1:nrow(Carseats), 0.8*nrow(Carseats))
+split <- initial_split(Carseats, prop = 0.7, strata = "Sales")
 
-carseats.train <- Carseats[train.id,]
-carseats.test <- Carseats[-train.id,]
+carseats.train  <- training(split)
+carseats.test   <- testing(split)
 
 tuneGrid <- expand.grid(cp = seq(0, 0.01, 0.0001)) #<<
 
@@ -509,16 +515,17 @@ mcv <- train(Sales ~., data = carseats.train, method = "rpart",
 ---
 # Do you wanna build a... tree?
 
-```{r, echo=TRUE, warning=FALSE, message=FALSE}
+```{r, echo=TRUE, warning=FALSE, message=FALSE, eval = FALSE}
 library(caret) 
 library(rattle)
+library(rsample)
 
 set.seed(100)
 
-train.id <- sample(1:nrow(Carseats), 0.8*nrow(Carseats))
+split <- initial_split(Carseats, prop = 0.7, strata = "Sales")
 
-carseats.train <- Carseats[train.id,]
-carseats.test <- Carseats[-train.id,]
+carseats.train  <- training(split)
+carseats.test   <- testing(split)
 
 tuneGrid <- expand.grid(cp = seq(0, 0.01, 0.0001))
 
@@ -601,22 +608,24 @@ Bagging
 ---
 # Bagging and Decision Trees
 
+.pull-left[
 1. Bootstrap your training sample $B$ times
 
---
-
-2. For each sample $b$, build a tree.
-
---
+2. For each sample $b$, build a full-grown tree (no pruning).
 
 3. Predict your outcomes!
 
--- 
-
-  a. Regression: Average the outcomes
+  a) Regression: Average the outcomes
   
-  b. Classification: Majority vote
+  <br>
+  b) Classification: Majority vote
+]
 
+.pull-right[
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/bagging.jpg)
+]
+
+.source[Source: Singhal (2020)]
 ---
 # But... how does this reduce variance?
 
@@ -628,6 +637,316 @@ $$\hat{f}_{bag}(x) = \frac{1}{B}\sum_{b=1}^B\hat{f}^b(x)$$
 - If $Var(\hat{f}^b(x)) = \sigma^2 \ \ \forall \ b$, then:
 
 $$Var(\hat{f}_{bag}(x)) = Var(\frac{1}{B}\sum_{b=1}^B\hat{f}^b(x)) = \frac{B}{B^2}\sigma^2 = \frac{\sigma^2}{B}$$
+---
+# Let's go back to our example
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+library(ipred) #<<
+library(rpart)
+
+set.seed(100)
+
+# train bagged model
+b1 <- bagging(Sales ~ ., data = carseats.train,
+              nbagg = 100,coob = TRUE,
+              control = rpart.control(cp = 0))
+
+b1
+```
+
+---
+# Let's go back to our example
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+library(ipred)
+library(rpart) #<<
+
+set.seed(100)
+
+# train bagged model
+b1 <- bagging(Sales ~ ., data = carseats.train,
+              nbagg = 100,coob = TRUE,
+              control = rpart.control(cp = 0))
+
+b1
+```
+
+---
+# Let's go back to our example
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+library(ipred)
+library(rpart)
+
+set.seed(100)
+
+# train bagged model
+b1 <- bagging(Sales ~ ., data = carseats.train, #<<
+              nbagg = 100,coob = TRUE, #<<
+              control = rpart.control(cp = 0)) #<<
+
+b1
+```
+---
+
+.center2[
+.box-5LA[Poll time]]
+
+---
+
+.center2[
+.box-5LA[Why do we set cp=0?]
+]
+
+---
+# Let's go back to our example
+
+```{r, message=FALSE, warning=FALSE}
+library(ipred)
+library(rpart)
+
+set.seed(100)
+
+# train bagged model
+b1 <- bagging(Sales ~ ., data = carseats.train,
+              nbagg = 100,coob = TRUE,
+              control = rpart.control(cp = 0))
+
+b1 #<<
+```
+
+---
+# What is OOB RMSE?
+
+- **.darkorange[OOB = Out of Bag]**: It represents the RMSE for units that *were not used for building certain trees*.
+
+--
+
+- Example:
+  
+  - Bag 1 has units $\{1,2,2\}$, Bag 2 units $\{1,2,3\}$, and Bag 3 $\{2,3,3\}$
+  
+--
+
+  - OOB RMSE would be estimating using RMSE for **.darkorange[unit 1 in Bag 3]** and **.darkorange[unit 3 in Bag 1]**.
+  
+--
+<br>
+<br>
+<br>
+.box-6[No need for cross-validation!]
+
+---
+<br>
+<br>
+.box-4LA[How does it compare to the best pruned decision tree?]
+
+--
+<br>
+<br>
+<br>
+.box-7LA[Let's see!]
+
+
+---
+# Best DT vs Bagging
+
+```{r, warning=FALSE, message=FALSE}
+library(caret)
+
+set.seed(100)
+
+tuneGrid <- expand.grid(cp = seq(0.002, 0.004, 0.000001))
+
+mcv <- train(Sales ~ ., data = carseats.train,
+             method = "rpart", trControl = trainControl("cv", number = 10),
+             tuneGrid = tuneGrid)
+
+pred.mcv <- mcv %>% predict(carseats.test)
+
+RMSE(pred.mcv, carseats.test$Sales) #<<
+``` 
+
+---
+# Best DT vs Bagging
+
+```{r dt_vs_bag, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+library(doParallel) 
+library(foreach)
+
+rmse <- RMSE(pred.mcv, carseats.test$Sales) 
+
+# Create a parallel socket cluster
+cl <- makeCluster(8) # use 8 workers
+registerDoParallel(cl) # register the parallel backend
+
+# Fit trees in parallel and compute predictions on the test set
+rmse_bt <- foreach(
+  i = 1:200, 
+  .packages = c("rpart","ipred","caret"), 
+  .combine = c
+  ) %dopar% {
+    bt <- bagging(
+      Sales ~ .,
+      nbagg = i,
+      control = rpart.control(cp = 0),
+      data = carseats.train
+      ) 
+    
+    RMSE(predict(bt, newdata = carseats.test), carseats.test$Sales)
+  }
+
+d <- data.frame(rmse_bt = rmse_bt,
+                n_trees = seq(1:200))
+
+ggplot(data = d, aes(x = n_trees, y = rmse_bt)) +
+  geom_line(aes(color = "dark grey"), lwd = 1.2) +
+  geom_hline(aes(yintercept = rmse, color = "#BF3984"), lty = 2, lwd = 1.3) +
+  xlab('Number of trees') + ylab("RMSE") +
+  scale_color_manual(values=c("#BF3984","dark grey"),labels=c("RMSE bagging", "RMSE best pruned DT")) +
+  theme_bw()+ theme_ipsum_fsc()+
+        theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        #panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_blank())+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position=c(0.9,0.7),
+        legend.title = element_blank(),
+        legend.text = element_text(size=14),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+# Shutdown parallel cluster
+stopCluster(cl)
+``` 
+---
+# Interpretability?
+
+```{r dt_vs_bag2, fig.height=4.5, fig.width=10, fig.align='center', dev='svg', echo=TRUE, warning=FALSE}
+library(vip)
+vip::vip(mcv, num_features = 10, bar = FALSE)
+```
+---
+# Disadvantages of bagged trees? (Tree 2)
+
+```{r fancy_bt1, fig.height=4.8, fig.width=10, fig.align='center', dev='svg', echo=TRUE, warning=FALSE, results=FALSE}
+fancyRpartPlot(b1$mtrees[[2]]$btree, caption="") #There are 100 trees!
+```
+
+---
+# Disadvantages of bagged trees? (Tree 3)
+
+```{r fancy_bt2, fig.height=4.8, fig.width=10, fig.align='center', dev='svg', echo=TRUE, warning=FALSE, results=FALSE}
+fancyRpartPlot(b1$mtrees[[3]]$btree, caption="") #There are 100 trees!
+```
+
+---
+
+.center2[
+.box-3LA[We can do better...]
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Random forests
+]
+
+---
+# Bringing trees together
+
+- **.darkorange[Random Forests]** uses both the concepts of **.darkorange[decision trees]** and **.darkorange[bagging]**, but also **.darkorange[de-correlates]** the trees.
+
+--
+
+.box-4[Bootstrap: Vary *n* dimension]
+
+--
+
+.box-4[Decorrelation: Vary *p* dimension]
+
+--
+
+- For each bagged tree, **.darkorange[choose *m* out of *p* regressors]**.
+
+---
+# Basic algorithm
+
+    1.  Given a training data set
+    2.  Select number of trees to build (n_trees)
+    3.  for i = 1 to n_trees do
+    4.  |  Generate a bootstrap sample of the original data
+    5.  |  Grow a regression/classification tree to the bootstrapped data
+    6.  |  for each split do
+    7.  |  | Select m_try variables at random from all p variables
+    8.  |  | Pick the best variable/split-point among the m_try
+    9.  |  | Split the node into two child nodes
+    10. |  end
+    11. | Use typical tree model stopping criteria to determine when a 
+        | tree is complete (but do not prune)
+    12. end
+    13. Output ensemble of trees 
+
+.source[Source: Boehmke & Greenwell (2020)]
+
+---
+# Back to our example!
+
+.pull-left[
+```{r, warning=FALSE, message=FALSE, fig.show='hide'}
+set.seed(100)
+
+rfcv <- train(Sales ~ ., data = carseats.train,
+             method = "rf", 
+             trControl = trainControl("cv", number = 10),
+             tuneLength = 10)
+
+plot(rfcv)
+``` 
+]
+
+.pull-right[
+```{r rf_plot, fig.height=5, fig.width=5, fig.align='center', dev='svg', echo=TRUE, warning=FALSE, results=FALSE}
+set.seed(100)
+
+rfcv <- train(Sales ~ ., data = carseats.train,
+             method = "rf", 
+             trControl = trainControl("cv", number = 10),
+             tuneLength = 10)
+
+plot(rfcv)
+```
+]
+
+---
+# Back to our example! (Runs faster: 36s vs  0.3s)
+
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
+library(doParallel)
+cl <- makePSOCKcluster(8)
+registerDoParallel(cl)
+
+set.seed(100)
+
+start_time <- Sys.time()
+
+rfcv_fast <- train(Sales ~ ., data = carseats.train,
+                   method = "parRF", 
+                   trControl = trainControl("cv", number = 10),
+                   tuneLength = 10)
+
+end_time <- Sys.time()
+
+end_time - start_time
+
+stopCluster(cl)
+``` 
+
 ---
 # Main takeaway points
 
@@ -664,6 +983,10 @@ $$Var(\hat{f}_{bag}(x)) = Var(\frac{1}{B}\sum_{b=1}^B\hat{f}^b(x)) = \frac{B}{B^
 # References
 
 - James, G. et al. (2013). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 6.*
+
+- Singhal, G. (2020). ["Ensemble methods in Machine Learning: Bagging vs. Boosting"](https://www.pluralsight.com/guides/ensemble-methods:-bagging-versus-boosting)
+
+- Boehmke, B. & B. Greenwell. (2020). ["Hands-on Machine Learning with R"](https://bradleyboehmke.github.io/HOML/bagging.html)
 
 - STDHA. (2018). ["Penalized Regression Essentials: Ridge, Lasso & Elastic Net"](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/153-penalized-regression-essentials-ridge-lasso-elastic-net)
 
