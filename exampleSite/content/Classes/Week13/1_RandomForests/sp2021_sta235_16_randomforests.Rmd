@@ -770,59 +770,10 @@ RMSE(pred.mcv, carseats.test$Sales) #<<
 ---
 # Best DT vs Bagging
 
-```{r dt_vs_bag, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-library(doParallel) 
-library(foreach)
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/sp2021_sta235_16_randomforests_files/figure-html/dt_vs_bag-1.svg)
+]
 
-rmse <- RMSE(pred.mcv, carseats.test$Sales) 
-
-# Create a parallel socket cluster
-cl <- makeCluster(8) # use 8 workers
-registerDoParallel(cl) # register the parallel backend
-
-# Fit trees in parallel and compute predictions on the test set
-rmse_bt <- foreach(
-  i = 1:200, 
-  .packages = c("rpart","ipred","caret"), 
-  .combine = c
-  ) %dopar% {
-    bt <- bagging(
-      Sales ~ .,
-      nbagg = i,
-      control = rpart.control(cp = 0),
-      data = carseats.train
-      ) 
-    
-    RMSE(predict(bt, newdata = carseats.test), carseats.test$Sales)
-  }
-
-d <- data.frame(rmse_bt = rmse_bt,
-                n_trees = seq(1:200))
-
-ggplot(data = d, aes(x = n_trees, y = rmse_bt)) +
-  geom_line(aes(color = "dark grey"), lwd = 1.2) +
-  geom_hline(aes(yintercept = rmse, color = "#BF3984"), lty = 2, lwd = 1.3) +
-  xlab('Number of trees') + ylab("RMSE") +
-  scale_color_manual(values=c("#BF3984","dark grey"),labels=c("RMSE bagging", "RMSE best pruned DT")) +
-  theme_bw()+ theme_ipsum_fsc()+
-        theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        #panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank())+
-        #axis.line = element_blank())+
-  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size = 10),
-        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size = 10),legend.position=c(0.9,0.7),
-        legend.title = element_blank(),
-        legend.text = element_text(size=14),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-# Shutdown parallel cluster
-stopCluster(cl)
-``` 
 ---
 # Interpretability?
 
@@ -911,7 +862,7 @@ plot(rfcv)
 ]
 
 .pull-right[
-```{r rf_plot, fig.height=5, fig.width=5, fig.align='center', dev='svg', echo=TRUE, warning=FALSE, results=FALSE}
+```{r rf_plot, fig.height=5, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, results=FALSE}
 set.seed(100)
 
 
@@ -976,9 +927,14 @@ Boosting!
 ---
 # What is boosting?
 
-- Similar to bagging, but now **.darkorange[trees grow sequentially]**:
+.pull-left[
+- Similar to bagging, but now **.darkorange[trees grow sequentially]**.
 
-![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/bagging.jpg)
+- Slowly learning!
+]
+
+.pull-right[
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/bagging.jpg)]
 
 ---
 # Main takeaway points
@@ -1015,12 +971,10 @@ Boosting!
 ---
 # References
 
-- James, G. et al. (2013). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 6.*
+- Boehmke, B. & B. Greenwell. (2020). ["Hands-on Machine Learning with R"](https://bradleyboehmke.github.io/HOML/bagging.html)
+
+- James, G. et al. (2013). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 8.*
 
 - Singhal, G. (2020). ["Ensemble methods in Machine Learning: Bagging vs. Boosting"](https://www.pluralsight.com/guides/ensemble-methods:-bagging-versus-boosting)
 
-- Boehmke, B. & B. Greenwell. (2020). ["Hands-on Machine Learning with R"](https://bradleyboehmke.github.io/HOML/bagging.html)
-
-- STDHA. (2018). ["Penalized Regression Essentials: Ridge, Lasso & Elastic Net"](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/153-penalized-regression-essentials-ridge-lasso-elastic-net)
-
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week11/1_shrinkage/sp2021_sta235_13_shrinkage.html', timeout = 10)-->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week13/1_RandomForests/sp2021_sta235_16_randomforests.html', timeout = 10)-->

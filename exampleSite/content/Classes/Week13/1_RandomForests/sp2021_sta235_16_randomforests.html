@@ -176,7 +176,7 @@ Quick recap on trees
 ]
 
 ---
-# Let's look at an example: Housing prices in Ames, Iowa
+# Let's look at an example: Car seat prices
 
 .small[
 
@@ -574,14 +574,17 @@ pred.mcv &lt;- mcv %&gt;% predict(carseats.test)
 ---
 # Best DT vs Bagging
 
-&lt;img src="sp2021_sta235_16_randomforests_files/figure-html/dt_vs_bag-1.svg" style="display: block; margin: auto;" /&gt;
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/sp2021_sta235_16_randomforests_files/figure-html/dt_vs_bag-1.svg)
+]
+
 ---
 # Interpretability?
 
 
 ```r
 library(vip)
-vip::vip(mcv, num_features = 10, bar = FALSE)
+vip::vip(mcv, num_features = 10, geom = "point")
 ```
 
 &lt;img src="sp2021_sta235_16_randomforests_files/figure-html/dt_vs_bag2-1.svg" style="display: block; margin: auto;" /&gt;
@@ -654,6 +657,112 @@ Random forests
     13. Output ensemble of trees 
 
 .source[Source: Boehmke &amp; Greenwell (2020)]
+
+---
+# Back to our example!
+
+.pull-left[
+
+```r
+set.seed(100)
+
+rfcv &lt;- train(Sales ~ ., data = carseats.train,
+             method = "rf", 
+             trControl = trainControl("cv", number = 10),
+             tuneLength = 10)
+
+plot(rfcv)
+```
+]
+
+.pull-right[
+&lt;img src="sp2021_sta235_16_randomforests_files/figure-html/rf_plot-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Back to our example! (Runs faster: 36s vs  15s)
+
+
+```r
+library(doParallel)
+cl &lt;- makePSOCKcluster(8)
+registerDoParallel(cl)
+
+set.seed(100)
+
+rfcv_fast &lt;- train(Sales ~ ., data = carseats.train,
+                   method = "rf", 
+                   trControl = trainControl("cv", number = 10),
+                   tuneLength = 10)
+
+stopCluster(cl)
+```
+
+---
+# Covariance importance?
+
+
+```r
+vip::vip(rfcv, num_features = 10, geom = "point")
+```
+
+&lt;img src="sp2021_sta235_16_randomforests_files/figure-html/cov_importance-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Let's compare our models:
+
+
+```r
+# Pruned tree
+RMSE(mcv %&gt;% predict(carseats.test), carseats.test$Sales)
+```
+
+```
+## [1] 2.082905
+```
+
+```r
+# Bagged trees
+RMSE(b1 %&gt;% predict(carseats.test), carseats.test$Sales)
+```
+
+```
+## [1] 1.567368
+```
+
+```r
+# Random Forest
+RMSE(rfcv %&gt;% predict(carseats.test), carseats.test$Sales)
+```
+
+```
+## [1] 1.50476
+```
+
+---
+
+.center2[
+.box-2LA[Can we do better than this?]
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Boosting!
+]
+---
+# What is boosting?
+
+.pull-left[
+- Similar to bagging, but now **.darkorange[trees grow sequentially]**.
+
+- Slowly learning!
+]
+
+.pull-right[
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/bagging.jpg)]
+
 ---
 # Main takeaway points
 
