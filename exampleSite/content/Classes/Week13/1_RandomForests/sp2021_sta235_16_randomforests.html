@@ -805,14 +805,14 @@ Boosting!
 - More effective on models with **.darkorange[high bias]** and **.darkorange[low variance]**
 
 .center[
-![:scale 120%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/boosting2.png)]
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/boosting2.png)]
 
 ---
 # Basic Algorithm for Gradient Boosting
 
     1.  Set f=0 and r_i=y_i for all i in the training dataset
     2.  Select number of trees to build (n_trees)
-    3.  for b = 1 to n_trees do
+    3.  for oosting = 1 to n_trees do
     4.  |  Fit a tree f^b with d splits to the training data (X,r)
     5.  |  Update f by adding a shrunken version of the new tree
     6.  |  f(x) &lt;-- f(x) + \lambda f^b(x)
@@ -865,15 +865,12 @@ Boosting!
 ---
 # Boosting in R
 
-.pull-left[
 - We have seen **.darkorange[gradient boosting]** so far.
 
 - There are other types of boosting, like **.darkorange[adaptative boosting]** (you saw it in the video!)
 
   - For classification problems
-]
 
-.pull-right[
 .small[
 
 ```r
@@ -899,24 +896,17 @@ modelLookup("gbm")
 ## 4   gbm    n.minobsinnode Min. Terminal Node Size   TRUE     TRUE      TRUE
 ```
 ]
-]
 
 ---
 # Gradient Boosting in R
 
 ```r
-cl &lt;- makePSOCKcluster(7)
-registerDoParallel(cl)
-
 set.seed(100)
 
 gbm &lt;- train(Sales ~ ., data = carseats.train,
              method = "gbm", 
-             trControl = trainControl("cv", number = 10, allowParallel = TRUE),
+             trControl = trainControl("cv", number = 10),
              tuneLength = 20)
-
-stopCluster(cl)
-registerDoSEQ()
 ```
 
 ---

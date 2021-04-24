@@ -28,6 +28,10 @@ Cheatsheets for R are amazing! Here are two of my favorite so you can look up fu
 - [Regression Models with Multiple Regressors](https://www.econometrics-with-r.org/6-rmwmr.html) by C. Hanck et al. (2020), from their book *Introduction to Econometrics with R*
 	- It also includes some R resources!
 
+## Machine Learning
+
+- ["Hands-On Machine Learning"](https://bradleyboehmke.github.io/HOML/) by B. Boehmke & B. Greenwell (2020). *Note: Great resource to see different packages for bagging, random forests, and boosting, beyond what we have seen in class!*
+
 ## Answer to some questions
 
 Questions some time arise either in class or on the JITTs. Here, I'll leave some information that might be useful

@@ -24,6 +24,11 @@ library(ipred) # Package to do bagging (though you can do it with the caret pack
 library(rsample) #This helps us divide our data by strata 
 library(vip) #For plotting the importance of covariates
 
+# You will need to install xgboost. For that, you need to have RTools installed on your computer first if you use Windows. Check this out if you have Windows: https://www.rdocumentation.org/packages/installr/versions/0.22.0/topics/install.Rtools
+# After that, install xgboost to R
+#install.packages("xgboost")
+# If installing it from CRAN fails, you can also install it by downloading the file and going to "Tools --> Install Packages" using the file downloaded from here: https://cran.r-project.org/src/contrib/Archive/xgboost/
+
 ####################
 ## Car seats sale
 ###################
@@ -199,15 +204,22 @@ system.time(rfcv <- train(Sales ~ ., data = carseats.train,
 #### Boosting
 
 # Now, we are going to run some boosting
+set.seed(100)
+
+gbm <- train(Sales ~ ., data = carseats.train,
+             method = "gbm",                          # We are using gradient boosting
+             trControl = trainControl("cv", number = 10),
+             tuneLength = 20) # Play around with this parameter!
+
+# You can also try extreme gradient boosting, which is more efficient
 cl <- makePSOCKcluster(detectCores()-1)
 registerDoParallel(cl)
 
 set.seed(100)
 
-gbm <- train(Sales ~ ., data = carseats.train,
-             method = "gbm",                          # We are using gradient boosting
-             trControl = trainControl("cv", number = 10, allowParallel = TRUE), # I'm running this parallel, but if you don't want to, just set this to FALSE, and ignore the registerDoParallel() function
-             tuneLength = 20) # Play around with this parameter!
+xgbm <- train(Sales ~ ., data = carseats.train,
+             method = 'xgbTree',                          # We are using extreme gradient boosting
+             trControl = trainControl("cv", number = 10, allowParallel = TRUE)) # Play around with this parameter!
 
 stopCluster(cl)
 registerDoSEQ()
@@ -236,32 +248,19 @@ carseats.test   <- testing(split)
 
 
 # I will help you with some boosting code: (this one can take a while)
-cl <- makePSOCKcluster(detectCores()-1)
-registerDoParallel(cl)
-
 set.seed(100)
 
 ada <- train(factor(HighSales) ~ ., data = carseats.train,
              method = "ada",                                      #I'm using now adaptative boosting
-             trControl = trainControl("cv", number = 10, allowParallel = TRUE),
+             trControl = trainControl("cv", number = 10),
              tuneLength = 10)
 
-stopCluster(cl)
-registerDoSEQ()
 
-
-cl <- makePSOCKcluster(detectCores()-1)
-registerDoParallel(cl)
-
-set.seed(100)
 
 gbm <- train(factor(HighSales) ~ ., data = carseats.train,
              method = "gbm",                                      #I'll also run gradient boosting
-             trControl = trainControl("cv", number = 10, allowParallel = TRUE),
+             trControl = trainControl("cv", number = 10),
              tuneLength = 10)
-
-stopCluster(cl)
-registerDoSEQ()
 
 #Let's compare the results for these two boosting methods:
 
