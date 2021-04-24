@@ -417,7 +417,7 @@ Quick recap on trees
 ]
 
 ---
-# Let's look at an example: Housing prices in Ames, Iowa
+# Let's look at an example: Car seat prices
 
 .small[
 ```{r, warning=FALSE, message=FALSE}
@@ -828,7 +828,7 @@ stopCluster(cl)
 
 ```{r dt_vs_bag2, fig.height=4.5, fig.width=10, fig.align='center', dev='svg', echo=TRUE, warning=FALSE}
 library(vip)
-vip::vip(mcv, num_features = 10, bar = FALSE)
+vip::vip(mcv, num_features = 10, geom = "point")
 ```
 ---
 # Disadvantages of bagged trees? (Tree 2)
@@ -898,7 +898,7 @@ Random forests
 # Back to our example!
 
 .pull-left[
-```{r, warning=FALSE, message=FALSE, fig.show='hide'}
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
 set.seed(100)
 
 rfcv <- train(Sales ~ ., data = carseats.train,
@@ -914,6 +914,7 @@ plot(rfcv)
 ```{r rf_plot, fig.height=5, fig.width=5, fig.align='center', dev='svg', echo=TRUE, warning=FALSE, results=FALSE}
 set.seed(100)
 
+
 rfcv <- train(Sales ~ ., data = carseats.train,
              method = "rf", 
              trControl = trainControl("cv", number = 10),
@@ -924,7 +925,7 @@ plot(rfcv)
 ]
 
 ---
-# Back to our example! (Runs faster: 36s vs  0.3s)
+# Back to our example! (Runs faster: 36s vs  15s)
 
 ```{r, warning=FALSE, message=FALSE, eval=FALSE}
 library(doParallel)
@@ -933,19 +934,51 @@ registerDoParallel(cl)
 
 set.seed(100)
 
-start_time <- Sys.time()
-
 rfcv_fast <- train(Sales ~ ., data = carseats.train,
-                   method = "parRF", 
+                   method = "rf", 
                    trControl = trainControl("cv", number = 10),
                    tuneLength = 10)
 
-end_time <- Sys.time()
-
-end_time - start_time
-
 stopCluster(cl)
 ``` 
+
+---
+# Covariance importance?
+
+```{r cov_importance, fig.height=4.5, fig.width=10, fig.align='center', dev='svg', echo=TRUE, warning=FALSE}
+vip::vip(rfcv, num_features = 10, geom = "point")
+```
+
+---
+# Let's compare our models:
+
+```{r}
+# Pruned tree
+RMSE(mcv %>% predict(carseats.test), carseats.test$Sales)
+# Bagged trees
+RMSE(b1 %>% predict(carseats.test), carseats.test$Sales)
+# Random Forest
+RMSE(rfcv %>% predict(carseats.test), carseats.test$Sales)
+```
+
+---
+
+.center2[
+.box-2LA[Can we do better than this?]
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Boosting!
+]
+---
+# What is boosting?
+
+- Similar to bagging, but now **.darkorange[trees grow sequentially]**:
+
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/bagging.jpg)
 
 ---
 # Main takeaway points
