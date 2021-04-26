@@ -10,7 +10,27 @@ disableToc: true
 
 In our last class, we will look at some other types of data (e.g. text), how to gather and analyze it, to motivate future endeavours. We will also bring everything together while we work through one big example!
 
-## Recommended readings/videos
+## Task for this class
+
+- Create a Twitter account and a Twitter development account.
+
+**Instructions**
+
+1) Log into your Twitter account (if you don't have one, create one at https://www.twitter.com)
+
+2) Go to https://apps.twitter.com and "Create a new app". You will be promted to get a developer account.
+
+3) Follow the instructions to submit your application for a developer account (Academic --> Student)
+
+	- The main use for the use of the Twitter API is going to be educational. We will scrape tweets that contain hashtags from some trending topic and do sentiment analysis on that data. This means that we will categorize the different words of the tweets according to their sentiment.
+
+4) Once your developer account has been accepted, go back to https://apps.twitter.com and create a new project and a new app.
+
+5) Once all of that is created, you will have an API and a Secret API key, in addition to different tokens. Copy and paste them into a note document or similar and store them in a secure place. We will use them in our R code when scraping data.
+
+*You can follow this simple video I created to see how things should look like:*
+
+{{< youtube src="https://www.youtube.com/embed/RkwerVcVqXg" >}}
 
 
 ## JITT 
