@@ -30,7 +30,7 @@ In our last class, we will look at some other types of data (e.g. text), how to 
 
 *You can follow this simple video I created to see how things should look like:*
 
-{{< youtube src="https://www.youtube.com/embed/RkwerVcVqXg" >}}
+{{< youtube src="https://www.youtube.com/embed/5KwPGzlvYBE" >}}
 
 
 ## JITT 
