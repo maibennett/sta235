@@ -187,7 +187,7 @@ system.time(rfcv <- train(Sales ~ ., data = carseats.train,
                           tuneLength = 10)
 )
 
-stopCluster(cluster) # We need to close the cluster once we are done
+stopCluster(cl) # We need to close the cluster once we are done
 
 registerDoSEQ() # We also need to unregister the backend
 
@@ -211,6 +211,12 @@ gbm <- train(Sales ~ ., data = carseats.train,
              trControl = trainControl("cv", number = 10),
              tuneLength = 20) # Play around with this parameter!
 
+# Final Model information
+gbm$finalModel
+
+# Best Tuning parameters?
+gbm$bestTune
+
 # You can also try extreme gradient boosting, which is more efficient
 cl <- makePSOCKcluster(detectCores()-1)
 registerDoParallel(cl)
@@ -224,6 +230,11 @@ xgbm <- train(Sales ~ ., data = carseats.train,
 stopCluster(cl)
 registerDoSEQ()
 
+# Final Model information
+xgbm$finalModel
+
+# Best Tuning parameters?
+xgbm$bestTune
 
 # Exercise: Compare all the RMSE for the testing dataset with all the different models we have fit. Which one is better?
 

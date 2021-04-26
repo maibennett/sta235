@@ -337,15 +337,13 @@ options(scipen = 0)
 
 .pull-left[
 
-- **.darkorange[Bagging]**
+- **.darkorange[Ensemble methods]**:
 
-  - Tree bagging
+  - Bagging (e.g. tree bagging)
   
-- **.darkorange[Random Forests]**
-
-  - Combining many trees!
+  - Random Forests
   
-- **.darkorange[Boosting]**
+  - Boosting
 
 ]
 
@@ -737,6 +735,18 @@ b1 #<<
 .box-6[No need for cross-validation!]
 
 ---
+
+.center2[
+.box-7LA[Poll time]
+]
+
+---
+
+.center2[
+.box-7LA[What is the main objective of bagging?]
+]
+
+---
 <br>
 <br>
 .box-4LA[How does it compare to the best pruned decision tree?]
@@ -872,7 +882,7 @@ Random forests
 
 --
 
-.box-4[Decorrelation: Vary *p* dimension]
+.box-4[De-correlation: Vary *p* dimension]
 
 --
 
@@ -931,7 +941,7 @@ plot(rfcv)
 ---
 
 .center2[
-.box-6LA[Our dataset has 11 variables (1 outcome + 10 predictors)... why does the precitors go from 2 to 11?]
+.box-6LA[Our dataset has 11 variables (1 outcome + 10 predictors)... why do the predictors go from 2 to 11?]
 ]
 
 ---
@@ -1075,7 +1085,7 @@ Boosting!
 
 - We have seen **.darkorange[gradient boosting]** so far.
 
-- There are other types of boosting, like **.darkorange[adaptative boosting]** (you saw it in the video!)
+- There are other types of boosting, like **.darkorange[adaptive boosting]** (you saw it in the video!)
 
   - For classification problems
 
@@ -1125,6 +1135,20 @@ RMSE(gbm %>% predict(carseats.test), carseats.test$Sales)
 .center2[
 ![](https://media.giphy.com/media/5aLrlDiJPMPFS/source.gif)
 ]
+
+---
+
+.center2[
+.box-7LA[Poll time]
+]
+
+---
+
+.center2[
+.box-7LA[What is the main objective of boosting?]
+]
+
+
 ---
 # Main takeaway points
 
@@ -1135,7 +1159,9 @@ RMSE(gbm %>% predict(carseats.test), carseats.test$Sales)
 
   - ... but they are awesome for building other stuff like **.darkorange[random forests]**.
   
-- **.darkorange[Bagging]** and **.darkorange[boosting]** can be used with other learners, not only DT! 
+- **.darkorange[Bagging]** and **.darkorange[boosting]** can be used with other learners, not only DT!
+
+.box-5[There are a lot of other methods out there and ways to combine them! (e.g. stacking)]
 ]
 
 .pull-right[

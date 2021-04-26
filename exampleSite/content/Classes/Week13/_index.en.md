@@ -35,15 +35,11 @@ Complete before **Sunday April 25th (11:59 pm)**. You can find the assignment <a
 
 ## Slides
 
-<!-- {{% button href="https://sta235.netlify.app/Classes/Week11/1_shrinkage/sp2021_sta235_13_shrinkage.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week11/1_shrinkage/sp2021_sta235_13_shrinkage.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.netlify.app/Classes/Week13/1_RandomForests/sp2021_sta235_16_randomforests.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week13/1_RandomForests/sp2021_sta235_16_randomforests.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week11/1_shrinkage/sp2021_sta235_13_shrinkage.html" >}}
+{{< slides src="https://sta235.netlify.app/Classes/Week13/1_RandomForests/sp2021_sta235_16_randomforests.html" >}}
 
-{{% button href="https://sta235.netlify.app/Classes/Week11/2_KNearest/sp2021_sta235_14_knn.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week11/2_KNearest/sp2021_sta235_14_knn.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
-
-{{< slides src="https://sta235.netlify.app/Classes/Week11/2_KNearest/sp2021_sta235_14_knn.html" >}} -->
 
 ## Code
 
-<!-- Here is the R code we will review in class, with some additional data and questions <a onclick="ga('send', 'event', 'External-Link','click','code11','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/code/sp2021_sta235_13_shrinkage_knn.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
- -->
+Here is the R code we will review in class, with some additional data and questions <a onclick="ga('send', 'event', 'External-Link','click','code13','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/code/sp2021_sta235_16_randomforests.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
