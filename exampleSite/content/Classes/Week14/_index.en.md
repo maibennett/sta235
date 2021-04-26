@@ -22,7 +22,7 @@ In our last class, we will look at some other types of data (e.g. text), how to 
 
 3) Follow the instructions to submit your application for a developer account (Academic --> Student)
 
-	- The main use for the use of the Twitter API is going to be educational. We will scrape tweets that contain hashtags from some trending topic and do sentiment analysis on that data. This means that we will categorize the different words of the tweets according to their sentiment.
+	*The main use for the use of the Twitter API is going to be educational. We will scrape tweets that contain hashtags from some trending topic and do sentiment analysis on that data. This means that we will categorize the different words of the tweets according to their sentiment.*
 
 4) Once your developer account has been accepted, go back to https://apps.twitter.com and create a new project and a new app.
 
