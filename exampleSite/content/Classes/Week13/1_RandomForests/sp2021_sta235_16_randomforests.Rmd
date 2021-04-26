@@ -1148,7 +1148,6 @@ RMSE(gbm %>% predict(carseats.test), carseats.test$Sales)
 .box-7LA[What is the main objective of boosting?]
 ]
 
-
 ---
 # Main takeaway points
 
@@ -1187,6 +1186,23 @@ RMSE(gbm %>% predict(carseats.test), carseats.test$Sales)
 - No readings for next week, only a **.darkorange[small task]** (*there will still be a JITT!*)
 
 .box-5[Final class!]
+]
+
+---
+# Tips for the final project
+
+.pull-left[
+- You can **.darkorange[transform variables]** any way you want, or use **.darkorange[model selection methods]**.
+
+- You can **.darkorange[combine any sort of learner we have seen]**.
+
+- "Hands-On Machine learning" (on Bookmarks section).
+
+- To test your code, **.darkorange[use smaller samples!]**
+]
+
+.pull-right[
+![](https://media.giphy.com/media/QZbcqSagw5KdzhY8zW/giphy.gif)
 ]
 
 ---
