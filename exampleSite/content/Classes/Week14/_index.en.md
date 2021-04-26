@@ -35,7 +35,7 @@ In our last class, we will look at some other types of data (e.g. text), how to 
 
 ## JITT 
 
-Complete before **Sunday May 2nd (11:59 pm)**. Assignment available soon. <!-- You can find the assignment <a onclick="ga('send', 'event', 'External-Link','click','JITT10','0','Link');" href="https://forms.gle/XKUV4LPx21oHGD47A" target="_blank">here</a> -->
+Complete before **Sunday May 2nd (11:59 pm)**. You can find the assignment <a onclick="ga('send', 'event', 'External-Link','click','JITT11','0','Link');" href="https://forms.gle/HwbnpjNKFZVNb5iK6" target="_blank">here</a>
 
 ## Slides
 
