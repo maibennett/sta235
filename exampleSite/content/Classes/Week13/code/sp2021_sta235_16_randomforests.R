@@ -40,7 +40,7 @@ head(Carseats) # Explore the data
 
 set.seed(100)
 
-split <- initial_split(Carseats, prop = 0.7, strata = "Sales") # This will create a 70-30 splir, with 4 strata (by default) of the outcome variable.
+split <- initial_split(Carseats, prop = 0.7, strata = "Sales") # This will create a 70-30 split, with 4 strata (by default) of the outcome variable.
 
 carseats.train  <- training(split)
 carseats.test   <- testing(split)
