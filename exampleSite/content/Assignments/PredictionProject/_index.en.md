@@ -50,6 +50,9 @@ Remember that you need to submit both a **written assignment** with your answers
 - Be **clear** with your writing. 
 
 
+{{% button href="https://sta235.netlify.app/assignments/predictionproject/template/pp_template.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download a template{{% /button %}} 
+
+
 ### Files
 
 #### Classification task
