@@ -66,3 +66,7 @@ Questions some time arise either in class or on the JITTs. Here, I'll leave some
 **Answer**: I got a question at the end of our last DD class asking to explain the Taylor Swift example again, and how it works in the context of a TWFE model. Here's a video with a more in-depth explanation. Note: If you feel comfortable with the R coding part, you can skip that part of the video and just watch the conceptual explanation at the beginning (up to min 13).
 
 {{< youtube src="https://www.youtube.com/embed/MeHJe_oj-Lc" >}}
+
+- *What are the mehtods available in the `caret` package?*
+
+**Answer:** You can find all the methods that are supported [here](https://topepo.github.io/caret/available-models.html). Be aware that you will need to install different packages depending on the method you are using.
