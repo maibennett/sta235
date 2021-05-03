@@ -603,7 +603,7 @@ scrape_amazon <- function(ASIN, page_num){ #Write our own function (source: http
 
 ---
 .center[
-![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/ss1.png)
+![:scale 90%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/ss1.png)
 ]
 
 
@@ -679,12 +679,12 @@ scrape_amazon <- function(ASIN, page_num){ #Write our own function (source: http
 
 ---
 .center[
-![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/ss2.png)
+![:scale 90%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/ss2.png)
 ]
 
 ---
 .center[
-![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/ss3.png)
+![:scale 90%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/ss3.png)
 ]
 
 ---
@@ -759,8 +759,9 @@ scrape_amazon <- function(ASIN, page_num){ #Write our own function (source: http
 ---
 # What about our banana slicer?
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 library(tidyverse)
+library(tidytext)
 library(rvest)
 library(wordcloud)
 
@@ -807,8 +808,7 @@ banana %>% head()
 
 ```{r}
 library(wordcloud)
-
-githubURL <- "https://github.com/thefactmachine/hex-binning-gis-data/raw/master/popDensity.RData"
+githubURL <- "https://github.com/maibennett/sta235/blob/main/exampleSite/content/Classes/Week14/1_Twitter/data/amazon_reviews.rdata?raw=true"
 load(url(githubURL))
 
 # Now let's play with the data
@@ -816,19 +816,111 @@ word_tb <- output_list %>% # This is the list of data we got from Amazon
               bind_rows() %>% #bind the rows to build a data frame
               unnest_tokens(output = "word", input = "review_text", token = "words") %>% #we separate the review text into different words.
               count(word) %>% #and we count those words
-              filter(!(word %in% c("banana","bananas","slicer"))) %>% #we want to exclude bananas and slicer because we already know what it is
-              anti_join(tidytext::stop_words, by = "word") #And finally, we exclude (anti_join) the stop_words contained on the tidytext package (words that don't contribute much meaning)
-
+              filter(!(str_detect(word,"banana") | str_detect(word,"slic") | str_detect(word,"57") |
+                       str_detect(word,"hutzler") | str_detect(word,"product") | str_detect(word,"device"))) %>% 
+              anti_join(tidytext::stop_words, by = "word") #And finally, we exclude (anti_join) the stop_words contained on the tidytext package
 ```
 
 ---
 # Word clouds
 
-```{r wordcloud_amazon, fig.height=4.5, fig.width=10, fig.align='center', dev='svg', echo=TRUE, warning=FALSE, results=FALSE}
-wordcloud::wordcloud(words = word_tb$word, freq = word_tb$n,
+```{r wordcloud_amazon, fig.height=4.2, fig.width=10, fig.align='center', dev='svg', echo=TRUE, warning=FALSE, results=FALSE}
+wordcloud::wordcloud(words = word_tb$word, freq = word_tb$n, min.freq = 5,
+                     max.words=200, random.order=FALSE, rot.per=0.35,
                      colors=brewer.pal(10, "Dark2"), family = "Fira Sans Condensed SemiBold")
-
 ```
+
+---
+# Let's look at some reviews that include the word "time"
+
+```{r}
+time <- output_list %>% bind_rows() %>%
+  filter(str_detect(review_text,"time"))
+
+head(time)
+```
+
+---
+# Let's look at some reviews that include the word "time"
+
+.pull-left[
+```{r, eval=FALSE}
+df <- output_list %>% bind_rows() %>% 
+  mutate(time = str_detect(review_text,"time"))
+
+df %>% 
+  count(review_star) %>% mutate(perc = n / nrow(df)) %>% 
+  ggplot(., aes(x = factor(review_star), y = perc)) +
+  geom_bar(stat = "identity") + xlab("Rating") + 
+  ylab("Percentage (%)") + theme_bw() + ggtitle("All")
+```
+]
+
+.pull-right[
+```{r, eval=FALSE}
+df %>% filter(time==TRUE) %>%
+  count(review_star) %>% mutate(perc = n / nrow(df %>% filter(time==TRUE))) %>% 
+  ggplot(., aes(x = factor(review_star), y = perc)) +
+  geom_bar(stat = "identity") + xlab("Rating") + 
+  ylab("Percentage (%)") + theme_bw() + ggtitle("Contain time")
+```
+]
+
+---
+# Let's look at some reviews that include the word "time"
+
+```{r time_ratings, fig.height=5.5, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, results=FALSE}
+df <- output_list %>% bind_rows() %>% 
+  mutate(time = str_detect(review_text,"time"),
+         review_star = str_replace(review_star," out of 5 stars",""))
+
+g1 <- df %>% 
+        count(review_star) %>% mutate(perc = n / nrow(df)) %>% 
+        ggplot(., aes(x = factor(review_star), y = perc)) +
+        geom_bar(stat = "identity", color = "#BF3984", fill = alpha("#BF3984",0.5), lwd = 2) + xlab("Rating") + 
+        ylab("Proportion") + theme_bw() + ggtitle("All") +
+  theme_ipsum_fsc()+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        #panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+  #axis.line = element_blank())+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10, angle = 0),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=14),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14)) + ylim(0,0.7)
+
+df_time <- df %>% filter(time==TRUE)
+
+g2 <-  df_time %>%
+        count(review_star) %>% mutate(perc = n / nrow(df_time)) %>% 
+        ggplot(., aes(x = factor(review_star), y = perc)) +
+        geom_bar(stat = "identity", color = "#FCCE25", fill = alpha("#FCCE25",0.5), lwd = 2) + xlab("Rating") + 
+        ylab("Proportion") + theme_bw() + ggtitle("Contain time") +
+  theme_ipsum_fsc()+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        #panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+  #axis.line = element_blank())+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10, angle = 0),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=14),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14)) + ylim(0,0.7)
+
+g1 + g2
+```
+
 
 ---
 .center[# Now let's look at Twitter]
@@ -862,7 +954,7 @@ countdown(minutes = 10, seconds = 0, update_every = 60, play_sound = TRUE, box_s
 ```
 
 .center[
-![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/cis.png)
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/cis.png)
 ]
 ---
 # References

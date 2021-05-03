@@ -15,6 +15,8 @@
     <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
     <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <link href="libs/countdown/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown/countdown.js"></script>
     <script src="https://use.fontawesome.com/5235085b15.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="custom.css" type="text/css" />
@@ -364,7 +366,7 @@ scrape_amazon &lt;- function(ASIN, page_num){ #Write our own function (source: h
 
 ---
 .center[
-![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/ss1.png)
+![:scale 90%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/ss1.png)
 ]
 
 
@@ -442,12 +444,12 @@ scrape_amazon &lt;- function(ASIN, page_num){ #Write our own function (source: h
 
 ---
 .center[
-![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/ss2.png)
+![:scale 90%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/ss2.png)
 ]
 
 ---
 .center[
-![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/ss3.png)
+![:scale 90%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/ss3.png)
 ]
 
 ---
@@ -525,6 +527,8 @@ scrape_amazon &lt;- function(ASIN, page_num){ #Write our own function (source: h
 # What about our banana slicer?
 
 
+
+
 ```r
 ASIN_banana &lt;- "B0047E0EII"
 
@@ -537,21 +541,135 @@ banana %&gt;% head()
 ## # A tibble: 6 x 4
 ##   review_title                  review_text                   review_star   page
 ##   &lt;chr&gt;                         &lt;chr&gt;                         &lt;chr&gt;        &lt;dbl&gt;
-## 1 "\n\n\n\n\n\n\n\n  \n  \n   ~ "\n\n\n\n\n\n\n\n\n\n  \n  \~ 5.0 out of ~     1
-## 2 "\n\n\n\n\n\n\n\n  \n  \n   ~ "\n\n\n\n\n\n\n\n\n\n  \n  \~ 2.0 out of ~     1
-## 3 "\n\n\n\n\n\n\n\n  \n  \n   ~ "\n\n\n\n\n\n\n\n\n\n  \n  \~ 5.0 out of ~     1
-## 4 "\n\n\n\n\n\n\n\n  \n  \n   ~ "\n\n\n\n\n\n\n\n\n\n  \n  \~ 1.0 out of ~     1
-## 5 "\n\n\n\n\n\n\n\n  \n  \n   ~ "\n\n\n\n\n\n\n\n\n\n  \n  \~ 5.0 out of ~     1
-## 6 "\n\n\n\n\n\n\n\n  \n  \n   ~ "\n\n\n\n\n\n\n\n\n\n  \n  \~ 2.0 out of ~     1
+## 1 Be careful of wrong-way bana~ "We were so excited to get o~ 5.0 out of ~     1
+## 2 Perfect, If You Want To Get ~ "I was sitting on the couch ~ 2.0 out of ~     1
+## 3 The greatest invention of al~ "Couldn’t live without this ~ 5.0 out of ~     1
+## 4 Where are the instructions?   "I don't know how they expec~ 1.0 out of ~     1
+## 5 This will end all your trepi~ "This slicer is the best!  F~ 5.0 out of ~     1
+## 6 3 bananas at most!  No way t~ "My expectations may have be~ 2.0 out of ~     1
 ```
+
+---
+# Word clouds
+
+
+```r
+library(wordcloud)
+githubURL &lt;- "https://github.com/maibennett/sta235/blob/main/exampleSite/content/Classes/Week14/1_Twitter/data/amazon_reviews.rdata?raw=true"
+load(url(githubURL))
+
+# Now let's play with the data
+word_tb &lt;- output_list %&gt;% # This is the list of data we got from Amazon
+              bind_rows() %&gt;% #bind the rows to build a data frame
+              unnest_tokens(output = "word", input = "review_text", token = "words") %&gt;% #we separate the review text into different words.
+              count(word) %&gt;% #and we count those words
+              filter(!(str_detect(word,"banana") | str_detect(word,"slic") | str_detect(word,"57") |
+                       str_detect(word,"hutzler") | str_detect(word,"product") | str_detect(word,"device"))) %&gt;% 
+              anti_join(tidytext::stop_words, by = "word") #And finally, we exclude (anti_join) the stop_words contained on the tidytext package
+```
+
+---
+# Word clouds
+
+
+```r
+wordcloud::wordcloud(words = word_tb$word, freq = word_tb$n, min.freq = 5,
+                     max.words=200, random.order=FALSE, rot.per=0.35,
+                     colors=brewer.pal(10, "Dark2"), family = "Fira Sans Condensed SemiBold")
+```
+
+&lt;img src="sp2021_sta235_17_twitter_files/figure-html/wordcloud_amazon-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Let's look at some reviews that include the word "time"
+
+
+```r
+time &lt;- output_list %&gt;% bind_rows() %&gt;%
+  filter(str_detect(review_text,"time"))
+
+head(time)
+```
+
+```
+## # A tibble: 6 x 4
+##   review_title               review_text                     review_star    page
+##   &lt;chr&gt;                      &lt;chr&gt;                           &lt;chr&gt;         &lt;int&gt;
+## 1 No more butter knives!     Incredible. The time I have sa~ 5.0 out of 5~   463
+## 2 Unforunately, it's Too La~ This product is amazing! I wis~ 5.0 out of 5~   463
+## 3 better than  chain saw     This product really works well~ 5.0 out of 5~   463
+## 4 Fix for wrong bending ban~ Like many other reviewers, I w~ 4.0 out of 5~   463
+## 5 Not sure what product eve~ After reading the other review~ 3.0 out of 5~   463
+## 6 I used to carry a Glock -~ I had a concealed weapon permi~ 5.0 out of 5~   463
+```
+
+---
+# Let's look at some reviews that include the word "time"
+
+.pull-left[
+
+```r
+df &lt;- output_list %&gt;% bind_rows() %&gt;% 
+  mutate(time = str_detect(review_text,"time"))
+
+df %&gt;% 
+  count(review_star) %&gt;% mutate(perc = n / nrow(df)) %&gt;% 
+  ggplot(., aes(x = factor(review_star), y = perc)) +
+  geom_bar(stat = "identity") + xlab("Rating") + 
+  ylab("Percentage (%)") + theme_bw() + ggtitle("All")
+```
+]
+
+.pull-right[
+
+```r
+df %&gt;% filter(time==TRUE) %&gt;%
+  count(review_star) %&gt;% mutate(perc = n / nrow(df %&gt;% filter(time==TRUE))) %&gt;% 
+  ggplot(., aes(x = factor(review_star), y = perc)) +
+  geom_bar(stat = "identity") + xlab("Rating") + 
+  ylab("Percentage (%)") + theme_bw() + ggtitle("Contain time")
+```
+]
+
+---
+# Let's look at some reviews that include the word "time"
+
+&lt;img src="sp2021_sta235_17_twitter_files/figure-html/time_ratings-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+.center[# Now let's look at Twitter]
+
+.center[
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/twitter.eps)
+]
+
+---
+.center2[
+.box-4LA[Let's go to R]
+]
+
+---
+.center2[
+.box-2LA[Course Instructor Survey]
+]
+
+---
+<div class="countdown blink-colon noupdate-60" id="timer_608f7a66" style="right:33%;bottom:90%;font-size:4em;" data-audio="true" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+.center[
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/cis.png)
+]
 ---
 # References
 
-- James, G. et al. (2013). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 6.*
+- Chan, M. (2019). ["Vignette: Scraping Amazon Reviews in R"](https://martinctc.github.io/blog/vignette-scraping-amazon-reviews-in-r/)
 
-- STDHA. (2018). ["Penalized Regression Essentials: Ridge, Lasso &amp; Elastic Net"](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/153-penalized-regression-essentials-ridge-lasso-elastic-net)
+- Udacity (2020). ["Natural Language Processing With R"](https://www.udacity.com/blog/2020/10/natural-language-processing-with-r.html)
 
-&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week11/1_shrinkage/sp2021_sta235_13_shrinkage.html', timeout = 10)--&gt;
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week14/1_twitter/sp2021_sta235_17_twitter.html', timeout = 10)--&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
