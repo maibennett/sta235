@@ -432,7 +432,8 @@ Let's get texting!
 .box-2t[Images]
 
 ---
-.center2[
+
+.center[
 ![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/cat.png)
 ]
 ---
@@ -450,7 +451,8 @@ Let's get texting!
 .box-2t[Sounds]
 
 ---
-.center2[
+
+.center[
 ![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/sound.png)
 ]
 
@@ -601,7 +603,43 @@ scrape_amazon <- function(ASIN, page_num){ #Write our own function (source: http
 
 ---
 .center[
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/ss1.png)
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/ss1.png)
+]
+
+
+---
+# Let's put this to use!
+
+.small[
+```{r}
+library(tidyverse)
+library(rvest)
+
+scrape_amazon <- function(ASIN, page_num){ #Write our own function (source: https://martinctc.github.io/blog/vignette-scraping-amazon-reviews-in-r/)
+  
+  url_reviews <- paste0("https://www.amazon.com/product-reviews/",ASIN,"/?pageNumber=",page_num)
+  
+  doc <- read_html(url_reviews) # Assign results to `doc` #<<
+  
+  # Review Title
+  doc %>% 
+    html_nodes("[class='a-size-base a-link-normal review-title a-color-base review-title-content a-text-bold']") %>%
+    html_text() -> review_title
+  
+  # Review Text
+  doc %>% 
+    html_nodes("[class='a-size-base review-text review-text-content']") %>%
+    html_text() -> review_text
+  
+  # Number of stars in review
+  doc %>%
+    html_nodes("[data-hook='review-star-rating']") %>%
+    html_text() -> review_star
+  
+  # Return a tibble
+  tibble(review_title, review_text, review_star, page = page_num) %>% return()
+}
+```
 ]
 
 ---
@@ -641,12 +679,12 @@ scrape_amazon <- function(ASIN, page_num){ #Write our own function (source: http
 
 ---
 .center[
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/ss2.png)
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/ss2.png)
 ]
 
 ---
 .center[
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/ss3.png)
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/ss3.png)
 ]
 
 ---
@@ -719,10 +757,86 @@ scrape_amazon <- function(ASIN, page_num){ #Write our own function (source: http
 ```
 ]
 ---
+# What about our banana slicer?
+
+```{r, echo=FALSE}
+library(tidyverse)
+library(rvest)
+library(wordcloud)
+
+scrape_amazon <- function(ASIN, page_num){ #Write our own function (source: https://martinctc.github.io/blog/vignette-scraping-amazon-reviews-in-r/)
+  
+  url_reviews <- paste0("https://www.amazon.com/product-reviews/",ASIN,"/?pageNumber=",page_num)
+  
+  doc <- read_html(url_reviews) # Assign results to `doc`
+  
+  # Review Title
+  doc %>% 
+    html_nodes("[class='a-size-base a-link-normal review-title a-color-base review-title-content a-text-bold']") %>% 
+    html_text() -> review_title 
+  
+  review_title <- trimws(review_title, which = "both", whitespace = "[ \t\r\n]")
+  
+  # Review Text
+  doc %>% 
+    html_nodes("[class='a-size-base review-text review-text-content']") %>% 
+    html_text() -> review_text
+
+  review_text <- trimws(review_text, which = "both", whitespace = "[ \t\r\n]")
+  
+  # Number of stars in review
+  doc %>%
+    html_nodes("[data-hook='review-star-rating']") %>% #<<
+    html_text() -> review_star #<<
+  
+  # Return a tibble
+  tibble(review_title, review_text, review_star, page = page_num) %>% return()
+}
+```
 
 ```{r}
 ASIN_banana <- "B0047E0EII"
+
+banana <- scrape_amazon(ASIN = ASIN_banana, page_num = 1)
+
+banana %>% head()
 ```
+
+---
+# Word clouds
+
+```{r}
+library(wordcloud)
+
+githubURL <- "https://github.com/thefactmachine/hex-binning-gis-data/raw/master/popDensity.RData"
+load(url(githubURL))
+
+# Now let's play with the data
+word_tb <- output_list %>% # This is the list of data we got from Amazon
+              bind_rows() %>% #bind the rows to build a data frame
+              unnest_tokens(output = "word", input = "review_text", token = "words") %>% #we separate the review text into different words.
+              count(word) %>% #and we count those words
+              filter(!(word %in% c("banana","bananas","slicer"))) %>% #we want to exclude bananas and slicer because we already know what it is
+              anti_join(tidytext::stop_words, by = "word") #And finally, we exclude (anti_join) the stop_words contained on the tidytext package (words that don't contribute much meaning)
+
+```
+
+---
+# Word clouds
+
+```{r wordcloud_amazon, fig.height=4.5, fig.width=10, fig.align='center', dev='svg', echo=TRUE, warning=FALSE, results=FALSE}
+wordcloud::wordcloud(words = word_tb$word, freq = word_tb$n,
+                     colors=brewer.pal(10, "Dark2"), family = "Fira Sans Condensed SemiBold")
+
+```
+
+---
+.center[# Now let's look at Twitter]
+
+.center[
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/twitter.eps)
+]
+
 ---
 # References
 
