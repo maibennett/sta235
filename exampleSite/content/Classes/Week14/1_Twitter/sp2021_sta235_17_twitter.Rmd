@@ -431,14 +431,10 @@ Let's get texting!
 
 .box-2t[Images]
 
---
-
-.box-2t[Sounds]
-
---
-
-.box-2t[Text]
-
+---
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/cat.png)
+]
 ---
 # Not everything is numbers
 
@@ -545,10 +541,7 @@ scrape_amazon <- function(ASIN, page_num){ #Write our own function (source: http
     html_text() -> review_star
   
   # Return a tibble
-  tibble(review_title,
-         review_text,
-         review_star,
-         page = page_num) %>% return()
+  tibble(review_title, review_text, review_star, page = page_num) %>% return()
 }
 ```
 ]
@@ -583,10 +576,7 @@ scrape_amazon <- function(ASIN, page_num){ #Write our own function (source: http
     html_text() -> review_star
   
   # Return a tibble
-  tibble(review_title,
-         review_text,
-         review_star,
-         page = page_num) %>% return()
+  tibble(review_title, review_text, review_star, page = page_num) %>% return()
 }
 ```
 ]
@@ -595,7 +585,123 @@ scrape_amazon <- function(ASIN, page_num){ #Write our own function (source: http
 .center[
 ![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/ss1.png)
 ]
+
 ---
+# Let's put this to use!
+
+.small[
+```{r}
+library(tidyverse)
+library(rvest)
+
+scrape_amazon <- function(ASIN, page_num){ #Write our own function (source: https://martinctc.github.io/blog/vignette-scraping-amazon-reviews-in-r/)
+  
+  url_reviews <- paste0("https://www.amazon.com/product-reviews/",ASIN,"/?pageNumber=",page_num)
+  
+  doc <- read_html(url_reviews) # Assign results to `doc`
+  
+  # Review Title
+  doc %>% 
+    html_nodes("[class='a-size-base a-link-normal review-title a-color-base review-title-content a-text-bold']") %>% #<<
+    html_text() -> review_title #<<
+  
+  # Review Text
+  doc %>% 
+    html_nodes("[class='a-size-base review-text review-text-content']") %>%
+    html_text() -> review_text
+  
+  # Number of stars in review
+  doc %>%
+    html_nodes("[data-hook='review-star-rating']") %>%
+    html_text() -> review_star
+  
+  # Return a tibble
+  tibble(review_title, review_text, review_star, page = page_num) %>% return()
+}
+```
+]
+
+---
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/ss2.png)
+]
+
+---
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/ss3.png)
+]
+
+---
+# Let's put this to use!
+
+.small[
+```{r}
+library(tidyverse)
+library(rvest)
+
+scrape_amazon <- function(ASIN, page_num){ #Write our own function (source: https://martinctc.github.io/blog/vignette-scraping-amazon-reviews-in-r/)
+  
+  url_reviews <- paste0("https://www.amazon.com/product-reviews/",ASIN,"/?pageNumber=",page_num)
+  
+  doc <- read_html(url_reviews) # Assign results to `doc`
+  
+  # Review Title
+  doc %>% 
+    html_nodes("[class='a-size-base a-link-normal review-title a-color-base review-title-content a-text-bold']") %>% 
+    html_text() -> review_title 
+  
+  # Review Text
+  doc %>% 
+    html_nodes("[class='a-size-base review-text review-text-content']") %>% #<<
+    html_text() -> review_text #<<
+  
+  # Number of stars in review
+  doc %>%
+    html_nodes("[data-hook='review-star-rating']") %>%
+    html_text() -> review_star
+  
+  # Return a tibble
+  tibble(review_title, review_text, review_star, page = page_num) %>% return()
+}
+```
+]
+
+---
+# Let's put this to use!
+
+.small[
+```{r}
+library(tidyverse)
+library(rvest)
+
+scrape_amazon <- function(ASIN, page_num){ #Write our own function (source: https://martinctc.github.io/blog/vignette-scraping-amazon-reviews-in-r/)
+  
+  url_reviews <- paste0("https://www.amazon.com/product-reviews/",ASIN,"/?pageNumber=",page_num)
+  
+  doc <- read_html(url_reviews) # Assign results to `doc`
+  
+  # Review Title
+  doc %>% 
+    html_nodes("[class='a-size-base a-link-normal review-title a-color-base review-title-content a-text-bold']") %>% 
+    html_text() -> review_title 
+  
+  # Review Text
+  doc %>% 
+    html_nodes("[class='a-size-base review-text review-text-content']") %>% 
+    html_text() -> review_text
+  
+  # Number of stars in review
+  doc %>%
+    html_nodes("[data-hook='review-star-rating']") %>% #<<
+    html_text() -> review_star #<<
+  
+  # Return a tibble
+  tibble(review_title, review_text, review_star, page = page_num) %>% return()
+}
+```
+]
+---
+
 ```{r}
 ASIN_banana <- "B0047E0EII"
 ```
