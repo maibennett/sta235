@@ -432,8 +432,8 @@ Let's get texting!
 .box-2t[Images]
 
 ---
-.center[
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/cat.png)
+.center2[
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/cat.png)
 ]
 ---
 # Not everything is numbers
@@ -450,8 +450,8 @@ Let's get texting!
 .box-2t[Sounds]
 
 ---
-.center[
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/sound.png)
+.center2[
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/sound.png)
 ]
 
 ---
