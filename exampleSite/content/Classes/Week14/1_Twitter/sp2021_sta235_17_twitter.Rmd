@@ -395,8 +395,10 @@ Questions?
 .pull-left[
 
 1) **.darkorange[Natural Language Processing]**:
+  
+  - Amazon reviews
 
-  - Twitter data!
+  - Twitter data
   
 2) **.darkorange[Course Instructor Survey]**
 
