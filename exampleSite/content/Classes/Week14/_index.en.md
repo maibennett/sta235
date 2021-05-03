@@ -43,9 +43,9 @@ Complete before **Sunday May 2nd (11:59 pm)**. You can find the assignment <a on
 
 {{< slides src="https://sta235.netlify.app/Classes/Week14/1_twitter/sp2021_sta235_17_twitter.html" >}}
 
-{{% button href="https://sta235.netlify.app/Classes/Week14/1_Wrapup/sp2021_sta235_18_wrapup.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week14/1_Wrapup/sp2021_sta235_18_wrapup.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.netlify.app/Classes/Week14/2_Wrapup/sp2021_sta235_18_wrapup.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week14/2_Wrapup/sp2021_sta235_18_wrapup.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week14/1_Wrapup/sp2021_sta235_18_wrapup.html" >}}
+{{< slides src="https://sta235.netlify.app/Classes/Week14/2_Wrapup/sp2021_sta235_18_wrapup.html" >}}
 
 ## Code
 
