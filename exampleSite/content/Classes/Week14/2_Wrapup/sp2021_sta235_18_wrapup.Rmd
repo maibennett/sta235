@@ -458,3 +458,88 @@ Decision Trees...]
 ---
 
 .box-2LA[How do we bring everything together?]
+
+---
+# Case Study
+
+.pull-left[
+**.darkorange[The use of shared bikes]**
+
+- Q1: How to predict demand?
+
+- Q2: How to incentivize use?
+
+]
+
+.pull-right[
+.center[
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/bikeshare.jpg)]
+]
+
+---
+# Q1: How to predict demand?
+
+- What type of problem is it?
+
+--
+
+- How would you approach this problem?
+
+--
+
+- What is your outcome variable?
+
+--
+
+- What data would you ask for?
+
+  - Think about granularity (level), time scope, variables, other data sources.
+
+---
+# Q1: How to predict demand?
+
+- What type of problem is it?
+
+--
+
+- What data would you ask for?
+
+  - Think about granularity (level), time scope, variables, other data sources.
+  
+--
+
+- How would you approach this problem?
+
+---
+# Let's look at the data
+
+```{r}
+
+```
+
+---
+# Q2: How to incentivize use?
+
+- What type of problem is it?
+
+--
+
+- How would you approach this problem?
+
+--
+
+- What is your outcome variable?
+
+--
+
+- What data would you ask for?
+
+  - Think about granularity (level), time scope, variables, other data sources.
+  
+---
+# Let's look at the data
+
+```{r}
+
+```
+
