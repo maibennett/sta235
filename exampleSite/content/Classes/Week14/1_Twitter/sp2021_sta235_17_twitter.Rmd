@@ -838,6 +838,32 @@ wordcloud::wordcloud(words = word_tb$word, freq = word_tb$n,
 ]
 
 ---
+.center2[
+.box-4LA[Let's go to R]
+]
+
+---
+.center2[
+.box-2LA[Course Instructor Survey]
+]
+
+---
+```{r, echo=FALSE}
+countdown(minutes = 10, seconds = 0, update_every = 60, play_sound = TRUE, box_shadow = TRUE, right = "33%", bottom = "90%",
+          color_border = "#5601A4",
+          color_text = "#5601A4",
+          color_running_background  = "#900DA4",
+          color_running_text        = "white",
+          color_finished_background = "#E16462",
+          color_finished_text       = "white",
+          border_width = "5px",
+          font_size = "4em")
+```
+
+.center[
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/cis.png)
+]
+---
 # References
 
 - James, G. et al. (2013). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 6.*
