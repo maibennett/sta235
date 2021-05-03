@@ -927,7 +927,7 @@ g1 + g2
 .box-2LA[Now let's look at Twitter]
 
 .center[
-![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/twitter.png)
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/twitter.png)
 ]
 
 ---
@@ -954,7 +954,7 @@ g1 + g2
 ]
 ```{r, echo=FALSE}
 library(countdown)
-countdown(minutes = 10, seconds = 0, update_every = 60, play_sound = TRUE, box_shadow = TRUE, right = "55%", bottom = "10%",
+countdown(minutes = 10, seconds = 0, update_every = 60, play_sound = TRUE, box_shadow = TRUE, right = "55%", bottom = "15%",
           color_border = "#5601A4",
           color_text = "#5601A4",
           color_running_background  = "#900DA4",
