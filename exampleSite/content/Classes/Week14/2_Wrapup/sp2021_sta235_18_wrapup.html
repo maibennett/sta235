@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235 - Wrapping up</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA 235 - Wrapping up
+## Spring 2021
+### McCombs School of Business, UT Austin
+
+---
+
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+.center2[
+.box-4LA[We have seen a lot of topics this semester]]
+
+---
+
+.pull-left[
+.box-1[Regression]
+]
+
+---
+
+.pull-left[
+.box-1[Regression]
+
+&lt;br&gt;
+
+.box-2[Potential Outcomes framework]
+]
+
+---
+
+.pull-left[
+.box-1[Regression]
+
+&lt;br&gt;
+
+.box-2[Potential Outcomes framework]
+
+&lt;br&gt;
+
+.box-3[Randomized Controlled Trials]
+]
+
+---
+
+.pull-left[
+.box-1[Regression]
+
+&lt;br&gt;
+
+.box-2[Potential Outcomes framework]
+
+&lt;br&gt;
+
+.box-3[Randomized Controlled Trials]
+
+&lt;br&gt;
+
+.box-4[Observational studies]
+]
+
+---
+
+.pull-left[
+.box-1[Regression]
+
+&lt;br&gt;
+
+.box-2[Potential Outcomes framework]
+
+&lt;br&gt;
+
+.box-3[Randomized Controlled Trials]
+
+&lt;br&gt;
+
+.box-4[Observational studies]
+]
+
+.pull-right[
+.box-5[Model selection]
+
+]
+
+---
+
+.pull-left[
+.box-1[Regression]
+
+&lt;br&gt;
+
+.box-2[Potential Outcomes framework]
+
+&lt;br&gt;
+
+.box-3[Randomized Controlled Trials]
+
+&lt;br&gt;
+
+.box-4[Observational studies]
+]
+
+.pull-right[
+.box-5[Model selection]
+
+&lt;br&gt;
+
+.box-6[Regularization]
+]
+
+---
+
+.pull-left[
+.box-1[Regression]
+
+&lt;br&gt;
+
+.box-2[Potential Outcomes framework]
+
+&lt;br&gt;
+
+.box-3[Randomized Controlled Trials]
+
+&lt;br&gt;
+
+.box-4[Observational studies]
+]
+
+.pull-right[
+.box-5[Model selection]
+
+&lt;br&gt;
+
+.box-6[Regularization]
+
+&lt;br&gt;
+
+.box-7[Prediction]
+]
+
+---
+
+.pull-left[
+.box-1[Regression]
+
+&lt;br&gt;
+
+.box-2[Potential Outcomes framework]
+
+&lt;br&gt;
+
+.box-3[Randomized Controlled Trials]
+
+&lt;br&gt;
+
+.box-4[Observational studies]
+]
+
+.pull-right[
+.box-5[Model selection]
+
+&lt;br&gt;
+
+.box-6[Regularization]
+
+&lt;br&gt;
+
+.box-7[Prediction]
+
+&lt;br&gt;
+
+.box-7t[KNN, Bagging, Boosting, Random Forests,
+Decision Trees...]
+]
+
+---
+
+.center2[
+.box-2LA[How do we bring everything together?]
+]
+
+---
+# Case Study
+
+.pull-left[
+**.darkorange[The use of shared bikes]**
+
+- Q1: How to predict demand?
+
+- Q2: How to incentivize use?
+
+]
+
+.pull-right[
+.center[
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/2_Wrapup/images/bikeshare.jpg)]
+]
+
+---
+# Q1: How to predict demand?
+
+- What type of problem is it?
+
+--
+
+- How would you approach this problem?
+
+--
+
+- What is your outcome variable?
+
+--
+
+- What data would you ask for?
+
+  - Think about granularity (level), time scope, variables, other data sources.
+
+
+---
+# Let's look at the data
+
+
+```r
+bikedc &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/2_Wrapup/data/bikesharedc.csv")
+
+head(bikedc)
+```
+
+```
+##              datetime season holiday workingday weather temp  atemp humidity
+## 1 2011-01-01 00:00:00      1       0          0       1 9.84 14.395       81
+## 2 2011-01-01 01:00:00      1       0          0       1 9.02 13.635       80
+## 3 2011-01-01 02:00:00      1       0          0       1 9.02 13.635       80
+## 4 2011-01-01 03:00:00      1       0          0       1 9.84 14.395       75
+## 5 2011-01-01 04:00:00      1       0          0       1 9.84 14.395       75
+## 6 2011-01-01 05:00:00      1       0          0       2 9.84 12.880       75
+##   windspeed casual registered count
+## 1    0.0000      3         13    16
+## 2    0.0000      8         32    40
+## 3    0.0000      5         27    32
+## 4    0.0000      3         10    13
+## 5    0.0000      0          1     1
+## 6    6.0032      0          1     1
+```
+
+---
+# Let's look at the data
+
+- Would you **.darkorange[transform]** some of this data?
+
+- What **.darkorange[prediction method]** would you use?
+
+
+```r
+head(bikedc)
+```
+
+```
+##              datetime season holiday workingday weather temp  atemp humidity
+## 1 2011-01-01 00:00:00      1       0          0       1 9.84 14.395       81
+## 2 2011-01-01 01:00:00      1       0          0       1 9.02 13.635       80
+## 3 2011-01-01 02:00:00      1       0          0       1 9.02 13.635       80
+## 4 2011-01-01 03:00:00      1       0          0       1 9.84 14.395       75
+## 5 2011-01-01 04:00:00      1       0          0       1 9.84 14.395       75
+## 6 2011-01-01 05:00:00      1       0          0       2 9.84 12.880       75
+##   windspeed casual registered count
+## 1    0.0000      3         13    16
+## 2    0.0000      8         32    40
+## 3    0.0000      5         27    32
+## 4    0.0000      3         10    13
+## 5    0.0000      0          1     1
+## 6    6.0032      0          1     1
+```
+
+---
+# Q2: How to incentivize use?
+
+- What type of problem is it?
+
+--
+
+- How would you approach this problem?
+
+--
+
+- What is your outcome variable?
+
+--
+
+- What data would you ask for?
+
+  - Think about granularity (level), time scope, variables, other data sources.
+  
+---
+# Q2: How to incentivize use?
+
+- If you only had access to the previous data structure, **.darkorange[what intervention could you design?]**
+
+--
+
+- Imagine now that bike share is present in **.darkorange[two cities:]** DC and NYC. Would this change your approach?
+
+--
+
+- Now imagine that in 2012, **.darkorange[NYC modified their prices for casual and registered riders]**. What approach could you use now?
+
+---
+# Review Material
+
+.pull-left[
+
+```r
+bikenyc &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/2_Wrapup/data/bikesharenyc.csv")
+
+ggplot(bikenyc, aes(x = date, y = count)) +
+  geom_smooth(method = "loess", color = "blue") +
+  geom_smooth(data = bikedc, aes(x = date, y = count), 
+              method = "loess", color = "red") + theme_bw()
+```
+]
+
+.pull-right[
+&lt;img src="sp2021_sta235_18_wrapup_files/figure-html/dd_bike-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Let's wrap things up
+]
+
+---
+# Objectives of this course
+
+- **.darkorange[Learn to think about causality]**:
+
+  - Is this correlation or causation?
+  
+  - What assumptions need to hold?
+  
+  - How can I answer a causal question?
+
+--
+
+- **.darkorange[Learn to think about prediction]**:
+
+  - What do we care with a good prediction model?
+  
+  - What type of data do I need?
+  
+  - How can I use prediction to answer some pressing questions?
+
+
+---
+# Objectives of this course
+
+&lt;br&gt;
+
+.box-4LA[Even if you don't do these studies, learn how to be CRITICAL CONSUMER of these products/analysis]
+
+--
+
+&lt;br&gt;
+
+.box-4[Same with coding!]
+
+---
+# Remember for the final exam...
+
+.pull-left[
+- You will need a **.darkorange[webcam]**.
+
+- Try to have a **.darkorange[stable internet connection]**.
+
+- The final exam will cover everything we have seen in the class (with an emphasis on prediction).
+
+.box-7[Good luck!]
+]
+
+.pull-right[
+.center[
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/2_Wrapup/images/bob.jpg)]
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script src="cols_macro.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

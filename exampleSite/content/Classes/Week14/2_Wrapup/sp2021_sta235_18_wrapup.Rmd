@@ -291,7 +291,8 @@ library(caret)
 options(scipen = 0)
 ```
 
-.box-4LA[We have seen a lot of topics this semester]
+.center2[
+.box-4LA[We have seen a lot of topics this semester]]
 
 ---
 
@@ -417,7 +418,7 @@ options(scipen = 0)
 
 <br>
 
-.box-6[Prediction]
+.box-7[Prediction]
 ]
 
 ---
@@ -447,17 +448,19 @@ options(scipen = 0)
 
 <br>
 
-.box-6[Prediction]
+.box-7[Prediction]
 
 <br>
 
-.box-6t[KNN, Bagging, Boosting, Random Forests,
+.box-7t[KNN, Bagging, Boosting, Random Forests,
 Decision Trees...]
 ]
 
 ---
 
+.center2[
 .box-2LA[How do we bring everything together?]
+]
 
 ---
 # Case Study
@@ -473,7 +476,7 @@ Decision Trees...]
 
 .pull-right[
 .center[
-![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/bikeshare.jpg)]
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/2_Wrapup/images/bikeshare.jpg)]
 ]
 
 ---
@@ -552,7 +555,7 @@ head(bikedc)
 # Review Material
 
 .pull-left[
-```{r}
+```{r, eval = FALSE}
 bikenyc <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/2_Wrapup/data/bikesharenyc.csv")
 
 ggplot(bikenyc, aes(x = date, y = count)) +
@@ -565,12 +568,19 @@ ggplot(bikenyc, aes(x = date, y = count)) +
 
 .pull-right[
 ```{r dd_bike, fig.height=5, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, results=FALSE}
+bikenyc <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/2_Wrapup/data/bikesharenyc.csv")
+
+bikenyc$date <- as.Date(bikenyc$datetime)
+bikedc$date <- as.Date(bikedc$datetime)
+
 ggplot(bikenyc, aes(x = date, y = count)) +
-  geom_smooth(aes(color = "#5601A4"),fill="#5601A4",method = "loess", lwd = 1.5) +
-  geom_smooth(data = bikedc, aes(x = date, y = count,color = "#BF3984"), 
-              method = "loess", lwd=1.5, fill = "#BF3984") + theme_bw() + theme_ipsum_fsc() +
+  geom_smooth(aes(color = "#5601A4",fill="#5601A4"),method = "loess", lwd = 1.5) +
+  geom_smooth(data = bikedc, aes(x = date, y = count,color = "#BF3984", fill = "#BF3984"), 
+              method = "loess", lwd=1.5) + theme_bw() + theme_ipsum_fsc() +
   scale_color_manual(values=c("#5601A4","#BF3984"),labels=c("NYC","DC")) + 
-  ylim(0,200) +
+  scale_fill_manual(values=c("#5601A4","#BF3984"),labels=c("NYC","DC")) + 
+  guides(colour = guide_legend("City"), fill = guide_legend("City")) +
+
   ylab("Total rides")+xlab("Date")+
     theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
         panel.grid.major.x = element_blank(),
@@ -590,3 +600,63 @@ ggplot(bikenyc, aes(x = date, y = count)) +
 ```
 ]
 
+---
+
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Let's wrap things up
+]
+
+---
+# Objectives of this course
+
+- **.darkorange[Learn to think about causality]**:
+
+  - Is this correlation or causation?
+  
+  - What assumptions need to hold?
+  
+  - How can I answer a causal question?
+
+--
+
+- **.darkorange[Learn to think about prediction]**:
+
+  - What do we care with a good prediction model?
+  
+  - What type of data do I need?
+  
+  - How can I use prediction to answer some pressing questions?
+
+
+---
+# Objectives of this course
+
+<br>
+
+.box-4LA[Even if you don't do these studies, learn how to be CRITICAL CONSUMER of these products/analysis]
+
+--
+
+<br>
+
+.box-4[Same with coding!]
+
+---
+# Remember for the final exam...
+
+.pull-left[
+- You will need a **.darkorange[webcam]**.
+
+- Try to have a **.darkorange[stable internet connection]**.
+
+- The final exam will cover everything we have seen in the class (with an emphasis on prediction).
+
+.box-7[Good luck!]
+]
+
+.pull-right[
+.center[
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/2_Wrapup/images/bob.jpg)]
+]
