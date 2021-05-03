@@ -927,9 +927,10 @@ g1 + g2
 ---
 <br>
 .box-2LA[Now let's look at Twitter]
+<br>
 
 .center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/twitter.png)
+![:scale 40%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/twitter.png)
 ]
 
 ---
