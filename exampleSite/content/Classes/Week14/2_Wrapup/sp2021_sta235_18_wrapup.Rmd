@@ -506,6 +506,17 @@ head(bikedc)
 ```
 
 ---
+# Let's look at the data
+
+- Would you **.darkorange[transform]** some of this data?
+
+- What **.darkorange[prediction method]** would you use?
+
+```{r}
+head(bikedc)
+```
+
+---
 # Q2: How to incentivize use?
 
 - What type of problem is it?
@@ -525,11 +536,57 @@ head(bikedc)
   - Think about granularity (level), time scope, variables, other data sources.
   
 ---
-# Let's look at the data
+# Q2: How to incentivize use?
 
+- If you only had access to the previous data structure, **.darkorange[what intervention could you design?]**
+
+--
+
+- Imagine now that bike share is present in **.darkorange[two cities:]** DC and NYC. Would this change your approach?
+
+--
+
+- Now imagine that in 2012, **.darkorange[NYC modified their prices for casual and registered riders]**. What approach could you use now?
+
+---
+# Review Material
+
+.pull-left[
 ```{r}
 bikenyc <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/2_Wrapup/data/bikesharenyc.csv")
 
-head(bikenyc)
+ggplot(bikenyc, aes(x = date, y = count)) +
+  geom_smooth(method = "loess", color = "blue") +
+  geom_smooth(data = bikedc, aes(x = date, y = count), 
+              method = "loess", color = "red") + theme_bw()
+
 ```
+]
+
+.pull-right[
+```{r dd_bike, fig.height=5, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, results=FALSE}
+ggplot(bikenyc, aes(x = date, y = count)) +
+  geom_smooth(aes(color = "#5601A4"),fill="#5601A4",method = "loess", lwd = 1.5) +
+  geom_smooth(data = bikedc, aes(x = date, y = count,color = "#BF3984"), 
+              method = "loess", lwd=1.5, fill = "#BF3984") + theme_bw() + theme_ipsum_fsc() +
+  scale_color_manual(values=c("#5601A4","#BF3984"),labels=c("NYC","DC")) + 
+  ylim(0,200) +
+  ylab("Total rides")+xlab("Date")+
+    theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        #panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+  #axis.line = element_blank())+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10, angle = 0),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position=c(0.1,0.9),
+        legend.title = element_blank(),
+        legend.text = element_text(size=14),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+```
+]
 
