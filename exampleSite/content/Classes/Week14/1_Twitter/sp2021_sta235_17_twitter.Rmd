@@ -923,7 +923,8 @@ g1 + g2
 
 
 ---
-.center[# Now let's look at Twitter]
+<br>
+.box-2LA[Now let's look at Twitter]
 
 .center[
 ![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/twitter.png)
@@ -944,16 +945,16 @@ g1 + g2
 
 .pull-left[
 
-- To complete the survey either point with your phone to the QR code or
+- To complete the survey either point with your phone to the QR code or go to:
 
-- Go to **.darkorange[https://bit.ly/longhorn-cis]**
+.box-4[bit.ly/longhorn-cis]
 
 **The instructor will be back in**:
 
 ]
 ```{r, echo=FALSE}
 library(countdown)
-countdown(minutes = 10, seconds = 0, update_every = 60, play_sound = TRUE, box_shadow = TRUE, right = "60%", bottom = "20%",
+countdown(minutes = 10, seconds = 0, update_every = 60, play_sound = TRUE, box_shadow = TRUE, right = "55%", bottom = "10%",
           color_border = "#5601A4",
           color_text = "#5601A4",
           color_running_background  = "#900DA4",
@@ -966,7 +967,7 @@ countdown(minutes = 10, seconds = 0, update_every = 60, play_sound = TRUE, box_s
 
 .pull-right[
 .center[
-![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/qr_cis.jpg)]
+![:scale 60%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/qr_cis.png)]
 ]
 
 ---
