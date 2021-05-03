@@ -444,11 +444,9 @@ Let's get texting!
 
 - So far, we have only seen **.darkorange[numeric]** or **.darkorange[categorical]** data both as predictors and outcomes.
 
---
 
 - But what about other types of data?
 
---
 
 .box-2t[Images]
 
@@ -456,28 +454,26 @@ Let's get texting!
 .box-2t[Sounds]
 
 
-.box-4L[Text]
+.box-4LA[Text]
 
 ---
 # What is Natural Language Processing?
 
 - NLP focuses on analyzing and understanding text systematically **.darkorange[through code]**.
 
-- E.g.:
-
-.center["If you were a seller in Amazon, and wanted to capture feedback through reviews, how would you do it?"]
+- E.g.: "If you were a seller in Amazon, and wanted to capture feedback through reviews, how would you do it?"
 
 --
 
 .center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/banana1.png)
+![:scale 60%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/banana1.png)
 ]
 
 ---
 # What is Natural Language Processing?
 
 .center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/banana2.png)
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/banana2.png)
 ]
 
 
