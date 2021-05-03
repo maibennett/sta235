@@ -940,9 +940,9 @@ g1 + g2
 ]
 
 ---
+# Course Instructor Survey
 
 .pull-left[
-**Course Instructor Surveys**:
 
 - To complete the survey either point with your phone to the QR code or
 
@@ -953,7 +953,7 @@ g1 + g2
 ]
 ```{r, echo=FALSE}
 library(countdown)
-countdown(minutes = 10, seconds = 0, update_every = 60, play_sound = TRUE, box_shadow = TRUE, right = "33%", bottom = "20%",
+countdown(minutes = 10, seconds = 0, update_every = 60, play_sound = TRUE, box_shadow = TRUE, right = "80%", bottom = "20%",
           color_border = "#5601A4",
           color_text = "#5601A4",
           color_running_background  = "#900DA4",
