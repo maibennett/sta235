@@ -419,7 +419,7 @@ Let's get texting!
 ]
 
 ---
-# Natural Language Processing
+# Not everything is numbers
 
 - So far, we have only seen **.darkorange[numeric]** or **.darkorange[categorical]** data both as predictors and outcomes.
 
@@ -440,7 +440,7 @@ Let's get texting!
 .box-2t[Text]
 
 ---
-# Natural Language Processing
+# Not everything is numbers
 
 - So far, we have only seen **.darkorange[numeric]** or **.darkorange[categorical]** data both as predictors and outcomes.
 
@@ -457,6 +457,29 @@ Let's get texting!
 
 
 .box-4L[Text]
+
+---
+# What is Natural Language Processing?
+
+- NLP focuses on analyzing and understanding text systematically **.darkorange[through code]**.
+
+- E.g.:
+
+.center["If you were a seller in Amazon, and wanted to capture feedback through reviews, how would you do it?"]
+
+--
+
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/banana1.png)
+]
+
+---
+# What is Natural Language Processing?
+
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_Twitter/images/banana2.png)
+]
+
 
 
 ---
