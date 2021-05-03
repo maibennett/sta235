@@ -495,26 +495,14 @@ Decision Trees...]
 
   - Think about granularity (level), time scope, variables, other data sources.
 
----
-# Q1: How to predict demand?
-
-- What type of problem is it?
-
---
-
-- What data would you ask for?
-
-  - Think about granularity (level), time scope, variables, other data sources.
-  
---
-
-- How would you approach this problem?
 
 ---
 # Let's look at the data
 
 ```{r}
+bikedc <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/2_Wrapup/data/bikesharedc.csv")
 
+head(bikedc)
 ```
 
 ---
@@ -540,6 +528,8 @@ Decision Trees...]
 # Let's look at the data
 
 ```{r}
+bikenyc <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/2_Wrapup/data/bikesharenyc.csv")
 
+head(bikenyc)
 ```
 
