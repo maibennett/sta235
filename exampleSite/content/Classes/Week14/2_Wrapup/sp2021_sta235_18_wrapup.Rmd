@@ -361,6 +361,8 @@ options(scipen = 0)
 ]
 
 .pull-right[
+<br>
+
 .box-5[Model selection]
 
 ]
@@ -384,7 +386,11 @@ options(scipen = 0)
 ]
 
 .pull-right[
+<br>
+
 .box-5[Model selection]
+
+<br>
 
 <br>
 
