@@ -644,6 +644,66 @@ Let's wrap things up
 .box-4[Same with coding!]
 
 ---
+# How comfortable are you with R?
+
+
+```{r rcode, fig.height=5.5, fig.width=11, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/2_Wrapup/data/rcode.csv")
+
+d <- d %>% filter(!is.na(diff))
+
+g1 <- ggplot(data = d, aes(x = factor(r_start,
+                                levels = seq(1,10,1)))) + 
+  geom_bar(color="#900DA4", fill = alpha("#900DA4",0.5), lwd=1.5) +
+  scale_x_discrete(labels = c("1" = "1\nVery\nuncomfortable","2" = "2","3" = "3","4" = "4","5" = "5","6" = "6",
+                              "7" = "7","8" = "8","9" = "9","10" = "10\nSuper\ncomfortable"), drop = FALSE) +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  xlab("") + ylab("Count")+ggtitle("Start of the semester")+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14)) + ylim(0,7)
+
+g2 <- ggplot(data = d, aes(x = factor(rend,
+                                levels = seq(1,10,1)))) + 
+  geom_bar(color="#FCCE25", fill = alpha("#FCCE25",0.5), lwd=1.5) +
+  scale_x_discrete(labels = c("1" = "1\nVery\nuncomfortable","2" = "2","3" = "3","4" = "4","5" = "5","6" = "6",
+                              "7" = "7","8" = "8","9" = "9","10" = "10\nSuper\ncomfortable"), drop = FALSE) +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  xlab("") + ylab("Count")+ggtitle("End of the semester")+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14)) + ylim(0,7)
+
+g1 + g2
+
+```
+
+---
 # Remember for the final exam...
 
 .pull-left[
