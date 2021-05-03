@@ -410,7 +410,12 @@ options(scipen = 0)
 ]
 
 .pull-right[
+
+<br>
+
 .box-5[Model selection]
+
+<br>
 
 <br>
 
@@ -418,43 +423,11 @@ options(scipen = 0)
 
 <br>
 
-.box-7[Prediction]
-]
-
----
-
-.pull-left[
-.box-1[Regression]
-
-<br>
-
-.box-2[Potential Outcomes framework]
-
-<br>
-
-.box-3[Randomized Controlled Trials]
-
-<br>
-
-.box-4[Observational studies]
-]
-
-.pull-right[
-.box-5[Model selection]
-
-<br>
-
-.box-6[Regularization]
-
 <br>
 
 .box-7[Prediction]
-
-<br>
-
-.box-7t[KNN, Bagging, Boosting, Random Forests,
-Decision Trees...]
 ]
+
 
 ---
 
@@ -623,7 +596,7 @@ Let's wrap things up
 
 - **.darkorange[Learn to think about prediction]**:
 
-  - What do we care with a good prediction model?
+  - What do we care when thinking about a good prediction model?
   
   - What type of data do I need?
   
@@ -641,7 +614,45 @@ Let's wrap things up
 
 <br>
 
-.box-4[Same with coding!]
+.box-4tL[Same with coding!]
+
+---
+# Do you wish we would have done more or less R coding?
+
+```{r pie, fig.height=5.5, fig.width=11, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+pie <- data.frame(labels = c("More R coding", "Less R coding", "The amount of R coding was fine"),
+                  values = c(10,10,4),
+                  perc = c(0.417, 0.417, 0.167),
+                  perc_lab = c("41.7%","41.7%","16.7%"))
+
+cols = c("#5601A4","#BF3984","#FCCE25")
+
+ggplot(data = pie) + 
+  geom_bar(aes(x="",y=as.numeric(perc),fill=factor(labels)), lwd=1.5, stat="identity", color="white") +
+  coord_polar("y",start = 0.5)+
+  scale_fill_manual(values=cols, name="") + 
+  #scale_x_discrete(name="x", breaks=seq(1,10,1), labels = c("1\nVery uncomfortable","2","3","4","5","6","7","8","9","10\nSuper comfortable"), limits = c(1,2,3,4,5,6,7,8,9,10)) +
+  theme_void()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  geom_text(aes(x=1, y = c(0.35,0.8,0.1), label=perc_lab)) +
+  #ggtitle("How comfortable are you with R?")+
+  #ylim(0,5)+
+  theme(plot.margin=unit(c(1,1,1,1),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_blank())+
+  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank(),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position="right",
+        legend.title = element_text(size=15),
+        legend.text = element_text(size=12),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+```
 
 ---
 # How comfortable are you with R?
@@ -713,10 +724,22 @@ g1 + g2
 
 - The final exam will cover everything we have seen in the class (with an emphasis on prediction).
 
-.box-7[Good luck!]
+- **.darkorange[Attend office hours if you have questions!]**
+
 ]
 
 .pull-right[
 .center[
-![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/2_Wrapup/images/bob.jpg)]
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/2_Wrapup/images/bob.jpg)]
 ]
+
+---
+
+<br>
+<br>
+<br>
+.box-7[We're very close to the finish line!<br>Good luck!]
+
+.center[![](https://media.giphy.com/media/NiBMdMizycNCE/giphy.gif)]
+
+
