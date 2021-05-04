@@ -206,7 +206,7 @@ ggplot(data = cars, aes(x = dist, y = speed)) +
 
 If you want to see how this would look as HTML, just change your YAML (i.e. the header of this document, between --- and ---) for the following:
 
----
+```
 title: "RMarkdown Template"
 author: "Magdalena Bennett"
 date: "April 8th, 2021"
@@ -214,7 +214,7 @@ output:
   html_document:
     css: style.css 
     toc: no
----
+```
 
 Well, this is this file, and it's pretty awesome `r emo::ji("partying_face")`.
 

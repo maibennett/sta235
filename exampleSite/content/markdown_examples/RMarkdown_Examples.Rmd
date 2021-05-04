@@ -209,7 +209,7 @@ ggplot(data = cars, aes(x = dist, y = speed)) +
 
 If you want to see how this would look as HTML, just change your YAML (i.e. the header of this document, between --- and ---) for the following:
 
----
+```
 title: "RMarkdown Template"
 author: "Magdalena Bennett"
 date: "April 8th, 2021"
@@ -217,7 +217,7 @@ output:
   html_document:
     css: style.css 
     toc: no
----
+```
 
 I've included a separate R markdown file with this, that you can knit and see how the HTML file looks. I've also uploaded it [here](https://sta235.netlify.app/markdown_examples/Rmarkdown_Examples_HTML.html) just for fun `r emo::ji("partying_face")`.
 
