@@ -2,7 +2,6 @@
 title: Rmarkdown
 weight: 30
 pre: "<b>6. </b>"
-chapter: true
 ---
 
 Here I have some Rmarkdown resources for anyone who is interested (it assumes you have a basic knowledge of Rmarkdown, but might want to improve the aesthetics). 
