@@ -113,6 +113,7 @@ lm.fwd <- train(logins ~ . - unsubscribe, data = disney,
                     trControl = train.control)
 lm.fwd$results
 
+sum.lm.fwd <- summary(lm.fwd)
 # Question: Which model do you choose?
 
 # Excercise: Do the same CV procedure, but with backwards stepwise. Which model do you choose in that case?
