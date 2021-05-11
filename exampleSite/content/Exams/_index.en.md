@@ -49,3 +49,8 @@ Here are some exercises (focused on R) that cover the type of coding you should 
 Here are some exercises that cover the type of questions you should expect for the final. It is not an exhaustive list, so make sure you have gone through the code we have seen in class, as well as the questions that are posed there (both in the code and in the slides). 
 
 <a onclick="ga('send', 'event', 'External-Link','click','code_final','0','Link');" href="https://sta235.netlify.app/Exams/code/sp2021_sta235_final_exercises.html" target="_blank" class="btn btn-default"> Open <i class="fas fa-external-link-alt" ></i></a>
+
+
+**Answer Key:** Here is an abbreviated answer key for the previous problems. It should give you enough guidance to check your own answers. **Please attempt the review exercises by yourself before looking at the solution key.**
+
+<a onclick="ga('send', 'event', 'External-Link','click','code_final_AK','0','Link');" href="https://sta235.netlify.app/Exams/code/sp2021_sta235_final_exercises_AK.html" target="_blank" class="btn btn-default"> Open <i class="fas fa-external-link-alt" ></i></a>
