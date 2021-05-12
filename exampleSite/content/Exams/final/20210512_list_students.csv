@@ -1,4 +1,4 @@
-EID,FIRST NAME,LAST NAME,SECTION,MAKEUP
+EID,FirstName,LastName,Section,Makeup
 psa449,Prerana,Amargol,1,1
 spb2273,Shruti,Bajaj,1,1
 rmb3982,Rachel,Baker,1,0
@@ -28,3 +28,4 @@ zs5982,ZIQI,SUN,2,0
 at38297,Akhsheiy,Tangutur,2,1
 asv743,Adam,Vazin,2,0
 sww574,Sam,Worley,2,1
+mc72574,Magdalena,Bennett,,
