@@ -1,5 +1,5 @@
 ---
-title: "STA 235 - MIDTERM"
+title: "STA 235 - FINAL EXAM"
 subtitle: "Spring 2021"
 author: "McCombs School of Business, UT Austin"
 output:
@@ -294,9 +294,9 @@ library(htmltools)
 options(scipen = 0)
 ```
 
-# Midterm
+# Final Exam
 
-.box-2[sta235.netlify.app/exams/midterm/YOUR_EID]
+.box-2[sta235.netlify.app/exams/final/YOUR_EID]
 <br>
 .box-3[This exam is open-book. But you can't communicate with anyone.]
 <br>
@@ -304,7 +304,7 @@ options(scipen = 0)
 <br>
 .box-5[Ask questions on the chat]
 <br>
-.box-6[You have 1hr 45min]
+.box-6[You have 2 hours]
 <br>
 .box-7[Good luck!]
 
@@ -312,10 +312,11 @@ options(scipen = 0)
 ---
 <br>
 
-.box-7LA[sta235.netlify.app/exams/midterm/YOUR_EID]
+.box-3tL[sta235.netlify.app/exams/final/YOUR_EID]
 
 <br>
 <br>
+.center[
 ```{r, echo=FALSE}
 
 countdown <- function(
@@ -504,7 +505,7 @@ validate_html_id <- function(id) {
 }
 
 
-countdown(minutes = 120, seconds = 0, update_every = 60, play_sound = TRUE, box_shadow = TRUE, right = "33%", bottom = "33%",
+countdown(minutes = 120, seconds = 0, update_every = 60, play_sound = TRUE, box_shadow = TRUE, right = "30%", bottom = "33%",
           color_border = "#5601A4",
           color_text = "#5601A4",
           color_running_background  = "#900DA4",
@@ -514,3 +515,4 @@ countdown(minutes = 120, seconds = 0, update_every = 60, play_sound = TRUE, box_
           border_width = "5px",
           font_size = "4em")
 ```
+]
