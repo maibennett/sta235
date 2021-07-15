@@ -7,7 +7,7 @@ chapter: true
 
 # Syllabus
 
-{{% notice warning %}}
+<!-- {{% notice warning %}}
 Please read the syllabus. It has important information about the course, including structure, assignments, grading, and office hours, among many others. [Here's some Snoop Dog](https://www.cameo.com/v/5f2b392a0299b100202e624a?utm_campaign=video_share_to_copy) so you're motivated to read it.
 {{% /notice %}}
 
@@ -345,3 +345,4 @@ Occupants of buildings on The University of Texas at Austin campus are required 
 •	Students requiring assistance in evacuation shall inform their instructor in writing during the first week of class.
 •	In the event of an evacuation, follow the instruction of faculty or class instructors. Do not re-enter a building unless given instructions by the following: Austin Fire Department, The University of Texas at Austin Police Department, or Fire Prevention Services office.
 •	Information regarding emergency evacuation routes and emergency procedures can be found at this link: emergency.utexas.edu 
+ -->
