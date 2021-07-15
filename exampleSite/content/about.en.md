@@ -5,9 +5,9 @@ disableToc: true
 
 ### STA 235 - Data Science for Business Applications
 
-- Meeting time: Mondays 12:30 - 2:15 PM (Section 1); Mondays 2:30 - 4:15 PM (Section 2)
+<!-- - Meeting time: Mondays 12:30 - 2:15 PM (Section 1); Mondays 2:30 - 4:15 PM (Section 2)
 - Pre-requisites: STA 301 or STA 301H, Mathematics 408Q or credit registration for 408D, 408L, or 408S.
-- Format: Online (Spring 2021)
+- Format: Online (Spring 2021) -->
 
 ### Instructor
 
@@ -20,6 +20,6 @@ Magdalena Bennett, Ph.D., Assistant Professor at the Statistics Group (IROM Depa
 
 ### Teaching Assistant
 
-Ricardo Lara, Ph.D. candidate in Petroleum Engineering
+<!-- Ricardo Lara, Ph.D. candidate in Petroleum Engineering
 
-- <i class="fas fa-envelope"></i> Email [rlara@utexas.edu](mailto:rlara@utexas.edu)
+- <i class="fas fa-envelope"></i> Email [rlara@utexas.edu](mailto:rlara@utexas.edu) -->
