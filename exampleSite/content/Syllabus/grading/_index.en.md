@@ -45,7 +45,7 @@ I will use the cutoffs below to translate your overall course average into a fin
 
 I now explain each of these grading components in more detail. 
 
-1.	Homework assignments (50%)
+1.	**Homework assignments (50%)**
 
 -	There will be five group homework assignments in this course, with the following (suggested) submission deadlines:
 	- HW1: September 19th, 11:59 PM
