@@ -34,7 +34,7 @@ Cheatsheets for R are amazing! Here are two of my favorite so you can look up fu
 
 ## FAQ
 
-1) ***Is there a specific format I should follow when emailing a professor?***
+***1) Is there a specific format I should follow when emailing a professor?***
 
 This is an important question, and not only for professors! (Disclaimer: This is part of a much larger *hidden curriculum*, so don't worry if you don't get it right straight away).
 
@@ -49,4 +49,6 @@ This is an important question, and not only for professors! (Disclaimer: This is
 - *Be clear about the motive of the email*: Feel free to use bold fonts, underscore, etc. and try to keep emails succinct. That way you are sure that your point is coming across and is more likely that you get the appropriate response.
 
 
+***2) Should I go to office hours?***
 
+The answer is almost always **YES!**. Office hours are a great way to just check your knowledge or ask any question you might have in a non-judgement zone. Even if you don't know what to ask but feel somewhat lost, we can work backwards and try to pinpoint some of the key elements that might be confusing and start from there.  
