@@ -4,22 +4,22 @@ weight: 20
 disableToc: true
 ---
 
-## UNIVERSITY CATALOG COURSE DESCRIPTION:
+### UNIVERSITY CATALOG COURSE DESCRIPTION
 
 Data science for business applications at the intermediate level. Topics include advanced multiple regression, causal inference, and construction and validation of predictive models. Additional topics will be included if time allows it, such as models for time series, and models for text data analysis.
 
-## PRE-REQUISITES FOR THE COURSE
+### PRE-REQUISITES FOR THE COURSE
 
 Statistics 301 or Statistics 301H, Mathematics 408Q or credit registration for 408D, 408L, or 408S. 
 
 
-## COURSE FORMAT
+### COURSE FORMAT
 
 This class meets in person once a week for two hours (see schedule according to your section in the first page). Attendance is not mandatory, but highly encouraged. You will also be required to bring a laptop to class, because we will be doing in-class coding exercises. If you do not have a laptop that you can bring to class, please contact the instructor so we can find an alternative solution.
 
 **Even though attendance is important, given the current worldwide context I would highly encourage you to stay home if you are not feeling well**. The instruction team will work with students that cannot attend due to health reasons to provide another form of virtual attendance (e.g. streaming or class videos). Please also check out the COVID-19 resources in this syllabus.  
  
-## COMPUTER HARDWARE & SOFTWARE REQUIREMENTS
+### COMPUTER HARDWARE & SOFTWARE REQUIREMENTS
 
 -	Laptop computer
 -	Modern and updated operating system (MacOS or Windows)
@@ -29,7 +29,7 @@ For the optimal in-class experience, I suggest that you:
 -	Close all unnecessary browser windows and tabs and programs.
 -	Check that your computer is free of viruses, malware, and spyware (UT recommendations).
 
-## HOW TO SUCCEED IN THIS COURSE:
+### HOW TO SUCCEED IN THIS COURSE:
 
 1)	Attend class each week (unless you are not feeling well) and be an active learner. If something is unclear, don’t be afraid to ask a question. Active participation in class enhances the learning experience for everyone!
 
