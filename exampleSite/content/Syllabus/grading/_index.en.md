@@ -59,7 +59,7 @@ I now explain each of these grading components in more detail.
 -	Homework assignments will be posted online and submitted through Canvas.  
 -	You must submit your homework write-up as a PDF. No other file format is acceptable. Both MS Word and Google Docs have an option to save your document as a PDF.
 -	You need to save the R script(s) (or Rmarkdown script) that you use to complete each and every homework assignment, and submit it along with your write-up. Failure to submit your script will be considered as an incomplete homework. The code you submit with your homework should be fully reproducible (i.e. another person running it on their machine should be able to get the same results as you). See guidelines in our course website for R scripts.
--	Every student will get one (1) 24-hr extension for homework assignments, no questions asked. If you want to use the extension, you will need to fill out this Google form before the original deadline. If one individual asks for a 24-hr extension, the whole group will get an extension.  
+-	Every student will get one (1) 24-hr extension for homework assignments, no questions asked. If you want to use the extension, you will need to fill out [this Google form](https://forms.gle/JFMubJJPhgYaaKG79) before the assignment's deadline. If one individual asks for a 24-hr extension, the whole group will get an extension.  
 -	Considering extensions, you will be penalized with 10 points for each day your assignment is late. This penalty is to give everyone the same amount of time to submit their work. If for any reason you have an issue submitting a homework that goes beyond the extension, please reach out to the instruction team as soon as possible (ideally, before the deadline).
 
 
