@@ -1,26 +1,22 @@
 ---
-title: Week 1
+title: Syllabus
+subtitle: Contact
 weight: 15
 disableToc: true
 ---
 
-## Date:
+| Instructor | E-mail   | Office   | Office Hours |
+|------------|----------|----------|--------------|
+| Dr. Magdalena Bennett   | <a href="mailto:m.bennett@austin.utexas.edu">m.bennett@austin.utexas.edu</a>   | CBA 6.476   | Mondays: 5:00-6:00 PM <br /> Thursdays: 4:00-5:00 PM|
 
-## What we will cover
+You can also reach our teaching assistant here:
 
+| Teaching Assistant | E-mail   | Office   | Office Hours |
+|------------|----------|----------|--------------|
+| Ricardo Lara   | <a href="mailto:rlara@utexas.edu">rlara@utexas.edu</a>   | Online   | TBD|
 
-## Slides
+All office hours are held via Zoom and you can register through [calendly](https://calendly.com/maibennett/sta-235-office-hours?month=2021-01). The teaching assistants will also hold office hours based on a scheduled TBD. 
 
-<!-- {{% button href="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
-
-{{< slides src="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.html" >}}
-
-<br>
-
-{{% button href="https://sta235.netlify.app/Classes/Week1/2_OLS/sp2021_sta235_2_reg.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week1/2_OLS/sp2021_sta235_2_reg.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
-
-{{< slides src="https://sta235.netlify.app/Classes/Week1/2_OLS/sp2021_sta235_2_reg.html" >}}  -->
-
-## Code
-
-<!-- Here is the R code we will review in class, with some additional data and questions <a onclick="ga('send', 'event', 'External-Link','click','code1','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/code/sp2021_sta235_2_reg.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> -->
+{{% notice note %}}
+If you have a conflict with office hours (e.g. another class is scheduled at the same time), please email us so we can set up another time to meet.
+{{% /notice %}}
