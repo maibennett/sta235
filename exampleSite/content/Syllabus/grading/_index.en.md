@@ -67,7 +67,7 @@ I now explain each of these grading components in more detail.
 
 -	Mini-assignments to be completed before class that should not take more than 15 minutes to complete. These might include questions related to the readings, watching a short video, or answering some questions related to the topics of this class.
 -	The objective of these assignments is for you to think about the topics that will be covered in this class, motivate the discussion, and at the same time provide additional feedback for the instructor about where the students stand.
--	These assignments will not be graded for their content, but just for their completion. That being said, your submission should reflect that you tried to answer the questions appropriately (if not, your submission might not be counted).
+-	These assignments will not be graded for their correctness, but just for their completion. That being said, your submission should reflect that you tried to answer the questions appropriately (if not, your submission might not be counted).
 -	JITT assignments need to be completed the two days before class: Sunday 11:59pm for sections with class on Tuesday, and Tuesday 11:59pm for sections with class on Thursday.
 -	When you submit a JITT assignment, you will receive a confirmation email. If you don’t receive a confirmation email, assume that the submission was not successful and submit again.
 -	All student will get one (1) submission that can be dropped. If for any reason you are not able to complete one of the JITTs, you can still get full credit for your submissions as long as you submit all other JITTs
