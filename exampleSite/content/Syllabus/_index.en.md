@@ -30,6 +30,8 @@ If you feel you are falling behind or that there are any aspects of this class t
 
 - [Contacting the instruction team](https://sta235.netlify.app/syllabus/contact)
 
+- [Course overview](https://sta235.netlify.app/syllabus/overview)
+
 | Instructor | E-mail   | Office   | Office Hours |
 |------------|----------|----------|--------------|
 | Dr. Magdalena Bennett   | <a href="mailto:m.bennett@austin.utexas.edu">m.bennett@austin.utexas.edu</a>   | CBA 6.476   | Mondays: 5:00-6:00 PM <br /> Thursdays: 4:00-5:00 PM|
