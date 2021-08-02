@@ -34,3 +34,19 @@ Cheatsheets for R are amazing! Here are two of my favorite so you can look up fu
 
 ## FAQ
 
+1) ***Is there a specific format I should follow when emailing a professor?***
+
+This is an important question, and not only for professors! (Disclaimer: This is part of a much larger *hidden curriculum*, so don't worry if you don't get it right straight away).
+
+**Useful tips for emailing a professor (or really anyone in a professional setting):**
+
+- *Use an informative subject*: In this case, “[STA 235] Your subject” is a good idea so I can immediately identify emails from students.
+
+- *Always include an appropriate greeting!*: Most students have this down, but “Hey” is usually not considered professional (or no greeting at all, when you are starting an email chain). When addressing professors, usually a good greeting would be “Dear Prof. Smith” or even “Hi Dr. Smith” (both work fine!). Try to avoid “Mr.” or “Ms.” (and stay far, far away from “Miss” or “Mrs.”) when referring to a professor.
+
+- *Quickly introduce yourself*: Reminding professors who you are is always a good idea (especially in the first email you ever send). We are usually handling multiple sections and hundreds of students, so it’s a good way to help us remember names. Something like “I’m in your Tuesday 10am class” works great, because I can pin down the section.
+
+- *Be clear about the motive of the email*: Feel free to use bold fonts, underscore, etc. and try to keep emails succinct. That way you are sure that your point is coming across and is more likely that you get the appropriate response.
+
+
+
