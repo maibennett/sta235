@@ -8,7 +8,7 @@ chapter: true
 # Syllabus
 
 {{% notice warning %}}
-Please read the syllabus. It has important information about the course, including structure, assignments, grading, and office hours, among many others. [Even Snoop Dog wants you to read the syllabus!](https://www.cameo.com/v/5f2b392a0299b100202e624a?utm_campaign=video_share_to_copy)
+Please read the syllabus. It has important information about the course, including structure, assignments, grading, and office hours, among many others. <b><a href="https://www.cameo.com/v/5f2b392a0299b100202e624a?utm_campaign=video_share_to_copy" style="color: #e0706c">Even Snoop Dog wants you to read the syllabus!</a></b>
 {{% /notice %}}
 
 
