@@ -4,7 +4,7 @@ weight: 35
 disableToc: true
 ---
 
-### COMMUNICATING WITH THE INSTRUCTOR TEAM
+#### COMMUNICATING WITH THE INSTRUCTOR TEAM
 
 1.	**Email** (see the [contact section](https://sta235.netlify.app/syllabus/contact) for addresses)
 
@@ -26,7 +26,7 @@ Please check out the FAQs on how to e-mail professors <b><a href="https://sta235
 
 I also decided to put an Easter egg in this syllabus, to see whether students actually read it or not! So, if you have read this far, please post a link to your favorite dog GIF [here](https://forms.gle/Rtk3cDWXyns9UyXQ7).
 
-### COLLABORATION, STUDY PARTNERS/GROUPS, AND ACADEMIC INTEGRITY
+#### COLLABORATION, STUDY PARTNERS/GROUPS, AND ACADEMIC INTEGRITY
 
 In addition to the general UT policies regarding academic integrity that are described in the syllabus (and in the UT Course Catalogue), this course has a few other specific policies:
 
@@ -41,6 +41,6 @@ In addition to the general UT policies regarding academic integrity that are des
 -	Also remember to use references and give credit were credit is due. If you are taking an idea from one of the readings, a book, or an online resource, please cite the work appropriately. Plagiarism from other sources (not just other students) will also be penalized.
 
 
-### NAME AND PERSONAL PRONOUN PREFERENCE
+#### NAME AND PERSONAL PRONOUN PREFERENCE
 
 It is very important to me that a respectful environment is fostered in this class, and that also includes referring to everyone by their preferred name and pronouns (and also pronouncing those names correctly!). Instructors are provided class rosters that only include your legal name, so I will send out an additional survey collecting both preferred names and pronouns.
