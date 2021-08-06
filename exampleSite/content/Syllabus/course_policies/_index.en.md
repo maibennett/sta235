@@ -6,7 +6,7 @@ disableToc: true
 
 ### COMMUNICATING WITH THE INSTRUCTOR TEAM
 
-1.	Email address: m.bennett@austin.utexas.edu
+1.	**Email** (see the [contact section](https://sta235.netlify.app/syllabus/contact) for addresses)
 
 	You can email me directly with individual questions related to the course administration, for example, about learning accommodations or a conflict with a religious holiday. For specific questions about an assignment, I recommend you copy a TA as well in your email. TAs can provide specific responses to assignment questions, but you should email me directly if there are any issues related to re-grading or extensions, for example. **Please, do not send direct messages through Canvas for the instruction team**.
 
@@ -24,7 +24,7 @@ Please check out the FAQs on how to e-mail professors <b><a href="https://sta235
 	If you have a question about content covered in a class session or assigned reading, about instructions for a homework assignment, about the intuition behind a knowledge check question, about R, or something similar: post your question on Canvas. If you have a question, it is likely that other students are wondering the same thing. Canvas is monitored regularly by the TAs and instructors and will often be the fastest way to get help. Students are also able to post responses to peers’ questions and we encourage you to do so.
 
 
-I also decided to put an Easter egg in this syllabus, to see whether students actually read it or not! So, if you have read this far, please post the link to your favorite dog GIF [here](https://forms.gle/Rtk3cDWXyns9UyXQ7).
+I also decided to put an Easter egg in this syllabus, to see whether students actually read it or not! So, if you have read this far, please post a link to your favorite dog GIF [here](https://forms.gle/Rtk3cDWXyns9UyXQ7).
 
 ### COLLABORATION, STUDY PARTNERS/GROUPS, AND ACADEMIC INTEGRITY
 
