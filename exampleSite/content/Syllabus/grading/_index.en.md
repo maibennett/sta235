@@ -1,5 +1,5 @@
 ---
-title: Course Requirements and Grading
+title: Requirements and Grading
 weight: 30
 disableToc: true
 ---
