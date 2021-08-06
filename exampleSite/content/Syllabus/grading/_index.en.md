@@ -98,4 +98,4 @@ I now explain each of these grading components in more detail.
 
 {{% notice warning %}}
 Students should always reference any outside resources that they use for completing any assignment. Any unattributed content will be considered plagiarism, resulting in a failing grade and disciplinary measures.
-{{% notice %}}
+{{% /notice %}}
