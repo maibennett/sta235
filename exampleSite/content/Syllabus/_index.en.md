@@ -35,3 +35,13 @@ If you feel you are falling behind or that there are any aspects of this class t
 - [Week-by-Week Outline](https://sta235.netlify.app/syllabus/outline)
 
 - [Course Requirements and Grading](https://sta235.netlify.app/syllabus/grading)
+
+#### ADDITIONAL RESOURCES FOR COVID-19
+
+Here you can find additional resources and guidelines provided by the University to protect our community during the COVID-19 Pandemic:
+
+- [Weekly updates about UT policies related to COVID-19](https://facultycouncil.utexas.edu/faculty-council-covid-weekly-updates)
+
+- You can get information and a vaccine appointment at [UT Health](https://uthealthaustin.org/patient-resources/covid-19-updates/covid-19-vaccination)
+
+- You can easily get tested through [UT's Proactive Community Testing](https://www.healthyhorns.utexas.edu/coronavirus_proactive_testing.html) (it's quick and painless!).
