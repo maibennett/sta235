@@ -43,7 +43,9 @@ If you feel you are falling behind or that there are any aspects of this class t
 - [University Resources for Students](https://sta235.netlify.app/syllabus/resources)
 
 
-### ADDITIONAL RESOURCES FOR COVID-19
+---
+
+### **ADDITIONAL RESOURCES FOR COVID-19**
 
 Here you can find additional resources and guidelines provided by the University to protect our community during the COVID-19 Pandemic:
 
