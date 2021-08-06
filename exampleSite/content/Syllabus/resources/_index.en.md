@@ -22,8 +22,8 @@ Did you know that more than one-third of UT undergraduate students use the Sange
 
 #### UNDERGRADUATE WRITING CENTER: uwc.utexas.edu
 
-LIBRARIES: [lib.utexas.edu](lib.utexas.edu)
-ITS:  [it.utexas.edu](it.utexas.edu)
+LIBRARIES: [lib.utexas.edu](https://lib.utexas.edu)
+ITS:  [it.utexas.edu](https://it.utexas.edu)
 STUDENT EMERGENCY SERVICES: [deanofstudents.utexas.edu/emergency](https://deanofstudents.utexas.edu/emergency)
 
 #### IMPORTANT SAFETY INFORMATION
@@ -43,7 +43,7 @@ Faculty members and certain staff members are considered “Responsible Employee
 
 #### EVACUATION
 
-The following recommendations regarding emergency evacuation are from the Office of Campus Safety and Security, 512-471-5767, [operations.utexas.edu/units/csas](operations.utexas.edu/units/csas). If you are attending class virtually from an on-campus location, these guidelines may help you in case of emergency.
+The following recommendations regarding emergency evacuation are from the Office of Campus Safety and Security, 512-471-5767, [operations.utexas.edu/units/csas](https://perations.utexas.edu/units/csas). If you are attending class virtually from an on-campus location, these guidelines may help you in case of emergency.
 
 Occupants of buildings on The University of Texas at Austin campus are required to evacuate buildings when a fire alarm is activated. Alarm activation or announcement requires exiting and assembling outside.
 
@@ -53,5 +53,5 @@ Occupants of buildings on The University of Texas at Austin campus are required 
 
 - In the event of an evacuation, follow the instruction of faculty or class instructors. Do not re-enter a building unless given instructions by the following: Austin Fire Department, The University of Texas at Austin Police Department, or Fire Prevention Services office.
 
-- Information regarding emergency evacuation routes and emergency procedures can be found at this link: [emergency.utexas.edu](emergency.utexas.edu) 
+- Information regarding emergency evacuation routes and emergency procedures can be found at this link: [emergency.utexas.edu](https://emergency.utexas.edu) 
 
