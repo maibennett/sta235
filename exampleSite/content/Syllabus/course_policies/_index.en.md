@@ -15,7 +15,7 @@ disableToc: true
 	If you send general questions about course content or assignments to a TA or me, we will likely respond to suggest that you post the question on Canvas.
 
 {{% notice info %}}
-Please check out the FAQs on how to e-mail professors <b><a href="https://sta235.netlify.app/bookmarks/#faq" style="color: #6ab0de">here</a></b>
+Please check out the FAQs on how to e-mail professors <b><a href="https://sta235.netlify.app/bookmarks/#faq" style="color: #f0b37e">here</a></b>
 {{% /notice %}}
 
 
