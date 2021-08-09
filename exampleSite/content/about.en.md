@@ -29,8 +29,8 @@ Magdalena Bennett, Ph.D., Assistant Professor at the Statistics Group (IROM Depa
 
 Pedro Santos, Ph.D. candidate in the Stats Group (IROM)
 
-- <i class="fas fa-envelope"></i> Email [pedro.santos@mccombs.utexas.edu](mailto:pedro.santos@mccombs.utexas.edu) -->
+- <i class="fas fa-envelope"></i> Email [pedro.santos@mccombs.utexas.edu](mailto:pedro.santos@mccombs.utexas.edu)
 
 Shentao Yang, Ph.D. student in the Stats Group (IROM)
 
-- <i class="fas fa-envelope"></i> Email [shentao.yang@mccombs.utexas.edu](mailto:shentao.yang@mccombs.utexas.edu) -->
+- <i class="fas fa-envelope"></i> Email [shentao.yang@mccombs.utexas.edu](mailto:shentao.yang@mccombs.utexas.edu)
