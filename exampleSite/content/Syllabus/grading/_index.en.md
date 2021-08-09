@@ -16,7 +16,7 @@ All lecture slides, supplemental readings, course videos, and additional materia
 
 ### ATTENDANCE EXPECTATIONS
 
-I expect all students will attend each class, **if they are feeling well**. Attendance is the easiest way to learn the different topics that will be covered in class and ask questions. However, given the current global pandemic we are living through, attendance will not count towards your final grade. Students will be required to complete Just in Time Teaching assignments (JITT) before class, and these will be considered in your final grade (see “Grading and Assignments” below). 
+I expect all students will attend each class, *if they are feeling well*. Attendance is the easiest way to learn the different topics that will be covered in class and ask questions. However, given the current global pandemic we are living through, attendance will not count towards your final grade.
 
 ### BEHAVIOR EXPECTATIONS
 
