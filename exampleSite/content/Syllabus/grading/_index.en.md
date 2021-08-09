@@ -84,7 +84,7 @@ I now explain each of these grading components in more detail.
 
 3.	**Midterm (20%)**
 
--	The midterm exam will be one of the only individual evaluations you will have in this course. It is intended to be completed in an “open-book” setting (including “open-internet”), but without outside help from other students/people in general. 
+-	The midterm exam will an individual evaluation. It is intended to be completed in an “open-book” setting (including “open-internet”), but without outside help from other students/people in general. 
 
 -	It will have a take-home format (similar to homework assignments), and students should submit both a write-up and code (see homework submission instructions).
 
