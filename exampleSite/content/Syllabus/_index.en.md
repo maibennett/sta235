@@ -66,5 +66,5 @@ Here you can find additional resources and guidelines provided by the University
 - You can easily get tested through **[UT's Proactive Community Testing](https://www.healthyhorns.utexas.edu/coronavirus_proactive_testing.html)** (it's quick and painless!).
 
 {{% notice warning %}}
-For students that are presenting symptoms or have been in close contact with a COVID-19 confirmed case, the instruction team will make all necessary accomodations until they recover/learn more about their situation.
+For students that are presenting symptoms or have been in close contact with a COVID-19 confirmed case, the instruction team will make all necessary accomodations during their absence until they recover/learn more about their situation.
 {{% /notice %}}
