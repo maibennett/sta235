@@ -50,7 +50,7 @@ If you feel you are falling behind or that there are any aspects of this class t
 Here you can find additional resources and guidelines provided by the University to protect our community during the COVID-19 Pandemic:
 
 {{% notice note %}}
-<span style='text-align: center'> "UT strongly encourages all members of our community to <b href='https://t.e2ma.net/click/7zhfmf/nwp3gbo/3w0c1bb'>get vaccinated</b> if they are able to do so"</span>
+<a href="https://t.e2ma.net/click/7zhfmf/nwp3gbo/3w0c1bb" style='text-align: center'> "UT strongly encourages all members of our community to <b>get vaccinated</b> if they are able to do so"</span>
 {{% /notice %}}
 
 - [UHS COVD-19 Information](https://healthyhorns.utexas.edu/coronavirus.html)
