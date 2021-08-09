@@ -53,7 +53,7 @@ Here you can find additional resources and guidelines provided by the University
 <a href="https://t.e2ma.net/click/7zhfmf/nwp3gbo/3w0c1bb" style='text-align: center'> "UT strongly encourages all members of our community to <b>get vaccinated</b> if they are able to do so"</a>
 {{% /notice %}}
 
-- UT is following [this masking guidance](https://utexas.app.box.com/s/wxlmh2jxtiqmx3b74yt9gjsgk6x6kv8l/file/820274516452), and masks are **strongly recommended**, but optional, inside university buildings for vaccinated and unvaccinated individuals.
+- UT is following [the CDC masking guidance](https://utexas.app.box.com/s/wxlmh2jxtiqmx3b74yt9gjsgk6x6kv8l/file/820274516452), and masks are **strongly recommended**, but optional, inside university buildings for vaccinated and unvaccinated individuals.
 
 - [UHS COVID-19 Information](https://healthyhorns.utexas.edu/coronavirus.html)
 
