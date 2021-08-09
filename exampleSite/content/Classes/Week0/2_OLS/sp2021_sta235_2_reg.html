@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235 - Multiple Regression: Comparing Effect Sizes and Quantifying Uncertainty</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/plotly-binding/plotly.js"></script>
+    <script src="libs/typedarray/typedarray.min.js"></script>
+    <script src="libs/jquery/jquery.min.js"></script>
+    <link href="libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
+    <link href="libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+    <script src="libs/plotly-main/plotly-latest.min.js"></script>
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA 235 - Multiple Regression: Comparing Effect Sizes and Quantifying Uncertainty
+## Spring 2021
+### McCombs School of Business, UT Austin
+
+---
+
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+&lt;/style&gt;
+
+
+
+
+# Today
+
+.pull-left[
+- Quick **.darkorange[multiple regression]** review
+  - How does OLS work?
+  
+- Comparing **.darkorange[effect sizes]**
+
+- **.darkorange[Uncertainty quantification]** in regression
+]
+
+.pull-right[
+![](https://media.giphy.com/media/3o752flP8nVxQjXhO8/source.gif)
+]
+---
+# Remembering Regressions
+
+- Linear Regression is a **.darkorange[very useful tool]**.
+
+  - Simple supervised learning approach.
+  - Many fancy methods are generalizations or extensions of linear regression!
+  
+- It's a way to (partially) describe a **.darkorange[data generating process (DGP)]**.
+
+.box-2t[$$Y = \alpha + \beta_1 X_1 + \beta_2 X_2 + \varepsilon$$]
+
+- What are `\(\beta\)`'s?
+
+---
+# Remembering Regressions
+
+- Linear Regression is a **.darkorange[very useful tool]**.
+
+  - Simple supervised learning approach.
+  - Many fancy methods are generalizations or extensions of linear regression!
+  
+- It's a way to (partially) describe a **.darkorange[data generating process (DGP)]**.
+
+.box-2t[$$Y = \alpha + \beta_1 X_1 + \beta_2 X_2 + \varepsilon$$]
+
+- What are `\(\beta\)`'s?
+
+  - `\(\beta\)`'s are the **.darkorange[population parameters]** we want to estimate.
+  - `\(\hat\beta\)` are the **.darkorange[estimates]** of those parameters.
+
+.source[*Shoutout: Slides based on Andrew Heiss' "Program Evaluation for Public Service" course.*]
+
+---
+# Essential Parts of a Regression
+
+.pull-left[
+.box-2tL.medium.sp-after-half[Y]
+.box-2.medium.sp-after-half[Outcome Variable]
+.box-2.medium.sp-after-half[Response Variable]
+.box-2.medium.sp-after-half[Dependent Variable]
+
+.box-2t.medium.sp-after-half[*Thing you want to explain or predict*]
+  
+]
+
+
+---
+# Essential Parts of a Regression
+
+.pull-left[
+.box-2tL.medium.sp-after-half[Y]
+.box-2.medium.sp-after-half[Outcome Variable]
+.box-2.medium.sp-after-half[Response Variable]
+.box-2.medium.sp-after-half[Dependent Variable]
+
+.box-2t.medium.sp-after-half[*Thing you want to explain or predict*]
+  
+]
+
+.pull-right[
+.box-2tL.medium.sp-after-half[X]
+.box-2.medium.sp-after-half[Explanatory Variable]
+.box-2.medium.sp-after-half[Predictor Variable]
+.box-2.medium.sp-after-half[Independent Variable]
+
+.box-2t.medium.sp-after-half[*Thing you use to explain or predict Y*]
+]
+
+---
+# Identify the variables
+
+.pull-left[
+.box-2.medium.sp-after-half[A study examines the effect of smoking on lung cancer]
+]
+
+---
+# Identify the variables
+
+.pull-left[
+.box-2.medium.sp-after-half[A study examines the effect of smoking on lung cancer]
+.box-4.medium.sp-after-half[Fantasy football fanatics predict the performance of a player based on past performance, health status, and characteristics of the opposite team]
+]
+
+---
+# Identify the variables
+
+.pull-left[
+.box-2.medium.sp-after-half[A study examines the effect of smoking on lung cancer]
+.box-4.medium.sp-after-half[Fantasy football fanatics predict the performance of a player based on past performance, health status, and characteristics of the opposite team]
+]
+.pull-right[
+.box-5.medium.sp-after-half[You want to see if taking more AP classes in high school improves college grades]
+]
+
+---
+# Identify the variables
+
+.pull-left[
+.box-2.medium.sp-after-half[A study examines the effect of smoking on lung cancer]
+.box-4.medium.sp-after-half[Fantasy football fanatics predict the performance of a player based on past performance, health status, and characteristics of the opposite team]
+]
+.pull-right[
+.box-5.medium.sp-after-half[You want to see if taking more AP classes in high school improves college grades]
+.box-7.medium.sp-after-half[Netflix uses your past viewing history, the day of the week, and the time of the day to guess which show you want to watch next]
+]
+---
+# Two Purposes of Regression
+
+.pull-left[
+.box-3tL.medium.sp-after-half[Prediction]
+.box-3.medium.sp-after-half[Forecast the future]
+.box-3.medium.sp-after-half[Focus is on &lt;b&gt;Y&lt;/b&gt;]
+
+.box-3tL.medium.sp-after-half[Netflix trying to guess your next show]
+]
+--
+.pull-right[
+.box-6tL.medium.sp-after-half[Explanation]
+.box-6.medium.sp-after-half[Explain the effect of &lt;b&gt;X&lt;/b&gt; on &lt;b&gt;Y&lt;/b&gt;]
+.box-6.medium.sp-after-half[Focus is on &lt;b&gt;X&lt;/b&gt;]
+
+.box-6tL.medium.sp-after-half[Netflix looking at the effect of time of the day on show selection]
+]
+---
+# How do we estimate the coefficients in a regression ?
+.pull-left[
+- **.darkorange[Ordinary Least Squares]** is the most popular way.
+
+`$$\min_{\beta} \sum[Y_i - (\sum_{j=1}^p\beta_j X_{ij})]^2$$`
+]
+--
+.pull-right[
+
+
+&lt;img src="sp2021_sta235_2_reg_files/figure-html/cookies1-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# How do we estimate the coefficients in a regression ? (cont.)
+
+
+
+
+
+.pull-left[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/3dplot1.png)
+]
+.pull-right[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/3dplot2.png)
+]
+---
+# Let's introduce an example: The Bechdel Test
+
+.pull-left[
+- **.darkorange[Three criteria:]**
+
+  1. At least two named women
+  2. Who talk to each other
+  3. About something besides a man
+]
+.pull-right[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/bechdel.png)
+]
+
+---
+# Do movies pass the test?
+
+.center[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/hickey-bechdel-11.png)]
+
+
+---
+# Is it convenient for my movie to pass the Bechdel test?
+
+- I'm a profit-maximizing investor and want to know whether it's in my best interest to switch a male for a female character.
+
+  - What is the **.darkorange[simplest model]** you would fit?
+
+
+---
+# Is it convenient for my movie to pass the Bechdel test?
+
+- I'm a profit-maximizing investor and want to know whether it's in my best interest to switch a male for a female character.
+
+  - What is the **.darkorange[simplest model]** you would fit?
+--
+
+
+.box-6t.medium.sp-after-half[$$Revenue = \alpha + \beta Bechdel + \varepsilon$$]
+--
+  
+.box-7LA.medium.sp-after-half[Is this right?]
+
+---
+# Let's analyze some models
+
+
+
+```r
+summary(lm(log(Adj_Revenue)~bechdel_test, data=bechdel))
+```
+
+```
+##              Estimate Std. Error  t value Pr(&gt;|t|)
+## (Intercept)   17.0321     0.0808 210.9100        0
+## bechdel_test  -0.4418     0.1079  -4.0954        0
+```
+
+
+---
+# Let's analyze some models
+
+
+```r
+summary(lm(log(Adj_Revenue)~bechdel_test, data=bechdel))
+```
+
+```
+##              Estimate Std. Error  t value Pr(&gt;|t|)
+## (Intercept)   17.0321     0.0808 210.9100        0
+## bechdel_test  -0.4418     0.1079  -4.0954        0
+```
+- `\((e^{\beta}-1)\cdot 100 \rightarrow\)` A movie that passes the Bechdel test is associated with a 36% decrease in Revenue
+&lt;br&gt;
+&lt;br&gt;
+.box-3LA.medium.sp-after-half[Negative effect of including more women?]
+
+---
+# What gives?
+.center[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/538_bechdel.png)]
+
+---
+# More variables
+
+.pull-left[
+.center[
+![:scale 80%](https://media.giphy.com/media/1ZlrrYTN7gAxdGE8nM/source.gif)
+]]
+.pull-right[
+- **.darkorange[Bechdel test]** could be capturing the effect of other variables:
+
+  - What **.darkorange[type]** of movies are the ones that pass the test?
+  
+  - What is their **.darkorange[budget]**?
+]  
+---
+# More variables
+
+
+```r
+lm(log(Adj_Revenue) ~ bechdel_test + log(Adj_Budget) + Metascore + imdb, data=bechdel)
+```
+
+```
+##                 Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)       1.3798     0.5126  2.6921   0.0072
+## bechdel_test      0.2275     0.0665  3.4229   0.0006
+## log(Adj_Budget)   0.8594     0.0256 33.6160   0.0000
+## Metascore         0.1012     0.0293  3.4512   0.0006
+## imdb              0.0864     0.0517  1.6716   0.0948
+```
+&lt;br&gt;
+.box-3LA.medium.sp-after-half[Positive and significant!]
+
+---
+# Comparing effect sizes
+
+.pull-left[
+- Another investor says that it's better to bring in a better actor because it will increase ratings.
+
+- **.darkorange[How do you compare effect sizes?]**
+
+  - How does one more point on IMDB compare to passing/failing the Bechdel test?
+]
+.pull-right[
+.center[
+![:scale 80%](https://media.giphy.com/media/SVZsmcovaFTp6joAhO/source.gif)
+]]
+
+---
+# Standardized Partial Coefficients
+
+- **.darkorange[Main idea:]** Transform everything to the same scale (standard deviations)
+
+.box-4.medium.sp-after-half[$$X$$]
+.center[
+![:scale 3%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/arrow.png)
+]
+.box-4.medium.sp-after-half[$$\frac{X - \bar{X}}{\sigma_X}$$]
+
+- Will this change our estimates? How?
+
+---
+# Transform the data
+
+
+```r
+scale2 &lt;- function(x, na.rm = FALSE) (x - mean(x, na.rm = na.rm)) / sd(x, na.rm)
+
+bechdel_std &lt;- bechdel %&gt;% select(log_Adj_Revenue,log_Adj_Budget, 
+                                  bechdel_test, Metascore, imdb) %&gt;% 
+  mutate_at(c("log_Adj_Revenue","log_Adj_Budget", "bechdel_test", 
+                  "Metascore", "imdb"),~scale2(.,na.rm=TRUE))
+
+lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb, 
+   data=bechdel_std)
+```
+
+```
+##                Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)      0.3384     0.0138 24.5385   0.0000
+## bechdel_test     0.0476     0.0139  3.4229   0.0006
+## log_Adj_Budget   0.4683     0.0139 33.6160   0.0000
+## Metascore        0.0706     0.0205  3.4512   0.0006
+## imdb             0.0342     0.0205  1.6716   0.0948
+```
+---
+# Does this model explain well the observed data?
+.center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/linear_regression.png)
+]
+---
+# Some measures to quantify uncertainty
+
+- `\(\mathbf{R^2}\)`: Correlation between the outcome `\(\mathbf{Y}\)` and the predicted variable `\(\mathbf{\hat{Y}}\)`.
+
+`$$R^2 = 1 - \frac{RSS}{TSS}$$`
+Where:
+  - `\(RSS = \sum{(y-\hat{y})^2}\)` is the residual sum of the squares
+  - `\(TSS = \sum{(y-\bar{y})^2}\)` is the total sum of squares (proportional to the variance of the data)
+  
+- `\(\mathbf{R^2}\)` is non-decreasing when adding new variables.
+
+---
+# Some measures to quantify uncertainty
+
+- `\(\mathbf{R^2}\)`: Correlation between the outcome `\(\mathbf{Y}\)` and the predicted variable `\(\mathbf{\hat{Y}}\)`.
+
+`$$R^2 = 1 - \frac{RSS}{TSS}$$`
+Where:
+  - `\(RSS = \sum{(y-\hat{y})^2}\)` is the residual sum of the squares
+  - `\(TSS = \sum{(y-\bar{y})^2}\)` is the total sum of squares (proportional to the variance of the data)
+  
+- `\(\mathbf{R^2}\)` is non-decreasing when adding new variables.
+--
+`$$R^2_{adj} = 1 - \frac{(1-R^2)(n-1)}{(n-p-1)}$$`
+---
+# Some measures to quantify uncertainty (cont.)
+
+- **.darkorange[Residual Squared Error (RSE)]**: Measure of the SD of error term `\(\varepsilon\)`
+
+`$$RSE = \sqrt{\frac{1}{n-p+1}RSS}$$`
+- What happens if `\(p\)` increases?
+
+---
+# Some measures to quantify uncertainty (cont.)
+
+.small[
+
+```r
+summary(lm(log(Adj_Revenue) ~ bechdel_test +log(Adj_Budget) + Metascore + imdb, 
+           data=bechdel), digits = 4)
+```
+
+```
+## 
+## Call:
+## lm(formula = log(Adj_Revenue) ~ bechdel_test + log(Adj_Budget) + 
+##     Metascore + imdb, data = bechdel)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -9.1728 -0.4743  0.1103  0.6396  4.4767 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)      1.37982    0.51255   2.692 0.007194 ** 
+## bechdel_test     0.22750    0.06646   3.423 0.000639 ***
+## log(Adj_Budget)  0.85936    0.02556  33.616  &lt; 2e-16 ***
+## Metascore        0.10115    0.02931   3.451 0.000576 ***
+## imdb             0.08643    0.05170   1.672 0.094844 .  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.159 on 1276 degrees of freedom
+##   (671 observations deleted due to missingness)
+## Multiple R-squared:  0.477,	Adjusted R-squared:  0.4753 
+## F-statistic: 290.9 on 4 and 1276 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+---
+# Let's look at the residuals
+
+
+
+```r
+bechdel_fitted &lt;- augment(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb
+                              , data = bechdel))
+
+
+ggplot(data = bechdel_fitted, aes(x = .fitted, y = .std.resid)) + 
+  geom_point()
+```
+
+- You can also use the functions `predict(lm(Y ~ X + Z))` and `resid(lm(Y ~ X + Z))` to obtain the fitted values and residuals, respectively.
+
+---
+# Let's look at the residuals (cont.)
+&lt;img src="sp2021_sta235_2_reg_files/figure-html/bechdel5r-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# What happens if we add additional variables?
+
+
+```r
+bechdel_fitted2 &lt;- augment(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb +
+                                Year + English + USA + factor(Rated), data = bechdel))
+
+
+ggplot(data = bechdel_fitted2, aes(x = .fitted, y = .std.resid)) + 
+  geom_point()
+```
+
+---
+# What happens with additional variables? (cont.)
+&lt;img src="sp2021_sta235_2_reg_files/figure-html/bechdel6r-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Main takeaway points
+
+- Data can tell different stories depending on how you handle it.
+
+  - Does that mean that we can get data to say **.darkorange[anything]**?
+  
+
+---
+# Main takeaway points
+
+- Data can tell different stories depending on how you handle it.
+
+  - Does that mean that we can get data to say **.darkorange[anything]**?
+
+.box-5.medium.sp-after-half["If you torture the data long enough, it will confess to anything"]
+
+- Assumptions and measures matter.
+
+---
+# Main takeaway points
+
+- Data can tell different stories depending on how you handle it.
+
+  - Does that mean that we can get data to say **.darkorange[anything]**?
+
+.box-5.medium.sp-after-half["If you torture the data long enough, it will confess to anything"]
+
+- Assumptions and measures matter.
+
+- **.darkorange[Plot your data!]**
+
+
+---
+# Next class
+
+- Finishing with **.darkorange[multiple regression models]**:
+
+  - Statistical adjustment and collinearity
+
+- Model with discrete responses: **.darkorange[Binary outcomes]**
+
+- In the following weeks, we will start with **.darkorange[Causal Inference]**.
+
+---
+# References
+
+- Heiss, A. (2020). "Course: Program Evaluation for Public Service". *Slides for Regression and Inference*.
+
+- James, G. et al. (2017). "Introduction to Statistical Learning with Applications in R". *Chapter 3*
+
+- Keegan, B. (2018). "The Need for Openess in Data Journalism". *[Github Repository](https://github.com/brianckeegan/Bechdel/blob/master/Bechdel_test.ipynb)*
+
+
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week1/2_OLS/sp2021_sta235_2_reg.html') --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
