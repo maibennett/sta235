@@ -53,7 +53,7 @@ Here you can find additional resources and guidelines provided by the University
 <a href="https://t.e2ma.net/click/7zhfmf/nwp3gbo/3w0c1bb" style='text-align: center'> "UT strongly encourages all members of our community to <b>get vaccinated</b> if they are able to do so"</a>
 {{% /notice %}}
 
-- [UHS COVD-19 Information](https://healthyhorns.utexas.edu/coronavirus.html)
+- [UHS COVID-19 Information](https://healthyhorns.utexas.edu/coronavirus.html)
 
 - [Behavior Concerns and COVID-19 Advice Line (BCCAL)](https://safety.utexas.edu/behavior-concerns-advice-line)
 

@@ -18,7 +18,7 @@ Format: In-person (Room UTC 1.130)
 
 ### Instructor
 
-Magdalena Bennett, Ph.D., Assistant Professor at the Statistics Group (IROM Department)
+Magdalena Bennett, Ph.D., Assistant Professor in the Statistics Group (IROM Department)
 
 - <i class="fas fa-envelope"></i> Email [m.bennett@austin.utexas.edu](mailto:m.bennett@austin.utexas.edu)
 - <i class='fas fa-clock'></i> Office Hours: Tue 3:30 - 5:00 PM; Thur 3:30 - 5:00 PM (Online - Schedule [here](https://calendly.com/maibennett/sta-235h-office-hours)) *or by appointment*
