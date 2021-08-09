@@ -14,7 +14,7 @@ Please read the syllabus. It has important information about the course, includi
 
 ## Welcome to STA 235H!
 
-Our class meets on one of these four schedules in the classroom **UTC 1.130**, depending on your section: 
+Our class meets on one of these four schedules (depending on your section) in **UTC 1.130**: 
 
 - Section 1: Tue 10:00 AM – 12:00 PM
 - Section 2: Tue 12:00 PM – 2:00 PM
