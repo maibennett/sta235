@@ -23,7 +23,7 @@ Below you will find a general outline of the topics we’ll cover in this course
 <tr>
 <td>1</td>
 <td>Aug 31 - Sep 2</td>
-<td>Syllabus overview and course motivation; Multiple regression models, comparing effect sizes and uncertainty quantification in multiple regression.</td>
+<td>Syllabus overview and course motivation; Multiple regression models: Quick review, comparing effect sizes and outliers.</td>
 </tr>
 <tr>
 <td>2</td>

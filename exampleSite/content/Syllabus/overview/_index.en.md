@@ -17,15 +17,20 @@ Statistics 301 or Statistics 301H, Mathematics 408Q or credit registration for 4
 
 This class meets in person once a week for two hours (see schedule according to your section in the first page). Attendance is not mandatory, but highly encouraged. You will also be required to bring a laptop to class, because we will be doing in-class coding exercises. If you do not have a laptop that you can bring to class, please contact the instructor so we can find an alternative solution.
 
-**Even though attendance is important, given the current worldwide context I would highly encourage you to stay home if you are not feeling well**. The instruction team will work with students that cannot attend due to health reasons to provide another form of virtual attendance (e.g. streaming or class videos). Please also check out the COVID-19 resources in this syllabus.  
- 
+{{% notice warning %}}
+Even though attendance is important, given the current worldwide context, I would encourage you to stay home if you are not feeling well. The instruction team will work with students that cannot attend due to health reasons to provide another form of virtual attendance (e.g. streaming or class videos). Please also check out the COVID-19 resources in this syllabus.  
+{{% /notice %}}
+
 #### COMPUTER HARDWARE & SOFTWARE REQUIREMENTS
 
 -	Laptop computer
 -	Modern and updated operating system (MacOS or Windows)
 -	Chrome (highly recommended), Safari, or Firefox web browser
 -	Install the latest versions of R and RStudio software. These programs are free, require no registration, and will run on Macs, PCs, or Linux machines. Note that you need both programs; even though we’ll interact with RStudio rather than R directly, you still need a copy of R installed on your computer for RStudio to work.
+
+
 For the optimal in-class experience, I suggest that you:
+
 -	Close all unnecessary browser windows and tabs and programs.
 -	Check that your computer is free of viruses, malware, and spyware (UT recommendations).
 
