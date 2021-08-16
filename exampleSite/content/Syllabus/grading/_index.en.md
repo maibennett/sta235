@@ -98,7 +98,7 @@ I now explain each of these grading components in more detail.
 
 - 	Due date: December 7th, 11:59 PM
 
--	The final exam will be an individual evaluation, and it is cummulative. It is intended to be completed in an “open-book” setting (including “open-internet”), but without outside help from other students/people in general. 
+-	The final exam will be an individual evaluation, and it is cumulative. It is intended to be completed in an “open-book” setting (including “open-internet”), but without outside help from other students/people in general. 
 
 -	It will have a take-home format (similar to homework assignments), and students should submit both a write-up and code (see homework submission instructions).
 
