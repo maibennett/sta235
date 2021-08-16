@@ -31,9 +31,10 @@ I have a zero-tolerance policy for racist, sexist, xenophobic, homophobic, or an
 
 There will be one individual midterm and one final group project in this course. Additionally, there will be five homework assignments during the semester, and Just in Time Teaching assignments (JITT) that should be completed before each class:
 
-1.	Homework assignments: 50%
+1.	Homework assignments: 30%
 2.	JITT assignments: 10%
 3.	Midterm: 20%
+3.	Final: 20%
 4.	Final project: 20%
 
 I will use the cutoffs below to translate your overall course average into a final letter grade. These cutoffs are firm; we do not round course averages. So, for example, an overall course average of 89.99 is a B+, not an A-. I sometimes (but not always) curve grades, but it will always be in your favor. For forecasting purposes, assume your grade will not be curved. There will be no extra credit.
@@ -45,14 +46,16 @@ I will use the cutoffs below to translate your overall course average into a fin
 
 I now explain each of these grading components in more detail. 
 
-1.	**Homework assignments (50%)**
+1.	**Homework assignments (30%)**
 
--	There will be five group homework assignments in this course, with the following (suggested) submission deadlines:
-	- HW1: September 19th, 11:59 PM
-	- HW2: October 3rd, 11:59 PM
-	- HW3: October 17th, 11:59 PM
-	- HW4: November 21st, 11:59 PM
-	- HW5: December 5th, 11:59 PM
+-	There will be six group homework assignments in this course, with the following (suggested) submission deadlines:
+
+	- HW1: September 16th, 11:59 PM
+	- HW2: September 30th, 11:59 PM
+	- HW3: October 14th, 11:59 PM
+	- HW4: November 4th, 11:59 PM
+	- HW5: November 18th, 11:59 PM
+	- HW6: December 2nd, 11:59 PM 
  
 -	Homework assignments have to be completed in groups of 3-4 students. The instruction team will provide the assignment for the different groups, and they will change from assignment to assignment.
 
@@ -82,18 +85,29 @@ I now explain each of these grading components in more detail.
 -	All students will get **one (1) JITT submission that can be dropped**. If for any reason you are not able to complete one of the JITTs, you can still get full credit for your submissions as long as you submit all other JITTs.
 
 
-3.	**Midterm (20%)**
+3.	**Midterm Exam (20%)**
 
--	The midterm exam will an individual evaluation. It is intended to be completed in an “open-book” setting (including “open-internet”), but without outside help from other students/people in general. 
+- 	Due date: October 22nd, 11:59 PM
+
+-	The midterm exam will be an individual evaluation. It is intended to be completed in an “open-book” setting (including “open-internet”), but without outside help from other students/people in general. 
+
+-	It will have a take-home format (similar to homework assignments), and students should submit both a write-up and code (see homework submission instructions).
+
+
+4.	**Final Exam (20%)**
+
+- 	Due date: December 7th, 11:59 PM
+
+-	The final exam will be an individual evaluation, and it is cummulative. It is intended to be completed in an “open-book” setting (including “open-internet”), but without outside help from other students/people in general. 
 
 -	It will have a take-home format (similar to homework assignments), and students should submit both a write-up and code (see homework submission instructions).
 
  
 4.	**Final Project (20%)**
 
-- The final project will be completed in groups. More information will be provided further into the semester.
+- Due date: December 12th, 11:59 OM
 
-- If time allows it, each group will have to give a short presentation related to their project.
+- The final project will be completed in groups. More information will be provided further into the semester.
 
 
 {{% notice warning %}}

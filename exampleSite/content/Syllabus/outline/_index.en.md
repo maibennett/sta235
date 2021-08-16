@@ -33,7 +33,7 @@ Below you will find a general outline of the topics we’ll cover in this course
 <tr>
 <td>3</td>
 <td>Sep 14 – Sep 16</td>
-<td>Introduction to Causal Inference: Potential outcomes framework, the fundamental problem of causal inference, causal estimands, and study design.</td>
+<td>Introduction to Causal Inference: Potential outcomes framework, the fundamental problem of causal inference, causal estimands, and study design. <br> *Homework 1 due*</td>
 </tr>
 <tr>
 <td>4</td>
