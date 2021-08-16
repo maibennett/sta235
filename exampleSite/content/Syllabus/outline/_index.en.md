@@ -91,12 +91,12 @@ Below you will find a general outline of the topics we’ll cover in this course
 <td>Prediction models (cont.): Random forests, boosting, and ensemble methods.<br><i>Homework 6 due</i></td>
 </tr>
 <tr>
-<td>16</td>
+<td>15</td>
 <td>December 7</td>
 <td><i>Final Exam due</i></td>
 </tr>
 <tr>
-<td>16</td>
+<td>15</td>
 <td>December 12</td>
 <td><i>Final Project due</i></td>
 </tr>
