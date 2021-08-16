@@ -105,7 +105,7 @@ I now explain each of these grading components in more detail.
  
 5.	**Final Project (20%)**
 
-- Due date: December 12th, 11:59 OM
+- Due date: December 12th, 11:59 PM
 
 - The final project will be completed in groups. More information will be provided further into the semester.
 
