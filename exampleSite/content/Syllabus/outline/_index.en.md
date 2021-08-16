@@ -33,7 +33,7 @@ Below you will find a general outline of the topics we’ll cover in this course
 <tr>
 <td>3</td>
 <td>Sep 14 – Sep 16</td>
-<td>Introduction to Causal Inference: Potential outcomes framework, the fundamental problem of causal inference, causal estimands, and study design. <br> *Homework 1 due*</td>
+<td>Introduction to Causal Inference: Potential outcomes framework, the fundamental problem of causal inference, causal estimands, and study design. <br><i>Homework 1 due</i></td>
 </tr>
 <tr>
 <td>4</td>
@@ -43,7 +43,7 @@ Below you will find a general outline of the topics we’ll cover in this course
 <tr>
 <td>5</td>
 <td>Sep 28 – Sep 30</td>
-<td>Introduction to Observational Studies: Can we use data outside experiments to make causal claims? Matching and its comparison to RCTs. Overt and hidden biases. Propensity score matching & weighting. Other forms of matching. How does matching compare to regression adjustment?</td>
+<td>Introduction to Observational Studies: Can we use data outside experiments to make causal claims? Matching and its comparison to RCTs. Overt and hidden biases. Propensity score matching & weighting. Other forms of matching. How does matching compare to regression adjustment?<br><i>Homework 2 due</i></td>
 </tr>
 <tr>
 <td>6</td>
@@ -53,12 +53,12 @@ Below you will find a general outline of the topics we’ll cover in this course
 <tr>
 <td>7</td>
 <td>Oct 12 – Oct 14</td>
-<td>Observational studies (cont.): Regression discontinuity design (RDD).</td>
+<td>Observational studies (cont.): Regression discontinuity design (RDD).<br><i>Homework 3 due</i></td>
 </tr>
 <tr>
 <td>8</td>
 <td>Oct 19 – Oct 21</td>
-<td>What about prediction? Continuous and discrete responses using regressions. Overview of model checking.</td>
+<td>What about prediction? Continuous and discrete responses using regressions. Overview of model checking.<br><i>Midterm exam due</i></td>
 </tr>
 <tr>
 <td>9</td>
@@ -68,7 +68,7 @@ Below you will find a general outline of the topics we’ll cover in this course
 <tr>
 <td>10</td>
 <td>Nov 2 – Nov 4</td>
-<td>Model selection and regularization: Lasso and Ridge regression.</td>
+<td>Model selection and regularization: Lasso and Ridge regression.<br><i>Homework 4 due</i></td>
 </tr>
 <tr>
 <td>11</td>
@@ -78,7 +78,7 @@ Below you will find a general outline of the topics we’ll cover in this course
 <tr>
 <td>12</td>
 <td>Nov 16 – Nov 18</td>
-<td>Prediction models (cont.): Classification and regression trees (CART).</td>
+<td>Prediction models (cont.): Classification and regression trees (CART).<br><i>Homework 5 due</i></td>
 </tr>
 <tr>
 <td>13</td>
@@ -88,12 +88,17 @@ Below you will find a general outline of the topics we’ll cover in this course
 <tr>
 <td>14</td>
 <td>Nov 30 – Dec 2</td>
-<td>Prediction models (cont.): Random forests, boosting, and ensemble methods.</td>
+<td>Prediction models (cont.): Random forests, boosting, and ensemble methods.<br><i>Homework 1 due</i></td>
 </tr>
 <tr>
 <td>16</td>
-<td>December 10</td>
-<td>FINAL PROJECT</td>
+<td>December 7</td>
+<td><i>Final Exam due</i></td>
+</tr>
+<tr>
+<td>16</td>
+<td>December 12</td>
+<td><i>Final Project due</i></td>
 </tr>
 </tbody>
 </table>
