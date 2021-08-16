@@ -34,8 +34,8 @@ There will be one individual midterm and one final group project in this course.
 1.	Homework assignments: 30%
 2.	JITT assignments: 10%
 3.	Midterm: 20%
-3.	Final: 20%
-4.	Final project: 20%
+4.	Final: 20%
+5.	Final project: 20%
 
 I will use the cutoffs below to translate your overall course average into a final letter grade. These cutoffs are firm; we do not round course averages. So, for example, an overall course average of 89.99 is a B+, not an A-. I sometimes (but not always) curve grades, but it will always be in your favor. For forecasting purposes, assume your grade will not be curved. There will be no extra credit.
 
@@ -103,7 +103,7 @@ I now explain each of these grading components in more detail.
 -	It will have a take-home format (similar to homework assignments), and students should submit both a write-up and code (see homework submission instructions).
 
  
-4.	**Final Project (20%)**
+5.	**Final Project (20%)**
 
 - Due date: December 12th, 11:59 OM
 
