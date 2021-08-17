@@ -24,13 +24,13 @@ It make take a bit more time, but the flexibility that Rmarkdown gives you (and 
 Don't despair! You might start like this:
 
 <center>
-![](https://media.giphy.com/media/nWCf6ZPW0mRMY/source.gif)
+![](https://github.com/maibennett/sta235/blob/main/exampleSite/content/Classes/Week0/1_Rmarkdown/images/knits.png?raw=true)
 </center>
 
 ... But you'll end up like this:
 
 <center>
-![](https://media.giphy.com/media/JUqiFbumTAPYIeM8yJ/giphy.gif)
+![](https://github.com/maibennett/sta235/blob/main/exampleSite/content/Classes/Week0/1_Rmarkdown/images/cool_beans.jpeg?raw=true)
 </center>
 
 # Pagedown FTW
