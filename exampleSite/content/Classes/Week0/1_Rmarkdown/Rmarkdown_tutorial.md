@@ -23,8 +23,8 @@ You need `tinytex` (or another LaTeX program) to be able to knit (compile) your 
 
 <table>
 <colgroup>
-<col width="40%" />
-<col width="21%" />
+<col width="20%" />
+<col width="11%" />
 <col width="38%" />
 </colgroup>
 <thead>
