@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2021.8.17)  17 AUG 2021 15:07
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2021.8.17)  17 AUG 2021 15:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -846,18 +846,23 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 4.99947pt on input line 118.
 
+LaTeX Warning: File `https://github.com/maibennett/sta235/blob/main/exampleSite
+/content/Classes/Week0/1_Rmarkdown/images/knits2.png?raw=true' not found on inp
+ut line 126.
+
+
 ! LaTeX Error: File `https://github.com/maibennett/sta235/blob/main/exampleSite
-/content/Classes/Week0/1_Rmarkdown/images/knits?raw=true' not found.
+/content/Classes/Week0/1_Rmarkdown/images/knits2.png?raw=true' not found.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.126 .../Week0/1_Rmarkdown/images/knits?raw=true}
+l.126 ...0/1_Rmarkdown/images/knits2.png?raw=true}
                                                    
 Here is how much of TeX's memory you used:
- 15981 strings out of 478475
- 294088 string characters out of 5857362
+ 15983 strings out of 478475
+ 294347 string characters out of 5857362
  744276 words of memory out of 5000000
  36091 multiletter control sequences out of 15000+600000
  407369 words of font info for 64 fonts, out of 8000000 for 9000

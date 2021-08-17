@@ -24,7 +24,7 @@ It make take a bit more time, but the flexibility that Rmarkdown gives you (and 
 Don't despair! You might start like this:
 
 <center>
-![](https://github.com/maibennett/sta235/blob/main/exampleSite/content/Classes/Week0/1_Rmarkdown/images/knits.png?raw=true)
+![](https://github.com/maibennett/sta235/blob/main/exampleSite/content/Classes/Week0/1_Rmarkdown/images/knits2.png?raw=true)
 </center>
 
 ... But you'll end up like this:
