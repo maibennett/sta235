@@ -1,0 +1,233 @@
+---
+title: "RMarkdown Template"
+author: "Magdalena Bennett"
+date: "August 16th, 2021"
+output: pdf_document
+---
+
+<!-- Usually, you should load all your packages at the beginning -->
+```{r setup, warning=FALSE, message=FALSE, echo=FALSE}
+library(emo)
+library(stargazer)
+library(tidyverse)
+library(ggplot2)
+library(reactable)
+library(htmltools)
+```
+
+# Rmarkdown is awesome
+
+It make take a bit more time, but the flexibility that Rmarkdown gives you (and the aesthetics `r emo::ji("heart_eyes")`) is unbeatable^[If you want to learn how to use emojis on your Rmarkdown files, go to https://github.com/hadley/emo]. This file is meant to act as a template and it includes some basic comments (both here and in the accompanying .css file), so it can be easily customized. 
+
+Don't despair! You might start like this:
+
+<center>
+![](https://media.giphy.com/media/nWCf6ZPW0mRMY/giphy.gif)
+</center>
+
+... But you'll end up like this:
+
+<center>
+![](https://media.giphy.com/media/JUqiFbumTAPYIeM8yJ/giphy.gif)
+</center>
+
+# Pagedown FTW
+
+We are going to be using the package `pagedown`^[Go to https://rstudio.github.io/pagedown/ to read all about it!]. This is because it's very versatile for transforming documents that need to be printed (or exported into pdf) and also working on HTML. If you ever want to transition into making presentations in Rmarkdown (with `Xaringan`, of course), this will be an easy step. I also find css more manageable than the templates created for $\LaTeX$.   
+
+# .css files are your best friend
+
+I've included a `style.css` file that should be included in the same folder that your Rmarkdown file (for simplicity, I haven't included a path). There, you can make all aesthetic changes for your document (in css). The advantage is that you can just copy that file (or create new ones) for future Rmarkdown templates, and it's great!
+
+\newpage
+# Let's see some examples
+## How $\LaTeX$ works
+
+Well, it works pretty much the same as $\LaTeX$. Include inline equations like: $y_i = \beta_0 + \beta_1\cdot x_i + \varepsilon_i$, or multiple line equations:
+
+$$\begin{align}
+y_i =& \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_3 x_{i3} +\\
+    &\beta_4 x_{i4} + ... + \varepsilon_{i}
+\end{align}$$
+
+## Let's code
+
+We can write some simple code, if we want to show it (*Tip: Always include `message=FALSE` and `warning=FALSE` so you don't get that extra stuff when you run the code*):
+
+```{r, echo = TRUE, message=FALSE, warning=FALSE}
+data(cars)
+
+lm(speed ~ dist, data = cars)
+
+```
+\newpage
+Meh, but that output looks ugly. Can we make it prettier? Let's try `stargazer` (you will need to include the `results='asis'` argument).
+
+<center>
+```{r, echo = FALSE, message=FALSE, warning=FALSE, results='asis', align='center'}
+data(cars)
+
+lm1 <- lm(speed ~ dist, data = cars)
+
+stargazer(lm1,  title = "Regression of Speed on Distance", column.labels = c("My Model"), type = 'html')
+
+```
+</center>
+
+Check out the different arguments that you might have, and play around.
+
+
+What about a `reactable` table? (This are particularly great for HTML, because they are interactive!)
+
+<center>
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+
+data(USArrests)
+   
+USArrests_pc <- USArrests %>% mutate(across(.cols = everything(), .fns = ~./UrbanPop)) %>% mutate(region = ifelse(rownames(.) %in% c("California","Washington","Oregon"), "West Coast",
+                                                                                                                  ifelse(rownames(.) %in% c("New York", "Massachusetts","Connecticut", "Maine", "Maryland",
+                                                                                                                                            "Pennsylvania", "Rhode Island", "Virginia", "South Carolina",
+                                                                                                                                            "North Carolina", "Georgia", "Florida", "New Jersey", "New Hampshire",
+                                                                                                                                            "Delaware"),"East Coast", "Other")))  
+                                                
+tab_regions <- USArrests_pc %>% group_by(region) %>%
+  summarise_all(., mean) %>% mutate(across(.cols = -c(region), .fns = ~round(.,2)))
+
+tbl <- tab_regions %>%
+  reactable(
+    # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = FALSE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center",
+      minWidth = 100), #min width for each column
+    style = list(fontFamily = "Fira Sans, sans-serif"),
+    
+    highlight = TRUE,
+    
+    theme = reactableTheme(
+      highlightColor = "rgba(248, 148, 65,0.3)"
+    )
+    
+  )
+
+div(
+  # this class can be called with CSS now via .salary
+  class = "tab",
+  div(
+    # this can be called with CSS now via .title
+    class = "title",
+    h3("Type of Arrests pere capita for each region")
+  ),
+  # The actual table
+  tbl
+)
+
+```
+</center>
+
+
+# Let's plot
+
+Finally, let's briefly look into plots. For this, I'm using the package `hrbrthemes`. Check it out [here!](https://github.com/hrbrmstr/hrbrthemes).
+
+I'm also saving these as .svg for resolution purposes.
+
+```{r example, fig.height=6, fig.width=6, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+library(hrbrthemes)
+
+ggplot(data = cars, aes(x = dist, y = speed)) +
+  geom_point(pch = 21, fill="light grey", color = "white", size = 5) +
+  geom_smooth(aes(color = "#BF3984"), method="lm", se = TRUE, fill="#BF3984", lwd=2) +
+  scale_color_manual(values = c("#BF3984"), labels = "Linear fit") +
+  xlab("Distance") + ylab("Speed") + ggtitle("Need for speed")+
+  #theme_bw() +
+  theme_ipsum_rc() + #comment this out if you don't have `hrbrthemes` installed
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+      panel.grid.major.x = element_blank(), #Eliminate grid (comment these out if you want a grid)
+      panel.grid.minor.x = element_blank(),
+      panel.grid.major.y = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),
+      axis.text.x = element_blank(),
+      axis.title.y = element_text(size=16),
+      axis.text.y = element_blank(),legend.position=c(0.8,0.1),
+      legend.title = element_blank(),
+      legend.text = element_text(size=15),
+      legend.background = element_rect(fill="white",colour ="white"),
+      title = element_text(size=14))
+
+```
+
+... and for Andrew Baker's sake, we can also rotate the y-axis label (remember to rename your code chunk!)
+
+```{r example_rot, fig.height=6, fig.width=6, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+library(hrbrthemes)
+
+ggplot(data = cars, aes(x = dist, y = speed)) +
+  geom_point(pch = 21, fill="light grey", color = "white", size = 5) +
+  geom_smooth(aes(color = "#BF3984"), method="lm", se = TRUE, fill="#BF3984", lwd=2) +
+  scale_color_manual(values = c("#BF3984"), labels = "Linear fit") +
+  xlab("Distance") + ylab("Speed") + ggtitle("Need for speed")+
+  #theme_bw() +
+  theme_ipsum_rc() + #comment this out if you don't have `hrbrthemes` installed
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+      panel.grid.major.x = element_blank(), #Eliminate grid (comment these out if you want a grid)
+      panel.grid.minor.x = element_blank(),
+      panel.grid.major.y = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),
+      axis.text.x = element_blank(),
+      axis.title.y = element_text(size=16, angle=0), #You can rotate the title with angle
+      axis.text.y = element_blank(),legend.position=c(0.8,0.1),
+      legend.title = element_blank(),
+      legend.text = element_text(size=15),
+      legend.background = element_rect(fill="white",colour ="white"),
+      title = element_text(size=14))
+
+```
+
+# Come to the dark [HTML] side...
+
+If you want to see how this would look as HTML, just change your YAML (i.e. the header of this document, between --- and ---) for the following:
+
+---
+title: "RMarkdown Template"
+author: "Magdalena Bennett"
+date: "April 8th, 2021"
+output: 
+  html_document:
+    css: style.css 
+    toc: no
+---
+
+I've included a separate R markdown file with this, that you can knit and see how the HTML file looks. I've also uploaded it [here]() just for fun `r emo::ji("partying_face")`.
+
+If you want to share your HTML files, a super quick way is [Grant McDermottt's](https://twitter.com/grant_mcdermott) suggestion using Github:
+
+![](https://twitter.com/grant_mcdermott)
+
+
+
+
+# Some additional resources
+
+There are **tons** of resources out there, but some of my favorite almost always come for [Alison Preshill](https://twitter.com/apreshill). Check out her website!
+
+Some additional material that could be useful:
+
+- Xie, Y., J. J. Allaire, & G. Grolemund (2021). ["Rmarkdown: The definitive guide"](https://bookdown.org/yihui/rmarkdown/)
+
+- Xie, Y., C. Dervieux, &  E. Riederer (2020). ["R Markdown Cookbook"](https://bookdown.org/yihui/rmarkdown-cookbook/)
