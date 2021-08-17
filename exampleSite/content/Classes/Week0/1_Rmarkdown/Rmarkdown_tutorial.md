@@ -25,7 +25,7 @@ You need `tinytex` (or another LaTeX program) to be able to knit (compile) your 
 <colgroup>
 <col width="20%" />
 <col width="11%" />
-<col width="38%" />
+<col width="28%" />
 </colgroup>
 <thead>
 <tr class="header">
