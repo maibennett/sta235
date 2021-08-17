@@ -88,7 +88,7 @@ Heading 3
 <tr class="odd">
 <td><code>![Image caption](/path/to/image.png)</code></td>
 <td></td>
-<td><img src="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week0/1_Rmarkdown/images/cool_beans.jpeg" title="fig:" alt="Cool Beans" /></td>
+<td><img src="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week0/1_Rmarkdown/images/cool_beans.jpeg" title="fig:" alt="Cool Beans" width="50%" /></td>
 </tr>
 <tr class="even">
 <td>`<code>Inline code` with backticks</code></td>
