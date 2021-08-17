@@ -23,19 +23,19 @@ It make take a bit more time, but the flexibility that Rmarkdown gives you (and 
 
 Don't despair! You might start like this:
 
-<center>
-![](https://github.com/maibennett/sta235/blob/main/exampleSite/content/Classes/Week0/1_Rmarkdown/images/knits2.png?raw=true)
-</center>
+```{r, out.width='50%', fig.align='center', fig.cap=''}
+knitr::include_graphics('\images\knits2.png')
+```
 
 ... But you'll end up like this:
 
 <center>
-![](https://github.com/maibennett/sta235/blob/main/exampleSite/content/Classes/Week0/1_Rmarkdown/images/cool_beans.jpeg?raw=true)
+![](./images/cool_beans.jpeg)
 </center>
 
 # Pagedown FTW
 
-We are going to be using the package `pagedown`^[Go to https://rstudio.github.io/pagedown/ to read all about it!]. This is because it's very versatile for transforming documents that need to be printed (or exported into pdf) and also working on HTML. If you ever want to transition into making presentations in Rmarkdown (with `Xaringan`, of course), this will be an easy step. I also find css more manageable than the templates created for $\LaTeX$.   
+We are going to be using the package `pagedown`^[Go to https://rstudio.github.io/pagedown/ to read all about it!]. This is because it's very versatile for transforming documents that need to be printed (or exported into pdf) and also working on HTML. If you ever want to transition into making presentations in Rmarkdown (with `Xaringan`, of course), this will be an easy step. I also find css more manageable than the templates created for LaTeX.   
 
 # .css files are your best friend
 
@@ -43,14 +43,14 @@ I've included a `style.css` file that should be included in the same folder that
 
 \newpage
 # Let's see some examples
-## How $\LaTeX$ works
+## How LaTeX works
 
-Well, it works pretty much the same as $\LaTeX$. Include inline equations like: $y_i = \beta_0 + \beta_1\cdot x_i + \varepsilon_i$, or multiple line equations:
+Well, it works pretty much the same as LaTeX. Include inline equations like: $y_i = \beta_0 + \beta_1\cdot x_i + \varepsilon_i$, or multiple line equations:
 
-$$\begin{align}
+\begin{align}
 y_i =& \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_3 x_{i3} +\\
     &\beta_4 x_{i4} + ... + \varepsilon_{i}
-\end{align}$$
+\end{align}
 
 ## Let's code
 
@@ -85,7 +85,7 @@ Finally, let's briefly look into plots. For this, I'm using the package `hrbrthe
 
 I'm also saving these as .svg for resolution purposes.
 
-```{r example, fig.height=6, fig.width=6, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+```{r echo=FALSE, warning=FALSE, message = FALSE}
 library(hrbrthemes)
 
 ggplot(data = cars, aes(x = dist, y = speed)) +

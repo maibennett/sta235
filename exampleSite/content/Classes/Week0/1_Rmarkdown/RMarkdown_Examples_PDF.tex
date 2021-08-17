@@ -123,11 +123,11 @@ accompanying .css file), so it can be easily customized.
 
 Don't despair! You might start like this:
 
-\includegraphics{https://github.com/maibennett/sta235/blob/main/exampleSite/content/Classes/Week0/1_Rmarkdown/images/knits2.png?raw=true}
+\includegraphics{./images/knits2.png}
 
 \ldots{} But you'll end up like this:
 
-\includegraphics{https://github.com/maibennett/sta235/blob/main/exampleSite/content/Classes/Week0/1_Rmarkdown/images/cool_beans.jpeg?raw=true}
+\includegraphics{./images/cool_beans.jpeg}
 
 \hypertarget{pagedown-ftw}{%
 \section{Pagedown FTW}\label{pagedown-ftw}}
@@ -138,7 +138,7 @@ is because it's very versatile for transforming documents that need to
 be printed (or exported into pdf) and also working on HTML. If you ever
 want to transition into making presentations in Rmarkdown (with
 \texttt{Xaringan}, of course), this will be an easy step. I also find
-css more manageable than the templates created for \(\LaTeX\).
+css more manageable than the templates created for LaTeX.
 
 \hypertarget{css-files-are-your-best-friend}{%
 \section{.css files are your best
@@ -156,17 +156,16 @@ ones) for future Rmarkdown templates, and it's great!
 \section{Let's see some examples}\label{lets-see-some-examples}}
 
 \hypertarget{how-latex-works}{%
-\subsection{\texorpdfstring{How \(\LaTeX\)
-works}{How \textbackslash LaTeX works}}\label{how-latex-works}}
+\subsection{How LaTeX works}\label{how-latex-works}}
 
-Well, it works pretty much the same as \(\LaTeX\). Include inline
-equations like: \(y_i = \beta_0 + \beta_1\cdot x_i + \varepsilon_i\), or
-multiple line equations:
+Well, it works pretty much the same as LaTeX. Include inline equations
+like: \(y_i = \beta_0 + \beta_1\cdot x_i + \varepsilon_i\), or multiple
+line equations:
 
-\[\begin{align}
+\begin{align}
 y_i =& \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_3 x_{i3} +\\
     &\beta_4 x_{i4} + ... + \varepsilon_{i}
-\end{align}\]
+\end{align}
 
 \hypertarget{lets-code}{%
 \subsection{Let's code}\label{lets-code}}
