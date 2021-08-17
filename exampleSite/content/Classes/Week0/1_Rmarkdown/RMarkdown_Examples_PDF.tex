@@ -5,12 +5,13 @@
 \documentclass[
 ]{article}
 \usepackage{lmodern}
-\usepackage{amssymb,amsmath}
+\usepackage{amsmath}
 \usepackage{ifxetex,ifluatex}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
+  \usepackage{amssymb}
 \else % if luatex or xetex
   \usepackage{unicode-math}
   \defaultfontfeatures{Scale=MatchLowercase}
@@ -99,10 +100,13 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
 
 \title{RMarkdown Template}
 \author{Magdalena Bennett}
-\date{April 8th, 2021}
+\date{August 16th, 2021}
 
 \begin{document}
 \maketitle
@@ -119,7 +123,7 @@ accompanying .css file), so it can be easily customized.
 
 Don't despair! You might start like this:
 
-\includegraphics{https://media.giphy.com/media/nWCf6ZPW0mRMY/giphy.gif}
+\includegraphics{https://media.giphy.com/media/nWCf6ZPW0mRMY/source.gif}
 
 \ldots{} But you'll end up like this:
 
@@ -167,15 +171,15 @@ y_i =& \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_3 x_{i3} +\\
 \hypertarget{lets-code}{%
 \subsection{Let's code}\label{lets-code}}
 
-We can write some simple code, if we want to show it (\emph{Tip: Always
-include \texttt{message=FALSE} and \texttt{warning=FALSE} so you don't
-get that extra stuff when you run the code}):
+We can write some simple code, if we want to show it (\emph{Tip: Include
+\texttt{message=FALSE} and \texttt{warning=FALSE} so you don't get that
+extra stuff when you run the code}):
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{data}\NormalTok{(cars)}
+\FunctionTok{data}\NormalTok{(cars)}
 
-\KeywordTok{lm}\NormalTok{(speed }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{dist, }\DataTypeTok{data =}\NormalTok{ cars)}
+\FunctionTok{lm}\NormalTok{(speed }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dist, }\AttributeTok{data =}\NormalTok{ cars)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -240,9 +244,6 @@ Note:
 \emph{p\textless0.1; \textbf{p\textless0.05; }}p\textless0.01
 
 Check out the different arguments that you might have, and play around.
-
-What about a \texttt{reactable} table? (This are particularly great for
-HTML, because they are interactive!)
 
 \hypertarget{lets-plot}{%
 \section{Let's plot}\label{lets-plot}}

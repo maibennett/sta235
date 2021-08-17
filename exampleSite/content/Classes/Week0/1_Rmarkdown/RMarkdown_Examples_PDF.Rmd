@@ -2,7 +2,9 @@
 title: "RMarkdown Template"
 author: "Magdalena Bennett"
 date: "August 16th, 2021"
-output: pdf_document
+output: 
+  pdf_document:
+    latex_engine: xelatex
 ---
 
 <!-- Usually, you should load all your packages at the beginning -->
@@ -22,7 +24,7 @@ It make take a bit more time, but the flexibility that Rmarkdown gives you (and 
 Don't despair! You might start like this:
 
 <center>
-![](https://media.giphy.com/media/nWCf6ZPW0mRMY/giphy.gif)
+![](https://media.giphy.com/media/nWCf6ZPW0mRMY/source.gif)
 </center>
 
 ... But you'll end up like this:
@@ -52,7 +54,7 @@ y_i =& \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_3 x_{i3} +\\
 
 ## Let's code
 
-We can write some simple code, if we want to show it (*Tip: Always include `message=FALSE` and `warning=FALSE` so you don't get that extra stuff when you run the code*):
+We can write some simple code, if we want to show it (*Tip: Include `message=FALSE` and `warning=FALSE` so you don't get that extra stuff when you run the code*):
 
 ```{r, echo = TRUE, message=FALSE, warning=FALSE}
 data(cars)
@@ -75,66 +77,6 @@ stargazer(lm1,  title = "Regression of Speed on Distance", column.labels = c("My
 </center>
 
 Check out the different arguments that you might have, and play around.
-
-
-What about a `reactable` table? (This are particularly great for HTML, because they are interactive!)
-
-<center>
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
-
-data(USArrests)
-   
-USArrests_pc <- USArrests %>% mutate(across(.cols = everything(), .fns = ~./UrbanPop)) %>% mutate(region = ifelse(rownames(.) %in% c("California","Washington","Oregon"), "West Coast",
-                                                                                                                  ifelse(rownames(.) %in% c("New York", "Massachusetts","Connecticut", "Maine", "Maryland",
-                                                                                                                                            "Pennsylvania", "Rhode Island", "Virginia", "South Carolina",
-                                                                                                                                            "North Carolina", "Georgia", "Florida", "New Jersey", "New Hampshire",
-                                                                                                                                            "Delaware"),"East Coast", "Other")))  
-                                                
-tab_regions <- USArrests_pc %>% group_by(region) %>%
-  summarise_all(., mean) %>% mutate(across(.cols = -c(region), .fns = ~round(.,2)))
-
-tbl <- tab_regions %>%
-  reactable(
-    # ALL one page (no scrolling or page swapping)
-    pagination = TRUE,
-    rownames = FALSE,
-    # compact for an overall smaller table width wise
-    compact = FALSE,
-    # borderless - TRUE or FALSE
-    borderless = FALSE,
-    # Stripes - TRUE or FALSE
-    striped = TRUE,
-    # fullWidth - either fit to width or not
-    fullWidth = FALSE,
-    # apply defaults
-    # 100 px and align to center of column
-    defaultColDef = colDef(
-      align = "center",
-      minWidth = 100), #min width for each column
-    style = list(fontFamily = "Fira Sans, sans-serif"),
-    
-    highlight = TRUE,
-    
-    theme = reactableTheme(
-      highlightColor = "rgba(248, 148, 65,0.3)"
-    )
-    
-  )
-
-div(
-  # this class can be called with CSS now via .salary
-  class = "tab",
-  div(
-    # this can be called with CSS now via .title
-    class = "title",
-    h3("Type of Arrests pere capita for each region")
-  ),
-  # The actual table
-  tbl
-)
-
-```
-</center>
 
 
 # Let's plot
@@ -206,7 +148,7 @@ If you want to see how this would look as HTML, just change your YAML (i.e. the 
 ---
 title: "RMarkdown Template"
 author: "Magdalena Bennett"
-date: "April 8th, 2021"
+date: "August 16th, 2021"
 output: 
   html_document:
     css: style.css 
