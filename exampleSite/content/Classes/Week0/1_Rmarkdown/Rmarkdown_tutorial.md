@@ -88,7 +88,7 @@ Heading 3
 <tr class="odd">
 <td><code>![Image caption](/path/to/image.png)</code></td>
 <td></td>
-<td><img src="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week0/1_Rmarkdown/images/cool_beans.jpeg" title="fig:" alt="Cool Beans" width="50%" /></td>
+<td><img src="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week0/1_Rmarkdown/images/cool_beans.jpeg" title="fig: Cool Beans" width="10%" height="10%" /></td>
 </tr>
 <tr class="even">
 <td>`<code>Inline code` with backticks</code></td>
@@ -160,11 +160,11 @@ You can use math in two different ways: inline or in a display block. To use mat
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre>Based on the DAG, the regression model for
+<td><pre>The regression model for
 estimating the effect of education on wages
 is &dollar;\hat{y} = \beta_0 + \beta_1 x_1 + \epsilon&dollar;, or
 &dollar;\text{Wages} = \beta_0 + \beta_1 \text{Education} + \epsilon&dollar;.</pre></td>
-<td>Based on the DAG, the regression model for
+<td>The regression model for
 estimating the effect of education on wages
 is <span class="math inline">\(\hat{y} = \beta_0 + \beta_1 x_1 + \epsilon\)</span>, or
 <span class="math inline">\(\text{Wages} = \beta_0 + \beta_1 \text{Education} + \epsilon\)</span>.</td>
