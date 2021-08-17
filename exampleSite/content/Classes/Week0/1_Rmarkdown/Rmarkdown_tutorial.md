@@ -19,6 +19,8 @@ You need `tinytex` (or another LaTeX program) to be able to knit (compile) your 
 
 ### The Basics
 
+(Material from [Andrew Heiss'](https://www.andrewheiss.com/))
+
 <table>
 <colgroup>
 <col width="40%" />
@@ -86,7 +88,7 @@ Heading 3
 <tr class="odd">
 <td><code>![Image caption](/path/to/image.png)</code></td>
 <td></td>
-<td><img src="/img/mstile-144x144.png" title="fig:" alt="Class logo" /></td>
+<td><img src="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week0/1_Rmarkdown/images/cool_beans.jpeg" title="fig:" alt="Cool Beans" /></td>
 </tr>
 <tr class="even">
 <td>`<code>Inline code` with backticks</code></td>
