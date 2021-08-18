@@ -556,9 +556,7 @@ output:
 
 You can also click on the down arrow on the "Knit" button to choose the output *and* generate the appropriate YAML. If you click on the gear icon next to the "Knit" button and choose "Output options", you change settings for each specific output type, like default figure dimensions or whether or not a table of contents is included.
 
-```{r output-options, echo=FALSE, out.width="35%"}
-knitr::include_graphics("/img/reference/output-options.png", error = FALSE)
-```
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Rmarkdown/images/output-options.png)
 
 The first output type listed under `output:` will be what is generated when you click on the "Knit" button or press the keyboard shortcut (`⌘⇧K` on macOS; `control + shift + K` on Windows). If you choose a different output with the "Knit" button menu, that output will be moved to the top of the `output` section.
 
@@ -599,5 +597,7 @@ output:
 Finally, put your knowledge to the test! Here is a small template you can use to play around and customize however you like it.
 
 {{% button href="https://www.magdalenabennett.com/files/Rmarkdown_template.pdf" icon="fas fa-file-pdf" icon-position="right" %}}View PDF template{{% /button %}} 
+
+<br>
 
 {{% button href="https://raw.githubusercontent.com/maibennett/website_github/master/exampleSite/content/files/Rmarkdown_template.Rmd" icon="fas fa-code" icon-position="right" %}}Download template{{% /button %}}
