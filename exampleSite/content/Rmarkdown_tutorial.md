@@ -591,3 +591,13 @@ output:
 - [**Documentation for Rmarkdown**](https://rmarkdown.rstudio.com/): Extensive guide on everything you need to know about RMarkdown.
 - [**RMarkdown tutorial**](https://rmarkdown.rstudio.com/lesson-1.html): Helpful tutorials to learn more about this!
 - [**RMarkdown cheatsheet**](https://rmarkdown.rstudio.com/lesson-15.htmlf): Cheatsheets are life.
+
+---
+
+## RMarkdown template
+
+Finally, put your knowledge to the test! Here is a small template you can use to play around and customize however you like it.
+
+{{% button href="https://www.magdalenabennett.com/files/Rmarkdown_template.pdf" icon="fas fa-file-pdf" icon-position="right" %}}View PDF template{{% /button %}}
+
+{{% button href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Rmarkdown_template.Rmd" icon="fas fa-download"" icon-position="right" %}}Download template{{% /button %}}
