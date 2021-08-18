@@ -4,11 +4,11 @@
 Here are some resources so you get an introduction to Rmarkdown. This introdution just consolidates material from ["R Markdown: The Definitive Guide" (2021)](https://bookdown.org/yihui/rmarkdown/) by Yihui Xie, J. J. Allaire, and Garrett Grolemund, and also [Andrew Heiss'](https://www.andrewheiss.com/) awesome instructional website. All credit goes to them.
 
 
-### Before we start: Installation Requirements
+### Installation Requirements
 
 You will need to have the following programs and packages installed on your laptop:
 
-- [`R`](https://www.r-project.org/) and [`RStudio`](https://www.rstudio.com/products/rstudio/download/).
+- [R](https://www.r-project.org/) and [RStudio](https://www.rstudio.com/products/rstudio/download/).
 
 Once you have both software installed, go into `RStudio` and install the following packages:
 
@@ -21,7 +21,7 @@ You need `tinytex` (or another LaTeX program) to be able to knit (compile) your 
 
 ### The Basics
 
-(Material from [Andrew Heiss'](https://www.andrewheiss.com/))
+(Material from [Andrew Heiss'](https://www.andrewheiss.com/) website)
 
 <table>
 <colgroup>
@@ -90,7 +90,7 @@ Heading 3
 <tr class="odd">
 <td><code>![Image caption](/path/to/image.png)</code></td>
 <td></td>
-<td><img src="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week0/1_Rmarkdown/images/cool_beans_small.jpg" title="fig: Cool Beans" style="width:300px;height:197px;" /></td>
+<td><img src="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week0/Rmarkdown/images/cool_beans_small.jpg" title="fig: Cool Beans" style="width:300px;height:197px;" /></td>
 </tr>
 <tr class="even">
 <td>`<code>Inline code` with backticks</code></td>
