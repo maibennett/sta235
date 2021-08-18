@@ -1,6 +1,5 @@
----
-title: Rmarkdown Tutorial
----
+
+# Introduction to Rmarkdown
 
 Here are some resources so you get an introduction to Rmarkdown. This material is from ["R Markdown: The Definitive Guide" (2021)](https://bookdown.org/yihui/rmarkdown/) by Yihui Xie, J. J. Allaire, and Garrett Grolemund, and also from [Andrew Heiss'](https://www.andrewheiss.com/) very awesome instructional website.
 
