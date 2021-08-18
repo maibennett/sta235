@@ -3,6 +3,15 @@
 
 Here are some resources so you get an introduction to Rmarkdown. This introdution just consolidates material from ["R Markdown: The Definitive Guide" (2021)](https://bookdown.org/yihui/rmarkdown/) by Yihui Xie, J. J. Allaire, and Garrett Grolemund, and also [Andrew Heiss'](https://www.andrewheiss.com/) awesome instructional website. All credit goes to them.
 
+In this tutorial, the topics covered are:
+
+1. [Installation Requirements](https://sta235.netlify.app/rmarkdown_tutorial/#installation-requirements)
+2. [Using Markdown](https://sta235.netlify.app/rmarkdown_tutorial/#using-markdown)
+3. [Using RMarkdown](https://sta235.netlify.app/rmarkdown_tutorial/#using-rmarkdown)
+4. [RMarkdown template](https://sta235.netlify.app/rmarkdown_tutorial/#rmarkdown-template)
+
+
+---
 
 ## Installation Requirements
 
@@ -19,6 +28,8 @@ Once you have both software installed, go into RStudio and install the following
 You need `tinytex` (or another LaTeX program) to be able to knit (compile) your Rmarkdown files into PDFs. PS: By the way, it's pronounced "lay-tek". Not sure why.
 
 
+---
+
 ## Using Markdown
 
 {{% notice info %}}
@@ -27,7 +38,6 @@ You need `tinytex` (or another LaTeX program) to be able to knit (compile) your 
 
 [**Markdown**](https://daringfireball.net/projects/markdown/) is a special kind of markup language that lets you format text with simple syntax. You can then use a converter program like [pandoc](https://pandoc.org/) to convert Markdown into whatever format you want: HTML, PDF, Word, PowerPoint, etc. We will be using specifically **Rmarkdown**, which is just a markdown file that combines R code as well.
 
----
 
 ### Basic Markdown formatting
 
@@ -575,3 +585,9 @@ output:
     fig_width: 5
 ---
 ```
+
+### Other references
+
+- [**Documentation for Rmarkdown**](https://rmarkdown.rstudio.com/): Extensive guide on everything you need to know about RMarkdown.
+- [**RMarkdown tutorial**](https://rmarkdown.rstudio.com/lesson-1.html): Helpful tutorials to learn more about this!
+- [**RMarkdown cheatsheet**](https://rmarkdown.rstudio.com/lesson-15.htmlf): Cheatsheets are life.
