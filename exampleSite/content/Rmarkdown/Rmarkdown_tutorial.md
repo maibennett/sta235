@@ -4,13 +4,13 @@
 Here are some resources so you get an introduction to Rmarkdown. This introdution just consolidates material from ["R Markdown: The Definitive Guide" (2021)](https://bookdown.org/yihui/rmarkdown/) by Yihui Xie, J. J. Allaire, and Garrett Grolemund, and also [Andrew Heiss'](https://www.andrewheiss.com/) awesome instructional website. All credit goes to them.
 
 
-## Installation Requirements
+### Installation Requirements
 
 You will need to have the following programs and packages installed on your laptop:
 
 - [R](https://www.r-project.org/) and [RStudio](https://www.rstudio.com/products/rstudio/download/).
 
-Once you have both software installed, go into RStudio and install the following packages:
+Once you have both software installed, go into `RStudio` and install the following packages:
 
 - The package `rmarkdown`: Type `install.packages("rmarkdown")` 
 
@@ -19,16 +19,9 @@ Once you have both software installed, go into RStudio and install the following
 You need `tinytex` (or another LaTeX program) to be able to knit (compile) your Rmarkdown files into PDFs. PS: By the way, it's pronounced "lay-tek". Not sure why.
 
 
-## Using Markdown
+### The Basics
 
-{{% notice info %}}
-All material here was created by [Andrew Heiss](https://www.andrewheiss.com/).
-{{% /notice %}}
-
-[**Markdown**](https://daringfireball.net/projects/markdown/) is a special kind of markup language that lets you format text with simple syntax. You can then use a converter program like [pandoc](https://pandoc.org/) to convert Markdown into whatever format you want: HTML, PDF, Word, PowerPoint, etc. We will be using specifically **Rmarkdown**, which is just a markdown file that combines R code as well.
-
-
-### Basic Markdown formatting
+(Material from [Andrew Heiss'](https://www.andrewheiss.com/) website)
 
 <table>
 <colgroup>
@@ -150,8 +143,7 @@ Heading 3
 </tbody>
 </table>
 
-
-### Math
+## Math
 
 Markdown uses LaTeX to create fancy mathematical equations. There are like a billion little options and features available for math equations—you can find [helpful examples of the the most common basic commands here](http://www.malinc.se/math/latex/basiccodeen.php).
 
@@ -213,9 +205,9 @@ Because dollar signs are used to indicate math equations, you can't just use dol
 To get around that, put a backslash (`\`) in front of the dollar signs, so that `This book costs \\\$5.75 and this other costs \\\$40` becomes "This book costs <span>$5.75</span> and this other costs <span>$40</span>".
 
 
-### Tables
+## Tables
 
-There are 4 different ways to hand-create tables in Markdown—I say "hand-create" because it's normally way easier to use R to generate these things with packages like **knitr** (use [`kable()`](https://bookdown.org/yihui/rmarkdown-cookbook/kable.html) or **stargazer** (see the Rmarkdown template at the end of this tutorial) depending what you are analyzing). The two most common are simple tables and pipe tables. [You should look at the full documentation here](https://pandoc.org/MANUAL.html#tables).
+There are 4 different ways to hand-create tables in Markdown—I say "hand-create" because it's normally way easier to use R to generate these things with packages like [**pander**](https://rapporter.github.io/pander/) (use `pandoc.table()`) or **knitr** (use [`kable()`](https://bookdown.org/yihui/rmarkdown-cookbook/kable.html)). The two most common are simple tables and pipe tables. [You should look at the full documentation here](https://pandoc.org/MANUAL.html#tables).
 
 **For simple tables, type…**
 
@@ -263,7 +255,7 @@ Table: Caption goes here
 Table: Caption goes here
 
 
-### Footnotes
+## Footnotes
 
 There are two different ways to add footnotes ([see here for complete documentation](https://pandoc.org/MANUAL.html#footnotes)): regular and inline.
 
@@ -318,7 +310,7 @@ Causal inference is neat.^[But it can be hard too!]
 > </ol>
 > </div>
 
-### Front matter
+## Front matter
 
 You can include a special section at the top of a Markdown document that contains metadata (or data about your document) like the title, date, author, etc. This section uses a special simple syntax named [YAML](https://learn.getgrav.org/16/advanced/yaml) (or "YAML Ain't Markup Language") that follows this basic outline: `setting: value for setting`. Here's an example YAML metadata section. Note that it must start and end with three dashes (`---`).
 
@@ -347,7 +339,7 @@ title: 'An evaluation of "scare quotes"'
 ```
 
 
-### Citations
+## Citations
 
 One of the most powerful features of Markdown + pandoc is the ability to automatically cite things and generate bibliographies. to use citations, you need to create a [BibTeX file](http://www.bibtex.org/) (ends in `.bib`) that contains a database of the things you want to cite. You can do this with bibliography managers designed to work with BibTeX directly (like [BibDesk](https://bibdesk.sourceforge.io/) on macOS), or you can use [Zotero](https://www.zotero.org/) (macOS and Windows) to export a `.bib` file. You can [download an example `.bib` file of all the readings from this class here](/resource/citations/).
 
@@ -400,7 +392,7 @@ One of the most powerful features of Markdown + pandoc is the ability to automat
     > Rohrer, Julia M. 2018. “Thinking Clearly About Correlations and Causation: Graphical Causal Models for Observational Data.” *Advances in Methods and Practices in Psychological Science* 1 (1): 27–42. https://doi.org/10.1177/2515245917745629.
 
 
-### Other references
+## Other references
 
 These websites have additional details and examples and practice tools:
 
@@ -408,8 +400,3 @@ These websites have additional details and examples and practice tools:
 - [**Markdown tutorial**](https://www.markdowntutorial.com/): Another interactive tutorial to practice using Markdown.
 - [**Markdown cheatsheet**](http://packetlife.net/media/library/16/Markdown.pdf): Useful one-page reminder of Markdown syntax.
 - [**The Plain Person’s Guide to Plain Text Social Science**](http://plain-text.co/): A comprehensive explanation and tutorial about why you should write data-based reports in Markdown.
-
-
-## Using RMarkdown
-
-RMarkdown is just regular Markdown but it also includes R code. The advantages is that you can incorporate chunks of code, plots, tables, and all the analysis that you do on R in your write-ups or documents! This is a great way to 
