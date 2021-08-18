@@ -22,11 +22,12 @@ You need `tinytex` (or another LaTeX program) to be able to knit (compile) your 
 ## Using Markdown
 
 {{% notice info %}}
-All material here was created by [Andrew Heiss](https://www.andrewheiss.com/).
+<a style='text-align: center'> All material here was created by [Andrew Heiss](https://www.andrewheiss.com/).</a>
 {{% /notice %}}
 
 [**Markdown**](https://daringfireball.net/projects/markdown/) is a special kind of markup language that lets you format text with simple syntax. You can then use a converter program like [pandoc](https://pandoc.org/) to convert Markdown into whatever format you want: HTML, PDF, Word, PowerPoint, etc. We will be using specifically **Rmarkdown**, which is just a markdown file that combines R code as well.
 
+---
 
 ### Basic Markdown formatting
 
@@ -409,6 +410,7 @@ These websites have additional details and examples and practice tools:
 - [**Markdown cheatsheet**](http://packetlife.net/media/library/16/Markdown.pdf): Useful one-page reminder of Markdown syntax.
 - [**The Plain Person’s Guide to Plain Text Social Science**](http://plain-text.co/): A comprehensive explanation and tutorial about why you should write data-based reports in Markdown.
 
+---
 
 ## Using RMarkdown
 
@@ -434,10 +436,6 @@ RMarkdown is just regular Markdown but it also includes R code. The advantages i
 
 ![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Rmarkdown/images/knit-button.png)
 
-```{r knit-button, indent="    ", echo=FALSE, out.width="30%"}
-knitr::include_graphics("/img/assignments/knit-button.png", error = FALSE)
-```
-
 
 ### Add chunks
 
@@ -449,10 +447,6 @@ There are three ways to insert chunks:
 
 ![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Rmarkdown/images/insert-chunk.png)
 
-```{r insert-chunk, indent="    ", echo=FALSE, out.width="30%"}
-knitr::include_graphics("/img/reference/insert-chunk.png", error = FALSE)
-```
-
 - Manually type all the backticks and curly braces (don't do this)
 
 
@@ -461,10 +455,6 @@ knitr::include_graphics("/img/reference/insert-chunk.png", error = FALSE)
 You can add names to chunks to make it easier to navigate your document. If you click on the little dropdown menu at the bottom of your editor in RStudio, you can see a table of contents that shows all the headings and chunks. If you name chunks, they'll appear in the list. If you don't include a name, the chunk will still show up, but you won't know what it does.
 
 ![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Rmarkdown/images/chunk-toc.png)
-
-```{r chunk-toc, echo=FALSE, out.width="40%"}
-knitr::include_graphics("/img/reference/chunk-toc.png", error = FALSE)
-```
 
 To add a name, include it immediately after the `{r` in the first line of the chunk. Names cannot contain spaces, but they can contain underscores and dashes. **All chunk names in your document must be unique.**
 
@@ -498,10 +488,6 @@ The most common chunk options are these:
 You can also set chunk options by clicking on the little gear icon in the top right corner of any chunk:
 
 ![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Rmarkdown/images/chunk-options.png)
-
-```{r chunk-options, echo=FALSE, out.width="70%"}
-knitr::include_graphics("/img/reference/chunk-options.png", error = FALSE)
-```
 
 ### Inline chunks
 
