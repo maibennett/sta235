@@ -33,7 +33,7 @@ You need `tinytex` (or another LaTeX program) to be able to knit (compile) your 
 ## Using Markdown
 
 {{% notice info %}}
-<p style='text-align: center'>All material here was created by [Andrew Heiss](https://www.andrewheiss.com/).</p>
+All material here was created by **[Andrew Heiss](https://www.andrewheiss.com/)**.
 {{% /notice %}}
 
 [**Markdown**](https://daringfireball.net/projects/markdown/) is a special kind of markup language that lets you format text with simple syntax. You can then use a converter program like [pandoc](https://pandoc.org/) to convert Markdown into whatever format you want: HTML, PDF, Word, PowerPoint, etc. We will be using specifically **Rmarkdown**, which is just a markdown file that combines R code as well.
