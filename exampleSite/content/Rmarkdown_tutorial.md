@@ -22,7 +22,7 @@ You need `tinytex` (or another LaTeX program) to be able to knit (compile) your 
 ## Using Markdown
 
 {{% notice info %}}
-<a style='text-align: center'> All material here was created by [Andrew Heiss](https://www.andrewheiss.com/).</a>
+<p style='text-align: center'>All material here was created by [Andrew Heiss](https://www.andrewheiss.com/).</p>
 {{% /notice %}}
 
 [**Markdown**](https://daringfireball.net/projects/markdown/) is a special kind of markup language that lets you format text with simple syntax. You can then use a converter program like [pandoc](https://pandoc.org/) to convert Markdown into whatever format you want: HTML, PDF, Word, PowerPoint, etc. We will be using specifically **Rmarkdown**, which is just a markdown file that combines R code as well.
@@ -386,6 +386,38 @@ One of the most powerful features of Markdown + pandoc is the ability to automat
     - [MLA 8th edition](https://raw.githubusercontent.com/citation-style-language/styles/master/modern-language-association.csl)
 
 3. Cite things in your document. [Check the documentation for full details of how to do this](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html). Essentially, you use `@citationkey` inside square brackets (`[]`):
+
+<table>
+<colgroup>
+<col width="20%" />
+<col width="28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type…</th>
+<th>…to get</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Causal inference is neat [@Rohrer:2018; @AngristPischke:2015].</code></td>
+<td><p>Causal Inference is neat (Rohrer 2018; Angrist and Pischke 2015).</p></td>
+</tr>
+<tr class="even">
+<td><code>Causal inference is neat [see @Rohrer:2018, p. 34; also @AngristPischke:2015, chapter 1].</code></td>
+<td><p>Causal inference is neat (see Rohrer 2018, 34; also Angrist and Pischke 2015, chap. 1).</p></td>
+</tr>
+<tr class="odd">
+<td><code>Angrist and Pischke say causal inference is neat [-@AngristPischke:2015; see also @Rohrer:2018].</code></td>
+<td><p>Angrist and Pischke say causal inference is neat (2015; see also Rohrer 2018).</p></td>
+</tr>
+<tr class="even">
+<td><code>@AngristPischke:2015 [chapter 1] say causal inference is neat, and @Rohrer:2018 agrees.</code></td>
+<td><p>Angrist and Pischke (2015, chap. 1) say causal inference is neat, and Rohrer (2018) agrees.</p></td>
+</tr>
+</tbody>
+</table>
+
 
     |                                               Type…                                                |                                          …to get…                                           |
     | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
