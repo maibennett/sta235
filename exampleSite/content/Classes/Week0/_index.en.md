@@ -18,6 +18,6 @@ No in-person class this week for any section, but please complete the following 
 
 3. **Complete the course introduction survey**: A brief survey to get some additional information from students. There are no right or wrong answers! You can find the survey [here](https://forms.gle/wAnQrZtR64vzgCGD7).
 
-4. **Starting with Rmarkdown**: Rmarkdown is a type of file that allows you to write dynamic documents by mixing code and text (see an example here). Even though Rmarkdown will not be required for this course, I'd like to encourage students to use this extension to write their assignments (it's a great tool to have under your belt!). You can follow a quick tutorial on how to set it up [here](https://sta235.netlify.app/classes/week0/Rmarkdown/Rmarkdown_tutorial). 
+4. **Starting with Rmarkdown**: Rmarkdown is a type of file that allows you to write dynamic documents by mixing code and text (see an example here). Even though Rmarkdown will not be required for this course, I'd like to encourage students to use this extension to write their assignments (it's a great tool to have under your belt!). You can follow a quick tutorial on how to set it up [here](https://sta235.netlify.app/Rmarkdown_tutorial). 
 
 
