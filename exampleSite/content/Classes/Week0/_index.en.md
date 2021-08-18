@@ -12,7 +12,7 @@ No in-person class this week for any section, but please complete the following 
 
 ## Tasks
 
-1. **Read the syllabus**: We will go through some of the main points of the syllabus during our first class, but please make sure you review it beforehand. That way, you can ask any question you might have during our first meeting!
+1. **Read the syllabus**: We will go through some of the main points of the syllabus during our first class, but please [make sure you review it beforehand](https://sta235.netlify.app/syllabus). That way, you can ask any question you might have during our first meeting!
 
 2. **Install R and R Studio**: If you have not done so, please make sure you install both [R](https://www.r-project.org/) and [R Studio](https://www.rstudio.com/products/rstudio/download/) on your laptop.
 
