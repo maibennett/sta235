@@ -600,3 +600,4 @@ Finally, put your knowledge to the test! Here is a small template you can use to
 
 {{% button href="https://www.magdalenabennett.com/files/Rmarkdown_template.pdf" icon="fas fa-file-pdf" icon-position="right" %}}View PDF template{{% /button %}} 
 
+{{% button href="https://raw.githubusercontent.com/maibennett/website_github/master/exampleSite/content/files/Rmarkdown_template.Rmd" icon="fas fa-code" icon-position="right" %}}Download template{{% /button %}}
