@@ -400,19 +400,19 @@ One of the most powerful features of Markdown + pandoc is the ability to automat
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>Causal inference is neat [@Rohrer:2018; @AngristPischke:2015].</code></td>
+<td><code>Causal inference is neat</code> <code>[@Rohrer:2018; @AngristPischke:2015].</code></td>
 <td><p>Causal Inference is neat (Rohrer 2018; Angrist and Pischke 2015).</p></td>
 </tr>
 <tr class="even">
-<td><code>Causal inference is neat [see @Rohrer:2018, p. 34; also @AngristPischke:2015, chapter 1].</code></td>
+<td><code>Causal inference is neat</code> <code>[see @Rohrer:2018, p. 34; also @AngristPischke:2015, chapter 1].</code></td>
 <td><p>Causal inference is neat (see Rohrer 2018, 34; also Angrist and Pischke 2015, chap. 1).</p></td>
 </tr>
 <tr class="odd">
-<td><code>Angrist and Pischke say causal inference is neat [-@AngristPischke:2015; see also @Rohrer:2018].</code></td>
+<td><code>Angrist and Pischke say causal inference is neat</code> <code>[-@AngristPischke:2015; see also @Rohrer:2018].</code></td>
 <td><p>Angrist and Pischke say causal inference is neat (2015; see also Rohrer 2018).</p></td>
 </tr>
 <tr class="even">
-<td><code>@AngristPischke:2015 [chapter 1] say causal inference is neat, and @Rohrer:2018 agrees.</code></td>
+<td><code>@AngristPischke:2015 [chapter 1] say causal inference</code> <code>is neat, and @Rohrer:2018 agrees.</code></td>
 <td><p>Angrist and Pischke (2015, chap. 1) say causal inference is neat, and Rohrer (2018) agrees.</p></td>
 </tr>
 </tbody>
@@ -421,9 +421,9 @@ One of the most powerful features of Markdown + pandoc is the ability to automat
 
 After compiling, you should have a perfectly formatted bibliography added to the end of your document too:
     
-    > Angrist, Joshua D., and Jörn-Steffen Pischke. 2015. *Mastering ’Metrics: The Path from Cause to Effect.* Princeton, NJ: Princeton University Press.
-    > 
-    > Rohrer, Julia M. 2018. “Thinking Clearly About Correlations and Causation: Graphical Causal Models for Observational Data.” *Advances in Methods and Practices in Psychological Science* 1 (1): 27–42. https://doi.org/10.1177/2515245917745629.
+> Angrist, Joshua D., and Jörn-Steffen Pischke. 2015. *Mastering ’Metrics: The Path from Cause to Effect.* Princeton, NJ: Princeton University Press.
+> 
+> Rohrer, Julia M. 2018. “Thinking Clearly About Correlations and Causation: Graphical Causal Models for Observational Data.” *Advances in Methods and Practices in Psychological Science* 1 (1): 27–42. https://doi.org/10.1177/2515245917745629.
 
 
 ### Other references
