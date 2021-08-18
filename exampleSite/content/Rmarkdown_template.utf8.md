@@ -15,7 +15,7 @@ output:
 header-includes:
    - \usepackage{float} #This is just a useful LaTeX package for positioning tables and figures
 urlcolor: blue #This is so links are highlighted (and more visible)
-fontfamily: Roboto # Change the font
+mainfont: Roboto # Change the font (this is not necessary, you can eliminate this option if you're having compiling issues)
 ---
 
 
