@@ -20,11 +20,7 @@ fontfamily: Roboto # Change the font
 
 
 <!-- Usually, you should load all your packages at the beginning. If you don't have a package installed, you'll need to do that first! -->
-```{r setup, warning=FALSE, message=FALSE, echo=FALSE}
-library(stargazer)
-library(tidyverse)
-library(ggplot2)
-```
+
 
 # RMarkdown is awesome
 
@@ -66,39 +62,90 @@ y_i =& \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_3 x_{i3} +\\
 
 We can write some simple code, if we want to show it (*Tip: Include `message=FALSE` and `warning=FALSE` so you don't get that extra stuff when you run the code*):
 
-```{r lm-output, echo = TRUE, message=FALSE, warning=FALSE}
+
+```r
 data(cars)
 
 lm(speed ~ dist, data = cars)
+```
 
+```
+## 
+## Call:
+## lm(formula = speed ~ dist, data = cars)
+## 
+## Coefficients:
+## (Intercept)         dist  
+##      8.2839       0.1656
 ```
 
 Meh, but that output looks ugly. Can we make it prettier? Let's try `stargazer` (you will need to include the `results='asis'` argument).
 
-```{r stargazer-one-model, echo = FALSE, message=FALSE, warning=FALSE, results='asis', align='center'}
-data(cars)
 
-lm1 <- lm(speed ~ dist, data = cars)
-
-# You need to include "header = FALSE" to avoid an ugly output message.
-# table.placement = "H" indicates that the table should be positions exactly were you put it in your document
-stargazer(lm1,  title = "Regression of Speed on Distance", column.labels = c("Model 1"), header=FALSE,
-          dep.var.caption = "Dependent Variable: Speed", dep.var.labels = "", table.placement = "H") 
-
-```
+\begin{table}[H] \centering 
+  \caption{Regression of Speed on Distance} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{1}{c}{Dependent Variable: Speed} \\ 
+\cline{2-2} 
+\\[-1.8ex] &  \\ 
+ & Model 1 \\ 
+\hline \\[-1.8ex] 
+ dist & 0.166$^{***}$ \\ 
+  & (0.017) \\ 
+  & \\ 
+ Constant & 8.284$^{***}$ \\ 
+  & (0.874) \\ 
+  & \\ 
+\hline \\[-1.8ex] 
+Observations & 50 \\ 
+R$^{2}$ & 0.651 \\ 
+Adjusted R$^{2}$ & 0.644 \\ 
+Residual Std. Error & 3.156 (df = 48) \\ 
+F Statistic & 89.567$^{***}$ (df = 1; 48) \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
 
 You can also compare more than one model:
 
-```{r stargazer-two-models, echo = FALSE, message=FALSE, warning=FALSE, results='asis', align='center'}
 
-lm2 <- lm(speed ~ dist + I(dist^2), data = cars)
-
-# You need to include "header = FALSE" to avoid an ugly output message.
-stargazer(lm1, lm2,  title = "Two Regressions of Speed on Distance", column.labels = c("Model 1", "Model 2"), header=FALSE,
-          dep.var.caption = "Dependent Variable: Speed", dep.var.labels = "",
-          covariate.labels = c("distance","distance$^2$", "Constant"), table.placement = "H") 
-
-```
+\begin{table}[H] \centering 
+  \caption{Two Regressions of Speed on Distance} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lcc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{2}{c}{Dependent Variable: Speed} \\ 
+\cline{2-3} 
+\\[-1.8ex] & \multicolumn{2}{c}{} \\ 
+ & Model 1 & Model 2 \\ 
+\\[-1.8ex] & (1) & (2)\\ 
+\hline \\[-1.8ex] 
+ distance & 0.166$^{***}$ & 0.327$^{***}$ \\ 
+  & (0.017) & (0.055) \\ 
+  & & \\ 
+ distance$^2$ &  & $-$0.002$^{***}$ \\ 
+  &  & (0.0005) \\ 
+  & & \\ 
+ Constant & 8.284$^{***}$ & 5.144$^{***}$ \\ 
+  & (0.874) & (1.295) \\ 
+  & & \\ 
+\hline \\[-1.8ex] 
+Observations & 50 & 50 \\ 
+R$^{2}$ & 0.651 & 0.710 \\ 
+Adjusted R$^{2}$ & 0.644 & 0.698 \\ 
+Residual Std. Error & 3.156 (df = 48) & 2.907 (df = 47) \\ 
+F Statistic & 89.567$^{***}$ (df = 1; 48) & 57.573$^{***}$ (df = 2; 47) \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{2}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
 
 ---
 
@@ -107,55 +154,25 @@ stargazer(lm1, lm2,  title = "Two Regressions of Speed on Distance", column.labe
 Finally, let's briefly look into plots. Play around with this syntax to customize it however you want!
 
 
-```{r speed1, out.width='70%', fig.align='center', fig.cap='This is my first plot', echo=FALSE, message=FALSE, fig.pos="H"}
-ggplot(data = cars, aes(x = dist, y = speed)) +
-  geom_point(pch = 21, fill="light grey", color = "white", size = 5) +
-  geom_smooth(aes(color = "#BF3984"), method="lm", se = TRUE, fill="#BF3984", lwd=2) + #I'm customizing colors, but you can also use something like "red" or "blue"
-  scale_color_manual(values = c("#BF3984"), labels = "Linear fit") +
-  xlab("Distance") + ylab("Speed") + ggtitle("Need for speed")+
-  theme_bw() +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-      panel.grid.major.x = element_blank(), #Eliminate grid (comment these out if you want a grid)
-      panel.grid.minor.x = element_blank(),
-      panel.grid.major.y = element_blank(),
-      panel.grid.minor.y = element_blank(),
-      axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=11),
-      axis.text.x = element_blank(),
-      axis.title.y = element_text(size=11),
-      axis.text.y = element_blank(),legend.position=c(0.8,0.1),
-      legend.title = element_blank(),
-      legend.text = element_text(size=10),
-      legend.background = element_rect(fill=NULL,colour ="white"),
-      title = element_text(size=12))
+\begin{figure}[H]
 
-```
+{\centering \includegraphics[width=0.7\linewidth]{Rmarkdown_template_files/figure-latex/speed1-1} 
+
+}
+
+\caption{This is my first plot}\label{fig:speed1}
+\end{figure}
 
 ... and for Andrew Baker's sake, we can also rotate the y-axis label (remember to rename your code chunk!)
 
-```{r speed2, fig.dim=c(4.5,3.5), fig.align='center', fig.cap='This is my second plot', echo=FALSE, message=FALSE, fig.pos="H"}
-ggplot(data = cars, aes(x = dist, y = speed)) +
-  geom_point(pch = 21, fill="light grey", color = "white", size = 5) +
-  geom_smooth(aes(color = "#BF3984"), method="lm", se = TRUE, fill="#BF3984", lwd=2) +
-  scale_color_manual(values = c("#BF3984"), labels = "Linear fit") +
-  xlab("Distance") + ylab("Speed") + ggtitle("Need for speed")+
-  theme_bw() +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-      panel.grid.major.x = element_blank(), #Eliminate grid (comment these out if you want a grid)
-      panel.grid.minor.x = element_blank(),
-      panel.grid.major.y = element_blank(),
-      panel.grid.minor.y = element_blank(),
-      axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=11),
-      axis.text.x = element_blank(),
-      axis.title.y = element_text(size=11, angle=0), #You can rotate the title with angle
-      axis.text.y = element_blank(),legend.position=c(0.8,0.1),
-      legend.title = element_blank(),
-      legend.text = element_text(size=10),
-      legend.background = element_rect(fill=alpha("white",0),colour ="white"),
-      title = element_text(size=12))
+\begin{figure}[H]
 
-```
+{\centering \includegraphics{Rmarkdown_template_files/figure-latex/speed2-1} 
+
+}
+
+\caption{This is my second plot}\label{fig:speed2}
+\end{figure}
 
 ---
 
