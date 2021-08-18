@@ -400,19 +400,19 @@ One of the most powerful features of Markdown + pandoc is the ability to automat
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>Causal inference is neat</code> <code>[@Rohrer:2018; @AngristPischke:2015].</code></td>
+<td><code>Causal inference is neat</br>[@Rohrer:2018; @AngristPischke:2015].</code></td>
 <td><p>Causal Inference is neat (Rohrer 2018; Angrist and Pischke 2015).</p></td>
 </tr>
 <tr class="even">
-<td><code>Causal inference is neat</code> <code>[see @Rohrer:2018, p. 34; also @AngristPischke:2015, chapter 1].</code></td>
+<td><code>Causal inference is neat</br>[see @Rohrer:2018, p. 34; also @AngristPischke:2015, chapter 1].</code></td>
 <td><p>Causal inference is neat (see Rohrer 2018, 34; also Angrist and Pischke 2015, chap. 1).</p></td>
 </tr>
 <tr class="odd">
-<td><code>Angrist and Pischke say causal inference is neat</code> <code>[-@AngristPischke:2015; see also @Rohrer:2018].</code></td>
+<td><code>Angrist and Pischke say causal inference is neat</br>[-@AngristPischke:2015; see also @Rohrer:2018].</code></td>
 <td><p>Angrist and Pischke say causal inference is neat (2015; see also Rohrer 2018).</p></td>
 </tr>
 <tr class="even">
-<td><code>@AngristPischke:2015 [chapter 1] say causal inference</code> <code>is neat, and @Rohrer:2018 agrees.</code></td>
+<td><code>@AngristPischke:2015 [chapter 1] say causal inference</br>is neat, and @Rohrer:2018 agrees.</code></td>
 <td><p>Angrist and Pischke (2015, chap. 1) say causal inference is neat, and Rohrer (2018) agrees.</p></td>
 </tr>
 </tbody>
