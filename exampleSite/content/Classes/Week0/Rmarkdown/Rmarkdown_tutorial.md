@@ -1,15 +1,20 @@
 
 # Introduction to Rmarkdown
 
-Here are some resources so you get an introduction to Rmarkdown. This material is from ["R Markdown: The Definitive Guide" (2021)](https://bookdown.org/yihui/rmarkdown/) by Yihui Xie, J. J. Allaire, and Garrett Grolemund, and also from [Andrew Heiss'](https://www.andrewheiss.com/) very awesome instructional website.
+Here are some resources so you get an introduction to Rmarkdown. This introdution just consolidates material from ["R Markdown: The Definitive Guide" (2021)](https://bookdown.org/yihui/rmarkdown/) by Yihui Xie, J. J. Allaire, and Garrett Grolemund, and also [Andrew Heiss'](https://www.andrewheiss.com/) awesome instructional website. All credit goes to them.
 
-### Installation Requirements
+
+### Before we start: Installation Requirements
 
 You will need to have the following programs and packages installed on your laptop:
 
-- `R` and `RStudio`.
+- [`R`](https://www.r-project.org/) and [`RStudio`](https://www.rstudio.com/products/rstudio/download/).
 
-- The package `rmarkdown` on RStudio, and LaTeX (to compile PDFs). Follow the instructions [here](https://bookdown.org/yihui/rmarkdown/installation.html#installation)
+Once you have both software installed, go into `RStudio` and install the following packages:
+
+- The package `rmarkdown`: Type `install.packages("rmarkdown")` 
+
+- The package `tinytex`: Following [these instructions](https://bookdown.org/yihui/rmarkdown/installation.html#installation), type `install.packages("tinytex")` (and hit enter), and then type `tinytex::install_tinytex()`
 
 You need `tinytex` (or another LaTeX program) to be able to knit (compile) your Rmarkdown files into PDFs. PS: By the way, it's pronounced "lay-tek". Not sure why.
 
