@@ -590,7 +590,7 @@ output:
 
 - [**Documentation for Rmarkdown**](https://rmarkdown.rstudio.com/): Extensive guide on everything you need to know about RMarkdown.
 - [**RMarkdown tutorial**](https://rmarkdown.rstudio.com/lesson-1.html): Helpful tutorials to learn more about this!
-- [**RMarkdown cheatsheet**](https://rmarkdown.rstudio.com/lesson-15.htmlf): Cheatsheets are life.
+- [**RMarkdown cheatsheet**](https://rmarkdown.rstudio.com/lesson-15.html): Cheatsheets are life.
 
 ---
 
