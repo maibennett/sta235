@@ -592,3 +592,11 @@ output:
 - [**RMarkdown tutorial**](https://rmarkdown.rstudio.com/lesson-1.html): Helpful tutorials to learn more about this!
 - [**RMarkdown cheatsheet**](https://rmarkdown.rstudio.com/lesson-15.html): Cheatsheets are life.
 
+---
+
+## RMarkdown template
+
+Finally, put your knowledge to the test! Here is a small template you can use to play around and customize however you like it.
+
+{{% button href="https://www.magdalenabennett.com/files/Rmarkdown_template.pdf" icon="fas fa-file-pdf" icon-position="right" %}}View PDF template{{% /button %}} 
+
