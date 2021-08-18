@@ -389,8 +389,8 @@ One of the most powerful features of Markdown + pandoc is the ability to automat
 
 <table>
 <colgroup>
-<col width="20%" />
-<col width="28%" />
+<col width="50%" />
+<col width="58%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -419,14 +419,7 @@ One of the most powerful features of Markdown + pandoc is the ability to automat
 </table>
 
 
-    |                                               Type…                                                |                                          …to get…                                           |
-    | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-    | `Causal inference is neat [@Rohrer:2018; @AngristPischke:2015].`                                   | Causal inference is neat (Rohrer 2018; Angrist and Pischke 2015).                           |
-    | `Causal inference is neat [see @Rohrer:2018, p. 34; also @AngristPischke:2015, chapter 1].`        | Causal inference is neat (see Rohrer 2018, 34; also Angrist and Pischke 2015, chap. 1).     |
-    | `Angrist and Pischke say causal inference is neat [-@AngristPischke:2015; see also @Rohrer:2018].` | Angrist and Pischke say causal inference is neat (2015; see also Rohrer 2018).              |
-    | `@AngristPischke:2015 [chapter 1] say causal inference is neat, and @Rohrer:2018 agrees.`          | Angrist and Pischke (2015, chap. 1) say causal inference is neat, and Rohrer (2018) agrees. |
-
-    After compiling, you should have a perfectly formatted bibliography added to the end of your document too:
+After compiling, you should have a perfectly formatted bibliography added to the end of your document too:
     
     > Angrist, Joshua D., and Jörn-Steffen Pischke. 2015. *Mastering ’Metrics: The Path from Cause to Effect.* Princeton, NJ: Princeton University Press.
     > 
