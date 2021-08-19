@@ -406,6 +406,55 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 .box-7,.box-7a,.box-7s,.box-7b,.box-7l,.box-7LA,.section-title-7 {
   background-color: #FCCE25;
 }
+.box-1trans,.box-2trans,.box-3trans,.box-4trans,.box-5trans,.box-6trans,.box-7trans {
+  background-color: #FFFFFF;
+  font-family: Yanone Kaffeesatz;
+  border-radius: 15px;
+  margin: 0em auto;
+  overflow: hidden;
+  padding: 0.4em 0.4em;
+  font-weight: 600;
+  font-size: 31px;
+  display: table;
+  text-align: center;
+  border-width: thick;
+  color: #333f48;
+}
+.box-1transl,.box-2transl,.box-3transl,.box-4transl,.box-5transl,.box-6transl,.box-7transl {
+  background-color: #FFFFFF;
+  font-family: Yanone Kaffeesatz;
+  border-radius: 15px;
+  left: 0px;
+  overflow: hidden;
+  padding: 0.4em 0.4em;
+  font-weight: 600;
+  font-size: 31px;
+  display: table;
+  text-align: left;
+  border-width: thick;
+  color: #333f48;
+}
+.box-1trans,.box-1transl {
+  border: 5px solid rgba(13, 8, 135,1);
+}
+.box-2trans,.box-2transl {
+  border: 5px solid rgba(86, 1, 164,1);
+}
+.box-3trans,.box-3transl {
+  border: 5px solid rgba(144, 13, 164,1);
+}
+.box-4trans,.box-4transl {
+  border: 5px solid rgba(191, 57, 132,1);
+}
+.box-5trans,.box-5transl {
+  border: 5px solid rgba(225, 100, 98,1);
+}
+.box-6trans,.box-6transl {
+  border: 5px solid rgba(248, 148, 65,1);
+}
+.box-7trans,.box-7transl {
+  border: 5px solid rgba(252, 206, 37,1);
+}
 .box-1t,.box-1tL,.section-title-1t {
   background-color: rgba(13, 8, 135,0.3);
   color: rgba(13, 8, 135,1);

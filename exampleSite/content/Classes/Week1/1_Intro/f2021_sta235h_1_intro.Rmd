@@ -102,6 +102,42 @@ style_mono_accent(
     ".box-6,.box-6a,.box-6s,.box-6b,.box-6l,.box-6LA,.section-title-6" = list("background-color" = "#F89441"),
     ".box-7,.box-7a,.box-7s,.box-7b,.box-7l,.box-7LA,.section-title-7" = list("background-color" = "#FCCE25"),
    
+    ".box-1trans,.box-2trans,.box-3trans,.box-4trans,.box-5trans,.box-6trans,.box-7trans" = list("background-color" = "#FFFFFF",
+                                                                                                 "font-family" = "Yanone Kaffeesatz",
+                                                                                                 "border-radius" = "15px",
+                                                                                                 "margin" = "0em auto",
+                                                                                                 "overflow" = "hidden",
+                                                                                                 "padding" = "0.4em 0.4em",
+                                                                                                 "font-weight" = "600",
+                                                                                                 "font-size" = "31px",
+                                                                                                 "display" = "table",
+                                                                                                 "text-align" = "center",
+                                                                                                 "border-width" = "thick",
+                                                                                                 "color" = "#333f48"),
+   
+       ".box-1transl,.box-2transl,.box-3transl,.box-4transl,.box-5transl,.box-6transl,.box-7transl" = list("background-color" = "#FFFFFF",
+                                                                                                           "font-family" = "Yanone Kaffeesatz",
+                                                                                                           "border-radius" = "15px",
+                                                                                                           "left" = "0px",
+                                                                                                           "overflow" = "hidden",
+                                                                                                           "padding" = "0.4em 0.4em",
+                                                                                                           "font-weight" = "600",
+                                                                                                           "font-size" = "31px",
+                                                                                                           "display" = "table",
+                                                                                                           "text-align" = "left",
+                                                                                                           "border-width" = "thick",
+                                                                                                           "color" = "#333f48"),
+   
+   
+    ".box-1trans,.box-1transl" = list("border"="5px solid rgba(13, 8, 135,1)"),
+    ".box-2trans,.box-2transl" = list("border"="5px solid rgba(86, 1, 164,1)"),
+    ".box-3trans,.box-3transl" = list("border"="5px solid rgba(144, 13, 164,1)"),
+    ".box-4trans,.box-4transl" = list("border"="5px solid rgba(191, 57, 132,1)"),
+    ".box-5trans,.box-5transl" = list("border"="5px solid rgba(225, 100, 98,1)"),
+    ".box-6trans,.box-6transl" = list("border"="5px solid rgba(248, 148, 65,1)"),
+    ".box-7trans,.box-7transl" = list("border"="5px solid rgba(252, 206, 37,1)"),
+
+   
    ".box-1t,.box-1tL,.section-title-1t" = list("background-color" = "rgba(13, 8, 135,0.3)",
                                       "color"="rgba(13, 8, 135,1)",
                                       "font-family" = "Yanone Kaffeesatz",
@@ -286,27 +322,26 @@ Introductions
 ---
 # About the instruction team
 
-.pull-left[
-.box-3a.medium.sp-after-half[Prof: Magdalena Bennett, Ph.D.]
+.box-2transl[Prof: Magdalena Bennett, Ph.D.]
 
-  - *Assistant Professor in the Stats Group.*
+  - Assistant Professor in the Stats Group (IROM department)
   
-  - *Research: Causal Inference + Econ of Education*
+  - Ph.D. in Economics of Education
   
-.box-6a.medium.sp-after-half[TA: Ricardo Lara]
-  
-  - *Ph.D. candidate in Petroleum Engineering*
-  
-]
+  - Research: Causal Inference (+ ML) applied to social policies (e.g. education).
 
-.pull-right[
-<p align="center">
-![:scale 75%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/bobdylan2.png)
-</p>
-]
+--
+
+.box-4transl[T.A.: Pedro Santos (Ph.D. candidate)]
+
+
+.box-7transl[T.A.: Shentao Yang (Ph.D. student)]
 
 ---
+# Interesting fact about me?
 
+![:scale 20%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/bobdylan.gif)
+---
 background-position: 50% 50%
 class: center, middle
 
