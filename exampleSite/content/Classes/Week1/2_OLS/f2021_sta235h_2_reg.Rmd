@@ -1,6 +1,6 @@
 ---
-title: "STA 235 - Multiple Regression: Comparing Effect Sizes and Quantifying Uncertainty"
-subtitle: "Spring 2021"
+title: "STA 235H - Multiple Regression: Overview and Analysis"
+subtitle: "Fall 2021"
 author: "McCombs School of Business, UT Austin"
 output:
   xaringan::moon_reader:
@@ -16,12 +16,12 @@ output:
       in_header: header.html
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, warning=FALSE}
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(fig.showtext = TRUE)
 ```
 
-```{r xaringan-themer, include=FALSE, warning=FALSE}
+```{r xaringan-themer, include=FALSE, warning=FALSE, message=FALSE}
 library(xaringanthemer)
 
 theme_xaringan(
@@ -37,14 +37,15 @@ theme_xaringan(
 style_mono_accent(
   #base_color = "#bf5700",
   extra_fonts = list(google_font("Fira Sans","200","300","400","500","600"),
-                     google_font("Fira Sans Condensed")),
+                     google_font("Fira Sans Condensed","200","300","400","500","600")),
   base_color = "#333f48",
   header_font_google = google_font("Yanone Kaffeesatz","200","300","400","500","600","700"),
-  text_font_google   = google_font("Roboto", "300", "300i","400","500"),
+  text_font_google   = google_font("Roboto Condensed", "300", "300i","400","500"),
   code_font_google   = google_font("Fira Mono"),
   text_bold_color = "#333f48",
   text_font_size = "125%",
   colors = c(
+    lightgrey = "#C0C0C0",
     red = "#f34213",
     purple = "#900DA4",
     darkpurple = "#61077a",
@@ -62,6 +63,7 @@ style_mono_accent(
                      "font-family" = "Yanone Kaffeesatz",
                      "font-weight"="400"),
     ".small" = list("font-size" = "80%"),
+    ".tiny" = list("font-size" = "50%"),
     ".large" = list("font-size" = "150%"),
     ".source" = list("color" = "#8c8c8c",
                      "font-size" = "80%"),
@@ -72,7 +74,7 @@ style_mono_accent(
     ".title-slide h1" = list("font-weight" = "500"),
     ".title-slide h2" = list("font-weight" = "400",
                              "font-size" =  "170%"),
-    ".title-slide h3" = list("font-family" = "Roboto",
+    ".title-slide h3" = list("font-family" = "Roboto COndensed",
                              "font-size" = "100%",
                              "font-weight" = "200"),
     ".center2" = list("margin" = "0",
@@ -81,6 +83,12 @@ style_mono_accent(
                       "left" = "50%",
                       "-ms-transform" = "translate(-50%, -50%)",
                       "transform" = "translate(-50%, -50%)"),
+   ".bottom2" = list("margin" = "0",
+                      "position" = "absolute",
+                      "top" = "90%",
+                      "left" = "10%",
+                      "-ms-transform" = "translate(-10%, -90%)",
+                      "transform" = "translate(-10%, -90%)"),
     ".section-title h1" = list("color" = "#FFFFFF",
                                "font-size" = "2.3em",
                                "line-height" = "1.3"),
@@ -94,27 +102,83 @@ style_mono_accent(
     ".box-6,.box-6a,.box-6s,.box-6b,.box-6l,.box-6LA,.section-title-6" = list("background-color" = "#F89441"),
     ".box-7,.box-7a,.box-7s,.box-7b,.box-7l,.box-7LA,.section-title-7" = list("background-color" = "#FCCE25"),
    
+    ".box-1trans,.box-2trans,.box-3trans,.box-4trans,.box-5trans,.box-6trans,.box-7trans" = list("background-color" = "#FFFFFF",
+                                                                                                 "font-family" = "Yanone Kaffeesatz",
+                                                                                                 "border-radius" = "15px",
+                                                                                                 "margin" = "0em auto",
+                                                                                                 "overflow" = "hidden",
+                                                                                                 "padding" = "0.4em 0.4em",
+                                                                                                 "font-weight" = "600",
+                                                                                                 "font-size" = "31px",
+                                                                                                 "display" = "table",
+                                                                                                 "text-align" = "center",
+                                                                                                 "border-width" = "thick",
+                                                                                                 "color" = "#333f48"),
+   
+       ".box-1Trans,.box-2Trans,.box-3Trans,.box-4Trans,.box-5Trans,.box-6Trans,.box-7Trans" = list("background-color" = "#FFFFFF",
+                                                                                                 "font-family" = "Yanone Kaffeesatz",
+                                                                                                 "border-radius" = "15px",
+                                                                                                 "margin" = "0em auto",
+                                                                                                 "overflow" = "hidden",
+                                                                                                 "padding" = "0.4em 0.4em",
+                                                                                                 "font-weight" = "600",
+                                                                                                 "font-size" = "51px",
+                                                                                                 "display" = "table",
+                                                                                                 "text-align" = "center",
+                                                                                                 "border-width" = "thick",
+                                                                                                 "color" = "#333f48"),
+   
+       ".box-1transl,.box-2transl,.box-3transl,.box-4transl,.box-5transl,.box-6transl,.box-7transl" = list("background-color" = "#FFFFFF",
+                                                                                                           "font-family" = "Yanone Kaffeesatz",
+                                                                                                           "border-radius" = "15px",
+                                                                                                           "left" = "0px",
+                                                                                                           "overflow" = "hidden",
+                                                                                                           "padding" = "0.4em 0.4em",
+                                                                                                           "font-weight" = "600",
+                                                                                                           "font-size" = "31px",
+                                                                                                           "display" = "table",
+                                                                                                           "text-align" = "left",
+                                                                                                           "border-width" = "thick",
+                                                                                                           "color" = "#333f48"),
+   
+   
+    ".box-1trans,.box-1transl,.box-1Trans" = list("border"="5px solid rgba(13, 8, 135,1)"),
+    ".box-2trans,.box-2transl,.box-2Trans" = list("border"="5px solid rgba(86, 1, 164,1)"),
+    ".box-3trans,.box-3transl,.box-3Trans" = list("border"="5px solid rgba(144, 13, 164,1)"),
+    ".box-4trans,.box-4transl,.box-4Trans" = list("border"="5px solid rgba(191, 57, 132,1)"),
+    ".box-5trans,.box-5transl,.box-5Trans" = list("border"="5px solid rgba(225, 100, 98,1)"),
+    ".box-6trans,.box-6transl,.box-6Trans" = list("border"="5px solid rgba(248, 148, 65,1)"),
+    ".box-7trans,.box-7transl,.box-7Trans" = list("border"="5px solid rgba(252, 206, 37,1)"),
+
+   
    ".box-1t,.box-1tL,.section-title-1t" = list("background-color" = "rgba(13, 8, 135,0.3)",
                                       "color"="rgba(13, 8, 135,1)",
-                                      "font-family" = "Yanone Kaffeesatz"),
+                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
     ".box-2t,.box-2tL,.section-title-2t" = list("background-color" = "rgba(86, 1, 164,0.3)",
                                        "color" = "rgba(86, 1, 164,1)",
-                                       "font-family" = "Yanone Kaffeesatz"),
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
     ".box-3t,.box-3tL,.section-title-3t" = list("background-color" = "rgba(144, 13, 164,0.3)",
                                        "color" = "rgba(144, 13, 164,1)",
-                                       "font-family" = "Yanone Kaffeesatz"),
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
     ".box-4t,.box-4tL,.section-title-4t" = list("background-color" = "rgba(191, 57, 132,0.3)",
                                        "color" = "rgba(191, 57, 132,1)",
-                                       "font-family" = "Yanone Kaffeesatz"),
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
     ".box-5t,.box-5tL,.section-title-5t" = list("background-color" = "rgba(225, 100, 98,0.3)",
                                        "color" = "rgba(225, 100, 98,1)",
-                                       "font-family" = "Yanone Kaffeesatz"),
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
     ".box-6t,.box-6tL,.section-title-6t" = list("background-color" = "rgba(248, 148, 65,0.3)",
                                        "color" = "rgba(248, 148, 65,1)",
-                                       "font-family" = "Yanone Kaffeesatz"),
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
     ".box-7t,.box-7tL,.section-title-7t" = list("background-color" = "rgba(252, 206, 37,0.3)",
                                        "color" = "rgba(252, 206, 37,1)",
-                                       "font-family" = "Yanone Kaffeesatz"),
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
    
    ".box-7t, .box-6t, .box-5t, .box-4t, .box-3t, .box-2t, .box-1t" = list("margin" = "0em auto",
                                                                     "overflow" = "hidden",
@@ -122,7 +186,8 @@ style_mono_accent(
                                                                     "font-weight" = "600",
                                                                     "font-size" = "31px",
                                                                     "display" = "table",
-                                                                    "text-align" = "center"),
+                                                                    "text-align" = "center",
+                                                                    "border-radius" = "15px"),
    
    ".box-7tL, .box-6tL, .box-5tL, .box-4tL, .box-3tL, .box-2tL, .box-1tL" = list("margin" = "0em auto",
                                                                     "overflow" = "hidden",
@@ -130,7 +195,8 @@ style_mono_accent(
                                                                     "font-weight" = "600",
                                                                     "font-size" = "50px",
                                                                     "display" = "table",
-                                                                    "text-align" = "center"),
+                                                                    "text-align" = "center",
+                                                                    "border-radius" = "15px"),
    
     ".box-7, .box-6, .box-5, .box-4, .box-3, .box-2, .box-1" = list("color" = "#FFFFFF",
                                                                     "margin" = "0em auto",
@@ -140,7 +206,8 @@ style_mono_accent(
                                                                     "font-size" = "31px",
                                                                     "display" = "table",
                                                                     "text-align" = "center",
-                                                                    "font-family" = "Fira Sans"),
+                                                                    "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
     ".box-7a, .box-6a, .box-5a, .box-4a, .box-3a, .box-2a, .box-1a" = list("color" = "#FFFFFF",
                                                                           "left" = "0px",
                                                                           "overflow" = "hidden",
@@ -149,7 +216,8 @@ style_mono_accent(
                                                                       "font-size" = "25px",
                                                                       "display" = "table",
                                                                       "text-align" = "center",
-                                                                      "font-family" = "Fira Sans"),
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
    ".box-7s, .box-6s, .box-5s, .box-4s, .box-3s, .box-2s, .box-1s" = list("color" = "#FFFFFF",
                                                                           "left" = "0px",
                                                                           "overflow" = "hidden",
@@ -158,7 +226,8 @@ style_mono_accent(
                                                                       "font-size" = "100%",
                                                                       "display" = "inline",
                                                                       "text-align" = "center",
-                                                                      "font-family" = "Fira Sans"),
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
        ".box-7b, .box-6b, .box-5b, .box-4b, .box-3b, .box-2b, .box-1b" = list("color" = "#FFFFFF",
                                                                           "left" = "0px",
                                                                           "overflow" = "hidden",
@@ -167,7 +236,8 @@ style_mono_accent(
                                                                       "font-size" = "25px",
                                                                       "display" = "table",
                                                                       "text-align" = "left",
-                                                                      "font-family" = "Fira Sans"),
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
    ".box-7l, .box-6l, .box-5l, .box-4l, .box-3l, .box-2l, .box-1l" = list("color" = "#FFFFFF",
                                                                     "margin" = "0em auto",
                                                                     "overflow" = "hidden",
@@ -176,7 +246,8 @@ style_mono_accent(
                                                                     "font-size" = "45px",
                                                                     "display" = "table",
                                                                     "text-align" = "center",
-                                                                      "font-family" = "Yanone Kaffeesatz"),
+                                                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
    ".box-7LA, .box-6LA, .box-5LA, .box-4LA, .box-3LA, .box-2LA, .box-1LA" = list("color" = "#FFFFFF",
                                                                     "margin" = "0em auto",
                                                                     "overflow" = "hidden",
@@ -185,7 +256,8 @@ style_mono_accent(
                                                                     "font-size" = "55px",
                                                                     "display" = "table",
                                                                     "text-align" = "center",
-                                                                      "font-family" = "Yanone Kaffeesatz"),
+                                                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
    ".image-80 img" = list("scale" = "80%"),
    ".pull-left-little_l" = list("float" = "left",
                                 "width" = "67%"),
@@ -209,19 +281,38 @@ style_mono_accent(
 #F89441
 #FCCE25
 
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+
 ```
 ```{css, echo = FALSE}
 
 .small .remark-code { /*Change made here*/
   font-size: 80% !important;
 }
-```
-```{r setup2, echo=FALSE, message=FALSE}
-library(knitr)
-library(showtext)
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
 ```
 
-```{r fonts, message=FALSE, echo=FALSE}
+```{r setup2, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(showtext)
+library(xaringanExtra)
+
+xaringanExtra::use_scribble()
+
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r fonts, message=FALSE, echo=FALSE, warning=FALSE}
 font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
 font.add.google("Fira Sans", "Fira Sans")
 ```

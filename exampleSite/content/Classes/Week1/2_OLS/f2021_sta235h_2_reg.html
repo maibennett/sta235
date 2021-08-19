@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>STA 235 - Multiple Regression: Comparing Effect Sizes and Quantifying Uncertainty</title>
+    <title>STA 235H - Multiple Regression: Overview and Analysis</title>
     <meta charset="utf-8" />
     <meta name="author" content="McCombs School of Business, UT Austin" />
     <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
     <script src="libs/htmlwidgets/htmlwidgets.js"></script>
     <script src="libs/plotly-binding/plotly.js"></script>
     <script src="libs/typedarray/typedarray.min.js"></script>
@@ -20,8 +30,8 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# STA 235 - Multiple Regression: Comparing Effect Sizes and Quantifying Uncertainty
-## Spring 2021
+# STA 235H - Multiple Regression: Overview and Analysis
+## Fall 2021
 ### McCombs School of Business, UT Austin
 
 ---
@@ -35,7 +45,12 @@ class: center, middle, inverse, title-slide
 .small .remark-code { /*Change made here*/
   font-size: 80% !important;
 }
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
 &lt;/style&gt;
+
 
 
 
@@ -189,7 +204,7 @@ class: center, middle, inverse, title-slide
 .pull-right[
 
 
-&lt;img src="sp2021_sta235_2_reg_files/figure-html/cookies1-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_2_reg_files/figure-html/cookies1-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -465,7 +480,7 @@ ggplot(data = bechdel_fitted, aes(x = .fitted, y = .std.resid)) +
 
 ---
 # Let's look at the residuals (cont.)
-&lt;img src="sp2021_sta235_2_reg_files/figure-html/bechdel5r-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_2_reg_files/figure-html/bechdel5r-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # What happens if we add additional variables?
@@ -482,7 +497,7 @@ ggplot(data = bechdel_fitted2, aes(x = .fitted, y = .std.resid)) +
 
 ---
 # What happens with additional variables? (cont.)
-&lt;img src="sp2021_sta235_2_reg_files/figure-html/bechdel6r-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_2_reg_files/figure-html/bechdel6r-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 # Main takeaway points
 
