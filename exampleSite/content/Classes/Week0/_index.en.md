@@ -8,7 +8,7 @@ disableToc: true
 
 ## What we will cover
 
-No in-person class this week for any section, but please complete the following tasks before **Friday August 27th, 11:59 PM**.
+<u>No in-person class this week for any section</u>, but please complete the following tasks before **Friday August 27th, 11:59 PM**.
 
 ## Tasks
 
