@@ -33,7 +33,7 @@ You need `tinytex` (or another LaTeX program) to be able to knit (compile) your 
 ## Using Markdown
 
 {{% notice info %}}
-All material in the following sections was created by <b><a href="https://www.andrewheiss.com/" style="color: #E5A00C">Andrew Heiss</a></b>.
+All material in the following sections was created by <b><a href="https://talks.andrewheiss.com/2021-gpl/03_markdown-interactivity/index.html" style="color: #E5A00C">Andrew Heiss</a></b>.
 {{% /notice %}}
 
 [**Markdown**](https://daringfireball.net/projects/markdown/) is a special kind of markup language that lets you format text with simple syntax. You can then use a converter program like [pandoc](https://pandoc.org/) to convert Markdown into whatever format you want: HTML, PDF, Word, PowerPoint, etc. We will be using specifically **Rmarkdown**, which is just a markdown file that combines R code as well.
