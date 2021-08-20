@@ -8,10 +8,13 @@ disableToc: true
 
 Data science for business applications at the intermediate level. Topics include advanced multiple regression, causal inference, and construction and validation of predictive models. Additional topics will be included if time allows it, such as models for time series, and models for text data analysis.
 
+#### QUANTITATIVE REASONING
+
+This course carries the Quantitative Reasoning flag. Quantitative Reasoning courses are designed to equip you with skills that are necessary for understanding the types of quantitative arguments you will regularly encounter in your adult and professional life. You should therefore expect a substantial portion of your grade to come from your use of quantitative skills to analyze real-world problems.
+
 #### PRE-REQUISITES FOR THE COURSE
 
 Statistics 301 or Statistics 301H, Mathematics 408Q or credit registration for 408D, 408L, or 408S. 
-
 
 #### COURSE FORMAT
 
