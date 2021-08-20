@@ -39,10 +39,11 @@ All material in the following sections was created by <b><a href="https://talks.
 [**Markdown**](https://daringfireball.net/projects/markdown/) is a special kind of markup language that lets you format text with simple syntax. You can then use a converter program like [pandoc](https://pandoc.org/) to convert Markdown into whatever format you want: HTML, PDF, Word, PowerPoint, etc. We will be using specifically **Rmarkdown**, which is just a markdown file that combines R code as well.
 
 
-<textarea rows="1" class="invisible-text">Delete this text and start playing with Markdown here!</textarea>
+<!-- <textarea rows="1" class="invisible-text">Delete this text and start playing with Markdown here!</textarea> -->
 
 <script src="/js/stackedit.min.js"></script>
 <script src="/js/markdown-config.js"></script>
+
 
 ### Basic Markdown formatting
 
