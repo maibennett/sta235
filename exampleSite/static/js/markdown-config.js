@@ -4,7 +4,7 @@
 function makeEditButton(el) {
   const div = document.createElement('div');
   div.className = 'stackedit-button-wrapper';
-  div.innerHTML = '<a href="javascript:void(0)" class="btn btn-success" style="font-size: 20px">Click here to try Markdown in your browser!</a><br>';
+  div.innerHTML = '<a href="javascript:void(0)" class="btn btn-success btn-editor">Click here to try Markdown in your browser!</a><br>';
   el.parentNode.insertBefore(div, el.nextSibling);
   return div.getElementsByTagName('a')[0];
 }
