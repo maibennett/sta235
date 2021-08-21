@@ -16,7 +16,7 @@
 
 .stackedit-button-wrapper {
     text-align: center;
-    font-size: 10rem;
+    font-size: 30px;
     color: rgba(132, 81, 161,1);
     font-weight: bold;
     display: table;
@@ -24,7 +24,9 @@
     border: 5px solid rgba(132, 81, 161,1);
     font-family: "Yanone Kaffeesatz";
     border-radius: 15px;
-    margin: 0em auto
+    margin: 0em auto;
+    overflow: hidden;
+    padding: 0.4em 0.4em;
 }
 </style>
 
