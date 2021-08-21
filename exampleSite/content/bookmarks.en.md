@@ -5,7 +5,9 @@ disableToc: true
 
 Some important news, data, and articles to highlight.
 
-## R resources
+# Resources
+
+### R resources
 
 For those that want some R refresher, these resources can be useful:
 
@@ -24,7 +26,7 @@ Cheatsheets for R are amazing! Here are two of my favorite so you can look up fu
 - [Data Transformation with dplyr: Cheatsheet](https://sta235.netlify.com/images/data-transformation.pdf)
 
 
-## RMarkdown resources
+### RMarkdown resources
 
 - Check out the starting tutorial [here](https://sta235.netlify.app/rmarkdown_tutorial/) (see all the references in this document!)
 <!-- ## Multiple Regression
@@ -36,7 +38,7 @@ Cheatsheets for R are amazing! Here are two of my favorite so you can look up fu
 
 - ["Hands-On Machine Learning"](https://bradleyboehmke.github.io/HOML/) by B. Boehmke & B. Greenwell (2020). *Note: Great resource to see different packages for bagging, random forests, and boosting, beyond what we have seen in class!* -->
 
-## FAQ
+# FAQ
 
 ***1) Is there a specific format I should follow when emailing a professor?***
 
