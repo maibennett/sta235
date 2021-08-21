@@ -29,7 +29,7 @@
 
 # Introduction to Rmarkdown
 
-Here are some resources so you get an introduction to Rmarkdown. This introduction just <u>consolidates</u>u> material from ["R Markdown: The Definitive Guide" (2021)](https://bookdown.org/yihui/rmarkdown/) by Yihui Xie, J. J. Allaire, and Garrett Grolemund, and also [Andrew Heiss'](https://www.andrewheiss.com/) awesome instructional website. All credit goes to them.
+Here are some resources so you get an introduction to Rmarkdown. This introduction just <u>consolidates</u> material from ["R Markdown: The Definitive Guide" (2021)](https://bookdown.org/yihui/rmarkdown/) by Yihui Xie, J. J. Allaire, and Garrett Grolemund, and also [Andrew Heiss'](https://www.andrewheiss.com/) awesome instructional website. All credit goes to them.
 
 In this tutorial, the topics covered are:
 
