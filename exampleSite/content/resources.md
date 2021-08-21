@@ -1,6 +1,5 @@
 ---
 ---
-
 # Resources
 
 Some important news, data, and articles to highlight.
