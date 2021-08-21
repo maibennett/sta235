@@ -19,7 +19,7 @@
     display: table;
     border-width: thick;
     border: 5px solid rgba(132, 81, 161,1);
-    font-family: "Novacento Sans Wide";
+    font-family: "Work Sans";
     border-radius: 15px;
     margin: 0em auto;
     overflow: hidden;
