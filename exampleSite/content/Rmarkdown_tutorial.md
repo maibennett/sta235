@@ -1,4 +1,3 @@
-<head>
 <style>
 .invisible-text {
     display: none;
@@ -13,7 +12,6 @@
     text-align: center;
 }
 </style>
-</head>
 
 
 # Introduction to Rmarkdown
