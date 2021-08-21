@@ -2,8 +2,6 @@
 ---
 # Resources
 
-Some important news, data, and articles to highlight.
-
 ### R resources
 
 For those that want some R refresher, these resources can be useful:
