@@ -1,3 +1,20 @@
+<head>
+<style>
+.invisible-text {
+    display: none;
+}
+
+.btn-editor {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.stackedit-button-wrapper {
+    text-align: center;
+}
+</style>
+</head>
+
 
 # Introduction to Rmarkdown
 
