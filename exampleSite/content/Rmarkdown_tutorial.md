@@ -1,3 +1,6 @@
+---
+---
+
 <style>
 .invisible-text {
     display: none;
@@ -12,7 +15,6 @@
     text-align: center;
 }
 </style>
-
 
 # Introduction to Rmarkdown
 

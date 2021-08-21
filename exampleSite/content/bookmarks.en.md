@@ -23,6 +23,10 @@ Cheatsheets for R are amazing! Here are two of my favorite so you can look up fu
 
 - [Data Transformation with dplyr: Cheatsheet](https://sta235.netlify.com/images/data-transformation.pdf)
 
+
+## RMarkdown resources
+
+- Check out the starting tutorial [here](https://sta235.netlify.app/rmarkdown_tutorial/) (see all the references in this document!)
 <!-- ## Multiple Regression
 
 - [Regression Models with Multiple Regressors](https://www.econometrics-with-r.org/6-rmwmr.html) by C. Hanck et al. (2020), from their book *Introduction to Econometrics with R*
