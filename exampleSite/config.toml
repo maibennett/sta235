@@ -2,7 +2,7 @@ baseURL = "/"
 languageCode = "en-US"
 defaultContentLanguage = "en"
 
-title = "STA 235 - Data Science for Business Applications"
+title = "STA 235H - Data Science for Business Applications"
 theme = ["hugo-notice","hugo-theme-learn"]
 themesdir = "../.."
 googleAnalytics = "UA-190320018-1"
@@ -17,7 +17,7 @@ defaultContentLanguageInSubdir= false
       
 [params]
   editURL = ""
-  description = "Website for STA 235 - Data Science for Business Applications"
+  description = "Website for STA 235H - Data Science for Business Applications"
   author = "Magdalena Bennett"
   showVisitedLinks = false
   disableBreadcrumb = false
@@ -32,7 +32,7 @@ home = [ "HTML", "RSS", "JSON"]
 
 [Languages]
 [Languages.en]
-title = "Website for STA 235 - Data Science for Business Applications"
+title = "Website for STA 235H - Data Science for Business Applications"
 weight = 1
 languageName = "English"
 landingPageURL = "/en"
@@ -44,6 +44,6 @@ url = "/about"
 weight = 10
 
 [[Languages.en.menu.shortcuts]]
-name = "<i class='fas fa-fw fa-bookmark'></i> Bookmarks"
-url = "/bookmarks"
+name = "<i class='fas fa-fw fa-bookmark'></i> Resources"
+url = "/resources"
 weight = 20
