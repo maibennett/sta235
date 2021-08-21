@@ -8,7 +8,7 @@
 
 .btn-editor {
     font-weight: bold !important;
-    font-size: 40px !important;
+    font-size: 30px !important;
     color: rgba(132, 81, 161,1) !important;
 }
 
