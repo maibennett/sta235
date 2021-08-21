@@ -7,16 +7,13 @@
 }
 
 .btn-editor {
-    font-size: 2rem;
     font-weight: bold;
-    display: table;
-    border-width: thick;
-    border: 5px solid rgba(191, 57, 132,1);
 }
 
 .stackedit-button-wrapper {
     text-align: center;
     font-size: 30px;
+    font-weight: bold;
     color: rgba(132, 81, 161,1);
     font-weight: bold;
     display: table;
