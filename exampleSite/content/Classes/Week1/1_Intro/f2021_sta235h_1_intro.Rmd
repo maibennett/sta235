@@ -40,10 +40,10 @@ style_mono_accent(
                      google_font("Fira Sans Condensed","200","300","400","500","600")),
   base_color = "#333f48",
   header_font_google = google_font("Yanone Kaffeesatz","200","300","400","500","600","700"),
-  text_font_google   = google_font("Roboto Condensed", "300", "300i","400","500"),
+  text_font_google   = google_font("Jost"),
   code_font_google   = google_font("Fira Mono"),
   text_bold_color = "#333f48",
-  text_font_size = "125%",
+  text_font_size = "115%",
   colors = c(
     lightgrey = "#C0C0C0",
     red = "#f34213",
