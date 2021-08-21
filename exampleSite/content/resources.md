@@ -1,7 +1,7 @@
 ---
-title: Resources & FAQ
-disableToc: true
 ---
+
+# Resources
 
 Some important news, data, and articles to highlight.
 
