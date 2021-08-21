@@ -12,7 +12,7 @@
 
 .stackedit-button-wrapper {
     text-align: center;
-    font-size: 30px;
+    font-size: 40px !important;
     font-weight: bold;
     color: rgba(132, 81, 161,1);
     font-weight: bold;
