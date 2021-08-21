@@ -58,3 +58,9 @@ This is an important question, and not only for professors! (Disclaimer: This is
 ***2) Should I go to office hours?***
 
 The answer is almost always **YES!**. Office hours are a great way to just check your knowledge or ask any question you might have in a non-judgement zone. Even if you don't know what to ask but feel somewhat lost, we can work backwards and try to pinpoint some of the key elements that might be confusing and start from there.  
+
+***3) What do I do if I get stuck with some code?***
+
+An important part of this course is for you to learn how to "teach" yourself how to code. How's that? New tools (and languages!) are coming up more rapidly than you'll be able to see in one class, so it's an important asset for you to learn how to find some answers by yourself. If you Google an error that you got in R, most likely you'll be able to find the answer on very useful websites like **[Stackoverflow](https://stackoverflow.com/)** (believe me, I (and *everyone* who codes) do it all the time). 
+
+**However,** I don't want you to get stuck either! If you don't find the answer quickly on the internet (say, 10 min.), please reach out to the instruction team on Canvas. We are here to help! 
