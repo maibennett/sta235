@@ -16,6 +16,11 @@
 
 .stackedit-button-wrapper {
     text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    display: table;
+    border-width: thick;
+    border: 5px solid rgba(191, 57, 132,1);
 }
 </style>
 
