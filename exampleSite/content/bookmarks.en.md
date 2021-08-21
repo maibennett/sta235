@@ -1,11 +1,9 @@
 ---
-title: Bookmarks
+title: Resources & FAQ
 disableToc: true
 ---
 
 Some important news, data, and articles to highlight.
-
-# Resources
 
 ### R resources
 
