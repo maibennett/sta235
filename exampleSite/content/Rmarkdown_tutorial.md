@@ -29,7 +29,7 @@
 
 # Introduction to Rmarkdown
 
-Here are some resources so you get an introduction to Rmarkdown. This introdution just consolidates material from ["R Markdown: The Definitive Guide" (2021)](https://bookdown.org/yihui/rmarkdown/) by Yihui Xie, J. J. Allaire, and Garrett Grolemund, and also [Andrew Heiss'](https://www.andrewheiss.com/) awesome instructional website. All credit goes to them.
+Here are some resources so you get an introduction to Rmarkdown. This introduction just <u>consolidates</u>u> material from ["R Markdown: The Definitive Guide" (2021)](https://bookdown.org/yihui/rmarkdown/) by Yihui Xie, J. J. Allaire, and Garrett Grolemund, and also [Andrew Heiss'](https://www.andrewheiss.com/) awesome instructional website. All credit goes to them.
 
 In this tutorial, the topics covered are:
 
@@ -61,7 +61,7 @@ You need `tinytex` (or another LaTeX program) to be able to knit (compile) your 
 ## Using Markdown
 
 {{% notice info %}}
-All material in the following sections was created by <b><a href="https://talks.andrewheiss.com/2021-gpl/03_markdown-interactivity/index.html" style="color: #E5A00C">Andrew Heiss</a></b>.
+<u>All material and resources</u> in the following sections were created by <b><a href="https://talks.andrewheiss.com/2021-gpl/03_markdown-interactivity/index.html" style="color: #E5A00C">Andrew Heiss</a></b>.
 {{% /notice %}}
 
 [**Markdown**](https://daringfireball.net/projects/markdown/) is a special kind of markup language that lets you format text with simple syntax. You can then use a converter program like [pandoc](https://pandoc.org/) to convert Markdown into whatever format you want: HTML, PDF, Word, PowerPoint, etc. We will be using specifically **Rmarkdown**, which is just a markdown file that combines R code as well.
