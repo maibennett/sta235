@@ -4,10 +4,19 @@ weight: 25
 disableToc: true
 ---
 
-## Date:
+## Date: September 14th - September 16th
 
 ## What we will cover
 
+In this session, we will fully dive into Causal Inference: Potential outcomes framework, the fundamental problem of causal inference, causal estimands, and study design.
+
+## Recommended readings/videos
+
+- Angrist & Pischke. (2015). "Mastering Metrics". *Chapter 1: Randomized Trials*. Pg. 1-11. 
+
+- Marginal Revolution University. (2019). "Ceteris Paribus: Public vs. Private University". *Video materials from Mastering Metrics*.
+
+{{< youtube src="https://www.youtube.com/embed/iPBV3BlV7jk?controls=0" >}}
 
 ## Slides
 
