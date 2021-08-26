@@ -18,7 +18,7 @@
  *  Version: 0.3.0
  *
  * ------------------------------------------------------- */
-@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,500&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Jost&display=swap);
 @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:200,300,400,500,600,700&display=swap);
 @import url(https://fonts.googleapis.com/css?family=Fira+Mono&display=swap);
 @import url(https://fonts.googleapis.com/css?family=Fira+Sans:200,300,400,500,600&display=swap);
@@ -26,7 +26,7 @@
 
 :root {
   /* Fonts */
-  --text-font-family: 'Roboto Condensed';
+  --text-font-family: Jost;
   --text-font-is-google: 1;
   --text-font-family-fallback: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial;
   --text-font-base: sans-serif;
@@ -35,7 +35,7 @@
   --code-font-family: 'Fira Mono';
   --code-font-is-google: 1;
   --base-font-size: 20px;
-  --text-font-size: 125%;
+  --text-font-size: 115%;
   --code-font-size: 0.9rem;
   --code-inline-font-size: 1em;
   --header-h1-font-size: 2.75rem;
@@ -75,7 +75,7 @@ html {
 
 body {
   font-family: var(--text-font-family), var(--text-font-family-fallback), var(--text-font-base);
-  font-weight: 300;
+  font-weight: normal;
   color: var(--text-color);
 }
 h1, h2, h3 {
@@ -85,7 +85,7 @@ h1, h2, h3 {
 }
 .remark-slide-content {
   background-color: var(--background-color);
-  font-size: 125%;
+  font-size: 115%;
   padding: 16px 64px 16px 64px;
   width: 100%;
   height: 100%;
@@ -354,7 +354,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   font-size: 170%;
 }
 .title-slide h3 {
-  font-family: Roboto COndensed;
+  font-family: Jost;
   font-size: 100%;
   font-weight: 200;
 }

@@ -74,7 +74,7 @@ style_mono_accent(
     ".title-slide h1" = list("font-weight" = "500"),
     ".title-slide h2" = list("font-weight" = "400",
                              "font-size" =  "170%"),
-    ".title-slide h3" = list("font-family" = "Roboto COndensed",
+    ".title-slide h3" = list("font-family" = "Jost",
                              "font-size" = "100%",
                              "font-weight" = "200"),
     ".center2" = list("margin" = "0",
@@ -654,7 +654,7 @@ wordcloud(words = d$word, freq = d$freq, min.freq = 1,
 
 ```{r hist1, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
 
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/1_Intro/code/STA%20235%20-%20Intro%20Survey.csv")
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/1_Intro/data/STA%20235H%20-%20Intro%20Survey.csv")
 
 
 ggplot(data = d, aes(x = factor(How.comfortable.are.you.with.coding.in.R.,
@@ -689,7 +689,7 @@ ggplot(data = d, aes(x = factor(How.comfortable.are.you.with.coding.in.R.,
 
 ```{r pie1, fig.height=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
 
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/1_Intro/code/STA%20235%20-%20Intro%20Survey.csv")
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/1_Intro/data/STA%20235H%20-%20Intro%20Survey.csv")
 
 d$grades = factor(d$Thinking.forward.to.the.end.of.the.semester..what.grade.do.you.think.you.will.get.in.this.course.,
                   levels = c("A","A-","B+","B","B-","C+","C","C-","D","F"))
@@ -792,11 +792,14 @@ class: center, middle
 ---
 # After this course...
 
-.box-3Trans[1. Bridge the gap between the "what" and the "how"]
+<br>
+
+.box-3Trans[1) Bridge the gap between the "what" and the "how"]
 
 --
 
-.box-7Trans[2. Be critical consumers of "Data Science"]
+<br>
+.box-7Trans[2) Be critical consumers of "Data Science"]
 
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week1/1_Intro/f2021_sta235h_1_intro.html') -->
 
