@@ -279,6 +279,27 @@ class: center, middle
 .box-3Trans[Inspect your data!]
 
 ---
+# `vtable()` can be of help
+
+
+
+
+```r
+library(tidyverse)
+library(vtable)
+
+rawData &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/data/bechdel.csv")
+
+# Select movies post 1990
+rawData &lt;- rawData %&gt;% filter(Year&gt;1989)
+
+# Create return on Investment (ROI) measures
+# Passes Bechdel test:
+rawData &lt;- rawData %&gt;% mutate(ROI = Revenue/Budget, #  Total ROI
+                              pass_bechdel = ifelse(rating==3, "PASS", "FAIL"))
+
+vtable(rawData)
+```
 
 ---
 # Let's analyze some models

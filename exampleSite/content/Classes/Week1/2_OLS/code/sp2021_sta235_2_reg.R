@@ -1,7 +1,7 @@
 ##########################################################
 ### Title: "Week 1 - Multiple Regression"
-### Course: STA 235
-### Semester: Spring 2021
+### Course: STA 235H
+### Semester: Fall 2021
 ### Professor: Magdalena Bennett
 ##########################################################
 
@@ -14,6 +14,28 @@ cat("\014")
 # If you don't have one of these packages installed already, you will need to run install.packages() line
 library(tidyverse)
 library(ggplot2)
+library(vtable)
+
+################################################################################
+### In-class exercises
+################################################################################
+
+# Load data
+rawData <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/data/bechdel.csv")
+
+# Select movies post 1990
+rawData <- rawData %>% filter(Year>1989)
+
+# Create return on Investment (ROI) measures
+# Passes Bechdel test:
+rawData <- rawData %>% mutate(ROI = Revenue/Budget, #  Total ROI
+                              pass_bechdel = ifelse(rating==3, "PASS", "FAIL"))
+
+vtable(rawData) # Q: What do you see? Which variables would you pay the most attention to? What else would you explore?
+
+# Plot the outcome: How would you do it? (Hint: Histograms can be useful)
+
+
 
 ################################################################################
 ### Replicating plots from class with different data

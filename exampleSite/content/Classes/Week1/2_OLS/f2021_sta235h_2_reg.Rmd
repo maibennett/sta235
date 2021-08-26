@@ -691,9 +691,7 @@ class: center, middle
 .box-3Trans[Inspect your data!]
 
 ---
-
----
-# Let's analyze some models
+# `vtable()` can be of help
 
 ```{r results='hide', message=FALSE,echo=FALSE, warning=FALSE}
 library(ggplot2)
@@ -710,6 +708,7 @@ library("firasans")
 library(hrbrthemes)
 library(extrafont)
 library(tidyverse)
+library(vtable)
 
 rawData <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/data/bechdel.csv")
 
@@ -726,7 +725,35 @@ rawData$pass_bechdel[rawData$rating==3] = "PASS"
 # Divide movies into FAIL and PASS divisions
 failMovies<-rawData[rawData$binary=="FAIL",]
 passMovies<-rawData[rawData$binary=="PASS",]
+```
 
+```{r, results=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(vtable)
+
+rawData <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/data/bechdel.csv")
+
+# Select movies post 1990
+rawData <- rawData %>% filter(Year>1989)
+
+# Create return on Investment (ROI) measures
+# Passes Bechdel test:
+rawData <- rawData %>% mutate(ROI = Revenue/Budget, #  Total ROI
+                              pass_bechdel = ifelse(rating==3, "PASS", "FAIL"))
+
+vtable(rawData)
+```
+---
+# Look at the data
+
+```{r, results=FALSE, message=FALSE, warning=FALSE}
+# Plot the outcome
+```
+
+---
+# Let's analyze some models
+
+```{r results='hide', message=FALSE,echo=FALSE, warning=FALSE}
 bechdel = rawData[rawData$Adj_Revenue>0,]
 
 bechdel$imdb = bechdel$imdbRating
