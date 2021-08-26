@@ -455,6 +455,10 @@ class: center, middle
 
 --
 
+.box-5Trans[If you're not feeling well, please stay home]
+
+--
+
 .box-7Trans[Check out more COVID-19 resources in the Syllabus]
 ---
 # What will you need?
@@ -599,10 +603,10 @@ library("RColorBrewer")
 library("firasans")
 library(hrbrthemes)
 library(extrafont)
-
+library(ghibli)
 ```
 ```{r wordcloud, fig.height=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-text <- readLines("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/1_Intro/code/STA%20235%20-%20Intro%20Survey_wordcloud.csv")
+text <- readLines("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/1_Intro/data/STA%20235H%20-%20Intro%20Survey_wordcloud.csv")
 
 docs <- Corpus(VectorSource(text))
 
@@ -627,17 +631,21 @@ docs <- tm_map(docs, stripWhitespace)
 # Text stemming
 # docs <- tm_map(docs, stemDocument)
 
-dtm <- TermDocumentMatrix(docs)
+dtm <- TermDocumentMatrix(docs,list(wordLengths=c(1,Inf)))
 m <- as.matrix(dtm)
 v <- sort(rowSums(m),decreasing=TRUE)
 d <- data.frame(word = names(v),freq=v)
 #head(d, 10)
 
+d$word[d$word=="r"] = "R"
+
 set.seed(1234)
+#wordcloud(words = d$word, freq = d$freq, min.freq = 1,
+#          max.words=200, random.order=FALSE, rot.per=0.35, 
+#          colors=brewer.pal(5, "Dark2"), family = "Fira Sans Condensed SemiBold")
 wordcloud(words = d$word, freq = d$freq, min.freq = 1,
           max.words=200, random.order=FALSE, rot.per=0.35, 
-          colors=brewer.pal(5, "Dark2"), family = "Fira Sans Condensed SemiBold")
-
+          colors=ghibli_palettes$PonyoMedium[c(2,3,4,6)], family = "Fira Sans Condensed SemiBold")
 ```
 
 ---
@@ -780,6 +788,15 @@ class: center, middle
 
 <br>
 .source[Lübke, K. (2020). "Causality in Data Science Education". *Causal Data Science Meeting*]
+
+---
+# After this course...
+
+.box-3Trans[1. Bridge the gap between the "what" and the "how"]
+
+--
+
+.box-7Trans[2. Be critical consumers of "Data Science"]
 
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week1/1_Intro/f2021_sta235h_1_intro.html') -->
 

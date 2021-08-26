@@ -1,48 +1,48 @@
-What do you expect to learn in this course?,How comfortable are you with coding in R?,"Thinking forward to the end of the semester, what grade do you think you will get in this course?"
-I’m not sure yet 😭,3,A-
-I expect to learn how to sufficiently code in R.,1,A-
-More about using statistics in business and coding in R.,7,A
-I'm not sure ,3,A-
-,3,A
-"statistical modeling, better coding",7,A
-How to use R to model business scenarios,5,A-
-"In this data science course, I am hoping to learn more about multiple regression and causal inference.",6,
-I want to grow in my comfortability with R coding and learn new statistical skills.,5,A
-,3,A-
-,3,A
-"Not sure yet, but ready to get started",4,A
-"I expect to improve my R programming skills, learn how to analyze and present data, and apply quantitative reasoning capabilities to solve challenging business problems.",5,
-Data science and some coding,3,A
-,3,A-
-I expect to learn more about R.,3,A
-How to use R more efficiently!,7,A
-"I'm not completely sure, but I anticipate we will be expanding on what we learned in STA301 about regression and graphing and etc.",6,A-
-more about data and R ,3,A-
-"Honestly, I am really not sure yet. I expect to be learning how to better utilize R, which is something I actually enjoyed learning about last year!",5,A
-Totally unsure,5,A
-,5,A-
-Advancing my knowledge in any way.,8,A
-How we can better utilize data science in a business environment!,7,A
-I would like to learn statistics theory and methods that are applicable to business.,4,A
-How data can be used to solve problems in business,2,B
-I want to learn how to apply the R skills we learned last year in STA 301 and apply them to actual business applications to see how we might be using R in an internship or job position.,5,A-
-"Skills that build off of STA 309, more in depth use of R",4,A-
-Better ways to apply stats to business cases,3,A
-,5,A-
-"I expect to improve my R coding skills, construct predictive models, and increase my education within data science for business applications.",5,A-
-A better understanding of statistics!,5,A
-I expect to learn how to apply statistical tools and skills to solve real-world business problems through a numerical outlook.,7,A
-"Want to learn about modeling techniques, regression, etc.",5,A
-"Modeling, regression techniques, applications in the real world",5,A
-I'm not sure,3,A-
-Not sure! Develop my R skills?,5,A
-uh data analysis?,3,A-
-more real life applications of statistics ,5,A-
-I hope to develop more R skills and gain the understanding of when a certain type of modeling is most relevant (or at least how I could deliberate this). ,7,A
-I hope to gain a working proficiency in programming using RStudio.,4,A-
-how to use models and R to analyze data and using these analyses for problem solving,7,A-
-,7,A-
-Refine R studio skillset,3,A
-How to use R for stats!,6,A
-I hope to build on the statistical modeling and quantitative reasoning skills that I learned from STA 301H.,5,A
-More advanced levels of statistics than STA301,5,A-
+id,What do you expect to learn in this course?,How comfortable are you with coding in R?,"Thinking forward to the end of the semester, what grade do you think you will get in this course?"
+1,I’m not sure yet 😭,3,A-
+2,I expect to learn how to sufficiently code in R.,1,A-
+3,More about using statistics in business and coding in R.,7,A
+4,I'm not sure ,3,A-
+5,,3,A
+6,"statistical modeling, better coding",7,A
+7,How to use R to model business scenarios,5,A-
+8,"In this data science course, I am hoping to learn more about multiple regression and causal inference.",6,
+9,I want to grow in my comfortability with R coding and learn new statistical skills.,5,A
+10,,3,A-
+11,,3,A
+12,"Not sure yet, but ready to get started",4,A
+13,"I expect to improve my R programming skills, learn how to analyze and present data, and apply quantitative reasoning capabilities to solve challenging business problems.",5,
+14,Data science and some coding,3,A
+15,,3,A-
+16,I expect to learn more about R.,3,A
+17,How to use R more efficiently!,7,A
+18,"I'm not completely sure, but I anticipate we will be expanding on what we learned in STA301 about regression and graphing and etc.",6,A-
+19,more about data and R ,3,A-
+20,"Honestly, I am really not sure yet. I expect to be learning how to better utilize R, which is something I actually enjoyed learning about last year!",5,A
+21,Totally unsure,5,A
+22,,5,A-
+23,Advancing my knowledge in any way.,8,A
+24,How we can better utilize data science in a business environment!,7,A
+25,I would like to learn statistics theory and methods that are applicable to business.,4,A
+26,How data can be used to solve problems in business,2,B
+27,I want to learn how to apply the R skills we learned last year in STA 301 and apply them to actual business applications to see how we might be using R in an internship or job position.,5,A-
+28,"Skills that build off of STA 309, more in depth use of R",4,A-
+29,Better ways to apply stats to business cases,3,A
+30,,5,A-
+31,"I expect to improve my R coding skills, construct predictive models, and increase my education within data science for business applications.",5,A-
+32,A better understanding of statistics!,5,A
+33,I expect to learn how to apply statistical tools and skills to solve real-world business problems through a numerical outlook.,7,A
+34,"Want to learn about modeling techniques, regression, etc.",5,A
+35,"Modeling, regression techniques, applications in the real world",5,A
+36,I'm not sure,3,A-
+37,Not sure! Develop my R skills?,5,A
+38,uh data analysis?,3,A-
+39,more real life applications of statistics ,5,A-
+40,I hope to develop more R skills and gain the understanding of when a certain type of modeling is most relevant (or at least how I could deliberate this). ,7,A
+41,I hope to gain a working proficiency in programming using RStudio.,4,A-
+42,how to use models and R to analyze data and using these analyses for problem solving,7,A-
+43,,7,A-
+44,Refine R studio skillset,3,A
+45,How to use R for stats!,6,A
+46,I hope to build on the statistical modeling and quantitative reasoning skills that I learned from STA 301H.,5,A
+47,More advanced levels of statistics than STA301,5,A-
