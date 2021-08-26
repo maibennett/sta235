@@ -676,6 +676,18 @@ plot_ly(data = cookies_data, z = ~happiness, x = ~cookies, y = ~stomach_ache, op
 .box-7LA.medium.sp-after-half[Is this right?]
 
 ---
+class: center, middle
+
+.box-5Trans[what should we do before we ran any model?]
+
+---
+class: center, middle
+
+.box-3Trans[Inspect your data!]
+
+---
+
+---
 # Let's analyze some models
 
 ```{r results='hide', message=FALSE,echo=FALSE, warning=FALSE}
