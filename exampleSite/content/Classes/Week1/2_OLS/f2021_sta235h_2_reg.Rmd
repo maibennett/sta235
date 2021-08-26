@@ -676,9 +676,14 @@ plot_ly(data = cookies_data, z = ~happiness, x = ~cookies, y = ~stomach_ache, op
 .box-7LA.medium.sp-after-half[Is this right?]
 
 ---
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/images/stop.png)]
+
+.source[<div style="font-size: 50%; color: #D3D3D3;">Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>]
+---
 class: center, middle
 
-.box-5Trans[what should we do before we ran any model?]
+.box-5Trans[What should we do before we ran any model?]
 
 ---
 class: center, middle
