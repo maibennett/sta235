@@ -323,9 +323,9 @@ font.add.google("Fira Sans", "Fira Sans")
 - Quick **.darkorange[multiple regression]** review
   - How does OLS work?
   
-- Comparing **.darkorange[effect sizes]**
+- **.darkorange[Inspecting your data]**
 
-- **.darkorange[Uncertainty quantification]** in regression
+- **.darkorange[Comparing effect sizes]** in regressions
 ]
 
 .pull-right[

@@ -4,7 +4,7 @@ weight: 25
 disableToc: true
 ---
 
-## Date: September 14th - September 16th
+## Date: Sep 14th - Sep 16th
 
 ## What we will cover
 

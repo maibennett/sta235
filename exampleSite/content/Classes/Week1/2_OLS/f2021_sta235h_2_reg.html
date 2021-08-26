@@ -61,9 +61,9 @@ class: center, middle, inverse, title-slide
 - Quick **.darkorange[multiple regression]** review
   - How does OLS work?
   
-- Comparing **.darkorange[effect sizes]**
+- **.darkorange[Inspecting your data]**
 
-- **.darkorange[Uncertainty quantification]** in regression
+- **.darkorange[Comparing effect sizes]** in regressions
 ]
 
 .pull-right[
@@ -299,6 +299,13 @@ rawData &lt;- rawData %&gt;% mutate(ROI = Revenue/Budget, #  Total ROI
                               pass_bechdel = ifelse(rating==3, "PASS", "FAIL"))
 
 vtable(rawData)
+```
+---
+# Look at the data
+
+
+```r
+# Plot the outcome
 ```
 
 ---

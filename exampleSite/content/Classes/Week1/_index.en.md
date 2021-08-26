@@ -4,7 +4,7 @@ weight: 15
 disableToc: true
 ---
 
-## Date: August 31st - September 2nd
+## Date: Aug 31st - Sep 2nd
 
 ## What we will cover
 
