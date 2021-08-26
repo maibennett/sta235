@@ -4,10 +4,17 @@ weight: 20
 disableToc: true
 ---
 
-## Date:
+## Date: September 7th - September 9th
 
 ## What we will cover
 
+In this class, we will go dipper into statistical adjustment, and specific issues related to collinearity. Additionally, we will start discussing the differences between correlation and causation.
+
+## Recommended readings/videos
+
+- [Ismay, C. & A. Kim. (2021). "Statistical Inference via Data Science". Chapter 6 (section 6.1 and 6.2)](https://moderndive.com/6-multiple-regression.html)
+
+- [Gallo, A. (2015). "A refresher on regression analysis". *Harvard Business Review*](https://hbr.org/2015/11/a-refresher-on-regression-analysis)
 
 ## Slides
 

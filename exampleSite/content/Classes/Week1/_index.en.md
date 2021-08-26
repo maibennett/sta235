@@ -4,10 +4,17 @@ weight: 15
 disableToc: true
 ---
 
-## Date:
+## Date: August 31st - September 2nd
 
 ## What we will cover
 
+In this session, we will review the syllabus in more detail: what you should expect from this class, requirements, grading, among others. We will also start covering material related to regression analysis: A quick overview of OLS regressions in R, data inspection, comparing effect sizes, and outliers.
+
+## Recommended readings/videos
+
+- [Healy, K. (2018). "Data Visualization: A Practical Introduction". Chapter 1 (section 1.1). *Princeton University Press*.](https://socviz.co/lookatdata.html)
+
+- [Ismay, C. & A. Kim. (2021). "Statistical Inference via Data Science". Chapter 10 (sections 10.1 to 10.3)](https://moderndive.com/10-inference-for-regression.html)
 
 ## Slides
 
