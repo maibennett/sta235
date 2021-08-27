@@ -11,10 +11,19 @@ output:
       highlightLines: true
       countIncrementalSlides: false
       ratio: "16:9"
-      beforeInit: "macros.js"
+      beforeInit: ["macros.js"]
     includes:
-      in_header: header.html
+      in_header: ["header.html"]
 ---
+
+<!-- <script type="text/javascript"> -->
+<!-- MathJax.Hub.Config({ -->
+<!--   "HTML-CSS": { -->
+<!--     preferredFont: null, -->
+<!--     webFont:  "Neo-Euler" -->
+<!--   } -->
+<!-- }); -->
+<!-- </script> -->
 
 ```{r setup, include=FALSE, warning=FALSE}
 options(htmltools.dir.version = FALSE)
@@ -92,7 +101,6 @@ style_mono_accent(
     ".section-title h1" = list("color" = "#FFFFFF",
                                "font-size" = "2.3em",
                                "line-height" = "1.3"),
-    ".medium" = list("font-size" = "1.4em"),
     ".sp-after-half" = list("margin-bottom" = "0.7em !important"),
     ".box-1,.box-1a,.box-1s,.box-1b,.box-1l,.box-1LA,.section-title-1" = list("background-color" = "#0D0887"),
     ".box-2,.box-2a,.box-2s,.box-2b,.box-2l,.box-2LA,.section-title-2" = list("background-color" = "#5601A4"),
@@ -258,6 +266,13 @@ style_mono_accent(
                                                                     "text-align" = "center",
                                                                       "font-family" = "Yanone Kaffeesatz",
                                                                     "border-radius" = "15px"),
+   ".medium" = list("font-size" = "35px"),
+   
+   ".medium30" = list("font-size" = "30px"),
+   
+   ".jost-normal" = list("font-family" = "Jost",
+                         "font-size" = "31px"),
+   
    ".image-80 img" = list("scale" = "80%"),
    ".pull-left-little_l" = list("float" = "left",
                                 "width" = "67%"),
@@ -324,6 +339,7 @@ font.add.google("Fira Sans", "Fira Sans")
   - How does OLS work?
   
 - **.darkorange[Inspecting your data]**
+  - What to do with outliers?
 
 - **.darkorange[Comparing effect sizes]** in regressions
 ]
@@ -341,7 +357,7 @@ font.add.google("Fira Sans", "Fira Sans")
   
 - It's a way to (partially) describe a **.darkorange[data generating process (DGP)]**.
 
-.box-2t[$$Y = \alpha + \beta_1 X_1 + \beta_2 X_2 + \varepsilon$$]
+.box-3Trans.medium[$$Y = \alpha + \beta_1 X_1 + \beta_2 X_2 + \varepsilon$$]
 
 - What are $\beta$'s?
 
@@ -355,25 +371,27 @@ font.add.google("Fira Sans", "Fira Sans")
   
 - It's a way to (partially) describe a **.darkorange[data generating process (DGP)]**.
 
-.box-2t[$$Y = \alpha + \beta_1 X_1 + \beta_2 X_2 + \varepsilon$$]
+.box-3Trans.medium[$$Y = \alpha + \beta_1 X_1 + \beta_2 X_2 + \varepsilon$$]
 
 - What are $\beta$'s?
 
   - $\beta$'s are the **.darkorange[population parameters]** we want to estimate.
   - $\hat\beta$ are the **.darkorange[estimates]** of those parameters.
 
-.source[*Shoutout: Slides based on Andrew Heiss' "Program Evaluation for Public Service" course.*]
 
 ---
 # Essential Parts of a Regression
 
 .pull-left[
-.box-2tL.medium.sp-after-half[Y]
-.box-2.medium.sp-after-half[Outcome Variable]
-.box-2.medium.sp-after-half[Response Variable]
-.box-2.medium.sp-after-half[Dependent Variable]
+.box-2tL[Y]
 
-.box-2t.medium.sp-after-half[*Thing you want to explain or predict*]
+.box-2[Outcome Variable]
+
+.box-2[Response Variable]
+
+.box-2[Dependent Variable]
+
+.box-2t[*Thing you want to explain or predict*]
   
 ]
 
@@ -382,78 +400,94 @@ font.add.google("Fira Sans", "Fira Sans")
 # Essential Parts of a Regression
 
 .pull-left[
-.box-2tL.medium.sp-after-half[Y]
-.box-2.medium.sp-after-half[Outcome Variable]
-.box-2.medium.sp-after-half[Response Variable]
-.box-2.medium.sp-after-half[Dependent Variable]
+.box-2tL[Y]
 
-.box-2t.medium.sp-after-half[*Thing you want to explain or predict*]
+.box-2[Outcome Variable]
+
+.box-2[Response Variable]
+
+.box-2[Dependent Variable]
+
+.box-2t[*Thing you want to explain or predict*]
   
 ]
 
 .pull-right[
-.box-2tL.medium.sp-after-half[X]
-.box-2.medium.sp-after-half[Explanatory Variable]
-.box-2.medium.sp-after-half[Predictor Variable]
-.box-2.medium.sp-after-half[Independent Variable]
+.box-2tL[X]
 
-.box-2t.medium.sp-after-half[*Thing you use to explain or predict Y*]
+.box-2[Explanatory Variable]
+
+.box-2[Predictor Variable]
+
+.box-2[Independent Variable]
+
+.box-2t[*Thing you use to explain or predict Y*]
 ]
 
 ---
 # Identify the variables
 
 .pull-left[
-.box-2.medium.sp-after-half[A study examines the effect of smoking on lung cancer]
+.box-2transl.jost-normal[A study examines the effect of smoking on lung cancer]
+<br>
 ]
 
 ---
 # Identify the variables
 
 .pull-left[
-.box-2.medium.sp-after-half[A study examines the effect of smoking on lung cancer]
-.box-4.medium.sp-after-half[Fantasy football fanatics predict the performance of a player based on past performance, health status, and characteristics of the opposite team]
+.box-2transl.jost-normal[A study examines the effect of smoking on lung cancer]
+<br>
+.box-4transl.jost-normal[Fantasy football fanatics predict the performance of a player based on past performance, health status, and characteristics of the opposite team]
 ]
 
 ---
 # Identify the variables
 
 .pull-left[
-.box-2.medium.sp-after-half[A study examines the effect of smoking on lung cancer]
-.box-4.medium.sp-after-half[Fantasy football fanatics predict the performance of a player based on past performance, health status, and characteristics of the opposite team]
+.box-2transl.jost-normal[A study examines the effect of smoking on lung cancer]
+<br>
+.box-4transl.jost-normal[Fantasy football fanatics predict the performance of a player based on past performance, health status, and characteristics of the opposite team]
 ]
 .pull-right[
-.box-5.medium.sp-after-half[You want to see if taking more AP classes in high school improves college grades]
+.box-5transl.jost-normal[You want to see if taking more AP classes in high school improves college grades]
+<br>
 ]
 
 ---
 # Identify the variables
 
 .pull-left[
-.box-2.medium.sp-after-half[A study examines the effect of smoking on lung cancer]
-.box-4.medium.sp-after-half[Fantasy football fanatics predict the performance of a player based on past performance, health status, and characteristics of the opposite team]
+.box-2transl.jost-normal[A study examines the effect of smoking on lung cancer]
+<br>
+.box-4transl.jost-normal[Fantasy football fanatics predict the performance of a player based on past performance, health status, and characteristics of the opposite team]
 ]
 .pull-right[
-.box-5.medium.sp-after-half[You want to see if taking more AP classes in high school improves college grades]
-.box-7.medium.sp-after-half[Netflix uses your past viewing history, the day of the week, and the time of the day to guess which show you want to watch next]
+.box-5transl.jost-normal[You want to see if taking more AP classes in high school improves college grades]
+<br>
+.box-7transl.jost-normal[Netflix uses your past viewing history, the day of the week, and the time of the day to guess which show you want to watch next]
 ]
 ---
 # Two Purposes of Regression
 
 .pull-left[
-.box-3tL.medium.sp-after-half[Prediction]
-.box-3.medium.sp-after-half[Forecast the future]
-.box-3.medium.sp-after-half[Focus is on <b>Y</b>]
+.box-3tL[Prediction]
 
-.box-3tL.medium.sp-after-half[Netflix trying to guess your next show]
+.box-3[Forecast the future]
+
+.box-3[Focus is on <b>Y</b>]
+
+.box-3tL[Netflix trying to guess your next show]
 ]
 --
 .pull-right[
-.box-6tL.medium.sp-after-half[Explanation]
-.box-6.medium.sp-after-half[Explain the effect of <b>X</b> on <b>Y</b>]
-.box-6.medium.sp-after-half[Focus is on <b>X</b>]
+.box-6tL[Explanation]
 
-.box-6tL.medium.sp-after-half[Netflix looking at the effect of time of the day on show selection]
+.box-6[Explain the effect of <b>X</b> on <b>Y</b>]
+
+.box-6[Focus is on <b>X</b>]
+
+.box-6tL[Netflix looking at the effect of time of the day on show selection]
 ]
 ---
 # How do we estimate the coefficients in a regression ?
@@ -670,10 +704,10 @@ plot_ly(data = cookies_data, z = ~happiness, x = ~cookies, y = ~stomach_ache, op
 --
 
 
-.box-6t.medium.sp-after-half[$$Revenue = \alpha + \beta Bechdel + \varepsilon$$]
+.box-6trans.medium[$$Revenue = \alpha + \beta Bechdel + \varepsilon$$]
 --
   
-.box-7LA.medium.sp-after-half[Is this right?]
+.box-7LA[Is this right?]
 
 ---
 .center[
@@ -746,49 +780,176 @@ vtable(rawData)
 ---
 # Look at the data
 
-```{r, results=FALSE, message=FALSE, warning=FALSE}
-# Plot the outcome
+<br>
+
+```{r bechdel_inspect, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+ggplot(data = rawData, aes(x = Adj_Revenue/1000000)) +
+  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5) + 
+  theme_bw()+
+  xlab("Adj. Revenue (MM $)") + ylab("Count") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
 ```
 
+---
+# Look at the data
+
+What can you say about this variable?
+
+```{r bechdel_inspect2, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+ggplot(data = rawData, aes(x = Adj_Revenue/1000000)) +
+  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5) + 
+  theme_bw()+
+  xlab("Adj. Revenue (MM $)") + ylab("Count") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# Logarithms to the rescue?
+
+<br>
+--
+
+```{r bechdel_inspect_log, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+ggplot(data = rawData, aes(x = log((Adj_Revenue+1)/1000000))) +
+  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5) + 
+  theme_bw()+
+  xlab("Adj. Revenue (MM $)") + ylab("Count") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# What to do with outliers?
+
+1. **.darkorange[Check them!]**
+
+  - Make sure there's no coding error; try to understand what's happening there.
+
+--
+
+2a. **.darkorange[If they are wrongly coded]**:
+
+  - You can remove them, always adding a note of why you did so. Issues with the analysis will come from sample selection.
+  
+2b. **.darkorange[If they are correctly coded]**:
+
+  - Run analysis both with and without outliers (don't just drop them!). E.g. Results do not depend exclusively on a few observations.
+  
 ---
 # Let's analyze some models
 
 ```{r results='hide', message=FALSE,echo=FALSE, warning=FALSE}
-bechdel = rawData[rawData$Adj_Revenue>0,]
+bechdel <- rawData %>% filter(Adj_Revenue>0)
 
-bechdel$imdb = bechdel$imdbRating
-
-bechdel$log_Adj_Revenue = log(bechdel$Adj_Revenue)
-bechdel$log_Adj_Budget = log(bechdel$Adj_Budget)
-bechdel$bechdel_test=0
-bechdel$bechdel_test[bechdel$pass_bechdel=="PASS"] = 1
+bechdel <- bechdel %>% rename(imdb = imdbRating) %>%
+  mutate(log_Adj_Revenue = log(Adj_Revenue),
+         log_Adj_Budget = log(Adj_Budget),
+         bechdel_test = ifelse(pass_bechdel=="PASS",1,0))
   
 ```
 ```{r bechdel1, results = FALSE}
-summary(lm(log(Adj_Revenue)~bechdel_test, data=bechdel))
+summary(lm(log(Adj_Revenue) ~ bechdel_test, data = bechdel))
 
 ```
 ```{r bechdel1r,echo=FALSE}
-round(summary(lm(log(Adj_Revenue)~bechdel_test, data=bechdel))$coeff, 4)
+round(summary(lm(log(Adj_Revenue) ~ bechdel_test, data = bechdel))$coeff, 4)
 
 ```
 
+- How do you interpret these results?
+
+--
+
+- What are the units for the dependent variable?
+
+---
+# A side note on log-transformed variables...
+
+.medium30[$$\log(y) = \hat{\beta}_0 + \hat{\beta}_1 x$$]
+
+---
+# A side note on log-transformed variables...
+
+.medium30[$$\log(y) = \hat{\beta}_0 + \hat{\beta}_1 x$$]
+
+.medium30[$$\log(y_{1}) - \log(y_0) = \hat{\beta}_0 + \hat{\beta}_1(x+1) - (\hat{\beta}_0 + \hat{\beta}_1 x)$$]
+
+.medium30[$$\log(\frac{y_{1}}{y_0}) = \hat{\beta}_1$$]
+
+.medium30[$$\log(1+\frac{y_1-y_0}{y_0}) = \hat{\beta}_1$$]
+
+---
+# A side note on log-transformed variables...
+
+.medium30[$$\log(y) = \hat{\beta}_0 + \hat{\beta}_1 x$$]
+
+.medium30[$$\log(y_{1}) - \log(y_0) = \hat{\beta}_0 + \hat{\beta}_1(x+1) - (\hat{\beta}_0 + \hat{\beta}_1 x)$$]
+
+.medium30[$$\log(\frac{y_{1}}{y_0}) = \hat{\beta}_1$$]
+
+.medium30[$$\log(1+\frac{y_1-y_0}{y_0}) = \hat{\beta}_1$$]
+
+.box-7Trans.medium[$$\rightarrow \frac{\Delta y}{y} = \exp(\hat{\hat{\beta}}_1)-1$$]
 
 ---
 # Let's analyze some models
 
 ```{r bechdel12, results = FALSE}
-summary(lm(log(Adj_Revenue)~bechdel_test, data=bechdel))
+summary(lm(log(Adj_Revenue) ~ bechdel_test, data = bechdel))
 
 ```
 ```{r bechdel1r2,echo=FALSE}
-round(summary(lm(log(Adj_Revenue)~bechdel_test, data=bechdel))$coeff, 4)
+round(summary(lm(log(Adj_Revenue) ~ bechdel_test, data = bechdel))$coeff, 4)
 
 ```
 - $(e^{\beta}-1)\cdot 100 \rightarrow$ A movie that passes the Bechdel test is associated with a 36% decrease in Revenue
 <br>
 <br>
-.box-3LA.medium.sp-after-half[Negative effect of including more women?]
+.box-3LA[Negative effect of including more women?]
 
 ---
 # What gives?
@@ -822,7 +983,7 @@ round(summary(lm(log(Adj_Revenue)~bechdel_test+log(Adj_Budget) + Metascore + imd
 
 ```
 <br>
-.box-3LA.medium.sp-after-half[Positive and significant!]
+.box-3LA[Positive and significant!]
 
 ---
 # Comparing effect sizes
@@ -844,11 +1005,11 @@ round(summary(lm(log(Adj_Revenue)~bechdel_test+log(Adj_Budget) + Metascore + imd
 
 - **.darkorange[Main idea:]** Transform everything to the same scale (standard deviations)
 
-.box-4.medium.sp-after-half[$$X$$]
+.box-4[$$X$$]
 .center[
 ![:scale 3%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/arrow.png)
 ]
-.box-4.medium.sp-after-half[$$\frac{X - \bar{X}}{\sigma_X}$$]
+.box-4[$$\frac{X - \bar{X}}{\sigma_X}$$]
 
 - Will this change our estimates? How?
 
@@ -874,154 +1035,6 @@ round(summary(lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb,
 
 ```
 ---
-# Does this model explain well the observed data?
-.center[
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/linear_regression.png)
-]
----
-# Some measures to quantify uncertainty
-
-- $\mathbf{R^2}$: Correlation between the outcome $\mathbf{Y}$ and the predicted variable $\mathbf{\hat{Y}}$.
-
-$$R^2 = 1 - \frac{RSS}{TSS}$$
-Where:
-  - $RSS = \sum{(y-\hat{y})^2}$ is the residual sum of the squares
-  - $TSS = \sum{(y-\bar{y})^2}$ is the total sum of squares (proportional to the variance of the data)
-  
-- $\mathbf{R^2}$ is non-decreasing when adding new variables.
-
----
-# Some measures to quantify uncertainty
-
-- $\mathbf{R^2}$: Correlation between the outcome $\mathbf{Y}$ and the predicted variable $\mathbf{\hat{Y}}$.
-
-$$R^2 = 1 - \frac{RSS}{TSS}$$
-Where:
-  - $RSS = \sum{(y-\hat{y})^2}$ is the residual sum of the squares
-  - $TSS = \sum{(y-\bar{y})^2}$ is the total sum of squares (proportional to the variance of the data)
-  
-- $\mathbf{R^2}$ is non-decreasing when adding new variables.
---
-$$R^2_{adj} = 1 - \frac{(1-R^2)(n-1)}{(n-p-1)}$$
----
-# Some measures to quantify uncertainty (cont.)
-
-- **.darkorange[Residual Squared Error (RSE)]**: Measure of the SD of error term $\varepsilon$
-
-$$RSE = \sqrt{\frac{1}{n-p+1}RSS}$$
-- What happens if $p$ increases?
-
----
-# Some measures to quantify uncertainty (cont.)
-
-.small[
-```{r bechdel4r}
-summary(lm(log(Adj_Revenue) ~ bechdel_test +log(Adj_Budget) + Metascore + imdb, 
-           data=bechdel), digits = 4)
-
-```
-]
-
----
-# Let's look at the residuals
-
-
-```{r bechdel5, eval=FALSE}
-
-bechdel_fitted <- augment(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb
-                              , data = bechdel))
-
-
-ggplot(data = bechdel_fitted, aes(x = .fitted, y = .std.resid)) + 
-  geom_point()
-
-```
-
-- You can also use the functions `predict(lm(Y ~ X + Z))` and `resid(lm(Y ~ X + Z))` to obtain the fitted values and residuals, respectively.
-
----
-# Let's look at the residuals (cont.)
-```{r bechdel5r, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-bechdel_fitted <- augment(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdbRating, 
-                             data = bechdel))
-
-
-ggplot(data = bechdel_fitted, aes(x = .fitted, y = .std.resid)) + 
-  geom_point(color = "#E16462", fill = alpha("#E16462",0.4), pch=22, size = 3)+
-  geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1.3)+
-  theme_bw()+
-  xlab("Y_hat") + ylab("Residuals") +
-  ggplot2::annotate("text", x = 10, y = 6, label = "Adj. R2 = 0.48", size = 6, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
-  theme_bw()+
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-# What happens if we add additional variables?
-
-```{r bechdel6, eval=FALSE}
-
-bechdel_fitted2 <- augment(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdb +
-                                Year + English + USA + factor(Rated), data = bechdel))
-
-
-ggplot(data = bechdel_fitted2, aes(x = .fitted, y = .std.resid)) + 
-  geom_point()
-
-```
-
----
-# What happens with additional variables? (cont.)
-```{r bechdel6r, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-bechdel_fitted2 <- augment(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdbRating +
-                                Year + English + USA + factor(Rated), data = bechdel))
-
-
-ggplot(data = bechdel_fitted, aes(x = .fitted, y = .std.resid)) +
-  geom_point(color = "dark grey", fill = alpha("dark grey",0.4), pch=22, size = 3) +
-  geom_point(data = bechdel_fitted2, aes(x = .fitted, y = .std.resid),
-             color = "#BF3984", fill = alpha("#BF3984",0.4), pch=21, size = 3)+
-  geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1.3)+
-  theme_bw()+
-  xlab("Y_hat") + ylab("Residuals") +
-  
-  #annotate("text", x = 12, y = 0, label = "some text") + 
-  ggplot2::annotate("text", x = 10, y = 6, label = "Adj. R2 = 0.54", size = 6, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
-  
-  theme_bw()+
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
----
 # Main takeaway points
 
 - Data can tell different stories depending on how you handle it.
@@ -1036,7 +1049,7 @@ ggplot(data = bechdel_fitted, aes(x = .fitted, y = .std.resid)) +
 
   - Does that mean that we can get data to say **.darkorange[anything]**?
 
-.box-5.medium.sp-after-half["If you torture the data long enough, it will confess to anything"]
+.box-5["If you torture the data long enough, it will confess to anything"]
 
 - Assumptions and measures matter.
 
@@ -1047,7 +1060,7 @@ ggplot(data = bechdel_fitted, aes(x = .fitted, y = .std.resid)) +
 
   - Does that mean that we can get data to say **.darkorange[anything]**?
 
-.box-5.medium.sp-after-half["If you torture the data long enough, it will confess to anything"]
+.box-5["If you torture the data long enough, it will confess to anything"]
 
 - Assumptions and measures matter.
 
@@ -1061,7 +1074,7 @@ ggplot(data = bechdel_fitted, aes(x = .fitted, y = .std.resid)) +
 
   - Statistical adjustment and collinearity
 
-- Model with discrete responses: **.darkorange[Binary outcomes]**
+- Assumptions for **.darkorange[OLS]**
 
 - In the following weeks, we will start with **.darkorange[Causal Inference]**.
 
@@ -1070,7 +1083,7 @@ ggplot(data = bechdel_fitted, aes(x = .fitted, y = .std.resid)) +
 
 - Heiss, A. (2020). "Course: Program Evaluation for Public Service". *Slides for Regression and Inference*.
 
-- James, G. et al. (2017). "Introduction to Statistical Learning with Applications in R". *Chapter 3*
+- Ismay, C. & A. Kim. (2021). “Statistical Inference via Data Science”. Chapter 10.
 
 - Keegan, B. (2018). "The Need for Openess in Data Journalism". *[Github Repository](https://github.com/brianckeegan/Bechdel/blob/master/Bechdel_test.ipynb)*
 

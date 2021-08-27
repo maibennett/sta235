@@ -33,12 +33,89 @@ rawData <- rawData %>% mutate(ROI = Revenue/Budget, #  Total ROI
 
 vtable(rawData) # Q: What do you see? Which variables would you pay the most attention to? What else would you explore?
 
+# We will use `Adj_Revenue` as the outcome. Why adjusted?
 # Plot the outcome: How would you do it? (Hint: Histograms can be useful)
+
+ggplot(data = rawData, aes(x = Adj_Revenue/1000000)) +
+  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5) + # color: line color, fill: fill color, lwd: line width.
+  theme_bw()+
+  xlab("Adj. Revenue (MM $)") + ylab("Count") +
+  # These are options to make the plot look nicer
+  theme(axis.title.x = element_text(size=18), # This changes size of the x-axis title
+        axis.text.x = element_text(size=14), # This changes size of the x-axis text
+        axis.title.y = element_text(size=18),
+        axis.text.y = element_text(size=14),
+        legend.position="none", # With this I can eliminate a legend (don't need it). If you do need one, you can position it e.g. c(0.9,0.9)  <-- this would be top-right
+        title = element_text(size=18), # If I had a title, this would be the size of the text.
+        plot.margin=unit(c(1,1,1.5,1.2),"cm"), # I can also adjust margins
+        panel.grid = element_blank(), # I want to eliminate grid lines (you can also use panel.grid.major.x or panel.grid.minor.y, etc. depending the grid lines you want to incorporate)
+        axis.line = element_line(colour = "dark grey"))
+
+
+# Let's transform our outcome with a logarithm. What do we get?
+ggplot(data = rawData, aes(x = log(Adj_Revenue/1000000))) +
+  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5) +
+  theme_bw()+
+  xlab("Adj. Revenue (MM $)") + ylab("Count") +
+  theme(axis.title.x = element_text(size=18),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),
+        axis.text.y = element_text(size=14),
+        legend.position="none",
+        title = element_text(size=18),
+        plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid = element_blank(),
+        axis.line = element_line(colour = "dark grey"))
+
+
+# Let's only look only a the movies with positive revenue (we're optimistic)
+
+bechdel <- rawData %>% #....complete the code here
+  
+bechdel <- bechdel %>% rename(imdb = imdbRating) %>%
+  mutate(log_Adj_Revenue = log(Adj_Revenue),
+         log_Adj_Budget = log(Adj_Budget),
+         bechdel_test = ifelse(pass_bechdel=="PASS",1,0))
+
+
+# Let's run some models
+
+lm_simple <- lm(log(Adj_Revenue) ~ bechdel_test, data = bechdel)
+
+summary(lm_simple) # Question: Recover the coefficient and interpret it as a % change.
+
+# Now include other covariates
+
+lm_multi <- lm()#... complete)
+
+
+# Standardize the variables:
+
+# The function `scale2()` takes two arguments: a variable x and a logical value
+# (which says whether we include missing values or not in the calculations)
+
+scale2 <- function(x, na.rm = FALSE){
+  # Anything that's between return() parenthesis is what the function will return.
+  # In this case, it substracts the mean and divides by the SD of x
+  return((x - mean(x, na.rm = na.rm)) / sd(x, na.rm))
+} 
+
+# Create a new dataset with standardized variables:
+bechdel_std <- bechdel %>% select(log_Adj_Revenue,log_Adj_Budget, 
+                                  bechdel_test, Metascore, imdbRating) %>%
+  mutate_all(.,~scale2(.,na.rm=TRUE))
+
+summary(lm(log_Adj_Revenue ~ bechdel_test + log_Adj_Budget + Metascore + imdbRating, 
+           data=bechdel_std))
+
+## Q: How do the effects compare?
+
+
 
 
 
 ################################################################################
-### Replicating plots from class with different data
+### Additional code (if you want to check it at home)
 ################################################################################
 
 # Load advertising data from ISLR (and read it as a tibble)
@@ -70,8 +147,6 @@ adv_with_residual <- adv_base +
   geom_segment(aes(xend = TV, yend = Sales_hat), color = alpha("#BF3984",0.5), size = 0.8)
 
 adv_with_residual
-
-
 
 
 # Multiple regression
@@ -114,80 +189,3 @@ plot_ly(data = d, z = ~Sales, x = ~TV, y = ~Newspaper, opacity = 1,
       yaxis = list(title = "Newspaper"),
       zaxis = list(title = "Sales")
     ))
-
-
-
-################################################################################
-### Bechdel Test
-################################################################################
-
-rawData <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/data/bechdel.csv")
-
-# Select movies post-1990
-bechdel <- rawData[rawData$Year>1989,]
-
-# Generate new variables:
-bechdel <- bechdel %>% mutate(ROI = Revenue/Budget,
-                              bechdel_test = as.numeric(rating==3))
-
-# Keep only movies with positive revenue:
-bechdel <- bechdel[bechdel$Adj_Revenue>0,]
-
-# Run the simple regression model:
-summary(lm(log(Adj_Revenue)~bechdel_test, data=bechdel))
-
-# Run the multiple regression model:
-summary(lm(log(Adj_Revenue) ~ bechdel_test + log(Adj_Budget) + Metascore + imdbRating, data=bechdel))
-
-## Q: How do they compare?
-
-# Standardize the variables:
-
-# The function `scale2()` takes two arguments: a variable x and a logical value
-# (which says whether we include missing values or not in the calculations)
-
-scale2 <- function(x, na.rm = FALSE){
-  # Anything that's between return() parenthesis is what the function will return.
-  # In this case, it substracts the mean and divides by the SD of x
-  return((x - mean(x, na.rm = na.rm)) / sd(x, na.rm))
-} 
-
-# Create a new dataset with standardized variables:
-bechdel_std <- bechdel %>% select(Adj_Revenue,Adj_Budget, 
-                                  bechdel_test, Metascore, imdbRating) %>%
-  mutate(log_Adj_Revenue = log(Adj_Revenue),
-         log_Adj_Budget = log(Adj_Budget)) %>%
-  mutate_all(.,~scale2(.,na.rm=TRUE))
-
-summary(lm(log_Adj_Revenue ~ bechdel_test + log_Adj_Budget + Metascore + imdbRating, 
-           data=bechdel_std))
-
-## Q: How do the effects compare?
-
-# Let's look at the residuals
-library(generics)
-
-# Takes the data and creates a new dataframe which is a subset of the original, including fitted values, residuals, etc.
-bechdel_fitted <- augment(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdbRating, 
-                             data = bechdel))
-
-
-ggplot(data = bechdel_fitted, aes(x = .fitted, y = .std.resid)) + 
-  geom_point(color = "#E16462", fill = alpha("#E16462",0.4), pch=21, size = 3)+
-  geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1.3)+
-  theme_bw()+
-  xlab("Y_hat") + ylab("Residuals")
-
-# Let's run a second model with additional variables:
-
-bechdel_fitted2 <- augment(lm(log(Adj_Revenue) ~ bechdel_test+log(Adj_Budget) + Metascore + imdbRating +
-                                Year + English + USA + factor(Rated), data = bechdel))
-
-
-ggplot(data = bechdel_fitted, aes(x = .fitted, y = .std.resid)) +
-  geom_point(color = "dark grey", fill = alpha("dark grey",0.4), pch=22, size = 3) +
-  geom_point(data = bechdel_fitted2, aes(x = .fitted, y = .std.resid),
-             color = "#E16462", fill = alpha("#E16462",0.4), pch=21, size = 3)+
-  geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1.3)+
-  theme_bw()+
-  xlab("Y_hat") + ylab("Residuals")
