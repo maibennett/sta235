@@ -494,7 +494,7 @@ font.add.google("Fira Sans", "Fira Sans")
 .pull-left[
 - **.darkorange[Ordinary Least Squares]** is the most popular way.
 
-$$\min_{\beta} \sum[Y_i - (\sum_{j=1}^p\beta_j X_{ij})]^2$$
+$$\min_{\beta} \sum[Y_i - (\sum_{j=1}^p\beta_jX_{ij})]^2$$
 ]
 --
 .pull-right[
@@ -933,7 +933,7 @@ round(summary(lm(log(Adj_Revenue) ~ bechdel_test, data = bechdel))$coeff, 4)
 
 .medium30[$$\log(1+\frac{y_1-y_0}{y_0}) = \hat{\beta}_1$$]
 
-.box-7Trans.medium[$$\rightarrow \frac{\Delta y}{y} = \exp(\hat{\hat{\beta}}_1)-1$$]
+.box-7Trans.medium30[$$\rightarrow \frac{\Delta y}{y} = \exp(\hat{\hat{\beta}}_1)-1$$]
 
 ---
 # Let's analyze some models
@@ -1005,11 +1005,11 @@ round(summary(lm(log(Adj_Revenue)~bechdel_test+log(Adj_Budget) + Metascore + imd
 
 - **.darkorange[Main idea:]** Transform everything to the same scale (standard deviations)
 
-.box-4[$$X$$]
+.box-4Trans.medium30[$$X$$]
 .center[
 ![:scale 3%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/arrow.png)
 ]
-.box-4[$$\frac{X - \bar{X}}{\sigma_X}$$]
+.box-4Trans.medium30[$$\frac{X - \bar{X}}{\sigma_X}$$]
 
 - Will this change our estimates? How?
 
@@ -1029,11 +1029,15 @@ lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb,
    data=bechdel_std)
 
 ```
+
 ```{r bechdel3r, echo=FALSE}
 round(summary(lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb, 
            data=bechdel_std))$coeff[1:5,],4)
 
 ```
+
+- What are the units on `bechdel_test` now? Does it make sense?
+
 ---
 # Main takeaway points
 
@@ -1070,6 +1074,7 @@ round(summary(lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb,
 ---
 # Next class
 
+.pull-left[
 - Finishing with **.darkorange[multiple regression models]**:
 
   - Statistical adjustment and collinearity
@@ -1077,6 +1082,12 @@ round(summary(lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb,
 - Assumptions for **.darkorange[OLS]**
 
 - In the following weeks, we will start with **.darkorange[Causal Inference]**.
+]
+
+.pull-right[
+
+![](https://media.giphy.com/media/1Q9AekyhJ2U5bdTzdr/giphy.gif?cid=ecf05e47lcna24lgv5gbpkiciso4ykvxq9urjrc5d50bfq8b&rid=giphy.gif&ct=g)
+]
 
 ---
 # References
