@@ -16,6 +16,10 @@ In this class, we will go dipper into statistical adjustment, and specific issue
 
 - [Gallo, A. (2015). "A refresher on regression analysis". *Harvard Business Review*](https://hbr.org/2015/11/a-refresher-on-regression-analysis)
 
+## JITT
+
+Complete before **Sunday Sep 5th (11:59 pm)** (if your section is on Tue) or **Tuesday Sep 7th (11:59 pm)** (if your section is on Thu). The assignment will be posted soon. <!-- You can find the assignment [here](https://forms.gle/TMdFqFJ7pfoFwigP7). -->
+
 ## Slides
 
 <!-- {{% button href="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 

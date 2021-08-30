@@ -18,6 +18,10 @@ In this session, we will fully dive into Causal Inference: Potential outcomes fr
 
 {{< youtube src="https://www.youtube.com/embed/iPBV3BlV7jk?controls=0" >}}
 
+## JITT
+
+Complete before **Sunday Sep 12th (11:59 pm)** (if your section is on Tue) or **Tuesday Sep 14th (11:59 pm)** (if your section is on Thu). The assignment will be posted soon. <!-- You can find the assignment [here](https://forms.gle/TMdFqFJ7pfoFwigP7). -->
+
 ## Slides
 
 <!-- {{% button href="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
