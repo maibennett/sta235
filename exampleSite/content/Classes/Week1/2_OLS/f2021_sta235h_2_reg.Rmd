@@ -1099,4 +1099,4 @@ round(summary(lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb,
 - Keegan, B. (2018). "The Need for Openess in Data Journalism". *[Github Repository](https://github.com/brianckeegan/Bechdel/blob/master/Bechdel_test.ipynb)*
 
 
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week1/2_OLS/sp2021_sta235_2_reg.html') -->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week1/2_OLS/f2021_sta235h_2_reg.html') -->
