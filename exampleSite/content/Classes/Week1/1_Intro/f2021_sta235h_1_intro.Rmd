@@ -798,7 +798,7 @@ By **.darkorange[Hernán, Hsu, and Healy:]**
 
 .box-2tL.medium.sp-after-half[Can we classify our customers into different segments?]
 --
-.box-4tL.medium.sp-after-half[What is the probability of a shopper to come back to our website?]
+.box-4tL.medium.sp-after-half[What is the probability of a shopper coming back to our website?]
 --
 .box-7tL.medium.sp-after-half[What is the effect of increasing our advertising budget on our total revenue?]
 
