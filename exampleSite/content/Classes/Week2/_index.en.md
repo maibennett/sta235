@@ -18,7 +18,7 @@ In this class, we will go dipper into statistical adjustment, and specific issue
 
 ## JITT
 
-Complete before **Sunday Sep 5th (11:59 pm)** (if your section is on Tue) or **Tuesday Sep 7th (11:59 pm)** (if your section is on Thu). The assignment will be posted soon. <!-- You can find the assignment [here](https://forms.gle/TMdFqFJ7pfoFwigP7). -->
+Complete before **Sunday Sep 5th (11:59 pm)** (if your section is on Tue) or **Tuesday Sep 7th (11:59 pm)** (if your section is on Thu). You can find the assignment [here](https://forms.gle/7yAgw1GpXTGXDg4U8).
 
 ## Slides
 
