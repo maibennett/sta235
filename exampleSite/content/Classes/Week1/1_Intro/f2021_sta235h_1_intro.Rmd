@@ -466,7 +466,7 @@ class: center, middle
 background-position: 50% 50%
 class: center, middle
 
-.box-1Trans[Keep yourself and other SAFE]
+.box-1Trans[Keep yourself and others SAFE]
 
 ---
 background-position: 50% 50%
@@ -830,6 +830,21 @@ class: center, middle
 
 <br>
 .box-7Trans[2) Be critical consumers of "Data Science"]
+
+---
+# Some notes before the break
+
+- We will be using a **.darkorange[sitting chart]** for contact-tracing purposes:
+
+  - Choose your preferred seat during the break and then write it down on the sitting chart I'll pass around.
+  
+--
+
+
+- "Services for Students with Disabilities (SSD) is seeking the assistance of students to serve as **.darkorange[volunteer notetakers]**."
+
+  - Volunteers will be eligible to receive volunteer hours in appreciation for their time. 
+  - If you are a good notetaker and interested in helping other students, please contact me after class.
 
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week1/1_Intro/f2021_sta235h_1_intro.html') -->
 
