@@ -86,8 +86,9 @@ summary(lm_simple) # Question: Recover the coefficient and interpret it as a % c
 
 # Now include other covariates
 
-lm_multi <- lm()#... complete)
+lm_multi <- lm(log(Adj_Revenue) ~ bechdel_test + log(Adj_Budget) + Metascore + imdb, data = bechdel)#... complete)
 
+summary(lm_multi)
 
 # Standardize the variables:
 
