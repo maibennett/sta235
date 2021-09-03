@@ -1,9 +1,9 @@
 ---
-title: Homework Assignments
+title: Homework
 weight: 15
 chapter: false
 ---
 
-- **[Homework 1]**: *It will be posted on Sep. 9th.* Due on <u>Thursday, Sep. 16th</u> on Canvas. 
+- **Homework 1**: Due on <u>Thursday, Sep. 16th</u> on Canvas. (*It will be posted on Sep. 9th*) 
 
 
