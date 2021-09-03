@@ -391,7 +391,7 @@ Let's review the syllabus
 
 <br>
 
-.box-7Trans[12% fo students found it!]
+.box-7Trans[12% of students found it!]
 
 ---
 # About this course
@@ -834,7 +834,7 @@ class: center, middle
 ---
 # Some notes before the break
 
-- We will be using a **.darkorange[sitting chart]** for contact-tracing purposes:
+- We will be using a **.darkorange[seating chart]** for contact-tracing purposes:
 
   - Choose your preferred seat during the break and then write it down on the sitting chart I'll pass around.
   
