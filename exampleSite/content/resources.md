@@ -2,6 +2,12 @@
 ---
 # Resources
 
+### Refresher from STA 301
+
+In these notes, you can get a refresher from the material covered in STA 301:
+
+- Scott, J. (2021). ["Data Science in R: A Gentle Introduction"](https://bookdown.org/jgscott/DSGI/).
+
 ### R resources
 
 For those that want some R refresher, these resources can be useful:
