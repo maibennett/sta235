@@ -1,5 +1,5 @@
 ##########################################################
-### Title: "Week 1 - Multiple Regression"
+### Title: "Week 1 and 2 - Multiple Regression"
 ### Course: STA 235H
 ### Semester: Fall 2021
 ### Professor: Magdalena Bennett
