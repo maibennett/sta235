@@ -368,7 +368,7 @@ font.add.google("Fira Sans", "Fira Sans")
   - Interaction models
   
 - **.darkorange[Potential issues in regressions:]**
-  - Multicolinearity
+  - Multicollinearity
   - Heteroskedasticity
 ]
 
