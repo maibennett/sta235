@@ -85,9 +85,9 @@ lm_simple <- lm(log(Adj_Revenue) ~ bechdel_test, data = bechdel)
 
 summary(lm_simple) # Question: Recover the coefficient and interpret it as a % change.
 
-# Now include other covariates (like budget, metascore, and imdb rating)
+# Now include other covariates
 
-lm_multi <- lm()#... complete
+lm_multi <- lm()#... complete)
 
 
 # Standardize the variables:
