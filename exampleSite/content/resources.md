@@ -12,6 +12,8 @@ In these notes, you can get a refresher from the material covered in STA 301:
 
 For those that want some R refresher, these resources can be useful:
 
+- [Introduction to Data Science](https://rafalab.github.io/dsbook/) by R. Irizarri (2021). Check out specifically [R Basics](https://rafalab.github.io/dsbook/r-basics.html), [the tidyverse](https://rafalab.github.io/dsbook/tidyverse.html), and [ggplot](https://rafalab.github.io/dsbook/ggplot2.html).
+
 - [YouTube Playlist](https://youtube.com/playlist?list=PL8Yi9OGQMf2EFHkS8-n5AXuaFpD_rXdoA) by Prof. James Scott, used in STA 301.
 
 - [An introduction to R](https://stat545.com/) (with a focus on the tidyverse) by Jenny Bryan.
