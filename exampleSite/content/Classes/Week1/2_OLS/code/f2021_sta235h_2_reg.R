@@ -71,7 +71,7 @@ ggplot(data = rawData, aes(x = log(Adj_Revenue/1000000))) +
 
 # Let's only look only a the movies with positive revenue (we're optimistic)
 
-bechdel <- rawData %>% #....complete the code here
+bechdel <- rawData %>% filter(Adj_Revenue>0)
   
 bechdel <- bechdel %>% rename(imdb = imdbRating) %>%
   mutate(log_Adj_Revenue = log(Adj_Revenue),
@@ -87,7 +87,7 @@ summary(lm_simple) # Question: Recover the coefficient and interpret it as a % c
 
 # Now include other covariates (like budget, metascore, and imdb rating)
 
-lm_multi <- lm()#... complete
+lm_multi <- lm(log(Adj_Revenue) ~ pass_bechdel + log(Adj_Budget) + Metascore + imdb, data = bechdel)#... complete
 
 
 # Standardize the variables:
@@ -103,10 +103,11 @@ scale2 <- function(x, na.rm = FALSE){
 
 # Create a new dataset with standardized variables:
 bechdel_std <- bechdel %>% select(log_Adj_Revenue,log_Adj_Budget, 
-                                  bechdel_test, Metascore, imdbRating) %>%
-  mutate_all(.,~scale2(.,na.rm=TRUE))
+                                  bechdel_test, Metascore, imdb) %>%
+  mutate_at(vars(log_Adj_Budget, bechdel_test, Metascore, imdb),
+            ~scale2(.,na.rm=TRUE))
 
-summary(lm(log_Adj_Revenue ~ bechdel_test + log_Adj_Budget + Metascore + imdbRating, 
+summary(lm(log_Adj_Revenue ~ bechdel_test + log_Adj_Budget + Metascore + imdb, 
            data=bechdel_std))
 
 ## Q: How do the effects compare?
