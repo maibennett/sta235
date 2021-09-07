@@ -71,7 +71,7 @@ ggplot(data = rawData, aes(x = log(Adj_Revenue/1000000))) +
 
 # Let's only look only a the movies with positive revenue (we're optimistic)
 
-bechdel <- rawData %>% filter(Adj_Revenue>0)
+bechdel <- rawData %>% #... complete
   
 bechdel <- bechdel %>% rename(imdb = imdbRating) %>%
   mutate(log_Adj_Revenue = log(Adj_Revenue),
@@ -87,7 +87,7 @@ summary(lm_simple) # Question: Recover the coefficient and interpret it as a % c
 
 # Now include other covariates (like budget, metascore, and imdb rating)
 
-lm_multi <- lm(log(Adj_Revenue) ~ pass_bechdel + log(Adj_Budget) + Metascore + imdb, data = bechdel)#... complete
+lm_multi <- lm()#... complete
 
 
 # Standardize the variables:
