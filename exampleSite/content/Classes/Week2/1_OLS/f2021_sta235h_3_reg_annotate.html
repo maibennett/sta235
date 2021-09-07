@@ -92,7 +92,7 @@ class: center, middle, inverse, title-slide
   - Interaction models
   
 - **.darkorange[Potential issues in regressions:]**
-  - Multicolinearity
+  - Multicollinearity
   - Heteroskedasticity
 ]
 
@@ -362,7 +362,8 @@ lm(log(Adj_Revenue) ~ bechdel_test + log(Adj_Budget) + Metascore + imdb, data = 
 
 bechdel_std &lt;- bechdel %&gt;% select(log_Adj_Revenue,log_Adj_Budget, 
                                   bechdel_test, Metascore, imdb) %&gt;% 
-  mutate_all(., ~scale2(.,na.rm=TRUE))
+  mutate_at(vars(log_Adj_Budget, bechdel_test, Metascore, imdb),
+            ~scale2(.,na.rm=TRUE))
 
 lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb, 
    data = bechdel_std)
@@ -370,12 +371,12 @@ lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb,
 
 
 ```
-##                Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)      0.3384     0.0138 24.5385   0.0000
-## bechdel_test     0.0476     0.0139  3.4229   0.0006
-## log_Adj_Budget   0.4683     0.0139 33.6160   0.0000
-## Metascore        0.0706     0.0205  3.4512   0.0006
-## imdb             0.0342     0.0205  1.6716   0.0948
+##                Estimate Std. Error  t value Pr(&gt;|t|)
+## (Intercept)     17.5882     0.0328 537.0138   0.0000
+## bechdel_test     0.1129     0.0330   3.4229   0.0006
+## log_Adj_Budget   1.1122     0.0331  33.6160   0.0000
+## Metascore        0.1676     0.0486   3.4512   0.0006
+## imdb             0.0812     0.0486   1.6716   0.0948
 ```
 
 - What are the units on `bechdel_test` now? Does it make sense?
@@ -389,7 +390,8 @@ scale2 &lt;- function(x, na.rm = FALSE) (x - mean(x, na.rm = na.rm)) / sd(x, na.
 
 *bechdel_std &lt;- bechdel %&gt;% select(log_Adj_Revenue,log_Adj_Budget,
 *                                 bechdel_test, Metascore, imdb) %&gt;%
-  mutate_all(., ~scale2(.,na.rm=TRUE))
+  mutate_at(vars(log_Adj_Budget, bechdel_test, Metascore, imdb),
+            ~scale2(.,na.rm=TRUE))
 
 lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb, 
    data = bechdel_std)
@@ -397,12 +399,12 @@ lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb,
 
 
 ```
-##                Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)      0.3384     0.0138 24.5385   0.0000
-## bechdel_test     0.0476     0.0139  3.4229   0.0006
-## log_Adj_Budget   0.4683     0.0139 33.6160   0.0000
-## Metascore        0.0706     0.0205  3.4512   0.0006
-## imdb             0.0342     0.0205  1.6716   0.0948
+##                Estimate Std. Error  t value Pr(&gt;|t|)
+## (Intercept)     17.5882     0.0328 537.0138   0.0000
+## bechdel_test     0.1129     0.0330   3.4229   0.0006
+## log_Adj_Budget   1.1122     0.0331  33.6160   0.0000
+## Metascore        0.1676     0.0486   3.4512   0.0006
+## imdb             0.0812     0.0486   1.6716   0.0948
 ```
 
 - What are the units on `bechdel_test` now? Does it make sense?
@@ -417,7 +419,7 @@ scale2 &lt;- function(x, na.rm = FALSE) (x - mean(x, na.rm = na.rm)) / sd(x, na.
 
 bechdel_std &lt;- bechdel %&gt;% select(log_Adj_Revenue,log_Adj_Budget,
                                   bechdel_test, Metascore, imdb) %&gt;%
-* mutate_all(., ~scale2(.,na.rm=TRUE))
+* mutate_at(vars(log_Adj_Budget, bechdel_test, Metascore, imdb),~scale2(.,na.rm=TRUE))
 
 lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb, 
    data = bechdel_std)
@@ -425,12 +427,12 @@ lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb,
 
 
 ```
-##                Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)      0.3384     0.0138 24.5385   0.0000
-## bechdel_test     0.0476     0.0139  3.4229   0.0006
-## log_Adj_Budget   0.4683     0.0139 33.6160   0.0000
-## Metascore        0.0706     0.0205  3.4512   0.0006
-## imdb             0.0342     0.0205  1.6716   0.0948
+##                Estimate Std. Error  t value Pr(&gt;|t|)
+## (Intercept)     17.5882     0.0328 537.0138   0.0000
+## bechdel_test     0.1129     0.0330   3.4229   0.0006
+## log_Adj_Budget   1.1122     0.0331  33.6160   0.0000
+## Metascore        0.1676     0.0486   3.4512   0.0006
+## imdb             0.0812     0.0486   1.6716   0.0948
 ```
 
 - What are the units on `bechdel_test` now? Does it make sense?
@@ -478,7 +480,7 @@ lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb,
 - Keegan, B. (2018). "The Need for Openess in Data Journalism". *[Github Repository](https://github.com/brianckeegan/Bechdel/blob/master/Bechdel_test.ipynb)*
 
 
-&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week1/2_OLS/f2021_sta235h_2_reg.html') --&gt;
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week2/1_OLS/f2021_sta235h_3_reg.html') --&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

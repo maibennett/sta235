@@ -732,7 +732,8 @@ scale2 <- function(x, na.rm = FALSE) (x - mean(x, na.rm = na.rm)) / sd(x, na.rm)
 
 bechdel_std <- bechdel %>% select(log_Adj_Revenue,log_Adj_Budget, 
                                   bechdel_test, Metascore, imdb) %>% 
-  mutate_all(., ~scale2(.,na.rm=TRUE))
+  mutate_at(vars(log_Adj_Budget, bechdel_test, Metascore, imdb),
+            ~scale2(.,na.rm=TRUE))
 
 lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb, 
    data = bechdel_std)
@@ -756,7 +757,8 @@ scale2 <- function(x, na.rm = FALSE) (x - mean(x, na.rm = na.rm)) / sd(x, na.rm)
 
 bechdel_std <- bechdel %>% select(log_Adj_Revenue,log_Adj_Budget,  #<<
                                   bechdel_test, Metascore, imdb) %>% #<<
-  mutate_all(., ~scale2(.,na.rm=TRUE))
+  mutate_at(vars(log_Adj_Budget, bechdel_test, Metascore, imdb),
+            ~scale2(.,na.rm=TRUE))
 
 lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb, 
    data = bechdel_std)
@@ -781,7 +783,7 @@ scale2 <- function(x, na.rm = FALSE) (x - mean(x, na.rm = na.rm)) / sd(x, na.rm)
 
 bechdel_std <- bechdel %>% select(log_Adj_Revenue,log_Adj_Budget,
                                   bechdel_test, Metascore, imdb) %>%
-  mutate_all(., ~scale2(.,na.rm=TRUE)) #<<
+  mutate_at(vars(log_Adj_Budget, bechdel_test, Metascore, imdb),~scale2(.,na.rm=TRUE)) #<<
 
 lm(log_Adj_Revenue~bechdel_test+log_Adj_Budget + Metascore + imdb, 
    data = bechdel_std)
