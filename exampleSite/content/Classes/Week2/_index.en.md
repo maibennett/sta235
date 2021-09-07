@@ -38,4 +38,4 @@ Here are the two R scripts we will review in class, with some additional data an
 
 <a onclick="ga('send', 'event', 'External-Link','click','code1','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/code/f2021_sta235h_2_reg.R" target="_blank" class="btn btn-default">Download (Code Week 1)<i class="fas fa-code"></i></a> 
 
-<a onclick="ga('send', 'event', 'External-Link','click','code2','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/2_OLS_probs/code/f2021_sta235h_4_reg.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+<a onclick="ga('send', 'event', 'External-Link','click','code2','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/2_OLS_probs/code/f2021_sta235h_4_reg_prob.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
