@@ -20,7 +20,7 @@ In this session, we will fully dive into Causal Inference: Potential outcomes fr
 
 ## JITT
 
-Complete before **Sunday Sep 12th (11:59 pm)** (if your section is on Tue) or **Tuesday Sep 14th (11:59 pm)** (if your section is on Thu). The assignment will be posted soon. You can find the assignment [here](https://forms.gle/atbUTPiXeSESFBe39).
+Complete before **Sunday Sep 12th (11:59 pm)** (if your section is on Tue) or **Tuesday Sep 14th (11:59 pm)** (if your section is on Thu). You can find the assignment [here](https://forms.gle/atbUTPiXeSESFBe39).
 
 ## Slides
 
