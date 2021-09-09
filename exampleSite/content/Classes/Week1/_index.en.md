@@ -31,3 +31,9 @@ In this session, we will review the syllabus in more detail: what you should exp
 ## Code
 
 Here is the R code we will review in class, with some additional data and questions <a onclick="ga('send', 'event', 'External-Link','click','code1','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/code/f2021_sta235h_2_reg.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+
+## Notes
+
+- *How do I interpret log transformations of variables in a linear regression?*
+
+**Answer**: A lot of the time, we want to transform our dependent variable `$ y $` to `$ \log(y) $`, so that it's normally distributed (e.g. income), or sometimes we could also have a covariates included in our model in a log form. How do we interpret the coefficients in a linear regression model under these transformations? As we saw in class, you can actually interpret them as percentage changes! Take a look at this article to see how to exactly interpret these coefficients, depending on whether your dependent or independent variable (or both!) are in log form. {{% button href="https://data.library.virginia.edu/interpreting-log-transformations-in-a-linear-model/" icon="fas fa-external-link-alt" icon-position="right" %}}Go to article{{% /button %}}
