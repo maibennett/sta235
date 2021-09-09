@@ -14,7 +14,6 @@ chapter: false
 
 - Use the templates provided below to guide you on how your submissions should look like.
 
-- 
 
 
 ## Assignment
@@ -24,11 +23,9 @@ chapter: false
 ## Templates
 
 <a onclick="ga('send', 'event', 'External-Link','click','hw1_doc','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework1/STA235H_HW1_template.docx" target="_blank" class="btn btn-default"> Write-up Template <i class="fas fa-external-link-alt"></i></a> 
-
 <br>
 
 <a onclick="ga('send', 'event', 'External-Link','click','hw1_code','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework1/STA235H_HW1_template.R" target="_blank" class="btn btn-default"> Rcode Template <i class="fas fa-external-link-alt"></i></a> 
-
 <br>
 
 <a onclick="ga('send', 'event', 'External-Link','click','hw1_rmd','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework1/STA235H_HW1_template.Rmd" target="_blank" class="btn btn-default"> Rmarkdown Template <i class="fas fa-external-link-alt"></i></a> 
