@@ -1,9 +1,19 @@
 ---
-title: Homework
-weight: 15
+title: Homework 1
+weight: 20
 chapter: false
 ---
 
-- **Homework 1**: Due on <u>Thursday, Sep. 16th</u> on Canvas. (*It will be posted on Sep. 9th*) 
+## Assignment
+
+- You can find Homework 1 [here](https://sta235.netlify.app/assignments/homework/homework1/STA235H_Fall21_Homework1.html)
+
+
+## Templates
+
+- Rcode template
+
+- Write-up template
+
 
 
