@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235H - Multiple Regression: Interactions, Collinearity, and Residuals</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA 235H - Multiple Regression: Interactions, Collinearity, and Residuals
+## Fall 2021
+### McCombs School of Business, UT Austin
+
+---
+
+
+&lt;!-- &lt;script type="text/javascript"&gt; --&gt;
+&lt;!-- MathJax.Hub.Config({ --&gt;
+&lt;!--   "HTML-CSS": { --&gt;
+&lt;!--     preferredFont: null, --&gt;
+&lt;!--     webFont:  "Neo-Euler" --&gt;
+&lt;!--   } --&gt;
+&lt;!-- }); --&gt;
+&lt;!-- &lt;/script&gt; --&gt;
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+# Let's look at some data
+
+- Used cars in South California (from this week's JITT)
+
+.small[
+
+```r
+library(vtable)
+
+cars &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/2_OLS_probs/data/SoCalCars.csv", stringsAsFactors = FALSE)
+
+names(cars)
+```
+
+```
+##  [1] "type"      "certified" "body"      "make"      "model"     "trim"     
+##  [7] "mileage"   "price"     "year"      "dealer"    "city"      "rating"   
+## [13] "reviews"   "badge"
+```
+]
+
+.source[Data source: "Modern Business Analytics" (Taddy, Hendrix, &amp; Harding, 2018)]
+
+---
+# How do mileage and year affect price?
+
+--
+&lt;img src="f2021_sta235h_4_reg_files/figure-html/mileage_year-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Let's run a model
+
+--
+.small[
+
+```r
+lm1 &lt;- lm(price ~ year + mileage + rating, data = cars)
+
+summary(lm1)
+```
+
+```
+## 
+## Call:
+## lm(formula = price ~ year + mileage + rating, data = cars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -21.945  -7.180  -2.465   3.791  72.444 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 43.78158    4.16486  10.512  &lt; 2e-16 ***
+## year        -0.36028    0.08284  -4.349 1.43e-05 ***
+## mileage     -0.23406    0.01186 -19.738  &lt; 2e-16 ***
+## rating       1.21791    0.15886   7.666 2.69e-14 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 12.08 on 2086 degrees of freedom
+## Multiple R-squared:  0.2098,	Adjusted R-squared:  0.2086 
+## F-statistic: 184.6 on 3 and 2086 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+- Why do you think these **.darkorange[partial correlations]** are both negative for `year` and `mileage`?
+
+---
+# Multicollinearity in Regressors
+
+- If two covariates are **.darkorange[highly correlated]**, it is difficult to separate the contribution of each!
+
+  - E.g. They move together
+
+--
+
+- **.darkorange[Be careful]** with interpretations
+
+  - The same with extrapolation zones!
+  
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Let's start interacting
+]
+
+---
+# Luxury vs. non-luxury cars?
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.box-7trans[Do you think there's a difference between how price changes over time for luxury vs non-luxury cars?]
+
+--
+
+.box-4trans[How would you test this?]
+
+
+---
+background-position: 50% 50%
+class: center, middle
+.big[
+.box-5LA[Let's go to R]
+
+]
+
+---
+# Models with interactions
+
+- You include the interaction between two (or more) covariates:
+
+`$$\widehat{Price} = \beta_0 + \hat{\beta}_1 Rating + \hat{\beta}_2 Miles + \hat{\beta}_3 Luxury + \hat{\beta}_4 Year + \hat{\beta}_5 Luxury \times Year$$`
+--
+
+  - `\(\hat{\beta}_3\)` and `\(\hat{\beta}_4\)` are considered the **.darkorange[main effects]** (no interaction)
+
+--
+
+- The coefficient you are interested in is `\(\hat{\beta}_5\)`:
+
+  - Difference in the **.darkorange[price change]** for one additional year between **.darkorange[luxury vs non-luxury cars]**, holding other variables constant.
+  
+---
+
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Let's look at what's left
+]
+
+---
+# Residuals in an OLS regression
+
+- **.darkorange[Residuals]** are a fundamental part of OLS regression: They represent what is not explained by the covariates.
+
+--
+
+- When making *probabilistic inference*, we assume (among other things):
+
+  - The distribution of the error term is **.darkorange[normal]**
+  - The error terms are **.darkorange[iid]** (independent and identically distributed).
+  
+--
+
+.box-7Trans[$$\varepsilon_i \sim \mathcal{N}(\mu,\sigma)$$]
+
+---
+# Let's look at the residuals
+
+
+```r
+cars &lt;- cars %&gt;% mutate(price_hat = predict(lm(price ~ rating + mileage + year, data = .)), 
+                        residual = price - price_hat)
+
+ggplot(data = cars, aes(x = residual)) + geom_histogram()
+```
+&lt;img src="f2021_sta235h_4_reg_files/figure-html/resid_hist-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Let's look at the variance!
+
+
+```r
+ggplot(data = cars, aes(x = price_hat, y = residual)) + geom_point()
+```
+&lt;img src="f2021_sta235h_4_reg_files/figure-html/resid_scatter-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Let's look at the variance!
+
+
+```r
+ggplot(data = cars, aes(x = price_hat, y = residual)) + geom_point()
+```
+&lt;img src="f2021_sta235h_4_reg_files/figure-html/resid_scatter2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Can we fix that?
+
+
+```r
+*cars &lt;- cars %&gt;% mutate(price_hat = predict(lm(log(price) ~ rating + mileage + year, data = .)),
+*                       residual = log(price) - price_hat)
+
+ggplot(data = cars, aes(x = price_hat, y = residual)) + geom_point()
+```
+&lt;img src="f2021_sta235h_4_reg_files/figure-html/resid_log-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Takeaway points
+
+.pull-left[
+
+- It's important to **.darkorange[think about the model we are fitting]**
+
+  - Does it make sense? *Contextual knowledge is important*
+  
+- Interactions terms can capture important **.darkorange[heterogeneity]**
+
+- Always **.darkorange[check your assumptions]**
+]
+
+.pull-right[
+&lt;br&gt;
+&lt;br&gt;
+![](https://media.giphy.com/media/l0MYBJzJ7elsmG1K8/giphy.gif)
+
+]
+
+---
+# Next Class
+
+.pull-left[
+![](https://media.giphy.com/media/1Q9AekyhJ2U5bdTzdr/giphy.gif?cid=ecf05e47lcna24lgv5gbpkiciso4ykvxq9urjrc5d50bfq8b&amp;rid=giphy.gif&amp;ct=g)
+]
+
+.pull-right[
+
+- Start with **.darkorange[Causal Inference]**
+
+- Homework 1 will be posted on **.darkorange[Thursday]**
+
+- JITT 2 will be posted **.darkorange[today]**
+]
+
+
+---
+# References
+
+- Ismay, C. &amp; A. Kim. (2021). “Statistical Inference via Data Science”. Chapter 6 &amp; 10.
+
+
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week2/4_OLS_probs/f2021_sta235h_4_reg.html') --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
