@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>STA 235 - Introduction</title>
+    <title>STA 235H - Potential Outcomes</title>
     <meta charset="utf-8" />
     <meta name="author" content="McCombs School of Business, UT Austin" />
     <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
     <script src="libs/core-js/shim.min.js"></script>
     <script src="libs/react/react.min.js"></script>
     <script src="libs/react/react-dom.min.js"></script>
@@ -20,32 +30,37 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# STA 235 - Introduction
-## Spring 2021
+# STA 235H - Potential Outcomes
+## Fall 2021
 ### McCombs School of Business, UT Austin
 
 ---
 
 
+&lt;!-- &lt;script type="text/javascript"&gt; --&gt;
+&lt;!-- MathJax.Hub.Config({ --&gt;
+&lt;!--   "HTML-CSS": { --&gt;
+&lt;!--     preferredFont: null, --&gt;
+&lt;!--     webFont:  "Neo-Euler" --&gt;
+&lt;!--   } --&gt;
+&lt;!-- }); --&gt;
+&lt;!-- &lt;/script&gt; --&gt;
 
 
 
 
-```
-## Warning: package 'knitr' was built under R version 3.6.3
-```
+&lt;style type="text/css"&gt;
 
-```
-## Warning: package 'showtext' was built under R version 3.6.3
-```
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
 
-```
-## Warning: package 'sysfonts' was built under R version 3.6.3
-```
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+&lt;/style&gt;
 
-```
-## Warning: package 'showtextdb' was built under R version 3.6.3
-```
+
 
 
 
@@ -464,57 +479,8 @@ estimate based on data&lt;/span&gt;
 - Let's go back to our original example: **.darkorange[Does a pill help reduce headaches?]**
 
 .small[
-
-```
-## Warning: package 'htmltools' was built under R version 3.6.3
-```
-
-```
-## Warning: package 'reactable' was built under R version 3.6.3
-```
-
-```
-## Warning: package 'tidyverse' was built under R version 3.6.3
-```
-
-```
-## Warning: package 'ggplot2' was built under R version 3.6.3
-```
-
-```
-## Warning: package 'tibble' was built under R version 3.6.3
-```
-
-```
-## Warning: package 'tidyr' was built under R version 3.6.3
-```
-
-```
-## Warning: package 'readr' was built under R version 3.6.3
-```
-
-```
-## Warning: package 'purrr' was built under R version 3.6.3
-```
-
-```
-## Warning: package 'dplyr' was built under R version 3.6.3
-```
-
-```
-## Warning: package 'stringr' was built under R version 3.6.3
-```
-
-```
-## Warning: package 'forcats' was built under R version 3.6.3
-```
-
-```
-## Warning: package 'hrbrthemes' was built under R version 3.6.3
-```
-
-<div id="htmlwidget-8416e6a43d562f26a94e" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-8416e6a43d562f26a94e">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"6f0481a4f5d9bfcc677b581f15541866","key":"6f0481a4f5d9bfcc677b581f15541866"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-8ad9e5a68ea8a413d30d" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8ad9e5a68ea8a413d30d">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"6f0481a4f5d9bfcc677b581f15541866","key":"6f0481a4f5d9bfcc677b581f15541866"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 ]
 
 ---
@@ -523,8 +489,8 @@ estimate based on data&lt;/span&gt;
 - We have a **.darkorange[missing data problem]**
 
 .small[
-<div id="htmlwidget-fc280df7e3a3a8ed00f1" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-fc280df7e3a3a8ed00f1">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center","style":[{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400}]},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center","style":[{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600}]},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center","style":[{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600}]}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"519da094876debccd4f5ff7c198e2359","key":"519da094876debccd4f5ff7c198e2359"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-aca3cf618a53c7198bab" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-aca3cf618a53c7198bab">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center","style":[{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400}]},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center","style":[{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600}]},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center","style":[{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600}]}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"519da094876debccd4f5ff7c198e2359","key":"519da094876debccd4f5ff7c198e2359"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 ]
 
 ---
@@ -533,8 +499,8 @@ estimate based on data&lt;/span&gt;
 - Compare those who **.darkorange[took the pill]** to the ones **.darkorange[did not take it.]**
 
 .small[
-<div id="htmlwidget-786655235a8c153ad64c" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-786655235a8c153ad64c">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[null,{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"},{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"},null,null,{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"}],"dataKey":"6f0481a4f5d9bfcc677b581f15541866","key":"6f0481a4f5d9bfcc677b581f15541866"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-dd5fe4811460accc4993" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-dd5fe4811460accc4993">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[null,{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"},{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"},null,null,{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"}],"dataKey":"6f0481a4f5d9bfcc677b581f15541866","key":"6f0481a4f5d9bfcc677b581f15541866"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 ]
 
 ---
@@ -543,8 +509,8 @@ estimate based on data&lt;/span&gt;
 - Compare those who **.darkorange[took the pill]** to the ones **.darkorange[did not take it.]**
 
 .small[
-<div id="htmlwidget-bd1314e4e39db722d091" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-bd1314e4e39db722d091">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},null,null,{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},null],"dataKey":"6f0481a4f5d9bfcc677b581f15541866","key":"6f0481a4f5d9bfcc677b581f15541866"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-371d3fb1b7cdd5b92a69" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-371d3fb1b7cdd5b92a69">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},null,null,{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},null],"dataKey":"6f0481a4f5d9bfcc677b581f15541866","key":"6f0481a4f5d9bfcc677b581f15541866"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 ]
 
 
@@ -554,8 +520,8 @@ estimate based on data&lt;/span&gt;
 - Compare those who **.darkorange[took the pill]** to the ones **.darkorange[did not take it.]**
 
 .small[
-<div id="htmlwidget-add6acd5b3ddb1c0c913" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-add6acd5b3ddb1c0c913">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"6f0481a4f5d9bfcc677b581f15541866","key":"6f0481a4f5d9bfcc677b581f15541866"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-57e709bfa68ce2cc07dd" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-57e709bfa68ce2cc07dd">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"6f0481a4f5d9bfcc677b581f15541866","key":"6f0481a4f5d9bfcc677b581f15541866"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 ]
 
 `$$\hat{\tau} = \frac{1}{3}(\sum_{i \in Z=1}Y_i - \sum_{i \in Z=0}Y_i) = -0.333$$`
@@ -722,8 +688,8 @@ $$\tau = E[Y_i(1)] - E[Y_i(0)] = E[Y_i(1)| Z=1] - E[Y_i(0)| Z=0] = $$
 We can just "ignore" the missing data problem:
 
 .small[
-<div id="htmlwidget-92f46c79b664c8907048" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-92f46c79b664c8907048">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["","1","0","","","0"],"Y(0)":["1","","","0","1",""],"Y(1)-Y(0)":["","","","","",""]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"44989422bbd1e06b9a83408e16b201b1","key":"44989422bbd1e06b9a83408e16b201b1"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-5e2f1d6137786608549e" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-5e2f1d6137786608549e">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["","1","0","","","0"],"Y(0)":["1","","","0","1",""],"Y(1)-Y(0)":["","","","","",""]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"44989422bbd1e06b9a83408e16b201b1","key":"44989422bbd1e06b9a83408e16b201b1"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 ]
 
 
@@ -733,8 +699,8 @@ We can just "ignore" the missing data problem:
 We can just "ignore" the missing data problem:
 
 .small[
-<div id="htmlwidget-e50ea3dcb235cddfb370" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-e50ea3dcb235cddfb370">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["","1","0","","","0"],"Y(0)":["1","","","0","1",""],"Y(1)-Y(0)":["","","","","",""]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center","style":[{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600}]},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center","style":[{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400}]},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"93faa237efb92fc51aaa6fb859c3f3dd","key":"93faa237efb92fc51aaa6fb859c3f3dd"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-24054b4abbf38d984306" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-24054b4abbf38d984306">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["","1","0","","","0"],"Y(0)":["1","","","0","1",""],"Y(1)-Y(0)":["","","","","",""]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center","style":[{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600}]},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center","style":[{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400}]},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"93faa237efb92fc51aaa6fb859c3f3dd","key":"93faa237efb92fc51aaa6fb859c3f3dd"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 ]
 
 ---
@@ -743,8 +709,8 @@ We can just "ignore" the missing data problem:
 We can just "ignore" the missing data problem:
 
 .small[
-<div id="htmlwidget-6b938054b8697b0eab4d" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-6b938054b8697b0eab4d">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6",""],"Z":["0","1","1","0","0","1",""],"Y":["1","1","0","0","1","0",""],"Y(1)":["","1","0","","","0","1/3"],"Y(0)":["1","","","0","1","","2/3"],"Y(1)-Y(0)":["","","","","","",""]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center","style":[{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600}]},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center","style":[{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600}]},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[null,null,null,null,null,null,{"fontWeight":"bold","background":"rgba(255, 255, 255,1)","borderTop":"2px solid #333f48"}],"dataKey":"d90e514cf4f2246f33934b6b213f1813","key":"d90e514cf4f2246f33934b6b213f1813"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-251340f1ed90d28fa87a" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-251340f1ed90d28fa87a">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6",""],"Z":["0","1","1","0","0","1",""],"Y":["1","1","0","0","1","0",""],"Y(1)":["","1","0","","","0","1/3"],"Y(0)":["1","","","0","1","","2/3"],"Y(1)-Y(0)":["","","","","","",""]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center","style":[{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600}]},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center","style":[{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600}]},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[null,null,null,null,null,null,{"fontWeight":"bold","background":"rgba(255, 255, 255,1)","borderTop":"2px solid #333f48"}],"dataKey":"d90e514cf4f2246f33934b6b213f1813","key":"d90e514cf4f2246f33934b6b213f1813"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 ]
 
 ---
@@ -920,8 +886,8 @@ You want to know whether is more convenient to **.darkorange[e-mail]** or **.dar
 <div class="title">
 <h3>% of New Registrations by Type of Campaign</h3>
 </div>
-<div id="htmlwidget-80935ff1cbd8c34647ef" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-80935ff1cbd8c34647ef">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Total":["19%","(290/1500)","16%","(88/550)"]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center"},{"accessor":"Total","name":"Total","type":"character","minWidth":200,"align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"9a6887731affb91a43eb444462e538ac","key":"9a6887731affb91a43eb444462e538ac"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1cad380940d4a6b704da" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1cad380940d4a6b704da">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Total":["19%","(290/1500)","16%","(88/550)"]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center"},{"accessor":"Total","name":"Total","type":"character","minWidth":200,"align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"9a6887731affb91a43eb444462e538ac","key":"9a6887731affb91a43eb444462e538ac"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 ]
 
@@ -935,8 +901,8 @@ You want to know whether is more convenient to **.darkorange[e-mail]** or **.dar
 <div class="title">
 <h3>% of New Registrations by Type of Campaign</h3>
 </div>
-<div id="htmlwidget-d48d4e289994f5695bac" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-d48d4e289994f5695bac">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Total":["19%","(290/1500)","16%","(88/550)"]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center"},{"accessor":"Total","name":"Total","type":"character","minWidth":200,"align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[{"fontWeight":"bold","background":"rgba(144, 13, 164,0.3)","color":"rgba(144, 13, 164,1)"},null,null,null],"inline":true,"dataKey":"9a6887731affb91a43eb444462e538ac","key":"9a6887731affb91a43eb444462e538ac"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-bfe996992d0c7fba7df8" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-bfe996992d0c7fba7df8">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Total":["19%","(290/1500)","16%","(88/550)"]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center"},{"accessor":"Total","name":"Total","type":"character","minWidth":200,"align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[{"fontWeight":"bold","background":"rgba(144, 13, 164,0.3)","color":"rgba(144, 13, 164,1)"},null,null,null],"inline":true,"dataKey":"9a6887731affb91a43eb444462e538ac","key":"9a6887731affb91a43eb444462e538ac"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 ]
 
@@ -952,8 +918,8 @@ You want to know whether is more convenient to **.darkorange[e-mail]** or **.dar
 <div class="title">
 <h3>% of New Registrations by Type of Campaign</h3>
 </div>
-<div id="htmlwidget-041b99b1349fc0f08b98" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-041b99b1349fc0f08b98">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Total":["19%","(290/1500)","16%","(88/550)"]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center"},{"accessor":"Total","name":"Total","type":"character","minWidth":200,"align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[{"fontWeight":"bold","background":"rgba(144, 13, 164,0.3)","color":"rgba(144, 13, 164,1)"},null,null,null],"inline":true,"dataKey":"9a6887731affb91a43eb444462e538ac","key":"9a6887731affb91a43eb444462e538ac"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-dae8aff2a2010e33bfd0" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-dae8aff2a2010e33bfd0">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Total":["19%","(290/1500)","16%","(88/550)"]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center"},{"accessor":"Total","name":"Total","type":"character","minWidth":200,"align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[{"fontWeight":"bold","background":"rgba(144, 13, 164,0.3)","color":"rgba(144, 13, 164,1)"},null,null,null],"inline":true,"dataKey":"9a6887731affb91a43eb444462e538ac","key":"9a6887731affb91a43eb444462e538ac"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 ]
 
@@ -971,8 +937,8 @@ You want to know whether is more convenient to **.darkorange[e-mail]** or **.dar
 <div class="title">
 <h3>% of New Registrations by Type of Campaign and Visits to the Website</h3>
 </div>
-<div id="htmlwidget-1d36267174da9fab8af3" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-1d36267174da9fab8af3">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Visited web":["10%","10/100","15%","77/514"],"Not visited web":["20%","280/1400","31%","11/36"],"Total":["19%","(290/1500)","16%","(88/550)"]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center","style":{"borderRight":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"Visited web","name":"Visited web","type":"character","minWidth":200,"align":"center"},{"accessor":"Not visited web","name":"Not visited web","type":"character","minWidth":200,"align":"center"},{"accessor":"Total","name":"Total","type":"character","minWidth":200,"align":"center","style":{"borderLeft":"1px solid rgba(0, 0, 0, 0.1)"}}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"4d5570fd58c6992379d71f337b32040b","key":"4d5570fd58c6992379d71f337b32040b"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-44894fd223158225b7a5" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-44894fd223158225b7a5">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Visited web":["10%","10/100","15%","77/514"],"Not visited web":["20%","280/1400","31%","11/36"],"Total":["19%","(290/1500)","16%","(88/550)"]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center","style":{"borderRight":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"Visited web","name":"Visited web","type":"character","minWidth":200,"align":"center"},{"accessor":"Not visited web","name":"Not visited web","type":"character","minWidth":200,"align":"center"},{"accessor":"Total","name":"Total","type":"character","minWidth":200,"align":"center","style":{"borderLeft":"1px solid rgba(0, 0, 0, 0.1)"}}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"4d5570fd58c6992379d71f337b32040b","key":"4d5570fd58c6992379d71f337b32040b"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 ]
 
@@ -988,8 +954,8 @@ You want to know whether is more convenient to **.darkorange[e-mail]** or **.dar
 <div class="title">
 <h3>% of the Sample in each Category by Site Visit</h3>
 </div>
-<div id="htmlwidget-ee5faa6d58db365a9630" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-ee5faa6d58db365a9630">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Visited web":["6.7%","","93.4%",""],"Not visited web":["93.4%","","6.5%",""]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center","style":{"borderRight":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"Visited web","name":"Visited web","type":"character","minWidth":200,"align":"center"},{"accessor":"Not visited web","name":"Not visited web","type":"character","minWidth":200,"align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"67b86d48afbac91e9f4a503ae4ddbbdb","key":"67b86d48afbac91e9f4a503ae4ddbbdb"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7fbce724d72706183d3c" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-7fbce724d72706183d3c">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Visited web":["6.7%","","93.4%",""],"Not visited web":["93.4%","","6.5%",""]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center","style":{"borderRight":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"Visited web","name":"Visited web","type":"character","minWidth":200,"align":"center"},{"accessor":"Not visited web","name":"Not visited web","type":"character","minWidth":200,"align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"67b86d48afbac91e9f4a503ae4ddbbdb","key":"67b86d48afbac91e9f4a503ae4ddbbdb"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 ]
 ---
@@ -1002,8 +968,8 @@ You want to know whether is more convenient to **.darkorange[e-mail]** or **.dar
 <div class="title">
 <h3>% of New Registrations by Type of Campaign and Visits to the Website</h3>
 </div>
-<div id="htmlwidget-88f313f130ce8bad7057" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-88f313f130ce8bad7057">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Visited web":["10%","10/100","15%","77/514"],"Not visited web":["20%","280/1400","31%","11/36"],"Total":["19%","(290/1500)","16%","(88/550)"]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center","style":{"borderRight":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"Visited web","name":"Visited web","type":"character","minWidth":200,"align":"center"},{"accessor":"Not visited web","name":"Not visited web","type":"character","minWidth":200,"align":"center"},{"accessor":"Total","name":"Total","type":"character","minWidth":200,"align":"center","style":{"borderLeft":"1px solid rgba(0, 0, 0, 0.1)"}}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"4d5570fd58c6992379d71f337b32040b","key":"4d5570fd58c6992379d71f337b32040b"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ca1571976887e55c094a" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-ca1571976887e55c094a">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Visited web":["10%","10/100","15%","77/514"],"Not visited web":["20%","280/1400","31%","11/36"],"Total":["19%","(290/1500)","16%","(88/550)"]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center","style":{"borderRight":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"Visited web","name":"Visited web","type":"character","minWidth":200,"align":"center"},{"accessor":"Not visited web","name":"Not visited web","type":"character","minWidth":200,"align":"center"},{"accessor":"Total","name":"Total","type":"character","minWidth":200,"align":"center","style":{"borderLeft":"1px solid rgba(0, 0, 0, 0.1)"}}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"4d5570fd58c6992379d71f337b32040b","key":"4d5570fd58c6992379d71f337b32040b"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 ]
 
@@ -1075,8 +1041,8 @@ You want to know whether is more convenient to **.darkorange[e-mail]** or **.dar
 <div class="title">
 <h3>Num in Sample and % of New Registrations by Type of Campaign and Visits to the Website</h3>
 </div>
-<div id="htmlwidget-26ea8796ee936077eb6c" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-26ea8796ee936077eb6c">{"x":{"tag":{"name":"Reactable","attribs":{"data":{".rownames":["Email","Mail"],"Not visited":[1404,32],"Visited":[91,523],"Registered - NV":[0.22,0.28],"Registered - V":[0.12,0.15],"Registered - Total":[0.21,0.15]},"columns":[{"accessor":".rownames","name":"","type":"character","minWidth":180,"align":"center","sortable":false,"filterable":false},{"accessor":"Not visited","name":"Not visited","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Visited","name":"Visited","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Registered - NV","name":"Registered - NV","type":"numeric","minWidth":180,"align":"center","style":{"borderLeft":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"Registered - V","name":"Registered - V","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Registered - Total","name":"Registered - Total","type":"numeric","minWidth":180,"align":"center","style":{"borderLeft":"1px solid rgba(0, 0, 0, 0.1)"}}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"ed9c7202edb1e2ebf11e2ddfd8c1df45","key":"ed9c7202edb1e2ebf11e2ddfd8c1df45"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-9d2764377d39d27559ec" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-9d2764377d39d27559ec">{"x":{"tag":{"name":"Reactable","attribs":{"data":{".rownames":["Email","Mail"],"Not visited":[1404,32],"Visited":[91,523],"Registered - NV":[0.22,0.28],"Registered - V":[0.12,0.15],"Registered - Total":[0.21,0.15]},"columns":[{"accessor":".rownames","name":"","type":"character","minWidth":180,"align":"center","sortable":false,"filterable":false},{"accessor":"Not visited","name":"Not visited","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Visited","name":"Visited","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Registered - NV","name":"Registered - NV","type":"numeric","minWidth":180,"align":"center","style":{"borderLeft":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"Registered - V","name":"Registered - V","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Registered - Total","name":"Registered - Total","type":"numeric","minWidth":180,"align":"center","style":{"borderLeft":"1px solid rgba(0, 0, 0, 0.1)"}}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"ed9c7202edb1e2ebf11e2ddfd8c1df45","key":"ed9c7202edb1e2ebf11e2ddfd8c1df45"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 ]]
 
@@ -1234,8 +1200,8 @@ summary(lm(y ~ factor(treat) + visit, data = confound))
 <div class="title">
 <h3>Num in Sample and % of New Registrations by Type of Campaign and Visits to the Website</h3>
 </div>
-<div id="htmlwidget-ed9c7c887332aeecab77" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-ed9c7c887332aeecab77">{"x":{"tag":{"name":"Reactable","attribs":{"data":{".rownames":["Email","Mail"],"Not visited":[1409,45],"Visited":[94,502],"Registered - NV":[0.19,0.31],"Registered - V":[0.11,0.15],"Registered - Total":[0.18,0.16]},"columns":[{"accessor":".rownames","name":"","type":"character","minWidth":180,"align":"center","sortable":false,"filterable":false},{"accessor":"Not visited","name":"Not visited","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Visited","name":"Visited","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Registered - NV","name":"Registered - NV","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Registered - V","name":"Registered - V","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Registered - Total","name":"Registered - Total","type":"numeric","minWidth":180,"align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"0b53c972dff95d559775b62e7626ac17","key":"0b53c972dff95d559775b62e7626ac17"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-19bdf522c6040790f257" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-19bdf522c6040790f257">{"x":{"tag":{"name":"Reactable","attribs":{"data":{".rownames":["Email","Mail"],"Not visited":[1409,45],"Visited":[94,502],"Registered - NV":[0.19,0.31],"Registered - V":[0.11,0.15],"Registered - Total":[0.18,0.16]},"columns":[{"accessor":".rownames","name":"","type":"character","minWidth":180,"align":"center","sortable":false,"filterable":false},{"accessor":"Not visited","name":"Not visited","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Visited","name":"Visited","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Registered - NV","name":"Registered - NV","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Registered - V","name":"Registered - V","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Registered - Total","name":"Registered - Total","type":"numeric","minWidth":180,"align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"0b53c972dff95d559775b62e7626ac17","key":"0b53c972dff95d559775b62e7626ac17"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 ]]
 
@@ -1452,13 +1418,7 @@ head(profs)
 
 ```r
 library(estimatr)
-```
 
-```
-## Warning: package 'estimatr' was built under R version 3.6.3
-```
-
-```r
 summary(estimatr::lm_robust(eval ~ beauty, data=profs))
 ```
 
@@ -1518,13 +1478,7 @@ profs &lt;- profs %&gt;% mutate(treat = as.numeric(beauty &gt; 0),
                           minority = as.numeric(minority)-1) 
 
 library(designmatch)
-```
 
-```
-## Warning: package 'designmatch' was built under R version 3.6.3
-```
-
-```r
 covs &lt;- profs %&gt;% dplyr::select(minority, age, female, single_credit, upper_div, 
                                 native, tenure, students, allstudents)
 
@@ -1580,11 +1534,6 @@ loveplot_balance(covs, which(profs$treat==1), which(profs$treat==0), v_line = 0.
 ---
 .pull-left[
 .tiny[
-
-```
-## Warning: package 'modelsummary' was built under R version 3.6.3
-```
-
 &lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
  &lt;thead&gt;
   &lt;tr&gt;

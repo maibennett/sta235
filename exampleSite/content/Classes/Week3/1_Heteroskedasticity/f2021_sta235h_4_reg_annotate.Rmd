@@ -1,5 +1,5 @@
 ---
-title: "STA 235H - Multiple Regression: Interactions, Collinearity, and Residuals"
+title: "STA 235H - Multiple Regression: Residuals"
 subtitle: "Fall 2021"
 author: "McCombs School of Business, UT Austin"
 output:
@@ -335,7 +335,7 @@ font.add.google("Fira Sans", "Fira Sans")
 
 # Let's look at some data
 
-- Used cars in South California (from this week's JITT)
+- Used cars in South California (from last week's JITT)
 
 .small[
 ```{r}
@@ -343,17 +343,6 @@ library(vtable)
 
 cars <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/2_OLS_probs/data/SoCalCars.csv", stringsAsFactors = FALSE)
 
-names(cars)
-```
-]
-
-.source[Data source: "Modern Business Analytics" (Taddy, Hendrix, & Harding, 2018)]
-
----
-# How do mileage and year affect price?
-
---
-```{r mileage_year, fig.height=5, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
 library(ggplot2)
 library(firasans)
 library(hrbrthemes)
@@ -372,140 +361,26 @@ cars <- cars %>% filter(type != "new" & mileage >= 10000 & mileage <= 150000 & p
          mileage = mileage/1000,
          year = year - 1970)
 
-g1 <- ggplot(data = cars, aes(x = mileage, y = price)) +
-  geom_point(color = "#F89441", fill = "white", pch=21, size = 2) + 
-  theme_bw()+
-  xlab("Mileage") + ylab("Price") +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-g2 <- ggplot(data = cars, aes(x = year, y = price)) +
-  geom_point(color = "#E16462", fill = "white", pch=21, size = 2) + 
-  theme_bw()+
-  xlab("Year") + ylab("Price") +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-g1 + g2
-```
-
----
-# Let's run a model
-
---
-.small[
-```{r}
-lm1 <- lm(price ~ year + mileage + rating, data = cars)
-
-summary(lm1)
 ```
 ]
 
-- Why do you think these **.darkorange[partial correlations]** are both negative for `year` and `mileage`?
-
----
-# Multicollinearity in Regressors
-
-- If two covariates are **.darkorange[highly correlated]**, it is difficult to separate the contribution of each!
-
-  - E.g. They move together
-
---
-
-- **.darkorange[Be careful]** with interpretations
-
-  - The same with extrapolation zones!
-  
----
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Let's start interacting
-]
-
----
-# Luxury vs. non-luxury cars?
-
-<br>
-<br>
-<br>
-.box-7trans[Do you think there's a difference between how price changes over time for luxury vs non-luxury cars?]
-
---
-
-.box-4trans[How would you test this?]
+.source[Data source: "Modern Business Analytics" (Taddy, Hendrix, & Harding, 2018)]
 
 
 ---
-background-position: 50% 50%
-class: center, middle
-.big[
-.box-5LA[Let's go to R]
-
-]
-
----
-# Models with interactions
-
-- You include the interaction between two (or more) covariates:
-
-$$\widehat{Price} = \beta_0 + \hat{\beta}_1 Rating + \hat{\beta}_2 Miles + \hat{\beta}_3 Luxury + \hat{\beta}_4 Year + \hat{\beta}_5 Luxury \times Year$$
---
-
-  - $\hat{\beta}_3$ and $\hat{\beta}_4$ are considered the **.darkorange[main effects]** (no interaction)
-
---
-
-- The coefficient you are interested in is $\hat{\beta}_5$:
-
-  - Difference in the **.darkorange[price change]** for one additional year between **.darkorange[luxury vs non-luxury cars]**, holding other variables constant.
-  
----
-
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Let's look at what's left
-]
-
----
-# Residuals in an OLS regression
+# Let's look at what's left
 
 - **.darkorange[Residuals]** are a fundamental part of OLS regression: They represent what is not explained by the covariates.
 
 --
 
+$$e_i = Y_i - \hat{Y}_i = Y_i - (\hat{\beta}_0 + \hat{\beta}_1X_1 + \hat{\beta}_2X_2)$$
+
+--
+
 - When making *probabilistic inference*, we assume (among other things):
 
-  - The distribution of the error term is **.darkorange[normal]**
+  - The distribution of the error term is **.darkorange[normal]**.
   - The error terms are **.darkorange[iid]** (independent and identically distributed).
   
 --
@@ -513,7 +388,7 @@ Let's look at what's left
 .box-7Trans[$$\varepsilon_i \sim \mathcal{N}(\mu,\sigma)$$]
 
 ---
-# Let's look at the residuals
+# Inspecting the residuals
 
 ```{r, eval = FALSE}
 cars <- cars %>% mutate(price_hat = predict(lm(price ~ rating + mileage + year, data = .)), 
@@ -608,6 +483,46 @@ ggplot(data = cars, aes(x = price_hat, y = residual)) +
         title = element_text(size=14))
 ```
 
+--
+
+- If we have **.darkorange[heteroskedasticity]** in our data, our standard errors from `lm` will be wrong.
+
+---
+# Can we fix that?
+
+```{r, eval = FALSE}
+cars <- cars %>% mutate(price_hat = predict(lm(log(price) ~ rating + mileage + year, data = .)), #<<
+                        residual = log(price) - price_hat) #<<
+
+ggplot(data = cars, aes(x = residual)) + geom_histogram()
+```
+
+```{r resid_hist2, fig.height=4.5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+cars <- cars %>% mutate(price_hat = predict(lm(log(price) ~ rating + mileage + year, data = .)), 
+                        residual = log(price) - price_hat)
+
+ggplot(data = cars, aes(x = residual)) +
+  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5) + 
+  theme_bw()+
+  xlab("Residuals") + ylab("Count") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
 ---
 # Can we fix that?
 
@@ -645,18 +560,15 @@ ggplot(data = cars, aes(x = price_hat, y = residual)) +
         title = element_text(size=14))
 ```
 
+- For addressing heteroskedasticity, we can also use `lm_robust` from the `estimatr` package.
+
 ---
 # Takeaway points
 
 .pull-left[
-
-- It's important to **.darkorange[think about the model we are fitting]**
-
-  - Does it make sense? *Contextual knowledge is important*
-  
-- Interactions terms can capture important **.darkorange[heterogeneity]**
-
 - Always **.darkorange[check your assumptions]**
+
+- It's a good idea to run regressions with **.darkorange[standard errors (SE) robust to heteroskedasticity]**
 ]
 
 .pull-right[
@@ -665,23 +577,6 @@ ggplot(data = cars, aes(x = price_hat, y = residual)) +
 ![](https://media.giphy.com/media/l0MYBJzJ7elsmG1K8/giphy.gif)
 
 ]
-
----
-# Next Class
-
-.pull-left[
-![](https://media.giphy.com/media/1Q9AekyhJ2U5bdTzdr/giphy.gif?cid=ecf05e47lcna24lgv5gbpkiciso4ykvxq9urjrc5d50bfq8b&rid=giphy.gif&ct=g)
-]
-
-.pull-right[
-
-- Start with **.darkorange[Causal Inference]**
-
-- Homework 1 will be posted on **.darkorange[Thursday]**
-
-- JITT 2 will be posted **.darkorange[today]**
-]
-
 
 ---
 # References
