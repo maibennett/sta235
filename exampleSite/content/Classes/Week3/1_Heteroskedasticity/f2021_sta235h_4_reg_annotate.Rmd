@@ -396,6 +396,8 @@ cars <- cars %>% mutate(price_hat = predict(lm(price ~ rating + mileage + year, 
 
 ggplot(data = cars, aes(x = residual)) + geom_histogram()
 ```
+
+.pull-left-little_l[
 ```{r resid_hist, fig.height=4.5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
 cars <- cars %>% mutate(price_hat = predict(lm(price ~ rating + mileage + year, data = .)), 
                         residual = price - price_hat)
@@ -421,13 +423,18 @@ ggplot(data = cars, aes(x = residual)) +
         legend.background = element_rect(fill="white",colour ="white"),
         title = element_text(size=14))
 ```
+]
 
+.pull-right-little_l[
+- Do the residuals look **.darkorange[normally distributed]**?
+]
 ---
 # Let's look at the variance!
 
 ```{r, eval = FALSE}
 ggplot(data = cars, aes(x = price_hat, y = residual)) + geom_point()
 ```
+.pull-left-little_l[
 ```{r resid_scatter, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
 ggplot(data = cars, aes(x = price_hat, y = residual)) +
   geom_point(color = "#BF3984", fill = "white", pch=21, size = 3) + 
@@ -451,6 +458,7 @@ ggplot(data = cars, aes(x = price_hat, y = residual)) +
         legend.background = element_rect(fill="white",colour ="white"),
         title = element_text(size=14))
 ```
+]
 
 ---
 # Let's look at the variance!
@@ -458,6 +466,7 @@ ggplot(data = cars, aes(x = price_hat, y = residual)) +
 ```{r, eval = FALSE}
 ggplot(data = cars, aes(x = price_hat, y = residual)) + geom_point()
 ```
+.pull-left-little_l[
 ```{r resid_scatter2, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
 ggplot(data = cars, aes(x = price_hat, y = residual)) +
   geom_point(color = "#BF3984", fill = "white", pch=21, size = 3) +
@@ -482,10 +491,12 @@ ggplot(data = cars, aes(x = price_hat, y = residual)) +
         legend.background = element_rect(fill="white",colour ="white"),
         title = element_text(size=14))
 ```
+]
 
---
+.pull-right-little_l[
+- If we have **.darkorange[heteroskedasticity]** in our data, our standard errors from `lm()` will be wrong.
+]
 
-- If we have **.darkorange[heteroskedasticity]** in our data, our standard errors from `lm` will be wrong.
 
 ---
 # Can we fix that?
@@ -496,7 +507,7 @@ cars <- cars %>% mutate(price_hat = predict(lm(log(price) ~ rating + mileage + y
 
 ggplot(data = cars, aes(x = residual)) + geom_histogram()
 ```
-
+.pull-left-little_l[
 ```{r resid_hist2, fig.height=4.5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
 cars <- cars %>% mutate(price_hat = predict(lm(log(price) ~ rating + mileage + year, data = .)), 
                         residual = log(price) - price_hat)
@@ -522,6 +533,13 @@ ggplot(data = cars, aes(x = residual)) +
         legend.background = element_rect(fill="white",colour ="white"),
         title = element_text(size=14))
 ```
+]
+
+.pull-right-little_l[
+- Do these residuals look **.darkorange[normally distributed]**?
+
+  - Logarithms to the rescue!
+]
 
 ---
 # Can we fix that?
@@ -532,6 +550,7 @@ cars <- cars %>% mutate(price_hat = predict(lm(log(price) ~ rating + mileage + y
 
 ggplot(data = cars, aes(x = price_hat, y = residual)) + geom_point()
 ```
+.pull-left-little_l[
 ```{r resid_log, fig.height=4.5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
 cars <- cars %>% mutate(price_hat = predict(lm(log(price) ~ rating + mileage + year, data = .)), 
                         residual = log(price) - price_hat)
@@ -559,8 +578,14 @@ ggplot(data = cars, aes(x = price_hat, y = residual)) +
         legend.background = element_rect(fill="white",colour ="white"),
         title = element_text(size=14))
 ```
+]
+
+.pull-right-little_l[
+- In this case, our residuals look **.darkorange[homoskedastic]**?
 
 - For addressing heteroskedasticity, we can also use `lm_robust` from the `estimatr` package.
+]
+
 
 ---
 # Takeaway points

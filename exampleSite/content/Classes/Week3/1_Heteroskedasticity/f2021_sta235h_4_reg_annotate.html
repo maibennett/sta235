@@ -121,8 +121,14 @@ cars &lt;- cars %&gt;% mutate(price_hat = predict(lm(price ~ rating + mileage + 
 
 ggplot(data = cars, aes(x = residual)) + geom_histogram()
 ```
+
+.pull-left-little_l[
 &lt;img src="f2021_sta235h_4_reg_annotate_files/figure-html/resid_hist-1.svg" style="display: block; margin: auto;" /&gt;
+]
 
+.pull-right-little_l[
+- Do the residuals look **.darkorange[normally distributed]**?
+]
 ---
 # Let's look at the variance!
 
@@ -130,7 +136,9 @@ ggplot(data = cars, aes(x = residual)) + geom_histogram()
 ```r
 ggplot(data = cars, aes(x = price_hat, y = residual)) + geom_point()
 ```
+.pull-left-little_l[
 &lt;img src="f2021_sta235h_4_reg_annotate_files/figure-html/resid_scatter-1.svg" style="display: block; margin: auto;" /&gt;
+]
 
 ---
 # Let's look at the variance!
@@ -139,11 +147,14 @@ ggplot(data = cars, aes(x = price_hat, y = residual)) + geom_point()
 ```r
 ggplot(data = cars, aes(x = price_hat, y = residual)) + geom_point()
 ```
+.pull-left-little_l[
 &lt;img src="f2021_sta235h_4_reg_annotate_files/figure-html/resid_scatter2-1.svg" style="display: block; margin: auto;" /&gt;
+]
 
---
+.pull-right-little_l[
+- If we have **.darkorange[heteroskedasticity]** in our data, our standard errors from `lm()` will be wrong.
+]
 
-- If we have **.darkorange[heteroskedasticity]** in our data, our standard errors from `lm` will be wrong.
 
 ---
 # Can we fix that?
@@ -155,8 +166,15 @@ ggplot(data = cars, aes(x = price_hat, y = residual)) + geom_point()
 
 ggplot(data = cars, aes(x = residual)) + geom_histogram()
 ```
-
+.pull-left-little_l[
 &lt;img src="f2021_sta235h_4_reg_annotate_files/figure-html/resid_hist2-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right-little_l[
+- Do these residuals look **.darkorange[normally distributed]**?
+
+  - Logarithms to the rescue!
+]
 
 ---
 # Can we fix that?
@@ -168,9 +186,16 @@ ggplot(data = cars, aes(x = residual)) + geom_histogram()
 
 ggplot(data = cars, aes(x = price_hat, y = residual)) + geom_point()
 ```
+.pull-left-little_l[
 &lt;img src="f2021_sta235h_4_reg_annotate_files/figure-html/resid_log-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right-little_l[
+- In this case, our residuals look **.darkorange[homoskedastic]**?
 
 - For addressing heteroskedasticity, we can also use `lm_robust` from the `estimatr` package.
+]
+
 
 ---
 # Takeaway points
