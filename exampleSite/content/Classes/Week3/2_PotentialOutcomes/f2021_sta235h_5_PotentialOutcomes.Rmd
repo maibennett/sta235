@@ -315,7 +315,7 @@ library(knitr)
 library(showtext)
 library(xaringanExtra)
 
-xaringanExtra::use_scribble()
+#xaringanExtra::use_scribble()
 
 htmltools::tagList(
   xaringanExtra::use_clipboard(
@@ -336,15 +336,13 @@ font.add.google("Fira Sans", "Fira Sans")
 
 # Housekeeping
 
-.box-2LA[Homework 1 is due next Monday]
+.box-2LA[Homework 1 is due Thursday]
 
-- Check out the **.darkorange[R scripts]** posted for each class.
+--
 
-- Additional slides for **.darkorange[interpretation of logistic regression coefficients]**.
-<br>
-<br>
-<br>
-.box-5LA[TA Office Hours: Friday 12th 4:00 - 5:00 PM]
+- **.darkorange[R review session]** is posted on Canvas.
+
+- Remember to use the resources at your disposal: **.darkorange[Office hours]** and **.darkorange[Discussion Board]**.
 
 ---
 # Last week
@@ -352,9 +350,9 @@ font.add.google("Fira Sans", "Fira Sans")
 .pull-left[
 - Finished our chapter on **.darkorange[multiple regression]**.
   
-- **.darkorange[Statistical Adjustment]**: Unveiling useful associations, multicolinearity. 
+  - **.darkorange[Statistical Adjustment]**: Unveiling useful associations, interaction terms, multicollinearity. 
 
-- **.darkorange[Binary Outcomes]**: LPM vs Logistic Regression.
+- **.darkorange[Residuals]**: <u>Moved to week 8</u> (discrete responses in regression models).
 ]
 
 .pull-right[
@@ -375,6 +373,13 @@ font.add.google("Fira Sans", "Fira Sans")
   .box-4t[What? Causal Estimands]
   
   .box-7t[Why? Causal Questions and Study Design]
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+The "How": Potential outcomes framework
 ]
 
 ---
@@ -405,6 +410,22 @@ font.add.google("Fira Sans", "Fira Sans")
 .pull-right[
 .center[![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tesla_fake.png)]
 ]
+
+---
+# The "Audi Effect"
+
+```{r tweet, fig.width=5, fig.height=5,fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+library(tweetrmd)
+
+tweet_screenshot(
+  tweet_url("grescoe", "1435694367805693956"),
+  maxwidth = 300,
+  scale = 1.5,
+  hide_media = TRUE,
+  theme = "dark"
+)
+```
+
 ---
 # Before we start...
 
@@ -586,6 +607,8 @@ Then,
 $$Y_i | Z_i = 1 \overset{\Delta}{=} Y_i(1) $$
 where $Y_i(1)$ is the **.darkorange[potential outcome under treatment]**.
 
+--
+
 In the same fashion,
 
 $$Y_i | Z_i = 0 \overset{\Delta}{=} Y_i(0) $$
@@ -665,6 +688,12 @@ $$ICE_i = Y_i(1) - Y_i(0)$$
 ![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/headache_nopill_headache.png)]
 ]
 
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+The "What": Causal estimands, estimates, and estimators
+]
 ---
 # Estimands vs Estimates vs Estimators
 
@@ -1066,6 +1095,13 @@ $$\hat{\tau} = \frac{1}{3}(\sum_{i \in Z=1}Y_i - \sum_{i \in Z=0}Y_i) = -0.333$$
 - What is the **.darkorange[estimate]** and *how do we interpret it*?
 
 .box-2[33.3% decrease in probability of having a headache]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+The "Why": Causal questions and study designs
+]
 
 ---
 # Under what assumptions is our estimate causal?
@@ -1497,7 +1533,7 @@ d = data.frame("t" = t,
                "y1_1_hetero" = y1_1_hetero)
 
 ggplot(data = d, aes(x = t, y = y0_0)) +
-  geom_smooth(method = "gam", se=FALSE, lty=2, color = "#900DA4", lwd=1.4) +
+  geom_smooth(method = "gam", se=FALSE, lty=1, color = "#900DA4", lwd=1.4) +
   geom_smooth(aes(x = t, y = y1_0), method = "gam", se=FALSE, lty=2, color = "#F89441", lwd=1.4) +
   ylim(-0.5,1.5)+
   ggplot2::annotate("text", x = 9, y = 0.5, label = "Y(1)|Z=0", size = 6, colour = "#F89441", hjust=0,family="Fira Sans Condensed") +
@@ -1528,9 +1564,9 @@ ggplot(data = d, aes(x = t, y = y0_0)) +
 ```{r PO2, fig.height=5.5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 
 ggplot(data = d, aes(x = t, y = y0_0)) +
-  geom_smooth(method = "gam", se=FALSE, lty=2, color = "#900DA4", lwd=1.4) +
+  geom_smooth(method = "gam", se=FALSE, lty=1, color = "#900DA4", lwd=1.4) +
   geom_smooth(aes(x = t, y = y1_0), method = "gam", se=FALSE, lty=2, color = "#F89441", lwd=1.4) +
-  geom_smooth(aes(x = t, y = y0_1_bias), method = "gam", se=FALSE, lty=1, color = "#5601A4", lwd=1.4) +
+  geom_smooth(aes(x = t, y = y0_1_bias), method = "gam", se=FALSE, lty=2, color = "#5601A4", lwd=1.4) +
   ylim(-0.5,1.5)+
   ggplot2::annotate("text", x = 9, y = 0.5, label = "Y(1)|Z=0", size = 6, colour = "#F89441", hjust=0,family="Fira Sans Condensed") +
   ggplot2::annotate("text", x = 9, y = 0.05, label = "Y(0)|Z=0", size = 6, colour = "#900DA4", hjust=0,family="Fira Sans Condensed") +
@@ -1561,9 +1597,9 @@ ggplot(data = d, aes(x = t, y = y0_0)) +
 ```{r PO3, fig.height=5.5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 
 ggplot(data = d, aes(x = t, y = y0_0)) +
-  geom_smooth(method = "gam", se=FALSE, lty=2, color = "#900DA4", lwd=1.4) +
+  geom_smooth(method = "gam", se=FALSE, lty=1, color = "#900DA4", lwd=1.4) +
   geom_smooth(aes(x = t, y = y1_0), method = "gam", se=FALSE, lty=2, color = "#F89441", lwd=1.4) +
-  geom_smooth(aes(x = t, y = y0_1_bias), method = "gam", se=FALSE, lty=1, color = "#5601A4", lwd=1.4) +
+  geom_smooth(aes(x = t, y = y0_1_bias), method = "gam", se=FALSE, lty=2, color = "#5601A4", lwd=1.4) +
   geom_smooth(aes(x = t, y = y1_1_hetero), method = "gam", se=FALSE, lty=1, color = "#FCCE25", lwd=1.4) +
   ylim(-0.5,1.5)+
   ggplot2::annotate("text", x = 9, y = 0.5, label = "Y(1)|Z=0", size = 6, colour = "#F89441", hjust=0,family="Fira Sans Condensed") +
@@ -1964,32 +2000,18 @@ div(
 
 .box-5LA[Depends]
 
----
-# Is "Visited the website" a confounder?
+--
 
-.box-5LA[Depends]
+- **.darkorange[Measured before the intervention:]** Yes $\rightarrow$ Individuals that have **not** visited the website (VW) don't know you/ might be more willing to try product.
 
-- **.darkorange[Measured before the intervention:]** Yes $\rightarrow$ Getting your name out there is effective, especially for people that don't know you.
-
----
-# Is "Visited the website" a confounder?
-
-.box-5LA[Depends]
-
-- **.darkorange[Measured before the intervention:]** Yes $\rightarrow$ Getting your name out there is effective, especially for people that don't know you.
+--
 
 - **.darkorange[Measured after the intervention:]** Don't know $\rightarrow$ Intervention might have incentivized people to go to the website, and registering also had on effect on traffic.
 
----
-# Is "Visited the website" a confounder?
-
-.box-5LA[Depends]
-
-- **.darkorange[Measured before the intervention:]** Yes $\rightarrow$ Getting your name out there is effective, especially for people that don't know you
-
-- **.darkorange[Measured after the intervention:]** Don't know $\rightarrow$ Intervention might have incentivized people to go to the website, and registering also had on effect on traffic.
+--
 
 .box-3tL[Collider]
+
 
 ---
 # Scenario 1: Confounding
@@ -2360,9 +2382,7 @@ head(profs)
 .pull-left-little_l[
 .small[
 ```{r echo = TRUE}
-library(estimatr)
-
-summary(estimatr::lm_robust(eval ~ beauty, data=profs))
+summary(lm(eval ~ beauty, data=profs))
 ```
 ]
 ]
@@ -2378,41 +2398,28 @@ summary(estimatr::lm_robust(eval ~ beauty, data=profs))
 
 - **.darkorange[Causal Question:]** What is the effect of beauty on teachers evaluations?
 
-.pull-left-little_l[
+--
+
+- What **.darkorange[other things]** could be biasing our estimate?
+
+  - Distinction between what's in our data vs what it's not.
+
+---
+# Let's check our data
+
+- Simplify the problem:
+  - **.darkorange[Binary Treatment]**: Beauty above average (1) vs Below average (0)
+
 .small[
-```{r resid_beauty, fig.height=4.5, fig.width=6.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-library(generics)
-
-profs.fitted <- augment(lm(eval ~ beauty, data=profs))
-
-resid <- profs.fitted$.std.resid
-
-ggplot(data = profs, aes(x = allstudents, y = resid)) + 
-  geom_point(pch = 21, size = 3, color = "#F89441", fill=alpha("#F89441",4)) +
-  geom_smooth(method = "lm", color = "dark grey", lty = 2, lwd = 1.2, se = FALSE) +
-  theme_bw()+
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  xlab("All Students (N)") + ylab("resid(Evaluations | Beauty)")+#ggtitle("How comfortable are you with R?")+
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.15),
-        legend.title = element_blank(),
-        legend.text = element_text(size=12),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
+```{r echo = TRUE, message=FALSE, results = 'hide'}
+profs <- profs %>% mutate(treat = as.numeric(beauty > 0),
+                          female = 2 - as.numeric(gender),
+                          single_credit = as.numeric(credits)-1,
+                          upper_div = as.numeric(division)-1,
+                          native = as.numeric(native)-1,
+                          tenure = as.numeric(tenure)-1,
+                          minority = as.numeric(minority)-1) 
 ```
-]
-]
-.pull-left-right_l[
-Negative correlation between **.darkorange[residuals]** and **.darkorange[number of students]**
 ]
 
 ---
@@ -2431,12 +2438,37 @@ profs <- profs %>% mutate(treat = as.numeric(beauty > 0),
                           tenure = as.numeric(tenure)-1,
                           minority = as.numeric(minority)-1) 
 
-library(designmatch)
+library(modelsummary)
 
-covs <- profs %>% dplyr::select(minority, age, female, single_credit, upper_div, 
-                                native, tenure, students, allstudents)
+covs <- profs %>% select(treat, minority, age, female, single_credit, upper_div, 
+         native, tenure, students, allstudents)
 
-meantab(covs, profs$treat, which(profs$treat==1), which(profs$treat==0))
+datasummary_balance(~ treat, data = covs, title = "Balance table", fmt=2, dinm_statistic = "p.value")
+```
+]
+
+---
+# Let's check our data
+
+- Simplify the problem:
+  - **.darkorange[Binary Treatment]**: Beauty above average (1) vs Below average (0)
+
+.small[
+```{r echo = TRUE, message=FALSE, results = 'hide'}
+profs <- profs %>% mutate(treat = as.numeric(beauty > 0),
+                          female = 2 - as.numeric(gender),
+                          single_credit = as.numeric(credits)-1,
+                          upper_div = as.numeric(division)-1,
+                          native = as.numeric(native)-1,
+                          tenure = as.numeric(tenure)-1,
+                          minority = as.numeric(minority)-1) 
+
+library(modelsummary)
+
+covs <- profs %>% select(treat, minority, age, female, single_credit, upper_div, 
+         native, tenure, students, allstudents)
+
+datasummary_balance(~ treat, data = covs, title = "Balance table", fmt=2, dinm_statistic = "p.value") #<<
 ```
 ]
 
@@ -2445,7 +2477,7 @@ meantab(covs, profs$treat, which(profs$treat==1), which(profs$treat==0))
 
 .small[
 ```{r echo = TRUE, message=FALSE}
-meantab(covs, profs$treat, which(profs$treat==1), which(profs$treat==0))
+datasummary_balance(~ treat, data = covs, title = "Balance table", fmt=2, dinm_statistic = "p.value")
 ```
 ]
 
@@ -2455,11 +2487,14 @@ meantab(covs, profs$treat, which(profs$treat==1), which(profs$treat==0))
 # Let's check our data... now with a Love Plot!
 
 .small[
-```{r loveplot, fig.height=4.4, fig.width=6.5, fig.align='center', dev='svg', echo=TRUE, warning=FALSE, message = FALSE}
+```{r loveplot, fig.height=4, fig.width=7.5, fig.align='center', dev='svg', echo=TRUE, warning=FALSE, message = FALSE}
 # Reads a user-written function to generate a loveplot
 source("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/code/loveplot_balance.R")
 
-loveplot_balance(covs, which(profs$treat==1), which(profs$treat==0), v_line = 0.05, format = TRUE)
+treat_id <- profs %>% mutate(id = seq(1, nrow(profs))) %>% filter(treat==1) %>% pull(-1)
+control_id <- profs %>% mutate(id = seq(1, nrow(profs))) %>% filter(treat==0) %>% pull(-1)
+
+loveplot_balance(covs, treat_id, control_id, v_line = 0.05, format = TRUE)
 ```
 ]
 
@@ -2473,10 +2508,9 @@ loveplot_balance(covs, which(profs$treat==1), which(profs$treat==0), v_line = 0.
 .tiny[
 ```{r echo=FALSE}
 library(modelsummary)
-library(estimatr)
 
-lm1 <- estimatr::lm_robust(eval ~ beauty, data = profs)
-lm2 <- estimatr::lm_robust(eval ~ beauty + minority + age + gender + division + native + tenure + students + allstudents, data = profs)
+lm1 <- lm(eval ~ beauty, data = profs)
+lm2 <- lm(eval ~ beauty + minority + age + gender + division + native + tenure + allstudents, data = profs)
 
 modelsummary(list(lm1, lm2), stars = TRUE, gof_omit = 'DF|Deviance|R2|AIC|BIC|Log.Lik.')
 ```
@@ -2497,116 +2531,24 @@ modelsummary(list(lm1, lm2), stars = TRUE, gof_omit = 'DF|Deviance|R2|AIC|BIC|Lo
 
 .box-7[Is that enough?]
 
----
-# Is it enough to control?
-
-- We can use the covariates we have on our dataset to **.darkorange[control for those group differences]**.
-
-.box-7[Is that enough?]
+--
 
 .box-5[What other variable could be confounding our effect?]
 
----
-# Is it enough to control?
-
-- We can use the covariates we have on our dataset to **.darkorange[control for those group differences]**.
-
-.box-7[Is that enough?]
-
-.box-5[What other variable could be confounding our effect?]
+--
 
 .box-2t[If I told you professors in the treatment group are taller than the ones in the control group, is height a confounder?]
 
----
-# The problem with self-esteem
+--
 
-- Image now we also have a self-esteem measure for each professor:
-
-```{r self_esteem_beauty, fig.height=4.3, fig.width=10.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-set.seed(100)
-
-library(gridExtra)
-
-profs <- profs %>% mutate(self_esteem = beauty + beauty^2 + rnorm(nrow(profs)))
-
-cols = c("#FCCE25","#E16462")
-
-g1 <- ggplot(data = profs, aes(x = beauty, y = self_esteem, color = factor(treat), fill = factor(treat))) + 
-  geom_point(pch = 21, size = 3) +
-  scale_fill_manual(values=c(alpha(cols[1],0.4),alpha(cols[2],0.4)),labels = c("0"="Below avg","1"="Above avg")) +
-  scale_color_manual(values=cols, labels = c("0"="Below avg","1"="Above avg")) + 
-  theme_bw()+
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  xlab("Beauty") + ylab("Self-Esteem")+#ggtitle("How comfortable are you with R?")+
-  theme(plot.margin=unit(c(0.5,0.5,1,1),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.15),
-        legend.title = element_blank(),
-        legend.text = element_text(size=12),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-grid.arrange(g1, ncol = 2)
-```
----
-# The problem with self-esteem
-
-- Image now we also have a self-esteem measure for each professor:
-
-```{r self_esteem_evals, fig.height=4.3, fig.width=10.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-resid <- profs.fitted$.std.resid
-
-g2 <- ggplot(data = profs, aes(x = self_esteem, y = resid, color = factor(treat), fill = factor(treat))) + 
-  geom_point(pch = 21, size = 3) +
-  scale_fill_manual(values=c(alpha(cols[1],0.4),alpha(cols[2],0.4)),labels = c("0"="Below avg","1"="Above avg")) +
-  scale_color_manual(values=cols, labels = c("0"="Below avg","1"="Above avg")) + 
-  theme_bw()+
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  xlab("Self-Esteem") + ylab("resid(Evaluations | Beauty)")+#ggtitle("How comfortable are you with R?")+
-  theme(plot.margin=unit(c(0.5,0.5,1,1),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.15),
-        legend.title = element_blank(),
-        legend.text = element_text(size=12),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-grid.arrange(g1, g2, ncol = 2)
-```
-
----
-# The problem with self-esteem
-
-- Image now we also have a self-esteem measure for each professor:
-
-```{r self_esteem_evals2, fig.height=4.3, fig.width=10.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-grid.arrange(g1, g2, ncol = 2)
-```
-Is it potentially a **.darkorange[confounder]**?
+.box-4t[What about self-esteem?]
 
 ---
 # Answering the question
 
 <span class="box-2LA">How would you answer this question?<br>Design a study!</span>
 
----
-# Answering the question
-
-<span class="box-2LA">How would you answer this question?<br>Design a study!</span>
+--
 
 .box-4[Can you "randomize" beauty?]
 
@@ -2686,8 +2628,6 @@ Is it potentially a **.darkorange[confounder]**?
 # Next week
 
 .pull-left[
-- **.darkorange[Randomization inference]**
-
 - **.darkorange[Randomized Controlled Trials]**:
 
   - Pros and Cons
