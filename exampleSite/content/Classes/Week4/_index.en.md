@@ -29,7 +29,7 @@ This week, we will be talking all about Randomized Controlled Trials (RCTs). Why
 
 ## JITT
 
-Complete before **Sunday Sep 19th (11:59 pm)** (if your section is on Tue) or **Tuesday Sep 21th (11:59 pm)** (if your section is on Thu). The assignment will be posted soon. <!-- You can find the assignment [here](https://forms.gle/atbUTPiXeSESFBe39). -->
+Complete before **Sunday Sep 19th (11:59 pm)** (if your section is on Tue) or **Tuesday Sep 21th (11:59 pm)** (if your section is on Thu). You can find the assignment [here](https://forms.gle/Y6mzmbA3iaA5ewPR8).
 
 ## Slides
 
