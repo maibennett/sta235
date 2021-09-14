@@ -711,8 +711,8 @@ insurance &lt;- read.csv(&quot;https://raw.githubusercontent.com/maibennett/sta2
 </div>
 </div>
 </div>
-<div id="task-3-who-is-better-at-shooting-hoops" class="section level1">
-<h1>Task 3: Who is better at shooting hoops?</h1>
+<div id="task-3-who-is-better-at-shooting-hoops-25-points" class="section level1">
+<h1>Task 3: Who is better at shooting hoops? (25 points)</h1>
 <pre class="r"><code>nba &lt;- read.csv(&quot;https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/data/hw1/nba.csv&quot;) </code></pre>
 <p>You are the brand new manager for a NBA team, and are trying to <em>moneyball</em><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> this and look at data to get some idea of the characteristics that a successful player might have.</p>
 <p>You have historic data for players’ statistics as rookies and whether they are still in the NBA 5 years later. The dataset has the following variables:</p>
@@ -787,11 +787,11 @@ insurance &lt;- read.csv(&quot;https://raw.githubusercontent.com/maibennett/sta2
 <p>We will use this data to analyze what people were saying on Twitter about the 2016 election.</p>
 <div id="question-4.1" class="section level3">
 <h3>Question 4.1</h3>
-<p><strong>Given that we are particularly interested in the two candidates that were on the ballot, create a new dataset that only contains tweets related to Hillary Clinton or Donald Trump. Name this new dataset <code>tweets_two</code>. How many observations does your new dataset have</strong>.</p>
+<p><strong>Given that we are particularly interested in the two candidates that were on the ballot, create a new dataset that only contains tweets related to Hillary Clinton or Donald Trump. Name this new dataset <code>tweets_two</code>. How many observations does your new dataset have?</strong>.</p>
 </div>
 <div id="question-4.2" class="section level3">
 <h3>Question 4.2</h3>
-<p><strong>Look the distribution of <code>polarity</code> and <code>subjectivity</code> for each candidate. What can you say about these distributions? Are there differences in how these variable behave depending on the candidate?</strong></p>
+<p><strong>Look at the distribution of <code>polarity</code> and <code>subjectivity</code> for each candidate. What can you say about these distributions? Are there differences in how these variable behave depending on the candidate?</strong></p>
 </div>
 <div id="question-4.3" class="section level3">
 <h3>Question 4.3</h3>
@@ -805,7 +805,9 @@ lm_pol &lt;- lm(polarity ~ trump + state_dem, data = tweets_two)
 lm_subj &lt;- lm(subjectivity ~ trump + state_dem, data = tweets_two)
 
 modelsummary(list(&quot;Polarity&quot; = lm_pol, &quot;Subjectivity&quot; = lm_subj), stars = TRUE, gof_omit = &#39;DF|AIC|BIC|Log.Lik.|F&#39;)</code></pre>
-<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<pre><code>## Warning: In version 0.8.0 of the `modelsummary` package, the default significance markers produced by the `stars=TRUE` argument were changed to be consistent with R&#39;s defaults.
+## This warning is displayed once per session.</code></pre>
+<table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto;" class="table">
 <thead>
 <tr>
 <th style="text-align:left;">
@@ -866,19 +868,19 @@ trump
 state_dem
 </td>
 <td style="text-align:center;">
--0.008*
+-0.008+
 </td>
 <td style="text-align:center;">
 0.000
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:left;box-shadow: 0px 1px">
 </td>
-<td style="text-align:center;">
+<td style="text-align:center;box-shadow: 0px 1px">
 (0.005)
 </td>
-<td style="text-align:center;">
+<td style="text-align:center;box-shadow: 0px 1px">
 (0.005)
 </td>
 </tr>
@@ -918,8 +920,8 @@ R2 Adj.
 </tbody>
 <tfoot>
 <tr>
-<td style="padding: 0; border:0;" colspan="100%">
-<sup></sup> * p &lt; 0.1, ** p &lt; 0.05, *** p &lt; 0.01
+<td style="padding: 0; " colspan="100%">
+<sup></sup> + p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001
 </td>
 </tr>
 </tfoot>
