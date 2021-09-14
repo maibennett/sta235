@@ -6,7 +6,7 @@ disableToc: true
 
 | Instructor | E-mail   | Office   | Students' Office Hours |
 |------------|----------|----------|--------------|
-| Dr. Magdalena Bennett   | <a href="mailto:m.bennett@austin.utexas.edu">m.bennett@austin.utexas.edu</a>   | CBA 6.476   | Tue: 3:30-5:00 PM <br /> Thu: 3:30-5:00 PM|
+| Dr. Magdalena Bennett   | <a href="mailto:m.bennett@austin.utexas.edu">m.bennett@austin.utexas.edu</a>   | CBA 6.476   | Tue: 4:00-5:30 PM <br /> Thu: 4:00-5:30 PM|
 
 **All office hours are held online via Zoom to minimize risks during the pandemic**; you can schedule an appointment in the course website or following this [link](https://calendly.com/maibennett/sta-235h-office-hours). Teaching assistants may be emailed at their official UT email and will hold office hours based on the schedule below.
 
