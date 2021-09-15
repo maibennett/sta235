@@ -8,7 +8,7 @@ disableToc: true
 
 ## What we will cover
 
-This week, we will be talking all about Randomized Controlled Trials (RCTs). Why is this study design is considered sometimes the "gold standard"? How can this identification strategy allow us to make causal claims? Are there shortcomings related to RCTs?
+This week, we will finish our chapter on potential outcomes, and we will be talking all about Randomized Controlled Trials (RCTs). Why is this study design is considered sometimes the "gold standard"? How can this identification strategy allow us to make causal claims? Are there shortcomings related to RCTs?
 
 ## Recommended readings/videos
 
