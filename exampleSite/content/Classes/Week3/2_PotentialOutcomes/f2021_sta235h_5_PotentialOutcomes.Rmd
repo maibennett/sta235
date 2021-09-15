@@ -612,7 +612,7 @@ where $Y_i(1)$ is the **.darkorange[potential outcome under treatment]**.
 In the same fashion,
 
 $$Y_i | Z_i = 0 \overset{\Delta}{=} Y_i(0) $$
-where $Y_i(1)$ is the **.darkorange[potential outcome under control]**.
+where $Y_i(0)$ is the **.darkorange[potential outcome under control]**.
 
 ---
 # Potential Outcomes Framework
