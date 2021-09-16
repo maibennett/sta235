@@ -766,9 +766,8 @@ estimate based on data</span>
 - Let's go back to our original example: **.darkorange[Does a pill help reduce headaches?]**
 
 .center[
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tbl1.png)]
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tbl1.png)]
 
-.small[
 ```{r echo = FALSE, message=FALSE}
 library(htmltools)
 library(paletteer)
@@ -812,14 +811,15 @@ tbl <- tab %>%
     style = list(fontFamily = "Fira Sans, sans-serif")
     )
 ```
-]
 
 ---
 # Getting around the fundamental problem of causal inference
 
 - We have a **.darkorange[missing data problem]**
 
-.small[
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tbl2.png)]
+
 ```{r echo = FALSE, message=FALSE}
 tbl <- tab %>%
   reactable(
@@ -899,17 +899,16 @@ tbl <- tab %>%
     style = list(fontFamily = "Fira Sans, sans-serif")
     )
 
-tbl
-
 ```
-]
 
 ---
 # Getting around the fundamental problem of causal inference
 
 - Compare those who **.darkorange[took the pill]** to the ones **.darkorange[did not take it.]**
 
-.small[
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tbl3.png)]
+
 ```{r echo = FALSE, message=FALSE}
 tbl <- tab %>%
   reactable(
@@ -938,17 +937,17 @@ rowStyle = function(index) {
 
 )
 
-tbl
-
 ```
-]
+
 
 ---
 # Getting around the fundamental problem of causal inference
 
 - Compare those who **.darkorange[took the pill]** to the ones **.darkorange[did not take it.]**
 
-.small[
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tbl4.png)]
+
 ```{r echo = FALSE, message=FALSE}
 tbl <- tab %>%
   reactable(
@@ -977,18 +976,16 @@ rowStyle = function(index) {
 
 )
 
-tbl
-
 ```
-]
-
 
 ---
 # Getting around the fundamental problem of causal inference
 
 - Compare those who **.darkorange[took the pill]** to the ones **.darkorange[did not take it.]**
 
-.small[
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tbl5.png)]
+
 ```{r echo = FALSE, message=FALSE}
 tbl <- tab %>%
   reactable(
@@ -1010,9 +1007,7 @@ tbl <- tab %>%
     style = list(fontFamily = "Fira Sans, sans-serif")
 )
 
-tbl 
 ```
-]
 
 $$\hat{\tau} = \frac{1}{3}(\sum_{i \in Z=1}Y_i - \sum_{i \in Z=0}Y_i) = -0.333$$
 ---
@@ -1184,7 +1179,9 @@ $$= E[Y_i | Z=1] - E[Y_i| Z=0]$$
 
 We can just "ignore" the missing data problem:
 
-.small[
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tbl6.png)]
+
 ```{r echo = FALSE, message=FALSE}
 tab2 <- tab
 
@@ -1212,17 +1209,16 @@ tbl <- tab2 %>%
     style = list(fontFamily = "Fira Sans, sans-serif")
 )
 
-tbl 
 ```
-]
-
 
 ---
 # Ignorability Assumption
 
 We can just "ignore" the missing data problem:
 
-.small[
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tbl7.png)]
+
 ```{r echo = FALSE, message=FALSE}
 tbl <- tab2 %>%
   reactable(
@@ -1287,17 +1283,16 @@ tbl <- tab2 %>%
     style = list(fontFamily = "Fira Sans, sans-serif")
     )
 
-tbl 
-  
 ```
-]
 
 ---
 # Ignorability Assumption
 
 We can just "ignore" the missing data problem:
 
-.small[
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tbl8.png)]
+
 ```{r echo = FALSE, message=FALSE}
 tab2 <- rbind(tab2, c("", "", "", "1/3","2/3",""))
 
@@ -1370,10 +1365,8 @@ tbl <- tab2 %>%
     style = list(fontFamily = "Fira Sans, sans-serif")
     )
 
-tbl  
-  
 ```
-]
+
 
 ---
 # Ignorability Assumption
@@ -1666,6 +1659,8 @@ You want to know whether is more convenient to **.darkorange[e-mail]** or **.dar
 - You get some data from a friend in Silicon Valley, who works at a similar company:
 
 .center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tbl9.png)]
+
 ```{r echo=FALSE}
 tab <- cbind(c("E-mail","","Mail",""),c("19%","(290/1500)","16%","(88/550)"))
 
@@ -1692,21 +1687,8 @@ tbl <- tab %>%
   ),
     style = list(fontFamily = "Fira Sans, sans-serif"))
 
-div(
-  # this class can be called with CSS now via .salary
-  class = "tab",
-  div(
-    # this can be called with CSS now via .title
-    class = "title",
-    h3("% of New Registrations by Type of Campaign")
-  ),
-  # The actual table
-  tbl
-)
-
-
 ```
-]
+
 
 ---
 # Looking at some data
@@ -1714,6 +1696,8 @@ div(
 - You get some data from a friend in Silicon Valley, who works at a similar company:
 
 .center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tbl10.png)]
+
 ```{r echo=FALSE}
 
 tbl <- tab %>%
@@ -1742,19 +1726,6 @@ tbl <- tab %>%
   },
     style = list(fontFamily = "Fira Sans, sans-serif")
   )
-
-div(
-  # this class can be called with CSS now via .salary
-  class = "tab",
-  div(
-    # this can be called with CSS now via .title
-    class = "title",
-    h3("% of New Registrations by Type of Campaign")
-  ),
-  # The actual table
-  tbl
-)
-
 
 ```
 ]
@@ -1767,6 +1738,8 @@ div(
 - You get some data from a friend in Silicon Valley, who works at a similar company:
 
 .center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tbl10.png)]
+
 ```{r echo=FALSE}
 
 tbl <- tab %>%
@@ -1795,18 +1768,6 @@ tbl <- tab %>%
   },
     style = list(fontFamily = "Fira Sans, sans-serif")
   )
-
-div(
-  # this class can be called with CSS now via .salary
-  class = "tab",
-  div(
-    # this can be called with CSS now via .title
-    class = "title",
-    h3("% of New Registrations by Type of Campaign")
-  ),
-  # The actual table
-  tbl
-)
 
 ```
 ]
@@ -1821,6 +1782,8 @@ div(
 - Your friend now also sends you additional data on whether the individual had ever visited the site:
 
 .center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tbl11.png)]
+
 ```{r echo=FALSE}
 tab2 <- cbind(tab[,1],c("10%","10/100","15%","77/514"),c("20%","280/1400","31%","11/36"),tab[,2])
 
@@ -1852,19 +1815,6 @@ tbl <- tab2 %>%
     style = list(fontFamily = "Fira Sans, sans-serif")
   )
 
-div(
-  # this class can be called with CSS now via .salary
-  class = "tab",
-  div(
-    # this can be called with CSS now via .title
-    class = "title",
-    h3("% of New Registrations by Type of Campaign and Visits to the Website")
-  ),
-  # The actual table
-  tbl
-)
-
-
 ```
 ]
 
@@ -1876,6 +1826,8 @@ div(
 - The majority of the sample that was assigned to "E-mail" had not visited the website before, while the majority of the sample that was sent a mailing had visited the website.
 
 .center[
+![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tbl12.png)]
+
 ```{r echo=FALSE}
 tab3 <- cbind(tab2[,1],c("6.7%","","93.4%",""),c("93.4%","","6.5%",""))
 
@@ -1908,27 +1860,15 @@ tbl <- tab3 %>%
   
   )
 
-div(
-  # this class can be called with CSS now via .salary
-  class = "tab",
-  div(
-    # this can be called with CSS now via .title
-    class = "title",
-    h3("% of the Sample in each Category by Site Visit")
-  ),
-  # The actual table
-  tbl
-)
-
-
 ```
-]
 ---
 # Let's add some covariates
 
 - Your friend now also sends you additional data on whether the individual had ever visited the site:
 
 .center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tbl13.png)]
+
 ```{r echo=FALSE}
 tab <- cbind(tab[,1],c("10%","10/100","15%","77/514"),c("20%","280/1400","31%","11/36"),tab[,2])
 
@@ -1960,21 +1900,7 @@ tbl <- tab %>%
     style = list(fontFamily = "Fira Sans, sans-serif")
   )
 
-div(
-  # this class can be called with CSS now via .salary
-  class = "tab",
-  div(
-    # this can be called with CSS now via .title
-    class = "title",
-    h3("% of New Registrations by Type of Campaign and Visits to the Website")
-  ),
-  # The actual table
-  tbl
-)
-
-
 ```
-]
 
 **.darkorange[Do we have a confounding problem?]**
 
@@ -2024,8 +1950,9 @@ div(
   
   - Due to data collection, more people in the mailing sample had visited the website than people in the email sample.
 
-.small[
 .center[
+![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tbl14.png)]
+
 ```{r echo = FALSE}
 set.seed(122)
 
@@ -2083,19 +2010,9 @@ tbl <- tab %>%
     style = list(fontFamily = "Fira Sans, sans-serif")
   )
 
-div(
-  # this class can be called with CSS now via .salary
-  class = "tab",
-  div(
-    # this can be called with CSS now via .title
-    class = "title",
-    h3("Num in Sample and % of New Registrations by Type of Campaign and Visits to the Website")
-  ),
-  # The actual table
-  tbl
-)
+
 ```
-]]
+
 
 .source[Note: Simulated data]
 
@@ -2175,8 +2092,9 @@ summary(lm(y ~ factor(treat) + visit, data = confound))
   
   - People that receive a letter are much more encouraged to visit the website, and people that register are also more likely to visit the website.
 
-.small[
 .center[
+![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tbl15.png)]
+
 ```{r echo = FALSE}
 set.seed(120)
 
@@ -2238,19 +2156,7 @@ tbl <- tab %>%
     style = list(fontFamily = "Fira Sans, sans-serif")
   )
 
-div(
-  # this class can be called with CSS now via .salary
-  class = "tab",
-  div(
-    # this can be called with CSS now via .title
-    class = "title",
-    h3("Num in Sample and % of New Registrations by Type of Campaign and Visits to the Website")
-  ),
-  # The actual table
-  tbl
-)
 ```
-]]
 
 .source[Note: Simulated data]
 
