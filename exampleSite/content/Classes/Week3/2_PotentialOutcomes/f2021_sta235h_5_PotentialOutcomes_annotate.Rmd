@@ -416,20 +416,6 @@ The "How": Potential outcomes framework
 
 .center[![:scale 40%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tweet-1.png)]
 
-<!--
-```{r tweet, fig.width=5, fig.height=5,fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-library(tweetrmd)
-
-tweet_screenshot(
-  tweet_url("grescoe", "1435694367805693956"),
-  maxwidth = 300,
-  scale = 1.5,
-  hide_media = TRUE,
-  theme = "dark"
-)
-```
--->
-
 ---
 # Before we start...
 
@@ -784,6 +770,8 @@ estimate based on data</span>
 library(htmltools)
 library(paletteer)
 library(reactable)
+library(htmlwidgets)
+library(webshot2)
 library(tidyverse)
 library(extrafont)
 library(hrbrthemes)
@@ -822,7 +810,7 @@ tbl <- tab %>%
     )
 
 tbl
-  
+
 ```
 ]
 
@@ -912,7 +900,7 @@ tbl <- tab %>%
     )
 
 tbl
-  
+
 ```
 ]
 
@@ -951,7 +939,7 @@ rowStyle = function(index) {
 )
 
 tbl
-  
+
 ```
 ]
 
@@ -990,7 +978,7 @@ rowStyle = function(index) {
 )
 
 tbl
-  
+
 ```
 ]
 
@@ -1022,8 +1010,7 @@ tbl <- tab %>%
     style = list(fontFamily = "Fira Sans, sans-serif")
 )
 
-tbl
-  
+tbl 
 ```
 ]
 
@@ -1225,8 +1212,7 @@ tbl <- tab2 %>%
     style = list(fontFamily = "Fira Sans, sans-serif")
 )
 
-tbl
-  
+tbl 
 ```
 ]
 
@@ -1301,8 +1287,7 @@ tbl <- tab2 %>%
     style = list(fontFamily = "Fira Sans, sans-serif")
     )
 
-tbl
-  
+tbl 
   
 ```
 ]
@@ -1385,8 +1370,7 @@ tbl <- tab2 %>%
     style = list(fontFamily = "Fira Sans, sans-serif")
     )
 
-tbl
-  
+tbl  
   
 ```
 ]
@@ -1720,6 +1704,7 @@ div(
   tbl
 )
 
+
 ```
 ]
 
@@ -1769,6 +1754,7 @@ div(
   # The actual table
   tbl
 )
+
 
 ```
 ]
@@ -1878,6 +1864,7 @@ div(
   tbl
 )
 
+
 ```
 ]
 
@@ -1933,6 +1920,7 @@ div(
   tbl
 )
 
+
 ```
 ]
 ---
@@ -1983,6 +1971,7 @@ div(
   # The actual table
   tbl
 )
+
 
 ```
 ]
