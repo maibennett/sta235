@@ -414,6 +414,9 @@ The "How": Potential outcomes framework
 ---
 # The "Audi Effect"
 
+.center[![:scale 40%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tweet-1.png)]
+
+<!--
 ```{r tweet, fig.width=5, fig.height=5,fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
 library(tweetrmd)
 
@@ -425,6 +428,7 @@ tweet_screenshot(
   theme = "dark"
 )
 ```
+-->
 
 ---
 # Before we start...

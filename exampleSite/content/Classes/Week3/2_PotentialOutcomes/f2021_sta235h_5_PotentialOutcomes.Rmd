@@ -414,6 +414,7 @@ The "How": Potential outcomes framework
 ---
 # The "Audi Effect"
 
+.center[![:scale 40%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tweet-1.png)]
 
 ---
 # Before we start...
