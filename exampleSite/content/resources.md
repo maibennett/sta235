@@ -35,12 +35,17 @@ Cheatsheets for R are amazing! Here are two of my favorite so you can look up fu
 
 - [Rmarkdown: Cheatsheet](https://sta235.netlify.com/images/rmarkdown.pdf)
 
-<!-- ## Multiple Regression
+## Multiple Regression
 
 - [Regression Models with Multiple Regressors](https://www.econometrics-with-r.org/6-rmwmr.html) by C. Hanck et al. (2020), from their book *Introduction to Econometrics with R*
 	- It also includes some R resources!
 
-## Machine Learning
+## Introduction to Potential Outcomes
+
+- [Introduction to the Potential Outcomes Framework](https://www.causalconversations.com/post/po-introduction/) by G. Basse & I. Bojinov (2021), from their blog *Causal Conversations*.
+
+
+<!-- ## Machine Learning
 
 - ["Hands-On Machine Learning"](https://bradleyboehmke.github.io/HOML/) by B. Boehmke & B. Greenwell (2020). *Note: Great resource to see different packages for bagging, random forests, and boosting, beyond what we have seen in class!* -->
 
