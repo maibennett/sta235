@@ -30,3 +30,8 @@ chapter: false
 <br>
 
 <a onclick="ga('send', 'event', 'External-Link','click','hw1_rmd','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework1/STA235H_HW1_template.Rmd" target="_blank" class="btn btn-default"> Rmarkdown Template <i class="fas fa-external-link-alt"></i></a> 
+
+
+## Answer Key
+
+- You can find the answer key for Homework 1 here: <a onclick="ga('send', 'event', 'External-Link','click','hw1_key','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework1/STA235H_Fall21_Homework1_AnswerKey.html" target="_blank" class="btn btn-default"> Open HW1 Answer Key <i class="fas fa-external-link-alt"></i></a> 
