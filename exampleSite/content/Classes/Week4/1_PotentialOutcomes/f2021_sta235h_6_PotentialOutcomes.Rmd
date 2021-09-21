@@ -704,6 +704,13 @@ div(
 **.darkorange[What seems strange?]**
 
 ---
+# The Simpson Paradox
+
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/1_PotentialOutcomes/images/simpson.jpg)
+]
+
+---
 # Let's add some covariates
 
 - The majority of the sample that was assigned to "E-mail" had not visited the website before, while the majority of the sample that was sent a mailing had visited the website.
