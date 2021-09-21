@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>STA 235H - Potential Outcomes</title>
+    <title>STA 235H - Potential Outcomes II</title>
     <meta charset="utf-8" />
     <meta name="author" content="McCombs School of Business, UT Austin" />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -26,7 +26,7 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# STA 235H - Potential Outcomes
+# STA 235H - Potential Outcomes II
 ## Fall 2021
 ### McCombs School of Business, UT Austin
 
@@ -64,793 +64,67 @@ class: center, middle, inverse, title-slide
 
 # Housekeeping
 
-.box-2LA[Homework 1 is due Thursday]
+.box-2LA[Homework 2 will be posted on Thursday]
 
 --
 
-- **.darkorange[R review session]** is posted on Canvas.
+- **.darkorange[HW 1 Answer key]** is posted on the course website (review it!).
 
-- Remember to use the resources at your disposal: **.darkorange[Office hours]** and **.darkorange[Discussion Board]**.
+- Student suggestion: Class recordings will be available **.darkorange[two weeks before the midterm]**.
+
+  - &lt;u&gt;Trial run&lt;/u&gt;: Check if attendance drops significantly. 
 
 ---
 # Last week
 
 .pull-left[
-- Finished our chapter on **.darkorange[multiple regression]**.
+- Started talking about **.darkorange[Causal Inference]**.
   
-  - **.darkorange[Statistical Adjustment]**: Unveiling useful associations, interaction terms, multicollinearity. 
-
-- **.darkorange[Residuals]**: &lt;u&gt;Moved to week 8&lt;/u&gt; (discrete responses in regression models).
+  - **.darkorange[Potential outcomes framework]**: What are potential outcomes? How we identify a counterfactual? What is an estimand? 
+  
+  - **.darkorange[Fundamental problem of causal inference]**: Ignorability assumption
+  
+  - **.darkorange[Sources of bias]**: Selection bias and heterogenous return to treatment bias.
 ]
 
 .pull-right[
-![:scale 90%](https://media.giphy.com/media/xUOwGb8GuMRhxZcBuo/giphy-downsized-large.gif)
+&lt;br&gt;
+&lt;br&gt;
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_PotentialOutcomes/images/correlation.png)
 ]
 ---
 # Today
 
 .pull-left[
 .center[
-![](https://media.giphy.com/media/xTiN0CNHgoRf1Ha7CM/giphy.gif)]
+&lt;br&gt;
+&lt;br&gt;
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_RCT/images/xkcd-p-value-jellybeans.jpg)]
 ]
 .pull-right[
-- **.darkorange[Introduction to Causal Inference]**:
+- **.darkorange[Finish with potential outcomes framework]**:
   
-  .box-2t[How? Potential Outcomes Framework]
+  - Examples related to causal inference.
   
-  .box-4t[What? Causal Estimands]
+  - Confounder vs. Collider.
   
-  .box-7t[Why? Causal Questions and Study Design]
+- Introduction to **.darkorange[Randomized Controlled Trials (RCTs)]**
 ]
 
 ---
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
-The "How": Potential outcomes framework
+Let's look back at some math
 ]
 
 ---
-&lt;br&gt;
-.center[![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/greta_tweet.png)]
----
-.center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/greta_effect.png)]
----
-&lt;br&gt;
-&lt;br&gt;
-.center[![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/greta_dag.png)]
----
-.center2[.box-3LA[What do you think are the biggest issues here?]]
----
-.center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/khoa_tweet.png)]
----
-.center2[.box-6LA[What about other topics?]]
----
-# The Tesla Autosteer Case
-.pull-left[
-.center[![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tesla_good.png)]
-]
----
-# The Tesla Autosteer Case
-.pull-left[
-.center[![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tesla_good.png)]
-]
-.pull-right[
-.center[![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tesla_fake.png)]
-]
 
----
-# The "Audi Effect"
-
-.center[![:scale 40%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/tweet-1.png)]
-
----
-# Before we start...
-
-.center[.box-2LA[Be clear about your language]]
----
-# Before we start...
-
-.center[.box-2LA[Be clear about your language]]
-&lt;br&gt;
-.center[.box-4LA[Be clear about your data]]
-
----
-# Before we start...
-
-.center[.box-2LA[Be clear about your language]]
-&lt;br&gt;
-.center[.box-4LA[Be clear about your data]]
-&lt;br&gt;
-.center[.box-7LA[Be clear about your assumptions]]
----
-# What is Causal Inference?
-
-.box-5LA[Inferring the effect of one thing on another thing]
-
----
-# What is Causal Inference?
-
-.box-5LA[Inferring the effect of one thing on another thing]
-&lt;br&gt;
-&lt;br&gt;
-- "My headache went away because I took an aspirin".
-
----
-# What is Causal Inference?
-
-.box-5LA[Inferring the effect of one thing on another thing]
-&lt;br&gt;
-&lt;br&gt;
-- "My headache went away because I took an aspirin".
-
-- "The new marketing campaign increased our sales by 20%"
-
----
-# What is Causal Inference?
-
-.box-5LA[Inferring the effect of one thing on another thing]
-&lt;br&gt;
-&lt;br&gt;
-- "My headache went away because I took an aspirin".
-
-- "The new marketing campaign increased our sales by 20%"
-
-- "Providing students support when filling out FAFSA forms improves college access and completion."
-
----
-# Imagine we have a headache...
-.center[![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/headache.png)]
-
-&lt;br&gt;
-&lt;br&gt;
-.tiny[
-.lightgrey[
-Icons made by [Freepik](https://www.freepik.com) from [www.flaticon.com](https://www.flaticon.com/)
-]]
----
-# A treatment could be an aspirin
-.center[![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/headache_pill.png)]
-
-&lt;br&gt;
-&lt;br&gt;
-.tiny[
-.lightgrey[
-Icons made by [Freepik](https://www.freepik.com) from [www.flaticon.com](https://www.flaticon.com/)
-]]
----
-# Headache is gone!
-.center[![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/headache_pill_happy.png)]
-
-&lt;br&gt;
-&lt;br&gt;
-.tiny[
-.lightgrey[
-Icons made by [Freepik](https://www.freepik.com) from [www.flaticon.com](https://www.flaticon.com/)
-]]
----
-.center2[
-.box-3LA[Did the aspirin work?]
-&lt;br&gt;
-]
----
-.center2[
-.box-3LA[Did the aspirin work?]
-&lt;br&gt;
-.box-5LA[We can't know!]
-]
----
-# A world of potential (outcomes)
-
-- Under a binary treatment or intervention, there are **.darkorange[two potential worlds]**:
-
----
-# A world of potential (outcomes)
-
-- Under a binary treatment or intervention, there are **.darkorange[two potential worlds]**:
-
-.pull-left[
-- **.darkorange[World 1]**: You take the pill
-  
-- **.darkorange[World 2]**: You don't take the pill
-]
-.pull-right[
-![](https://media.giphy.com/media/SCt3Miv6ugvSg/source.gif)
-]
----
-# A world of potential (outcomes)
-
-- A **.darkorange[potential outcome]** is the outcome under each of these scenarios or "worlds".
-
-  - *There will be one for each path!*
-
----
-# A world of potential (outcomes)
-
-- A **.darkorange[potential outcome]** is the outcome under each of these scenarios or "worlds".
-
-  - *There will be one for each path!*
-
-- A priori, each of these scenarios has a *potential outcome*
-
-- A posteriori, I can only observe **.darkorange[at most one of the potential outcomes]**
-
-
----
-# A world of potential (outcomes)
-
-- A **.darkorange[potential outcome]** is the outcome under each of these scenarios or "worlds".
-
-  - *There will be one for each path!*
-
-- A priori, each of these scenarios has a *potential outcome*
-
-- A posteriori, I can only observe **.darkorange[at most one of the potential outcomes]**
-
-.box-3LA[Fundamental Problem of Causal Inference]
-
----
-.center2[
-.box-6LA[What are the potential outcomes for our previous example?]
-]
-
----
-# Potential Outcomes: An example
-
-.pull-left[
-.center[
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/headache_pill.png)
-
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/headache_nopill.png)]
-]
-
-.pull-right[
-**.darkorange[Potential outcomes]**:
-
-- Outcome if I take the pill
-
-- Outcome if I don't take the pill
-]
-
----
-# Potential Outcomes Framework
-
-Let's introduce some notation:
-
-- Let `\(Y_i\)` be the observed outcome for unit `\(i\)` (e.g. whether I have a headache or not in an hour).
-- Let `\(Z_i\)` be the treatment or intervention (e.g. taking a pill).
-
-Then,
-
-$$Y_i | Z_i = 1 \overset{\Delta}{=} Y_i(1) $$
-where `\(Y_i(1)\)` is the **.darkorange[potential outcome under treatment]**.
+.box-6[$$\mu = E[Y_i]$$]
 
 --
 
-In the same fashion,
-
-$$Y_i | Z_i = 0 \overset{\Delta}{=} Y_i(0) $$
-where `\(Y_i(0)\)` is the **.darkorange[potential outcome under control]**.
-
----
-# Potential Outcomes Framework
-
-This means that we can write the observed outcome as a function of the *potential outcomes*:
-
-.box-5LA[$$\rightarrow Y_i = Z_i\cdot Y_i(1) + (1-Z_i)\cdot Y_i(0)$$]
-
-- This definition will be useful because we can see this as a **.darkorange[missing data problem]**.
-
----
-# Causal Effects
-
-.box-4tL[Individual Causal Effect]
-
-`$$ICE_i = Y_i(1) - Y_i(0)$$`
----
-# Causal Effects
-
-.box-4tL[Individual Causal Effect]
-
-`$$ICE_i = Y_i(1) - Y_i(0)$$`
-&lt;br&gt;
-.box-3LA[Can we ever observe individual causal effects?]
-
----
-# Causal Effects
-
-.box-4tL[Individual Causal Effect]
-
-`$$ICE_i = Y_i(1) - Y_i(0)$$`
-
-&lt;br&gt;
-.box-3LA[Can we ever observe individual causal effects?]
-
-.box-7LA[No!*]
-
----
-# Only one realization
-
-.pull-left[
-.box-2[Z=1]
-.center[
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/headache_pill_happy.png)
-
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/headache_pill_headache.png)]
-]
-
-.pull-right[
-.box-2[Z=0]
-.center[
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/headache_nopill_happy.png)
-
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/headache_nopill_headache.png)]
-]
-
----
-# Only one realization
-
-.pull-left[
-.box-2[Z=1]
-.center[
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/headache_pill_happy_highlight.png)
-
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/headache_pill_headache.png)]
-]
-
-.pull-right[
-.box-2[Z=0]
-.center[
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/headache_nopill_happy.png)
-
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/headache_nopill_headache.png)]
-]
-
----
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-The "What": Causal estimands, estimates, and estimators
-]
----
-# Estimands vs Estimates vs Estimators
-
-.pull-left-little_r[
-.box-2[Estimand]
-
-.box-2t[A quantity we want to estimate]
-]
-.pull-right-little_l[
-.box-7[Estimate]
-
-.box-7t[The result of an estimation]
-]
-
-.center[
-.box-4[Estimator]
-
-&lt;span class="box-4t"&gt;A rule for calculating&lt;br&gt;an 
-estimate based on data&lt;/span&gt;
-]
-
----
-# Estimands vs Estimates vs Estimators
-
-.pull-left-little_r[
-.box-2[Estimand]
-
-.box-2t[A quantity we want to estimate]
-
-.box-2t[E.g.: Population mean]
-
-.box-2t[$$\mu$$]
-]
-.pull-right-little_l[
-.box-7[Estimate]
-
-.box-7t[The result of an estimation]
-
-.box-7t[E.g.: Result of the sample mean&lt;br&gt;for a given sample *S*]
-
-.box-7t[$$\hat{\mu}$$]
-]
-.center[
-.box-4[Estimator]
-
-&lt;span class="box-4t"&gt;A rule for calculating&lt;br&gt;an 
-estimate based on data&lt;/span&gt;
-
-.box-4t[E.g.: Sample mean]
-
-.box-4t[$$\frac{1}{n}\sum_i Y_i$$]
-]
-
----
-# Estimands vs Estimates vs Estimators
-
-- Some important **.darkorange[estimands]** that we need to keep in mind:
-
-.box-3[Average Treatment Effect (ATE)]
-
-.box-5[Average Treatment Effect on the Treated (ATT)]
-
-.box-7[Conditional Average Treatment Effect (CATE)]
-
----
-# Estimands vs Estimates vs Estimators
-
-- Some important **.darkorange[estimands]** that we need to keep in mind:
-
-.box-3[$$ATE = E[Y(1)- Y(0)]$$]
-
-.box-5[$$ATT = E[Y(1)- Y(0)| Z=1]$$]
-
-.box-7[$$CATE = E[Y(1)- Y(0)| X]$$]
-
-
----
-# Getting around the fundamental problem of causal inference
-
-- Let's go back to our original example: **.darkorange[Does a pill help reduce headaches?]**
-
-.small[
-<div id="htmlwidget-8ba05a5336f937c7d3e1" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-8ba05a5336f937c7d3e1">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"6f0481a4f5d9bfcc677b581f15541866","key":"6f0481a4f5d9bfcc677b581f15541866"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
-]
-
----
-# Getting around the fundamental problem of causal inference
-
-- We have a **.darkorange[missing data problem]**
-
-.small[
-<div id="htmlwidget-74720f1f67b241b0fc0e" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-74720f1f67b241b0fc0e">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center","style":[{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400}]},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center","style":[{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600}]},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center","style":[{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600}]}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"519da094876debccd4f5ff7c198e2359","key":"519da094876debccd4f5ff7c198e2359"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
-]
-
----
-# Getting around the fundamental problem of causal inference
-
-- Compare those who **.darkorange[took the pill]** to the ones **.darkorange[did not take it.]**
-
-.small[
-<div id="htmlwidget-7b8ef32e3fbd2d670c79" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-7b8ef32e3fbd2d670c79">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[null,{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"},{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"},null,null,{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"}],"dataKey":"6f0481a4f5d9bfcc677b581f15541866","key":"6f0481a4f5d9bfcc677b581f15541866"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
-]
-
----
-# Getting around the fundamental problem of causal inference
-
-- Compare those who **.darkorange[took the pill]** to the ones **.darkorange[did not take it.]**
-
-.small[
-<div id="htmlwidget-e8dcee8c7144fe3fc0f7" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-e8dcee8c7144fe3fc0f7">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},null,null,{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},null],"dataKey":"6f0481a4f5d9bfcc677b581f15541866","key":"6f0481a4f5d9bfcc677b581f15541866"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
-]
-
-
----
-# Getting around the fundamental problem of causal inference
-
-- Compare those who **.darkorange[took the pill]** to the ones **.darkorange[did not take it.]**
-
-.small[
-<div id="htmlwidget-57130ad0656e4c157745" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-57130ad0656e4c157745">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"6f0481a4f5d9bfcc677b581f15541866","key":"6f0481a4f5d9bfcc677b581f15541866"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
-]
-
-`$$\hat{\tau} = \frac{1}{3}(\sum_{i \in Z=1}Y_i - \sum_{i \in Z=0}Y_i) = -0.333$$`
----
-# Getting around the fundamental problem of causal inference
-
-`$$\hat{\tau} = \frac{1}{3}(\sum_{i \in Z=1}Y_i - \sum_{i \in Z=0}Y_i) = -0.333$$`
-- What is the **.darkorange[estimand]**?
-
----
-# Getting around the fundamental problem of causal inference
-
-`$$\hat{\tau} = \frac{1}{3}(\sum_{i \in Z=1}Y_i - \sum_{i \in Z=0}Y_i) = -0.333$$`
-
-- What is the **.darkorange[estimand]**?
-
-.box-6[Average Treatment Effect]
-
----
-# Getting around the fundamental problem of causal inference
-
-`$$\hat{\tau} = \frac{1}{3}(\sum_{i \in Z=1}Y_i - \sum_{i \in Z=0}Y_i) = -0.333$$`
-
-- What is the **.darkorange[estimand]**?
-
-.box-6[Average Treatment Effect]
-
-- What is the **.darkorange[estimator]**?
-
-
----
-# Getting around the fundamental problem of causal inference
-
-`$$\hat{\tau} = \frac{1}{3}(\sum_{i \in Z=1}Y_i - \sum_{i \in Z=0}Y_i) = -0.333$$`
-
-- What is the **.darkorange[estimand]**?
-
-.box-6[Average Treatment Effect]
-
-- What is the **.darkorange[estimator]**?
-
-.box-4[Difference in sample means]
-
----
-# Getting around the fundamental problem of causal inference
-
-`$$\hat{\tau} = \frac{1}{3}(\sum_{i \in Z=1}Y_i - \sum_{i \in Z=0}Y_i) = -0.333$$`
-
-- What is the **.darkorange[estimand]**?
-
-.box-6[Average Treatment Effect]
-
-- What is the **.darkorange[estimator]**?
-
-.box-4[Difference in sample means]
-
-- What is the **.darkorange[estimate]** and *how do we interpret it*?
-
----
-# Getting around the fundamental problem of causal inference
-
-`$$\hat{\tau} = \frac{1}{3}(\sum_{i \in Z=1}Y_i - \sum_{i \in Z=0}Y_i) = -0.333$$`
-
-- What is the **.darkorange[estimand]**?
-
-.box-6[Average Treatment Effect]
-
-- What is the **.darkorange[estimator]**?
-
-.box-4[Difference in sample means]
-
-- What is the **.darkorange[estimate]** and *how do we interpret it*?
-
-.box-2[33.3% decrease in probability of having a headache]
-
----
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-The "Why": Causal questions and study designs
-]
-
----
-# Under what assumptions is our estimate causal?
-
-We are using:
-`$$\hat{\tau} = \frac{1}{3}(\sum_{i \in Z=1}Y_i - \sum_{i \in Z=0}Y_i)$$`
-to estimate:
-
-`$$\tau = E[Y_i(1) - Y_i(0)]$$`
-
----
-# Under what assumptions is our estimate causal?
-
-We are using:
-`$$\hat{\tau} = \frac{1}{3}(\sum_{i \in Z=1}Y_i - \sum_{i \in Z=0}Y_i)$$`
-
-to estimate:
-
-`$$\tau = E[Y_i(1) - Y_i(0)]$$`
-
-.box-7LA[Let's do some math]
-
----
-# Under what assumptions is our estimate causal?
-
-`$$\tau = E[Y_i(1) - Y_i(0)]$$`
-`$$= E[Y_i(1)] - E[Y_i(0)]$$`
-**.darkorange[Key assumption]**:
-
-.box-3[Ignorability]
-
-- Ignorability means that the potential outcomes `\(Y(0)\)` and `\(Y(1)\)` are independent of the treatment, e.g. `\((Y(0), Y(1)) \perp\!\!\!\perp Z\)`. 
-
----
-# Under what assumptions is our estimate causal?
-
-`$$\tau = E[Y_i(1) - Y_i(0)]$$`
-`$$= E[Y_i(1)] - E[Y_i(0)]$$`
-**.darkorange[Key assumption]**:
-
-.box-3[Ignorability]
-
-- Ignorability means that the potential outcomes `\(Y(0)\)` and `\(Y(1)\)` are independent of the treatment, e.g. `\((Y(0), Y(1)) \perp\!\!\!\perp Z\)`. 
-
-  - *Remember that if* `\(A \perp\!\!\!\perp B \ \rightarrow \ E[A|B] = E[A]\)`
-
----
-# Under what assumptions is our estimate causal?
-
-`$$\tau = E[Y_i(1) - Y_i(0)]$$`
-`$$= E[Y_i(1)] - E[Y_i(0)]$$`
-**.darkorange[Key assumption]**:
-
-.box-3[Ignorability]
-
-- Ignorability means that the potential outcomes `\(Y(0)\)` and `\(Y(1)\)` are independent of the treatment, e.g. `\((Y(0), Y(1)) \perp\!\!\!\perp Z\)`. 
-
-&lt;br&gt;
-`$$\tau = E[Y_i(1)] - E[Y_i(0)] = E[Y_i(1)| Z=1] - E[Y_i(0)| Z=0]$$`
----
-# Under what assumptions is our estimate causal?
-
-`$$\tau = E[Y_i(1) - Y_i(0)]$$`
-`$$= E[Y_i(1)] - E[Y_i(0)]$$`
-
-**.darkorange[Key assumption]**:
-
-.box-3[Ignorability]
-
-- Ignorability means that the potential outcomes `\(Y(0)\)` and `\(Y(1)\)` are independent of the treatment, e.g. `\((Y(0), Y(1)) \perp\!\!\!\perp Z\)`. 
-
-`$$\tau = E[Y_i(1)] - E[Y_i(0)] = \color{#900DA4}{\underbrace{E[Y_i(1)| Z=1]}_\text{Obs. Outcome for T}} - \color{#F89441}{\overbrace{E[Y_i(0)| Z=0]}^\text{Obs. Outcome for C}}$$`
----
-# Under what assumptions is our estimate causal?
-
-`$$\tau = E[Y_i(1) - Y_i(0)]$$`
-`$$= E[Y_i(1)] - E[Y_i(0)]$$`
-
-**.darkorange[Key assumption]**:
-
-.box-3[Ignorability]
-
-- Ignorability means that the potential outcomes `\(Y(0)\)` and `\(Y(1)\)` are independent of the treatment, e.g. `\((Y(0), Y(1)) \perp\!\!\!\perp Z\)`. 
-
-$$\tau = E[Y_i(1)] - E[Y_i(0)] = E[Y_i(1)| Z=1] - E[Y_i(0)| Z=0] = $$
-`$$= E[Y_i | Z=1] - E[Y_i| Z=0]$$`
----
-# Ignorability Assumption
-
-We can just "ignore" the missing data problem:
-
-.small[
-<div id="htmlwidget-92316df36da1394a9f9e" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-92316df36da1394a9f9e">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["","1","0","","","0"],"Y(0)":["1","","","0","1",""],"Y(1)-Y(0)":["","","","","",""]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"44989422bbd1e06b9a83408e16b201b1","key":"44989422bbd1e06b9a83408e16b201b1"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
-]
-
-
----
-# Ignorability Assumption
-
-We can just "ignore" the missing data problem:
-
-.small[
-<div id="htmlwidget-b5b0ebacfc4aac21037b" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-b5b0ebacfc4aac21037b">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["","1","0","","","0"],"Y(0)":["1","","","0","1",""],"Y(1)-Y(0)":["","","","","",""]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center","style":[{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600}]},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center","style":[{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400}]},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"93faa237efb92fc51aaa6fb859c3f3dd","key":"93faa237efb92fc51aaa6fb859c3f3dd"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
-]
-
----
-# Ignorability Assumption
-
-We can just "ignore" the missing data problem:
-
-.small[
-<div id="htmlwidget-3aeef4f5700d493d7fa9" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-3aeef4f5700d493d7fa9">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6",""],"Z":["0","1","1","0","0","1",""],"Y":["1","1","0","0","1","0",""],"Y(1)":["","1","0","","","0","1/3"],"Y(0)":["1","","","0","1","","2/3"],"Y(1)-Y(0)":["","","","","","",""]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center","style":[{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600}]},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center","style":[{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600}]},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[null,null,null,null,null,null,{"fontWeight":"bold","background":"rgba(255, 255, 255,1)","borderTop":"2px solid #333f48"}],"dataKey":"d90e514cf4f2246f33934b6b213f1813","key":"d90e514cf4f2246f33934b6b213f1813"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
-]
-
----
-# Ignorability Assumption
-
-It's the same as the **.darkorange[exchangeability assumption]**:
-
-.center[![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/ex1.png)]
-
-
----
-# Ignorability Assumption
-
-It's the same as the **.darkorange[exchangeability assumption]**:
-
-.center[![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/ex2.png)]
-
-
----
-# Ignorability Assumption
-
-It's the same as the **.darkorange[exchangeability assumption]**:
-
-.center[![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/ex3.png)]
-
----
-# Ignorability Assumption
-
-It's the same as the **.darkorange[exchangeability assumption]**:
-
-.center[![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/ex3.png)]
-
-`$$E[Y(1) | Z = 1] = E[Y(1)| Z=0] = E[Y(1)]$$`
-
----
-# Ignorability Assumption
-
-It's the same as the **.darkorange[exchangeability assumption]**:
-
-.center[![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/ex3.png)]
-
-`$$E[Y(1) | Z = 1] = E[Y(1)| Z=0] = E[Y(1)]$$`
-`$$E[Y(0) | Z = 1] = E[Y(0)| Z=0] = E[Y(0)]$$`
----
-# What happens if the ignorability assumption doesn't hold?
-
-- Now, let's assume `\((Y(0), Y(1)) \not\!\perp\!\!\!\perp Z\)`
-
-`$$\tau = E[Y_i(1)] - E[Y_i(0)] \neq E[Y_i| Z=1] - E[Y_i| Z=0]$$`
-.box-4LA[Correlation does not imply causation]
-
----
-# What happens if the ignorability assumption doesn't hold?
-
-- Now, let's assume `\((Y(0), Y(1)) \not\!\perp\!\!\!\perp Z\)`
-
-$$\tau = E[Y_i(1) - Y_i(0)] = $$
-`$$=E[Y_i(1) - Y_i(0)|Z=1]Pr(Z=1) + E[Y_i(1) - Y_i(0)|Z=1](1-Pr(Z=1))$$`
----
-# What happens if the ignorability assumption doesn't hold?
-
-- Now, let's assume `\((Y(0), Y(1)) \not\!\perp\!\!\!\perp Z\)`
-
-$$\tau = E[Y_i(1) - Y_i(0)] = $$
-
-`$$=\color{#900DA4}{\underbrace{E[Y_i(1) - Y_i(0)|Z=1]}_\text{ATT}}Pr(Z=1) + \color{#F89441}{\overbrace{E[Y_i(1) - Y_i(0)|Z=0]}^\text{ATC}}(1-Pr(Z=1))$$`
-- Weighted average of the ATT and ATC.
-
----
-# What happens if the ignorability assumption doesn't hold?
-
-- After some simple math, you can get to:
-
-`$$\tau = E[Y_i(1) - Y_i(0)] = ATE$$`
-
-`$$\begin{aligned}
-ATE &amp;=E[Y_i|Z=1] - E[Y_i|Z=0] \\
-\\
-&amp; - (E[Y_i(0)|Z=1]-E[Y_i(0)|Z=0]) \\
-\\
-&amp; - (1-Pr(Z=1))(ATT - ATC)
-\end{aligned}$$`
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-.source[Check out [Scott Cunningham's "Causal Inference: The Mixtape" (Ch. 4.1.3)](https://mixtape.scunning.com/ch3.html) for the decomposition]
-
----
-# What happens if the ignorability assumption doesn't hold?
-
-- After some simple math, you can get to:
-
-`$$\tau = E[Y_i(1) - Y_i(0)] = ATE$$`
-
-`$$\begin{aligned}
-ATE &amp;=\color{#900DA4}{\underbrace{E[Y_i|Z=1] - E[Y_i|Z=0]}_\text{Obs diff in means}} \\
-&amp; - \color{#E16462}{\underbrace{(E[Y_i(0)|Z=1]-E[Y_i(0)|Z=0])}_\text{Selection bias}} \\
-&amp; - \color{#FCCE25}{\underbrace{(1-Pr(Z=1))(ATT - ATC)}_\text{Heterogeneous treat. effect bias}}
-\end{aligned}$$`
-- **.darkorange[Selection Bias:]** Difference between groups if they both were under control.
-- **.darkorange[Heterogeneous Treatment Effect Bias:]** Difference in returns to treatment for the two groups (weighted by the control population).
-&lt;br&gt;
-.source[Check out [Scott Cunningham's "Causal Inference: The Mixtape" (Ch. 4.1.3)](https://mixtape.scunning.com/ch3.html) for the decomposition]
----
-# How would bias look like?
-
-&lt;img src="f2021_sta235h_5_PotentialOutcomes_files/figure-html/PO1-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-# How would bias look like?
-
-&lt;img src="f2021_sta235h_5_PotentialOutcomes_files/figure-html/PO2-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-# How would bias look like?
-
-&lt;img src="f2021_sta235h_5_PotentialOutcomes_files/figure-html/PO3-1.svg" style="display: block; margin: auto;" /&gt;
+What does the previous equation mean?
 
 
 ---
@@ -908,8 +182,8 @@ You want to know whether is more convenient to **.darkorange[e-mail]** or **.dar
 <div class="title">
 <h3>% of New Registrations by Type of Campaign</h3>
 </div>
-<div id="htmlwidget-7b1ba9be6540392a445b" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-7b1ba9be6540392a445b">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Total":["19%","(290/1500)","16%","(88/550)"]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center"},{"accessor":"Total","name":"Total","type":"character","minWidth":200,"align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"9a6887731affb91a43eb444462e538ac","key":"9a6887731affb91a43eb444462e538ac"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-d040a13a8f62273d5fb3" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-d040a13a8f62273d5fb3">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Total":["19%","(290/1500)","16%","(88/550)"]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center"},{"accessor":"Total","name":"Total","type":"character","minWidth":200,"align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"9a6887731affb91a43eb444462e538ac","key":"9a6887731affb91a43eb444462e538ac"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 ]
 
@@ -923,8 +197,8 @@ You want to know whether is more convenient to **.darkorange[e-mail]** or **.dar
 <div class="title">
 <h3>% of New Registrations by Type of Campaign</h3>
 </div>
-<div id="htmlwidget-48f27d8f133c92519ccb" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-48f27d8f133c92519ccb">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Total":["19%","(290/1500)","16%","(88/550)"]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center"},{"accessor":"Total","name":"Total","type":"character","minWidth":200,"align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[{"fontWeight":"bold","background":"rgba(144, 13, 164,0.3)","color":"rgba(144, 13, 164,1)"},null,null,null],"inline":true,"dataKey":"9a6887731affb91a43eb444462e538ac","key":"9a6887731affb91a43eb444462e538ac"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-925705a0de27aaf3f6f0" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-925705a0de27aaf3f6f0">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Total":["19%","(290/1500)","16%","(88/550)"]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center"},{"accessor":"Total","name":"Total","type":"character","minWidth":200,"align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[{"fontWeight":"bold","background":"rgba(144, 13, 164,0.3)","color":"rgba(144, 13, 164,1)"},null,null,null],"inline":true,"dataKey":"9a6887731affb91a43eb444462e538ac","key":"9a6887731affb91a43eb444462e538ac"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 ]
 
@@ -940,8 +214,8 @@ You want to know whether is more convenient to **.darkorange[e-mail]** or **.dar
 <div class="title">
 <h3>% of New Registrations by Type of Campaign</h3>
 </div>
-<div id="htmlwidget-f7a8f87be5050154ee8c" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-f7a8f87be5050154ee8c">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Total":["19%","(290/1500)","16%","(88/550)"]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center"},{"accessor":"Total","name":"Total","type":"character","minWidth":200,"align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[{"fontWeight":"bold","background":"rgba(144, 13, 164,0.3)","color":"rgba(144, 13, 164,1)"},null,null,null],"inline":true,"dataKey":"9a6887731affb91a43eb444462e538ac","key":"9a6887731affb91a43eb444462e538ac"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-31d7b0c623ce6801b524" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-31d7b0c623ce6801b524">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Total":["19%","(290/1500)","16%","(88/550)"]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center"},{"accessor":"Total","name":"Total","type":"character","minWidth":200,"align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[{"fontWeight":"bold","background":"rgba(144, 13, 164,0.3)","color":"rgba(144, 13, 164,1)"},null,null,null],"inline":true,"dataKey":"9a6887731affb91a43eb444462e538ac","key":"9a6887731affb91a43eb444462e538ac"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 ]
 
@@ -959,8 +233,8 @@ You want to know whether is more convenient to **.darkorange[e-mail]** or **.dar
 <div class="title">
 <h3>% of New Registrations by Type of Campaign and Visits to the Website</h3>
 </div>
-<div id="htmlwidget-7aa38c2e775057577771" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-7aa38c2e775057577771">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Visited web":["10%","10/100","15%","77/514"],"Not visited web":["20%","280/1400","31%","11/36"],"Total":["19%","(290/1500)","16%","(88/550)"]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center","style":{"borderRight":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"Visited web","name":"Visited web","type":"character","minWidth":200,"align":"center"},{"accessor":"Not visited web","name":"Not visited web","type":"character","minWidth":200,"align":"center"},{"accessor":"Total","name":"Total","type":"character","minWidth":200,"align":"center","style":{"borderLeft":"1px solid rgba(0, 0, 0, 0.1)"}}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"4d5570fd58c6992379d71f337b32040b","key":"4d5570fd58c6992379d71f337b32040b"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-acc427f1803574e578e2" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-acc427f1803574e578e2">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Visited web":["10%","10/100","15%","77/514"],"Not visited web":["20%","280/1400","31%","11/36"],"Total":["19%","(290/1500)","16%","(88/550)"]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center","style":{"borderRight":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"Visited web","name":"Visited web","type":"character","minWidth":200,"align":"center"},{"accessor":"Not visited web","name":"Not visited web","type":"character","minWidth":200,"align":"center"},{"accessor":"Total","name":"Total","type":"character","minWidth":200,"align":"center","style":{"borderLeft":"1px solid rgba(0, 0, 0, 0.1)"}}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"4d5570fd58c6992379d71f337b32040b","key":"4d5570fd58c6992379d71f337b32040b"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 ]
 
@@ -976,8 +250,8 @@ You want to know whether is more convenient to **.darkorange[e-mail]** or **.dar
 <div class="title">
 <h3>% of the Sample in each Category by Site Visit</h3>
 </div>
-<div id="htmlwidget-b9ff490841944cfcb721" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-b9ff490841944cfcb721">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Visited web":["6.7%","","93.4%",""],"Not visited web":["93.4%","","6.5%",""]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center","style":{"borderRight":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"Visited web","name":"Visited web","type":"character","minWidth":200,"align":"center"},{"accessor":"Not visited web","name":"Not visited web","type":"character","minWidth":200,"align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"67b86d48afbac91e9f4a503ae4ddbbdb","key":"67b86d48afbac91e9f4a503ae4ddbbdb"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-e6dc71a355a43f31f4c6" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-e6dc71a355a43f31f4c6">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Visited web":["6.7%","","93.4%",""],"Not visited web":["93.4%","","6.5%",""]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center","style":{"borderRight":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"Visited web","name":"Visited web","type":"character","minWidth":200,"align":"center"},{"accessor":"Not visited web","name":"Not visited web","type":"character","minWidth":200,"align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"67b86d48afbac91e9f4a503ae4ddbbdb","key":"67b86d48afbac91e9f4a503ae4ddbbdb"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 ]
 ---
@@ -990,8 +264,8 @@ You want to know whether is more convenient to **.darkorange[e-mail]** or **.dar
 <div class="title">
 <h3>% of New Registrations by Type of Campaign and Visits to the Website</h3>
 </div>
-<div id="htmlwidget-ef0ea324e0817e047e87" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-ef0ea324e0817e047e87">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Visited web":["10%","10/100","15%","77/514"],"Not visited web":["20%","280/1400","31%","11/36"],"Total":["19%","(290/1500)","16%","(88/550)"]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center","style":{"borderRight":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"Visited web","name":"Visited web","type":"character","minWidth":200,"align":"center"},{"accessor":"Not visited web","name":"Not visited web","type":"character","minWidth":200,"align":"center"},{"accessor":"Total","name":"Total","type":"character","minWidth":200,"align":"center","style":{"borderLeft":"1px solid rgba(0, 0, 0, 0.1)"}}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"4d5570fd58c6992379d71f337b32040b","key":"4d5570fd58c6992379d71f337b32040b"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-f575ba522c61a245bcfe" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f575ba522c61a245bcfe">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Visited web":["10%","10/100","15%","77/514"],"Not visited web":["20%","280/1400","31%","11/36"],"Total":["19%","(290/1500)","16%","(88/550)"]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center","style":{"borderRight":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"Visited web","name":"Visited web","type":"character","minWidth":200,"align":"center"},{"accessor":"Not visited web","name":"Not visited web","type":"character","minWidth":200,"align":"center"},{"accessor":"Total","name":"Total","type":"character","minWidth":200,"align":"center","style":{"borderLeft":"1px solid rgba(0, 0, 0, 0.1)"}}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"4d5570fd58c6992379d71f337b32040b","key":"4d5570fd58c6992379d71f337b32040b"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 ]
 
@@ -1049,8 +323,8 @@ You want to know whether is more convenient to **.darkorange[e-mail]** or **.dar
 <div class="title">
 <h3>Num in Sample and % of New Registrations by Type of Campaign and Visits to the Website</h3>
 </div>
-<div id="htmlwidget-eb93266d39c9e21577c8" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-eb93266d39c9e21577c8">{"x":{"tag":{"name":"Reactable","attribs":{"data":{".rownames":["Email","Mail"],"Not visited":[1404,32],"Visited":[91,523],"Registered - NV":[0.22,0.28],"Registered - V":[0.12,0.15],"Registered - Total":[0.21,0.15]},"columns":[{"accessor":".rownames","name":"","type":"character","minWidth":180,"align":"center","sortable":false,"filterable":false},{"accessor":"Not visited","name":"Not visited","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Visited","name":"Visited","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Registered - NV","name":"Registered - NV","type":"numeric","minWidth":180,"align":"center","style":{"borderLeft":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"Registered - V","name":"Registered - V","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Registered - Total","name":"Registered - Total","type":"numeric","minWidth":180,"align":"center","style":{"borderLeft":"1px solid rgba(0, 0, 0, 0.1)"}}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"ed9c7202edb1e2ebf11e2ddfd8c1df45","key":"ed9c7202edb1e2ebf11e2ddfd8c1df45"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-346600c3a240fbd01f55" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-346600c3a240fbd01f55">{"x":{"tag":{"name":"Reactable","attribs":{"data":{".rownames":["Email","Mail"],"Not visited":[1404,32],"Visited":[91,523],"Registered - NV":[0.22,0.28],"Registered - V":[0.12,0.15],"Registered - Total":[0.21,0.15]},"columns":[{"accessor":".rownames","name":"","type":"character","minWidth":180,"align":"center","sortable":false,"filterable":false},{"accessor":"Not visited","name":"Not visited","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Visited","name":"Visited","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Registered - NV","name":"Registered - NV","type":"numeric","minWidth":180,"align":"center","style":{"borderLeft":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"Registered - V","name":"Registered - V","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Registered - Total","name":"Registered - Total","type":"numeric","minWidth":180,"align":"center","style":{"borderLeft":"1px solid rgba(0, 0, 0, 0.1)"}}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"ed9c7202edb1e2ebf11e2ddfd8c1df45","key":"ed9c7202edb1e2ebf11e2ddfd8c1df45"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 ]]
 
@@ -1208,8 +482,8 @@ summary(lm(y ~ factor(treat) + visit, data = confound))
 <div class="title">
 <h3>Num in Sample and % of New Registrations by Type of Campaign and Visits to the Website</h3>
 </div>
-<div id="htmlwidget-b60ed92a7cffb1cc8986" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-b60ed92a7cffb1cc8986">{"x":{"tag":{"name":"Reactable","attribs":{"data":{".rownames":["Email","Mail"],"Not visited":[1409,45],"Visited":[94,502],"Registered - NV":[0.19,0.31],"Registered - V":[0.11,0.15],"Registered - Total":[0.18,0.16]},"columns":[{"accessor":".rownames","name":"","type":"character","minWidth":180,"align":"center","sortable":false,"filterable":false},{"accessor":"Not visited","name":"Not visited","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Visited","name":"Visited","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Registered - NV","name":"Registered - NV","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Registered - V","name":"Registered - V","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Registered - Total","name":"Registered - Total","type":"numeric","minWidth":180,"align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"0b53c972dff95d559775b62e7626ac17","key":"0b53c972dff95d559775b62e7626ac17"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-4c9d5271c1783be74bbb" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-4c9d5271c1783be74bbb">{"x":{"tag":{"name":"Reactable","attribs":{"data":{".rownames":["Email","Mail"],"Not visited":[1409,45],"Visited":[94,502],"Registered - NV":[0.19,0.31],"Registered - V":[0.11,0.15],"Registered - Total":[0.18,0.16]},"columns":[{"accessor":".rownames","name":"","type":"character","minWidth":180,"align":"center","sortable":false,"filterable":false},{"accessor":"Not visited","name":"Not visited","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Visited","name":"Visited","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Registered - NV","name":"Registered - NV","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Registered - V","name":"Registered - V","type":"numeric","minWidth":180,"align":"center"},{"accessor":"Registered - Total","name":"Registered - Total","type":"numeric","minWidth":180,"align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"0b53c972dff95d559775b62e7626ac17","key":"0b53c972dff95d559775b62e7626ac17"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 ]]
 
