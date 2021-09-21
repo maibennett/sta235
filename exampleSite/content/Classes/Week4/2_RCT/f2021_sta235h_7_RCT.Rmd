@@ -345,1097 +345,1690 @@ font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
 font.add.google("Fira Sans", "Fira Sans")
 ```
 
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(gganimate)
+library(ggthemes)
+library(gifski)
+library(plotly)
+library(leaflet)
+library(ggplot2)
+library(firasans)
+library(hrbrthemes)
+library(extrafont)
+library("RColorBrewer")
+library(viridis)
+library("tm")
+library("SnowballC")
+library("wordcloud")
+library("RColorBrewer")
+library("firasans")
+library(hrbrthemes)
+library(extrafont)
+
+set.seed(5)
+
+col1 = "#5601A4"
+col2 = "#BF3984"
+col3 = "#FCCE25"
+col4 = "#9E9D9D"
+col5 = "#FF1654"
+
+colNumLine = colorNumeric(c(col1,col2,col3,col4,col5),domain=c(1,5))
+
+col1 = "#9565c2"
+col2 = "#c2679a"
+col3 = "#ede266"
+col4 = "#BCBABA"
+col5 = "#FF5582"
+
+colNumMark = colorNumeric(c(col1,col2,col3,col4,col5),domain=c(1,5))
 
 
-# Housekeeping
-
-.box-2LA[Homework 2 will be posted on Thursday]
-
---
-
-- **.darkorange[HW 1 Answer key]** is posted on the course website (review it!).
-
-- Added **.darkorange[additional resources]** on our website (regression and intro to causal inference).
-
---
-
-- Student suggestion: Class recordings will be available **.darkorange[two weeks before the midterm]**.
-
-  - <u>Trial run</u>: Check if attendance drops significantly. 
-
----
-# Last week
-
-.pull-left[
-- Started talking about **.darkorange[Causal Inference]**.
+sizeFunc = function(size){
+  x = rep(NA,length(size))
   
-  - **.darkorange[Potential outcomes framework]**: What are potential outcomes? How we identify a counterfactual? What is an estimand? 
+  x[size==1]=25
+  x[size==2]=35
+  x[size==3]=45
   
-  - **.darkorange[Fundamental problem of causal inference]**: Ignorability assumption
-  
-  - **.darkorange[Sources of bias]**: Selection bias and heterogenous return to treatment bias.
-]
+  return(x)
+}
 
-.pull-right[
-<br>
-<br>
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_PotentialOutcomes/images/correlation.png)
-]
+########3 RCTs
+
+size1 = sample(c(1,2,3),size=10,replace=TRUE)
+color1 = sample(c(1,2,3),size=10,replace=TRUE)
+shape1 = sample(c(1,2,3),size=10,replace=TRUE)
+
+
+x1 = c(seq(0,0.5,0.12)[sample(seq(1,5),5,replace=FALSE)],
+       seq(0,0.5,0.12)[sample(seq(1,5),5,replace=FALSE)],
+       seq(0,0.5,0.12)[sample(seq(1,5),5,replace=FALSE)],
+       seq(0,0.5,0.12)[sample(seq(1,5),5,replace=FALSE)]) +
+  sample(c(-0.018,-0.009,0,0.009,0.018),20,replace=TRUE) # padding
+
+y1 = c(rep(0.05,5),
+       rep(0.20,5),
+       rep(0.35,5),
+       rep(0.5,5)) +
+  sample(c(-0.025,-0.01,0,-0.01,0.025),20,replace=TRUE) # padding
+
+
+x2 = c(seq(0,0.2,0.07)[sample(seq(1,3),3,replace=FALSE)],
+       seq(0,0.2,0.07)[sample(seq(1,3),3,replace=FALSE)],
+       seq(0,0.2,0.06)[sample(seq(1,4),4,replace=FALSE)]) +
+  sample(c(-0.006,0,0.006),10,replace=TRUE) # padding
+
+
+x3 = c(seq(0.35,0.5,0.05)[sample(seq(1,4),4,replace=FALSE)],
+       seq(0.35,0.5,0.06)[sample(seq(1,3),3,replace=FALSE)],
+       seq(0.35,0.5,0.06)[sample(seq(1,3),3,replace=FALSE)]) +
+  sample(c(-0.005,0,0.005),10,replace=TRUE) # padding
+
+
+y2 = c(rep(0.2,3),
+       rep(0.27,3),
+       rep(0.4,4),
+       rep(0.2,4),
+       rep(0.28,3),
+       rep(0.4,3)) +
+  sample(c(-0.02,-0.01,0,0.01,0.02),20,replace=TRUE) # padding
+
+
+df <- data.frame(xaxisTime=x1,Treated=c(rep("Treated",10),rep("Control",10))) %>%
+  mutate(Y = y1, Y2 = Y, size = c(size1,size1),
+         color = c(color1,color1), shape=c(shape1,shape1),
+         state="1")
+
+x_shift = c(runif(10,0,0.4),runif(10,0.6,1))
+
+df1 = df %>% mutate(f=1)
+df2 = df %>% mutate(xaxisTime=c(x2,x3), Y=y2,f=2)
+df3 = df %>% mutate(xaxisTime=c(x2,x3), Y=y2,f=3)
+df4 = df2 %>% mutate(Y=y2,color=c(rep(4,10),rep(5,10)),
+                    f=4)
+
+dffull <- rbind(df1, df2, df3,df4)
+
+m <- list(
+  l = 50,
+  r = 30,
+  b = 10,
+  t = 50,
+  pad = 4
+)
+
+fig <- dffull %>% plot_ly() %>%
+  layout(xaxis = list(title = "",
+                      showgrid = FALSE, zeroline = FALSE,
+                      showline = FALSE,
+                      showticklabels = FALSE,
+                      range = c(-0.04,0.53)),
+         yaxis = list(title = "",
+                      showgrid = FALSE, zeroline = FALSE,
+                      showline = FALSE,
+                      showticklabels = FALSE,
+                      range = c(-0.01,0.56)),
+         plot_bgcolor="rgba(0, 0, 0, 0)",
+         paper_bgcolor="rgba(0, 0, 0, 0)",
+         margin=m,
+         autosize = F, width = 1000, height = 500) %>%
+  add_trace(dffull,x=~xaxisTime,y=~Y, frame=~f,type='scatter',mode='markers',
+            symbol=~shape,
+            marker = list(color=~alpha(colNumMark(color),1),size=~sizeFunc(size),
+            line = list(
+              color = ~colNumLine(color),
+              width = 3
+            ))) %>%
+  animation_opts(frame=1500,transition=1300,redraw = FALSE) %>%
+  animation_slider(hide = TRUE) %>% config(displayModeBar = FALSE) %>% 
+  animation_button(visible = TRUE)
+
+
+set.seed(5)
+
+size1 = sample(c(1,2,3),size=20,replace=TRUE)
+color1 = sample(c(1,2,3),size=20,replace=TRUE)
+shape1 = sample(c(1,2,3),size=20,replace=TRUE)
+
+treat=rep(0,20)
+treat[shape1==1] = sample(c(0,1),sum(shape1==1),replace=TRUE,prob=c(0,1))
+
+x1 = c(seq(0,0.5,0.12)[sample(seq(1,5),5,replace=FALSE)],
+       seq(0,0.5,0.12)[sample(seq(1,5),5,replace=FALSE)],
+       seq(0,0.5,0.12)[sample(seq(1,5),5,replace=FALSE)],
+       seq(0,0.5,0.12)[sample(seq(1,5),5,replace=FALSE)]) +
+  sample(c(-0.018,-0.009,0,0.009,0.018),20,replace=TRUE) # padding
+
+y1 = c(rep(0.05,5),
+       rep(0.20,5),
+       rep(0.35,5),
+       rep(0.5,5)) +
+  sample(c(-0.025,-0.01,0,0.01,0.025),20,replace=TRUE) # padding
+
+
+x2_total = rep(0,20)
+
+x2_total[treat==1] = c(seq(0.35,0.5,0.07)[sample(seq(1,3),3,replace=FALSE)],
+                       seq(0.35,0.5,0.07)[sample(seq(1,3),3,replace=FALSE)]) + 
+  sample(c(-0.01,0,0.01),6,replace=TRUE) # padding
+
+
+x2_total[treat==0] = c(seq(0.0,0.23,0.055)[sample(seq(1,5),5,replace=FALSE)],
+                       seq(0.0,0.23,0.055)[sample(seq(1,5),5,replace=FALSE)],
+                       seq(0.0,0.23,0.07)[sample(seq(1,4),4,replace=FALSE)]) +
+  sample(c(-0.004,-0.002,0,0.002,0.004),14,replace=TRUE) # padding
+
+y2_total = rep(0,20)
+
+y2_total[treat==1] = c(rep(0.28,3),
+                 rep(0.38,3))+
+  sample(c(-0.014,0,0.014),6,replace=TRUE) # padding
+
+y2_total[treat==0] = c(rep(0.15,5),
+                       rep(0.27,5),
+                       rep(0.4,4)) +
+  sample(c(-0.015,0,0.015),14,replace=TRUE) # padding
+
+
+df <- data.frame(xaxisTime=x1,Treated=treat) %>%
+  mutate(Y = y1, Y2 = Y, size = size1,
+         color = color1, shape=shape1,
+         state="1")
+
+x_shift = rep(0,20)
+x_shift[treat==0] = runif(sum(treat==0),0,0.2)
+x_shift[treat==1] = runif(sum(treat==1),0.3,0.5)
+col_treat = rep(4,20)
+col_treat[treat==1] = 5
+
+df1 = df %>% mutate(f=1)
+df2 = df %>% mutate(color=col_treat,f=2)
+df3 = df %>% mutate(color=col_treat,f=3)
+df4 = df2 %>% mutate(Y=y2_total, xaxisTime=x2_total,color=col_treat,
+                     f=4)
+
+dffull <- rbind(df1, df2, df3, df4)
+
+fig2 <- dffull %>% plot_ly() %>%
+  layout(xaxis = list(title = "",
+                      showgrid = FALSE, zeroline = FALSE,
+                      showline = FALSE,
+                      showticklabels = FALSE,
+                      range = c(-0.04,0.53)),
+         yaxis = list(title = "",
+                      showgrid = FALSE, zeroline = FALSE,
+                      showline = FALSE,
+                      showticklabels = FALSE,
+                      range = c(-0.05,0.54)),
+         plot_bgcolor="rgba(0, 0, 0, 0)",
+         paper_bgcolor="rgba(0, 0, 0, 0)",
+         margin = m,
+         autosize = F, width = 1000, height = 500) %>%
+  add_trace(dffull,x=~xaxisTime,y=~Y, frame=~f,type='scatter',mode='markers',
+            symbol=~shape,
+            marker = list(color=~alpha(colNumMark(color),1),size=~sizeFunc(size),
+                          line = list(
+                            color = ~colNumLine(color),
+                            width = 3
+                          ))) %>%
+  animation_opts(frame=1500,transition=1300,redraw = FALSE) %>%
+  animation_slider(hide = TRUE) %>% config(displayModeBar = FALSE)
+```
+
 ---
 # Today
 
 .pull-left[
-.center[
 <br>
 <br>
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_PotentialOutcomes/images/xkcd-p-value-jellybeans.jpg)]
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/xkcd-p-value-jellybeans.jpg)
 ]
 .pull-right[
-- **.darkorange[Finish with potential outcomes framework]**:
+- **.darkorange[Randomized Controlled Trials]**:
   
-  - Examples related to causal inference.
+  .box-2t[Assumptions: The power of randomization]
   
-  - Confounder vs. Collider.
+  .box-4t[Design: What should we consider?]
   
-- Introduction to **.darkorange[Randomized Controlled Trials (RCTs)]**
+  .box-7t[Limitations: Gold Standard?]
 ]
 
 ---
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
-Let's look back at some math
+The Magic of Randomization
 ]
 
----
-<br>
-.box-6[$$\mu = E[Y_i]$$]
-
---
-
-What does the previous equation mean?
-
---
-
-.center["&mu; is the expected value of the observed outcome Y"]
 
 ---
-<br>
-.box-5[$$\mu_1 = E[Y_i | Z = 1]$$]
+# The Fundamental Problem of Causal Inference
 
---
-
-What does the previous equation mean?
-
---
-
-.center["&mu;<sub>1</sub> is the expected value of observed outcome Y for the treated group (i.e. units for which treatment Z = 1)"]
-
----
-
-<br>
-.box-4[$$\mu_1(0) = E[Y_i(0) | Z = 1]$$]
-
---
-
-What does the previous equation mean?
-
---
-
-.center["&mu;<sub>1</sub>(0) is the expected value of the potential outcome Y *under control* (Y(0)) for the treated group (i.e. units for which treatment Z = 1)"]
-
---
-
-In other words,
-
-.center["&mu;<sub>1</sub>(0) is the expected value of the outcome Y for the treated group, *if the treated group had not been treated*"]
-
-
----
-.center2[
-.box-2LA[Let's look at some data]
-]
-
----
-# Example: Effect of types of advertising on sales
-
-You want to know whether is more convenient to **.darkorange[e-mail]** or **.darkorange[physically mail]** potential customers to increase your sales.
-
-.pull-left[.center[
-![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/freshdirect_mail.png)]
-]
-
-.pull-right[
-.center[
-![:scale 55%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/freshdirect_email.jpg)]
-]
----
-# Example: Effect of types of advertising on sales
-
-You want to know whether is more convenient to **.darkorange[e-mail]** or **.darkorange[physically mail]** potential customers to increase your sales.
-
-- What is the **.darkorange[treatment]**?
-
----
-# Example: Effect of types of advertising on sales
-
-You want to know whether is more convenient to **.darkorange[e-mail]** or **.darkorange[physically mail]** potential customers to increase your sales.
-
-- What is the **.darkorange[treatment]**?
-
-- What is the **.darkorange[causal question]** that you want to answer?
-
----
-# Example: Effect of types of advertising on sales
-
-You want to know whether is more convenient to **.darkorange[e-mail]** or **.darkorange[physically mail]** potential customers to increase your sales.
-
-- What is the **.darkorange[treatment]**?
-
-- What is the **.darkorange[causal question]** that you want to answer?
-
-- What would the **.darkorange[counterfactual]** be?
-
----
-# Looking at some data
-
-- You get some data from a friend in Silicon Valley, who works at a similar company:
-
-.center[
-```{r echo=FALSE}
-tab <- cbind(c("E-mail","","Mail",""),c("19%","(290/1500)","16%","(88/550)"))
-
-colnames(tab) <- c("Treatment","Total")
-
-tbl <- tab %>%
-  reactable(
-      # ALL one page (no scrolling or page swapping)
-    pagination = TRUE,
-    rownames = FALSE,
-    # compact for an overall smaller table width wise
-    compact = FALSE,
-    # borderless - TRUE or FALSE
-    borderless = FALSE,
-    # Stripes - TRUE or FALSE
-    striped = TRUE,
-    # fullWidth - either fit to width or not
-    fullWidth = FALSE,
-    # apply defaults
-    # 100 px and align to center of column
-    defaultColDef = colDef(
-      align = "center",
-      minWidth = 200
-  ),
-    style = list(fontFamily = "Fira Sans, sans-serif"))
-
-div(
-  # this class can be called with CSS now via .salary
-  class = "tab",
-  div(
-    # this can be called with CSS now via .title
-    class = "title",
-    h3("% of New Registrations by Type of Campaign")
-  ),
-  # The actual table
-  tbl
-)
-
-```
-]
-
----
-# Looking at some data
-
-- You get some data from a friend in Silicon Valley, who works at a similar company:
-
-.center[
-```{r echo=FALSE}
-
-tbl <- tab %>%
-  reactable(
-      # ALL one page (no scrolling or page swapping)
-    pagination = TRUE,
-    rownames = FALSE,
-    # compact for an overall smaller table width wise
-    compact = FALSE,
-    # borderless - TRUE or FALSE
-    borderless = FALSE,
-    # Stripes - TRUE or FALSE
-    striped = TRUE,
-    # fullWidth - either fit to width or not
-    fullWidth = FALSE,
-    # apply defaults
-    # 100 px and align to center of column
-    defaultColDef = colDef(
-      align = "center",
-      minWidth = 200
-  ),
-  rowStyle = function(index) {
-  if (index==1) list(fontWeight = "bold",
-                      background = "rgba(144, 13, 164,0.3)",
-                     color = "rgba(144, 13, 164,1)")
-  },
-    style = list(fontFamily = "Fira Sans, sans-serif")
-  )
-
-div(
-  # this class can be called with CSS now via .salary
-  class = "tab",
-  div(
-    # this can be called with CSS now via .title
-    class = "title",
-    h3("% of New Registrations by Type of Campaign")
-  ),
-  # The actual table
-  tbl
-)
-
-```
-]
-
-**.darkorange[Does this mean that e-mailing is more effective in getting new customers?]**
-
----
-# Looking at some data
-
-- You get some data from a friend in Silicon Valley, who works at a similar company:
-
-.center[
-```{r echo=FALSE}
-
-tbl <- tab %>%
-  reactable(
-      # ALL one page (no scrolling or page swapping)
-    pagination = TRUE,
-    rownames = FALSE,
-    # compact for an overall smaller table width wise
-    compact = FALSE,
-    # borderless - TRUE or FALSE
-    borderless = FALSE,
-    # Stripes - TRUE or FALSE
-    striped = TRUE,
-    # fullWidth - either fit to width or not
-    fullWidth = FALSE,
-    # apply defaults
-    # 100 px and align to center of column
-    defaultColDef = colDef(
-      align = "center",
-      minWidth = 200
-  ),
-  rowStyle = function(index) {
-  if (index==1) list(fontWeight = "bold",
-                      background = "rgba(144, 13, 164,0.3)",
-                     color = "rgba(144, 13, 164,1)")
-  },
-    style = list(fontFamily = "Fira Sans, sans-serif")
-  )
-
-div(
-  # this class can be called with CSS now via .salary
-  class = "tab",
-  div(
-    # this can be called with CSS now via .title
-    class = "title",
-    h3("% of New Registrations by Type of Campaign")
-  ),
-  # The actual table
-  tbl
-)
-
-```
-]
-
-**.darkorange[Does this mean that e-mailing is more effective in getting new customers?]**
-
-**.darkorange[What additional information would you need?]**
-
----
-# Let's add some covariates
-
-- Your friend now also sends you additional data on whether the individual had ever visited the site:
-
-.center[
-```{r echo=FALSE}
-tab2 <- cbind(tab[,1],c("10%","10/100","15%","77/514"),c("20%","280/1400","31%","11/36"),tab[,2])
-
-colnames(tab2) <- c("Treatment","Visited web","Not visited web","Total")
-
-tbl <- tab2 %>%
-  reactable(
-      # ALL one page (no scrolling or page swapping)
-    pagination = TRUE,
-    rownames = FALSE,
-    # compact for an overall smaller table width wise
-    compact = FALSE,
-    # borderless - TRUE or FALSE
-    borderless = FALSE,
-    # Stripes - TRUE or FALSE
-    striped = TRUE,
-    # fullWidth - either fit to width or not
-    fullWidth = FALSE,
-    # apply defaults
-    # 100 px and align to center of column
-    defaultColDef = colDef(
-      align = "center",
-      minWidth = 200
-  ),
-  columns = list(
-    Treatment = colDef(style = list(borderRight = "1px solid rgba(0, 0, 0, 0.1)")),
-    Total = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
-  ),
-    style = list(fontFamily = "Fira Sans, sans-serif")
-  )
-
-div(
-  # this class can be called with CSS now via .salary
-  class = "tab",
-  div(
-    # this can be called with CSS now via .title
-    class = "title",
-    h3("% of New Registrations by Type of Campaign and Visits to the Website")
-  ),
-  # The actual table
-  tbl
-)
-
-```
-]
-
-**.darkorange[What seems strange?]**
-
----
-# Let's add some covariates
-
-- The majority of the sample that was assigned to "E-mail" had not visited the website before, while the majority of the sample that was sent a mailing had visited the website.
-
-.center[
-```{r echo=FALSE}
-tab3 <- cbind(tab2[,1],c("6.7%","","93.4%",""),c("93.4%","","6.5%",""))
-
-colnames(tab3) <- c("Treatment","Visited web","Not visited web")
-
-tbl <- tab3 %>%
-  reactable(
-      # ALL one page (no scrolling or page swapping)
-    pagination = TRUE,
-    rownames = FALSE,
-    # compact for an overall smaller table width wise
-    compact = FALSE,
-    # borderless - TRUE or FALSE
-    borderless = FALSE,
-    # Stripes - TRUE or FALSE
-    striped = TRUE,
-    # fullWidth - either fit to width or not
-    fullWidth = FALSE,
-    # apply defaults
-    # 100 px and align to center of column
-    defaultColDef = colDef(
-      align = "center",
-      minWidth = 200
-  ),
-  columns = list(
-    Treatment = colDef(style = list(borderRight = "1px solid rgba(0, 0, 0, 0.1)")),
-    Total = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
-  ),
-    style = list(fontFamily = "Fira Sans, sans-serif")
+- Remember that we can only see one potential outcome 
   
-  )
+  - E.g. if $Z$ is binary, either $Y(0)$ **OR** $Y(1)$
 
-div(
-  # this class can be called with CSS now via .salary
-  class = "tab",
-  div(
-    # this can be called with CSS now via .title
-    class = "title",
-    h3("% of the Sample in each Category by Site Visit")
-  ),
-  # The actual table
-  tbl
-)
+<br>
+.box-7[Fundamental Problem of Causal Inference]
 
-```
-]
+--
+
+- Need for the **.darkorange[ignorability assumption]**
+
+$$Y(z) \perp\!\!\!\perp Z \ \ \ \ \ \forall \ z\in Z$$
+--
+
+- Most times, **.darkorange[the ignorability assumption doesn't hold]**
+
+  - Why? (Remember the two types of bias we saw the previous class?)
+  
 ---
-# Let's add some covariates
+# Ignorability Assumption
 
-- Your friend now also sends you additional data on whether the individual had ever visited the site:
+
+$$(Y(0), Y(1)) \perp\!\!\!\perp Z$$
+
+
+- Most times, **.darkorange[the ignorability assumption doesn't hold]**
+
+  - For ATE:
+  
+.box-2t[Selection bias]
+<br>
+.box-4t[Heterogeneous treatment effect bias]
+  
+---
+# The problem with self-selection
+
+```{r, echo=FALSE}
+fig2
+```
+
+---
+# The power of randomization
+
+- One way to make sure the ignorability assumption holds, is to do it by design:
+
+.box-6[Randomize the assignment of Z]
+
+i.e. Some units will **.darkorange[randomly]** be chosen to be in the treatment group and others to be in the control group.
+
+.box-4t[What does randomization buy us?]
+
+---
+# The power of randomization
+
+- One way to make sure the ignorability assumption holds, is to do it by design:
+
+.box-6[Randomize the assignment of Z]
+
+i.e. Some units will **.darkorange[randomly]** be chosen to be in the treatment group and others to be in the control group.
+
+.box-4t[What does randomization buy us?]
+
+.box-3t[No (systematic) selection on observables OR unobservables]
+
+
+---
+# Randomization of z
+
+```{r, echo=FALSE}
+fig
+```
+
+---
+# Observational Causal Graph
 
 .center[
-```{r echo=FALSE}
-tab <- cbind(tab[,1],c("10%","10/100","15%","77/514"),c("20%","280/1400","31%","11/36"),tab[,2])
-
-colnames(tab) <- c("Treatment","Visited web","Not visited web","Total")
-
-tbl <- tab %>%
-  reactable(
-      # ALL one page (no scrolling or page swapping)
-    pagination = TRUE,
-    rownames = FALSE,
-    # compact for an overall smaller table width wise
-    compact = FALSE,
-    # borderless - TRUE or FALSE
-    borderless = FALSE,
-    # Stripes - TRUE or FALSE
-    striped = TRUE,
-    # fullWidth - either fit to width or not
-    fullWidth = FALSE,
-    # apply defaults
-    # 100 px and align to center of column
-    defaultColDef = colDef(
-      align = "center",
-      minWidth = 200
-  ),
-  columns = list(
-    Treatment = colDef(style = list(borderRight = "1px solid rgba(0, 0, 0, 0.1)")),
-    Total = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
-  ),
-    style = list(fontFamily = "Fira Sans, sans-serif")
-  )
-
-div(
-  # this class can be called with CSS now via .salary
-  class = "tab",
-  div(
-    # this can be called with CSS now via .title
-    class = "title",
-    h3("% of New Registrations by Type of Campaign and Visits to the Website")
-  ),
-  # The actual table
-  tbl
-)
-
-```
+![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/obs_dag.png)
 ]
 
-**.darkorange[Do we have a confounding problem?]**
+---
+# Experimental Causal Graph
+
+.center[
+![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/experimental_dag.png)
+]
 
 ---
-# Confounding
-
-.box-3LA[Confounder]
-
-.box-3tL[Variable that is correlated with the treatment AND the outcome which causes a spurious correlation/bias.]
-
----
-# Is "Visited the website" a confounder?
-
----
-# Is "Visited the website" a confounder?
-
-.box-5LA[Depends]
-
---
-
-- **.darkorange[Measured before the intervention:]** Yes $\rightarrow$ Individuals that have **not** visited the website (VW) don't know you/ might be more willing to try product.
-
---
-
-- **.darkorange[Measured after the intervention:]** Don't know $\rightarrow$ Intervention might have incentivized people to go to the website, and registering also had on effect on traffic.
-
---
-
-.box-3tL[Collider]
-
-
----
-# Scenario 1: Confounding
+# If I randomize treatment allocation...
 
 .center2[
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/dag_confound.png)
-]
+.box-3LA[Can the treatment be potentially correlated with a confounder?]]
 
 ---
-# Scenario 1: Confounding
-
-**.darkorange[Data Generating Process]**:
-  
-  - No treatment effect.
-  
-  - Pr(Registering | Visit) < Pr(Registering | Not Visited)
-  
-  - Due to data collection, more people in the mailing sample had visited the website than people in the email sample.
-
-.small[
-.center[
-```{r echo = FALSE}
-set.seed(122)
-
-# Confounding:
-
-# probability of registering depending on whether you've visited the website or not (and are reminded of it)
-prob_nv <- 0.203
-prob_v <- 0.142
-
-y1_nv <- sample(c(0,1),1436,replace = TRUE, prob = c(1-prob_nv,prob_nv))
-y1_v <- sample(c(0,1),614,replace = TRUE, prob = c(1-prob_v,prob_v))
-
-treat_nv <- sample(c("m","e"), 1436, replace = TRUE, prob = c(36/1436,1-36/1436))
-treat_v <- sample(c("m","e"), 614, replace = TRUE, prob = c(514/614,1-514/614))
-
-confound <- data.frame("id" = seq(1,2050),
-                       "visit" = c(rep(0,1436),rep(1,614)),
-                       "treat" = c(treat_nv,treat_v),
-                       "y" = c(y1_nv, y1_v))
-
-tab1 <- table(confound$treat,confound$visit)
-tab2 <- round(table(confound$treat[confound$visit==0],confound$y[confound$visit==0])[,2]/rowSums(table(confound$treat[confound$visit==0],confound$y[confound$visit==0])),2)
-tab3 <- round(table(confound$treat[confound$visit==1],confound$y[confound$visit==1])[,2]/rowSums(table(confound$treat[confound$visit==1],confound$y[confound$visit==1])),2)
-tab4 <- round(table(confound$treat,confound$y)[,2]/rowSums(table(confound$treat,confound$y)),2)
-
-tab <- cbind(tab1, tab2, tab3, tab4)
-colnames(tab) <- c("Not visited","Visited", "Registered - NV","Registered - V","Registered - Total")
-
-rownames(tab) <- c("Email","Mail")
-
-
-tbl <- tab %>%
-  reactable(
-      # ALL one page (no scrolling or page swapping)
-    pagination = TRUE,
-    rownames = TRUE,
-    # compact for an overall smaller table width wise
-    compact = FALSE,
-    # borderless - TRUE or FALSE
-    borderless = FALSE,
-    # Stripes - TRUE or FALSE
-    striped = TRUE,
-    # fullWidth - either fit to width or not
-    fullWidth = FALSE,
-    # apply defaults
-    # 100 px and align to center of column
-    defaultColDef = colDef(
-      align = "center",
-      minWidth = 180
-  ),
-  columns = list(
-    "Registered - NV" = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)")),
-    "Registered - Total" = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
-  ),
-    style = list(fontFamily = "Fira Sans, sans-serif")
-  )
-
-div(
-  # this class can be called with CSS now via .salary
-  class = "tab",
-  div(
-    # this can be called with CSS now via .title
-    class = "title",
-    h3("Num in Sample and % of New Registrations by Type of Campaign and Visits to the Website")
-  ),
-  # The actual table
-  tbl
-)
-```
-]]
-
-.source[Note: Simulated data]
-
----
-# Scenario 1: Confounding
-
-What happens if we run a **.darkorange[simple model]**?
-
-.small[
-```{r echo = TRUE, results='hide'}
-summary(lm(y ~ factor(treat), data = confound))
-```
-]
-
-- What would you **.darkorange[expect]** to see?
----
-# Scenario 1: Confounding
-
-What happens if we run a **.darkorange[simple model]**?
-
-.small[
-```{r echo = TRUE}
-summary(lm(y ~ factor(treat), data = confound))
-```
-]
-
----
-# Scenario 1: Confounding
-
-What happens if we now **.darkorange[control by whether the person visited the website]**?
-
-.small[
-```{r echo = TRUE, results='hide'}
-summary(lm(y ~ factor(treat) + visit, data = confound))
-```
-]
-
----
-# Scenario 1: Confounding
-
-What happens if we now **.darkorange[control by whether the person visited the website]**?
-
-.small[
-```{r echo = TRUE}
-summary(lm(y ~ factor(treat) + visit, data = confound))
-```
-]
-
----
-# Scenario 1: Confounding
-
-What happens if we now **.darkorange[control by whether the person visited the website]**?
-
-.small[
-```{r echo = TRUE}
-summary(lm(y ~ factor(treat) + visit, data = confound))
-```
-]
-
-- **.darkorange[What conclusions would you make?]**
-
----
-# Scenario 2: Collider Bias
+# Just by chance!
 
 .center[
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/dag_collider.png)
-]
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/nicholas_cage.png)]
 
 ---
-# Scenario 2: Collider Bias
+# RCTs: The Gold Standard
 
-**.darkorange[Data Generating Process]**:
-  
-  - No direct treatment effect of mailing over emails.
-  
-  - Pr(Visit | e-mail) < Pr(Visit | mail)
-  
-  - People that receive a letter are much more encouraged to visit the website, and people that register are also more likely to visit the website.
-
-.small[
-.center[
-```{r echo = FALSE}
-set.seed(120)
-
-treat <- sample(c("m","e"), 2050, replace = TRUE, prob = c(1-0.732,0.732))
-
-y1 <- sample(c(0,1), 2050, replace = TRUE, prob=c(1-0.1843,0.1843))
-
-visit_e_0 <- sample(c(0,1),sum(treat=="e" & y1==0),replace = TRUE, prob = c(1-90/1210,90/1210))
-visit_e_1 <- sample(c(0,1),sum(treat=="e" & y1==1),replace = TRUE, prob = c(1-10/290,10/290))
-
-visit_m_0 <- sample(c(0,1),sum(treat=="m" & y1==0),replace = TRUE, prob = c(1-437/462,437/462))
-visit_m_1 <- sample(c(0,1),sum(treat=="m" & y1==1),replace = TRUE, prob = c(1-77/88,77/88))
-
-visit <- 0
-visit[which(treat=="m" & y1==0)] <- visit_m_0
-visit[which(treat=="m" & y1==1)] <- visit_m_1
-visit[which(treat=="e" & y1==0)] <- visit_e_0
-visit[which(treat=="e" & y1==1)] <- visit_e_1
-
-collider <- data.frame("id" = seq(1,2050),
-                       "visit" = visit,
-                       "treat" = treat,
-                       "y" = y1)
-
-
-tab1 <- table(collider$treat,collider$visit)
-tab2 <- round(table(collider$treat[collider$visit==0],collider$y[collider$visit==0])[,2]/rowSums(table(collider$treat[collider$visit==0],collider$y[collider$visit==0])),2)
-tab3 <- round(table(collider$treat[collider$visit==1],collider$y[collider$visit==1])[,2]/rowSums(table(collider$treat[collider$visit==1],collider$y[collider$visit==1])),2)
-tab4 <- round(table(collider$treat,collider$y)[,2]/rowSums(table(collider$treat,collider$y)),2)
-
-tab <- cbind(tab1, tab2, tab3, tab4)
-colnames(tab) <- c("Not visited","Visited", "Registered - NV","Registered - V","Registered - Total")
-
-rownames(tab) <- c("Email","Mail")
-
-
-tbl <- tab %>%
-  reactable(
-      # ALL one page (no scrolling or page swapping)
-    pagination = TRUE,
-    rownames = TRUE,
-    # compact for an overall smaller table width wise
-    compact = FALSE,
-    # borderless - TRUE or FALSE
-    borderless = FALSE,
-    # Stripes - TRUE or FALSE
-    striped = TRUE,
-    # fullWidth - either fit to width or not
-    fullWidth = FALSE,
-    # apply defaults
-    # 100 px and align to center of column
-    defaultColDef = colDef(
-      align = "center",
-      minWidth = 180
-  ),
-  columns = list(
-    "Registered - Toal" = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
-  ),
-    style = list(fontFamily = "Fira Sans, sans-serif")
-  )
-
-div(
-  # this class can be called with CSS now via .salary
-  class = "tab",
-  div(
-    # this can be called with CSS now via .title
-    class = "title",
-    h3("Num in Sample and % of New Registrations by Type of Campaign and Visits to the Website")
-  ),
-  # The actual table
-  tbl
-)
-```
-]]
-
-.source[Note: Simulated data]
-
----
-# Scenario 2: Collider Bias
-
-What happens if we now **.darkorange[run a simple model]**?
-
-.small[
-```{r echo = TRUE, results='hide'}
-summary(lm(y ~ factor(treat), data = collider))
-```
-]
-
-- what would you **.darkorange[expect]** to see?
-
----
-# Scenario 2: Collider Bias
-
-What happens if we now **.darkorange[run a simple model]**?
-
-.small[
-```{r echo = TRUE}
-summary(lm(y ~ factor(treat), data = collider))
-```
-]
-
----
-# Scenario 2: Collider Bias
-
-What happens if we now **.darkorange[control by whether the person visited the website]**?
-
-.small[
-```{r echo = TRUE, results='hide'}
-summary(lm(y ~ factor(treat) + visit, data = collider))
-```
-]
-
----
-# Scenario 2: Collider Bias
-
-What happens if we now **.darkorange[control by whether the person visited the website]**?
-
-.small[
-```{r echo = TRUE}
-summary(lm(y ~ factor(treat) + visit, data = collider))
-```
-]
-
----
-# Scenario 2: Collider Bias
-
-What happens if we now **.darkorange[control by whether the person visited the website]**?
-
-.small[
-```{r echo = TRUE}
-summary(lm(y ~ factor(treat) + visit, data = collider))
-```
-]
-
-**.darkorange[What happened here?]**
-
----
-# Avoiding biases in Causal Inference
-
-- **.darkorange[Always check your data!]**
-
----
-# Avoiding biases in Causal Inference
-
-- **.darkorange[Always check your data!]**
-
-- Assess the plausibility of the **.darkorange[ignorability assumption]**
-
-
----
-# Avoiding biases in Causal Inference
-
-- **.darkorange[Always check your data!]**
-
-- Assess the plausibility of the **.darkorange[ignorability assumption]**
-
-- The **.darkorange[model]** you have in your head matters!
-
-
----
-# Avoiding biases in Causal Inference
-
-- **.darkorange[Always check your data!]**
-
-- Assess the plausibility of the **.darkorange[ignorability assumption]**
-
-- The **.darkorange[model]** you have in your head matters!
-
-- Avoid controlling for **.darkorange[ex-post variables]**.
-
----
-# Another Example: Beauty in the Classroom
-
-- Data: Student's evaluations for instructors at UT Austin
-
-.small[
-```{r echo = TRUE}
-profs <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/data/profs.csv",
-                  stringsAsFactors = TRUE)
-
-head(profs)
-```
-]
-
----
-# Beauty and Evaluations
-
-- **.darkorange[Causal Question:]** What is the effect of beauty on teachers evaluations?
-
-
----
-# Beauty and Evaluations
-
-- **.darkorange[Causal Question:]** What is the effect of beauty on teachers evaluations?
-
-.pull-left-little_l[
-.small[
-```{r echo = TRUE}
-summary(lm(eval ~ beauty, data=profs))
-```
-]
-]
-.pull-left-right_l[
-<br>
-<br>
-<br>
-.box-4[Clearly not causal]
-]
-
----
-# Beauty and Evaluations
-
-- **.darkorange[Causal Question:]** What is the effect of beauty on teachers evaluations?
-
---
-
-- What **.darkorange[other things]** could be biasing our estimate?
-
-  - Distinction between what's in our data vs what it's not.
-
----
-# Let's check our data
-
-- Simplify the problem:
-  - **.darkorange[Binary Treatment]**: Beauty above average (1) vs Below average (0)
-
-.small[
-```{r echo = TRUE, message=FALSE, results = 'hide'}
-profs <- profs %>% mutate(treat = as.numeric(beauty > 0),
-                          female = 2 - as.numeric(gender),
-                          single_credit = as.numeric(credits)-1,
-                          upper_div = as.numeric(division)-1,
-                          native = as.numeric(native)-1,
-                          tenure = as.numeric(tenure)-1,
-                          minority = as.numeric(minority)-1) 
-```
-]
-
----
-# Let's check our data
-
-- Simplify the problem:
-  - **.darkorange[Binary Treatment]**: Beauty above average (1) vs Below average (0)
-
-.small[
-```{r echo = TRUE, message=FALSE, results = 'hide'}
-profs <- profs %>% mutate(treat = as.numeric(beauty > 0),
-                          female = 2 - as.numeric(gender),
-                          single_credit = as.numeric(credits)-1,
-                          upper_div = as.numeric(division)-1,
-                          native = as.numeric(native)-1,
-                          tenure = as.numeric(tenure)-1,
-                          minority = as.numeric(minority)-1) 
-
-library(modelsummary)
-
-covs <- profs %>% select(treat, minority, age, female, single_credit, upper_div, 
-         native, tenure, students, allstudents)
-
-datasummary_balance(~ treat, data = covs, title = "Balance table", fmt=2, dinm_statistic = "p.value")
-```
-]
-
----
-# Let's check our data
-
-- Simplify the problem:
-  - **.darkorange[Binary Treatment]**: Beauty above average (1) vs Below average (0)
-
-.small[
-```{r echo = TRUE, message=FALSE, results = 'hide'}
-profs <- profs %>% mutate(treat = as.numeric(beauty > 0),
-                          female = 2 - as.numeric(gender),
-                          single_credit = as.numeric(credits)-1,
-                          upper_div = as.numeric(division)-1,
-                          native = as.numeric(native)-1,
-                          tenure = as.numeric(tenure)-1,
-                          minority = as.numeric(minority)-1) 
-
-library(modelsummary)
-
-covs <- profs %>% select(treat, minority, age, female, single_credit, upper_div, 
-         native, tenure, students, allstudents)
-
-datasummary_balance(~ treat, data = covs, title = "Balance table", fmt=2, dinm_statistic = "p.value") #<<
-```
-]
-
----
-# Let's check our data
-
-.small[
-```{r echo = TRUE, message=FALSE}
-datasummary_balance(~ treat, data = covs, title = "Balance table", fmt=2, dinm_statistic = "p.value")
-```
-]
-
-- **.darkorange[What can you say about the data?]**
-
----
-# Let's check our data... now with a Love Plot!
-
-.small[
-```{r loveplot, fig.height=4, fig.width=7.5, fig.align='center', dev='svg', echo=TRUE, warning=FALSE, message = FALSE}
-# Reads a user-written function to generate a loveplot
-source("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/code/loveplot_balance.R")
-
-treat_id <- profs %>% mutate(id = seq(1, nrow(profs))) %>% filter(treat==1) %>% pull(-1)
-control_id <- profs %>% mutate(id = seq(1, nrow(profs))) %>% filter(treat==0) %>% pull(-1)
-
-loveplot_balance(covs, treat_id, control_id, v_line = 0.05, format = TRUE)
-```
-]
-
----
-# Is it enough to control?
-
-- We can use the covariates we have on our dataset to **.darkorange[control for those group differences]**.
-
----
 .pull-left[
-.tiny[
-```{r echo=FALSE}
-library(modelsummary)
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/nobel.png)
+]
+]
 
-lm1 <- lm(eval ~ beauty, data = profs)
-lm2 <- lm(eval ~ beauty + minority + age + gender + division + native + tenure + allstudents, data = profs)
+.pull-right[
+.center[
+![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/nobel2.png)
+]
+]
 
-modelsummary(list(lm1, lm2), stars = TRUE, gof_omit = 'DF|Deviance|R2|AIC|BIC|Log.Lik.')
+---
+# How do we randomize?
+
+
+---
+# How do we randomize?
+
+
+.box-5[Coin flip*]
+
+
+.center[
+![:scale 10%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/coin.png)]
+
+---
+# How do we randomize?
+
+
+.box-5[Coin flip*]
+
+E.g., in `R`:
+
+.pull-left[
+```{r}
+id <- seq(1,1000)
+
+set.seed(100)
+
+treat_id <- sample(id, length(id)*0.5)
+control_id <- id[!(id %in% treat_id)]
+
 ```
 ]
+
+---
+# How do we randomize?
+
+.box-5[Coin flip*]
+
+E.g., in `R`:
+
+.pull-left[
+```{r}
+id <- seq(1,1000)
+
+set.seed(100) #<<
+
+treat_id <- sample(id, length(id)*0.5)
+control_id <- id[!(id %in% treat_id)]
+
+```
+]
+
+---
+# How do we randomize?
+
+.box-5[Coin flip*]
+
+E.g., in `R`:
+
+.pull-left[
+```{r}
+id <- seq(1,1000)
+
+set.seed(100)
+
+treat_id <- sample(id, length(id)*0.5) #<<
+control_id <- id[!(id %in% treat_id)]
+
+```
+]
+
+---
+# How do we randomize?
+
+.box-5[Coin flip*]
+
+E.g., in `R`:
+
+.pull-left[
+```{r}
+id <- seq(1,1000)
+
+set.seed(100)
+
+treat_id <- sample(id, length(id)*0.5)
+control_id <- id[!(id %in% treat_id)] #<<
+
+```
+]
+
+---
+# How do we randomize?
+
+.box-5[Coin flip*]
+
+E.g., in `R`:
+
+.pull-left[
+```{r}
+id <- seq(1,1000)
+
+set.seed(100)
+
+treat_id <- sample(id, length(id)*0.5)
+control_id <- id[!(id %in% treat_id)]
+
+```
+]
+
+.pull-right[
+```{r}
+d <- data.frame("id" = id, #<<
+                "z" = ifelse(id %in% treat_id, 1, 0)) #<<
+
+head(d)
+```
+]
+
+---
+.center2[
+.box-3LA[How do we check that randomization was done correctly?]
+]
+
+---
+# Checking for balance
+
+.small[
+```{r, message=FALSE, warning=FALSE}
+library(modelsummary)
+
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/2_RCT/data/covariates_example.csv")
+
+head (round(d,3))
+
+names_covs <- paste0("x",seq(1,20))
+```
+]
+---
+# Checking for balance
+
+.pull-left[
+.small[
+```{r, message=FALSE, warning=FALSE}
+datasummary_balance(~ z - id, data = d, title = "Balance table", fmt=2, dinm_statistic = "p.value")
+```
+]]
+.pull-right[
+- **.darkorange[Columns of interest]**:
+
+  - Mean (0): Avg. for control group
+  
+  - Mean (1): Avg. for treat. group
+  
+  - Diff. in means: Difference T-C
+  
+  - p: Whether diff is significant (p-value)
+]
+
+---
+# Checking for balance
+
+.pull-left[
+.small[
+```{r, message=FALSE, warning=FALSE, highlight.output=c(2,7)}
+datasummary_balance(~ z - id, data = d, title = "Balance table", fmt=2, dinm_statistic = "p.value")
+```
+]]
+.pull-right[
+**.darkorange[Did the randomization work?]**
+
+**.darkorange[Why are there significant differences?]**
+]
+
+---
+.center2[.box-6LA[Randomization assures balance *in expectation*]]
+
+---
+.center2[.box-3LA[Let's go to R]]
+
+---
+# Simulations: Difference between T and C for X1
+
+- 100 random assignments for $Z$
+
+.center[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/sim_100.png)
+]
+
+---
+# Simulations: Difference between T and C for X1
+
+- 1,000 random assignments for $Z$
+
+.center[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/sim_1k.png)
+]
+
+---
+# Simulations: Difference between T and C for X1
+
+- 100,000 random assignments for $Z$
+
+.center[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/sim_100k.png)
+]
+
+---
+# Can we ensure balance?
+
+- In RCTs, in general, you can't ensure balance on all covariates.
+
+- But you can **.darkorange[stratify]**!
+--
+
+- Stratification means dividing your data into different stratas or groups *S*, based on one or more covariates.
+
+- Then, you randomize in the same way *within strata*.
+
+---
+# Randomization of treatment
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/study1.png)
+]
+
+---
+# Randomization of treatment with no strata
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/study2.png)
+]
+
+---
+# Randomization of treatment with strata
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/study3.png)
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+RCTs in Practice
+]
+
+---
+# How to analyze RCTs?
+
+
+---
+# How to analyze RCTs?
+
+.box-7LA[Easy! (Statistically speaking)]
+
+---
+# How to analyze RCTs?
+
+.box-7LA[Easy! (Statistically speaking)]
+<br>
+<br>
+.box-6tL[1) Check for balance]
+<br>
+
+---
+# How to analyze RCTs?
+
+.box-7LA[Easy! (Statistically speaking)]
+<br>
+<br>
+.box-6tL[1) Check for balance]
+<br>
+.box-6tL[2) Calculate difference in sample means between treatment and control group]
+
+---
+# Let's look at some data
+
+.pull-left[
+- "Get out the Vote" Large-Scale Mobilization experiment (Arceneaux, Gerber, and Green, 2006)
+  
+  - "Households containing one or two registered voters where **.darkorange[randomly assigned]** to treatment or control groups"
+  
+  - Treatment: GOTV phone calls
+  
+  - Stratified RCT: Two states divided into competitive and noncompetitive 
 ]
 .pull-right[
-<br>
-<br>
-.box-3t[Beauty coeff. is consistent across models]
-<br>
-<br>
-.box-7t[Other covariates also matter]
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/vote.jpg)
+]
+
+---
+# Checking for balance
+
+.center2[
+.box-5LA[Let's go to R]
+]
+
+---
+# Checking for balance
+
+.small[
+```{r, echo=FALSE, message=FALSE}
+tab <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/2_RCT/data/balance_gotv.csv")
+
+rnames <- tab$X
+
+tab <- tab[,-1]
+
+rownames(tab) <- rnames
+
+library(reactable)
+library(htmltools)
+
+tbl <- tab[4:11,] %>%
+  reactable(
+    # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = TRUE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = TRUE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center"),
+    style = list(fontFamily = "Fira Sans, sans-serif"),
+    
+    columns = list(
+      V1 = colDef(name = "Treat"),
+      V2 = colDef(name = "Control",
+                  style = list(borderRight = "1px solid rgba(0, 0, 0, 0.1)")),
+      V3 = colDef(name = "Treat"),
+      V4 = colDef(name = "Control",
+                  style = list(borderRight = "3px solid rgba(0, 0, 0, 0.1)")),
+      V5 = colDef(name = "Treat"),
+      V6 = colDef(name = "Control",
+                  style = list(borderRight = "1px solid rgba(0, 0, 0, 0.1)")),
+      V7 = colDef(name = "Treat"),
+      V8 = colDef(name = "Control")
+    ),
+    columnGroups = list(
+      colGroup(name = "Non-competitive", columns = c("V1", "V2")),
+      colGroup(name = "Competitive", columns = c("V3", "V4")),
+      colGroup(name = "Non-competitive", columns = c("V5", "V6")),
+      colGroup(name = "Competitive", columns = c("V7", "V8")),
+      colGroup(name = "State 1", columns = c("V1","V2","V3", "V4"))
+      
+    ),
+    highlight = TRUE
+    
+  )
+
+div(
+  # this class can be called with CSS now via .salary
+  class = "tab",
+  div(
+    # this can be called with CSS now via .title
+    class = "title",
+    h3("Balance Table by Stratum")
+  ),
+  # The actual table
+  tbl
+)
+
+
+```
+]
+
+---
+# Estimating the effect
+
+- Depending on the design, usually you can **.darkorange[compare group means]** or fit a **.darkorange[simple regression]**
+
+--
+
+$$\frac{1}{N_T}\sum_{i\in T}Y_i - \frac{1}{N_C}\sum_{i\in C}Y_i$$
+
+$$Y_i = \beta_0 + \beta_1 Z_i + \varepsilon_i$$
+
+--
+
+.box-4[How do we incorporate stratification here?]
+
+---
+# Estimating the effect
+
+- In stratified RCTs, we need to consider the strata!
+
+--
+
+- Run a regression with *fixed effects by strata*
+
+.box-6t[$$Y_i = \beta_0 + \beta_1 Z_i + \gamma_s + \varepsilon_i$$]
+
+
+---
+# Estimating the effect
+
+```{r, echo=FALSE}
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/2_RCT/data/voters_covariates.csv")
+
+# Drop variables with unlisted phone numbers
+d_s1 <- d[!is.na(d$treat_real),]
+```
+.small[
+```{r, echo = TRUE, message = FALSE}
+
+library(estimatr)
+
+d_s1$strata <- interaction(d_s1$state, d_s1$competiv)
+
+summary(estimatr::lm_robust(vote02 ~ treat_real + strata, data = d_s1))
+```
+]
+
+---
+# Estimating the effect
+
+- One important thing to note in the previous analysis is that **.darkorange[assignment to treatment]** $\neq$ **.darkorange[contact]**
+
+```{r, echo = TRUE, message = FALSE}
+table(d_s1$treat_real, d_s1$contact)
+```
+
+--
+
+.box-5[Does this affect the internal validity of the study?]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+When we assume...
+]
+
+---
+# Other assumptions
+
+.pull-left[
+- We already talked about the **.darkorange[ignorability assumption]**
+
+
+- **.darkorange[Stable Unit Treatment Value Assumption (SUTVA)]**:
+
+  - No interference
+  - No hidden variations of treatments
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/xT5LMHsI58Q1ZpugPC/giphy.gif)]
 ]
 ---
-# Is it enough to control?
+# SUTVA: No interference
 
-- We can use the covariates we have on our dataset to **.darkorange[control for those group differences]**.
-
-.box-7[Is that enough?]
+- *"The treatment applied to one unit does not affect the outcome for other units"*
 
 --
 
-.box-5[What other variable could be confounding our effect?]
+- Imagine we have two individuals, 1 and 2:
+
+  - $Z_1$ and $Z_2$ will be the treatment assignment for 1 and 2, respectively.
+  
+  - Under SUTVA:
+  
+  .box-3LA[$$(Y_2(0), Y_2(1)) \perp Z_1$$]
+  
+
+---
+# SUTVA: No hidden variations of treatments
+
+- *"An individual receiving an specific treatment level cannot receive different forms of that treatment."*
 
 --
 
-.box-2t[If I told you professors in the treatment group are taller than the ones in the control group, is height a confounder?]
+- Think about the headache example from last class:
+
+  - Individual 1 gets a **.darkorange[new aspirin (aspirin +)]**
+  - Individual 2 gets an **.darkorange[old aspirin (aspirin -)]**
+  - Individual 3 doesn't get a pill
+  
+- If we label the treatments as $Z=0$ (doesn't get an aspirin) and $Z=1$ (gets an aspirin), **.darkorange[potential outcomes would change depending on whether they got *aspirin +* or *aspirin -*.]**
+
+
+
+---
+# When SUTVA hits the fan
+
+.center2[
+.box-7[When do you think SUTVA could fail?]
+]
+<br>
+<br>
+<br>
+<br>
+.bottom2[.lightgrey[h/t to @paul_gp]]
+
+---
+# When SUTVA hits the fan
+<br>
+<br>
+<br>
+.center[
+.box-3[Network effects]
+]
+--
+.center[
+.box-5[General Equilibrium Effects]
+]
+
+---
+# Network effects
+
+- Also referred to as **.darkorange[spillovers]**
+
+- Potential outcomes will depend on *who gets the treatment*
+
+<br>
+<br>
+.box-2LA[Let's look at an example]
+
+---
+# Network effects
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/networks1.png)
+]
+
+
+---
+# Network effects
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/networks2.png)
+]
+
+---
+# Network effects
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/networks3.png)
+]
+
+---
+# Network effects
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/networks4.png)
+]
+
+---
+# Network effects
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/networks5.png)
+]
+
+---
+# Network effects
+
+.box-6LA[Can we do something about this?]
+<br>
+<br>
+<br>
+--
+
+1. **.darkorange[Randomize at a higher level]** (e.g. neighborhood, school, etc. instead of at the individual level)
 
 --
 
-.box-4t[What about self-esteem?]
-
----
-# Answering the question
-
-<span class="box-2LA">How would you answer this question?<br>Design a study!</span>
+  - Note that you will have to **.darkorange[cluster your standard errors]**
 
 --
 
-.box-4[Can you "randomize" beauty?]
+2. **.darkorange[Model the network!]**
 
 ---
-# Main takeaway points
+# General Equilibrium Effects
 
-.box-3LA[Causal Inference is hard]
+- Usually arise when you **.darkorange[scale up]** a program or intervention.
+
+- Imagine you want to test the effect of providing information about employment and expected income to students to see whether it affect their choice of university and/or major.
+
+--
 <br>
 <br>
+.box-7LA[What could happen if you offer it to everyone?]
 
 ---
-# Main takeaway points
-
-.box-3LA[Causal Inference is hard]
-<br>
-<br>
-- Think about the **.darkorange[causal problem]**
-
----
-# Main takeaway points
-
-.box-3LA[Causal Inference is hard]
-<br>
-<br>
-- Think about the **.darkorange[causal problem]**
-
-- Always **.darkorange[look at your data]**
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Show me the power
+]
 
 ---
-# Main takeaway points
+# Statistical power
 
-.box-3LA[Causal Inference is hard]
-<br>
-<br>
-- Think about the **.darkorange[causal problem]**
+- **.darkorange[Statistical power]** refers to the probability that a test correctly rejects the null hypothesis $H_0$, when $H_0$ is false.
 
-- Always **.darkorange[look at your data]**
+  - It's related to sample size!
 
-- Check **.darkorange[validity]** of assumptions (*Is ignorability plausible? Am I controlling for the right covariates?*)
+--
+
+.box-6[Power = 1- Pr(Type II error)]
+
+- **.darkorange[Type I error]**: Probability of rejecting the null hypothesis, when the null is true ($\alpha$).
+
+- **.darkorange[Type II error]**: Probability of not rejecting the null hypothesis, when the null is false ($\beta$).
 
 ---
-# Main takeaway points
+# Statistical power
 
-.box-3LA[Causal Inference is hard]
-<br>
-<br>
-- Think about the **.darkorange[causal problem]**
 
-- Always **.darkorange[look at your data]**
-
-- Check **.darkorange[validity]** of assumptions (*Is ignorability plausible? Am I controlling for the right covariates?*)
-
-- Most of this chapter will be spent on looking for **.darkorange[exogeneous variation]** to make the ignorability assumption happen.
+.center[
+![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/type_1_errors.png)]
 
 
 ---
-# References
+# Statistical power
 
-- Angrist, J. & S. Pischke. (2015). "Mastering Metrics". *Chapter 1*.
 
-- Cunningham, S. (2021). ["Causal Inference: The Mixtape". *Chapter 4: Potential Outcomes Causal Model*](https://mixtape.scunning.com/ch3.html).
+.center[
+![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/type_2_errors.png)]
 
-- Neil, B. (2020). "Introduction to Causal Inference". *Fall 2020 Course*
+
+
+---
+# Statistical power in pictures
+
+```{r power_calc, fig.height=5.5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+library(grid) # need for arrow()
+m1 <- 0  # mu H0
+sd1 <- 1.5 # sigma H0
+m2 <- 3.5 # mu HA
+sd2 <- 1.5 # sigma HA
+ 
+z_crit <- qnorm(1-(0.05/2), m1, sd1)
+ 
+# set length of tails
+min1 <- m1-sd1*4
+max1 <- m1+sd1*4
+min2 <- m2-sd2*4
+max2 <- m2+sd2*4          
+# create x sequence
+x <- seq(min(min1,min2), max(max1, max2), .01)
+# generate normal dist #1
+y1 <- dnorm(x, m1, sd1)
+# put in data frame
+df1 <- data.frame("x" = x, "y" = y1)
+# generate normal dist #2
+y2 <- dnorm(x, m2, sd2)
+# put in data frame
+df2 <- data.frame("x" = x, "y" = y2)
+ 
+# Alpha polygon
+y.poly <- pmin(y1,y2)
+poly1 <- data.frame(x=x, y=y.poly)
+poly1 <- poly1[poly1$x >= z_crit, ] 
+poly1<-rbind(poly1, c(z_crit, 0))  # add lower-left corner
+ 
+# Beta polygon
+poly2 <- df2
+poly2 <- poly2[poly2$x <= z_crit,] 
+poly2<-rbind(poly2, c(z_crit, 0))  # add lower-left corner
+ 
+# power polygon; 1-beta
+poly3 <- df2
+poly3 <- poly3[poly3$x >= z_crit,] 
+poly3 <-rbind(poly3, c(z_crit, 0))  # add lower-left corner
+ 
+# combine polygons. 
+poly1$id <- 3 # alpha, give it the highest number to make it the top layer
+poly2$id <- 2 # beta
+poly3$id <- 1 # power; 1 - beta
+poly <- rbind(poly1, poly2, poly3)
+poly$id <- factor(poly$id,  labels=c("power","beta","alpha"))
+
+
+ggplot(poly, aes(x,y, fill=id, group=id)) +
+  geom_polygon(show_guide=F, alpha=I(8/10)) +
+  # add line for treatment group
+  geom_line(data=df1, aes(x,y, color="H0", group=NULL, fill=NULL), size=1.5, show_guide=F) + 
+  # add line for treatment group. These lines could be combined into one dataframe.
+  geom_line(data=df2, aes(color="HA", group=NULL, fill=NULL),size=1.5, show_guide=F) +
+  # add vlines for z_crit
+  geom_vline(xintercept = z_crit, size=1, linetype="dashed") +
+  # change colors 
+  scale_color_manual("Group", 
+                     values= c("HA" = "#5601A4","H0" = "dark grey")) +
+  scale_fill_manual("test", values= c("alpha" = "#900DA4","beta" = "#F89441","power"="#BF3984")) +
+  # beta arrow
+  ggplot2::annotate("segment", x=0.1, y=0.045, xend=1.3, yend=0.01, arrow = arrow(length = unit(0.3, "cm")), size=1) +
+  ggplot2::annotate("text", label="beta", x=0, y=0.05, parse=T, size=8) +
+  # alpha arrow
+  ggplot2::annotate("segment", x=4, y=0.043, xend=3.4, yend=0.01, arrow = arrow(length = unit(0.3, "cm")), size=1) +
+  ggplot2::annotate("text", label="frac(alpha,2)", x=4.2, y=0.05, parse=T, size=8) +
+  # power arrow
+  ggplot2::annotate("segment", x=6, y=0.2, xend=4.5, yend=0.15, arrow = arrow(length = unit(0.3, "cm")), size=1) +
+  ggplot2::annotate("text", label="1-beta", x=6.1, y=0.21, parse=T, size=8) +
+  # H_0 title
+  ggplot2::annotate("text", label="H[0]", x=m1, y=0.28, parse=T, size=8) +
+  # H_a title
+  ggplot2::annotate("text", label="H[a]", x=m2, y=0.28, parse=T, size=8) +
+  # remove some elements
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line.x = element_line(colour = "dark grey"),
+        axis.line.y = element_blank())+
+  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank(),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+```
+---
+#Statistical power and sample size
+.box-2t[How big of a sample?]
+
+--
+
+```{r fake-income-program, include=FALSE}
+library(infer)
+
+set.seed(1234)
+fake_income_t <- tibble(Person = 1:200, 
+                        Group = "Treatment",
+                        Before = rnorm(200, mean = 200, sd = 70),
+                        After = rnorm(200, mean = 250, sd = 70))
+
+fake_income_c <- tibble(Person = 201:400, 
+                        Group = "Control",
+                        Before = rnorm(200, mean = 200, sd = 70),
+                        After = rnorm(200, mean = 210, sd = 70))
+
+fake_income <- bind_rows(fake_income_t, fake_income_c) %>% 
+  mutate(Difference = After - Before) %>% 
+  sample_frac(1)
+
+fake_income_small <- fake_income %>% 
+  group_by(Group) %>% 
+  sample_n(5) %>% 
+  ungroup()
+
+diff_small <- fake_income_small %>% 
+  specify(Difference ~ Group) %>% 
+  calculate("diff in means", order = c("Treatment", "Control"))
+
+boot_small <- fake_income_small %>% 
+  specify(Difference ~ Group) %>% 
+  hypothesize(null = "independence") %>% 
+  generate(reps = 1000, type = "permute") %>% 
+  calculate("diff in means", order = c("Treatment", "Control"))
+
+p_small <- boot_small %>% 
+  get_p_value(obs_stat = diff_small$stat, direction = "both") %>% 
+  mutate(p_value_clean = scales::pvalue(p_value))
+
+diff_big <- fake_income %>% 
+  specify(Difference ~ Group) %>% 
+  calculate("diff in means", order = c("Treatment", "Control"))
+
+boot_big <- fake_income %>% 
+  specify(Difference ~ Group) %>% 
+  hypothesize(null = "independence") %>% 
+  generate(reps = 1000, type = "permute") %>% 
+  calculate("diff in means", order = c("Treatment", "Control"))
+
+p_big <- boot_big %>% 
+  get_p_value(obs_stat = diff_big$stat, direction = "both") %>% 
+  mutate(p_value_clean = scales::pvalue(p_value))
+```
+
+
+.box-4t[A training program causes incomes to rise by $40]
+
+.center.small[
+```{r fake-income-example, echo=FALSE}
+fake_income %>% 
+  head(6) %>% 
+  mutate(across(where(is.numeric), ~round(., 2))) %>% 
+  knitr::kable(align = "llccc")
+```
+]
+
+---
+# Can I detect an effect?
+
+.pull-left[
+.center[
+.box-5b[Enroll 10 participants]]
+
+```{r power-small, echo=FALSE, fig.width=6, fig.height=4.5, out.width="100%"}
+
+boot_small %>% 
+  visualize() +
+  geom_vline(xintercept = diff_big$stat, color = "#FF4136", size = 1) +
+  labs(x = "Average treatment − Average control",
+       y = "Count",
+       title = "Simulated world with no difference",
+       subtitle = paste0("N = 10; p = ", p_small$p_value_clean)) +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+]
+
+--
+
+.pull-right[
+.center[.box-5b[Enroll 200 participants]]
+
+```{r power-big, echo=FALSE, fig.width=6, fig.height=4.5, out.width="100%"}
+boot_big %>% 
+  visualize() +
+  geom_vline(xintercept = diff_big$stat, color = "#FF4136", size = 1) +
+  labs(x = "Average treatment − Average control",
+       y = "Count",
+       title = "Simulated world with no difference",
+       subtitle = paste0("N = 200; p = ", p_big$p_value_clean)) +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+]
+
+
+---
+# What's the right sample size?
+
+.box-6[Use a statistical power calculator to<br>make sure you can potentially detect an effect]
+
+.center[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/power-search.png)
+]
+
+--
+
+.box-7[Or you can use simulations!]
+
+---
+# A quick note on randomization inference
+
+- Previous power calculations work well on **.darkorange[larger samples]**.
+
+- On smaller samples, usually we can't rely on the **.darkorange[central limit theorem]**.
+
+--
+
+.box-3[Randomization Inference]
+<br>
+<br>
+
+.box-3t[What are the chances of something happening given all possible randomization scenarios?]
+
+---
+# The Lady Tasting Tea
+
+- There's a lady in England that claims she can always know whether **.darkorange[tea or milk was poured first]** in a cup.
+
+- So you decide to **.darkorange[test it]**.
+
+--
+
+.center[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/cups.png)]
+
+--
+- This is only one of the random allocations you could have used. There are other **.darkorange[19 combinations]**!
+
+  - Number of possible randomization allocations (or permutations): $n \choose k$
+  
+---
+# The Lady Tasting Tea
+
+.center[
+![:scale 20%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/cups.png)]
+
+.small[  
+```{r, echo = FALSE}
+z_allocations <- rbind(c(1,1,1,0,0,0),
+                       c(1,0,1,1,0,0),
+                       c(1,0,0,1,1,0),
+                       c(1,0,0,0,1,1),
+                       c(1,1,0,1,0,0),
+                       c(1,1,0,0,1,0),
+                       c(1,1,0,0,0,1),
+                       c(1,0,1,0,1,0),
+                       c(1,0,1,0,0,1),
+                       c(1,0,0,1,0,1),
+                       c(0,1,1,1,0,0),
+                       c(0,1,0,1,1,0),
+                       c(0,1,0,0,1,1),
+                       c(0,1,0,0,1,1),
+                       c(0,1,0,1,0,1),
+                       c(0,1,1,0,0,1),
+                       c(0,0,1,1,1,0),
+                       c(0,0,1,1,0,1),
+                       c(0,0,1,0,1,1),
+                       c(0,0,0,1,1,1))
+
+
+
+colnames(z_allocations) <- paste0("cup ",seq(1,6))
+
+tbl <- z_allocations[1:8,] %>%
+  reactable(
+    # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = TRUE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center"),
+    style = list(fontFamily = "Fira Sans, sans-serif"),
+    
+    highlight = TRUE,
+    
+    theme = reactableTheme(
+      highlightColor = "rgba(248, 148, 65,0.3)"
+    )
+    
+  )
+
+div(
+  # this class can be called with CSS now via .salary
+  class = "tab",
+  div(
+    # this can be called with CSS now via .title
+    class = "title",
+    h3("Possible Treatment Allocations")
+  ),
+  # The actual table
+  tbl
+)
+```
+]
+
+---
+# The Lady Tasting Tea
+
+- If the woman is telling the truth, then she needs to pick out the 3 cups of tea with milk first.
+
+--
+
+.box-4[She does it!]
+
+--
+
+.box-4[What are the chances?]
+
+
+---
+# The Lady Tasting Tea
+
+- If she was just guessing, she is equally likely to choose any of the **.darkorange[20 possibilities]** (because ${6 \choose 3} = 20$).
+
+- **.darkorange[Under the null hypothesis]**, the probability of her choosing $k$ correct ones out of $n$ cups is:
+$$Pr(Successes = k) = \frac{1}{Total \ Perm}{n \choose k} {n \choose n-k}$$
+--
+.center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/combinations.png)]
+
+.box-2[p-value = 0.05]
+
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Limitations and Potential Problems in Randomized Controlled Trials
+]
+
+---
+# Generalizibility of RCTs
+
+- External Validity vs Internal Validity:
+
+  - **.darkorange[External validity]**: "The extent to which results can be generalized to other contexts or populations."
+  
+  - **.darkorange[Internal validity]**: "[T]he extent to which the observed results represent the truth in the population we are studying."
+
+---
+# External vs Internal Validity
+
+.center[
+![:scale 75%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/validity.png)]
+
+--
+- Many times, RCTs use **.darkorange[convenience samples]**
+
+---
+# Noncompliance and Attrition
+
+.box-5[Attrition]
+
+.box-5t[Units fall out of your sample]
+
+- **.darkorange[Can you give an example?]**
+
+---
+# Noncompliance and Attrition
+
+.box-5[Attrition]
+
+.box-5t[Units fall out of your sample]
+
+.box-7[Noncompliance]
+
+.box-7t[Units that where assigned to one group end up in another]
+
+- **.darkorange[Example?]**
+
+---
+# Noncompliance and Attrition
+
+- If **.darkorange[attrition]** is correlated with the treatment, we're in trouble.
+
+--
+
+.box-3LA[WHY?]
+
+---
+# Noncompliance and Attrition
+
+- If **.darkorange[attrition]** is correlated with the treatment, we're in trouble.
+
+
+.box-3LA[The ignorability assumption can break!]
+
+---
+# Noncompliance and Attrition
+
+- If **.darkorange[attrition]** is correlated with the treatment, we're in trouble.
+
+.box-3LA[The ignorability assumption can break!]
+
+- **.darkorange[Noncompliance]** is a problem for identifying $ATE$.
+
+  - E.g. Treatment *assingment* is random, but not necessarily the *take-up* of the treatment
+  
+--
+  
+  - Stuck with **.darkorange[Intention to Treat (ITT) effect]**.
+
+---
+# Other problems to look out for
+
+1. **.darkorange[Hawthorne effects]**:
+
+  - Effect that occurs when people behave differently because they are being watched
+
+--
+
+2. **.darkorange[John Henry effects]**:
+
+  - Effect that occurs when the control group works harder because they were not assigned to treatment.
+
+
+---
+# Feasibility
+
+.pull-left[
+- RCTs can be **.darkorange[expensive]** and also **.darkorange[slow]**.
+
+- Organizations might **.darkorange[not be willing to randomize]**.
+]
+
+.pull-right[
+.center[
+![:scale 90%](https://media.giphy.com/media/1xkMJIvxeKiDS/giphy.gif)]
+]
+---
+# Getting around some issues
+
+- **.darkorange[Staggered adoption]**: Eventually treat everyone, but at different times.
+
+  - You can think about this when you have panel data.
+
+- **.darkorange[Randomize in the bubble]**:
+
+  - Not randomize everyone, but maybe those that are on the margin of receiving the treatment.
+  
+---
+# Staggered adoption
+
+.pull-left[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/staggered1.png)
+]
+
+--
+
+.pull-right[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/staggered2.png)
+]
+
+---
+# Staggered adoption
+
+.pull-left[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/staggered1.png)
+]
+
+
+.pull-right[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/staggered3.png)
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+A/B Testing
+]
+
+---
+# A/B Testing
+
+.pull-left[
+.center[
+![](https://media.giphy.com/media/LmNwrBhejkK9EFP504/giphy.gif)]
+]
+
+.pull-right[
+- A/B testing is very popular right now to test the effect of **.darkorange[small changes]** in products on an outcome of interest.
+
+- E.g. In web development, user would be exposed to **.darkorange[different versions of the same website]** (only with subtle changes).
+
+- Companies can quickly analyze the data, adapt their design, and continue testing features.
+]
+
+---
+# A/B Testing Jargon
+
+- There's a lot of jargon in A/B testing that is thrown out there...
+
+.box-7[What does it all mean?]
+
+--
+
+.box-5t[Conversions]
+
+.box-4t[Regret]
+
+.box-2t[Multi-armed bandits/ Contextual bandits]
+
+---
+# A/B Testing Jargon
+
+- **.darkorange[Conversions]**: "Cause the customer to take action"
+
+- **.darkorange[Regret]**: Loss of conversion due to a low-performing treatment.
+--
+
+<br>
+<br>
+<br>
+<br>
+.box-7[Maximize conversions and minimize regret]
+
+---
+# A/B Testing Jargon
+
+- **.darkorange[Multi-armed bandits/ Contextual bandits]**
+
+  - Name comes from machines at casinos.
+  - You want to maximize total payout $\rightarrow$ Balance between exploration and exploitation
+
+.center[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/slot-machine.png)]
+--
+
+- **.darkorange[Multi-armed bandits]** redirect users to the more successful versions of the treatment.
+
+- A **.darkorange[contextual bandit]** uses prior information from the user to select an action.
+
+---
+# A/B Testing in Data: MSU Library
+
+- Montana University Library website: Low interaction with the "Interact" Category
+.center[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/montana_control.png)]
+---
+# A/B Testing in Data: MSU Library
+.center[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/heatmap_control.png)]
+
+---
+# A/B Testing in Data: Different treatments
+
+- Test four different names for that category
+
+.pull-left[
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/connect.png)
+
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/learn.png)]
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/help.png)
+
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/services.png)]
+]
+
+---
+# A/B Testing in Data: Analyze results
+
+.center2[
+.box-5LA[How would you analyze these results?]]
+
+---
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/google_analytics1.png)]
+---
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/google_analytics2.png)]
+---
+# Homepage click-through
+.center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/click_through.png)]
+---
+# Drop-off
+.center[
+![:scale 55%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/drop_off.png)]
+---
+# Homepage return
+.center[
+![:scale 55%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/homepage_return.png)]
+
+---
+# Wrapping things up
+
+- Randomized controlled trials are great... **.darkorange[but not for everything!]**
+
+--
+
+- Randomization buys us **.darkorange[no systematic selection on observables or unobservables]**
+
+  - But things can go wrong, too!
+  
+--
+
+.box7-LA[Check your assumptions and look out for potential issues!]
+
+---
+# Next class
+
+.pull-left[
+- Introduction to **.darkorange[observational studies]**
+
+- Selection on **.darkorange[observables]**
+
+- The wonderful world of **.darkorange[matching!]**
+]
+
+.pull-right[
+![](https://media.giphy.com/media/oF5oUYTOhvFnO/giphy.gif)
 
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week3/2_PotentialOutcomes/f2021_sta235h_5_potentialoutcomes.html') -->
 

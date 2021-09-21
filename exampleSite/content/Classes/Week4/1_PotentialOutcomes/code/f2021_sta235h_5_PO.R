@@ -43,7 +43,7 @@ profs <- profs %>% mutate(treat = as.numeric(beauty > 0),
                           minority = as.numeric(minority)-1) 
 
 
-covs <- profs %>% #Task: Create a new dataframe only with the previous covariates and the treatment
+covs <- profs %>% ... #Task: Create a new dataframe only with the previous covariates and the treatment
 
 # datasummary_balance() is a function from the `modelsummary` package, which creates a balance table between the treatment and control group for the selected covariates
 # fmt: if integer, gives you the number of decimal points.
