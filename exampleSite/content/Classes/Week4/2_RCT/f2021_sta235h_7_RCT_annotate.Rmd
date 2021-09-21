@@ -704,6 +704,19 @@ fig
 ![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/nicholas_cage.png)]
 
 ---
+# Definition: Identification Strategy
+<br>
+<br>
+According to Keele (2015):
+
+<br>
+.center["A **.darkorange[research design]** intended to solve the identification problem"]
+
+--
+
+.center["Consists of an assumption or set of assumptions that will **.darkorange[identify the causal effect]** of interest"]
+
+---
 # RCTs: The Gold Standard
 
 .pull-left[
@@ -795,7 +808,15 @@ class: center, middle
 ]
 
 
+---
+# References
+
+- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 1*.
+
+- Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 7: Randomization and Matching, Course at BYU*
+
+- Imbens, G. and D. Rubin. (2015). "Causal Inference for Statistics, Social, and Biomedical Sciences: An Introduction". *Chapter 1*
 
 
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week4/2_RCTf2021_sta235h_7_RCT.html') -->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week4/2_RCT/f2021_sta235h_7_RCT.html') -->
 
