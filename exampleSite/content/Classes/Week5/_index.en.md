@@ -23,7 +23,7 @@ This week, we will finish with RCTs and we will be introducing observational stu
 
 ## JITT
 
-Complete before **Sunday Sep 26th (11:59 pm)** (if your section is on Tue) or **Tuesday Sep 28th (11:59 pm)** (if your section is on Thu). The assignment will be posted soon. <!-- You can find the assignment [here](https://forms.gle/atbUTPiXeSESFBe39). -->
+Complete before **Sunday Sep 26th (11:59 pm)** (if your section is on Tue) or **Tuesday Sep 28th (11:59 pm)** (if your section is on Thu). You can find the assignment [here](https://forms.gle/7Y6TaDH9GYezcnmB7).
 
 ## Slides
 
