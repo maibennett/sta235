@@ -35,6 +35,8 @@ d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleS
 # city: c = chicago, b = boston
 # call: applicant was called back
 
+
+
 ## Let's assume we are only interested in the "race" treatment. Create a variable treat = 1 if race = "b" and 0 if race = "w"
 
 d <- d %>% mutate(treat = ifelse(race == "b", 1, 0))
@@ -43,11 +45,20 @@ d <- d %>% mutate(treat = ifelse(race == "b", 1, 0))
 
 d %>% group_by(treat) %>% count() # group_by() groups your data according to the different levels of the variables in the argument (in this case, treat).
 
+
+
 ## Let's check if randomization was done correctly: Balance table
 
 d_bal <- d %>% select(treat, education, ofjobs, yearsexp, computerskills, h, l, city)
 
 datasummary_balance(~ treat, data = d_bal, title = "Balance table", fmt=2, dinm_statistic = "p.value") # Q: Does education make sense as a continuous variable?
+
+
+# Note that you can obtain the same values for the balance table using tidyverse code:
+
+d_bal %>% group_by(treat) %>% summarize(across(.cols = everything(), .fns = mean)) #across() tells the summarize() function which variables (.cols) to use for summarizing (in this case, everything). We want to get the mean of each variable for treat = 0 and treat = 1. You can change mean for any other variable that you're interested in.
+# Q: Why does city return an NA value?
+
 
 # Let's transform education in a factor variable
 
@@ -56,6 +67,7 @@ d_bal <- d %>% mutate(education = factor(education)) %>% select(treat, education
 datasummary_balance(~ treat, data = d_bal, title = "Balance table", fmt=2, dinm_statistic = "p.value")
 
 # Task: Using the code seen in the previous code (beauty in the classroom example), build binary variables for each level of education. Is the difference between groups statistically significant?
+
 
 
 ## Now, let's run a simple model
