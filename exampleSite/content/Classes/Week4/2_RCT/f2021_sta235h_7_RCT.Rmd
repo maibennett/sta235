@@ -1,0 +1,1441 @@
+---
+title: "STA 235H - Randomized Controlled Trials I"
+subtitle: "Fall 2021"
+author: "McCombs School of Business, UT Austin"
+output:
+  xaringan::moon_reader:
+    css: [xaringan-themer.css]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: ["macros.js"]
+    includes:
+      in_header: ["header.html"]
+---
+
+<!-- <script type="text/javascript"> -->
+<!-- MathJax.Hub.Config({ -->
+<!--   "HTML-CSS": { -->
+<!--     preferredFont: null, -->
+<!--     webFont:  "Neo-Euler" -->
+<!--   } -->
+<!-- }); -->
+<!-- </script> -->
+
+```{r setup, include=FALSE, warning=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.showtext = TRUE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE, message=FALSE}
+library(xaringanthemer)
+
+theme_xaringan(
+  text_color = "#333f48",
+  background_color = "#FFFFFF",
+  accent_color = "#900DA4",
+  text_font = "Fira Mono",
+  text_font_use_google = TRUE,
+  title_font = "Yanone Kaffeesatz",
+  title_font_use_google = TRUE
+)
+
+style_mono_accent(
+  #base_color = "#bf5700",
+  extra_fonts = list(google_font("Fira Sans","200","300","400","500","600"),
+                     google_font("Fira Sans Condensed","200","300","400","500","600")),
+  base_color = "#333f48",
+  header_font_google = google_font("Yanone Kaffeesatz","200","300","400","500","600","700"),
+  text_font_google   = google_font("Jost"),
+  code_font_google   = google_font("Fira Mono"),
+  text_bold_color = "#333f48",
+  text_font_size = "115%",
+  colors = c(
+    lightgrey = "#C0C0C0",
+    red = "#f34213",
+    purple = "#900DA4",
+    darkpurple = "#61077a",
+    darkorange = "#db5f12",
+    orange = "#ff8811",
+    green = "#136f63",
+    white = "#FFFFFF"),
+  extra_css = list(
+    ".remark-slide table" = list("display" = "table",
+                   "width" = "80%",
+                   "text-align" = "left"),
+    ".remark-slide-number" = list("display" = "none"),
+    ".strong" = list("font-weight" = "400"),
+    ".big" = list("font-size" = "350%",
+                     "font-family" = "Yanone Kaffeesatz",
+                     "font-weight"="400"),
+    ".small" = list("font-size" = "80%"),
+    ".tiny" = list("font-size" = "50%"),
+    ".large" = list("font-size" = "150%"),
+    ".source" = list("color" = "#8c8c8c",
+                     "font-size" = "80%"),
+    ".remark-slide table td#highlight" = list("background-color" = "#eee1f0",
+                                  "color" = "#900DA4",
+                                  "font-weight" = "500"),
+   # ".remark-slide table thead th" = list(),
+    ".title-slide h1" = list("font-weight" = "500"),
+    ".title-slide h2" = list("font-weight" = "400",
+                             "font-size" =  "170%"),
+    ".title-slide h3" = list("font-family" = "Jost",
+                             "font-size" = "100%",
+                             "font-weight" = "200"),
+    ".center2" = list("margin" = "0",
+                      "position" = "absolute",
+                      "top" = "50%",
+                      "left" = "50%",
+                      "-ms-transform" = "translate(-50%, -50%)",
+                      "transform" = "translate(-50%, -50%)"),
+   ".bottom2" = list("margin" = "0",
+                      "position" = "absolute",
+                      "top" = "90%",
+                      "left" = "10%",
+                      "-ms-transform" = "translate(-10%, -90%)",
+                      "transform" = "translate(-10%, -90%)"),
+    ".section-title h1" = list("color" = "#FFFFFF",
+                               "font-size" = "2.3em",
+                               "line-height" = "1.3"),
+    ".sp-after-half" = list("margin-bottom" = "0.7em !important"),
+    ".box-1,.box-1a,.box-1s,.box-1b,.box-1l,.box-1LA,.section-title-1" = list("background-color" = "#0D0887"),
+    ".box-2,.box-2a,.box-2s,.box-2b,.box-2l,.box-2LA,.section-title-2" = list("background-color" = "#5601A4"),
+    ".box-3,.box-3a,.box-3s,.box-3b,.box-3l,.box-3LA,.section-title-3" = list("background-color" = "#900DA4"),
+    ".box-4,.box-4a,.box-4s,.box-4b,.box-4l,.box-4LA,.section-title-4" = list("background-color" = "#BF3984"),
+    ".box-5,.box-5a,.box-5s,.box-5b,.box-5l,.box-5LA,.section-title-5" = list("background-color" = "#E16462"),
+    ".box-6,.box-6a,.box-6s,.box-6b,.box-6l,.box-6LA,.section-title-6" = list("background-color" = "#F89441"),
+    ".box-7,.box-7a,.box-7s,.box-7b,.box-7l,.box-7LA,.section-title-7" = list("background-color" = "#FCCE25"),
+   
+    ".box-1trans,.box-2trans,.box-3trans,.box-4trans,.box-5trans,.box-6trans,.box-7trans" = list("background-color" = "#FFFFFF",
+                                                                                                 "font-family" = "Yanone Kaffeesatz",
+                                                                                                 "border-radius" = "15px",
+                                                                                                 "margin" = "0em auto",
+                                                                                                 "overflow" = "hidden",
+                                                                                                 "padding" = "0.4em 0.4em",
+                                                                                                 "font-weight" = "600",
+                                                                                                 "font-size" = "31px",
+                                                                                                 "display" = "table",
+                                                                                                 "text-align" = "center",
+                                                                                                 "border-width" = "thick",
+                                                                                                 "color" = "#333f48"),
+   
+       ".box-1Trans,.box-2Trans,.box-3Trans,.box-4Trans,.box-5Trans,.box-6Trans,.box-7Trans" = list("background-color" = "#FFFFFF",
+                                                                                                 "font-family" = "Yanone Kaffeesatz",
+                                                                                                 "border-radius" = "15px",
+                                                                                                 "margin" = "0em auto",
+                                                                                                 "overflow" = "hidden",
+                                                                                                 "padding" = "0.4em 0.4em",
+                                                                                                 "font-weight" = "600",
+                                                                                                 "font-size" = "51px",
+                                                                                                 "display" = "table",
+                                                                                                 "text-align" = "center",
+                                                                                                 "border-width" = "thick",
+                                                                                                 "color" = "#333f48"),
+   
+       ".box-1transl,.box-2transl,.box-3transl,.box-4transl,.box-5transl,.box-6transl,.box-7transl" = list("background-color" = "#FFFFFF",
+                                                                                                           "font-family" = "Yanone Kaffeesatz",
+                                                                                                           "border-radius" = "15px",
+                                                                                                           "left" = "0px",
+                                                                                                           "overflow" = "hidden",
+                                                                                                           "padding" = "0.4em 0.4em",
+                                                                                                           "font-weight" = "600",
+                                                                                                           "font-size" = "31px",
+                                                                                                           "display" = "table",
+                                                                                                           "text-align" = "left",
+                                                                                                           "border-width" = "thick",
+                                                                                                           "color" = "#333f48"),
+   
+   
+    ".box-1trans,.box-1transl,.box-1Trans" = list("border"="5px solid rgba(13, 8, 135,1)"),
+    ".box-2trans,.box-2transl,.box-2Trans" = list("border"="5px solid rgba(86, 1, 164,1)"),
+    ".box-3trans,.box-3transl,.box-3Trans" = list("border"="5px solid rgba(144, 13, 164,1)"),
+    ".box-4trans,.box-4transl,.box-4Trans" = list("border"="5px solid rgba(191, 57, 132,1)"),
+    ".box-5trans,.box-5transl,.box-5Trans" = list("border"="5px solid rgba(225, 100, 98,1)"),
+    ".box-6trans,.box-6transl,.box-6Trans" = list("border"="5px solid rgba(248, 148, 65,1)"),
+    ".box-7trans,.box-7transl,.box-7Trans" = list("border"="5px solid rgba(252, 206, 37,1)"),
+
+   
+   ".box-1t,.box-1tL,.section-title-1t" = list("background-color" = "rgba(13, 8, 135,0.3)",
+                                      "color"="rgba(13, 8, 135,1)",
+                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-2t,.box-2tL,.section-title-2t" = list("background-color" = "rgba(86, 1, 164,0.3)",
+                                       "color" = "rgba(86, 1, 164,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-3t,.box-3tL,.section-title-3t" = list("background-color" = "rgba(144, 13, 164,0.3)",
+                                       "color" = "rgba(144, 13, 164,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-4t,.box-4tL,.section-title-4t" = list("background-color" = "rgba(191, 57, 132,0.3)",
+                                       "color" = "rgba(191, 57, 132,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-5t,.box-5tL,.section-title-5t" = list("background-color" = "rgba(225, 100, 98,0.3)",
+                                       "color" = "rgba(225, 100, 98,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-6t,.box-6tL,.section-title-6t" = list("background-color" = "rgba(248, 148, 65,0.3)",
+                                       "color" = "rgba(248, 148, 65,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-7t,.box-7tL,.section-title-7t" = list("background-color" = "rgba(252, 206, 37,0.3)",
+                                       "color" = "rgba(252, 206, 37,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   
+   ".box-7t, .box-6t, .box-5t, .box-4t, .box-3t, .box-2t, .box-1t" = list("margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "31px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "border-radius" = "15px"),
+   
+   ".box-7tL, .box-6tL, .box-5tL, .box-4tL, .box-3tL, .box-2tL, .box-1tL" = list("margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "50px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "border-radius" = "15px"),
+   
+    ".box-7, .box-6, .box-5, .box-4, .box-3, .box-2, .box-1" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "31px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+    ".box-7a, .box-6a, .box-5a, .box-4a, .box-3a, .box-2a, .box-1a" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.4em 0.4em",
+                                                                      "font-weight" = "600",
+                                                                      "font-size" = "25px",
+                                                                      "display" = "table",
+                                                                      "text-align" = "center",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+   ".box-7s, .box-6s, .box-5s, .box-4s, .box-3s, .box-2s, .box-1s" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.2em 0.2em",
+                                                                      "font-weight" = "400",
+                                                                      "font-size" = "100%",
+                                                                      "display" = "inline",
+                                                                      "text-align" = "center",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+       ".box-7b, .box-6b, .box-5b, .box-4b, .box-3b, .box-2b, .box-1b" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.4em 0.4em",
+                                                                      "font-weight" = "600",
+                                                                      "font-size" = "25px",
+                                                                      "display" = "table",
+                                                                      "text-align" = "left",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+   ".box-7l, .box-6l, .box-5l, .box-4l, .box-3l, .box-2l, .box-1l" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "45px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   ".box-7LA, .box-6LA, .box-5LA, .box-4LA, .box-3LA, .box-2LA, .box-1LA" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "55px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   ".medium" = list("font-size" = "35px"),
+   
+   ".medium30" = list("font-size" = "30px"),
+   
+   ".jost-normal" = list("font-family" = "Jost",
+                         "font-size" = "31px"),
+   
+   ".image-80 img" = list("scale" = "80%"),
+   ".pull-left-little_l" = list("float" = "left",
+                                "width" = "67%"),
+   ".pull-right-little_l" = list("float" = "right",
+                                "width" = "27%"),
+   ".pull-left-little_r" = list("float" = "left",
+                                "width" = "27%"),
+   ".pull-right-little_r" = list("float" = "right",
+                                "width" = "67%")
+
+
+  )
+)
+
+#,"li" = list("font-size" = "150%")
+#    "li" = list("font-size" = "110%"),
+#    "ul" = list("font-size" = "110%"),
+#color palette
+#5601A4
+#900DA4
+#F89441
+#FCCE25
+
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+
+```
+```{css, echo = FALSE}
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+```
+
+```{r setup2, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(showtext)
+library(xaringanExtra)
+library(htmltools)
+library(paletteer)
+library(reactable)
+library(htmlwidgets)
+library(webshot2)
+library(tidyverse)
+library(extrafont)
+library(hrbrthemes)
+library(firasans)
+# for windows
+windowsFonts(sans = "Fira")
+loadfonts(device="win")
+loadfonts(device="postscript")
+
+#xaringanExtra::use_scribble()
+
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r fonts, message=FALSE, echo=FALSE, warning=FALSE}
+font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
+font.add.google("Fira Sans", "Fira Sans")
+```
+
+
+
+# Housekeeping
+
+.box-2LA[Homework 2 will be posted on Thursday]
+
+--
+
+- **.darkorange[HW 1 Answer key]** is posted on the course website (review it!).
+
+- Added **.darkorange[additional resources]** on our website (regression and intro to causal inference).
+
+--
+
+- Student suggestion: Class recordings will be available **.darkorange[two weeks before the midterm]**.
+
+  - <u>Trial run</u>: Check if attendance drops significantly. 
+
+---
+# Last week
+
+.pull-left[
+- Started talking about **.darkorange[Causal Inference]**.
+  
+  - **.darkorange[Potential outcomes framework]**: What are potential outcomes? How we identify a counterfactual? What is an estimand? 
+  
+  - **.darkorange[Fundamental problem of causal inference]**: Ignorability assumption
+  
+  - **.darkorange[Sources of bias]**: Selection bias and heterogenous return to treatment bias.
+]
+
+.pull-right[
+<br>
+<br>
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_PotentialOutcomes/images/correlation.png)
+]
+---
+# Today
+
+.pull-left[
+.center[
+<br>
+<br>
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_PotentialOutcomes/images/xkcd-p-value-jellybeans.jpg)]
+]
+.pull-right[
+- **.darkorange[Finish with potential outcomes framework]**:
+  
+  - Examples related to causal inference.
+  
+  - Confounder vs. Collider.
+  
+- Introduction to **.darkorange[Randomized Controlled Trials (RCTs)]**
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Let's look back at some math
+]
+
+---
+<br>
+.box-6[$$\mu = E[Y_i]$$]
+
+--
+
+What does the previous equation mean?
+
+--
+
+.center["&mu; is the expected value of the observed outcome Y"]
+
+---
+<br>
+.box-5[$$\mu_1 = E[Y_i | Z = 1]$$]
+
+--
+
+What does the previous equation mean?
+
+--
+
+.center["&mu;<sub>1</sub> is the expected value of observed outcome Y for the treated group (i.e. units for which treatment Z = 1)"]
+
+---
+
+<br>
+.box-4[$$\mu_1(0) = E[Y_i(0) | Z = 1]$$]
+
+--
+
+What does the previous equation mean?
+
+--
+
+.center["&mu;<sub>1</sub>(0) is the expected value of the potential outcome Y *under control* (Y(0)) for the treated group (i.e. units for which treatment Z = 1)"]
+
+--
+
+In other words,
+
+.center["&mu;<sub>1</sub>(0) is the expected value of the outcome Y for the treated group, *if the treated group had not been treated*"]
+
+
+---
+.center2[
+.box-2LA[Let's look at some data]
+]
+
+---
+# Example: Effect of types of advertising on sales
+
+You want to know whether is more convenient to **.darkorange[e-mail]** or **.darkorange[physically mail]** potential customers to increase your sales.
+
+.pull-left[.center[
+![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/freshdirect_mail.png)]
+]
+
+.pull-right[
+.center[
+![:scale 55%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/freshdirect_email.jpg)]
+]
+---
+# Example: Effect of types of advertising on sales
+
+You want to know whether is more convenient to **.darkorange[e-mail]** or **.darkorange[physically mail]** potential customers to increase your sales.
+
+- What is the **.darkorange[treatment]**?
+
+---
+# Example: Effect of types of advertising on sales
+
+You want to know whether is more convenient to **.darkorange[e-mail]** or **.darkorange[physically mail]** potential customers to increase your sales.
+
+- What is the **.darkorange[treatment]**?
+
+- What is the **.darkorange[causal question]** that you want to answer?
+
+---
+# Example: Effect of types of advertising on sales
+
+You want to know whether is more convenient to **.darkorange[e-mail]** or **.darkorange[physically mail]** potential customers to increase your sales.
+
+- What is the **.darkorange[treatment]**?
+
+- What is the **.darkorange[causal question]** that you want to answer?
+
+- What would the **.darkorange[counterfactual]** be?
+
+---
+# Looking at some data
+
+- You get some data from a friend in Silicon Valley, who works at a similar company:
+
+.center[
+```{r echo=FALSE}
+tab <- cbind(c("E-mail","","Mail",""),c("19%","(290/1500)","16%","(88/550)"))
+
+colnames(tab) <- c("Treatment","Total")
+
+tbl <- tab %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = FALSE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center",
+      minWidth = 200
+  ),
+    style = list(fontFamily = "Fira Sans, sans-serif"))
+
+div(
+  # this class can be called with CSS now via .salary
+  class = "tab",
+  div(
+    # this can be called with CSS now via .title
+    class = "title",
+    h3("% of New Registrations by Type of Campaign")
+  ),
+  # The actual table
+  tbl
+)
+
+```
+]
+
+---
+# Looking at some data
+
+- You get some data from a friend in Silicon Valley, who works at a similar company:
+
+.center[
+```{r echo=FALSE}
+
+tbl <- tab %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = FALSE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center",
+      minWidth = 200
+  ),
+  rowStyle = function(index) {
+  if (index==1) list(fontWeight = "bold",
+                      background = "rgba(144, 13, 164,0.3)",
+                     color = "rgba(144, 13, 164,1)")
+  },
+    style = list(fontFamily = "Fira Sans, sans-serif")
+  )
+
+div(
+  # this class can be called with CSS now via .salary
+  class = "tab",
+  div(
+    # this can be called with CSS now via .title
+    class = "title",
+    h3("% of New Registrations by Type of Campaign")
+  ),
+  # The actual table
+  tbl
+)
+
+```
+]
+
+**.darkorange[Does this mean that e-mailing is more effective in getting new customers?]**
+
+---
+# Looking at some data
+
+- You get some data from a friend in Silicon Valley, who works at a similar company:
+
+.center[
+```{r echo=FALSE}
+
+tbl <- tab %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = FALSE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center",
+      minWidth = 200
+  ),
+  rowStyle = function(index) {
+  if (index==1) list(fontWeight = "bold",
+                      background = "rgba(144, 13, 164,0.3)",
+                     color = "rgba(144, 13, 164,1)")
+  },
+    style = list(fontFamily = "Fira Sans, sans-serif")
+  )
+
+div(
+  # this class can be called with CSS now via .salary
+  class = "tab",
+  div(
+    # this can be called with CSS now via .title
+    class = "title",
+    h3("% of New Registrations by Type of Campaign")
+  ),
+  # The actual table
+  tbl
+)
+
+```
+]
+
+**.darkorange[Does this mean that e-mailing is more effective in getting new customers?]**
+
+**.darkorange[What additional information would you need?]**
+
+---
+# Let's add some covariates
+
+- Your friend now also sends you additional data on whether the individual had ever visited the site:
+
+.center[
+```{r echo=FALSE}
+tab2 <- cbind(tab[,1],c("10%","10/100","15%","77/514"),c("20%","280/1400","31%","11/36"),tab[,2])
+
+colnames(tab2) <- c("Treatment","Visited web","Not visited web","Total")
+
+tbl <- tab2 %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = FALSE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center",
+      minWidth = 200
+  ),
+  columns = list(
+    Treatment = colDef(style = list(borderRight = "1px solid rgba(0, 0, 0, 0.1)")),
+    Total = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
+  ),
+    style = list(fontFamily = "Fira Sans, sans-serif")
+  )
+
+div(
+  # this class can be called with CSS now via .salary
+  class = "tab",
+  div(
+    # this can be called with CSS now via .title
+    class = "title",
+    h3("% of New Registrations by Type of Campaign and Visits to the Website")
+  ),
+  # The actual table
+  tbl
+)
+
+```
+]
+
+**.darkorange[What seems strange?]**
+
+---
+# Let's add some covariates
+
+- The majority of the sample that was assigned to "E-mail" had not visited the website before, while the majority of the sample that was sent a mailing had visited the website.
+
+.center[
+```{r echo=FALSE}
+tab3 <- cbind(tab2[,1],c("6.7%","","93.4%",""),c("93.4%","","6.5%",""))
+
+colnames(tab3) <- c("Treatment","Visited web","Not visited web")
+
+tbl <- tab3 %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = FALSE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center",
+      minWidth = 200
+  ),
+  columns = list(
+    Treatment = colDef(style = list(borderRight = "1px solid rgba(0, 0, 0, 0.1)")),
+    Total = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
+  ),
+    style = list(fontFamily = "Fira Sans, sans-serif")
+  
+  )
+
+div(
+  # this class can be called with CSS now via .salary
+  class = "tab",
+  div(
+    # this can be called with CSS now via .title
+    class = "title",
+    h3("% of the Sample in each Category by Site Visit")
+  ),
+  # The actual table
+  tbl
+)
+
+```
+]
+---
+# Let's add some covariates
+
+- Your friend now also sends you additional data on whether the individual had ever visited the site:
+
+.center[
+```{r echo=FALSE}
+tab <- cbind(tab[,1],c("10%","10/100","15%","77/514"),c("20%","280/1400","31%","11/36"),tab[,2])
+
+colnames(tab) <- c("Treatment","Visited web","Not visited web","Total")
+
+tbl <- tab %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = FALSE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center",
+      minWidth = 200
+  ),
+  columns = list(
+    Treatment = colDef(style = list(borderRight = "1px solid rgba(0, 0, 0, 0.1)")),
+    Total = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
+  ),
+    style = list(fontFamily = "Fira Sans, sans-serif")
+  )
+
+div(
+  # this class can be called with CSS now via .salary
+  class = "tab",
+  div(
+    # this can be called with CSS now via .title
+    class = "title",
+    h3("% of New Registrations by Type of Campaign and Visits to the Website")
+  ),
+  # The actual table
+  tbl
+)
+
+```
+]
+
+**.darkorange[Do we have a confounding problem?]**
+
+---
+# Confounding
+
+.box-3LA[Confounder]
+
+.box-3tL[Variable that is correlated with the treatment AND the outcome which causes a spurious correlation/bias.]
+
+---
+# Is "Visited the website" a confounder?
+
+---
+# Is "Visited the website" a confounder?
+
+.box-5LA[Depends]
+
+--
+
+- **.darkorange[Measured before the intervention:]** Yes $\rightarrow$ Individuals that have **not** visited the website (VW) don't know you/ might be more willing to try product.
+
+--
+
+- **.darkorange[Measured after the intervention:]** Don't know $\rightarrow$ Intervention might have incentivized people to go to the website, and registering also had on effect on traffic.
+
+--
+
+.box-3tL[Collider]
+
+
+---
+# Scenario 1: Confounding
+
+.center2[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/dag_confound.png)
+]
+
+---
+# Scenario 1: Confounding
+
+**.darkorange[Data Generating Process]**:
+  
+  - No treatment effect.
+  
+  - Pr(Registering | Visit) < Pr(Registering | Not Visited)
+  
+  - Due to data collection, more people in the mailing sample had visited the website than people in the email sample.
+
+.small[
+.center[
+```{r echo = FALSE}
+set.seed(122)
+
+# Confounding:
+
+# probability of registering depending on whether you've visited the website or not (and are reminded of it)
+prob_nv <- 0.203
+prob_v <- 0.142
+
+y1_nv <- sample(c(0,1),1436,replace = TRUE, prob = c(1-prob_nv,prob_nv))
+y1_v <- sample(c(0,1),614,replace = TRUE, prob = c(1-prob_v,prob_v))
+
+treat_nv <- sample(c("m","e"), 1436, replace = TRUE, prob = c(36/1436,1-36/1436))
+treat_v <- sample(c("m","e"), 614, replace = TRUE, prob = c(514/614,1-514/614))
+
+confound <- data.frame("id" = seq(1,2050),
+                       "visit" = c(rep(0,1436),rep(1,614)),
+                       "treat" = c(treat_nv,treat_v),
+                       "y" = c(y1_nv, y1_v))
+
+tab1 <- table(confound$treat,confound$visit)
+tab2 <- round(table(confound$treat[confound$visit==0],confound$y[confound$visit==0])[,2]/rowSums(table(confound$treat[confound$visit==0],confound$y[confound$visit==0])),2)
+tab3 <- round(table(confound$treat[confound$visit==1],confound$y[confound$visit==1])[,2]/rowSums(table(confound$treat[confound$visit==1],confound$y[confound$visit==1])),2)
+tab4 <- round(table(confound$treat,confound$y)[,2]/rowSums(table(confound$treat,confound$y)),2)
+
+tab <- cbind(tab1, tab2, tab3, tab4)
+colnames(tab) <- c("Not visited","Visited", "Registered - NV","Registered - V","Registered - Total")
+
+rownames(tab) <- c("Email","Mail")
+
+
+tbl <- tab %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = TRUE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = FALSE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center",
+      minWidth = 180
+  ),
+  columns = list(
+    "Registered - NV" = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)")),
+    "Registered - Total" = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
+  ),
+    style = list(fontFamily = "Fira Sans, sans-serif")
+  )
+
+div(
+  # this class can be called with CSS now via .salary
+  class = "tab",
+  div(
+    # this can be called with CSS now via .title
+    class = "title",
+    h3("Num in Sample and % of New Registrations by Type of Campaign and Visits to the Website")
+  ),
+  # The actual table
+  tbl
+)
+```
+]]
+
+.source[Note: Simulated data]
+
+---
+# Scenario 1: Confounding
+
+What happens if we run a **.darkorange[simple model]**?
+
+.small[
+```{r echo = TRUE, results='hide'}
+summary(lm(y ~ factor(treat), data = confound))
+```
+]
+
+- What would you **.darkorange[expect]** to see?
+---
+# Scenario 1: Confounding
+
+What happens if we run a **.darkorange[simple model]**?
+
+.small[
+```{r echo = TRUE}
+summary(lm(y ~ factor(treat), data = confound))
+```
+]
+
+---
+# Scenario 1: Confounding
+
+What happens if we now **.darkorange[control by whether the person visited the website]**?
+
+.small[
+```{r echo = TRUE, results='hide'}
+summary(lm(y ~ factor(treat) + visit, data = confound))
+```
+]
+
+---
+# Scenario 1: Confounding
+
+What happens if we now **.darkorange[control by whether the person visited the website]**?
+
+.small[
+```{r echo = TRUE}
+summary(lm(y ~ factor(treat) + visit, data = confound))
+```
+]
+
+---
+# Scenario 1: Confounding
+
+What happens if we now **.darkorange[control by whether the person visited the website]**?
+
+.small[
+```{r echo = TRUE}
+summary(lm(y ~ factor(treat) + visit, data = confound))
+```
+]
+
+- **.darkorange[What conclusions would you make?]**
+
+---
+# Scenario 2: Collider Bias
+
+.center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/dag_collider.png)
+]
+
+---
+# Scenario 2: Collider Bias
+
+**.darkorange[Data Generating Process]**:
+  
+  - No direct treatment effect of mailing over emails.
+  
+  - Pr(Visit | e-mail) < Pr(Visit | mail)
+  
+  - People that receive a letter are much more encouraged to visit the website, and people that register are also more likely to visit the website.
+
+.small[
+.center[
+```{r echo = FALSE}
+set.seed(120)
+
+treat <- sample(c("m","e"), 2050, replace = TRUE, prob = c(1-0.732,0.732))
+
+y1 <- sample(c(0,1), 2050, replace = TRUE, prob=c(1-0.1843,0.1843))
+
+visit_e_0 <- sample(c(0,1),sum(treat=="e" & y1==0),replace = TRUE, prob = c(1-90/1210,90/1210))
+visit_e_1 <- sample(c(0,1),sum(treat=="e" & y1==1),replace = TRUE, prob = c(1-10/290,10/290))
+
+visit_m_0 <- sample(c(0,1),sum(treat=="m" & y1==0),replace = TRUE, prob = c(1-437/462,437/462))
+visit_m_1 <- sample(c(0,1),sum(treat=="m" & y1==1),replace = TRUE, prob = c(1-77/88,77/88))
+
+visit <- 0
+visit[which(treat=="m" & y1==0)] <- visit_m_0
+visit[which(treat=="m" & y1==1)] <- visit_m_1
+visit[which(treat=="e" & y1==0)] <- visit_e_0
+visit[which(treat=="e" & y1==1)] <- visit_e_1
+
+collider <- data.frame("id" = seq(1,2050),
+                       "visit" = visit,
+                       "treat" = treat,
+                       "y" = y1)
+
+
+tab1 <- table(collider$treat,collider$visit)
+tab2 <- round(table(collider$treat[collider$visit==0],collider$y[collider$visit==0])[,2]/rowSums(table(collider$treat[collider$visit==0],collider$y[collider$visit==0])),2)
+tab3 <- round(table(collider$treat[collider$visit==1],collider$y[collider$visit==1])[,2]/rowSums(table(collider$treat[collider$visit==1],collider$y[collider$visit==1])),2)
+tab4 <- round(table(collider$treat,collider$y)[,2]/rowSums(table(collider$treat,collider$y)),2)
+
+tab <- cbind(tab1, tab2, tab3, tab4)
+colnames(tab) <- c("Not visited","Visited", "Registered - NV","Registered - V","Registered - Total")
+
+rownames(tab) <- c("Email","Mail")
+
+
+tbl <- tab %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = TRUE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = FALSE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center",
+      minWidth = 180
+  ),
+  columns = list(
+    "Registered - Toal" = colDef(style = list(borderLeft = "1px solid rgba(0, 0, 0, 0.1)"))
+  ),
+    style = list(fontFamily = "Fira Sans, sans-serif")
+  )
+
+div(
+  # this class can be called with CSS now via .salary
+  class = "tab",
+  div(
+    # this can be called with CSS now via .title
+    class = "title",
+    h3("Num in Sample and % of New Registrations by Type of Campaign and Visits to the Website")
+  ),
+  # The actual table
+  tbl
+)
+```
+]]
+
+.source[Note: Simulated data]
+
+---
+# Scenario 2: Collider Bias
+
+What happens if we now **.darkorange[run a simple model]**?
+
+.small[
+```{r echo = TRUE, results='hide'}
+summary(lm(y ~ factor(treat), data = collider))
+```
+]
+
+- what would you **.darkorange[expect]** to see?
+
+---
+# Scenario 2: Collider Bias
+
+What happens if we now **.darkorange[run a simple model]**?
+
+.small[
+```{r echo = TRUE}
+summary(lm(y ~ factor(treat), data = collider))
+```
+]
+
+---
+# Scenario 2: Collider Bias
+
+What happens if we now **.darkorange[control by whether the person visited the website]**?
+
+.small[
+```{r echo = TRUE, results='hide'}
+summary(lm(y ~ factor(treat) + visit, data = collider))
+```
+]
+
+---
+# Scenario 2: Collider Bias
+
+What happens if we now **.darkorange[control by whether the person visited the website]**?
+
+.small[
+```{r echo = TRUE}
+summary(lm(y ~ factor(treat) + visit, data = collider))
+```
+]
+
+---
+# Scenario 2: Collider Bias
+
+What happens if we now **.darkorange[control by whether the person visited the website]**?
+
+.small[
+```{r echo = TRUE}
+summary(lm(y ~ factor(treat) + visit, data = collider))
+```
+]
+
+**.darkorange[What happened here?]**
+
+---
+# Avoiding biases in Causal Inference
+
+- **.darkorange[Always check your data!]**
+
+---
+# Avoiding biases in Causal Inference
+
+- **.darkorange[Always check your data!]**
+
+- Assess the plausibility of the **.darkorange[ignorability assumption]**
+
+
+---
+# Avoiding biases in Causal Inference
+
+- **.darkorange[Always check your data!]**
+
+- Assess the plausibility of the **.darkorange[ignorability assumption]**
+
+- The **.darkorange[model]** you have in your head matters!
+
+
+---
+# Avoiding biases in Causal Inference
+
+- **.darkorange[Always check your data!]**
+
+- Assess the plausibility of the **.darkorange[ignorability assumption]**
+
+- The **.darkorange[model]** you have in your head matters!
+
+- Avoid controlling for **.darkorange[ex-post variables]**.
+
+---
+# Another Example: Beauty in the Classroom
+
+- Data: Student's evaluations for instructors at UT Austin
+
+.small[
+```{r echo = TRUE}
+profs <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/data/profs.csv",
+                  stringsAsFactors = TRUE)
+
+head(profs)
+```
+]
+
+---
+# Beauty and Evaluations
+
+- **.darkorange[Causal Question:]** What is the effect of beauty on teachers evaluations?
+
+
+---
+# Beauty and Evaluations
+
+- **.darkorange[Causal Question:]** What is the effect of beauty on teachers evaluations?
+
+.pull-left-little_l[
+.small[
+```{r echo = TRUE}
+summary(lm(eval ~ beauty, data=profs))
+```
+]
+]
+.pull-left-right_l[
+<br>
+<br>
+<br>
+.box-4[Clearly not causal]
+]
+
+---
+# Beauty and Evaluations
+
+- **.darkorange[Causal Question:]** What is the effect of beauty on teachers evaluations?
+
+--
+
+- What **.darkorange[other things]** could be biasing our estimate?
+
+  - Distinction between what's in our data vs what it's not.
+
+---
+# Let's check our data
+
+- Simplify the problem:
+  - **.darkorange[Binary Treatment]**: Beauty above average (1) vs Below average (0)
+
+.small[
+```{r echo = TRUE, message=FALSE, results = 'hide'}
+profs <- profs %>% mutate(treat = as.numeric(beauty > 0),
+                          female = 2 - as.numeric(gender),
+                          single_credit = as.numeric(credits)-1,
+                          upper_div = as.numeric(division)-1,
+                          native = as.numeric(native)-1,
+                          tenure = as.numeric(tenure)-1,
+                          minority = as.numeric(minority)-1) 
+```
+]
+
+---
+# Let's check our data
+
+- Simplify the problem:
+  - **.darkorange[Binary Treatment]**: Beauty above average (1) vs Below average (0)
+
+.small[
+```{r echo = TRUE, message=FALSE, results = 'hide'}
+profs <- profs %>% mutate(treat = as.numeric(beauty > 0),
+                          female = 2 - as.numeric(gender),
+                          single_credit = as.numeric(credits)-1,
+                          upper_div = as.numeric(division)-1,
+                          native = as.numeric(native)-1,
+                          tenure = as.numeric(tenure)-1,
+                          minority = as.numeric(minority)-1) 
+
+library(modelsummary)
+
+covs <- profs %>% select(treat, minority, age, female, single_credit, upper_div, 
+         native, tenure, students, allstudents)
+
+datasummary_balance(~ treat, data = covs, title = "Balance table", fmt=2, dinm_statistic = "p.value")
+```
+]
+
+---
+# Let's check our data
+
+- Simplify the problem:
+  - **.darkorange[Binary Treatment]**: Beauty above average (1) vs Below average (0)
+
+.small[
+```{r echo = TRUE, message=FALSE, results = 'hide'}
+profs <- profs %>% mutate(treat = as.numeric(beauty > 0),
+                          female = 2 - as.numeric(gender),
+                          single_credit = as.numeric(credits)-1,
+                          upper_div = as.numeric(division)-1,
+                          native = as.numeric(native)-1,
+                          tenure = as.numeric(tenure)-1,
+                          minority = as.numeric(minority)-1) 
+
+library(modelsummary)
+
+covs <- profs %>% select(treat, minority, age, female, single_credit, upper_div, 
+         native, tenure, students, allstudents)
+
+datasummary_balance(~ treat, data = covs, title = "Balance table", fmt=2, dinm_statistic = "p.value") #<<
+```
+]
+
+---
+# Let's check our data
+
+.small[
+```{r echo = TRUE, message=FALSE}
+datasummary_balance(~ treat, data = covs, title = "Balance table", fmt=2, dinm_statistic = "p.value")
+```
+]
+
+- **.darkorange[What can you say about the data?]**
+
+---
+# Let's check our data... now with a Love Plot!
+
+.small[
+```{r loveplot, fig.height=4, fig.width=7.5, fig.align='center', dev='svg', echo=TRUE, warning=FALSE, message = FALSE}
+# Reads a user-written function to generate a loveplot
+source("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/code/loveplot_balance.R")
+
+treat_id <- profs %>% mutate(id = seq(1, nrow(profs))) %>% filter(treat==1) %>% pull(-1)
+control_id <- profs %>% mutate(id = seq(1, nrow(profs))) %>% filter(treat==0) %>% pull(-1)
+
+loveplot_balance(covs, treat_id, control_id, v_line = 0.05, format = TRUE)
+```
+]
+
+---
+# Is it enough to control?
+
+- We can use the covariates we have on our dataset to **.darkorange[control for those group differences]**.
+
+---
+.pull-left[
+.tiny[
+```{r echo=FALSE}
+library(modelsummary)
+
+lm1 <- lm(eval ~ beauty, data = profs)
+lm2 <- lm(eval ~ beauty + minority + age + gender + division + native + tenure + allstudents, data = profs)
+
+modelsummary(list(lm1, lm2), stars = TRUE, gof_omit = 'DF|Deviance|R2|AIC|BIC|Log.Lik.')
+```
+]
+]
+.pull-right[
+<br>
+<br>
+.box-3t[Beauty coeff. is consistent across models]
+<br>
+<br>
+.box-7t[Other covariates also matter]
+]
+---
+# Is it enough to control?
+
+- We can use the covariates we have on our dataset to **.darkorange[control for those group differences]**.
+
+.box-7[Is that enough?]
+
+--
+
+.box-5[What other variable could be confounding our effect?]
+
+--
+
+.box-2t[If I told you professors in the treatment group are taller than the ones in the control group, is height a confounder?]
+
+--
+
+.box-4t[What about self-esteem?]
+
+---
+# Answering the question
+
+<span class="box-2LA">How would you answer this question?<br>Design a study!</span>
+
+--
+
+.box-4[Can you "randomize" beauty?]
+
+---
+# Main takeaway points
+
+.box-3LA[Causal Inference is hard]
+<br>
+<br>
+
+---
+# Main takeaway points
+
+.box-3LA[Causal Inference is hard]
+<br>
+<br>
+- Think about the **.darkorange[causal problem]**
+
+---
+# Main takeaway points
+
+.box-3LA[Causal Inference is hard]
+<br>
+<br>
+- Think about the **.darkorange[causal problem]**
+
+- Always **.darkorange[look at your data]**
+
+---
+# Main takeaway points
+
+.box-3LA[Causal Inference is hard]
+<br>
+<br>
+- Think about the **.darkorange[causal problem]**
+
+- Always **.darkorange[look at your data]**
+
+- Check **.darkorange[validity]** of assumptions (*Is ignorability plausible? Am I controlling for the right covariates?*)
+
+---
+# Main takeaway points
+
+.box-3LA[Causal Inference is hard]
+<br>
+<br>
+- Think about the **.darkorange[causal problem]**
+
+- Always **.darkorange[look at your data]**
+
+- Check **.darkorange[validity]** of assumptions (*Is ignorability plausible? Am I controlling for the right covariates?*)
+
+- Most of this chapter will be spent on looking for **.darkorange[exogeneous variation]** to make the ignorability assumption happen.
+
+
+---
+# References
+
+- Angrist, J. & S. Pischke. (2015). "Mastering Metrics". *Chapter 1*.
+
+- Cunningham, S. (2021). ["Causal Inference: The Mixtape". *Chapter 4: Potential Outcomes Causal Model*](https://mixtape.scunning.com/ch3.html).
+
+- Neil, B. (2020). "Introduction to Causal Inference". *Fall 2020 Course*
+
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week3/2_PotentialOutcomes/f2021_sta235h_5_potentialoutcomes.html') -->
+

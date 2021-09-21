@@ -8,7 +8,7 @@ disableToc: true
 
 ## What we will cover
 
-This week, we will be introducing observational studies. Can we use data outside experiments to make causal claims? We will also be looking into matching and its comparison to RCTs, in addition to discussing the differences between overt and hidden biases.
+This week, we will finish with RCTs and we will be introducing observational studies. Can we use data outside experiments to make causal claims? We will also be looking into matching and its comparison to RCTs, in addition to discussing the differences between overt and hidden biases.
 
 ## Recommended readings/videos
 
