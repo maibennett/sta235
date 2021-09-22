@@ -48,3 +48,10 @@ Complete before **Sunday Sep 19th (11:59 pm)** (if your section is on Tue) or **
 Here is the code for "Beauty in the classroom" example <a onclick="ga('send', 'event', 'External-Link','click','code3','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/code/f2021_sta235h_5_PO.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
 Here is the code for RCTs <a onclick="ga('send', 'event', 'External-Link','click','code4','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/2_RCT/code/f2021_sta235h_7_RCT.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+
+
+## Resources
+
+Here is a video of the last example we see in this class (CV experiment). I go through the code more slowly, so feel free to review it if you have any questions about the code or the example in general after class!
+
+{{< youtube src="https://www.youtube.com/embed/CLf9lQ4f56c" >}}
