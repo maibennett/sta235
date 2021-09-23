@@ -16,7 +16,7 @@ chapter: false
 
 - **No need to write long answers**. Keep your answers short and precise, and address what is being asked (there are no additional points for answering something that is not being asked). Nonetheless, you need to be specific (e.g. it's not enough to say "there is a confounding problem"; you need to explain why you think that and give a specific example).
 
-- Write a short paragraph at the end of the homework stating **each members contribution to the assignment**. You can indicate, for example, if everyone participated in the overall discussion of the different questions, but also if one particular individual took the lead on a specific question.
+- Write a short paragraph at the end of the homework stating **each members' contribution to the assignment**. You can indicate, for example, if everyone participated in the overall discussion of the different questions, but also if one particular individual took the lead on a specific question.
 
 ## Assignment
 
