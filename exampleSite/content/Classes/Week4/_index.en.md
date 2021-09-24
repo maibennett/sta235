@@ -52,6 +52,10 @@ Here is the code for RCTs <a onclick="ga('send', 'event', 'External-Link','click
 
 ## Resources
 
-Here is a video of the last example we see in this class (CV experiment). I go through the code more slowly, so feel free to review it if you have any questions about the code or the example in general after class!
+- Here is a video explaining another example of collider bias. I also found [this article](http://www.the100.ci/2017/03/14/that-one-weird-third-variable-problem-nobody-ever-mentions-conditioning-on-a-collider/) that I think explain collider bias in a very intuitive way as well.
+
+{{< youtube src="https://www.youtube.com/embed/z7oW3iEHZEQ" >}}
+
+- Here is a video of the last example we see in this class (CV experiment). I go through the code more slowly, so feel free to review it if you have any questions about the code or the example in general after class!
 
 {{< youtube src="https://www.youtube.com/embed/CLf9lQ4f56c" >}}
