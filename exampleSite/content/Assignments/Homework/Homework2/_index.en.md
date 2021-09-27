@@ -24,13 +24,13 @@ chapter: false
 
 ## Templates
 
-<a onclick="ga('send', 'event', 'External-Link','click','hw2_doc','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework1/STA235H_HW2_template.docx" target="_blank" class="btn btn-default"> Write-up Template <i class="fas fa-external-link-alt"></i></a> 
+<a onclick="ga('send', 'event', 'External-Link','click','hw2_doc','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework2/STA235H_HW2_template.docx" target="_blank" class="btn btn-default"> Write-up Template <i class="fas fa-external-link-alt"></i></a> 
 <br>
 
-<a onclick="ga('send', 'event', 'External-Link','click','hw2_code','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework1/STA235H_HW2_template.R" target="_blank" class="btn btn-default"> Rcode Template <i class="fas fa-external-link-alt"></i></a> 
+<a onclick="ga('send', 'event', 'External-Link','click','hw2_code','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework2/STA235H_HW2_template.R" target="_blank" class="btn btn-default"> Rcode Template <i class="fas fa-external-link-alt"></i></a> 
 <br>
 
-<a onclick="ga('send', 'event', 'External-Link','click','hw2_rmd','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework1/STA235H_HW2_template.Rmd" target="_blank" class="btn btn-default"> Rmarkdown Template <i class="fas fa-external-link-alt"></i></a> 
+<a onclick="ga('send', 'event', 'External-Link','click','hw2_rmd','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework2/STA235H_HW2_template.Rmd" target="_blank" class="btn btn-default"> Rmarkdown Template <i class="fas fa-external-link-alt"></i></a> 
 
 
 <!-- ## Answer Key
