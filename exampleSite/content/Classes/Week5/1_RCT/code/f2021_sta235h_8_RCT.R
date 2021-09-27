@@ -66,3 +66,6 @@ summary(lm_robust(vote02 ~ treat_real + strata, data = d_s1))
 
 summary(lm_robust(vote02 ~ treat_real + strata + vote00 + vote98 + age + female2, data = d_s1))
 
+
+
+## Let's now check the observable data:
