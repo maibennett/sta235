@@ -402,13 +402,14 @@ class: left, bottom, inverse
 Design: How do we randomize?
 ]
 
----
 
 ---
 # How do we randomize?
 
 
 .box-5[Coin flip*]
+
+--
 
 E.g., in `R`:
 
@@ -470,9 +471,9 @@ id <- seq(1,1000)
 
 set.seed(100)
 
-data <- data.frame("id" = id) %>% mutate(z = sample(c(0,1), size = 1000, #<<
-                                                    replace = TRUE, #<<
-                                                    prob = c(0.5, 0.5))) #<<
+data <- data.frame("id" = id) %>% mutate(z = sample(c(0,1), size = 1000,
+                                                    replace = TRUE,
+                                                    prob = c(0.5, 0.5)))
 
 data %>% group_by(z) %>% count() #<<
 ```
@@ -550,21 +551,21 @@ datasummary_balance(~ z, data = d_bal, fmt = 2, dinm_statistic = "p.value")
 # Randomization of treatment
 
 .center[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/study1.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/study1.png)
 ]
 
 ---
 # Randomization of treatment with no strata
 
 .center[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/study2.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/study2.png)
 ]
 
 ---
 # Randomization of treatment with strata
 
 .center[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/study3.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/study3.png)
 ]
 
 ---
@@ -587,7 +588,7 @@ RCTs in Practice
   - Stratified RCT: Two states divided into competitive and noncompetitive 
 ]
 .pull-right[
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/vote.jpg)
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/vote.jpg)
 ]
 
 ---
@@ -595,7 +596,7 @@ RCTs in Practice
 
 .small[
 ```{r, echo=FALSE, message=FALSE}
-tab <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/week5/1_RCT/data/balance_gotv.csv")
+tab <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/data/balance_gotv.csv")
 
 rnames <- tab$X
 
@@ -697,7 +698,7 @@ $$Y_i = \beta_0 + \beta_1 Z_i + \varepsilon_i$$
 # Estimating the effect
 
 ```{r, echo=FALSE}
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/week5/1_RCT/data/voters_covariates.csv")
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/data/voters_covariates.csv")
 
 # Drop variables with unlisted phone numbers
 d_s1 <- d %>% filter(!is.na(treat_real))
@@ -762,7 +763,7 @@ When we assume...
   
   - Under SUTVA:
   
-  .box-3LA[$$(Y_2(0), Y_2(1)) \perp Z_1$$]
+  .box-3LA[$$(Y_2(0), Y_2(1)) \perp\!\!\!\perp Z_1$$]
   
 
 ---
@@ -910,9 +911,24 @@ Show me the power
 ---
 # Statistical power
 
+- **.darkorange[Statistical power]** refers to the probability that a test correctly rejects the null hypothesis $H_0$, when $H_0$ is false.
+
+  - It's related to sample size!
+
+--
+
+.box-6[Power = 1- Pr(Type II error)]
+
+- **.darkorange[False Positive]**: Probability of rejecting the null hypothesis, when the null is true ($\alpha$).
+
+- **.darkorange[False Negative]**: Probability of not rejecting the null hypothesis, when the null is false ($\beta$).
+
+---
+# Statistical power
+
 
 .center[
-![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/type_1_errors.png)]
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/type_1_errors.png)]
 
 
 ---
@@ -920,7 +936,7 @@ Show me the power
 
 
 .center[
-![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/type_2_errors.png)]
+![:scale 90%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/type_2_errors.png)]
 
 
 
@@ -1194,7 +1210,7 @@ Limitations and Potential Problems in Randomized Controlled Trials
 # External vs Internal Validity
 
 .center[
-![:scale 75%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/validity.png)]
+![:scale 75%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/validity.png)]
 
 --
 - Many times, RCTs use **.darkorange[convenience samples]**
@@ -1292,31 +1308,6 @@ Limitations and Potential Problems in Randomized Controlled Trials
   - Not randomize everyone, but maybe those that are on the margin of receiving the treatment.
   
 ---
-# Staggered adoption
-
-.pull-left[
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/staggered1.png)
-]
-
---
-
-.pull-right[
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/staggered2.png)
-]
-
----
-# Staggered adoption
-
-.pull-left[
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/staggered1.png)
-]
-
-
-.pull-right[
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/staggered3.png)
-]
-
----
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
@@ -1377,7 +1368,7 @@ A/B Testing
   - You want to maximize total payout $\rightarrow$ Balance between exploration and exploitation
 
 .center[
-![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/slot-machine.png)]
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/slot-machine.png)]
 --
 
 - **.darkorange[Multi-armed bandits]** redirect users to the more successful versions of the treatment.
@@ -1389,11 +1380,11 @@ A/B Testing
 
 - Montana University Library website: Low interaction with the "Interact" Category
 .center[
-![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/montana_control.png)]
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/montana_control.png)]
 ---
 # A/B Testing in Data: MSU Library
 .center[
-![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/heatmap_control.png)]
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/heatmap_control.png)]
 
 ---
 # A/B Testing in Data: Different treatments
@@ -1402,16 +1393,16 @@ A/B Testing
 
 .pull-left[
 .center[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/connect.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/connect.png)
 
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/learn.png)]
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/learn.png)]
 ]
 
 .pull-right[
 .center[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/help.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/help.png)
 
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/services.png)]
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/services.png)]
 ]
 
 ---
@@ -1422,22 +1413,22 @@ A/B Testing
 
 ---
 .center[
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/google_analytics1.png)]
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/google_analytics1.png)]
 ---
 .center[
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/google_analytics2.png)]
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/google_analytics2.png)]
 ---
 # Homepage click-through
 .center[
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/click_through.png)]
+![:scale 60%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/click_through.png)]
 ---
 # Drop-off
 .center[
-![:scale 55%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/drop_off.png)]
+![:scale 55%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/drop_off.png)]
 ---
 # Homepage return
 .center[
-![:scale 55%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/homepage_return.png)]
+![:scale 55%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/homepage_return.png)]
 
 ---
 # Wrapping things up
