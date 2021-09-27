@@ -117,13 +117,14 @@ class: left, bottom, inverse
 Design: How do we randomize?
 ]
 
----
 
 ---
 # How do we randomize?
 
 
 .box-5[Coin flip*]
+
+--
 
 E.g., in `R`:
 
@@ -187,9 +188,9 @@ id &lt;- seq(1,1000)
 
 set.seed(100)
 
-*data &lt;- data.frame("id" = id) %&gt;% mutate(z = sample(c(0,1), size = 1000,
-*                                                   replace = TRUE,
-*                                                   prob = c(0.5, 0.5)))
+data &lt;- data.frame("id" = id) %&gt;% mutate(z = sample(c(0,1), size = 1000,
+                                                    replace = TRUE,
+                                                    prob = c(0.5, 0.5)))
 
 *data %&gt;% group_by(z) %&gt;% count()
 ```
@@ -499,21 +500,21 @@ datasummary_balance(~ z, data = d_bal, fmt = 2, dinm_statistic = "p.value")
 # Randomization of treatment
 
 .center[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/study1.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/study1.png)
 ]
 
 ---
 # Randomization of treatment with no strata
 
 .center[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/study2.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/study2.png)
 ]
 
 ---
 # Randomization of treatment with strata
 
 .center[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/study3.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/study3.png)
 ]
 
 ---
@@ -536,7 +537,7 @@ RCTs in Practice
   - Stratified RCT: Two states divided into competitive and noncompetitive 
 ]
 .pull-right[
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/vote.jpg)
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/vote.jpg)
 ]
 
 ---
