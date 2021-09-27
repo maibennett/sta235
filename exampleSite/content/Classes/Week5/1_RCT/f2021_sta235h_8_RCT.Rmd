@@ -607,7 +607,7 @@ rownames(tab) <- rnames
 library(reactable)
 library(htmltools)
 
-tbl <- tab[4:11,] %>%
+tbl <- tab[4:10,] %>%
   reactable(
     # ALL one page (no scrolling or page swapping)
     pagination = TRUE,
