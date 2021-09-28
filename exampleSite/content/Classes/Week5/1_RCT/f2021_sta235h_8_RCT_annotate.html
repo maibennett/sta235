@@ -17,12 +17,6 @@
     <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
     <script src="libs/kePrint/kePrint.js"></script>
     <link href="libs/lightable/lightable.css" rel="stylesheet" />
-    <script src="libs/core-js/shim.min.js"></script>
-    <script src="libs/react/react.min.js"></script>
-    <script src="libs/react/react-dom.min.js"></script>
-    <script src="libs/reactwidget/react-tools.js"></script>
-    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
-    <script src="libs/reactable-binding/reactable.js"></script>
     <script src="https://use.fontawesome.com/5235085b15.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -547,15 +541,7 @@ RCTs in Practice
 ---
 # Checking for balance
 
-.small[
-<div class="tab">
-<div class="title">
-<h3>Balance Table by Stratum</h3>
-</div>
-<div id="htmlwidget-8087b52accdd5640d275" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-8087b52accdd5640d275">{"x":{"tag":{"name":"Reactable","attribs":{"data":{".rownames":["female2","fem_miss","age","newreg","persons","vote98","vote00"],"V1":[0.552,0,52.157,0.117,1.496,0.231,0.564],"V2":[0.546,0,51.977,0.116,1.497,0.227,0.567],"V3":[0.541,0,50.81,0.133,1.513,0.258,0.595],"V4":[0.535,0,50.862,0.134,1.518,0.259,0.593],"V5":[0.549,0.026,55.795,0.048,1.539,0.572,0.734],"V6":[0.545,0.025,55.782,0.049,1.538,0.574,0.732],"V7":[0.543,0.022,53.481,0.048,1.529,0.599,0.781],"V8":[0.541,0.021,53.464,0.046,1.533,0.594,0.78]},"columns":[{"accessor":".rownames","name":"","type":"character","align":"center","sortable":false,"filterable":false},{"accessor":"V1","name":"Treat","type":"numeric","align":"center"},{"accessor":"V2","name":"Control","type":"numeric","align":"center","style":{"borderRight":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"V3","name":"Treat","type":"numeric","align":"center"},{"accessor":"V4","name":"Control","type":"numeric","align":"center","style":{"borderRight":"3px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"V5","name":"Treat","type":"numeric","align":"center"},{"accessor":"V6","name":"Control","type":"numeric","align":"center","style":{"borderRight":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"V7","name":"Treat","type":"numeric","align":"center"},{"accessor":"V8","name":"Control","type":"numeric","align":"center"}],"columnGroups":[{"name":"Non-competitive","columns":["V1","V2"]},{"name":"Competitive","columns":["V3","V4"]},{"name":"Non-competitive","columns":["V5","V6"]},{"name":"Competitive","columns":["V7","V8"]},{"name":"State 1","columns":["V1","V2","V3","V4"]}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"56afef48ecc2085445d004f19021e523","key":"56afef48ecc2085445d004f19021e523"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
-</div>
-]
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/balance_table.png)
 
 ---
 # Estimating the effect
