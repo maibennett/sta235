@@ -31,7 +31,7 @@
 
 Hopefully this cheat-sheet helps you to get more familiar with notation!
 
-### Basic Markdown formatting
+### Some basic notation
 
 <table>
 <colgroup>
