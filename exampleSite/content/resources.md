@@ -74,4 +74,8 @@ The answer is almost always **YES!**. Office hours are a great way to just check
 
 An important part of this course is for you to learn how to "teach" yourself how to code. How's that? New tools (and languages!) are coming up more rapidly than you'll be able to see in one class, so it's an important asset for you to learn how to find some answers by yourself. If you Google an error that you got in R, most likely you'll be able to find the answer on very useful websites like **[Stackoverflow](https://stackoverflow.com/)** (believe me, I (and *everyone* who codes) do it all the time). 
 
-**However,** I don't want you to get stuck either! If you don't find the answer quickly on the internet (say, 10 min.), please reach out to the instruction team on Canvas. We are here to help! 
+**However,** I don't want you to get stuck either! If you don't find the answer quickly on the internet (say, 10 min.), please reach out to the instruction team on Canvas. We are here to help!
+
+**4) Notation is too hard! Can we get a cheat-sheet for this?**
+
+Ask and you shall receive! I created this short cheat-sheet which hopefully helps? Let me know if you want me to include something else!
