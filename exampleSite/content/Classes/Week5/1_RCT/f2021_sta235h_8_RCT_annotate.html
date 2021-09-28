@@ -542,7 +542,7 @@ RCTs in Practice
 # Checking for balance
 
 .center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/balance_table.png)
+![:scale 90%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/balance_table.png)
 ]
 
 ---
@@ -581,7 +581,7 @@ RCTs in Practice
 ```r
 library(estimatr)
 
-d_s1$strata &lt;- interaction(d_s1$state, d_s1$competiv)
+d_s1 &lt;- d_s1 %&gt;% mutate(strata = interaction(state, competiv))
 
 summary(lm_robust(vote02 ~ treat_real + strata, data = d_s1))
 ```
@@ -815,7 +815,6 @@ Show me the power
 - **.darkorange[Statistical power]** refers to the probability that a test correctly rejects the null hypothesis `\(H_0\)`, when `\(H_0\)` is false.
 
   - It's related to sample size!
-
 
 .box-6[Power = 1- Pr(Type II error)]
 

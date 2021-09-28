@@ -589,7 +589,7 @@ RCTs in Practice
 ```r
 library(estimatr)
 
-d_s1$strata &lt;- interaction(d_s1$state, d_s1$competiv)
+d_s1 &lt;- d_s1 %&gt;% mutate(strata = interaction(state, competiv))
 
 summary(lm_robust(vote02 ~ treat_real + strata, data = d_s1))
 ```
@@ -824,7 +824,6 @@ Show me the power
 
   - It's related to sample size!
 
---
 
 .box-6[Power = 1- Pr(Type II error)]
 

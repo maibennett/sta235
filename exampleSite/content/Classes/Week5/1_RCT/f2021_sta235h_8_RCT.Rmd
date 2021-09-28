@@ -707,7 +707,7 @@ d_s1 <- d %>% filter(!is.na(treat_real))
 ```{r, echo = TRUE, message = FALSE}
 library(estimatr)
 
-d_s1$strata <- interaction(d_s1$state, d_s1$competiv)
+d_s1 <- d_s1 %>% mutate(strata = interaction(state, competiv))
 
 summary(lm_robust(vote02 ~ treat_real + strata, data = d_s1))
 ```
