@@ -489,9 +489,9 @@ id <- seq(1,1000)
 
 set.seed(100)
 
-data <- data.frame("id" = id) %>% mutate(z = sample(c(0,1), size = 1000, #<<
-                                                    replace = TRUE, #<<
-                                                    prob = c(0.5, 0.5))) #<<
+data <- data.frame("id" = id) %>% mutate(z = sample(c(0,1), size = 1000,
+                                                    replace = TRUE,
+                                                    prob = c(0.5, 0.5)))
 
 data %>% group_by(z) %>% count() #<<
 ```
@@ -691,7 +691,7 @@ $$Y_i = \beta_0 + \beta_1 Z_i + \varepsilon_i$$
 
 - Run a regression with *fixed effects by strata*
 
-.box-6t[$$Y_i = \beta_0 + \beta_1 Z_i + \gamma_s + \varepsilon_i$$]
+.box-6[$$Y_i = \beta_0 + \beta_1 Z_i + \gamma_s + \varepsilon_i$$]
 
 
 ---
@@ -763,7 +763,7 @@ When we assume...
   
   - Under SUTVA:
   
-  .box-3LA[$$(Y_2(0), Y_2(1)) \perp\!\!\!\perp Z_1$$]
+  .box-3LA[$$(Y_2(0), Y_2(1)) \perp Z_1$$]
   
 
 ---
@@ -823,7 +823,7 @@ When we assume...
 # Network effects
 
 .center[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/networks1.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/networks1.png)
 ]
 
 
@@ -831,28 +831,28 @@ When we assume...
 # Network effects
 
 .center[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/networks2.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/networks2.png)
 ]
 
 ---
 # Network effects
 
 .center[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/networks3.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/networks3.png)
 ]
 
 ---
 # Network effects
 
 .center[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/networks4.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/networks4.png)
 ]
 
 ---
 # Network effects
 
 .center[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/networks5.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/networks5.png)
 ]
 
 ---
@@ -915,7 +915,6 @@ Show me the power
 
   - It's related to sample size!
 
---
 
 .box-6[Power = 1- Pr(Type II error)]
 
@@ -938,107 +937,6 @@ Show me the power
 .center[
 ![:scale 90%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/type_2_errors.png)]
 
-
-
----
-# Statistical power in pictures
-
-```{r power_calc, fig.height=5.5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-
-library(grid) # need for arrow()
-m1 <- 0  # mu H0
-sd1 <- 1.5 # sigma H0
-m2 <- 3.5 # mu HA
-sd2 <- 1.5 # sigma HA
- 
-z_crit <- qnorm(1-(0.05/2), m1, sd1)
- 
-# set length of tails
-min1 <- m1-sd1*4
-max1 <- m1+sd1*4
-min2 <- m2-sd2*4
-max2 <- m2+sd2*4          
-# create x sequence
-x <- seq(min(min1,min2), max(max1, max2), .01)
-# generate normal dist #1
-y1 <- dnorm(x, m1, sd1)
-# put in data frame
-df1 <- data.frame("x" = x, "y" = y1)
-# generate normal dist #2
-y2 <- dnorm(x, m2, sd2)
-# put in data frame
-df2 <- data.frame("x" = x, "y" = y2)
- 
-# Alpha polygon
-y.poly <- pmin(y1,y2)
-poly1 <- data.frame(x=x, y=y.poly)
-poly1 <- poly1[poly1$x >= z_crit, ] 
-poly1<-rbind(poly1, c(z_crit, 0))  # add lower-left corner
- 
-# Beta polygon
-poly2 <- df2
-poly2 <- poly2[poly2$x <= z_crit,] 
-poly2<-rbind(poly2, c(z_crit, 0))  # add lower-left corner
- 
-# power polygon; 1-beta
-poly3 <- df2
-poly3 <- poly3[poly3$x >= z_crit,] 
-poly3 <-rbind(poly3, c(z_crit, 0))  # add lower-left corner
- 
-# combine polygons. 
-poly1$id <- 3 # alpha, give it the highest number to make it the top layer
-poly2$id <- 2 # beta
-poly3$id <- 1 # power; 1 - beta
-poly <- rbind(poly1, poly2, poly3)
-poly$id <- factor(poly$id,  labels=c("power","beta","alpha"))
-
-
-ggplot(poly, aes(x,y, fill=id, group=id)) +
-  geom_polygon(show_guide=F, alpha=I(8/10)) +
-  # add line for treatment group
-  geom_line(data=df1, aes(x,y, color="H0", group=NULL, fill=NULL), size=1.5, show_guide=F) + 
-  # add line for treatment group. These lines could be combined into one dataframe.
-  geom_line(data=df2, aes(color="HA", group=NULL, fill=NULL),size=1.5, show_guide=F) +
-  # add vlines for z_crit
-  geom_vline(xintercept = z_crit, size=1, linetype="dashed") +
-  # change colors 
-  scale_color_manual("Group", 
-                     values= c("HA" = "#5601A4","H0" = "dark grey")) +
-  scale_fill_manual("test", values= c("alpha" = "#900DA4","beta" = "#F89441","power"="#BF3984")) +
-  # beta arrow
-  ggplot2::annotate("segment", x=0.1, y=0.045, xend=1.3, yend=0.01, arrow = arrow(length = unit(0.3, "cm")), size=1) +
-  ggplot2::annotate("text", label="beta", x=0, y=0.05, parse=T, size=8) +
-  # alpha arrow
-  ggplot2::annotate("segment", x=4, y=0.043, xend=3.4, yend=0.01, arrow = arrow(length = unit(0.3, "cm")), size=1) +
-  ggplot2::annotate("text", label="frac(alpha,2)", x=4.2, y=0.05, parse=T, size=8) +
-  # power arrow
-  ggplot2::annotate("segment", x=6, y=0.2, xend=4.5, yend=0.15, arrow = arrow(length = unit(0.3, "cm")), size=1) +
-  ggplot2::annotate("text", label="1-beta", x=6.1, y=0.21, parse=T, size=8) +
-  # H_0 title
-  ggplot2::annotate("text", label="H[0]", x=m1, y=0.28, parse=T, size=8) +
-  # H_a title
-  ggplot2::annotate("text", label="H[a]", x=m2, y=0.28, parse=T, size=8) +
-  # remove some elements
-  theme_bw()+
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line.x = element_line(colour = "dark grey"),
-        axis.line.y = element_blank())+
-  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_blank(),
-        axis.title.y = element_blank(),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-```
 ---
 #Statistical power and sample size
 .box-2t[How big of a sample?]
@@ -1183,7 +1081,7 @@ boot_big %>%
 .box-6[Use a statistical power calculator to<br>make sure you can potentially detect an effect]
 
 .center[
-![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/power-search.png)
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/power-search.png)
 ]
 
 --
@@ -1443,6 +1341,6 @@ A/B Testing
   
 --
 
-.box7-LA[Check your assumptions and look out for potential issues!]
+.box-6LA[Check your assumptions and look out for potential issues!]
 
-
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week5/1_RCT/f2021_sta235h_8_RCT.html') -->

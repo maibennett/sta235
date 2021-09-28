@@ -67,5 +67,66 @@ summary(lm_robust(vote02 ~ treat_real + strata, data = d_s1))
 summary(lm_robust(vote02 ~ treat_real + strata + vote00 + vote98 + age + female2, data = d_s1))
 
 
+#############################################
 
-## Let's now check the observable data:
+# Just for performance purposes, we will use a smaller sample of the original data (just looking at one stratum):
+d_sample <- d_s1 %>% filter(state == 1 & competiv == 2)
+
+## In this section, we are going to be working with observational data, meaning that there is no random assignment.
+## In this case, then, the treatment variable will be "contact", and not treat_real. Imagine a firm that is just calling a bunch of numbers
+## and can reach some of them and not others.
+
+#############################################
+
+# Let's do some matching now. We will be using the MatchIt package (it's very complete)
+
+#install.packages(MatchIt)
+library(MatchIt)
+
+# The formula inside matchit() is the treatment (contact, which is different to the treatment assignment) as a function of the covariates. Remember to include the strata!
+# We will just use NN matching first, and exact match on strata.
+# Question: We don't include state here, why? 
+
+# Note that the arguments in the matchit() function are the formula (just like in lm(), I include all the covariates I want to adjust for)
+# I also give matchit the sample I want to use
+# The method then it's important. There are different kind of methods, but here we are using "nearest", which refers to nearest neighbor matching 
+# (looks for the closest neighbor in terms of propensity score and matches it to that!)
+# This is optional, but I'm asking the function to match exactly on strata (meaning, I can only find a treated unit for a control unit within the same strata)
+# Finally, I'm also setting a caliper of 0.2. This means that, at most, treated and control matched units can be 0.2 units apart (this will reduce our sample size, but improve the matching)
+
+m1 <- matchit(contact ~ persons + vote00 + vote98 + newreg + age + female2, data = d_sample,
+              method = "nearest", exact = ~ strata, caliper = 0.2)
+
+#m1$match.matrix stores the indexes (rows) for the matched control units (notice that they are stored as strings, so we need to transform them to numeric!)
+head(m1$match.matrix)
+
+#We will save both the treatment and control index: (Note: as.numeric(x) basically transforms a variable to numeric)
+t_id <- as.numeric(rownames(m1$match.matrix)) #We extract the rownames from the matrix, and convert it to numeric
+c_id <- as.numeric(m1$match.matrix)
+
+# Generate a data frame only with the matched units:
+d_m1 <- d_sample %>% slice(c(t_id, c_id)) # Slice subsets the data according to row numbers 
+# Q: How many observations should d_m1 have? Why?
+
+# Check whether it looks good:
+d_m1 %>% group_by(contact) %>% count() #Same number of treatment and controls!
+
+# Let's check for balance
+d_m1_bal <- d_m1 %>% select(contact, persons,vote00,vote98,newreg,age,female2)
+
+datasummary_balance(~ contact, data = d_m1_bal, fmt = 3, dinm_statistic = "p.value")
+
+# Q: What about balance for the unmatched sample, d_sample? How does that look?
+
+# Let's now run the simple regression of our outcome on our treatment variable:
+summary(estimatr::lm_robust(vote02 ~ contact, data = d_m1))
+
+#Q: Interpret the results. What do we find here?
+
+
+# Finally, let's compare the previous results with simple OLS.
+# Q: Should we get the same results? Why or why not? (look both at the point estimate and the significance)
+
+summary(lm_robust(vote02 ~ contact + persons + vote00 + vote98 + newreg + age + female2, data = d_sample))
+
+# Q: Do you think the CIA holds in this case? Why or why not?

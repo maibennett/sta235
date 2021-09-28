@@ -207,9 +207,9 @@ id &lt;- seq(1,1000)
 
 set.seed(100)
 
-*data &lt;- data.frame("id" = id) %&gt;% mutate(z = sample(c(0,1), size = 1000,
-*                                                   replace = TRUE,
-*                                                   prob = c(0.5, 0.5)))
+data &lt;- data.frame("id" = id) %&gt;% mutate(z = sample(c(0,1), size = 1000,
+                                                    replace = TRUE,
+                                                    prob = c(0.5, 0.5)))
 
 *data %&gt;% group_by(z) %&gt;% count()
 ```
@@ -549,7 +549,7 @@ RCTs in Practice
 <h3>Balance Table by Stratum</h3>
 </div>
 <div id="htmlwidget-8087b52accdd5640d275" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-8087b52accdd5640d275">{"x":{"tag":{"name":"Reactable","attribs":{"data":{".rownames":["female2","fem_miss","age","newreg","persons","contact","vote98","vote00"],"V1":[0.552,0,52.157,0.117,1.496,0,0.231,0.564],"V2":[0.546,0,51.977,0.116,1.497,0.369,0.227,0.567],"V3":[0.541,0,50.81,0.133,1.513,0,0.258,0.595],"V4":[0.535,0,50.862,0.134,1.518,0.388,0.259,0.593],"V5":[0.549,0.026,55.795,0.048,1.539,0,0.572,0.734],"V6":[0.545,0.025,55.782,0.049,1.538,0.461,0.574,0.732],"V7":[0.543,0.022,53.481,0.048,1.529,0,0.599,0.781],"V8":[0.541,0.021,53.464,0.046,1.533,0.452,0.594,0.78]},"columns":[{"accessor":".rownames","name":"","type":"character","align":"center","sortable":false,"filterable":false},{"accessor":"V1","name":"Treat","type":"numeric","align":"center"},{"accessor":"V2","name":"Control","type":"numeric","align":"center","style":{"borderRight":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"V3","name":"Treat","type":"numeric","align":"center"},{"accessor":"V4","name":"Control","type":"numeric","align":"center","style":{"borderRight":"3px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"V5","name":"Treat","type":"numeric","align":"center"},{"accessor":"V6","name":"Control","type":"numeric","align":"center","style":{"borderRight":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"V7","name":"Treat","type":"numeric","align":"center"},{"accessor":"V8","name":"Control","type":"numeric","align":"center"}],"columnGroups":[{"name":"Non-competitive","columns":["V1","V2"]},{"name":"Competitive","columns":["V3","V4"]},{"name":"Non-competitive","columns":["V5","V6"]},{"name":"Competitive","columns":["V7","V8"]},{"name":"State 1","columns":["V1","V2","V3","V4"]}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"0b0b5a12d5ba2571ccc96269b61b6041","key":"0b0b5a12d5ba2571ccc96269b61b6041"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-8087b52accdd5640d275">{"x":{"tag":{"name":"Reactable","attribs":{"data":{".rownames":["female2","fem_miss","age","newreg","persons","vote98","vote00"],"V1":[0.552,0,52.157,0.117,1.496,0.231,0.564],"V2":[0.546,0,51.977,0.116,1.497,0.227,0.567],"V3":[0.541,0,50.81,0.133,1.513,0.258,0.595],"V4":[0.535,0,50.862,0.134,1.518,0.259,0.593],"V5":[0.549,0.026,55.795,0.048,1.539,0.572,0.734],"V6":[0.545,0.025,55.782,0.049,1.538,0.574,0.732],"V7":[0.543,0.022,53.481,0.048,1.529,0.599,0.781],"V8":[0.541,0.021,53.464,0.046,1.533,0.594,0.78]},"columns":[{"accessor":".rownames","name":"","type":"character","align":"center","sortable":false,"filterable":false},{"accessor":"V1","name":"Treat","type":"numeric","align":"center"},{"accessor":"V2","name":"Control","type":"numeric","align":"center","style":{"borderRight":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"V3","name":"Treat","type":"numeric","align":"center"},{"accessor":"V4","name":"Control","type":"numeric","align":"center","style":{"borderRight":"3px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"V5","name":"Treat","type":"numeric","align":"center"},{"accessor":"V6","name":"Control","type":"numeric","align":"center","style":{"borderRight":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"V7","name":"Treat","type":"numeric","align":"center"},{"accessor":"V8","name":"Control","type":"numeric","align":"center"}],"columnGroups":[{"name":"Non-competitive","columns":["V1","V2"]},{"name":"Competitive","columns":["V3","V4"]},{"name":"Non-competitive","columns":["V5","V6"]},{"name":"Competitive","columns":["V7","V8"]},{"name":"State 1","columns":["V1","V2","V3","V4"]}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"56afef48ecc2085445d004f19021e523","key":"56afef48ecc2085445d004f19021e523"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 ]
 
@@ -577,7 +577,7 @@ RCTs in Practice
 
 - Run a regression with *fixed effects by strata*
 
-.box-6t[$$Y_i = \beta_0 + \beta_1 Z_i + \gamma_s + \varepsilon_i$$]
+.box-6[$$Y_i = \beta_0 + \beta_1 Z_i + \gamma_s + \varepsilon_i$$]
 
 
 ---
@@ -602,15 +602,15 @@ summary(lm_robust(vote02 ~ treat_real + strata, data = d_s1))
 ## Standard error type:  HC2 
 ## 
 ## Coefficients:
-##             Estimate Std. Error   t value Pr(&gt;|t|) CI Lower CI Upper      DF
-## (Intercept) 0.509915  0.0004633 1100.6000   0.0000  0.50901 0.510823 1905315
-## treat_real  0.001499  0.0020709    0.7237   0.4693 -0.00256 0.005557 1905315
-## strata1.1   0.085625  0.0016372   52.2989   0.0000  0.08242 0.088834 1905315
-## strata0.2   0.049105  0.0009801   50.1034   0.0000  0.04718 0.051026 1905315
-## strata1.2   0.146435  0.0009803  149.3733   0.0000  0.14451 0.148357 1905315
+##             Estimate Std. Error t value  Pr(&gt;|t|)  CI Lower CI Upper     DF
+## (Intercept) 0.486984  0.0008837 551.048 0.000e+00  0.485252 0.488716 733335
+## treat_real  0.000369  0.0027329   0.135 8.926e-01 -0.004987 0.005725 733335
+## strata1.1   0.108725  0.0018181  59.800 0.000e+00  0.105161 0.112288 733335
+## strata0.2   0.044896  0.0057059   7.868 3.602e-15  0.033712 0.056079 733335
+## strata1.2   0.169422  0.0012373 136.931 0.000e+00  0.166997 0.171848 733335
 ## 
-## Multiple R-squared:  0.01172 ,	Adjusted R-squared:  0.01172 
-## F-statistic:  5937 on 4 and 1905315 DF,  p-value: &lt; 2.2e-16
+## Multiple R-squared:  0.02537 ,	Adjusted R-squared:  0.02536 
+## F-statistic:  4777 on 4 and 733335 DF,  p-value: &lt; 2.2e-16
 ```
 ]
 
@@ -625,10 +625,10 @@ d_s1 %&gt;% count(treat_real, contact)
 ```
 
 ```
-##   treat_real contact       n
-## 1          0       0 1845348
-## 2          1       0   34929
-## 3          1       1   25043
+##   treat_real contact      n
+## 1          0       0 698815
+## 2          1       0  19210
+## 3          1       1  15315
 ```
 
 --
@@ -672,7 +672,7 @@ When we assume...
   
   - Under SUTVA:
   
-  .box-3LA[$$(Y_2(0), Y_2(1)) \perp\!\!\!\perp Z_1$$]
+  .box-3LA[$$(Y_2(0), Y_2(1)) \perp Z_1$$]
   
 
 ---
@@ -732,7 +732,7 @@ When we assume...
 # Network effects
 
 .center[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/networks1.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/networks1.png)
 ]
 
 
@@ -740,28 +740,28 @@ When we assume...
 # Network effects
 
 .center[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/networks2.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/networks2.png)
 ]
 
 ---
 # Network effects
 
 .center[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/networks3.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/networks3.png)
 ]
 
 ---
 # Network effects
 
 .center[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/networks4.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/networks4.png)
 ]
 
 ---
 # Network effects
 
 .center[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/networks5.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/networks5.png)
 ]
 
 ---
@@ -847,12 +847,6 @@ Show me the power
 .center[
 ![:scale 90%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/type_2_errors.png)]
 
-
-
----
-# Statistical power in pictures
-
-&lt;img src="f2021_sta235h_8_RCT_files/figure-html/power_calc-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 #Statistical power and sample size
 .box-2t[How big of a sample?]
@@ -949,7 +943,7 @@ Show me the power
 .box-6[Use a statistical power calculator to&lt;br&gt;make sure you can potentially detect an effect]
 
 .center[
-![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/1_RCT/images/power-search.png)
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/power-search.png)
 ]
 
 --
@@ -1073,31 +1067,6 @@ Limitations and Potential Problems in Randomized Controlled Trials
 
   - Not randomize everyone, but maybe those that are on the margin of receiving the treatment.
   
----
-# Staggered adoption
-
-.pull-left[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/staggered1.png)
-]
-
---
-
-.pull-right[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/staggered2.png)
-]
-
----
-# Staggered adoption
-
-.pull-left[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/staggered1.png)
-]
-
-
-.pull-right[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/images/staggered3.png)
-]
-
 ---
 background-position: 50% 50%
 class: left, bottom, inverse
@@ -1234,9 +1203,9 @@ A/B Testing
   
 --
 
-.box7-LA[Check your assumptions and look out for potential issues!]
+.box-6LA[Check your assumptions and look out for potential issues!]
 
-
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week5/1_RCT/f2021_sta235h_8_RCT.html') --&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
