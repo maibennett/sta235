@@ -20,7 +20,13 @@ library(modelsummary)
 
 ## Get Out the Vote study
 
+# If you are loading this in class, you might be better loading the second file (it's just a smaller version of the same dataset)
+
+# If you're running this at home, load this:
 d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/data/voters_covariates.csv")
+
+# If you're running this live in class, load this dataset:
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/2_ObsStudies/data/sample_gotv.csv")
 
 # Some variables of interest
 
@@ -47,6 +53,7 @@ d_s1_bal <- d_s1 %>% mutate(treat_strata = interaction(factor(treat_real),factor
 datasummary_balance(~ treat_strata, data = d_s1_bal, dinm_statistic = "p.value")
 # Q: What do the column names mean? (e.g. what is 0.1.0 mean?)
 
+# Now let's look at the balance without considering strata. Should we see imbalances here?
 d_s1_bal2 <- d_s1 %>% select(-c(vote02, competiv, state, treat_pseudo))
 
 datasummary_balance(~ treat_real, data = d_s1_bal2, dinm_statistic = "p.value")
