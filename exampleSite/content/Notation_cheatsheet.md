@@ -50,7 +50,7 @@ Hopefully this cheat-sheet helps you to get more familiar with notation!
 <td><p>In this class, we will be seeing it as the outcome variable (observed)</td>
 </tr>
 <tr class="even">
-<td><$X$</td>
+<td>$X$</td>
 <td><em>Covariate, independentent variable, etc. These variables are also observed in our data.</em></td>
 </tr>
 <tr class="odd">
