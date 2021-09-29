@@ -29,9 +29,7 @@
 
 # Notation Cheat-Sheet
 
-Hopefully this cheat-sheet helps you to get more familiar with notation!
-
-### Some basic notation
+### Some basic notation for causal inference
 
 <table>
 <colgroup>
