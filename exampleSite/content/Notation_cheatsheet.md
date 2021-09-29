@@ -53,7 +53,7 @@
 </tr>
 <tr class="odd">
 <td>$\beta$</td>
-<td>A population parameter (coefficient in the model); can refer to a treatment effect or **causal estimand** (if it's for the treatment variable!). It's <u>not observed</u> (but we can estimate it!)</td>
+<td>A population parameter (coefficient in the model); can refer to a treatment effect or <u>causal estimand</u> (if it's for the treatment variable!). It's <u>not observed</u> (but we can estimate it!)</td>
 </tr>
 <tr class="even">
 <td>$\hat{\beta}$</td>
