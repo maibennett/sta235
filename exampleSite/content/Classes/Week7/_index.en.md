@@ -12,13 +12,13 @@ In this class we will continue our talk on observational studies. We will cover 
 
 ## Recommended readings/videos
 
-- Angrist & Pischke. (2015). "Mastering Metrics". *Chapter 5: Differences-in-Differences*. Pg. 178-208. 
+- Angrist & Pischke. (2015). "Mastering Metrics". *Chapter 5: Differences-in-Differences*. Pg. 178-191. 
 
 - Social Science Research Institute at Duke University. (2015). "London Cholera Outbreak: Was it a Natural Experiment?: Causal Inference Bootcamp". *Video materials from Mod-U: Powerful Concepts in Social Science*. **Note: Watch after reading "Master of 'Metrics: John Snow" in MM.**
 
 {{< youtube src="https://www.youtube.com/embed/4n4F5qtfDIY?controls=0" >}}
 
-- Angrist & Pischke. (2015). "Mastering Metrics". *Chapter 4: Regression Discontinuity Designs*. Pg. 147-177. 
+- Angrist & Pischke. (2015). "Mastering Metrics". *Chapter 4: Regression Discontinuity Designs*. Pg. 147-164. 
 
 - Social Science Research Institute at Duke University. (2015). "Regression Discontinuity: Looking at People on the Edge: Causal Inference Bootcamp". *Video materials from Mod-U: Powerful Concepts in Social Science*.
 
