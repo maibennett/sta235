@@ -46,11 +46,11 @@ Hopefully this cheat-sheet helps you to get more familiar with notation!
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre>$Y$</pre></td>
+<td>$Y$</td>
 <td><p>In this class, we will be seeing it as the outcome variable (observed)</td>
 </tr>
 <tr class="even">
-<td><code>X</code></td>
+<td><$X$</td>
 <td><em>Covariate, independentent variable, etc. These variables are also observed in our data.</em></td>
 </tr>
 <tr class="odd">
@@ -63,7 +63,15 @@ Hopefully this cheat-sheet helps you to get more familiar with notation!
 </tr>
 <tr class="odd">
 <td>$Y(z)$</td>
-<td>Potential outcomes under treatment $Z=z$. Meaning, what would your outcome be if you were under treatment $z$?. This can <u>only be observed</u> if your actual treatment assignment is also $Z=z$ (and you can observe at most one of them).</td>
+<td>Potential outcomes under treatment $Z=z$. Meaning, what would your outcome be if you were under treatment ($z=1$) or under control ($z=0)$. This can <u>only be observed</u> if your <u>actual</u> treatment assignment is also $Z=z$ (and you can observe at most one of them). One important distinction: All units have <u>all potential outcomes</u>, but, again, you can at most observe only one of them.</td>
+</tr>
+<tr class="even">
+<td>$E[Y]$</td>
+<td>Expected value of the observed outcome $Y$. This is observed in our data, and you can estimate it by just taking a sample mean of the outcome.</td>
+</tr>
+<tr class="odd">
+<td>$E[Y|Z=1]$</td>
+<td>Expected value of the observed outcomes *for individuals in the treatment group*. This is also obsereved in our data, and you can estimate it by taking the sample mean of the outcome for our treatment group.</td>
 </tr>
 <tr class="even">
 <td>$E[Y(0)]$</td>
