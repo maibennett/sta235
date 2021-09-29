@@ -78,4 +78,4 @@ An important part of this course is for you to learn how to "teach" yourself how
 
 **4) Notation is too hard! Can we get a cheat-sheet for this?**
 
-Ask and you shall receive! I created this short cheat-sheet which hopefully helps? Let me know if you want me to include something else!
+Ask and you shall receive! I created this [short cheat sheet](https://sta235.netlify.app/notation_cheatsheet/) which hopefully helps. Let me know if you want me to include something else!

@@ -27,7 +27,7 @@
 }
 </style>
 
-# Notation Cheat-Sheet
+# Notation Cheat Sheet
 
 ### Some basic notation for causal inference
 
