@@ -43,17 +43,17 @@ Below you will find a general outline of the topics we’ll cover in this course
 <tr>
 <td>5</td>
 <td>Sep 28 – Sep 30</td>
-<td>Introduction to Observational Studies: Can we use data outside experiments to make causal claims? Matching and its comparison to RCTs. Overt and hidden biases. Propensity score matching & weighting. Other forms of matching. How does matching compare to regression adjustment?<br><i>Homework 2 due</i></td>
+<td>Introduction to Observational Studies: Can we use data outside experiments to make causal claims? <br><i>Homework 2 due</i></td>
 </tr>
 <tr>
 <td>6</td>
 <td>Oct 5 – Oct 7</td>
-<td>Observational studies: Using real-world variation to estimate causal effects. Natural experiments, Diff-in-Diff.</td>
+<td>Matching and its comparison to RCTs. Overt and hidden biases. Propensity score matching & weighting. Other forms of matching. How does matching compare to regression adjustment? Observational studies: Using real-world variation to estimate causal effects. Natural experiments.</td>
 </tr>
 <tr>
 <td>7</td>
 <td>Oct 12 – Oct 14</td>
-<td>Observational studies (cont.): Regression discontinuity design (RDD).<br><i>Homework 3 due</i></td>
+<td>Observational studies (cont.): Differences-in-Differences and Regression discontinuity design (RDD).<br><i>Homework 3 due</i></td>
 </tr>
 <tr>
 <td>8</td>
