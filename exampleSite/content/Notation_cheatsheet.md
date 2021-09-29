@@ -49,7 +49,7 @@
 </tr>
 <tr class="even">
 <td>$X$</td>
-<td><em>Covariate, independentent variable, etc. These variables are also observed in our data.</em></td>
+<td>Covariate, independentent variable, etc. These variables are also observed in our data.</td>
 </tr>
 <tr class="odd">
 <td>$\beta$</td>
@@ -69,7 +69,7 @@
 </tr>
 <tr class="odd">
 <td>$E[Y|Z=1]$</td>
-<td>Expected value of the observed outcomes *for individuals in the treatment group*. This is also obsereved in our data, and you can estimate it by taking the sample mean of the outcome for our treatment group.</td>
+<td>Expected value of the observed outcomes <i>for individuals in the treatment group</i>. This is also obsereved in our data, and you can estimate it by taking the sample mean of the outcome for our treatment group.</td>
 </tr>
 <tr class="even">
 <td>$E[Y(0)]$</td>
@@ -77,19 +77,19 @@
 </tr>
 <tr class="odd">
 <td>$E[Y(0)|Z=1]$</td>
-<td>Expected value of the potential outcomes under control *for individuals in the treatment group*. This is <u>not observed</u>! (It would be, in fact, the counterfactual for the treatment group).</td>
+<td>Expected value of the potential outcomes under control <i>for individuals in the treatment group</i>. This is <u>not observed</u>! (It would be, in fact, the counterfactual for the treatment group).</td>
 </tr>
 <tr class="even">
 <td>$E[Y(0)|Z=0]$</td>
-<td>Expected value of the potential outcomes under control *for individuals in the control group*. This is <u>observed</u>, and we can estimate it (again, think of $\hat{.}$) by taking the mean of the observed outcomes for the control group.</td>
+<td>Expected value of the potential outcomes under control <i>for individuals in the control group</i>. This is <u>observed</u>, and we can estimate it (again, think of $\hat{.}$) by taking the mean of the observed outcomes for the control group.</td>
 </tr>
 <tr class="odd">
 <td>$ATE = E[Y(1) - Y(0)]$</td>
-<td>Average Treatment Effect (the average effect that an intervention has on a population). This is <u>not observed</u> (but we can estimate it under certain assumptions!).</td>
+<td>Average Treatment Effect (the average effect that an intervention has on a population). As you can see, this is the expected value for the Individual Causal Effect (ICE).This is <u>not observed</u> (but we can estimate it under certain assumptions!).</td>
 </tr>
 <tr class="even">
 <td>$ATT = E[Y(1) - Y(0)|Z=1]$</td>
-<td>Average Treatment Effect on the Treated (the average effect that an intervention has on the treatment group). This is <u>not observed</u> (but we can estimate it under certain assumptions!).</td>
+<td>Average Treatment Effect on the Treated (the average effect that an intervention has on the treatment group). This is the expected value for the ICE, but only for the treated group. This is <u>not observed</u> (but we can estimate it under certain assumptions!).</td>
 </tr>
 </tbody>
 </table>
