@@ -129,7 +129,6 @@ class: center, middle, inverse, title-slide
   
   - Matching vs OLS
   
-- **.darkorange[Natural Experiments]**
 ]
 
 ---
@@ -697,7 +696,7 @@ e &lt;- predict(glm(z ~ x1 + x2 + x3, data = d, family = binomial(link="logit"))
 
 - Claiming that you can identify a **.darkorange[causal effect]** just by using matching is almost the same as claiming this using a regression approach.
 
-.box-7[Not a good idea...]
+.box-7[Usually not a good idea...]
 
 ---
 # Don't get it twisted
@@ -724,7 +723,7 @@ e &lt;- predict(glm(z ~ x1 + x2 + x3, data = d, family = binomial(link="logit"))
 ]
 ]
 .pull-right[
-- Matching and weighting methods can be great tools for your analysis.
+- Matching methods can be great tools for your analysis.
 
   - Create more similar groups of comparisons.
 

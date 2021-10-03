@@ -422,7 +422,6 @@ font.add.google("Fira Sans", "Fira Sans")
   
   - Matching vs OLS
   
-- **.darkorange[Natural Experiments]**
 ]
 
 ---
@@ -1667,7 +1666,7 @@ ggplot(d, aes(x = x1)) +
 ]
 ]
 .pull-right[
-- Matching and weighting methods can be great tools for your analysis.
+- Matching methods can be great tools for your analysis.
 
   - Create more similar groups of comparisons.
 

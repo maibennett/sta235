@@ -55,8 +55,26 @@ class: center, middle, inverse, title-slide
 
 
 
+# Announcements
 
-# What we just saw...
+.box-2LA[Homework 3 will be posted on Thursday]
+
+--
+
+- Homework 2 answer key has been added to the course website (**.darkorange[check out the rubric!]**)
+
+--
+
+- **.darkorange[No office hours today]** `\(\rightarrow\)` Moved to tomorrow (check out Calendly)
+
+--
+
+- I'll send out a poll for a **.darkorange[review session]** for the midterm
+  
+  - If you are interested, &lt;u&gt;please respond&lt;/u&gt;.
+
+---
+# Last week
 
 .pull-left[
 - **.darkorange[Randomized controlled trials]**
@@ -71,13 +89,40 @@ class: center, middle, inverse, title-slide
 ![:scale 80%](https://media.giphy.com/media/jsN192JGdyWvS1gqTb/giphy.gif)]
 ]
 
+---
+# Last week
+
+.pull-left[
+- **.darkorange[Randomized controlled trials]**
+  
+  - Assumptions for RCTs?
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://media.giphy.com/media/jsN192JGdyWvS1gqTb/giphy.gif)]
+]
 
 ---
-# Now, we're moving forward...
+# Last week
+
+.pull-left[
+- **.darkorange[Randomized controlled trials]**
+  
+  - Limitations?
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://media.giphy.com/media/jsN192JGdyWvS1gqTb/giphy.gif)]
+]
+
+---
+# Today, we're moving forward...
 
 .pull-left[
 .center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/2_ObsStudies/images/data.jpg)]
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/data.jpg)]
 ]
 .pull-right[
 - **.darkorange[Introduction to Observational Studies]**:
@@ -87,6 +132,7 @@ class: center, middle, inverse, title-slide
   - Assumptions
   
   - Matching vs OLS
+  
 ]
 
 ---
@@ -170,6 +216,27 @@ No more chance[s]
 `$$Y(0), Y(1) \perp\!\!\!\perp Z|X$$`
 
 ---
+# An example about the CIA
+
+- Let's think about the **.darkorange[fake CV example]** and a real life application.
+
+--
+
+- **.darkorange[Causal question]**: How does getting an internship affect your probability of being in the film industry 5 years later? 
+
+--
+
+- A firm needs to hire interns ASAP, no time for interviews. What would this firm look at in a CV?
+
+--
+
+  - e.g. level of education, experience, name?
+  
+--
+
+- *Could we assume that &lt;b&gt;.darkorange[conditional on education, experience, name characteristics, etc.]&lt;/b&gt; receiving an internship is independent from your potential outcomes?* 
+
+---
 # The assignment mechanism
 
 .pull-left[
@@ -182,17 +249,19 @@ No more chance[s]
 ]
 .pull-right[
 .center[
-![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/2_ObsStudies/images/confusion.png)]
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/confusion.png)]
 ]
 
 ---
 # Selection on observables
 
 - Units select into treatment based on characteristics **.darkorange[I can observe]**.
+
+- What this means in practice is that **.darkorange[all confounders are observable and I can adjust for them]**.
 &lt;br&gt;
 &lt;br&gt;
 .center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/2_ObsStudies/images/unconfound2.png)
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/unconfound2.png)
 ]
 
 ---
@@ -215,7 +284,7 @@ No more chance[s]
 
 &lt;br&gt;
 &lt;br&gt;
-.box-2[&amp;beta;&lt;sub&gt;1&lt;/sub&gt; is the effect of Z on Y, holding X constant]
+.box-2[&amp;beta;&lt;sub&gt;1&lt;/sub&gt; is the estimated effect of Z on Y, holding X constant]
 
 ---
 # How do we adjust for observables?
@@ -259,6 +328,8 @@ Finding your perfect match...
 
 .pull-right[
 ![](https://media.giphy.com/media/l36kU80xPf0ojG0Erg/giphy.gif)
+
+]
 
 ---
 # Two peas in a pod
@@ -311,7 +382,7 @@ $$
 
 ---
 $$
-\color{white}{\beta_0 \text{E}^2} \text{Outcome} = \beta_0 + \beta_1 \text{Education} + \beta_2 \text{Treatment} \color{white}{\beta_0 \text{E}^2}
+\color{white}{\beta_0 \text{E}^2} \text{Income} = \beta_0 + \beta_1 \text{Education} + \beta_2 \text{Treatment} \color{white}{\beta_0 \text{E}^2}
 $$
 
 
@@ -319,7 +390,7 @@ $$
 
 ---
 $$
-\text{Outcome} = \beta_0 + \beta_1 \text{Education} + \beta_2 \text{Education}^2 + \beta_3 \text{Treatment}
+\text{Income} = \beta_0 + \beta_1 \text{Education} + \beta_2 \text{Education}^2 + \beta_3 \text{Treatment}
 $$
 
 
@@ -335,7 +406,7 @@ $$
 
 ---
 $$
-\color{white}{\beta_0 \text{E}^2} \text{Outcome} = \beta_0 + \beta_1 \text{Education} + \beta_2 \text{Treatment} \color{white}{\beta_0 \text{E}^2}
+\color{white}{\beta_0 \text{E}^2} \text{Income} = \beta_0 + \beta_1 \text{Education} + \beta_2 \text{Treatment} \color{white}{\beta_0 \text{E}^2}
 $$
 
 
@@ -343,7 +414,7 @@ $$
 
 ---
 $$
-\text{Outcome} = \beta_0 + \beta_1 \text{Education} + \beta_2 \text{Education}^2 + \beta_3 \text{Treatment}
+\text{Income} = \beta_0 + \beta_1 \text{Education} + \beta_2 \text{Education}^2 + \beta_3 \text{Treatment}
 $$
 
 
@@ -532,7 +603,7 @@ $$
 
 - Under unconfoundedness:
 
-`$$Z_i \perp\!\!\!\perp Y_i(0),Y_i(1)|b(X_i)$$`
+`$$Y_i(0),Y_i(1) \perp\!\!\!\perp Z_i|b(X_i)$$`
 
 --
 
@@ -612,64 +683,6 @@ e &lt;- predict(glm(z ~ x1 + x2 + x3, data = d, family = binomial(link="logit"))
 .box-5LA[Let's go to R]
 ]
 
-
----
-# Weighting, the cousin of matching
-
-- We can also use **.darkorange[weights]** to make two samples look alike.
-
---
-&lt;br&gt;
-&lt;br&gt;
-.box-4[Inverse Probability Weighting (IPW)]
-
-- Make some observations more important than others.
-
----
-# Weighting, the cousin of matching
-
-- You can make the treatment and the control group look more like each other:
-
-`$$w_{ATE} = \frac{Z_i}{e_i} + \frac{1-Z_i}{1-e_i}$$`
-
-- Observations in the control group will have a weight of `\(\frac{1}{1-e_i}\)`, while observations in the treatment group will have weights of `\(\frac{1}{e_i}\)`
-
---
-
-.box-3[What happens with obs that are very likely to be in the treatment group?]
-
----
-# Weighting, the cousin of matching
-
-- You can make the treatment and the control group look more like each other:
-
-`$$w_{ATT} = \frac{e_i\cdot Z_i}{e_i} + \frac{e_i(1-Z_i)}{1-e_i}$$`
-
-- Observations in the control group will have a weight of `\(\frac{e_i}{1-e_i}\)`, while observations in the treatment group will have weights of 1
-
---
-
-.box-5[Why do observations in the treatment group get a weight of 1?]
-
----
-# Weighting for approximating a population
-
-- If we assume that our sample was selected on observables, and we want it to **.darkorange[look more like a population of interest]**, we can also do that!
-
---
-
-- We can use the same formula for `\(ATT\)`, but now `\(e_i\)` is not the probability of being assigned to treatment, but the probability of **.darkorange[being in the population sample]**.
-
---
-
-- For this type of weighting, we only need population covariates.
-
----
-
-.center2[
-.box-3LA[Let's go to R]
-]
-
 ---
 # The shortcomings of matching
 
@@ -687,7 +700,7 @@ e &lt;- predict(glm(z ~ x1 + x2 + x3, data = d, family = binomial(link="logit"))
 
 - Claiming that you can identify a **.darkorange[causal effect]** just by using matching is almost the same as claiming this using a regression approach.
 
-.box-7[Not a good idea...]
+.box-7[Usually not a good idea...]
 
 ---
 # Don't get it twisted
@@ -714,7 +727,7 @@ e &lt;- predict(glm(z ~ x1 + x2 + x3, data = d, family = binomial(link="logit"))
 ]
 ]
 .pull-right[
-- Matching and weighting methods can be great tools for your analysis.
+- Matching methods can be great tools for your analysis.
 
   - Create more similar groups of comparisons.
 
@@ -747,7 +760,7 @@ e &lt;- predict(glm(z ~ x1 + x2 + x3, data = d, family = binomial(link="logit"))
 
 - Cunningham, S. (2021). "Causal Inference: The Mixtape". *Chapter 5*
 
-&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week5/2_ObsStudies/f2021_sta235h_9_ObsStudies.html') --&gt;
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week6/1_ObsStudies/f2021_sta235h_9_ObsStudies.html') --&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
