@@ -14,7 +14,7 @@ chapter: false
 
 - Use the templates provided below to guide you on how your submissions should look like.
 
-- **No need to write long answers**. Keep your answers short and precise, and address what is being asked (there are no additional points for answering something that is not being asked). 2-3 lines answers (and even 1-liners!) are more than fine if you are addressing the question head on.
+- **No need to write long answers**. Keep your answers short and precise, and address what is being asked (there are no additional points for answering something that is not being asked).
 
 - **No collaboration between students is permitted**. This is a take-home exam, but you should treat it as an open-book in-class exam.
 
