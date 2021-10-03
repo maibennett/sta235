@@ -361,6 +361,13 @@ font.add.google("Fira Sans", "Fira Sans")
 - I'll send out a poll for a **.darkorange[review session]** for the midterm
   
   - If you are interested, <u>please respond</u>.
+  
+---
+# Warning
+
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/integrity.png)
+]
 
 ---
 # Last week
