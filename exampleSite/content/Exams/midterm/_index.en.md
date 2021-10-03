@@ -6,7 +6,7 @@ chapter: false
 
 ## Instructions
 
-- Submit your homework through Canvas before **Friday Oct. 22nd 11:59 pm**. One submission per student.
+- Submit your midterm through Canvas before **Friday Oct. 22nd 11:59 pm**. One submission per student.
 
 - There is <b>no 24-hr free extension</b> for the midterm or final exam.
 
