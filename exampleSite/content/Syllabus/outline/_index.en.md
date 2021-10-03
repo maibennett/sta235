@@ -48,17 +48,17 @@ Below you will find a general outline of the topics we’ll cover in this course
 <tr>
 <td>6</td>
 <td>Oct 5 – Oct 7</td>
-<td>Matching and its comparison to RCTs. Overt and hidden biases. Propensity score matching & weighting. Other forms of matching. How does matching compare to regression adjustment? Observational studies: Using real-world variation to estimate causal effects. Natural experiments.</td>
+<td>Observational studies: Selection on observables. Matching and its comparison to RCTs. Overt and hidden biases. Propensity score matching. How does matching compare to regression adjustment?</td>
 </tr>
 <tr>
 <td>7</td>
 <td>Oct 12 – Oct 14</td>
-<td>Observational studies (cont.): Differences-in-Differences and Regression discontinuity design (RDD).<br><i>Homework 3 due</i></td>
+<td>Observational studies (cont.): Natural experiments and Differences-in-Differences.<br><i>Homework 3 due</i></td>
 </tr>
 <tr>
 <td>8</td>
 <td>Oct 19 – Oct 21</td>
-<td>What about prediction? Continuous and discrete responses using regressions. Overview of model checking.<br><i>Midterm exam due</i></td>
+<td>Observational studies (cont.): Regression discontinuity design (RDD). Introduction to prediction: What about prediction? Continuous and discrete responses using regressions. Overview of model checking.<br><i>Midterm exam due</i></td>
 </tr>
 <tr>
 <td>9</td>
