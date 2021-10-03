@@ -33,6 +33,6 @@ chapter: false
 <a onclick="ga('send', 'event', 'External-Link','click','hw2_rmd','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework2/STA235H_HW2_template.Rmd" target="_blank" class="btn btn-default"> Rmarkdown Template <i class="fas fa-external-link-alt"></i></a> 
 
 
-<!-- ## Answer Key
+## Answer Key
 
-- You can find the answer key for Homework 1 here: <a onclick="ga('send', 'event', 'External-Link','click','hw1_key','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework1/STA235H_Fall21_Homework1_AnswerKey.html" target="_blank" class="btn btn-default"> Open HW1 Answer Key <i class="fas fa-external-link-alt"></i></a>  -->
+- You can find the answer key for Homework 2 here: <a onclick="ga('send', 'event', 'External-Link','click','hw2_key','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework1/STA235H_Fall21_Homework2_AnswerKey.html" target="_blank" class="btn btn-default"> Open HW2 Answer Key <i class="fas fa-external-link-alt"></i></a>
