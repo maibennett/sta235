@@ -27,9 +27,9 @@ No JITT this week (JITT for next week will include questions about these videos)
 
 ## Slides
 
-<!-- {{% button href="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+<!-- {{% button href="https://sta235.netlify.app/Classes/Week6/1_ObsStudies/f2021_sta235h_9_ObsStudies.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week6/1_ObsStudies/f2021_sta235h_9_ObsStudies.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.html" >}}
+{{< slides src="https://sta235.netlify.app/Classes/Week6/1_ObsStudies/f2021_sta235h_9_ObsStudies.html" >}} 
 
 <br>
 

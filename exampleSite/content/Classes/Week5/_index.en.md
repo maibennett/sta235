@@ -31,11 +31,6 @@ Complete before **Sunday Sep 26th (11:59 pm)** (if your section is on Tue) or **
 
 {{< slides src="https://sta235.netlify.app/Classes/Week5/1_RCT/f2021_sta235h_8_RCT.html" >}}
 
-<br>
-
-{{% button href="https://sta235.netlify.app/Classes/Week5/2_ObsStudies/f2021_sta235h_9_ObsStudies.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week5/2_ObsStudies/f2021_sta235h_9_ObsStudies.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
-
-{{< slides src="https://sta235.netlify.app/Classes/Week5/2_ObsStudies/f2021_sta235h_9_ObsStudies.html" >}} 
 
 ## Code
 

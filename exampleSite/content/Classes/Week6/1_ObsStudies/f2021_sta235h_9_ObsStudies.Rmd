@@ -344,8 +344,26 @@ htmltools::tagList(
 font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
 font.add.google("Fira Sans", "Fira Sans")
 ```
+# Announcements
 
-# What we just saw...
+.box-2LA[Homework 3 will be posted on Thursday]
+
+--
+
+- Homework 2 answer key has been added to the course website (**.darkorange[check out the rubric!]**)
+
+--
+
+- **.darkorange[No office hours today]** $\rightarrow$ Moved to tomorrow (check out Calendly)
+
+--
+
+- I'll send out a poll for a **.darkorange[review session]** for the midterm
+  
+  - If you are interested, <u>please respond</u>.
+
+---
+# Last week
 
 .pull-left[
 - **.darkorange[Randomized controlled trials]**
@@ -360,13 +378,40 @@ font.add.google("Fira Sans", "Fira Sans")
 ![:scale 80%](https://media.giphy.com/media/jsN192JGdyWvS1gqTb/giphy.gif)]
 ]
 
+---
+# Last week
+
+.pull-left[
+- **.darkorange[Randomized controlled trials]**
+  
+  - Assumptions for RCTs?
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://media.giphy.com/media/jsN192JGdyWvS1gqTb/giphy.gif)]
+]
 
 ---
-# Now, we're moving forward...
+# Last week
+
+.pull-left[
+- **.darkorange[Randomized controlled trials]**
+  
+  - Limitations?
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://media.giphy.com/media/jsN192JGdyWvS1gqTb/giphy.gif)]
+]
+
+---
+# Today, we're moving forward...
 
 .pull-left[
 .center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/2_ObsStudies/images/data.jpg)]
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/data.jpg)]
 ]
 .pull-right[
 - **.darkorange[Introduction to Observational Studies]**:
@@ -376,6 +421,8 @@ font.add.google("Fira Sans", "Fira Sans")
   - Assumptions
   
   - Matching vs OLS
+  
+- **.darkorange[Natural Experiments]**
 ]
 
 ---
@@ -459,6 +506,27 @@ $$Y(0), Y(1) \perp\!\!\!\perp Z$$
 $$Y(0), Y(1) \perp\!\!\!\perp Z|X$$
 
 ---
+# An example about the CIA
+
+- Let's think about the **.darkorange[fake CV example]** and a real life application.
+
+--
+
+- **.darkorange[Causal question]**: How does getting an internship affect your probability of being in the film industry 5 years later? 
+
+--
+
+- A firm needs to hire interns ASAP, no time for interviews. What would this firm look at in a CV?
+
+--
+
+  - e.g. level of education, experience, name?
+  
+--
+
+- *Could we assume that <b>.darkorange[conditional on education, experience, name characteristics, etc.]</b> receiving an internship is independent from your potential outcomes?* 
+
+---
 # The assignment mechanism
 
 .pull-left[
@@ -471,17 +539,19 @@ $$Y(0), Y(1) \perp\!\!\!\perp Z|X$$
 ]
 .pull-right[
 .center[
-![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/2_ObsStudies/images/confusion.png)]
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/confusion.png)]
 ]
 
 ---
 # Selection on observables
 
 - Units select into treatment based on characteristics **.darkorange[I can observe]**.
+
+- What this means in practice is that **.darkorange[all confounders are observable and I can adjust for them]**.
 <br>
 <br>
 .center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/2_ObsStudies/images/unconfound2.png)
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/unconfound2.png)
 ]
 
 ---
@@ -504,7 +574,7 @@ $$Y_i = \beta_0 + \beta_1 Z_i + \beta_2 X_i + \varepsilon_i$$
 
 <br>
 <br>
-.box-2[&beta;<sub>1</sub> is the effect of Z on Y, holding X constant]
+.box-2[&beta;<sub>1</sub> is the estimated effect of Z on Y, holding X constant]
 
 ---
 # How do we adjust for observables?
@@ -543,7 +613,7 @@ ggplot(data = d, aes(x = x, y = y, color = factor(z), fill=factor(z))) +
   
   theme_bw()+
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  xlab("X") + ylab("Outcome")+#ggtitle("How comfortable are you with R?")+
+  xlab("X") + ylab("Income")+#ggtitle("How comfortable are you with R?")+
   theme(plot.margin=unit(c(0.5,1,1,1.2),"cm"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
@@ -581,7 +651,7 @@ ggplot(data = d, aes(x = x, y = y, color = factor(z), fill=factor(z))) +
   
   theme_bw()+
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  xlab("X") + ylab("Outcome")+#ggtitle("How comfortable are you with R?")+
+  xlab("X") + ylab("Income")+#ggtitle("How comfortable are you with R?")+
   theme(plot.margin=unit(c(0.5,1,1,1.2),"cm"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
@@ -624,7 +694,7 @@ ggplot(data = d, aes(x = x, y = y, color = factor(z), fill=factor(z))) +
   
   theme_bw()+
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  xlab("X") + ylab("Outcome")+#ggtitle("How comfortable are you with R?")+
+  xlab("X") + ylab("Income")+#ggtitle("How comfortable are you with R?")+
   theme(plot.margin=unit(c(0.5,1,1,1.2),"cm"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
@@ -664,6 +734,8 @@ Finding your perfect match...
 
 .pull-right[
 ![](https://media.giphy.com/media/l36kU80xPf0ojG0Erg/giphy.gif)
+
+]
 
 ---
 # Two peas in a pod
@@ -711,29 +783,29 @@ library(broom)
 
 set.seed(1234)
 matched_stuff <- tibble(education = rnorm(50, 20, 3)) %>% 
-  mutate(outcome = 15 + education * rnorm(n(), -0.2, 0.05)) %>% 
+  mutate(income = 15 + education * rnorm(n(), -0.2, 0.05)) %>% 
   mutate(treatment = as.logical(rbinom(n(), 1, 0.5)),
          type = "Matched")
 unmatched_stuff <- tibble(education = rnorm(20, 12, 2),
-                          outcome = rnorm(20, 5, 2),
+                          income = rnorm(20, 5, 2),
                           treatment = FALSE, 
                           type = "Unmatched")
 more_unmatched_stuff <- tibble(education = rnorm(5, 28, 1),
-                               outcome = rnorm(5, 5, 0.5),
+                               income = rnorm(5, 5, 0.5),
                                treatment = FALSE,
                                type = "Unmatched")
 all_data <- bind_rows(matched_stuff, unmatched_stuff, more_unmatched_stuff) %>% 
   mutate(treatment = factor(treatment, labels = c("Untreated", "Treated")))
 matched_stuff_real <- filter(all_data, type == "Matched")
-model_wrong <- lm(outcome ~ education + treatment, data = all_data) %>% 
+model_wrong <- lm(income ~ education + treatment, data = all_data) %>% 
   tidy()
-model_wrong1 <- lm(outcome ~ education + treatment + I(education^2), data = all_data)
+model_wrong1 <- lm(income ~ education + treatment + I(education^2), data = all_data)
 model_wrong1_fitted <- expand_grid(education = seq(8, 30, 0.1),
                                    treatment = c("Treated", "Untreated")) %>% 
   augment(model_wrong1, newdata = .)
-model_better <- lm(outcome ~ education + treatment, data = matched_stuff_real) %>% 
+model_better <- lm(income ~ education + treatment, data = matched_stuff_real) %>% 
   tidy()
-model_better1 <- lm(outcome ~ education + treatment + I(education^2), data = matched_stuff_real)
+model_better1 <- lm(income ~ education + treatment + I(education^2), data = matched_stuff_real)
 model_better1_fitted <- expand_grid(education = seq(8, 30, 0.1),
                                     treatment = c("Treated", "Untreated")) %>% 
   augment(model_better1, newdata = .)
@@ -746,10 +818,10 @@ $$
 ```{r matching-general, echo=FALSE, fig.width=9, fig.height=5.75, fig.align='center', dev='svg'}
 cols = c("#5601A4","#FCCE25")
 
-ggplot(all_data, aes(x = education, y = outcome, fill = treatment)) +
+ggplot(all_data, aes(x = education, y = income, fill = treatment)) +
   geom_point(size = 5, pch = 21, color = "white") +
   scale_fill_manual(values = c(cols[1], cols[2]), name = NULL) +
-  labs(x = "Education", y = "Outcome") +
+  labs(x = "Education", y = "Income") +
   coord_cartesian(xlim = c(8, 30), ylim = c(0, 15)) +
   theme_bw()+
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
@@ -773,12 +845,12 @@ ggplot(all_data, aes(x = education, y = outcome, fill = treatment)) +
 
 ---
 $$
-\color{white}{\beta_0 \text{E}^2} \text{Outcome} = \beta_0 + \beta_1 \text{Education} + \beta_2 \text{Treatment} \color{white}{\beta_0 \text{E}^2}
+\color{white}{\beta_0 \text{E}^2} \text{Income} = \beta_0 + \beta_1 \text{Education} + \beta_2 \text{Treatment} \color{white}{\beta_0 \text{E}^2}
 $$
 
 
 ```{r matching-dependency1, echo=FALSE, fig.width=9, fig.height=5.75, fig.align='center', dev='svg'}
-ggplot(all_data, aes(x = education, y = outcome, fill = treatment, color = treatment)) +
+ggplot(all_data, aes(x = education, y = income, fill = treatment, color = treatment)) +
   geom_point(size = 5, pch = 21, color = "white") +
   geom_abline(slope = filter(model_wrong, term == "education")$estimate, 
               intercept = filter(model_wrong, term == "(Intercept)")$estimate,
@@ -788,7 +860,7 @@ ggplot(all_data, aes(x = education, y = outcome, fill = treatment, color = treat
                 filter(model_wrong, term == "treatmentTreated")$estimate,
               color = cols[2], size = 0.75) +
   scale_fill_manual(values = c(cols[1], cols[2]), name = NULL) +
-  labs(x = "Education", y = "Outcome") +
+  labs(x = "Education", y = "Income") +
   coord_cartesian(xlim = c(8, 30), ylim = c(0, 15)) +
   theme_bw()+
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
@@ -812,12 +884,12 @@ ggplot(all_data, aes(x = education, y = outcome, fill = treatment, color = treat
 
 ---
 $$
-\text{Outcome} = \beta_0 + \beta_1 \text{Education} + \beta_2 \text{Education}^2 + \beta_3 \text{Treatment}
+\text{Income} = \beta_0 + \beta_1 \text{Education} + \beta_2 \text{Education}^2 + \beta_3 \text{Treatment}
 $$
 
 
 ```{r dependency2, echo=FALSE, fig.width=9, fig.height=5.75, fig.align='center', dev='svg'}
-ggplot(all_data, aes(x = education, y = outcome, fill = treatment, color = treatment)) +
+ggplot(all_data, aes(x = education, y = income, fill = treatment, color = treatment)) +
   geom_point(size = 5, pch = 21, color = "white") +
   geom_abline(slope = filter(model_wrong, term == "education")$estimate, 
               intercept = filter(model_wrong, term == "(Intercept)")$estimate,
@@ -831,7 +903,7 @@ ggplot(all_data, aes(x = education, y = outcome, fill = treatment, color = treat
             size = 0.75) +
   scale_fill_manual(values = c(cols[1], cols[2]), name = NULL) +
   scale_color_manual(values = c(cols[1], cols[2]), guide = FALSE) +
-  labs(x = "Education", y = "Outcome") +
+  labs(x = "Education", y = "Income") +
   coord_cartesian(xlim = c(8, 30), ylim = c(0, 15)) +
   theme_bw()+
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
@@ -860,12 +932,12 @@ $$
 
 
 ```{r reduced, echo=FALSE, fig.width=9, fig.height=5.75, fig.align='center', dev='svg'}
-ggplot(all_data, aes(x = education, y = outcome, fill = treatment)) +
+ggplot(all_data, aes(x = education, y = income, fill = treatment)) +
   geom_point(aes(alpha = type), size = 5, pch = 21, color = "white") +
   scale_fill_manual(values = c(cols[1], cols[2]), name = NULL) +
   scale_alpha_manual(values = c(1, 0.4), name = NULL) +
   guides(alpha = FALSE, color = FALSE) +
-  labs(x = "Education", y = "Outcome") +
+  labs(x = "Education", y = "Income") +
   coord_cartesian(xlim = c(8, 30), ylim = c(0, 15)) +
   theme_bw()+
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
@@ -889,12 +961,12 @@ ggplot(all_data, aes(x = education, y = outcome, fill = treatment)) +
 
 ---
 $$
-\color{white}{\beta_0 \text{E}^2} \text{Outcome} = \beta_0 + \beta_1 \text{Education} + \beta_2 \text{Treatment} \color{white}{\beta_0 \text{E}^2}
+\color{white}{\beta_0 \text{E}^2} \text{Income} = \beta_0 + \beta_1 \text{Education} + \beta_2 \text{Treatment} \color{white}{\beta_0 \text{E}^2}
 $$
 
 
 ```{r reduced-dependency1, echo=FALSE, fig.width=9, fig.height=5.75, fig.align='center', dev='svg'}
-ggplot(all_data, aes(x = education, y = outcome, fill = treatment)) +
+ggplot(all_data, aes(x = education, y = income, fill = treatment)) +
   geom_point(aes(alpha = type), size = 5, pch = 21, color = "white") +
   geom_abline(slope = filter(model_better, term == "education")$estimate, 
               intercept = filter(model_better, term == "(Intercept)")$estimate,
@@ -905,7 +977,7 @@ ggplot(all_data, aes(x = education, y = outcome, fill = treatment)) +
               color = cols[2], size = 0.75) +
   scale_fill_manual(values = c(cols[1], cols[2]), name = NULL) +
   scale_alpha_manual(values = c(1, 0.4), guide = FALSE) +
-  labs(x = "Education", y = "Outcome") +
+  labs(x = "Education", y = "Income") +
   coord_cartesian(xlim = c(8, 30), ylim = c(0, 15)) +
   theme_bw()+
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
@@ -929,12 +1001,12 @@ ggplot(all_data, aes(x = education, y = outcome, fill = treatment)) +
 
 ---
 $$
-\text{Outcome} = \beta_0 + \beta_1 \text{Education} + \beta_2 \text{Education}^2 + \beta_3 \text{Treatment}
+\text{Income} = \beta_0 + \beta_1 \text{Education} + \beta_2 \text{Education}^2 + \beta_3 \text{Treatment}
 $$
 
 
 ```{r reduced-dependency2, echo=FALSE, fig.width=9, fig.height=5.75, fig.align='center', dev='svg'}
-ggplot(all_data, aes(x = education, y = outcome, fill = treatment)) +
+ggplot(all_data, aes(x = education, y = income, fill = treatment)) +
   geom_point(aes(alpha = type), size = 5, pch = 21, color = "white") +
   geom_abline(slope = filter(model_better, term == "education")$estimate, 
               intercept = filter(model_better, term == "(Intercept)")$estimate,
@@ -949,7 +1021,7 @@ ggplot(all_data, aes(x = education, y = outcome, fill = treatment)) +
   scale_fill_manual(values = c(cols[1], cols[2]), name = NULL) +
   scale_color_manual(values = c(cols[1], cols[2]), guide = FALSE) +
   scale_alpha_manual(values = c(1, 0.4), guide = FALSE) +
-  labs(x = "Education", y = "Outcome") +
+  labs(x = "Education", y = "Income") +
   coord_cartesian(xlim = c(8, 30), ylim = c(0, 15)) +
   theme_bw()+
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
@@ -975,12 +1047,12 @@ ggplot(all_data, aes(x = education, y = outcome, fill = treatment)) +
 .box-4[How do we know we can remove those observations?]
 
 ```{r reduced2, echo=FALSE, fig.width=9, fig.height=5.75, fig.align='center', dev='svg'}
-ggplot(all_data, aes(x = education, y = outcome, fill = treatment)) +
+ggplot(all_data, aes(x = education, y = income, fill = treatment)) +
   geom_point(aes(alpha = type), size = 5, pch = 21, color = "white") +
   scale_fill_manual(values = c(cols[1], cols[2]), name = NULL) +
   scale_alpha_manual(values = c(1, 0.4), name = NULL) +
   guides(alpha = FALSE, color = FALSE) +
-  labs(x = "Education", y = "Outcome") +
+  labs(x = "Education", y = "Income") +
   coord_cartesian(xlim = c(8, 30), ylim = c(0, 15)) +
   theme_bw()+
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
@@ -1441,7 +1513,7 @@ $$Z_i \perp\!\!\!\perp X_i|b(X_i)$$
 
 - Under unconfoundedness:
 
-$$Z_i \perp\!\!\!\perp Y_i(0),Y_i(1)|b(X_i)$$
+$$Y_i(0),Y_i(1) \perp\!\!\!\perp Z_i|b(X_i)$$
 
 --
 
@@ -1551,64 +1623,6 @@ ggplot(d, aes(x = x1)) +
 .box-5LA[Let's go to R]
 ]
 
-
----
-# Weighting, the cousin of matching
-
-- We can also use **.darkorange[weights]** to make two samples look alike.
-
---
-<br>
-<br>
-.box-4[Inverse Probability Weighting (IPW)]
-
-- Make some observations more important than others.
-
----
-# Weighting, the cousin of matching
-
-- You can make the treatment and the control group look more like each other:
-
-$$w_{ATE} = \frac{Z_i}{e_i} + \frac{1-Z_i}{1-e_i}$$
-
-- Observations in the control group will have a weight of $\frac{1}{1-e_i}$, while observations in the treatment group will have weights of $\frac{1}{e_i}$
-
---
-
-.box-3[What happens with obs that are very likely to be in the treatment group?]
-
----
-# Weighting, the cousin of matching
-
-- You can make the treatment and the control group look more like each other:
-
-$$w_{ATT} = \frac{e_i\cdot Z_i}{e_i} + \frac{e_i(1-Z_i)}{1-e_i}$$
-
-- Observations in the control group will have a weight of $\frac{e_i}{1-e_i}$, while observations in the treatment group will have weights of 1
-
---
-
-.box-5[Why do observations in the treatment group get a weight of 1?]
-
----
-# Weighting for approximating a population
-
-- If we assume that our sample was selected on observables, and we want it to **.darkorange[look more like a population of interest]**, we can also do that!
-
---
-
-- We can use the same formula for $ATT$, but now $e_i$ is not the probability of being assigned to treatment, but the probability of **.darkorange[being in the population sample]**.
-
---
-
-- For this type of weighting, we only need population covariates.
-
----
-
-.center2[
-.box-3LA[Let's go to R]
-]
-
 ---
 # The shortcomings of matching
 
@@ -1626,7 +1640,7 @@ $$w_{ATT} = \frac{e_i\cdot Z_i}{e_i} + \frac{e_i(1-Z_i)}{1-e_i}$$
 
 - Claiming that you can identify a **.darkorange[causal effect]** just by using matching is almost the same as claiming this using a regression approach.
 
-.box-7[Not a good idea...]
+.box-7[Usually not a good idea...]
 
 ---
 # Don't get it twisted
@@ -1686,4 +1700,4 @@ $$w_{ATT} = \frac{e_i\cdot Z_i}{e_i} + \frac{e_i(1-Z_i)}{1-e_i}$$
 
 - Cunningham, S. (2021). "Causal Inference: The Mixtape". *Chapter 5*
 
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week5/2_ObsStudies/f2021_sta235h_9_ObsStudies.html') -->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week6/1_ObsStudies/f2021_sta235h_9_ObsStudies.html') -->
