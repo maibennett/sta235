@@ -29,7 +29,7 @@ In this class we will continue our talk on observational studies. We will cover 
 
 ## JITT
 
-Complete before **Sunday Oct 10th (11:59 pm)** (if your section is on Tue) or **Tuesday Oct 12th (11:59 pm)** (if your section is on Thu). The assignment will be posted soon. <!-- You can find the assignment [here](https://forms.gle/7Y6TaDH9GYezcnmB7). -->
+Complete before **Sunday Oct 10th (11:59 pm)** (if your section is on Tue) or **Tuesday Oct 12th (11:59 pm)** (if your section is on Thu). You can find the assignment [here](https://forms.gle/A4Pizqg6GxuYQVih9).
 
 ## Slides
 
