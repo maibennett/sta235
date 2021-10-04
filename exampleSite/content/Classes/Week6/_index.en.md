@@ -8,17 +8,17 @@ disableToc: true
 
 ## What we will cover
 
-In this class we start talking about some observational studies and under what assumptions it would be enough to adjust for observables. We will also see how we can use real world variation to estimate causal effects through natural experiments.  
+In this class we start talking about some observational studies and under what assumptions it would be enough to adjust for observables. We will compare these results to those of RCTs. Is adjusting for observables enough?  
 
 ## Recommended readings/videos
 
-- Social Science Research Institute at Duke University. (2015). "The Two Kinds of Natural Experiments: Causal Inference Bootcamp". *Video materials from Mod-U: Powerful Concepts in Social Science*.
+- Angrist & Pischke. (2015). "Mastering Metrics". *Chapter 2: Regression*. Pg. 47-79. 
 
-{{< youtube src="https://www.youtube.com/embed/xdRyjhGVj_Q?controls=0" >}}
+- Marginal Revolution University. (2019). "Selection Bias: Will You Make More Going to a Private University?". *Video materials from Mastering Metrics*.
 
-- Social Science Research Institute at Duke University. (2015). "Resistance to Policy Manipulation in Natural Experiments: Causal Inference Bootcamp". *Video materials from Mod-U: Powerful Concepts in Social Science*.
+{{< youtube src="https://www.youtube.com/embed/6YrIDhaUQOE?controls=0" >}}
 
-{{< youtube src="https://www.youtube.com/embed/u1pOXq7THj8?controls=0" >}}
+- Cunningham, S. (2021). "Causal Inference: The Mixtape". [*Ch 5.1.3, Ch 5.1.4, and Ch 5.2*](https://mixtape.scunning.com/matching-and-subclassification.html#subclassification-exercise-titanic-mathrmdata-set)
 
 
 ## JITT
