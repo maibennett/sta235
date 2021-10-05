@@ -23,7 +23,7 @@ In this class we start talking about some observational studies and under what a
 
 ## JITT
 
-No JITT this week (JITT for next week will include questions about these videos). <!-- You can find the assignment [here](https://forms.gle/7Y6TaDH9GYezcnmB7). -->
+No JITT this week. <!-- You can find the assignment [here](https://forms.gle/7Y6TaDH9GYezcnmB7). -->
 
 ## Slides
 
