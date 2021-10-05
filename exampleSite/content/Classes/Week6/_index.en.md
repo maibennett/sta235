@@ -35,3 +35,12 @@ No JITT this week. <!-- You can find the assignment [here](https://forms.gle/7Y6
 ## Code
 
 Here is the R code we will review in class, with many additional questions! Remember to review it in detail after class <a onclick="ga('send', 'event', 'External-Link','click','code6','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/code/f2021_sta235h_8_RCT.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+
+## Resources
+
+- For those who want a shorter explanation on what selection on observables means and how we estimate causal effects under the CIA, check out these videos!
+
+{{< youtube src="https://www.youtube.com/embed/zZtL7cWN-3c" >}}
+
+
+{{< youtube src="https://www.youtube.com/embed/oXyGaOQ5PCs" >}}
