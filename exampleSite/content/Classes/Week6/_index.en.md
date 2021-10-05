@@ -27,16 +27,11 @@ No JITT this week (JITT for next week will include questions about these videos)
 
 ## Slides
 
-<!-- {{% button href="https://sta235.netlify.app/Classes/Week6/1_ObsStudies/f2021_sta235h_9_ObsStudies.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week6/1_ObsStudies/f2021_sta235h_9_ObsStudies.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.netlify.app/Classes/Week6/1_ObsStudies/f2021_sta235h_9_ObsStudies.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week6/1_ObsStudies/f2021_sta235h_9_ObsStudies.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
 {{< slides src="https://sta235.netlify.app/Classes/Week6/1_ObsStudies/f2021_sta235h_9_ObsStudies.html" >}} 
 
-<br>
-
-{{% button href="https://sta235.netlify.app/Classes/Week1/2_OLS/sp2021_sta235_2_reg.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week1/2_OLS/sp2021_sta235_2_reg.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
-
-{{< slides src="https://sta235.netlify.app/Classes/Week1/2_OLS/sp2021_sta235_2_reg.html" >}}  -->
 
 ## Code
 
-<!-- Here is the R code we will review in class, with some additional data and questions <a onclick="ga('send', 'event', 'External-Link','click','code1','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/code/sp2021_sta235_2_reg.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> -->
+Here is the R code we will review in class, with many additional questions! Remember to review it in detail after class <a onclick="ga('send', 'event', 'External-Link','click','code6','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/code/f2021_sta235h_8_RCT.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
