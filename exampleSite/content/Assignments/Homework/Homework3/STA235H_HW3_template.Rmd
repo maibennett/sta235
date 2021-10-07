@@ -1,0 +1,39 @@
+---
+title: "STA 235H - Homework 3" # You can put the title of your document here
+author: 
+  - Name 1  # You can include names here
+  - Name 2
+  - Name 3
+  - Name 4
+date: "October 14th, 2021"
+output: 
+  pdf_document: 
+    latex_engine: xelatex  # More modern PDF typesetting engine
+    fig_width: 5
+    fig_height: 4
+    fig_caption: true # If you want to include captions for your figures (usually you do)
+    toc: no #Do you want a Table of Contents?
+header-includes:
+   - \usepackage{float} #This is just a useful LaTeX package for positioning tables and figures
+urlcolor: blue #This is so links are highlighted (and more visible)
+---
+
+
+<!-- Usually, you should load all your packages at the beginning. If you don't have a package installed, you'll need to do that first! -->
+```{r setup, warning=FALSE, message=FALSE, echo=FALSE}
+library(stargazer)
+library(tidyverse)
+library(modelsummary)
+library(ggplot2)
+library(estimatr)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Task 1: Do it for the gram? (25 points)
+
+### Question 1.1
+
+**First, you need to set up the problem conceptually: What is your causal question?**
+
+*[Answer here]*
