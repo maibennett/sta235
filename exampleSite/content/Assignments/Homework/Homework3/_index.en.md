@@ -20,7 +20,7 @@ chapter: false
 
 ## Assignment
 
-You can find Homework 2 here: <a onclick="ga('send', 'event', 'External-Link','click','hw3','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework3/STA235H_Fall21_Homework3.html" target="_blank" class="btn btn-default"> Open HW3 <i class="fas fa-external-link-alt"></i></a>
+You can find Homework 3 here: <a onclick="ga('send', 'event', 'External-Link','click','hw3','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework3/STA235H_Fall21_Homework3.html" target="_blank" class="btn btn-default"> Open HW3 <i class="fas fa-external-link-alt"></i></a>
 
 ## Templates
 
