@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235H - Difference-in-Differences</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA 235H - Difference-in-Differences
+## Fall 2021
+### McCombs School of Business, UT Austin
+
+---
+
+
+&lt;!-- &lt;script type="text/javascript"&gt; --&gt;
+&lt;!-- MathJax.Hub.Config({ --&gt;
+&lt;!--   "HTML-CSS": { --&gt;
+&lt;!--     preferredFont: null, --&gt;
+&lt;!--     webFont:  "Neo-Euler" --&gt;
+&lt;!--   } --&gt;
+&lt;!-- }); --&gt;
+&lt;!-- &lt;/script&gt; --&gt;
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+&lt;/style&gt;
+
+
+
+
+# Another identification strategy
+
+- We have seen:
+
+.box-2[RCTs]
+
+.box-4[Selection on observables]
+
+.box-6[Natural experiments]
+
+--
+
+.box-7LA[Differences-in-Differences]
+
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Two wrongs make a right
+]
+
+---
+# Raising the minimum wage
+
+.box-5LA[What happens if we raise the minimum wage]
+
+--
+
+.box-5tL[Economic theory says there should be fewer jobs]
+
+--
+
+.box-5[New Jersey in 1992]
+
+.box-5[$4.25 → $5.05]
+
+---
+# Before vs After
+
+.box-2[Avg. # of jobs per fast food restaurant in NJ]
+
+--
+
+.box-2tL[New Jersey&lt;sub&gt;before&lt;/sub&gt; = 20.44]
+
+--
+
+.box-2tL[New Jersey&lt;sub&gt;after&lt;/sub&gt; = 21.03]
+
+--
+
+.box-2[∆ = 0.59]
+
+--
+
+.box-2[Is this a causal effect?]
+
+---
+# Treatment vs Control
+
+.box-3[Avg. # of jobs per fast food restaurant]
+
+--
+
+.box-3tL[Pennsylvania&lt;sub&gt;after&lt;/sub&gt; = 21.17]
+
+--
+
+.box-3tL[New Jersey&lt;sub&gt;after&lt;/sub&gt; = 21.03]
+
+--
+
+.box-3[∆ = -0.14]
+
+--
+
+.box-3[Is this a causal effect?]
+
+---
+# Problems
+
+.pull-left[
+.box-7[Before vs After]
+
+.box-6t[Only looking at the treatment group]
+
+.box-6t[Impossible to separate changes because of treatment or time]
+]
+
+--
+
+.pull-right[
+.box-7[Treatment vs Control]
+
+.box-6t[Only looking at post-treatment values]
+
+.box-6t[Impossible to separate changes because of treatment or differences in growth]
+]
+
+---
+
+.center2[
+![](https://media.giphy.com/media/3o85xIO33l7RlmLR4I/giphy.gif)]
+
+---
+# Differences-in-Differences
+
+The idea of a **.darkorange[DD]** analysis is to take the **.darkorange[within-unit growth]**...
+
+
+&lt;table style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; Pre mean &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; Post mean &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; &lt;u&gt; &lt;span class="small"&gt;(post - pre)&lt;/span&gt; &lt;/u&gt;
+&lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;"&gt; &lt;b&gt;A&lt;/b&gt;&lt;br&gt;&lt;span class="small"&gt;(never treated) &lt;/span&gt;
+&lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;"&gt; &lt;b&gt;B&lt;/b&gt;&lt;br&gt;&lt;span class="small"&gt;(never treated) &lt;/span&gt;
+&lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;background-color: #DDDDDD !important;"&gt; &lt;b&gt;B - A&lt;/b&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; Treatment &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;"&gt; &lt;b&gt;C&lt;/b&gt;&lt;br&gt;&lt;span class="small"&gt;(not yet treated) &lt;/span&gt;
+&lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;"&gt; &lt;b&gt;D&lt;/b&gt;&lt;br&gt;&lt;span class="small"&gt;(treated) &lt;/span&gt;
+&lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;background-color: #DDDDDD !important;"&gt; &lt;b&gt;D - C&lt;/b&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;color: #FFFFFF !important;background-color: #FFFFFF !important;"&gt; &lt;u&gt;&lt;br&gt;&lt;span class="smaller"&gt;(treatment - control)&lt;/span&gt; &lt;/u&gt;
+&lt;/td&gt;
+   &lt;td style="text-align:center;color: #FFFFFF !important;background-color: #FFFFFF !important;"&gt; &lt;b&gt;A - C&lt;/b&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;color: #FFFFFF !important;background-color: #FFFFFF !important;"&gt; &lt;b&gt;B - D&lt;/b&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #DDDDDD !important;color: #FFFFFF !important;background-color: #FFFFFF !important;"&gt; &lt;span class=""&gt;&lt;b&gt;(B - A) - (D - C)&lt;/b&gt;&lt;/span&gt; &lt;i&gt;or&lt;/i&gt;&lt;br&gt;&lt;span class=""&gt;&lt;b&gt;(B - D) - (A - C)&lt;/b&gt;&lt;/span&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+.box-5[∆ (post − pre) = &lt;b&gt;within-unit growth&lt;/b&gt;]
+
+---
+# Differences-in-Differences
+
+... and the **.darkorange[across-group growth]**...
+
+
+&lt;table style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; Pre mean &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; Post mean &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; &lt;span class="color-light-5"&gt;&lt;u&gt; &lt;span class="smaller"&gt;(post - pre)&lt;/span&gt;&lt;/u&gt;&lt;/span&gt; &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;"&gt; &lt;b&gt;A&lt;/b&gt;&lt;br&gt;&lt;span class="small"&gt;(never treated) &lt;/span&gt;
+&lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;"&gt; &lt;b&gt;B&lt;/b&gt;&lt;br&gt;&lt;span class="small"&gt;(never treated) &lt;/span&gt;
+&lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;color: #FFFFFF !important;background-color: #FFFFFF !important;"&gt; &lt;b&gt;B - A&lt;/b&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; Treatment &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;"&gt; &lt;b&gt;C&lt;/b&gt;&lt;br&gt;&lt;span class="small"&gt;(not yet treated) &lt;/span&gt;
+&lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;"&gt; &lt;b&gt;D&lt;/b&gt;&lt;br&gt;&lt;span class="small"&gt;(treated) &lt;/span&gt;
+&lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;color: #FFFFFF !important;background-color: #FFFFFF !important;"&gt; &lt;b&gt;D - C&lt;/b&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: #DDDDDD !important;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; &lt;u&gt;&lt;br&gt;&lt;span class="smaller"&gt;(treatment - control)&lt;/span&gt; &lt;/u&gt;
+&lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #DDDDDD !important;"&gt; &lt;b&gt;C - A&lt;/b&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #DDDDDD !important;"&gt; &lt;b&gt;D - B&lt;/b&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #DDDDDD !important;color: #FFFFFF !important;background-color: #FFFFFF !important;"&gt; &lt;span class=""&gt;&lt;b&gt;(B - A) - (D - C)&lt;/b&gt;&lt;/span&gt; &lt;i&gt;or&lt;/i&gt;&lt;br&gt;&lt;span class=""&gt;&lt;b&gt;(B - D) - (A - C)&lt;/b&gt;&lt;/span&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+.box-5[∆ (treatment − control) = &lt;b&gt;across-group growth&lt;/b&gt;]
+
+---
+# Differences-in-Differences
+
+... and **.darkorange[combine them!]**
+
+&lt;table style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; Pre mean &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; Post mean &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; &lt;u&gt; &lt;span class="smaller"&gt;(post - pre)&lt;/span&gt; &lt;/u&gt;
+&lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;"&gt; &lt;b&gt;A&lt;/b&gt;&lt;br&gt;&lt;span class="small"&gt;(never treated) &lt;/span&gt;
+&lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;"&gt; &lt;b&gt;B&lt;/b&gt;&lt;br&gt;&lt;span class="small"&gt;(never treated) &lt;/span&gt;
+&lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;background-color: #DDDDDD !important;"&gt; &lt;b&gt;B - A&lt;/b&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; Treatment &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;"&gt; &lt;b&gt;C&lt;/b&gt;&lt;br&gt;&lt;span class="small"&gt;(not yet treated) &lt;/span&gt;
+&lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;"&gt; &lt;b&gt;D&lt;/b&gt;&lt;br&gt;&lt;span class="small"&gt;(treated) &lt;/span&gt;
+&lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;background-color: #DDDDDD !important;"&gt; &lt;b&gt;D - C&lt;/b&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: #DDDDDD !important;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; &lt;u&gt;&lt;br&gt;&lt;span class="smaller"&gt;(treatment - control)&lt;/span&gt; &lt;/u&gt;
+&lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #DDDDDD !important;"&gt; &lt;b&gt;C - A&lt;/b&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #DDDDDD !important;"&gt; &lt;b&gt;D - B&lt;/b&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #DDDDDD !important;background-color: #DDDDDD !important;"&gt; &lt;span class="color-5"&gt;&lt;b&gt;(D - C) - (B - A)&lt;/b&gt;&lt;/span&gt; &lt;i&gt;or&lt;/i&gt;&lt;br&gt;&lt;span class="color-5"&gt;&lt;b&gt;(D - B) - (C - A)&lt;/b&gt;&lt;/span&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+.box-5[∆&lt;sub&gt;within units&lt;/sub&gt; − ∆&lt;sub&gt;across groups&lt;/sub&gt; =&lt;br&gt;Difference-in-differences =&lt;br&gt;causal effect!]
+
+---
+# Coming back to New Jersey
+
+&lt;br&gt;
+
+&lt;table style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; Pre mean &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; Post mean &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; &lt;u&gt; &lt;span class="smaller"&gt;(post - pre)&lt;/span&gt; &lt;/u&gt;
+&lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; Pennsylvania &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;"&gt; &lt;b&gt;23.33&lt;/b&gt;&lt;br&gt;&lt;span class="small"&gt;A &lt;/span&gt;
+&lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;"&gt; &lt;b&gt;21.17&lt;/b&gt;&lt;br&gt;&lt;span class="small"&gt;B &lt;/span&gt;
+&lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;background-color: #DDDDDD !important;"&gt; &lt;b&gt;-2.16&lt;/b&gt;&lt;br&gt;&lt;span class="small"&gt;B - A &lt;/span&gt;
+&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; New Jersey &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;"&gt; &lt;b&gt;20.44&lt;/b&gt;&lt;br&gt;&lt;span class="small"&gt;C &lt;/span&gt;
+&lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;"&gt; &lt;b&gt;21.03&lt;/b&gt;&lt;br&gt;&lt;span class="small"&gt;D &lt;/span&gt;
+&lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #FFFFFF !important;background-color: #DDDDDD !important;"&gt; &lt;b&gt;0.59&lt;/b&gt;&lt;br&gt;&lt;span class="small"&gt;D - C &lt;/span&gt;
+&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: #DDDDDD !important;font-weight: bold;color: #CF4446 !important;background-color: #FFC6C6 !important;"&gt; &lt;u&gt;&lt;br&gt;&lt;span class="smaller"&gt;(NJ - PA)&lt;/span&gt; &lt;/u&gt;
+&lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #DDDDDD !important;"&gt; &lt;b&gt;-2.89&lt;/b&gt;&lt;br&gt;&lt;span class="small"&gt;C - A &lt;/span&gt;
+&lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #DDDDDD !important;"&gt; &lt;b&gt;-0.14&lt;/b&gt;&lt;br&gt;&lt;span class="small"&gt;D - B &lt;/span&gt;
+&lt;/td&gt;
+   &lt;td style="text-align:center;background-color: #DDDDDD !important;background-color: #DDDDDD !important;"&gt; &lt;b&gt;(0.59) - (-2.16) = &lt;br&gt;&lt;span class="color-5"&gt;2.76&lt;/span&gt;&lt;/b&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+# How does it look in a plot?
+
+&lt;img src="f2021_sta235h_11_DD_annotate_files/figure-html/dd-graph-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Differences-in-Differences in practice
+
+- There's no need to manually estimate all group means..
+
+--
+
+.box-3[We can use regressions!]
+
+--
+
+- If the **.darkorange[two dimensions]** for our DD are *time* and *treatment*:
+
+`$$Y_i = \beta_0 + \beta_1Treat_i + \beta_2Post_i + \beta_3Treat_i \times Post_i + \varepsilon_i$$`
+where `\(Treat = 1\)` for the treatment group, and `\(Post=1\)` for the after period.
+
+--
+
+.box-7[Can you identify the different coefficients?]
+
+---
+# Differences-in-Differences in practice
+
+- There's no need to manually estimate all group means..
+
+
+.box-3[We can use regressions!]
+
+
+- If the **.darkorange[two dimensions]** for our DD are *time* and *treatment*:
+
+`$$Y_i = \beta_0 + \beta_1Treat_i + \beta_2Post_i + \beta_3Treat_i \times Post_i + \varepsilon_i$$`
+where `\(Treat = 1\)` for the treatment group, and `\(Post=1\)` for the after period.
+
+
+.box-7[&amp;beta;&lt;sub&gt;3&lt;/sub&gt; is the causal effect!]
+
+---
+# Some examples: Pokemon Go!
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_DD/images/pokemon1.png)]
+
+---
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_DD/images/pokemon2.png)]
+---
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_DD/images/pokemon3.png)]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Diff-in-Diff Assumptions
+]
+---
+# Assumptions
+
+.box-3LA[Parallel Trends]
+
+--
+
+.box-3tL[In the absence of the intervention, treatment and control group would have changed in the same way]
+
+---
+&lt;br&gt;
+
+&lt;img src="f2021_sta235h_11_DD_annotate_files/figure-html/plot-trends-1-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;br&gt;
+
+&lt;img src="f2021_sta235h_11_DD_annotate_files/figure-html/plot-trends-2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;br&gt;
+
+
+&lt;img src="f2021_sta235h_11_DD_annotate_files/figure-html/plot-trends-3-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Robustness Check
+
+.box-3LA[Parallel Trends]
+
+--
+
+.box-3tL[Check by pretending the treatment happened earlier; if there's an effect, there's likely an underlying trend]
+
+---
+&lt;br&gt;
+
+
+&lt;img src="f2021_sta235h_11_DD_annotate_files/figure-html/plot-trends-2-back-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;br&gt;
+
+
+&lt;img src="f2021_sta235h_11_DD_annotate_files/figure-html/plot-trends-3-back-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;br&gt;
+
+
+&lt;img src="f2021_sta235h_11_DD_annotate_files/figure-html/plot-trends-1-back-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Assumptions
+
+.box-3LA[Treatment timing]
+
+--
+
+.box-3tL[Units often receive treatment at different times,&lt;br&gt;which can distort your estimate!]
+
+---
+&lt;br&gt;
+
+
+&lt;img src="f2021_sta235h_11_DD_annotate_files/figure-html/gb-trends-1-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;br&gt;
+
+
+&lt;img src="f2021_sta235h_11_DD_annotate_files/figure-html/gb-trends-2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Staggered treatment adoptions
+
+- Units receive treatment at **.darkorange[different points in time]**
+
+--
+
+- Common solution so far has been a Two-Way Fixed Effect (TWFE) model
+
+.box-7[Y&lt;sub&gt;i&lt;/sub&gt; = &amp;alpha;&lt;sub&gt;i&lt;/sub&gt; + &amp;alpha;&lt;sub&gt;t&lt;/sub&gt; + &amp;beta;&lt;sup&gt;DD&lt;/sup&gt;D&lt;sub&gt;it&lt;/sub&gt; + &amp;epsilon;&lt;sub&gt;it&lt;/sub&gt;]
+
+--
+
+- **.darkorange[Problem]**: Weighted average of treatment effects
+
+.box-2[Not easily interpretable]
+
+---
+# Staggered treatment adoptions
+
+.box-3[You can check how big of an issue this is&lt;br&gt;with Goodman-Bacon decomposition]
+
+--
+
+.box-3t[R package: `bacondecomp`]
+
+.center[
+&lt;figure&gt;
+  &lt;img src="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_DD/images/goodman-bacon.png" alt="Goodman-Bacon paper" title="Goodman-Bacon paper" width="45%"&gt;
+&lt;/figure&gt;
+]
+
+---
+.center2[
+.box-3LA[Let's look at an example]]
+
+---
+# Look at what T.S. made me do
+
+- Like in the JITT, we will have data for Taylor Swift's popularity in the past 12 months.
+
+&lt;img src="f2021_sta235h_11_DD_annotate_files/figure-html/TS1-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# How many comparisons can we do?
+
+.center[
+![:scale 60%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_DD/images/bacon_goodman_1.jpg)]
+
+---
+
+.center2[
+.box-4LA[Let's go to R]
+]
+
+---
+# Takeaway points
+
+.pull-left[
+
+.center[
+&lt;br&gt;
+&lt;br&gt;
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_DD/images/bumpersticker.jpg)]
+
+]
+
+.pull-right[
+- There are other ways to **.darkorange[estimate causal effects beyond randomization]**
+
+- Always be careful of the **.darkorange[assumptions]**.
+
+  - Run robustness checks!
+
+- Don't confuse *assignment mechanisms* with *identification assumptions* 
+
+  - Note: Assignment mechanisms might make our identification assumption credible, **.darkorange[but they are not the same thing!]**
+]
+
+---
+# References
+
+- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 5*.
+
+- Baker, A. (2019). ["Difference-in-Differences Methodology"](https://andrewcbaker.netlify.app/2019/09/25/difference-in-differences-methodology/).
+
+- Goodman-Bacon, A. (2019). "Difference-in-Differences with variation in treatment timing". *NBER working paper*.
+
+- Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 8-9: Diff-in-diff I and II, Course at BYU*. 
+
+
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/2_DD/f2021_sta235h_11_DD.html') --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

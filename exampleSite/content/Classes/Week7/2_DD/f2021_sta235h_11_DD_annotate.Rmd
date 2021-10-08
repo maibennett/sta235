@@ -1078,7 +1078,7 @@ plot_early + plot_late
 
 ```{r TS1, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 # this shows popularity over time, including the release of one of her albums (on the week of 07/19/2020 for the west coast, and 08/09/2020 for the rest).
-swift <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/data/swift.csv")
+swift <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_DD/data/swift.csv")
 
 # Let's create some additional variables:
 
