@@ -323,8 +323,10 @@ library(tidyverse)
 library(extrafont)
 library(hrbrthemes)
 library(firasans)
+library(kableExtra)
 library(scales)
 library(patchwork)
+
 # for windows
 windowsFonts(sans = "Fira")
 loadfonts(device="win")
