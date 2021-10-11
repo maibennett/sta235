@@ -575,4 +575,130 @@ $$ATE_2 = E[Y(2) - Y(0)]$$
 
 .box-5[What if customers didn't know about the discount until they get there?]
 
+---
+# A true natural experiment: The Oregon Health Plan
+
+.pull-left[- In 2008, Oregon implemented a **.darkorange[limited expansion of Medicaid]**.
+
+- **.darkorange[Target population]**: Low-income adults.
+
+- People selected through a **.darkorange[lottery]**.]
+
+.pull-right[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_Natural_Experiments/images/map1_edited.jpg)
+]
+]
+
+
+---
+# The Oregon Health Plan
+
+.box-4[What is the treatment in this case? What is *randomized**?]
+
+--
+
+.box-5[What is our estimand of interest?]
+
+--
+
+.box-6[What about external validity? For what population is this effect generalizable?]
+
+--
+
+.box-7[What is the first thing you would do with the data?]
+
+---
+
+
+---
+# Other natural experiments
+
+- Natural experiments can arise from **.darkorange[anything]**!
+
+  - E.g. glitches in systems, allocation based on "random" variables.
+  
+--
+
+.box-7[Treatment assignment has to be [conditionally] independent of potential outcomes!]
+  
+---
+# Additional Examples: Fish and Phones
+
+.pull-left[
+- **.darkorange[Context]**: Kerala, 1997.
+
+- **.darkorange[Problem]**: Fishermen out at sea cannot observe prices in the different markets, and due to time constraints can only visit one.
+
+- **.darkorange[Identification Strategy]**: Natural source of variation when cellphones were introduced and rolled out geographically.
+]  
+.pull-right[
+.center[
+![:scale 85%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_Natural_Experiments/images/fish.png)
+]
+]
+
+---
+# Additional Examples: Fish and Phones
+
+.pull-left[
+- **.darkorange[Study]**: Jensen (2007) uses the variation to study prices in time depending on location.
+
+- **.darkorange[Results]**: Significant decrease in price variation!
+
+]  
+.pull-right[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_Natural_Experiments/images/phone.png)
+]
+]
+---
+# Additional Examples: Natural disasters
+
+
+- **.darkorange[Natural disasters]** such as hurricanes or earthquakes usually make for great natural experiments
+
+--
+
+  - As long as you can **.darkorange[credibly]** convince people they are not correlated with potential outcomes!
+
+--
+
+- Imagine that you have two cities, A and B, which both have equal probability of being affected by a hurricane:
+
+.box-2t[City A: Large city]
+
+.box-4t[City B: Smaller town]
+
+--
+
+- You want to study the effect of this natural disaster on unemployment. **.darkorange[Could you use this setting?]**
+
+---
+# Takeaway points
+
+.pull-left[
+.center[
+![:scale 90%](https://media.giphy.com/media/Y076VcCyqVMbs2Adwb/giphy-downsized-large.gif)
+]
+]
+
+.pull-right[
+- We don't always need to **.darkorange["randomize"]**.
+
+- We can exploit **.darkorange[natural variation]**.
+
+  - In **.darkorange[natural experiments]** we are approximating an ideal RCT very straightforwardly.
+  
+]
+---
+# References
+
+- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 2*.
+
+- NBER (2021). ["Oregon Health Insurance Experiment Background"](https://www.nber.org/programs-projects/projects-and-centers/oregon-health-insurance-experiment/oregon-health-insurance-experiment-background). *Summary of the policy*.
+
+- Jensen, R. (2007). "The Digital Provide: Information (Technology), Market Performance, and Welfare in the South Indian Fisheries Sector". *Quarterly Journal of Economics*.
+
+
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week6/1_ObsStudies/f2021_sta235h_9_ObsStudies.html') -->
