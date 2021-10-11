@@ -344,6 +344,13 @@ htmltools::tagList(
 font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
 font.add.google("Fira Sans", "Fira Sans")
 ```
+
+# Amazing week for Causal Inference!
+
+.center[
+![:scale 45%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_NaturalExperiments/images/nobel_prize.jpg)]
+
+---
 # Announcements
 
 .box-2LA[Homework 3 is due on Thursday]
@@ -358,9 +365,24 @@ font.add.google("Fira Sans", "Fira Sans")
 
   - There is <u>no collaboration allowed</u> between students.
   
+  - Starting next homework, there's <u>no collaboration allowed between students of different groups</u> either.
+  
+
+---
+# About the midterm
+
+- **.darkorange[Two review sessions for midterm]**:
+
+  - Friday 10/15: 11:00am - 12:00pm
+  - Monday 10/18: 4:00pm - 5:00pm
+  
+  - If attendance is < 10 students, no recording will be uploaded.
+ 
 --
 
-- **.darkorange[Review Session for midterm]**
+- Check out **.darkorange[questions]** in the slides and in the R Code:
+
+  - Feel free to check your answers with the instruction team.
 
   
 ---
@@ -431,7 +453,33 @@ Is there randomness out there?
 2. **.darkorange[As if random]**: Assignment to an intervention is not random, but it's not correlated with potential outcomes.
 
 --
+
 .box-6[Context matters!]
+
+---
+# Examples of natural experiments
+
+- **.darkorange[Oregon Health experiment]**: Lotteries for Medicaid expansion
+
+  - Random or "as if" random?
+  
+--
+
+- **.darkorange[Admission to charter schools]**
+
+  - Random or "as if" random?
+  
+--
+
+- **.darkorange[GreatSchool ranking availability]**: Roll-out between states
+
+  - Random or "as if" random?
+  
+--
+
+- **.darkorange[Glitch in information availability]**: Algorithmic tool used to assist child maltreatment hotline screening decisions.
+
+  - Random or "as if" random?
 
 ---
 # Potential outcomes in Observational Studies
