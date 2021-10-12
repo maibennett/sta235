@@ -56,6 +56,8 @@ summary(lm_dd)
 
 # Question: What is the coefficient of interest and how would you interpret it?
 
+# Task: Run a placebo test using a fake date for the glitch (you can use "2020-06-21" for this placebo)
+# Filter your dataset for dates before the glitch and run this placebo DD. What would you expect to see?
 
 ############################
 
