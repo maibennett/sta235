@@ -386,6 +386,13 @@ Two wrongs make a right
 .box-5[$4.25 → $5.05]
 
 ---
+# The setup
+
+.center[
+![:scale 55%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_DD/images/min_wage_map.png)]
+
+
+---
 # Before vs After
 
 .box-2[Avg. # of jobs per fast food restaurant in NJ]
@@ -596,6 +603,13 @@ ggplot(dd_data, aes(x = Time, y = avg, color = Group, group = Group)) +
         legend.background = element_rect(fill="white",colour ="white"),
         title = element_text(size=14))
 ```
+
+---
+# ... And the real plot!
+
+.center[
+![:scale 55%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_DD/images/min_wage_plot.png)]
+
 
 ---
 # Difference-in-Differences in practice
