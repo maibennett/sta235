@@ -95,3 +95,5 @@ summary(dd)
 
 # And let's look at this beautiful plot!
 ggdid(dd)
+
+# Question: Looking at the previous plot and table. Would you say the parallel trend assumption holds in the pre-intervention data?

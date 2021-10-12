@@ -590,7 +590,9 @@ $$ATE_2 = E[Y(2) - Y(0)]$$
 
 - **.darkorange[Target population]**: Low-income adults.
 
-- People selected through a **.darkorange[lottery]**.]
+- People selected through a **.darkorange[lottery]**.
+
+  - If a person was selected, their whole household was selected, too.]
 
 .pull-right[
 .center[
