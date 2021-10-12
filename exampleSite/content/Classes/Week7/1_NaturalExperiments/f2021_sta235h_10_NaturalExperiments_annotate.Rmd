@@ -351,6 +351,13 @@ font.add.google("Fira Sans", "Fira Sans")
 ![:scale 45%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_NaturalExperiments/images/nobel_prize.jpg)]
 
 ---
+# Perfect time to talk about natural experiments
+
+.center[
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_NaturalExperiments/images/nyt_nobel.png)]
+
+
+---
 # Announcements
 
 .box-2LA[Homework 3 is due on Thursday]
