@@ -17,8 +17,8 @@ library(tidyverse)
 library(ggplot2)
 library(estimatr)
 library(modelsummary)
-library(MatchIt)
 library(vtable)
+library(did)
 
 ###############################################################################
 ################ Look what Taylor Swift made me do
@@ -33,55 +33,65 @@ swift <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exam
 head(swift)
 
 # Let's look at the states
-table(swift$state)
+View(swift %>% group_by(state) %>% count())
 
 # Let's create some additional variables:
 
-swift <- swift %>% mutate(post1 = ifelse(dates >= as.Date("2020-07-19"), 1, 0), #This is when the glitch happen
-                          post2 = ifelse(dates >= as.Date("2020-08-09"), 1, 0)) #The the album became available for almost everyone
+# The glitch happened in "2020-07-19"
+# The album became available for all US states in "2020-08-09"
 
-# Let's assume that "treatment" is having the album available. Then,
+# Let's focus first on the time period before the album was available everywhere:
 
-swift <- swift %>% mutate(treat = ifelse(west_coast==1 & post1==1, 1,
-                                         ifelse(west_coast==0 & post2==1 & controls == 0, 1, 0)),# Look closely at this condition! What is does is: 1) If the state is in the west coast and it's after 07/19, treat = 1, then if west_coast = 0 and it's after 08/09, treat = 1. It will be 0 in all other cases. 
-                          period = factor(ifelse(post1==0 & post2==0, 0, ifelse(post1==1 & post2==0, 1, 2))), #Time 0 is before the album was available to anyone, time 1 is after it was available for the 1st group but not the 2nd, time 2 is when it's available for everyone.
-                          group = factor(ifelse(controls==1,0,ifelse(west_coast==1,1,2))), # Group 0 is the ones that never receive it, group 1 is the ones that receive it early, group 2 the ones that receive it late.
-                          date_num = as.numeric(as.Date(dates))) 
+swift_sub <- swift %>% filter(dates < as.Date("2020-08-09"))
 
-# Let's plot the data!
+# Let's create a variable post (1 if it's after the glitch, 0 in another case)
 
-swift %>% dplyr::select(group, dates, popularity) %>% 
-  group_by(group, dates) %>% summarise_all(mean) %>% # We first group our data (an summarize it) by date and whether the state was part of the glitch or not
-  ggplot(data = ., aes(x = as.Date(dates), y = popularity, color = factor(group), group = factor(group))) + # Then we plot the data
-  geom_line(lwd = 1.3) +
-  
-  scale_color_manual(values = c("#FCCE25","#900DA4","#F89441"), name = "Group", label = c("0" = "Weird", "1" = "West Coast", "2" = "Non west coast") ) + # We include personalized colors (to not use the default ones)
-  
-  geom_vline(aes(xintercept=as.Date("2020-07-19")), lty = 2, lwd=1.1, color = "#5601A4") + #Release of the album in the west coast
-  geom_vline(aes(xintercept=as.Date("2020-08-09")), lty = 2, lwd=1.1, color = "#E16462") + #Release of the album everywhere else
-  
-  labs(x = "Date", y = "Popularity Index", title = "Taylor Swift's popularity in the past 12 months")+
-  theme_bw()+
-  theme(plot.title = element_text(size=16))+
-  scale_x_date(date_labels = "%m-%Y", date_breaks = "2 month")
+swift_sub <- swift_sub %>% mutate(post = ifelse(dates >= as.Date("2020-07-19"), 1, 0))
+
+# Now, let's run a differences-in-differences model!
+
+lm_dd <- lm(popularity ~ west_coast*post, data = swift_sub)
+
+summary(lm_dd)
+
+# Question: What is the coefficient of interest and how would you interpret it?
 
 
+############################
 
-# Let's look at two states, like CA and PA: (uncomment to run)
+# Now let's look at the whole data:
 
-#swift %>% filter(state == "California") # Variable treat looks food
-#swift %>% filter(state == "Pennsylvania") # Variable treat looks food
+# We will be using the `att_gt()` function from the `did` package. It "computes an ATT in DID 
+#setups where there are more than two periods of data and allowing from treatment to ocurr at different points in time(...)"
 
-## What if we just ran the TWFE model?
+# First, we need a numeric variable that captures the different weeks. For this, we first transform character dates to actual dates (so R recognizes them as such)
+# Then we format that into weeks, and the transform that to numeric (it now basically gives you a number)
+swift <- swift %>% mutate(week = as.numeric(format(as.Date(dates), format = "%W")))
 
-summary(lm(popularity ~ factor(group) + factor(period) + treat, data = swift))
+# We also transform our state variable into numeric:
+swift <- swift %>% mutate(state_num = as.numeric(factor(state)))
 
-###############################
+# Now we need to create another variable that indicates when each state was treated:
 
-## Ok, let's do the Goodman-Bacon Decomposition:
-df_bacon <- bacon(popularity ~ treat, data = swift, id_var = "state", time_var = "date_num") # Make sure the time_var is numeric
+# First, create a variable treat that will have the week that state was first treated:
+swift <- swift %>% mutate(week.treat = ifelse(west_coast==1, as.numeric(format(as.Date("2020-07-19"), format = "%W")), 0))
 
-df_bacon # Question: Can you interpret these effects looking at the popularity plot?
+# Then, we will transform that same variable treat, but now we are going to assign the weeh of 09/08 to those states 
+# not in the west coast, after the album was available for everyone (if not, treat is going to be maintained the same)
+swift <- swift %>% mutate(week.treat = ifelse(west_coast==0 & controls==0, as.numeric(format(as.Date("2020-08-09"), format = "%W")), week.treat))
 
-coef_bacon <- sum(df_bacon$estimate * df_bacon$weight)
-print(paste("Weighted sum of decomposition =", round(coef_bacon, 4))) #It's the same as the TWFE model!
+# Now, let's implement the actual function
+
+# - yname: The name of the outcome
+# - tname: Name of the time variable (identifies before and after)
+# - idname: The individual cross-sectional unit id name.
+# - gname: The name of the variable in the data that contains the first period when a particular obs is treated.
+
+dd <- att_gt(yname = "popularity", tname = "week", idname = "state_num",
+             gname = "week.treat", data = swift)
+
+# This gives us the ATT for each week in our data for the two different groups we have (first one treated on week 28 and 2nd one treated on week 31)
+summary(dd)
+
+# And let's look at this beautiful plot!
+ggdid(dd)

@@ -328,7 +328,7 @@ windowsFonts(sans = "Fira")
 loadfonts(device="win")
 loadfonts(device="postscript")
 
-xaringanExtra::use_scribble()
+#xaringanExtra::use_scribble()
 
 htmltools::tagList(
   xaringanExtra::use_clipboard(
@@ -427,7 +427,7 @@ font.add.google("Fira Sans", "Fira Sans")
   
   - Use exogeneous variation to identify causal effects.
   
-- **.darkorange[Differences in Differences]**:
+- **.darkorange[Difference-in-Differences]**:
 
   - Using two dimensions for identification.
   
@@ -667,4 +667,4 @@ $$ATE_2 = E[Y(2) - Y(0)]$$
 - Jensen, R. (2007). "The Digital Provide: Information (Technology), Market Performance, and Welfare in the South Indian Fisheries Sector". *Quarterly Journal of Economics*.
 
 
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week6/1_ObsStudies/f2021_sta235h_9_ObsStudies.html') -->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/1_NaturalExperiments/f2021_sta235h_10_NaturalExperiments.html') -->
