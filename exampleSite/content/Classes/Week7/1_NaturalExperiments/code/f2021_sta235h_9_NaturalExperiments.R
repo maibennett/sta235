@@ -27,6 +27,11 @@ library(vtable)
 
 oregon <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_NaturalExperiments/data/oregonhie_simplified.csv") #Load the data (almost 75k obs)
 
+# If the above data takes too long to load in your computer, try this other sample (random small sample): (uncomment the following line)
+#oregon <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_NaturalExperiments/data/oregonhie_simplified_small.csv") #Load the data (almost 73k obs)
+
+
+
 # This is data from the Oregon Health Insurance Experiment (publicly available at NBER)
 # These are two datasets combined: Variables that end in *_list are from the individuals that applied to the lottery. 
 # Variables ending in *_12m are from a survey sent out to a subsample 12 months later.
