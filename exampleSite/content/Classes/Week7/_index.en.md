@@ -49,4 +49,4 @@ Code for Natural Experiments <a onclick="ga('send', 'event', 'External-Link','cl
 
 <br>
 
-Code for Difference-in-Differences <a onclick="ga('send', 'event', 'External-Link','click','code11','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_NaturalExperiments/code/f2021_sta235h_10_DD.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+Code for Difference-in-Differences <a onclick="ga('send', 'event', 'External-Link','click','code11','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_DD/code/f2021_sta235h_10_DD.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
