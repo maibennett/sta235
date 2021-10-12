@@ -374,8 +374,6 @@ font.add.google("Fira Sans", "Fira Sans")
 - Remember: **.darkorange[Midterm is an individual assignment]**
 
   - There is <u>no collaboration allowed</u> between students.
-  
-  - Starting next homework, there's <u>no collaboration allowed between students of different groups</u> either.
 
 --
 
@@ -467,27 +465,28 @@ Is there randomness out there?
 ---
 # Examples of natural experiments
 
-- **.darkorange[Oregon Health experiment]**: Lotteries for Medicaid expansion
 
-  - Random or "as if" random?
+.box-2[Random or "as if" random?]
+
+--
+
+- **.darkorange[Oregon Health experiment]**: Lotteries for Medicaid expansion.
+
+--
+
+- **.darkorange[Vietnam Draft]**: Impact of military service/education (GI Bill) on earnings.
   
 --
 
-- **.darkorange[Admission to charter schools]**
-
-  - Random or "as if" random?
+- **.darkorange[Lottery winners]**: Impact of unearned income on labor earnings.
   
 --
 
-- **.darkorange[GreatSchool ranking availability]**: Roll-out between states
-
-  - Random or "as if" random?
+- **.darkorange[GreatSchool ranking availability]**: Roll-out between states.
   
 --
 
 - **.darkorange[Glitch in information availability]**: Algorithmic tool used to assist child maltreatment hotline screening decisions.
-
-  - Random or "as if" random?
 
 ---
 # Potential outcomes in Observational Studies
