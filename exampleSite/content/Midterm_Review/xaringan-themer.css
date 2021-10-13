@@ -413,13 +413,13 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 }
 .box-1trans,.box-2trans,.box-3trans,.box-4trans,.box-5trans,.box-6trans,.box-7trans {
   background-color: #FFFFFF;
-  font-family: Yanone Kaffeesatz;
+  font-family: Jost;
   border-radius: 15px;
   margin: 0em auto;
   overflow: hidden;
   padding: 0.4em 0.4em;
-  font-weight: 600;
-  font-size: 31px;
+  font-weight: 400;
+  font-size: 28px;
   display: table;
   text-align: center;
   border-width: thick;
@@ -441,13 +441,13 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 }
 .box-1transl,.box-2transl,.box-3transl,.box-4transl,.box-5transl,.box-6transl,.box-7transl {
   background-color: #FFFFFF;
-  font-family: Yanone Kaffeesatz;
+  font-family: Jost;
   border-radius: 15px;
   left: 0px;
   overflow: hidden;
   padding: 0.4em 0.4em;
-  font-weight: 600;
-  font-size: 31px;
+  font-weight: 400;
+  font-size: 28px;
   display: table;
   text-align: left;
   border-width: thick;

@@ -64,6 +64,8 @@ class: center, middle, inverse, title-slide
 - Interpreting regression coefficients:
   
   - Associations and causality
+  
+  - Selection bias and heterogeneous return to treatment bias
 
 - Difference-in-Differences
 ]
@@ -73,48 +75,154 @@ class: center, middle, inverse, title-slide
 ]
 
 ---
-# Let's practice
+# Let's practice: Identify P.O. and estimands of interest
 
-.box-5[Identify P.O. and estimands of interest]
-
---
-
-- A company offers a 0%, 10%, or 15% discount to customers, depending on their time of arrival. We want to identify what is the effect of different discounts on the average purchase amount.
+.box-2trans[A company offers a 0%, 10%, or 15% discount to customers, depending on their time of arrival. We want to identify what is the effect of different discounts on the average purchase amount.]
 
 --
-
-- At a university, we are evaluating mechanisms to help students succeed and keep at least a minimum level of academic achievement. We are looking into the effect of academic probation on drop out.
-
---
-
-- We ran a retail store and want to assess the impact that a snow storm might have on our sales. We use data from past February 2021 and conduct a difference-in-differences analysis between retail stores in Texas and Lousiana a week before and a week after the snow storm.
-
----
-# Let's practice: Answers
-
-.box-5[Identify P.O. and estimands of interest]
-
---
+&lt;br&gt;
 
 - **.darkorange[Potential outcomes]**: (1) How much would an individual purchase *if the had a 10% discount*; (2) How much would an individual purchase *if the had a 15% discount*; (3) How much would an individual purchase *if the had a 0% discount*;
 
 - **.darkorange[Estimand]**: Average Treatment Effect (ATE). Expected difference in amount of purchase if individuals received a 10% (15%) discount vs if they did not receive a discount.
 
+
+---
+# Let's practice: Identify P.O. and estimands of interest
+
+.box-4trans[At a university, we are evaluating mechanisms to help students succeed and keep at least a minimum level of academic achievement. We are looking into the effect of academic probation on drop out.]
+
 --
+&lt;br&gt;
 
 - **.darkorange[Potential outcomes]**: (1) Whether a student drops out or not *if they were on academic probation*; (2) Whether a student drops out or not *if they were not on academic probation*;
 
 - **.darkorange[Estimand]**: Average Treatment Effect (ATE). Expected difference in probability of dropping out if students were in probation vs if students were not in probation.
 
+
+---
+# Let's practice: Identify P.O. and estimands of interest
+
+.box-7trans[We ran a retail store and want to assess the impact that a snow storm might have on our sales. We use data from past February 2021 and conduct a difference-in-differences analysis between retail stores in Texas and Lousiana a week before and a week after the snow storm.]
+
 --
+&lt;br&gt;
 
 - **.darkorange[Potential outcomes]**: (1) Sales in a retail store *if it was not hit by a snow storm*; (2) Sales in a retail store *if it was hit by a snow storm*
 
 - **.darkorange[Estimand]**: Average Treatment Effect on the Treated (ATT). Expected difference in sales if stores in Texas had been hit by a snow storm vs if stores in Texas had not been hit by a snow storm.
 
+
 ---
 # Interpreting regression coefficients
 
+- "US earnings data, as provided in an annual survey of Parade (here from 2005), the Sunday newspaper magazine"
+
+
+```r
+library(tidyverse)
+library(modelsummary)
+
+parade &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Midterm_Review/data/Parade2005.csv")
+
+head(parade)
+```
+
+```
+##   earnings age gender state celebrity
+## 1    10000  26   male    ND        no
+## 2 10000000  18 female    CA       yes
+## 3    85000  39   male    NE        no
+## 4    75000  50 female    NC        no
+## 5    91500  61   male    DE        no
+## 6    49500  39 female    SD        no
+```
+
+---
+# Interpreting regression coefficients
+
+- Interpret the coefficient for `celebrity`
+.small[
+
+```r
+summary(lm(earnings ~ age + gender + celebrity, data = parade))
+```
+
+```
+## 
+## Call:
+## lm(formula = earnings ~ age + gender + celebrity, data = parade)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -16733285   -328596   -195953    366902  24530165 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   -575076    1223225  -0.470    0.639    
+## age              6621      28753   0.230    0.818    
+## gendermale     702218     620295   1.132    0.260    
+## celebrityyes 17157296    1140268  15.047   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3526000 on 126 degrees of freedom
+## Multiple R-squared:  0.6526,	Adjusted R-squared:  0.6444 
+## F-statistic: 78.91 on 3 and 126 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+---
+# Bias in causal estimates
+
+- What would be an example of **.darkorange[selection bias]** if we wanted to estimate the effect of being a celebrity on earnings?
+
+--
+  
+  - Think about something that alters baseline earnings (e.g. celebrities are more self-driven, so even if they were not celebrities, they might have higher earnings than non-celebrities)
+  
+--
+
+- What would be an example of **.darkorange[heterogeneous return to treatment bias]** if we wanted to estimate the effect of being a celebrity on earnings?
+
+--
+
+  - Think about how people self-select into the treatment (e.g. being a celebrity) based on their expected return (e.g. individuals become celebrities (or try to) if they think they would be particularly successful at it (are outgoing, spontaneous, likeable) vs those that choose not to, because they'd probably be terrible at it and not get any benefits)
+
+---
+# Interpreting regression coefficients
+
+- Does female celebrities earn more than male celebrities? Identify the coefficients.
+.small[
+
+```r
+summary(lm(earnings ~ age + gender*celebrity, data = parade))
+```
+
+```
+## 
+## Call:
+## lm(formula = earnings ~ age + gender * celebrity, data = parade)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -20482259    -87764      4505    100394  20423128 
+## 
+## Coefficients:
+##                         Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)              -360484    1160949  -0.311 0.756692    
+## age                        10513      27277   0.385 0.700591    
+## gendermale                  3425     614769   0.006 0.995564    
+## celebrityyes            13389167    1450158   9.233 8.51e-16 ***
+## gendermale:celebrityyes  8250412    2116490   3.898 0.000157 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3343000 on 125 degrees of freedom
+## Multiple R-squared:  0.6903,	Adjusted R-squared:  0.6804 
+## F-statistic: 69.65 on 4 and 125 DF,  p-value: &lt; 2.2e-16
+```
+]
 
 ---
 # Difference-in-Differences: Math matters!
@@ -127,9 +235,6 @@ class: center, middle, inverse, title-slide
 
 
 ```r
-library(tidyverse)
-library(modelsummary)
-
 math &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Midterm_Review/data/math_reform.csv")
 
 head(math)
@@ -158,7 +263,7 @@ head(math)
 
 --
 
-- I do a quick analysis, and find that early adopters are predominately &lt;u&gt;democratic states&lt;/u&gt; (vs. late adopters, which tend to be more &lt;u&gt;conservative states&lt;/u&gt;). **Is this a problem for my DD analysis?**
+- I do a quick analysis, and find that early adopters are predominately &lt;u&gt;democratic states&lt;/u&gt; (vs. late adopters, which tend to be more &lt;u&gt;conservative states&lt;/u&gt;). **.darkorange[Is this a problem for my DD analysis?]**
 
 ---
 
@@ -167,11 +272,27 @@ head(math)
 ]
 
 ---
+
+.center2[
+.box-2LA[Any additional questions?]
+]
+
+---
 # Main takeaway points
 
 - Don't **.darkorange[blindly]** copy-paste answers:
   
-  - Always identify your **.darkorange[key elements]**: (1) Outcome, (2) Treatment (Control), (3) Assignment mechanism, (4) Assumptions.
+  - Always identify your **.darkorange[key elements]**: 
+    (1) Outcome, 
+    (2) Treatment (Control), 
+    (3) Assignment mechanism, 
+    (4) Assumptions
+    
+- We don't always need **.darkorange[random assignment]** for causal inference.
+
+- Remember that a confounder needs to affect both **.darkorange[the treatment]** and **.darkorange[the outcome]**.
+
+  - One is not enough! (If not, any unbalance would cause confounding)
   
   
   

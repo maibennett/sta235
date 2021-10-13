@@ -111,13 +111,13 @@ style_mono_accent(
     ".box-7,.box-7a,.box-7s,.box-7b,.box-7l,.box-7LA,.section-title-7" = list("background-color" = "#FCCE25"),
    
     ".box-1trans,.box-2trans,.box-3trans,.box-4trans,.box-5trans,.box-6trans,.box-7trans" = list("background-color" = "#FFFFFF",
-                                                                                                 "font-family" = "Yanone Kaffeesatz",
+                                                                                                 "font-family" = "Jost",
                                                                                                  "border-radius" = "15px",
                                                                                                  "margin" = "0em auto",
                                                                                                  "overflow" = "hidden",
                                                                                                  "padding" = "0.4em 0.4em",
-                                                                                                 "font-weight" = "600",
-                                                                                                 "font-size" = "31px",
+                                                                                                 "font-weight" = "400",
+                                                                                                 "font-size" = "28px",
                                                                                                  "display" = "table",
                                                                                                  "text-align" = "center",
                                                                                                  "border-width" = "thick",
@@ -137,13 +137,13 @@ style_mono_accent(
                                                                                                  "color" = "#333f48"),
    
        ".box-1transl,.box-2transl,.box-3transl,.box-4transl,.box-5transl,.box-6transl,.box-7transl" = list("background-color" = "#FFFFFF",
-                                                                                                           "font-family" = "Yanone Kaffeesatz",
+                                                                                                           "font-family" = "Jost",
                                                                                                            "border-radius" = "15px",
                                                                                                            "left" = "0px",
                                                                                                            "overflow" = "hidden",
                                                                                                            "padding" = "0.4em 0.4em",
-                                                                                                           "font-weight" = "600",
-                                                                                                           "font-size" = "31px",
+                                                                                                           "font-weight" = "400",
+                                                                                                           "font-size" = "28px",
                                                                                                            "display" = "table",
                                                                                                            "text-align" = "left",
                                                                                                            "border-width" = "thick",
@@ -353,6 +353,8 @@ font.add.google("Fira Sans", "Fira Sans")
 - Interpreting regression coefficients:
   
   - Associations and causality
+  
+  - Selection bias and heterogeneous return to treatment bias
 
 - Difference-in-Differences
 ]
@@ -362,56 +364,94 @@ font.add.google("Fira Sans", "Fira Sans")
 ]
 
 ---
-# Let's practice
+# Let's practice: Identify P.O. and estimands of interest
 
-.box-5[Identify P.O. and estimands of interest]
-
---
-
-- A company offers a 0%, 10%, or 15% discount to customers, depending on their time of arrival. We want to identify what is the effect of different discounts on the average purchase amount.
+.box-2trans[A company offers a 0%, 10%, or 15% discount to customers, depending on their time of arrival. We want to identify what is the effect of different discounts on the average purchase amount.]
 
 --
-
-- At a university, we are evaluating mechanisms to help students succeed and keep at least a minimum level of academic achievement. We are looking into the effect of academic probation on drop out.
-
---
-
-- We ran a retail store and want to assess the impact that a snow storm might have on our sales. We use data from past February 2021 and conduct a difference-in-differences analysis between retail stores in Texas and Lousiana a week before and a week after the snow storm.
-
----
-# Let's practice: Answers
-
-.box-5[Identify P.O. and estimands of interest]
-
---
+<br>
 
 - **.darkorange[Potential outcomes]**: (1) How much would an individual purchase *if the had a 10% discount*; (2) How much would an individual purchase *if the had a 15% discount*; (3) How much would an individual purchase *if the had a 0% discount*;
 
 - **.darkorange[Estimand]**: Average Treatment Effect (ATE). Expected difference in amount of purchase if individuals received a 10% (15%) discount vs if they did not receive a discount.
 
+
+---
+# Let's practice: Identify P.O. and estimands of interest
+
+.box-4trans[At a university, we are evaluating mechanisms to help students succeed and keep at least a minimum level of academic achievement. We are looking into the effect of academic probation on drop out.]
+
 --
+<br>
 
 - **.darkorange[Potential outcomes]**: (1) Whether a student drops out or not *if they were on academic probation*; (2) Whether a student drops out or not *if they were not on academic probation*;
 
 - **.darkorange[Estimand]**: Average Treatment Effect (ATE). Expected difference in probability of dropping out if students were in probation vs if students were not in probation.
 
+
+---
+# Let's practice: Identify P.O. and estimands of interest
+
+.box-7trans[We ran a retail store and want to assess the impact that a snow storm might have on our sales. We use data from past February 2021 and conduct a difference-in-differences analysis between retail stores in Texas and Lousiana a week before and a week after the snow storm.]
+
 --
+<br>
 
 - **.darkorange[Potential outcomes]**: (1) Sales in a retail store *if it was not hit by a snow storm*; (2) Sales in a retail store *if it was hit by a snow storm*
 
 - **.darkorange[Estimand]**: Average Treatment Effect on the Treated (ATT). Expected difference in sales if stores in Texas had been hit by a snow storm vs if stores in Texas had not been hit by a snow storm.
 
+
 ---
 # Interpreting regression coefficients
+
+- "US earnings data, as provided in an annual survey of Parade (here from 2005), the Sunday newspaper magazine"
 
 ```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(modelsummary)
 
-gas <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Midterm_Review/data/NaturalGas.csv")
+parade <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Midterm_Review/data/Parade2005.csv")
 
-head(gas)
+head(parade)
 ```
+
+---
+# Interpreting regression coefficients
+
+- Interpret the coefficient for `celebrity`
+.small[
+```{r, message=FALSE, warning=FALSE}
+summary(lm(earnings ~ age + gender + celebrity, data = parade))
+```
+]
+
+---
+# Bias in causal estimates
+
+- What would be an example of **.darkorange[selection bias]** if we wanted to estimate the effect of being a celebrity on earnings?
+
+--
+  
+  - Think about something that alters baseline earnings (e.g. celebrities are more self-driven, so even if they were not celebrities, they might have higher earnings than non-celebrities)
+  
+--
+
+- What would be an example of **.darkorange[heterogeneous return to treatment bias]** if we wanted to estimate the effect of being a celebrity on earnings?
+
+--
+
+  - Think about how people self-select into the treatment (e.g. being a celebrity) based on their expected return (e.g. individuals become celebrities (or try to) if they think they would be particularly successful at it (are outgoing, spontaneous, likeable) vs those that choose not to, because they'd probably be terrible at it and not get any benefits)
+
+---
+# Interpreting regression coefficients
+
+- Does female celebrities earn more than male celebrities? Identify the coefficients.
+.small[
+```{r, message=FALSE, warning=FALSE}
+summary(lm(earnings ~ age + gender*celebrity, data = parade))
+```
+]
 
 ---
 # Difference-in-Differences: Math matters!
@@ -450,6 +490,12 @@ head(math)
 ]
 
 ---
+
+.center2[
+.box-2LA[Any additional questions?]
+]
+
+---
 # Main takeaway points
 
 - Don't **.darkorange[blindly]** copy-paste answers:
@@ -464,7 +510,7 @@ head(math)
 
 - Remember that a confounder needs to affect both **.darkorange[the treatment]** and **.darkorange[the outcome]**.
 
-  - One is not enough! (If not, any unbalance would cause confounding!)
+  - One is not enough! (If not, any unbalance would cause confounding)
   
   
   
