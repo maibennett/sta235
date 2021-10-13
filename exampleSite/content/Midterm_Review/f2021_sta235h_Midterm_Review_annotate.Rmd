@@ -353,8 +353,6 @@ font.add.google("Fira Sans", "Fira Sans")
 - Interpreting regression coefficients:
   
   - Associations and causality
-  
-- Matching
 
 - Difference-in-Differences
 ]
@@ -404,6 +402,70 @@ font.add.google("Fira Sans", "Fira Sans")
 - **.darkorange[Estimand]**: Average Treatment Effect on the Treated (ATT). Expected difference in sales if stores in Texas had been hit by a snow storm vs if stores in Texas had not been hit by a snow storm.
 
 ---
-# 
+# Interpreting regression coefficients
 
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(modelsummary)
+
+gas <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Midterm_Review/data/NaturalGas.csv")
+
+head(gas)
+```
+
+---
+# Difference-in-Differences: Math matters!
+
+- We want to analyze the effect of compulsory math reforms (at the state level) on future income
+
+--
+
+.box-3[Let's DiD]
+
+```{r, message=FALSE, warning=FALSE}
+math <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Midterm_Review/data/math_reform.csv")
+
+head(math)
+```
+
+---
+# Difference-in-Differences: Math matters!
+
+- What is the **.darkorange[estimand]** in this case?
+
+--
+
+- What are the **.darkorange[two dimensions]** we will be leveraging in this DD analysis?
+
+  - Think about the difference we will be calculating! (across which dimensions?)
+
+--
+
+- I do a quick analysis, and find that early adopters are predominately <u>democratic states</u> (vs. late adopters, which tend to be more <u>conservative states</u>). **.darkorange[Is this a problem for my DD analysis?]**
+
+---
+
+.center2[
+.box-4LA[Let's go to R]
+]
+
+---
+# Main takeaway points
+
+- Don't **.darkorange[blindly]** copy-paste answers:
+  
+  - Always identify your **.darkorange[key elements]**: 
+    (1) Outcome, 
+    (2) Treatment (Control), 
+    (3) Assignment mechanism, 
+    (4) Assumptions
+    
+- We don't always need **.darkorange[random assignment]** for causal inference.
+
+- Remember that a confounder needs to affect both **.darkorange[the treatment]** and **.darkorange[the outcome]**.
+
+  - One is not enough! (If not, any unbalance would cause confounding!)
+  
+  
+  
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/1_NaturalExperiments/f2021_sta235h_10_NaturalExperiments.html') -->

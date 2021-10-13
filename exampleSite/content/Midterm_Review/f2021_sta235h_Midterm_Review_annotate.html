@@ -64,8 +64,6 @@ class: center, middle, inverse, title-slide
 - Interpreting regression coefficients:
   
   - Associations and causality
-  
-- Matching
 
 - Difference-in-Differences
 ]
@@ -74,6 +72,109 @@ class: center, middle, inverse, title-slide
 ![](https://media.giphy.com/media/a7NBvg3Ss8UYo/giphy.gif)
 ]
 
+---
+# Let's practice
+
+.box-5[Identify P.O. and estimands of interest]
+
+--
+
+- A company offers a 0%, 10%, or 15% discount to customers, depending on their time of arrival. We want to identify what is the effect of different discounts on the average purchase amount.
+
+--
+
+- At a university, we are evaluating mechanisms to help students succeed and keep at least a minimum level of academic achievement. We are looking into the effect of academic probation on drop out.
+
+--
+
+- We ran a retail store and want to assess the impact that a snow storm might have on our sales. We use data from past February 2021 and conduct a difference-in-differences analysis between retail stores in Texas and Lousiana a week before and a week after the snow storm.
+
+---
+# Let's practice: Answers
+
+.box-5[Identify P.O. and estimands of interest]
+
+--
+
+- **.darkorange[Potential outcomes]**: (1) How much would an individual purchase *if the had a 10% discount*; (2) How much would an individual purchase *if the had a 15% discount*; (3) How much would an individual purchase *if the had a 0% discount*;
+
+- **.darkorange[Estimand]**: Average Treatment Effect (ATE). Expected difference in amount of purchase if individuals received a 10% (15%) discount vs if they did not receive a discount.
+
+--
+
+- **.darkorange[Potential outcomes]**: (1) Whether a student drops out or not *if they were on academic probation*; (2) Whether a student drops out or not *if they were not on academic probation*;
+
+- **.darkorange[Estimand]**: Average Treatment Effect (ATE). Expected difference in probability of dropping out if students were in probation vs if students were not in probation.
+
+--
+
+- **.darkorange[Potential outcomes]**: (1) Sales in a retail store *if it was not hit by a snow storm*; (2) Sales in a retail store *if it was hit by a snow storm*
+
+- **.darkorange[Estimand]**: Average Treatment Effect on the Treated (ATT). Expected difference in sales if stores in Texas had been hit by a snow storm vs if stores in Texas had not been hit by a snow storm.
+
+---
+# Interpreting regression coefficients
+
+
+---
+# Difference-in-Differences: Math matters!
+
+- We want to analyze the effect of compulsory math reforms (at the state level) on future income
+
+--
+
+.box-3[Let's DiD]
+
+
+```r
+library(tidyverse)
+library(modelsummary)
+
+math &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Midterm_Review/data/math_reform.csv")
+
+head(math)
+```
+
+```
+##   class   state reform_math reformyr_math incearn_ln
+## 1  1975 Alabama           0          1985   10.14174
+## 2  1976 Alabama           0          1985   10.13407
+## 3  1977 Alabama           0          1985   10.10521
+## 4  1978 Alabama           0          1985   10.10548
+## 5  1979 Alabama           0          1985   10.06532
+## 6  1980 Alabama           0          1985   10.10307
+```
+
+---
+# Difference-in-Differences: Math matters!
+
+- What is the **.darkorange[estimand]** in this case?
+
+--
+
+- What are the **.darkorange[two dimensions]** we will be leveraging in this DD analysis?
+
+  - Think about the difference we will be calculating! (across which dimensions?)
+
+--
+
+- I do a quick analysis, and find that early adopters are predominately &lt;u&gt;democratic states&lt;/u&gt; (vs. late adopters, which tend to be more &lt;u&gt;conservative states&lt;/u&gt;). **Is this a problem for my DD analysis?**
+
+---
+
+.center2[
+.box-4LA[Let's go to R]
+]
+
+---
+# Main takeaway points
+
+- Don't **.darkorange[blindly]** copy-paste answers:
+  
+  - Always identify your **.darkorange[key elements]**: (1) Outcome, (2) Treatment (Control), (3) Assignment mechanism, (4) Assumptions.
+  
+  
+  
 &lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/1_NaturalExperiments/f2021_sta235h_10_NaturalExperiments.html') --&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
