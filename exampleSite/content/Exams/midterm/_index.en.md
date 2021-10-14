@@ -31,7 +31,7 @@ chapter: false
 <a onclick="ga('send', 'event', 'External-Link','click','midterm_code','0','Link');" href="https://sta235.netlify.app/exams/midterm/STA235H_midterm_template.R" target="_blank" class="btn btn-default"> Rcode Template <i class="fas fa-external-link-alt"></i></a> 
 <br>
 
-<a onclick="ga('send', 'event', 'External-Link','click','midterm_rmd','0','Link');" href="https://sta235.netlify.app/exams/midterm/STA235H_midterm_template.Rmd" target="_blank" class="btn btn-default"> Rmarkdown Template <i class="fas fa-external-link-alt"></i></a> --> 
+<a onclick="ga('send', 'event', 'External-Link','click','midterm_rmd','0','Link');" href="https://sta235.netlify.app/exams/midterm/STA235H_midterm_template.Rmd" target="_blank" class="btn btn-default"> Rmarkdown Template <i class="fas fa-external-link-alt"></i></a>
 
 
 <!-- ## Answer Key
