@@ -21,17 +21,17 @@ chapter: false
 
 ## Midterm
 
-<!-- - You can find Homework 1 here: <a onclick="ga('send', 'event', 'External-Link','click','hw1','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework1/STA235H_Fall21_Homework1.html" target="_blank" class="btn btn-default"> Open HW1 <i class="fas fa-external-link-alt"></i></a> 
+- You can find the midterm exam here: <a onclick="ga('send', 'event', 'External-Link','click','midterm','0','Link');" href="https://sta235.netlify.app/exams/midterm/STA235H_Fall21_Midterm.html" target="_blank" class="btn btn-default"> Open HW1 <i class="fas fa-external-link-alt"></i></a> 
 
 ## Templates
 
-<a onclick="ga('send', 'event', 'External-Link','click','hw1_doc','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework1/STA235H_HW1_template.docx" target="_blank" class="btn btn-default"> Write-up Template <i class="fas fa-external-link-alt"></i></a> 
+<a onclick="ga('send', 'event', 'External-Link','click','midterm_doc','0','Link');" href="https://sta235.netlify.app/exams/midterm/STA235H_midterm_template.docx" target="_blank" class="btn btn-default"> Write-up Template <i class="fas fa-external-link-alt"></i></a> 
 <br>
 
-<a onclick="ga('send', 'event', 'External-Link','click','hw1_code','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework1/STA235H_HW1_template.R" target="_blank" class="btn btn-default"> Rcode Template <i class="fas fa-external-link-alt"></i></a> 
+<a onclick="ga('send', 'event', 'External-Link','click','midterm_code','0','Link');" href="https://sta235.netlify.app/exams/midterm/STA235H_midterm_template.R" target="_blank" class="btn btn-default"> Rcode Template <i class="fas fa-external-link-alt"></i></a> 
 <br>
 
-<a onclick="ga('send', 'event', 'External-Link','click','hw1_rmd','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework1/STA235H_HW1_template.Rmd" target="_blank" class="btn btn-default"> Rmarkdown Template <i class="fas fa-external-link-alt"></i></a> --> 
+<a onclick="ga('send', 'event', 'External-Link','click','midterm_rmd','0','Link');" href="https://sta235.netlify.app/exams/midterm/STA235H_midterm_template.Rmd" target="_blank" class="btn btn-default"> Rmarkdown Template <i class="fas fa-external-link-alt"></i></a> --> 
 
 
 <!-- ## Answer Key
