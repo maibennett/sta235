@@ -21,7 +21,7 @@ chapter: false
 
 ## Midterm
 
-- You can find the midterm exam here: <a onclick="ga('send', 'event', 'External-Link','click','midterm','0','Link');" href="https://sta235.netlify.app/exams/midterm/STA235H_Fall21_Midterm.html" target="_blank" class="btn btn-default"> Open HW1 <i class="fas fa-external-link-alt"></i></a> 
+- You can find the midterm exam here: <a onclick="ga('send', 'event', 'External-Link','click','midterm','0','Link');" href="https://sta235.netlify.app/exams/midterm/STA235H_Fall21_Midterm.html" target="_blank" class="btn btn-default"> Open Midterm <i class="fas fa-external-link-alt"></i></a> 
 
 ## Templates
 
