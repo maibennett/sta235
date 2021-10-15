@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235H - Midterm Review</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA 235H - Midterm Review
+## Fall 2021
+### McCombs School of Business, UT Austin
+
+---
+
+
+&lt;!-- &lt;script type="text/javascript"&gt; --&gt;
+&lt;!-- MathJax.Hub.Config({ --&gt;
+&lt;!--   "HTML-CSS": { --&gt;
+&lt;!--     preferredFont: null, --&gt;
+&lt;!--     webFont:  "Neo-Euler" --&gt;
+&lt;!--   } --&gt;
+&lt;!-- }); --&gt;
+&lt;!-- &lt;/script&gt; --&gt;
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+&lt;/style&gt;
+
+
+
+
+
+# Today
+
+.pull-left[
+- Potential outcomes and estimands
+
+- Interpreting regression coefficients:
+  
+  - Associations and causality
+  
+  - Selection bias and heterogeneous return to treatment bias
+
+- Difference-in-Differences
+]
+
+.pull-right[
+![](https://media.giphy.com/media/a7NBvg3Ss8UYo/giphy.gif)
+]
+
+---
+# Let's practice: Identify P.O. and estimands of interest
+
+.box-2trans[A company offers a 0%, 10%, or 15% discount to customers, depending on their time of arrival. We want to identify what is the effect of different discounts on the average purchase amount.]
+
+--
+&lt;br&gt;
+
+- **.darkorange[Potential outcomes]**: (1) How much would an individual purchase *if the had a 10% discount*; (2) How much would an individual purchase *if the had a 15% discount*; (3) How much would an individual purchase *if the had a 0% discount*;
+
+- **.darkorange[Estimand]**: Average Treatment Effect (ATE). Expected difference in amount of purchase if individuals received a 10% (15%) discount vs if they did not receive a discount.
+
+
+---
+# Let's practice: Identify P.O. and estimands of interest
+
+.box-4trans[At a university, we are evaluating mechanisms to help students succeed and keep at least a minimum level of academic achievement. We are looking into the effect of academic probation on drop out.]
+
+--
+&lt;br&gt;
+
+- **.darkorange[Potential outcomes]**: (1) Whether a student drops out or not *if they were on academic probation*; (2) Whether a student drops out or not *if they were not on academic probation*;
+
+- **.darkorange[Estimand]**: Average Treatment Effect (ATE). Expected difference in probability of dropping out if students were in probation vs if students were not in probation.
+
+
+---
+# Let's practice: Identify P.O. and estimands of interest
+
+.box-7trans[We ran a retail store and want to assess the impact that a snow storm might have on our sales. We use data from past February 2021 and conduct a difference-in-differences analysis between retail stores in Texas and Lousiana a week before and a week after the snow storm.]
+
+--
+&lt;br&gt;
+
+- **.darkorange[Potential outcomes]**: (1) Sales in a retail store *if it was not hit by a snow storm*; (2) Sales in a retail store *if it was hit by a snow storm*
+
+- **.darkorange[Estimand]**: Average Treatment Effect on the Treated (ATT). Expected difference in sales if stores in Texas had been hit by a snow storm vs if stores in Texas had not been hit by a snow storm.
+
+
+---
+# Interpreting regression coefficients
+
+- "US earnings data, as provided in an annual survey of Parade (here from 2005), the Sunday newspaper magazine"
+
+
+```r
+library(tidyverse)
+library(modelsummary)
+
+parade &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Midterm_Review/data/Parade2005.csv")
+
+head(parade)
+```
+
+```
+##   earnings age gender state celebrity
+## 1    10000  26   male    ND        no
+## 2 10000000  18 female    CA       yes
+## 3    85000  39   male    NE        no
+## 4    75000  50 female    NC        no
+## 5    91500  61   male    DE        no
+## 6    49500  39 female    SD        no
+```
+
+---
+# Interpreting regression coefficients
+
+- Interpret the coefficient for `celebrity`
+.small[
+
+```r
+summary(lm(earnings ~ age + gender + celebrity, data = parade))
+```
+
+```
+## 
+## Call:
+## lm(formula = earnings ~ age + gender + celebrity, data = parade)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -16733285   -328596   -195953    366902  24530165 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   -575076    1223225  -0.470    0.639    
+## age              6621      28753   0.230    0.818    
+## gendermale     702218     620295   1.132    0.260    
+## celebrityyes 17157296    1140268  15.047   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3526000 on 126 degrees of freedom
+## Multiple R-squared:  0.6526,	Adjusted R-squared:  0.6444 
+## F-statistic: 78.91 on 3 and 126 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+---
+# Bias in causal estimates
+
+- What would be an example of **.darkorange[selection bias]** if we wanted to estimate the effect of being a celebrity on earnings?
+
+--
+  
+  - Think about something that alters baseline earnings (e.g. celebrities are more self-driven, so even if they were not celebrities, they might have higher earnings than non-celebrities)
+  
+--
+
+- What would be an example of **.darkorange[heterogeneous return to treatment bias]** if we wanted to estimate the effect of being a celebrity on earnings?
+
+--
+
+  - Think about how people self-select into the treatment (e.g. being a celebrity) based on their expected return (e.g. individuals become celebrities (or try to) if they think they would be particularly successful at it (are outgoing, spontaneous, likeable) vs those that choose not to, because they'd probably be terrible at it and not get any benefits)
+
+---
+# Interpreting regression coefficients
+
+- Does female celebrities earn more than male celebrities? Identify the coefficients.
+.small[
+
+```r
+summary(lm(earnings ~ age + gender*celebrity, data = parade))
+```
+
+```
+## 
+## Call:
+## lm(formula = earnings ~ age + gender * celebrity, data = parade)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -20482259    -87764      4505    100394  20423128 
+## 
+## Coefficients:
+##                         Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)              -360484    1160949  -0.311 0.756692    
+## age                        10513      27277   0.385 0.700591    
+## gendermale                  3425     614769   0.006 0.995564    
+## celebrityyes            13389167    1450158   9.233 8.51e-16 ***
+## gendermale:celebrityyes  8250412    2116490   3.898 0.000157 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3343000 on 125 degrees of freedom
+## Multiple R-squared:  0.6903,	Adjusted R-squared:  0.6804 
+## F-statistic: 69.65 on 4 and 125 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+---
+# Difference-in-Differences: Math matters!
+
+- We want to analyze the effect of compulsory math reforms (at the state level) on future income
+
+--
+
+.box-3[Let's DiD]
+
+
+```r
+math &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Midterm_Review/data/math_reform.csv")
+
+head(math)
+```
+
+```
+##   class   state reform_math reformyr_math incearn_ln
+## 1  1975 Alabama           0          1985   10.14174
+## 2  1976 Alabama           0          1985   10.13407
+## 3  1977 Alabama           0          1985   10.10521
+## 4  1978 Alabama           0          1985   10.10548
+## 5  1979 Alabama           0          1985   10.06532
+## 6  1980 Alabama           0          1985   10.10307
+```
+
+---
+# Difference-in-Differences: Math matters!
+
+- What is the **.darkorange[estimand]** in this case?
+
+--
+
+- What are the **.darkorange[two dimensions]** we will be leveraging in this DD analysis?
+
+  - Think about the difference we will be calculating! (across which dimensions?)
+
+--
+
+- I do a quick analysis, and find that early adopters are predominately &lt;u&gt;democratic states&lt;/u&gt; (vs. late adopters, which tend to be more &lt;u&gt;conservative states&lt;/u&gt;). **.darkorange[Is this a problem for my DD analysis?]**
+
+---
+
+.center2[
+.box-4LA[Let's go to R]
+]
+
+---
+
+.center2[
+.box-2LA[Any additional questions?]
+]
+
+---
+# Main takeaway points
+
+- Don't **.darkorange[blindly]** copy-paste answers:
+  
+  - Always identify your **.darkorange[key elements]**: 
+    (1) Outcome, 
+    (2) Treatment (Control), 
+    (3) Assignment mechanism, 
+    (4) Assumptions
+    
+- We don't always need **.darkorange[random assignment]** for causal inference.
+
+- Remember that a confounder needs to affect both **.darkorange[the treatment]** and **.darkorange[the outcome]**.
+
+  - One is not enough! (If not, any unbalance would cause confounding)
+  
+  
+  
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/1_NaturalExperiments/f2021_sta235h_10_NaturalExperiments.html') --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
