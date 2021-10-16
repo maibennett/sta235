@@ -33,6 +33,6 @@ You can find Homework 3 here: <a onclick="ga('send', 'event', 'External-Link','c
 <a onclick="ga('send', 'event', 'External-Link','click','hw3_rmd','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework3/STA235H_HW3_template.Rmd" target="_blank" class="btn btn-default"> Rmarkdown Template <i class="fas fa-external-link-alt"></i></a>
 
 
-<!-- ## Answer Key
+## Answer Key
 
-- You can find the answer key for Homework 2 here: <a onclick="ga('send', 'event', 'External-Link','click','hw2_key','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework2/STA235H_Fall21_Homework2_AnswerKey.html" target="_blank" class="btn btn-default"> Open HW2 Answer Key <i class="fas fa-external-link-alt"></i></a> -->
+- You can find the answer key for Homework 2 here: <a onclick="ga('send', 'event', 'External-Link','click','hw3_key','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework3/STA235H_Fall21_Homework3_AnswerKey.html" target="_blank" class="btn btn-default"> Open HW3 Answer Key <i class="fas fa-external-link-alt"></i></a>
