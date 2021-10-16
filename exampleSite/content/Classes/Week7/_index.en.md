@@ -50,3 +50,9 @@ Code for Natural Experiments <a onclick="ga('send', 'event', 'External-Link','cl
 <br>
 
 Code for Difference-in-Differences <a onclick="ga('send', 'event', 'External-Link','click','code11','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_DD/code/f2021_sta235h_10_DD.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+
+## Additional videos
+
+- In this video, I go through the difference-in-differences code with staggered adoption that is included in the second part of the code provided for this week.
+
+{{< youtube src="https://www.youtube.com/embed/9oIioFKiRA4" >}}
