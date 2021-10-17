@@ -2361,7 +2361,7 @@ social_insure &lt;- read.csv(&quot;https://raw.githubusercontent.com/maibennett/
 <div id="question-3.1" class="section level3">
 <h3>Question 3.1</h3>
 <p><strong>Let’s first check for balance. In this case, you can think that we have two different treatments: (1) intensity and (2) timing. Create two tables and check for balance for the following covariates: <code>age</code>, <code>agpop</code>, <code>educ</code>, <code>rice_inc</code>, <code>male</code>, <code>disaster_prob</code>, <code>risk_averse</code>, and <code>disaster_yes</code>. Do the groups look comparable?</strong> <em>Note: For the purpose of this analysis, you can consider <code>educ</code> a continuous variable</em>.</p>
-<p><em>Answer: We can see here from the table below that all groups seem to be balanced between each other, except for two covariates. <code>rice_inc</code> and <code>risk_averse</code>. Even though the differences are statistically significant and we should be aware of them, in terms of magnitude they do not seem very large.</em></p>
+<p><em>Answer: We can see here from the table below that all groups seem to be balanced between each other, except for two covariates in the <code>delay</code> intervention. <code>rice_inc</code> and <code>risk_averse</code>. Even though the differences are statistically significant and we should be aware of them, in terms of magnitude they do not seem very large.</em></p>
 <p><br></p>
 <pre class="r"><code>social_bal1 &lt;- social_insure %&gt;% select(delay, age, agpop, educ, rice_inc, male, disaster_prob, risk_averse, disaster_yes)
 
@@ -2602,7 +2602,7 @@ disaster_yes
 <p><br></p>
 <pre class="r"><code>social_bal2 &lt;- social_insure %&gt;% select(intensive, age, agpop, educ, rice_inc, male, disaster_prob, risk_averse, disaster_yes)
 
-datasummary_balance(~ delay, data = social_bal1, fmt = 2, title = &quot;Balance Table - Intensive&quot;, dinm_statistic = &quot;p.value&quot;)</code></pre>
+datasummary_balance(~ intensive, data = social_bal2, fmt = 2, title = &quot;Balance Table - Intensive&quot;, dinm_statistic = &quot;p.value&quot;)</code></pre>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 Balance Table - Intensive
@@ -2655,22 +2655,22 @@ p
 age
 </td>
 <td style="text-align:left;">
-51.29
+51.62
 </td>
 <td style="text-align:left;">
-12.03
+12.07
 </td>
 <td style="text-align:left;">
-51.66
+51.37
 </td>
 <td style="text-align:left;">
-12.04
+11.99
 </td>
 <td style="text-align:left;">
-0.37
+-0.25
 </td>
 <td style="text-align:left;">
-0.29
+0.46
 </td>
 </tr>
 <tr>
@@ -2678,22 +2678,22 @@ age
 agpop
 </td>
 <td style="text-align:left;">
-4.88
+4.93
 </td>
 <td style="text-align:left;">
-2.11
+2.17
 </td>
 <td style="text-align:left;">
-4.94
+4.91
 </td>
 <td style="text-align:left;">
-2.15
+2.10
 </td>
 <td style="text-align:left;">
-0.07
+-0.02
 </td>
 <td style="text-align:left;">
-0.29
+0.74
 </td>
 </tr>
 <tr>
@@ -2701,22 +2701,22 @@ agpop
 educ
 </td>
 <td style="text-align:left;">
-1.20
+1.19
 </td>
 <td style="text-align:left;">
-0.85
+0.86
 </td>
 <td style="text-align:left;">
-1.18
+1.19
 </td>
 <td style="text-align:left;">
-0.85
+0.84
 </td>
 <td style="text-align:left;">
--0.02
+0.00
 </td>
 <td style="text-align:left;">
-0.38
+0.90
 </td>
 </tr>
 <tr>
@@ -2724,22 +2724,22 @@ educ
 rice_inc
 </td>
 <td style="text-align:left;">
-75.12
+74.13
 </td>
 <td style="text-align:left;">
-26.74
+27.74
 </td>
 <td style="text-align:left;">
-73.31
+74.11
 </td>
 <td style="text-align:left;">
-28.39
+27.62
 </td>
 <td style="text-align:left;">
--1.81
+-0.02
 </td>
 <td style="text-align:left;">
-0.02
+0.98
 </td>
 </tr>
 <tr>
@@ -2747,22 +2747,22 @@ rice_inc
 male
 </td>
 <td style="text-align:left;">
-0.92
-</td>
-<td style="text-align:left;">
-0.28
-</td>
-<td style="text-align:left;">
 0.91
 </td>
 <td style="text-align:left;">
-0.28
+0.29
 </td>
 <td style="text-align:left;">
-0.00
+0.92
 </td>
 <td style="text-align:left;">
-0.69
+0.27
+</td>
+<td style="text-align:left;">
+0.01
+</td>
+<td style="text-align:left;">
+0.26
 </td>
 </tr>
 <tr>
@@ -2770,22 +2770,22 @@ male
 disaster_prob
 </td>
 <td style="text-align:left;">
-34.07
+33.72
 </td>
 <td style="text-align:left;">
-16.46
+16.69
 </td>
 <td style="text-align:left;">
-33.28
+33.55
 </td>
 <td style="text-align:left;">
-16.74
+16.55
 </td>
 <td style="text-align:left;">
--0.79
+-0.17
 </td>
 <td style="text-align:left;">
-0.10
+0.73
 </td>
 </tr>
 <tr>
@@ -2793,22 +2793,22 @@ disaster_prob
 risk_averse
 </td>
 <td style="text-align:left;">
-0.21
+0.19
 </td>
 <td style="text-align:left;">
-0.32
+0.31
 </td>
 <td style="text-align:left;">
-0.17
+0.19
 </td>
 <td style="text-align:left;">
-0.30
-</td>
-<td style="text-align:left;">
--0.03
+0.31
 </td>
 <td style="text-align:left;">
 0.00
+</td>
+<td style="text-align:left;">
+0.76
 </td>
 </tr>
 <tr>
@@ -2831,7 +2831,7 @@ disaster_yes
 0.00
 </td>
 <td style="text-align:left;">
-0.79
+0.96
 </td>
 </tr>
 </tbody>
