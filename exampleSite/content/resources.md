@@ -49,6 +49,15 @@ Cheatsheets for R are amazing! Here are two of my favorite so you can look up fu
 
 - ["Hands-On Machine Learning"](https://bradleyboehmke.github.io/HOML/) by B. Boehmke & B. Greenwell (2020). *Note: Great resource to see different packages for bagging, random forests, and boosting, beyond what we have seen in class!* -->
 
+### Interesting readings
+
+Here are a list of interesting readings if you want to read more about the topics we cover in class and how they relate to the real world:
+
+-  Press release: The Price in Economics Science (2021). ["Natural experiments help answer important questions for society"](https://www.nobelprize.org/prizes/economic-sciences/2021/press-release/).
+
+- The Conversation (2021). ["How Netflix affects what we watch and who we are – and it’s not just the algorithm"](https://theconversation.com/how-netflix-affects-what-we-watch-and-who-we-are-and-its-not-just-the-algorithm-169897)
+
+
 # FAQ
 
 ***1) Is there a specific format I should follow when emailing a professor?***
