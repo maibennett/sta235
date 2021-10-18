@@ -25,7 +25,7 @@ This week we will be talking about model selection and regularization. In partic
 
 ## JITT
 
-Complete before **Sunday Oct 24th (11:59 pm)** (if your section is on Tue) or **Tuesday Oct 26th (11:59 pm)** (if your section is on Thu). The assignment will be posted soon. <!-- You can find the assignment [here](https://forms.gle/wUiFSPsoyitXk9896). -->
+Complete before **Sunday Oct 31st (11:59 pm)** (if your section is on Tue) or **Tuesday Nov 2nd (11:59 pm)** (if your section is on Thu). The assignment will be posted soon. <!-- You can find the assignment [here](https://forms.gle/wUiFSPsoyitXk9896). -->
 
 ## Slides
 
