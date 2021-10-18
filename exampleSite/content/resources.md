@@ -51,7 +51,7 @@ Cheatsheets for R are amazing! Here are two of my favorite so you can look up fu
 
 ### Interesting readings
 
-Here are a list of interesting readings if you want to read more about the topics we cover in class and how they relate to the real world:
+Here are a list of interesting readings if you want to explore more about the topics we cover in class and how they relate to the real world:
 
 -  Press release: The Price in Economics Science (2021). ["Natural experiments help answer important questions for society"](https://www.nobelprize.org/prizes/economic-sciences/2021/press-release/).
 
