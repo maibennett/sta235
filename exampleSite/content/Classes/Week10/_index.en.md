@@ -1,26 +1,26 @@
 ---
-title: Week 9
-weight: 55
+title: Week 10
+weight: 60
 disableToc: true
 ---
 
-## Date: Oct 26th - Oct 28th
+## Date: Nov 2nd - Nov 4th
 
 ## What we will cover
 
-This week we will start diving into into prediction and model selection problems. We’ll be talking about model cheking, cross-validation, bias-variance tradeoff, and variable selection.
+This week we will be talking about model selection and regularization. In particular, lasso and ridge regression.
 
 ## Recommended readings/videos
 
-- James, G. et al. (2021). "An Introduction to Statistical Learning with Applications in R" (ISLR). *Chapter 2.1.3 (pg. 24-26)*, *Chapter 2.2: 2.2.1 and 2.2.2 (pg. 29-36)*, and *Chapter 6: 6.1.2 (pg. 225-236 and 229-232)*. *Note: For ISLR readings, don't get caught up in the math.*
+- James, G. et al. (2021). "An Introduction to Statistical Learning with Applications in R" (ISLR). *Chapter 6.2 (pg. 237-242)*. 
 
-- OpenIntroOrg. (2015). "Model Selection in Multiple Regression". *Video materials from OpenIntro*.
+- Josh Starmer. (2018). "Regularization Part 1: Ridge (L2) Regression". *Video materials from StatQuest. Note: I usually watch his videos at x1.5 speed*.
 
-{{< youtube src="https://www.youtube.com/embed/VB1qSwoF-l0?controls=0" >}}
+{{< youtube src="https://www.youtube.com/embed/Q81RR3yKn30" >}}
 
-- Ritvik Kharkar. (2020). "Cross Validation : Data Science Concepts". *Video materials from ritvikmath*.
+- Josh Starmer. (2018). "Regularization Part 2: Lasso (L1) Regression". *Video materials from StatQuest. Note: I usually watch his videos at x1.5 speed*.
 
-{{< youtube src="https://www.youtube.com/embed/wjILv3-UGM8?controls=0" >}}
+{{< youtube src="https://www.youtube.com/embed/NGf0voTMlcs" >}}
 
 
 ## JITT
