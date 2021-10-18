@@ -46,7 +46,7 @@ You can find Homework 3 here: <a onclick="ga('send', 'event', 'External-Link','c
 
 - **When a question is asking you to explain, you need to provide an actual explanation:** If the assignment is asking to explain the difference between A and B, it's not enough to say "A is greater than B". That's pretty trivial. What the assignment is asking is for you to give an explanation of *why A is greater than B*.
 
-- **No need to add things that are not being asked**: In a few submissions, students go beyond the question and answer other things. This part of the answers do not give you extra points (but could eventually carry a discount if you have an important conceptual flaw). Keep it short and sweet.
+- **No need to add things that are not being asked**: In a few submissions, students go beyond the question and answer other things. This part of the answers does not give you extra points (but could eventually carry a discount if you have an important conceptual flaw). Keep it short and sweet.
 
 - **Unbalance is not the same as confounding**: We had discussed this in class, but remember that unbalance does not necessarily mean confounding. This because: (1) not all variables are confounders and (2) if I can adjust for it (observed), then it's no longer causing a confounding problem either.
 
