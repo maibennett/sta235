@@ -367,6 +367,9 @@ font.add.google("Fira Sans", "Fira Sans")
   
   - Check the Homework 3 tab in the course website: <u>Things to look out for.</u>
 
+--
+
+- If you want to attend **.darkorange[office hours]**, <u>book early</u>.
 
 ---
 # Last class
@@ -464,7 +467,7 @@ I'm on the edge [of glory?]
   
 --
 
-- How does a corporate social responsibility policies affect shareholder value/stock returns?
+- How does corporate social responsibility policies affect shareholder value/stock returns?
 
   - A policy is approved with 50% + 1: e.g. Close votes.
   
@@ -496,7 +499,7 @@ I'm on the edge [of glory?]
 # Voting discontinuities
 
 .center[
-![:scale 55%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_RD/images/voting_share.png)]
+![:scale 55%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/2_RDD/images/voting_share.png)]
 
 ---
 

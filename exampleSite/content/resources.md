@@ -57,6 +57,8 @@ Here are a list of interesting readings if you want to explore more about the to
 
 - The Conversation (2021). ["How Netflix affects what we watch and who we are – and it’s not just the algorithm"](https://theconversation.com/how-netflix-affects-what-we-watch-and-who-we-are-and-its-not-just-the-algorithm-169897)
 
+- Twitter (2021). [Thread about how the Nobel Prize winners helped improve Twitter](https://twitter.com/TwitterEng/status/1450179475426066433)
+
 
 # FAQ
 
