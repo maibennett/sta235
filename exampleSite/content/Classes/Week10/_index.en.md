@@ -12,7 +12,7 @@ This week we will be talking about model selection and regularization. In partic
 
 ## Recommended readings/videos
 
-- James, G. et al. (2021). "An Introduction to Statistical Learning with Applications in R" (ISLR). *Chapter 6.2 (pg. 237-242)*. 
+- James, G. et al. (2021). "An Introduction to Statistical Learning with Applications in R" (ISLR). *Chapter 6.2 (pg. 237-242)*. *Note: For ISLR readings, don't get caught up in the math.*
 
 - Josh Starmer. (2018). "Regularization Part 1: Ridge (L2) Regression". *Video materials from StatQuest. Note: I usually watch his videos at x1.5 speed*.
 
