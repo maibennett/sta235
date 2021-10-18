@@ -373,6 +373,8 @@ font.add.google("Fira Sans", "Fira Sans")
 
 - **.darkorange[Potential outcomes]**: (1) How much would an individual purchase *if the had a 10% discount*; (2) How much would an individual purchase *if the had a 15% discount*; (3) How much would an individual purchase *if the had a 0% discount*;
 
+--
+
 - **.darkorange[Estimand]**: Average Treatment Effect (ATE). Expected difference in amount of purchase if individuals received a 10% (15%) discount vs if they did not receive a discount.
 
 
@@ -386,6 +388,8 @@ font.add.google("Fira Sans", "Fira Sans")
 
 - **.darkorange[Potential outcomes]**: (1) Whether a student drops out or not *if they were on academic probation*; (2) Whether a student drops out or not *if they were not on academic probation*;
 
+--
+
 - **.darkorange[Estimand]**: Average Treatment Effect (ATE). Expected difference in probability of dropping out if students were in probation vs if students were not in probation.
 
 
@@ -398,6 +402,8 @@ font.add.google("Fira Sans", "Fira Sans")
 <br>
 
 - **.darkorange[Potential outcomes]**: (1) Sales in a retail store *if it was not hit by a snow storm*; (2) Sales in a retail store *if it was hit by a snow storm*
+
+--
 
 - **.darkorange[Estimand]**: Average Treatment Effect on the Treated (ATT). Expected difference in sales if stores in Texas had been hit by a snow storm vs if stores in Texas had not been hit by a snow storm.
 
