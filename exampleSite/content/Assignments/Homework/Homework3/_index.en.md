@@ -40,7 +40,7 @@ You can find Homework 3 here: <a onclick="ga('send', 'event', 'External-Link','c
 
 ## Things to look out for
 
-- **Make sure your code runs!** (we do check those as well): Your code is part of your submission. Make sure that any package you need is loaded and don't include code you don't need (e.g. you only need to install packages once, no need to include that on your code!).
+- **Make sure your code runs!** (we do check those as well): Your code is part of your submission. Make sure that any package you need is loaded and don't include code you don't need (e.g. you only need to install packages once, no need to include that on your code).
 
 - **Make sure your answers match**: I found that in a few submissions, the code you present in your write-up doesn't necessarily match the output you present or the R script you submit. More so, if you code something in more than one way and the answers are contradictory, we will assume the first attempt is the one that counts and disregard the rest. That is to say: Clean your code. Anything that you tried but didn't end up using <u>should not be on your submission</u>. This is not a draft!
 
@@ -50,6 +50,6 @@ You can find Homework 3 here: <a onclick="ga('send', 'event', 'External-Link','c
 
 - **Unbalance is not the same as confounding**: We had discussed this in class, but remember that unbalance does not necessarily mean confounding. This because: (1) not all variables are confounders and (2) if I can adjust for it (observed), then it's no longer causing a confounding problem either.
 
-- **Be aware of what you are writing**: It's very usual to have a template in mind when interpreting coefficients (e.g. "estimated average association of X on Y, holding other variables constant"), but you <u>need to be aware of the context</u>. In a simple model, when you have one covariate, there's nothing to hold constant!
+- **Be aware of what you are writing**: It's very usual to have a template in mind when interpreting coefficients (e.g. "estimated average association of X on Y, holding other variables constant"), but you <u>need to be aware of the context</u>. In a simple model, when you have one covariate, there's nothing to hold constant.
 
-- **P-values are important**: When you are interpreting a coefficient and it's not statistically significant at conventional levels, <u>you need to say so</u>. If you are only interpreting the point estimate, you are only giving us half the information. We need to know if we can reject the null hypothesis or not!
+- **P-values are important**: When you are interpreting a coefficient and it's not statistically significant at conventional levels, <u>you need to say so</u>. If you are only interpreting the point estimate, you are only giving us half the information. We need to know if we can reject the null hypothesis or not.
