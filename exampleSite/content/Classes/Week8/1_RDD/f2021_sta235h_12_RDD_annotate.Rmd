@@ -414,7 +414,7 @@ font.add.google("Fira Sans", "Fira Sans")
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
-Is there randomness out there?
+I'm on the edge [of glory?]
 ]
 
 ---
@@ -424,484 +424,352 @@ Is there randomness out there?
 
 .box-2[RCTs]
 
-.box-4[Selection on observables]
+.box-3[Selection on observables]
 
-.box-6[Natural experiments]
+.box-4[Natural experiments]
 
---
-
-.box-7LA[Difference-in-Differences]
-
-
----
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Two wrongs make a right
-]
-
----
-# Raising the minimum wage
-
-.box-5LA[What happens if we raise the minimum wage]
+.box-6[Differences-in-Differences]
 
 --
 
-.box-5tL[Economic theory says there should be fewer jobs]
+.box-7LA[Regression Discontinuity Designs]
+
+
+---
+# Introduction to Regression Discontinuity Designs
+
+
+<br>
+<br>
+<br>
+.box-2LA[Regression Discontinuity (RD) Designs]
+--
+<br>
+<br>
+.box-2tL[Arbitrary rules determine treatment assignment]
+
+--
+<br>
+<br>
+.box-3t[E.g.: If you are above a threshold, you are assigned to treatment, and if your below, you are not (or vice versa)]
+
+---
+# Examples of potential Regression Discontinuity Designs
 
 --
 
-.box-5[New Jersey in 1992]
+- How does financial aid affect probability of college attendance?
 
-.box-5[$4.25 → $5.05]
+  - Whether you are considered for a scholarship or not based on SAT/GPA cutoff: e.g. 2.5 GPA to be eligible
+  
+--
+
+- How does a corporate social responsibility policies affect shareholder value/stock returns?
+
+  - A policy is approved with 50% + 1: e.g. Close votes.
+  
+--
+
+- How do housing prices change according to school quality?
+
+  - Properties on the border of the attendance zones.
+  
+--
+
+.box-5[Other examples?]
 
 ---
-# The setup
+# Geographic discontinuities
 
 .center[
-![:scale 55%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_DD/images/min_wage_map.png)]
-
-
----
-# Before vs After
-
-.box-2[Avg. # of jobs per fast food restaurant in NJ]
-
---
-
-.box-2tL[New Jersey<sub>before</sub> = 20.44]
-
---
-
-.box-2tL[New Jersey<sub>after</sub> = 21.03]
-
---
-
-.box-2[∆ = 0.59]
-
---
-
-.box-2[Is this a causal effect?]
-
----
-# Treatment vs Control
-
-.box-3[Avg. # of jobs per fast food restaurant]
-
---
-
-.box-3tL[Pennsylvania<sub>after</sub> = 21.17]
-
---
-
-.box-3tL[New Jersey<sub>after</sub> = 21.03]
-
---
-
-.box-3[∆ = -0.14]
-
---
-
-.box-3[Is this a causal effect?]
-
----
-# Problems
-
-.pull-left[
-.box-7[Before vs After]
-
-.box-6t[Only looking at the treatment group]
-
-.box-6t[Impossible to separate changes because of treatment or time]
+![](https://raw.githubusercontent.com/andrewheiss/evalf20.classes.andrewheiss.com/master/static/slides/img/10/timezones-1.png)
 ]
 
---
+---
+# Time discontinuities
 
-.pull-right[
-.box-7[Treatment vs Control]
-
-.box-6t[Only looking at post-treatment values]
-
-.box-6t[Impossible to separate changes because of treatment or differences in growth]
+.center[
+![:scale 60%](https://raw.githubusercontent.com/andrewheiss/evalf20.classes.andrewheiss.com/master/static/slides/img/10/hospitals-1.png)
 ]
+
+---
+# Voting discontinuities
+
+.center[
+![:scale 55%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_RD/images/voting_share.png)]
 
 ---
 
 .center2[
-![:scale 110%](https://media.giphy.com/media/3o85xIO33l7RlmLR4I/giphy.gif)]
+.box-5LA[You can find discontinuities everywhere!]
+]
 
 ---
-# Difference-in-Differences
+# Key Terms
 
-The idea of a **.darkorange[DD]** analysis is to take the **.darkorange[within-unit growth]**...
+.box-4LA[Running/ forcing variable]
 
+.box-4t[Index or measure that determines eligibility]
 
-```{r dd-table-growth, echo=FALSE}
-dd <- tribble(
-  ~` `, ~`Pre mean`, ~`Post mean`, ~`∆ <span class='small'>(post − pre)</span>`,
-  "Control", "<b>A</b><br><span class='small'>(never treated)</small>", "<b>B</b><br><span class='small'>(never treated)</small>", "<b>B − A</b>",
-  "Treatment", "<b>C</b><br><span class='small'>(not yet treated)</small>", "<b>D</b><br><span class='small'>(treated)</small>", "<b>D − C</b>",
-  "∆<br><span class='smaller'>(treatment − control)</span>", "<b>A − C</b>", "<b>B − D</b>", "<span class=''><b>(B − A) − (D − C)</b></span> <i>or</i><br><span class=''><b>(B − D) − (A − C)</b></span>"
-)
-dd %>% 
-  kbl(escape = FALSE, align = "cccc") %>% 
-  kable_styling(bootstrap_options = "none") %>% 
-  row_spec(1:2, background = "#FFFFFF") %>% 
-  column_spec(4, background = "#DDDDDD") %>% 
-  row_spec(0, bold = TRUE, background = "#FFC6C6", color = "#CF4446") %>% 
-  column_spec(1, bold = TRUE, background = "#FFC6C6", color = "#CF4446") %>% 
-  row_spec(3, background = "#FFFFFF", color = "#FFFFFF")
-```
+--
 
-.box-5[∆ (post − pre) = <b>within-unit growth</b>]
+.box-7LA[Cutoff/ cutpoint/ threshold]
+
+.box-7t[Number that formally assigns you to a program or treatment]
 
 ---
-# Difference-in-Differences
+# Hypothetical tutoring program
 
-... and the **.darkorange[across-group growth]**...
+--
 
+.box-5[Students take an entrance exam]
 
-```{r dd-table-within, echo=FALSE}
-dd <- tribble(
-  ~` `, ~`Pre mean`, ~`Post mean`, ~`<span class='color-light-5'>∆ <span class='smaller'>(post − pre)</span></span>`,
-  "Control", "<b>A</b><br><span class='small'>(never treated)</small>", "<b>B</b><br><span class='small'>(never treated)</small>", "<b>B − A</b>",
-  "Treatment", "<b>C</b><br><span class='small'>(not yet treated)</small>", "<b>D</b><br><span class='small'>(treated)</small>", "<b>D − C</b>",
-  "∆<br><span class='smaller'>(treatment − control)</span>", "<b>C − A</b>", "<b>D − B</b>", "<span class=''><b>(B − A) − (D − C)</b></span> <i>or</i><br><span class=''><b>(B − D) − (A − C)</b></span>"
-)
-dd %>% 
-  kbl(escape = FALSE, align = "cccc") %>% 
-  kable_styling(bootstrap_options = "none") %>% 
-  row_spec(1:2, background = "#FFFFFF") %>% 
-  row_spec(3, background = "#DDDDDD") %>% 
-  row_spec(0, bold = TRUE, background = "#FFC6C6", color = "#CF4446") %>% 
-  column_spec(1, bold = TRUE, background = "#FFC6C6", color = "#CF4446") %>% 
-  column_spec(4, background = "#FFFFFF", color = "#FFFFFF")
-```
+--
 
-.box-5[∆ (treatment − control) = <b>across-group growth</b>]
+.box-5tL[Those who score 70 or lower<br>get a free tutor for the year]
+
+--
+
+.box-5[Students then take an exit exam<br>at the end of the year]
 
 ---
-# Difference-in-Differences
+# Assignment based on entrance score
 
-... and **.darkorange[combine them!]**
+```{r tutoring-running, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+library(tidyverse)
+library(broom)
+library(kableExtra)
+library(scales)
+library(patchwork)
+library(latex2exp)
+library(rdrobust)
+library(rddensity)
 
-```{r dd-table-full, echo=FALSE}
-dd <- tribble(
-  ~` `, ~`Pre mean`, ~`Post mean`, ~`∆ <span class='smaller'>(post − pre)</span>`,
-  "Control", "<b>A</b><br><span class='small'>(never treated)</small>", "<b>B</b><br><span class='small'>(never treated)</small>", "<b>B − A</b>",
-  "Treatment", "<b>C</b><br><span class='small'>(not yet treated)</small>", "<b>D</b><br><span class='small'>(treated)</small>", "<b>D − C</b>",
-  "∆<br><span class='smaller'>(treatment − control)</span>", "<b>C − A</b>", "<b>D − B</b>", "<span class='color-5'><b>(D − C) − (B − A)</b></span> <i>or</i><br><span class='color-5'><b>(D − B) − (C − A)</b></span>"
-)
-dd %>% 
-  kbl(escape = FALSE, align = "cccc") %>% 
-  kable_styling(bootstrap_options = "none") %>% 
-  row_spec(1:2, background = "#FFFFFF") %>% 
-  row_spec(3, background = "#DDDDDD") %>% 
-  column_spec(4, background = "#DDDDDD") %>% 
-  row_spec(0, bold = TRUE, background = "#FFC6C6", color = "#CF4446") %>% 
-  column_spec(1, bold = TRUE, background = "#FFC6C6", color = "#CF4446")
-```
-
-.box-5[∆<sub>within units</sub> − ∆<sub>across groups</sub> =<br>Difference-in-differences =<br>causal effect!]
-
----
-# Coming back to New Jersey
-
-<br>
-
-```{r dd-table-numbers, echo=FALSE}
-dd <- tribble(
-  ~` `, ~`Pre mean`, ~`Post mean`, ~`∆ <span class='smaller'>(post − pre)</span>`,
-  "Pennsylvania", "<b>23.33</b><br><span class='small'>A</small>", "<b>21.17</b><br><span class='small'>B</small>", "<b>-2.16</b><br><span class='small'>B − A</small>",
-  "New Jersey", "<b>20.44</b><br><span class='small'>C</small>", "<b>21.03</b><br><span class='small'>D</small>", "<b>0.59</b><br><span class='small'>D − C</small>",
-  "∆<br><span class='smaller'>(NJ − PA)</span>", "<b>-2.89</b><br><span class='small'>C − A</small>", "<b>-0.14</b><br><span class='small'>D − B</small>", "<b>(0.59) − (−2.16) = <br><span class='color-5'>2.76</span></b>"
-)
-dd %>% 
-  kbl(escape = FALSE, align = "cccc") %>% 
-  kable_styling(bootstrap_options = "none") %>% 
-  row_spec(1:2, background = "#FFFFFF") %>% 
-  row_spec(3, background = "#DDDDDD") %>% 
-  column_spec(4, background = "#DDDDDD") %>% 
-  row_spec(0, bold = TRUE, background = "#FFC6C6", color = "#CF4446") %>% 
-  column_spec(1, bold = TRUE, background = "#FFC6C6", color = "#CF4446")
-```
-
----
-# How does it look in a plot?
-
-```{r dd-graph, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-dd_labels <- tribble(
-  ~Group, ~Time, ~label,
-  "Treatment", "Before", "A",
-  "Treatment", "After", "B",
-  "Control", "Before", "C",
-  "Control", "After", "D"
-)
-dd_data <- tribble(
-  ~Group, ~Before, ~Intervention, ~After,
-  "Treatment", 30, 35, 50,
-  "Control",   20, 25, 30
+# Fake program data
+set.seed(1234)
+num_students <- 1000
+tutoring <- tibble(
+  id = 1:num_students,
+  entrance_exam = rbeta(num_students, shape1 = 7, shape2 = 2),
+  exit_exam = rbeta(num_students, shape1 = 5, shape2 = 3)
 ) %>% 
-  pivot_longer(cols = !Group, names_to = "Time", values_to = "avg") %>% 
-  left_join(dd_labels, by = c("Group", "Time")) %>% 
-  mutate(across(c(Group, Time), ~fct_inorder(.)))
-ggplot(dd_data, aes(x = Time, y = avg, color = Group, group = Group)) +
-  geom_vline(xintercept = "Intervention") +
-  geom_line(size = 3,
-            key_glyph = draw_key_point) +
-  ggplot2::annotate(geom = "segment", x = "Intervention", xend = "After",
-           y = 35, yend = 40, color = "#900DA4", size = 2, linetype = "22") +
-  ggplot2::annotate(geom = "segment", x = "After", xend = "After",
-           y = 40, yend = 50, color = "#FF4136", size = 2) +
-  ggplot2::annotate(geom = "label", x = "After", y = 44, label = "Causal\neffect",
-           family = "Fira Sans Condensed", fontface = "bold", 
-           size = 4, fill = "#FF4136", color = "white") +
-  geom_point(data = filter(dd_data, !is.na(label)), size = 15) +
-  geom_text(aes(label = label), family = "Fira Sans Condensed", 
-            fontface = "bold", size = 9, color = "white") +
-  scale_color_manual(values = c("#900DA4", "#F89441")) +
-  labs(x = NULL, y = "Outcome") +
-  coord_cartesian(ylim = c(15, 55)) +
-    theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) +
-  
-    theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=18),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
+  mutate(entrance_exam = entrance_exam * 100,
+         tutoring = entrance_exam <= 70) %>% 
+  mutate(exit_exam = exit_exam * 40 + 10 * tutoring + entrance_exam / 2) %>% 
+  mutate(tutoring_fuzzy = ifelse(entrance_exam > 60 & entrance_exam < 80,
+                                 sample(c(TRUE, FALSE), n(), replace = TRUE),
+                                 tutoring)) %>% 
+  mutate(tutoring_text = factor(tutoring, levels = c(FALSE, TRUE),
+                                labels = c("No tutor", "Tutor")),
+         tutoring_fuzzy_text = factor(tutoring_fuzzy, levels = c(FALSE, TRUE),
+                                      labels = c("No tutor", "Tutor"))) %>% 
+  mutate(entrance_centered = entrance_exam - 70)
+
+ggplot(tutoring, aes(x = entrance_exam, y = tutoring_text, fill = tutoring_text)) +
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  geom_point(size = 5, pch = 21, color = "white", alpha = 0.7,
+             position = position_jitter(width = 0, height = 0.2, seed = 1234)) + 
+  labs(x = "Entrance exam score", y = NULL) + 
+  guides(fill = FALSE) +
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed")
 ```
 
 ---
-# ... And the real plot!
+# Let's look at the area close to the cutoff
 
-.center[
-![:scale 55%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_DD/images/min_wage_plot.png)]
+```{r tutoring-running-threshold, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 
-
----
-# Difference-in-Differences in practice
-
-- There's no need to manually estimate all group means..
-
---
-
-.box-3[We can use regressions!]
-
---
-
-- If the **.darkorange[two dimensions]** for our DD are *time* and *treatment*:
-
-$$Y_i = \beta_0 + \beta_1Treat_i + \beta_2Post_i + \beta_3Treat_i \times Post_i + \varepsilon_i$$
-where $Treat = 1$ for the treatment group, and $Post=1$ for the after period.
-
---
-
-.box-7[Can you identify the different coefficients?]
+ggplot(tutoring, aes(x = entrance_exam, y = tutoring_text, fill = tutoring_text)) +
+  ggplot2::annotate(geom = "rect", fill = "grey50", alpha = 0.25, ymin = -Inf, ymax = Inf,
+           xmin = 70 - 5,  xmax = 70 + 5) +
+  ggplot2::annotate(geom = "rect", fill = "grey50", alpha = 0.5, ymin = -Inf, ymax = Inf,
+           xmin = 70 - 2,  xmax = 70 + 2) +
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  geom_point(size = 5, pch = 21, color = "white", alpha = 0.7,
+             position = position_jitter(width = 0, height = 0.2, seed = 1234)) + 
+  labs(x = "Entrance exam score", y = NULL) + 
+  guides(fill = FALSE) +
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed")
+```
 
 ---
-# Difference-in-Differences in practice
+# Let's get closer
 
-- There's no need to manually estimate all group means..
+```{r tutoring-running-threshold-zoomed, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 
+ggplot(tutoring, aes(x = entrance_exam, y = tutoring_text, fill = tutoring_text)) +
+  ggplot2::annotate(geom = "rect", fill = "grey50", alpha = 0.25, ymin = -Inf, ymax = Inf,
+           xmin = 70 - 5,  xmax = 70 + 5) +
+  ggplot2::annotate(geom = "rect", fill = "grey50", alpha = 0.5, ymin = -Inf, ymax = Inf,
+           xmin = 70 - 2,  xmax = 70 + 2) +
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  geom_point(size = 5, pch = 21, color = "white", alpha = 0.7,
+             position = position_jitter(width = 0, height = 0.2, seed = 1234)) + 
+  labs(x = "Entrance exam score", y = NULL) + 
+  guides(fill = FALSE) +
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  coord_cartesian(xlim = c(70 - 6, 70 + 6)) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed")
+```
+---
+# Causal inference intuition
 
-.box-3[We can use regressions!]
+.box-2LA[Observations right before and after the threshold are essentially the same]
 
+--
 
-- If the **.darkorange[two dimensions]** for our DD are *time* and *treatment*:
+.box-4LA[Pseudo treatment and control groups!]
 
-$$Y_i = \beta_0 + \beta_1Treat_i + \beta_2Post_i + \beta_3Treat_i \times Post_i + \varepsilon_i$$
-where $Treat = 1$ for the treatment group, and $Post=1$ for the after period.
+--
 
+.box-7LA[Compare outcomes right at the cutoff]
 
-.box-7[&beta;<sub>3</sub> is the causal effect!]
+---
+# Exit exam results according to running variable
+
+```{r tutoring-outcome, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text)) +
+  geom_point(size = 4, pch = 21, color = "white", alpha = 1) + 
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  labs(x = "Entrance exam score", y = "Exit exam score") + 
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  guides(fill = guide_legend(reverse = TRUE)) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed")
+```
+
+---
+# Fit a regression at the right and left side of the cutoff
+
+```{r tutoring-outcome-lines, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
+  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
+              method = "lm", size = 2, show.legend = FALSE) +
+  geom_smooth(data = filter(tutoring, entrance_exam > 70),
+              method = "lm", size = 2, show.legend = FALSE) +
+  labs(x = "Entrance exam score", y = "Exit exam score") + 
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  scale_color_manual(values = c("#900DA4", "#F89441")) +
+  guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed")
+```
+
+---
+# Fit a regression at the right and left side of the cutoff
+
+```{r tutoring-outcome-edlta, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+rdd_tutoring <- lm(exit_exam ~ entrance_centered + tutoring, data = tutoring) %>% 
+  tidy()
+effect_control <- filter(rdd_tutoring, term == "(Intercept)")$estimate
+late <- filter(rdd_tutoring, term == "tutoringTRUE")$estimate
+effect_treatment <- effect_control + late
+ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
+  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
+              method = "lm", size = 2, show.legend = FALSE) +
+  geom_smooth(data = filter(tutoring, entrance_exam > 70),
+              method = "lm", size = 2, show.legend = FALSE) +
+  ggplot2::annotate(geom = "segment", x = 70, xend = 70, 
+           y = effect_control, yend = effect_treatment,
+           size = 4, color = "#5601A4") +
+  ggplot2::annotate(geom = "label", x = 82, y = effect_treatment - (late / 2),
+           label = latex2exp("$\\delta$\n(Causal effect)"), family = "Fira Sans Condensed", fontface = "bold",
+           color = "white", fill = "#5601A4", size = 7, label.padding = unit(0.75, "lines")) +
+  labs(x = "Entrance exam score", y = "Exit exam score") + 
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  scale_color_manual(values = c("#900DA4", "#F89441")) +
+  guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed")
+```
+
+---
 
 ---
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
-Diff-in-Diff Assumptions
+Let's get [a bit] math-y...
 ]
----
-# Assumptions
 
-.box-3LA[Parallel Trends]
+---
+# Behind the scenes of RDs
+
+- Basically, regression discontinuities work under an **.darkorange[asymptotic assumption]**:
 
 --
 
-.box-3tL[In the absence of the intervention, treatment and control group would have changed in the same way]
+- Let $Y_i$ be the outcome of interest, $Z_i$ the treatment assignment, $R_i$ the running variable, and $c$ the cutoff score:
 
----
-<br>
-
-```{r plot-trends-1, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-trends <- expand_grid(state = c("A", "B"), month = 1:6) %>% 
-  mutate(income_parallel = case_when(
-    state == "A" ~ 100 + 125 * month,
-    state == "B" & month <= 3 ~ 100 + 125 * month + 200,
-    state == "B" & month > 3 ~ 100 + 125 * month + 400
-  )) %>% 
-  mutate(income_flat = case_when(
-    state == "A" ~ 100 + 125 * month,
-    state == "B" & month <= 3 ~ 675,
-    state == "B" & month > 3 ~ 100 + 125 * month + 400
-  )) %>% 
-  mutate(income_down = case_when(
-    state == "A" ~ 100 + 125 * month,
-    state == "B" & month <= 3 ~ 800 - 100 * month + 200,
-    state == "B" & month > 3 ~ 100 + 125 * month + 400
-  )) %>% 
-  mutate(state = paste0("State ", state))
-hypothetical_end <- lm(income_parallel ~ month, 
-                       data = filter(trends, state == "State B", month <= 3)) %>% 
-  broom::augment(newdata = tibble(month = 6)) %>% 
-  pull(.fitted)
-actual_end <- filter(trends, state == "State B", month == 6) %>% 
-  pull(income_parallel)
-dd_trends_1 <- ggplot(trends, aes(x = as.factor(month), y = income_parallel, color = state, group = state)) +
-  geom_smooth(data = filter(trends, state == "State B", month <= 3), 
-              method = "lm", fullrange = TRUE, 
-              color = "#0074D9", size = 1, linetype = "22") +
-  geom_vline(xintercept = 3.5, size = 1) +
-  geom_line(size = 3) +
-  geom_segment(aes(x = 6, xend = 6, 
-                   y = actual_end, yend = hypothetical_end),
-               color = "#FF4136", size = 2) +
-  scale_color_manual(values = c("#900DA4", "#FCCE25"), name = NULL) +
-  scale_y_continuous(labels = dollar) +
-  labs(x = "Month", y = "Income") +
-  theme_bw(base_size = 21, base_family = "Fira Sans Condensed")+
-      theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) +
-  
-    theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=18),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-dd_trends_1
-```
-
----
-<br>
-
-```{r plot-trends-2, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-hypothetical_end <- lm(income_flat ~ month, 
-                       data = filter(trends, state == "State B", month <= 3)) %>% 
-  broom::augment(newdata = tibble(month = 6)) %>% 
-  pull(.fitted)
-actual_end <- filter(trends, state == "State B", month == 6) %>% 
-  pull(income_flat)
-dd_trends_2 <- ggplot(trends, aes(x = as.factor(month), y = income_flat, color = state, group = state)) +
-  geom_smooth(data = filter(trends, state == "State B", month <= 3), 
-              method = "lm", fullrange = TRUE, 
-              color = "#0074D9", size = 1, linetype = "22") +
-  geom_vline(xintercept = 3.5, size = 1) +
-  geom_line(size = 3) +
-  geom_segment(aes(x = 6, xend = 6, 
-                   y = actual_end, yend = hypothetical_end),
-               color = "#FF4136", size = 2) +
-  scale_color_manual(values = c("#900DA4", "#FCCE25"), name = NULL) +
-  scale_y_continuous(labels = dollar) +
-  labs(x = "Month", y = "Income") +
-  theme_bw(base_size = 21, base_family = "Fira Sans Condensed")+
-      theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) +
-  
-    theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=18),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-dd_trends_2
-```
-
----
-<br>
-
-
-```{r plot-trends-3, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-hypothetical_end <- lm(income_down ~ month, 
-                       data = filter(trends, state == "State B", month <= 3)) %>% 
-  broom::augment(newdata = tibble(month = 6)) %>% 
-  pull(.fitted)
-actual_end <- filter(trends, state == "State B", month == 6) %>% 
-  pull(income_down)
-dd_trends_3 <- ggplot(trends, aes(x = as.factor(month), y = income_down, color = state, group = state)) +
-  geom_smooth(data = filter(trends, state == "State B", month <= 3), 
-              method = "lm", fullrange = TRUE, 
-              color = "#0074D9", size = 1, linetype = "22") +
-  geom_vline(xintercept = 3.5, size = 1) +
-  geom_line(size = 3) +
-  geom_segment(aes(x = 6, xend = 6, 
-                   y = actual_end, yend = hypothetical_end),
-               color = "#FF4136", size = 2) +
-  scale_color_manual(values = c("#900DA4", "#FCCE25"), name = NULL) +
-  scale_y_continuous(labels = dollar) +
-  labs(x = "Month", y = "Income") +
-  theme_bw(base_size = 21, base_family = "Fira Sans Condensed")+
-      theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) +
-  
-    theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=18),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-dd_trends_3
-```
-
----
-# Robustness Check
-
-.box-3LA[Parallel Trends]
+$$Z_i =   \left\{
+\begin{array}{ll}
+      0 & R_i\leq c \\
+      1 & R_i>c \\
+\end{array} 
+\right.$$
 
 --
 
-.box-3tL[Check by pretending the treatment happened earlier; if there's an effect, there's likely an underlying trend]
+- Then, we can define the treatment effect $\delta$ as:
 
+$$\delta = \lim_{\epsilon \rightarrow 0^+}E[Y_i| R_i = c + \epsilon] - \lim_{\epsilon \rightarrow 0^-}E[Y_i| R_i = c + \epsilon]$$
 ---
-<br>
+# What does the limit expression mean?
 
+```{r tutoring-limit, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+tutoring$exit_exam[tutoring$entrance_exam>70] = tutoring$exit_exam[tutoring$entrance_exam>70] + 25
 
-```{r plot-trends-2-back, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-state_a_start <- filter(trends, state == "State A", month == 1)$income_flat
-state_b_end <- filter(trends, state == "State B", month == 3)$income_flat
-hypothetical_start <- filter(trends, state == "State B", month == 2)$income_flat
-diff_states <-  filter(trends, state == "State B", month == 1)$income_flat - state_a_start
-hypothetical_end <- filter(trends, state == "State A", month == 2)$income_flat + diff_states
-ggplot(filter(trends, month <= 6),
-       aes(x = month, y = income_flat, color = state, group = state)) +
-  geom_ribbon(data = filter(trends, state == "State B", month <= 3),
-              aes(x = month, ymin = -Inf, ymax = Inf, color = NULL), 
-              fill = "dark grey", alpha = 0.2) +
-  ggplot2::annotate(geom = "segment", x = 2, xend = 3,
-                   y = hypothetical_start, yend = hypothetical_end,
-               color = "#0074D9", size = 1, linetype = "22") +
-  geom_vline(xintercept = 2, size = 1) +
-  geom_line(size = 3) +
-  geom_segment(aes(x = 3, xend = 3,
-                   y = state_b_end, yend = hypothetical_end),
-               color = "#FF4136", size = 2, inherit.aes = FALSE) +
-  scale_color_manual(values = c("#900DA4", "#FCCE25"), name = NULL) +
-  scale_x_continuous(breaks = 1:6) +
-  scale_y_continuous(labels = dollar) +
-  labs(x = "Month", y = "Income") +
-  theme_bw(base_size = 21, base_family = "Fira Sans Condensed")+
-        theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) +
-  
-    theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=18),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),
+ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
+  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
+              method = "loess", size = 2, show.legend = FALSE) +
+  geom_smooth(data = filter(tutoring, entrance_exam > 70),
+              method = "loess", size = 2, show.legend = FALSE) +
+  labs(x = "Running Variable", y = "Outcome") + 
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  scale_color_manual(values = c("#900DA4", "#F89441")) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
+  theme_ipsum_fsc() +
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+---
+# What does the limit expression mean?
+
+```{r tutoring-limit2, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
+  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
+              method = "loess", size = 2, show.legend = FALSE) +
+  geom_smooth(data = filter(tutoring, entrance_exam > 70),
+              method = "loess", size = 2, show.legend = FALSE) +
+  labs(x = "Running Variable", y = "Outcome") + 
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  scale_color_manual(values = c("#900DA4", "#F89441")) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
+  theme_ipsum_fsc() +
+  geom_segment(aes(x=80,y=85,xend=70,yend=85),lwd=2.5,lty=1,
+               arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="#E16462",col="#E16462") +
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position="none",
         legend.title = element_blank(),
         legend.text = element_text(size=15),
         legend.background = element_rect(fill="white",colour ="white"),
@@ -909,73 +777,32 @@ ggplot(filter(trends, month <= 6),
 ```
 
 ---
-<br>
+# What does the limit expression mean?
 
+```{r tutoring-limit3, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 
-```{r plot-trends-3-back, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-state_a_start <- filter(trends, state == "State A", month == 1)$income_down
-state_b_end <- filter(trends, state == "State B", month == 3)$income_down
-hypothetical_start <- filter(trends, state == "State B", month == 2)$income_down
-diff_states <-  filter(trends, state == "State B", month == 1)$income_down - state_a_start
-hypothetical_end <- filter(trends, state == "State A", month == 1)$income_down + diff_states
-ggplot(filter(trends, month <= 6),
-       aes(x = month, y = income_down, color = state, group = state)) +
-  geom_ribbon(data = filter(trends, state == "State B", month <= 3),
-              aes(x = month, ymin = -Inf, ymax = Inf, color = NULL), 
-              fill = "dark grey", alpha = 0.2) +
-  ggplot2::annotate(geom = "segment", x = 2, xend = 3,
-                   y = hypothetical_start, yend = hypothetical_end,
-               color = "#0074D9", size = 1, linetype = "22") +
-  geom_vline(xintercept = 2, size = 1) +
-  geom_line(size = 3) +
-  geom_segment(aes(x = 3, xend = 3,
-                   y = state_b_end, yend = hypothetical_end),
-               color = "#FF4136", size = 2, inherit.aes = FALSE) +
-  scale_color_manual(values = c("#900DA4", "#FCCE25"), name = NULL) +
-  scale_x_continuous(breaks = 1:6) +
-  scale_y_continuous(labels = dollar) +
-  labs(x = "Month", y = "Income") +
-  theme_bw(base_size = 21, base_family = "Fira Sans Condensed")+
-        theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) +
-  
-    theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=18),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-<br>
-
-
-```{r plot-trends-1-back, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-hypothetical_start <- filter(trends, state == "State B", month == 2)$income_parallel
-hypothetical_end <- filter(trends, state == "State B", month == 3)$income_parallel
-ggplot(filter(trends, month <= 6),
-       aes(x = month, y = income_parallel, color = state, group = state)) +
-  geom_ribbon(data = filter(trends, state == "State B", month <= 3),
-              aes(x = month, ymin = -Inf, ymax = Inf, color = NULL), 
-              fill = "dark grey", alpha = 0.2) +
-  geom_vline(xintercept = 2, size = 1) +
-  geom_line(size = 3) +
-  ggplot2::annotate(geom = "segment", x = 2, xend = 3,
-                   y = hypothetical_start, yend = hypothetical_end,
-               color = "#0074D9", size = 1, linetype = "22") +
-  scale_color_manual(values = c("#900DA4", "#FCCE25"), name = NULL) +
-  scale_x_continuous(breaks = 1:6) +
-  scale_y_continuous(labels = dollar) +
-  labs(x = "Month", y = "Income") +
-  theme_bw(base_size = 21, base_family = "Fira Sans Condensed")+
-        theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) +
-  
-    theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=18),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),
+ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
+  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
+              method = "loess", size = 2, show.legend = FALSE) +
+  geom_smooth(data = filter(tutoring, entrance_exam > 70),
+              method = "loess", size = 2, show.legend = FALSE) +
+  labs(x = "Running Variable", y = "Outcome") + 
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  scale_color_manual(values = c("#900DA4", "#F89441")) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
+  theme_ipsum_fsc() +
+  geom_segment(aes(x=80,y=85,xend=70,yend=85),lwd=2.5,lty=1,
+               arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="#E16462",col="#E16462") +
+  geom_segment(aes(x=60,y=70,xend=70,yend=70),lwd=2.5,lty=1,
+               arrow=arrow(length = unit(0.03, "npc"),type="closed"),arrow.fill="#E16462",col="#E16462") +
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position="none",
         legend.title = element_blank(),
         legend.text = element_text(size=15),
         legend.background = element_rect(fill="white",colour ="white"),
@@ -984,118 +811,218 @@ ggplot(filter(trends, month <= 6),
 
 ---
 .center2[
-.box-3LA[Let's look at an example]]
+.box-2LA[What is the estimand we are estimating?]
+]
 
 ---
-# Look at what T.S. made me do
+.center2[
+.box-2LA[Local Average Treatment Effect (LATE) for units at R=c]
+]
 
-- Like in the JITT, we will have data for Taylor Swift's popularity in the past 12 months.
+---
+<br>
+<br>
+<br>
+<br>
 
-```{r TS1, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-# this shows popularity over time, including the release of one of her albums (on the week of 07/19/2020 for the west coast, and 08/09/2020 for the rest).
-swift <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_DD/data/swift.csv")
+.box-3[Is that what we want?]
 
-# Let's create some additional variables:
+--
+<br>
+<br>
+.box-5[Probably not ideal, there may not be *any* units with R=c]
 
-swift <- swift %>% mutate(post1 = ifelse(dates >= as.Date("2020-07-19"), 1, 0), #This is when the glitch happen
-                          post2 = ifelse(dates >= as.Date("2020-08-09"), 1, 0)) #The the album became available for almost everyone
+--
+<br>
+<br>
+.box-7[... but better LATE than nothing!]
 
-# Let's assume that "treatment" is having the album available. Then,
+---
+# JITT: Can we estimate an effect for R=25 vs R=75?
 
-swift <- swift %>% mutate(treat = ifelse(west_coast==1 & post1==1, 1,
-                                         ifelse(west_coast==0 & post2==1 & controls == 0, 1, 0)),# Look closely at this condition! What is does is: 1) If the state is in the west coast and it's after 07/19, treat = 1, then if west_coast = 0 and it's after 08/09, treat = 1. It will be 0 in all other cases. 
-                          period = factor(ifelse(post1==0 & post2==0, 0, ifelse(post1==1 & post2==0, 1, 2))), #Time 0 is before the album was available to anyone, time 1 is after it was available for the 1st group but not the 2nd, time 2 is when it's available for everyone.
-                          group = factor(ifelse(controls==1,0,ifelse(west_coast==1,1,2))), # Group 0 is the ones that never receive it, group 1 is the ones that receive it early, group 2 the ones that receive it late.
-                          date_num = as.numeric(as.Date(dates))) 
+```{r jitt_rd, fig.height=5.5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+library(ggplot2)
+library(gridExtra)
+library(hrbrthemes)
+library(firasans)
 
-# Let's plot the data!
+jitt <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RDD/data/jitt_rd.csv")
 
-swift %>% dplyr::select(group, dates, popularity) %>% 
-  group_by(group, dates) %>% summarise_all(mean) %>% # We first group our data (an summarize it) by date and whether the state was part of the glitch or not
-  ggplot(data = ., aes(x = as.Date(dates), y = popularity, color = factor(group), group = factor(group))) + # Then we plot the data
-  geom_line(lwd = 1.3) +
-  
-  scale_color_manual(values = c("#FCCE25","#900DA4","#F89441"), name = "Group", label = c("0" = "Weird", "1" = "West Coast", "2" = "Non west coast") ) + # We include personalized colors (to not use the default ones)
-  
-  geom_vline(aes(xintercept=as.Date("2020-07-19")), lty = 2, lwd=1.1, color = "#5601A4") + #Release of the album in the west coast
-  geom_vline(aes(xintercept=as.Date("2020-08-09")), lty = 2, lwd=1.1, color = "#E16462") + #Release of the album everywhere else
-  
-  labs(x = "Date", y = "Popularity Index")+
-  theme_bw()+
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  scale_x_date(date_labels = "%m-%Y", date_breaks = "2 month")+
-  theme(plot.margin=unit(c(0.5,1,1,1.2),"cm"),
+jitt2 <- as.data.frame(cbind(table(jitt$external),rownames(table(jitt$external))))
+names(jitt2) = c("value","bin")
+jitt2$bin <- factor(jitt2$bin,levels = c("0","1"))
+
+levels(jitt2$bin)[levels(jitt2$bin)=="0"] <- "No"
+levels(jitt2$bin)[levels(jitt2$bin)=="1"] <- "Yes"
+
+cols1 = c("#FCCE25","#F89441")
+
+ggplot(data = jitt2, aes(x="", y=as.numeric(value),fill=bin)) + 
+  geom_bar(lwd=1.5, stat="identity", color="white") +
+  coord_polar("y",start = 0)+
+  scale_fill_manual(values=cols1, name = "") + 
+  theme_void()+
+  theme_ipsum_fsc() + #plain 
+  #ggtitle("How do you find the pace of the class?")+
+  #ylim(0,5)+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
         panel.grid.major.y = element_blank(),
         panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size = 14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size = 14),legend.position=c(0.9,0.8),
+        axis.line = element_blank())+
+  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank(),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position="right",
+        legend.title = element_text(size=12),
+        legend.text = element_text(size=10),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=12))
+
+```
+
+---
+# Conditions required for identification
+--
+
+- Threshold rule **.darkorange[exists]** and cutoff point is **.darkorange[known]**
+
+--
+
+- The running variable $R_i$ is **.darkorange[continuous]** near $c$.
+
+--
+
+- Key assumption:
+
+.box-5LA[Continuity of E[Y(1)|R] and E[Y(0)|R] at R=c]
+
+--
+
+.box-5t[That's the math-y way to say what most of you answered on the JITT!]
+
+---
+# Potential outcomes need to be smooth across the threshold
+
+```{r po-smooth, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+# Fake program data
+set.seed(1234)
+num_students <- 1000
+tutoring <- tibble(
+  id = 1:num_students,
+  entrance_exam = rbeta(num_students, shape1 = 7, shape2 = 2),
+  exit_exam = rbeta(num_students, shape1 = 5, shape2 = 3)
+) %>% 
+  mutate(entrance_exam = entrance_exam * 100,
+         tutoring = entrance_exam <= 70) %>% 
+  mutate(po = exit_exam * 40 + entrance_exam / 2,
+    exit_exam = exit_exam * 40 + 10 * tutoring + entrance_exam / 2) %>% 
+  mutate(tutoring_fuzzy = ifelse(entrance_exam > 60 & entrance_exam < 80,
+                                 sample(c(TRUE, FALSE), n(), replace = TRUE),
+                                 tutoring)) %>% 
+  mutate(tutoring_text = factor(tutoring, levels = c(FALSE, TRUE),
+                                labels = c("No tutor", "Tutor")),
+         tutoring_fuzzy_text = factor(tutoring_fuzzy, levels = c(FALSE, TRUE),
+                                      labels = c("No tutor", "Tutor"))) %>% 
+  mutate(entrance_centered = entrance_exam - 70)
+
+tutoring$exit_exam[tutoring$entrance_exam>70] = tutoring$exit_exam[tutoring$entrance_exam>70] + 25
+#tutoring$po = tutoring$po + 25
+
+ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
+  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
+              method = "loess", size = 2, show.legend = FALSE) +
+  geom_smooth(data = filter(tutoring, entrance_exam > 70),
+              method = "loess", size = 2, show.legend = FALSE) +
+  
+  geom_smooth(data = filter(tutoring, entrance_exam <= 70), aes(x = entrance_exam, y = po + 25),
+              method = "loess", se = FALSE, lty = 2,size = 2, show.legend = FALSE, color = "#900DA4") +
+  geom_smooth(data = filter(tutoring, entrance_exam > 70),aes(x = entrance_exam, y = po + 10),
+              method = "loess", size = 2, se = FALSE, lty = 2, show.legend = FALSE, color = "#F89441") +
+  
+  labs(x = "Running Variable", y = "Outcome") + 
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  scale_color_manual(values = c("#900DA4", "#F89441")) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
+  theme_ipsum_fsc() +
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position="none",
         legend.title = element_blank(),
         legend.text = element_text(size=15),
         legend.background = element_rect(fill="white",colour ="white"),
         title = element_text(size=14))
+```
 
-``` 
 ---
-# Staggered treatment adoption
+# Potential outcomes need to be smooth across the threshold
 
-- We have **.darkorange[three]** groups:
+```{r po-not-smooth2, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+# Fake program data
+set.seed(1234)
+num_students <- 1000
+tutoring <- tibble(
+  id = 1:num_students,
+  entrance_exam = rbeta(num_students, shape1 = 7, shape2 = 2),
+  exit_exam = rbeta(num_students, shape1 = 5, shape2 = 3)
+) %>% 
+  mutate(entrance_exam = entrance_exam * 100,
+         tutoring = entrance_exam <= 70) %>% 
+  mutate(po = exit_exam * 40 + entrance_exam / 2,
+    exit_exam = exit_exam * 40 + 10 * tutoring + entrance_exam / 2) %>% 
+  mutate(tutoring_fuzzy = ifelse(entrance_exam > 60 & entrance_exam < 80,
+                                 sample(c(TRUE, FALSE), n(), replace = TRUE),
+                                 tutoring)) %>% 
+  mutate(tutoring_text = factor(tutoring, levels = c(FALSE, TRUE),
+                                labels = c("No tutor", "Tutor")),
+         tutoring_fuzzy_text = factor(tutoring_fuzzy, levels = c(FALSE, TRUE),
+                                      labels = c("No tutor", "Tutor"))) %>% 
+  mutate(entrance_centered = entrance_exam - 70)
 
-  - West Coast: Received the album early because of a glitch.
+tutoring$exit_exam[tutoring$entrance_exam>70] = tutoring$exit_exam[tutoring$entrance_exam>70] + 25
+#tutoring$po = tutoring$po + 25
+
+ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
+  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
+  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
+  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
+              method = "loess", size = 2, show.legend = FALSE) +
+  geom_smooth(data = filter(tutoring, entrance_exam > 70),
+              method = "loess", size = 2, show.legend = FALSE) +
   
-  - Non west-coast: Received the album a bit later.
+  geom_smooth(data = filter(tutoring, entrance_exam <= 70), aes(x = entrance_exam, y = po + 15),
+              method = "loess", se = FALSE, lty = 2,size = 2, show.legend = FALSE, color = "#900DA4") +
+  geom_smooth(data = filter(tutoring, entrance_exam > 70),aes(x = entrance_exam, y = po + 10),
+              method = "loess", size = 2, se = FALSE, lty = 2, show.legend = FALSE, color = "#F89441") +
   
-  - Weird: Two fictional states that are not connected to the US (independent), and do not get Taylor Swift.
-  
---
-
-- What are the two dimensions we will leverage here?
-
+  labs(x = "Running Variable", y = "Outcome") + 
+  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
+  scale_color_manual(values = c("#900DA4", "#F89441")) +
+  theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
+  theme_ipsum_fsc() +
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
 
 ---
 
 .center2[
-.box-4LA[Let's go to R]
+.box-2LA[Can you think situations where that could happen?]
 ]
-
----
-# Takeaway points
-
-.pull-left[
-
-.center[
-<br>
-<br>
-![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_DD/images/bumpersticker.jpg)]
-
-]
-
-.pull-right[
-- There are other ways to **.darkorange[estimate causal effects beyond randomization]**
-
-- Always be careful of the **.darkorange[assumptions]**.
-
-  - Run robustness checks!
-
-- Don't confuse *assignment mechanisms* with *identification assumptions* 
-
-  - Note: Assignment mechanisms might make our identification assumption credible, **.darkorange[but they are not the same thing!]**
-]
-
----
-# References
-
-- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 5*.
-
-- Baker, A. (2019). ["Difference-in-Differences Methodology"](https://andrewcbaker.netlify.app/2019/09/25/difference-in-differences-methodology/).
-
-- Callaway, B. and P. Sant'Anna (2020). "Difference-in-Differences with multiple time periods". *Journal of Econometrics*.
-
-- Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 8-9: Diff-in-diff I and II, Course at BYU*. 
 
 
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/2_DD/f2021_sta235h_11_DD.html') -->
