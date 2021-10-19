@@ -456,30 +456,6 @@ I'm on the edge [of glory?]
 <br>
 .box-3t[E.g.: If you are above a threshold, you are assigned to treatment, and if your below, you are not (or vice versa)]
 
----
-# Examples of potential Regression Discontinuity Designs
-
---
-
-- How does financial aid affect probability of college attendance?
-
-  - Whether you are considered for a scholarship or not based on SAT/GPA cutoff: e.g. 2.5 GPA to be eligible
-  
---
-
-- How does corporate social responsibility policies affect shareholder value/stock returns?
-
-  - A policy is approved with 50% + 1: e.g. Close votes.
-  
---
-
-- How do housing prices change according to school quality?
-
-  - Properties on the border of the attendance zones.
-  
---
-
-.box-5[Other examples?]
 
 ---
 # Geographic discontinuities
@@ -1031,5 +1007,422 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 .box-2LA[Can you think situations where that could happen?]
 ]
 
+---
+---
+<br>
+<br>
+.box-4LA[How can I check if this assumption holds?]
 
+--
+<br>
+.box-4t[You can't! (it's an assumption)]
+
+--
+<br>
+<br>
+**.darkorange[Robustness checks:]**
+
+  - Check density across the cutoff
+  
+  - Check RD for covariates
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Estimation in practice
+]
+
+---
+# How do we actually estimate an RD?
+
+- The simplest way to do this is to fit a regression:
+
+$$Y_i = \beta_0 + \beta_1(R_i-c) + \beta_2\mathrm{I}[R_i>c] + \beta_3(R_i-c)\mathrm{I}[R_i> c]$$
+
+---
+# How do we actually estimate an RD?
+
+- The simplest way to do this is to fit a regression:
+
+$$Y_i = \beta_0 + \beta_1\color{#900DA4}{\underbrace{(R_i-c)}_\text{Distance to the cutoff}} + \beta_2\mathrm{I}[R_i>c] + \beta_3\color{#900DA4}{\overbrace{(R_i-c)}^\text{Distance to the cutoff}}\mathrm{I}[R_i> c]$$
+---
+# How do we actually estimate an RD?
+
+- The simplest way to do this is to fit a regression:
+
+$$Y_i = \beta_0 + \beta_1(R_i-c) + \beta_2\color{#F89441}{\underbrace{\mathrm{I}[R_i>c]}_\text{Treatment}} + \beta_3(R_i-c)\color{#F89441}{\overbrace{\mathrm{I}[R_i> c]}^\text{Treatment}}$$
+--
+
+- You want to add **.darkorange[flexibility]** for each side of the cutoff.
+
+--
+
+.box-2LA[Can you identify these parameters in a plot?]
+
+---
+# Let's see some examples: Sales using a linear model
+```{r, echo = TRUE, eval = FALSE}
+sales <- sales %>% mutate(dist = c-time)
+
+lm(sales ~ dist + treat + dist*treat, data = sales)
+```
+
+```{r rd_linear, fig.height=4, fig.width=8, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+sales <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RDD/data/sales.csv")
+c = max(sales$time[sales$treat==1])
+sales <- sales %>% mutate(dist = c-time)
+
+lm1 <- lm(sales ~ dist + treat + dist*treat, data = sales)
+
+sales_aug <- broom::augment(lm1, data = sales)
+
+ggplot(data = sales_aug, aes(x = time, y = sales)) +
+  geom_point(size = 5, pch = 21, color = "white", fill="grey") +
+  geom_line(data = filter(sales_aug, time>c), aes(x = time, y = .fitted), color = "#F89441", lwd = 2) +
+  geom_line(data = filter(sales_aug, time<=c), aes(x = time, y = .fitted), color = "#900DA4", lwd = 2) +
+  theme_ipsum_fsc() +
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# Let's see some examples: Sales using a linear model
+.small[
+```{r, echo = TRUE}
+summary(lm(sales ~ dist + treat + dist*treat, data = sales))
+```
+]
+
+---
+# We can be more flexible
+
+- The previous example just included linear terms, but you can also be more flexible:
+
+
+$$Y_i = \beta_0 + \beta_1f(R_i-c) + \beta_2\mathrm{I}[R_i>c] + \beta_3f(R_i-c)\mathrm{I}[R_i> c]$$
+
+   - Where $f$ is any function you want.
+   
+---
+# What happens if we fit a quadratic model?
+```{r, echo = TRUE, eval = FALSE}
+lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales)
+```
+
+```{r rd_quad, fig.height=4, fig.width=8, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+lm2 <- lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales)
+options(scipen = 0)
+sales_aug <- broom::augment(lm2, data = sales)
+
+ggplot(data = sales_aug, aes(x = time, y = sales)) +
+  geom_point(size = 5, pch = 21, color = "white", fill="grey") +
+  geom_line(data = filter(sales_aug, time>c), aes(x = time, y = .fitted), color = "#F89441", lwd = 2) +
+  geom_line(data = filter(sales_aug, time<=c), aes(x = time, y = .fitted), color = "#900DA4", lwd = 2) +
+  theme_ipsum_fsc() +
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# What happens if we fit a quadratic model?
+.small[
+```{r, warning=FALSE, message=FALSE}
+summary(lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales))
+```
+]
+
+---
+# What happens if we only look at observations close to c?
+```{r, echo = TRUE, eval = FALSE}
+sales_close <- sales %>% filter(dist>-100 & dist<100)
+
+lm(sales ~ dist + treat + dist*treat + treat, data = sales_close)
+lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales_close)
+```
+
+```{r rd_close, fig.height=3.5, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+sales_close <- sales %>% filter(dist>-100 & dist<100)
+
+lm1 <- lm(sales ~ dist + treat + dist*treat , data = sales_close)
+lm2 <- lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales_close)
+
+options(scipen = 0)
+
+sales_aug_close2 <- broom::augment(lm2, data = sales_close)
+sales_aug_close1 <- broom::augment(lm1, data = sales_close)
+
+g1 <- ggplot(data = sales_aug, aes(x = time, y = sales)) +
+  geom_point(size = 5, pch = 21, color = "white", fill="grey") +
+  geom_line(data = filter(sales_aug_close1, time>c), aes(x = time, y = .fitted), color = "#F89441", lwd = 2) +
+  geom_line(data = filter(sales_aug_close1, time<=c), aes(x = time, y = .fitted), color = "#900DA4", lwd = 2) +
+  geom_vline(aes(xintercept = c-100), lty = 2, color = "#E16462", lwd=1.5) +
+  geom_vline(aes(xintercept = c+100), lty = 2, color = "#E16462", lwd=1.5) +
+  theme_ipsum_fsc() +
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+g2 <- ggplot(data = sales_aug, aes(x = time, y = sales)) +
+  geom_point(size = 5, pch = 21, color = "white", fill="grey") +
+  geom_line(data = filter(sales_aug_close2, time>c), aes(x = time, y = .fitted), color = "#F89441", lwd = 2) +
+  geom_line(data = filter(sales_aug_close2, time<=c), aes(x = time, y = .fitted), color = "#900DA4", lwd = 2) +
+  geom_vline(aes(xintercept = c-100), lty = 2, color = "#E16462", lwd=1.5) +
+  geom_vline(aes(xintercept = c+100), lty = 2, color = "#E16462", lwd=1.5) +
+  theme_ipsum_fsc() +
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+g1 + g2
+```
+
+---
+# How do they compare?
+
+.small[
+```{r, warning=FALSE, message=FALSE}
+summary(lm(sales ~ dist + treat + dist*treat + treat, data = sales_close))
+```
+]
+
+
+---
+# How do they compare?
+
+.small[
+```{r, warning=FALSE, message=FALSE}
+summary(lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales_close))
+```
+]
+
+---
+# Potential problems
+
+- There are **.darkorange[many potential problems]** with the previous examples:
+
+  - Which polynomial function should we choose? Linear, quadratic, other?
+  
+  - What bandwidth should we choose? Whole sample? [-100,100]?
+  
+.center[
+![:scale 20%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RD/images/confusion.svg)
+]
+--
+
+- There are some ways to address these concerns.
+<br>
+<br>
+.bottom[
+.source[
+.tiny[
+<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>]]]
+---
+# Package `rdrobust`
+
+- Robust Regression Discontinuity introduced by Cattaneo, Calonico, Farrell & Titiunik (2014).
+
+- Use of **.darkorange[local polynomial]** for fit.
+
+- **.darkorange[Data-driven optimal bandwidth]** (bias vs variance).
+
+--
+
+- `rdrobust`: Estimation of LATE and opt. bandwidth
+
+- `rdplot`: Plotting RD with nonparametric local polynomial.
+
+---
+# Let's compare with previous parametric results
+
+```{r, echo = TRUE, eval = FALSE}
+rdplot(y = sales$sales, x = sales$time, c = c, 
+       title = "RD plot", x.label = "time", y.label = "sales")
+```
+
+```{r rdplot, fig.height=4.5, fig.width=8, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+library(rdrobust)
+
+c = min(sales$time[sales$treat==0])
+
+rdplot(y = sales$sales, x = sales$time, c = c, title = "RD plot",
+       x.label = "time", y.label = "sales", col.dots = "#F89441", col.lines = "#900DA4")
+```
+
+---
+# Let's compare with previous parametric results
+
+```{r, echo = TRUE, eval = FALSE}
+rdplot(y = sales$sales, x = sales$time, c = c, 
+       title = "RD plot", x.label = "time", y.label = "sales")
+```
+
+.pull-left[
+```{r rdplot2a, fig.height=4.5, fig.width=6, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+lm1 <- lm(sales ~ dist + treat + dist*treat, data = sales)
+
+sales_aug <- broom::augment(lm1, data = sales)
+
+ggplot(data = sales_aug, aes(x = time, y = sales)) +
+  geom_point(size = 5, pch = 21, color = "white", fill="grey") +
+  geom_line(data = filter(sales_aug, time>c), aes(x = time, y = .fitted), color = "#F89441", lwd = 2) +
+  geom_line(data = filter(sales_aug, time<c), aes(x = time, y = .fitted), color = "#900DA4", lwd = 2) +
+  theme_ipsum_fsc() +
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+```
+]
+
+.pull-right[
+```{r rdplot2b, fig.height=4.5, fig.width=6, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+rdplot(y = sales$sales, x = sales$time, c = c, title = "RD plot",
+       x.label = "time", y.label = "sales", col.dots = "#F89441", col.lines = "#900DA4")
+
+```
+]
+
+---
+# Let's compare with previous parametric results
+
+.small[
+```{r, warning=FALSE, message=FALSE}
+summary(rdrobust(y = sales$sales, x = sales$time, c = c))
+```
+]
+
+---
+# How do we weight observations?
+
+- `rdrobust` uses `rdbwselect()` function (by default) to estimate a data-driven bandwidth (i.e. what observations we are going to use for estimation).
+
+  - If we use a bandwidth, does this mean that the RD is estimating an effect for that population within the bandwidth?
+  
+--
+
+- **.darkorange[Kernels]** are also important in this context:
+
+  - How do I weight observations within the bandwidth (e.g. uniform, triangle)
+  
+---
+# Observing kernels
+
+```{r kernels, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+data <- data.frame(u = c(0,0,1,1,1,1,1,0,0),
+                   t = c(0,0,0,0.5,1,0.5,0,0,0),
+                   r = c(-3,-2,-2,-1,0,1,2,2,3))
+
+g1 <- ggplot(data = data, aes(x = r, y = u)) +
+  geom_line(color = "#F89441", lwd = 2) +
+  geom_vline(aes(xintercept = -2.05), lwd = 1.5, color = "#E16462", lty = 2) +
+  geom_vline(aes(xintercept = 2.05), lwd = 1.5, color = "#E16462", lty = 2) +
+  geom_vline(aes(xintercept = 0), lwd = 1.2, color = "dark grey", lty = 2) +
+  theme_ipsum_fsc() +
+  xlab("Running variable") + ylab("Weights") + ggtitle("Uniform Kernel") + 
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+g2 <- ggplot(data = data, aes(x = r, y = t)) +
+  geom_line(color = "#F89441", lwd = 2) +
+  geom_vline(aes(xintercept = -2), lwd = 1.5, color = "#E16462", lty = 2) +
+  geom_vline(aes(xintercept = 2), lwd = 1.5, color = "#E16462", lty = 2) +
+  geom_vline(aes(xintercept = 0), lwd = 1.2, color = "dark grey", lty = 2) +
+  theme_ipsum_fsc() +
+  xlab("Running variable") + ylab("Weights") + ggtitle("Triangle Kernel") + 
+  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
+        #axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+g1 + g2
+```
+
+
+---
+# Takeaway points
+
+.pull-left[
+- RD designs are **.darkorange[great]** for causal inference!
+
+  - Strong internal validity
+  - Number of robustness checks
+  
+- **.darkorange[Limited]** external validity.
+
+- Make sure to check your data:
+
+  - Discontinuity in treatment assignment
+  - Density across the cutoff
+  - Smoothness of covariates
+]
+
+.pull-right[
+![](https://media.giphy.com/media/yQF1MwG7u9OvgVAjmr/giphy.gif)
+]
+---
+# References
+
+- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 4*.
+
+- Calonico, Cattaneo and Titiunik. (2015). "rdrobust: An R Package for Robust Nonparametric Inference in Regression-Discontinuity Designs". R Journal 7(1): 38-51.
+
+- Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 10: Regression Discontinuity I, Course at BYU*.
+
+- Lee, D. and T. Lemieux. (2010). "Regression Discontinuity in Economics". *Journal of Economic Literature 48, pp 281-355*.
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/2_DD/f2021_sta235h_11_DD.html') -->
