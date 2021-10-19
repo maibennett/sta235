@@ -5,10 +5,6 @@
     <meta charset="utf-8" />
     <meta name="author" content="McCombs School of Business, UT Austin" />
     <script src="libs/header-attrs/header-attrs.js"></script>
-    <script src="libs/fabric/fabric.min.js"></script>
-    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
     <script src="libs/clipboard/clipboard.min.js"></script>
     <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
@@ -227,17 +223,17 @@ I'm on the edge [of glory?]
 ---
 # Assignment based on entrance score
 
-&lt;img src="f2021_sta235h_12_RDD_annotate_files/figure-html/tutoring-running-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/tutoring-running-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Let's look at the area close to the cutoff
 
-&lt;img src="f2021_sta235h_12_RDD_annotate_files/figure-html/tutoring-running-threshold-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/tutoring-running-threshold-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Let's get closer
 
-&lt;img src="f2021_sta235h_12_RDD_annotate_files/figure-html/tutoring-running-threshold-zoomed-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/tutoring-running-threshold-zoomed-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 # Causal inference intuition
 
@@ -254,17 +250,17 @@ I'm on the edge [of glory?]
 ---
 # Exit exam results according to running variable
 
-&lt;img src="f2021_sta235h_12_RDD_annotate_files/figure-html/tutoring-outcome-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/tutoring-outcome-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Fit a regression at the right and left side of the cutoff
 
-&lt;img src="f2021_sta235h_12_RDD_annotate_files/figure-html/tutoring-outcome-lines-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/tutoring-outcome-lines-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Fit a regression at the right and left side of the cutoff
 
-&lt;img src="f2021_sta235h_12_RDD_annotate_files/figure-html/tutoring-outcome-edlta-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/tutoring-outcome-edlta-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 background-position: 50% 50%
@@ -297,16 +293,16 @@ Let's get [a bit] math-y...
 ---
 # What does the limit expression mean?
 
-&lt;img src="f2021_sta235h_12_RDD_annotate_files/figure-html/tutoring-limit-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/tutoring-limit-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 # What does the limit expression mean?
 
-&lt;img src="f2021_sta235h_12_RDD_annotate_files/figure-html/tutoring-limit2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/tutoring-limit2-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # What does the limit expression mean?
 
-&lt;img src="f2021_sta235h_12_RDD_annotate_files/figure-html/tutoring-limit3-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/tutoring-limit3-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 .center2[
@@ -339,7 +335,7 @@ Let's get [a bit] math-y...
 ---
 # JITT: Can we estimate an effect for R=25 vs R=75?
 
-&lt;img src="f2021_sta235h_12_RDD_annotate_files/figure-html/jitt_rd-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/jitt_rd-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Conditions required for identification
@@ -364,12 +360,12 @@ Let's get [a bit] math-y...
 ---
 # Potential outcomes need to be smooth across the threshold
 
-&lt;img src="f2021_sta235h_12_RDD_annotate_files/figure-html/po-smooth-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/po-smooth-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Potential outcomes need to be smooth across the threshold
 
-&lt;img src="f2021_sta235h_12_RDD_annotate_files/figure-html/po-not-smooth2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/po-not-smooth2-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -438,7 +434,7 @@ sales &lt;- sales %&gt;% mutate(dist = c-time)
 lm(sales ~ dist + treat + dist*treat, data = sales)
 ```
 
-&lt;img src="f2021_sta235h_12_RDD_annotate_files/figure-html/rd_linear-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/rd_linear-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Let's see some examples: Sales using a linear model
@@ -489,7 +485,7 @@ summary(lm(sales ~ dist + treat + dist*treat, data = sales))
 lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales)
 ```
 
-&lt;img src="f2021_sta235h_12_RDD_annotate_files/figure-html/rd_quad-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/rd_quad-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # What happens if we fit a quadratic model?
@@ -536,7 +532,7 @@ lm(sales ~ dist + treat + dist*treat + treat, data = sales_close)
 lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales_close)
 ```
 
-&lt;img src="f2021_sta235h_12_RDD_annotate_files/figure-html/rd_close-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/rd_close-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # How do they compare?
@@ -653,7 +649,7 @@ rdplot(y = sales$sales, x = sales$time, c = c,
        title = "RD plot", x.label = "time", y.label = "sales")
 ```
 
-&lt;img src="f2021_sta235h_12_RDD_annotate_files/figure-html/rdplot-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/rdplot-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Let's compare with previous parametric results
@@ -665,11 +661,11 @@ rdplot(y = sales$sales, x = sales$time, c = c,
 ```
 
 .pull-left[
-&lt;img src="f2021_sta235h_12_RDD_annotate_files/figure-html/rdplot2a-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/rdplot2a-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-&lt;img src="f2021_sta235h_12_RDD_annotate_files/figure-html/rdplot2b-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/rdplot2b-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -723,7 +719,7 @@ summary(rdrobust(y = sales$sales, x = sales$time, c = c))
 ---
 # Observing kernels
 
-&lt;img src="f2021_sta235h_12_RDD_annotate_files/figure-html/kernels-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/kernels-1.svg" style="display: block; margin: auto;" /&gt;
 
 
 ---
