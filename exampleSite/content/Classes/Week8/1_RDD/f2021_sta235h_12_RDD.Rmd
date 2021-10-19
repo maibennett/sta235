@@ -1415,6 +1415,22 @@ g1 + g2
 .pull-right[
 ![](https://media.giphy.com/media/yQF1MwG7u9OvgVAjmr/giphy.gif)
 ]
+
+---
+# Finished with Causal Inference!
+
+.pull-left[
+.center[
+![:scale 90%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RDD/images/twitter.png)]
+]
+
+.pull-right[
+.center[
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RDD/images/amazon.png)]
+]
+
+.source[Check out the threads by <a href="https://twitter.com/TwitterEng/status/1450179475426066433">Twitter Engineer</a> and <a href="https://twitter.com/AmazonScience/status/1450187131985530882">Amazon</a>]
+
 ---
 # References
 
@@ -1425,4 +1441,4 @@ g1 + g2
 - Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 10: Regression Discontinuity I, Course at BYU*.
 
 - Lee, D. and T. Lemieux. (2010). "Regression Discontinuity in Economics". *Journal of Economic Literature 48, pp 281-355*.
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week8/1_RDD/f2021_sta235h_12_RDD.html') -->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/2_DD/f2021_sta235h_11_DD.html') -->
