@@ -46,4 +46,4 @@ Code for Regression Discontinuity Design <a onclick="ga('send', 'event', 'Extern
 
 <br>
 
-Code for Binary Outcomes <a onclick="ga('send', 'event', 'External-Link','click','code13','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/2_Binary/code/f2021_sta235h_12_Binary.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+Code for Binary Outcomes <a onclick="ga('send', 'event', 'External-Link','click','code13','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/2_Binary/code/f2021_sta235h_12_binary.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
