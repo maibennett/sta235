@@ -25,7 +25,7 @@ This week we will start diving into into prediction and model selection problems
 
 ## JITT
 
-Complete before **Sunday Oct 24th (11:59 pm)** (if your section is on Tue) or **Tuesday Oct 26th (11:59 pm)** (if your section is on Thu). The assignment will be posted soon. <!-- You can find the assignment [here](https://forms.gle/wUiFSPsoyitXk9896). -->
+Complete before **Sunday Oct 24th (11:59 pm)** (if your section is on Tue) or **Tuesday Oct 26th (11:59 pm)** (if your section is on Thu). You can find the assignment [here](https://forms.gle/VaaewnqMvSaScZ1T9).
 
 ## Slides
 

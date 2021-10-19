@@ -16,3 +16,5 @@ chapter: false
 
 - **[JITT 6](https://forms.gle/wUiFSPsoyitXk9896)**: Complete before **Sunday Oct 17th (11:59 pm)** (if your section is on Tue) or **Tuesday Oct 19th (11:59 pm)** (if your section is on Thu).
 
+- **[JITT 7](https://forms.gle/VaaewnqMvSaScZ1T9)**: Complete before **Sunday Oct 24th (11:59 pm)** (if your section is on Tue) or **Tuesday Oct 26th (11:59 pm)** (if your section is on Thu).
+
