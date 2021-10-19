@@ -390,7 +390,7 @@ font.add.google("Fira Sans", "Fira Sans")
 
 .pull-right[
 .center[
-![:scale 100%](https://media.giphy.com/media/7SQDv1QwEGjvEdCf5d/giphy.gif)]
+![](https://media.giphy.com/media/1kenyYNFG9wTUyHMjk/giphy-downsized-large.gif)]
 ]
 
 ---
@@ -398,7 +398,7 @@ font.add.google("Fira Sans", "Fira Sans")
 
 .pull-left[
 .center[
-![](https://media.giphy.com/media/TFHpJBHii6gUnTrY6x/giphy.gif)]
+![](https://media.giphy.com/media/l2Je3qSgOVvFPdaNi/giphy.gif)]
 ]
 .pull-right[
 - **.darkorange[Regression Discontinuity Design (RD)]**:
@@ -499,7 +499,7 @@ I'm on the edge [of glory?]
 # Voting discontinuities
 
 .center[
-![:scale 55%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/2_RDD/images/voting_share.png)]
+![:scale 55%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RDD/images/voting_share.png)]
 
 ---
 
@@ -534,6 +534,12 @@ I'm on the edge [of glory?]
 --
 
 .box-5[Students then take an exit exam<br>at the end of the year]
+
+---
+
+.center2[
+.box-2LA[Can we compare students who got a tutor vs those that did not to capture the effect of having a tutor on GPA?]
+]
 
 ---
 # Assignment based on entrance score
@@ -688,8 +694,6 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
   guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
   theme_bw(base_size = 28, base_family = "Fira Sans Condensed")
 ```
-
----
 
 ---
 background-position: 50% 50%
