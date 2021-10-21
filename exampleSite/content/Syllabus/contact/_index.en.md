@@ -12,8 +12,8 @@ disableToc: true
 
 | Teaching Assistant | E-mail   | Office   | Office Hours |
 |------------|----------|----------|--------------|
-| Pedro Santos  | <a href="mailto:Pedro.Santos@mccombs.utexas.edu">Pedro.Santos@mccombs.utexas.edu</a>   | Online   | TBD|
-| Shentao Yang  | <a href="Shentao.Yang@mccombs.utexas.edu">Shentao.Yang@mccombs.utexas.edu</a>   | Online   | TBD|
+| Pedro Santos  | <a href="mailto:Pedro.Santos@mccombs.utexas.edu">Pedro.Santos@mccombs.utexas.edu</a>   | Online   | Mon: 4:00-6:00 PM|
+| Shentao Yang  | <a href="Shentao.Yang@mccombs.utexas.edu">Shentao.Yang@mccombs.utexas.edu</a>   |    | |
 
 {{% notice note %}}
 If you have a conflict with office hours (e.g. another class is scheduled at the same time), please email us so we can set up another time to meet.
