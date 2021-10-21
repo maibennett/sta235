@@ -367,9 +367,6 @@ font.add.google("Fira Sans", "Fira Sans")
   
   - Check the Homework 3 tab in the course website: <u>Things to look out for.</u>
 
---
-
-- If you want to attend **.darkorange[office hours]**, <u>book early</u>.
 
 ---
 # Last class
