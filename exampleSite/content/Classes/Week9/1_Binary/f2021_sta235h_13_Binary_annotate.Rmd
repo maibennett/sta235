@@ -349,6 +349,40 @@ font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
 font.add.google("Fira Sans", "Fira Sans")
 ```
 
+# Last Week
+
+.pull-left[
+- Discussed **.darkorange[Regression Discontinuity Designs]**:
+
+  - Strong internal validity vs. limited external validity
+  - Assumptions behind RD designs
+  - Robustness checks
+  
+- Finished with **.darkorange[causal inference]** chapter.
+]
+
+.pull-right[
+![](https://media.giphy.com/media/xT5LMUt1dWrBQtacJG/giphy.gif)
+]
+
+---
+# Today
+
+.pull-left[
+![](https://media.giphy.com/media/W1eqqboCKxCWmTPzX2/giphy.gif)
+]
+
+.pull-right[
+- Talking about **.darkorange[models with binary outcomes]**:
+
+  - Linear probability models vs. logistic regressions
+  
+- Start our **.darkorange[prediction chapter]**:
+
+  - Bias vs. Variance trade-off, importance of cross-validation, model selection.
+]
+
+---
 # Binary Outcomes
 
 .pull-left[

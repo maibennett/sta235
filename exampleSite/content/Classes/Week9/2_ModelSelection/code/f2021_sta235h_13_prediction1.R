@@ -1,7 +1,7 @@
 ################################################################################
-### Title: "Week 10 - Prediction I"
-### Course: STA 235
-### Semester: Spring 2021
+### Title: "Week 9 - Prediction I"
+### Course: STA 235H
+### Semester: Fall 2021
 ### Professor: Magdalena Bennett
 ################################################################################
 
@@ -16,13 +16,13 @@ cat("\014")
 library(tidyverse)
 library(ggplot2)
 library(estimatr)
-library(broom)
+library(modelr)
 library(caret)
 
 ################################################################################
 ################ Measuring churn ###############################################
 
-disney <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/2_ModelSelection/data/disney.csv")
+disney <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week9/2_ModelSelection/data/disney.csv")
 
 head(disney)
 
@@ -30,13 +30,13 @@ head(disney)
 
 set.seed(100) #Always set seed for replication!
 
-n <- nrow(disney)
+n <- nrow(disney) # Will tell us how many observations we have
 
 train <- sample(1:n, n*0.8) #randomly select 80% of the rows
 
-train.data <- disney[train,] #use only the rows that were selected for training
+train.data <- disney %>% slice(train) #use only the rows that were selected for training
 
-test.data <- disney[-train,] #the rest are used for testing
+test.data <- disney %>% slice(-train) #the rest are used for testing
 
 ### Simple model
 lm_simple <- lm(logins ~ mandalorian + city, data = train.data) #Train the model on the TRAINING DATASET
@@ -47,25 +47,24 @@ lm_complex <- lm(logins ~ female + city + age + I(age^2) + mandalorian, data = t
 
 # Estimate RMSE for these models on the TRAINING dataset:
 # For simple model:
-pred_simple_train <- lm_simple %>% predict(train.data)
-RMSE(pred_simple_train, train.data$unsubscribe)
+rmse(lm_simple, train.data) #rmse() in the `modelr` package takes model we are using and the data.
 
 # For complex model:
-pred_complex_train <- lm_complex %>% predict(train.data)
-RMSE(pred_complex_train, train.data$unsubscribe)
+rmse(lm_complex, train.data)
 
-## Question: Which model is better?
+# If we wanted to actually get the predictions, we could also do that with the following line:
+pred_complex_train <- lm_complex %>% predict(train.data) #We start with the model, and then use the function predict on the data we want.
+
+## Question: According to this, which model is better? Is this the comparison we want?
 
 # Estimate RMSE for these models on the TESTING dataset:
 # For simple model:
-pred_simple_test <- lm_simple %>% predict(test.data)
-RMSE(pred_simple_test, test.data$unsubscribe)
+rmse(lm_simple, test.data)
 
 # For complex model:
-pred_complex_test <- lm_complex %>% predict(test.data)
-RMSE(pred_complex_test, test.data$unsubscribe)
+rmse(lm_complex, test.data)
 
-## Question: Which model is better?
+## Question: Using this comparison, which model is better? Is this the comparison we want?
 
 ###############################################################################
 #### Cross-validation
@@ -77,15 +76,17 @@ set.seed(100) # Set seed for replication!
 
 train.control <- trainControl(method = "cv", number = 10) #This is a function from the package caret. We are telling our data that we will use a cross validation approach (cv) with 10 folds (number). Use ?trainControl to see the different methods we could use!
 
-lm_simple <- train(logins ~ mandalorian + city, data = disney, method="lm",
+lm_simple_cv <- train(logins ~ mandalorian + city, data = disney, method="lm",
                trControl = train.control) #See that here (in the train function), we just pass all the data. The function will divide it in folds and do all that!
 
-lm_simple
+lm_simple_cv
 
-lm_complex <- train(logins ~ female + city + age + I(age^2) + mandalorian, data = disney, method="lm",
-                   trControl = train.control) #See that here (in the train function), we just pass all the data. The function will divide it in folds and do all that!
+rmse(lm_simple_cv, test.data)
 
-lm_complex
+lm_complex_cv <- train(logins ~ female + city + age + I(age^2) + mandalorian, data = disney, method="lm",
+                       trControl = train.control) #See that here (in the train function), we just pass all the data. The function will divide it in folds and do all that!
+
+lm_complex_cv
 
 
 # Exercise: use the function `trainControl(method = "LOOCV")` to do a Leave One Out (LOO) cross validation. Do your results change? How? What are the advantages and disadvantages of using LOO?
@@ -96,6 +97,8 @@ lm_complex
 
 library(leaps)
 
+# In this case, we need to pass three arguments: (1) a formula, (2) data, and (3) method.
+# Formula: We need the outcome variable we want to predict (logins), and use all predictors in our data (we exclude "unsubscribe" because that's actually another outcome).
 regfit.fwd <- regsubsets(logins ~ . - unsubscribe, data=disney, method = "forward") # do forward stepwise selection
 
 summary(regfit.fwd) #interpret these results. 
@@ -109,7 +112,7 @@ train.control <- trainControl(method = "cv", number = 10) #set up a 10-fold cv
 
 lm.fwd <- train(logins ~ . - unsubscribe, data = disney,
                     method = "leapForward", 
-                    tuneGrid = data.frame(nvmax = 1:5), #We are saying that we will use max 5 covariates
+                    tuneGrid = data.frame(nvmax = 1:5), #We are saying that we will use max 5 covariates (this depends on your data and you need to change it accordingly)
                     trControl = train.control)
 lm.fwd$results
 
