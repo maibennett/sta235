@@ -1120,7 +1120,37 @@ lm.fwd$results
 
 .pull-right[
 .center[
-![](https://media.giphy.com/media/n8SkNR77udWlG/giphy.gif)
+![](https://media.giphy.com/media/PnfsGtSGXJjgcDo9cc/giphy.gif)]
+]
+
+---
+# Next class
+
+.pull-left[
+
+- Continue with prediction and model selection
+
+- **.darkorange[Shrinkage methods]**: 
+
+  - Ridge regression and Lasso.
+
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/oYtVHSxngR3lC/giphy.gif)
+]
+]
+---
+# References
+
+- James, G. et al. (2021). "Introduction to Statistical Learning with Applications in R". *Springer*. *Chapter 2, 5, and 6*.
+
+- STDHA. (2018). ["Stepwise Regression Essentials in R."](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/154-stepwise-regression-essentials-in-r/)
+
+- STDHA. (2018). ["Cross-Validation Essentials in R."](http://www.sthda.com/english/articles/38-regression-model-validation/157-cross-validation-essentials-in-r/)
+
+
 
 
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week9/1_Binary/f2021_sta235h_13_Binary.html') -->
