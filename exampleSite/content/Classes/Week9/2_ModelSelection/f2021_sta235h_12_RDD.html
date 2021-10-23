@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235H - Regression Discontinuity Design</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA 235H - Regression Discontinuity Design
+## Fall 2021
+### McCombs School of Business, UT Austin
+
+---
+
+
+&lt;!-- &lt;script type="text/javascript"&gt; --&gt;
+&lt;!-- MathJax.Hub.Config({ --&gt;
+&lt;!--   "HTML-CSS": { --&gt;
+&lt;!--     preferredFont: null, --&gt;
+&lt;!--     webFont:  "Neo-Euler" --&gt;
+&lt;!--   } --&gt;
+&lt;!-- }); --&gt;
+&lt;!-- &lt;/script&gt; --&gt;
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+&lt;/style&gt;
+
+
+
+
+
+# Housekeeping
+
+.box-2LA[Midterm is due on Friday, 11:59 pm]
+
+--
+
+- Remember there are **.darkorange[no 24-hour extension]**
+
+- Check your submission files (e.g. if you have more than one version, make sure you submit the right one)
+
+--
+
+- Grades for **.darkorange[homework 3 were posted]**:
+  
+  - Check the point assignment in the comments and the files I returned.
+  
+  - Check the Homework 3 tab in the course website: &lt;u&gt;Things to look out for.&lt;/u&gt;
+
+
+---
+# Last class
+
+.pull-left[
+- **.darkorange[Natural Experiments]**
+  
+  - How to identify them and how to think about potential confounding.
+  
+- **.darkorange[Difference-in-Differences (DD)]**:
+  
+  - How we can use two wrong estimates to get a right one.
+  
+  - Assumptions behind DD.
+  
+  - Staggered DD: &lt;u&gt;See video for R code review&lt;/u&gt;.
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/1kenyYNFG9wTUyHMjk/giphy-downsized-large.gif)]
+]
+
+---
+# Today
+
+.pull-left[
+.center[
+![](https://media.giphy.com/media/l2Je3qSgOVvFPdaNi/giphy.gif)]
+]
+.pull-right[
+- **.darkorange[Regression Discontinuity Design (RD)]**:
+  
+  - How can we use discontinuities to recover causal effects?
+  
+  - Assumptions behind RD designs.
+  
+- **.darkorange[Models with binary outcomes]**:
+
+  - Linear Probability Models vs Logistic Models.
+  
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+I'm on the edge [of glory?]
+]
+
+---
+# Another identification strategy
+
+- We have seen:
+
+.box-2[RCTs]
+
+.box-3[Selection on observables]
+
+.box-4[Natural experiments]
+
+.box-6[Differences-in-Differences]
+
+--
+
+.box-7LA[Regression Discontinuity Designs]
+
+
+---
+# Introduction to Regression Discontinuity Designs
+
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.box-2LA[Regression Discontinuity (RD) Designs]
+--
+&lt;br&gt;
+&lt;br&gt;
+.box-2tL[Arbitrary rules determine treatment assignment]
+
+--
+&lt;br&gt;
+&lt;br&gt;
+.box-3t[E.g.: If you are above a threshold, you are assigned to treatment, and if your below, you are not (or vice versa)]
+
+
+---
+# Geographic discontinuities
+
+.center[
+![](https://raw.githubusercontent.com/andrewheiss/evalf20.classes.andrewheiss.com/master/static/slides/img/10/timezones-1.png)
+]
+
+---
+# Time discontinuities
+
+.center[
+![:scale 60%](https://raw.githubusercontent.com/andrewheiss/evalf20.classes.andrewheiss.com/master/static/slides/img/10/hospitals-1.png)
+]
+
+---
+# Voting discontinuities
+
+.center[
+![:scale 55%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RDD/images/voting_share.png)]
+
+---
+
+.center2[
+.box-5LA[You can find discontinuities everywhere!]
+]
+
+---
+# Key Terms
+
+.box-4LA[Running/ forcing variable]
+
+.box-4t[Index or measure that determines eligibility]
+
+--
+
+.box-7LA[Cutoff/ cutpoint/ threshold]
+
+.box-7t[Number that formally assigns you to a program or treatment]
+
+---
+# Hypothetical tutoring program
+
+--
+
+.box-5[Students take an entrance exam]
+
+--
+
+.box-5tL[Those who score 70 or lower&lt;br&gt;get a free tutor for the year]
+
+--
+
+.box-5[Students then take an exit exam&lt;br&gt;at the end of the year]
+
+---
+
+.center2[
+.box-2LA[Can we compare students who got a tutor vs those that did not to capture the effect of having a tutor on GPA?]
+]
+
+---
+# Assignment based on entrance score
+
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/tutoring-running-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Let's look at the area close to the cutoff
+
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/tutoring-running-threshold-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Let's get closer
+
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/tutoring-running-threshold-zoomed-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Causal inference intuition
+
+.box-2LA[Observations right before and after the threshold are essentially the same]
+
+--
+
+.box-4LA[Pseudo treatment and control groups!]
+
+--
+
+.box-7LA[Compare outcomes right at the cutoff]
+
+---
+# Exit exam results according to running variable
+
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/tutoring-outcome-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Fit a regression at the right and left side of the cutoff
+
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/tutoring-outcome-lines-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Fit a regression at the right and left side of the cutoff
+
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/tutoring-outcome-edlta-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Let's get [a bit] math-y...
+]
+
+---
+# Behind the scenes of RDs
+
+- Basically, regression discontinuities work under an **.darkorange[asymptotic assumption]**:
+
+--
+
+- Let `\(Y_i\)` be the outcome of interest, `\(Z_i\)` the treatment assignment, `\(R_i\)` the running variable, and `\(c\)` the cutoff score:
+
+`$$Z_i =   \left\{
+\begin{array}{ll}
+      0 &amp; R_i\leq c \\
+      1 &amp; R_i&gt;c \\
+\end{array} 
+\right.$$`
+
+--
+
+- Then, we can define the treatment effect `\(\delta\)` as:
+
+`$$\delta = \lim_{\epsilon \rightarrow 0^+}E[Y_i| R_i = c + \epsilon] - \lim_{\epsilon \rightarrow 0^-}E[Y_i| R_i = c + \epsilon]$$`
+---
+# What does the limit expression mean?
+
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/tutoring-limit-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# What does the limit expression mean?
+
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/tutoring-limit2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# What does the limit expression mean?
+
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/tutoring-limit3-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+.center2[
+.box-2LA[What is the estimand we are estimating?]
+]
+
+---
+.center2[
+.box-2LA[Local Average Treatment Effect (LATE) for units at R=c]
+]
+
+---
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+.box-3[Is that what we want?]
+
+--
+&lt;br&gt;
+&lt;br&gt;
+.box-5[Probably not ideal, there may not be *any* units with R=c]
+
+--
+&lt;br&gt;
+&lt;br&gt;
+.box-7[... but better LATE than nothing!]
+
+---
+# JITT: Can we estimate an effect for R=25 vs R=75?
+
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/jitt_rd-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Conditions required for identification
+--
+
+- Threshold rule **.darkorange[exists]** and cutoff point is **.darkorange[known]**
+
+--
+
+- The running variable `\(R_i\)` is **.darkorange[continuous]** near `\(c\)`.
+
+--
+
+- Key assumption:
+
+.box-5LA[Continuity of E[Y(1)|R] and E[Y(0)|R] at R=c]
+
+--
+
+.box-5t[That's the math-y way to say what most of you answered on the JITT!]
+
+---
+# Potential outcomes need to be smooth across the threshold
+
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/po-smooth-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Potential outcomes need to be smooth across the threshold
+
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/po-not-smooth2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+.center2[
+.box-2LA[Can you think situations where that could happen?]
+]
+
+---
+&lt;br&gt;
+&lt;br&gt;
+.box-4LA[How can I check if this assumption holds?]
+
+--
+&lt;br&gt;
+.box-4t[You can't! (it's an assumption)]
+
+--
+&lt;br&gt;
+&lt;br&gt;
+**.darkorange[Robustness checks:]**
+
+  - Check density across the cutoff
+  
+  - Check RD for covariates
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Estimation in practice
+]
+
+---
+# How do we actually estimate an RD?
+
+- The simplest way to do this is to fit a regression:
+
+`$$Y_i = \beta_0 + \beta_1(R_i-c) + \beta_2\mathrm{I}[R_i&gt;c] + \beta_3(R_i-c)\mathrm{I}[R_i&gt; c]$$`
+
+---
+# How do we actually estimate an RD?
+
+- The simplest way to do this is to fit a regression:
+
+`$$Y_i = \beta_0 + \beta_1\color{#900DA4}{\underbrace{(R_i-c)}_\text{Distance to the cutoff}} + \beta_2\mathrm{I}[R_i&gt;c] + \beta_3\color{#900DA4}{\overbrace{(R_i-c)}^\text{Distance to the cutoff}}\mathrm{I}[R_i&gt; c]$$`
+---
+# How do we actually estimate an RD?
+
+- The simplest way to do this is to fit a regression:
+
+`$$Y_i = \beta_0 + \beta_1(R_i-c) + \beta_2\color{#F89441}{\underbrace{\mathrm{I}[R_i&gt;c]}_\text{Treatment}} + \beta_3(R_i-c)\color{#F89441}{\overbrace{\mathrm{I}[R_i&gt; c]}^\text{Treatment}}$$`
+--
+
+- You want to add **.darkorange[flexibility]** for each side of the cutoff.
+
+--
+
+.box-2LA[Can you identify these parameters in a plot?]
+
+---
+# Let's see some examples: Sales using a linear model
+
+```r
+sales &lt;- sales %&gt;% mutate(dist = c-time)
+
+lm(sales ~ dist + treat + dist*treat, data = sales)
+```
+
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/rd_linear-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Let's see some examples: Sales using a linear model
+.small[
+
+```r
+summary(lm(sales ~ dist + treat + dist*treat, data = sales))
+```
+
+```
+## 
+## Call:
+## lm(formula = sales ~ dist + treat + dist * treat, data = sales)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -65.738 -13.940   0.051  13.538  76.515 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 178.640954   1.300314  137.38   &lt;2e-16 ***
+## dist          0.205355   0.008882   23.12   &lt;2e-16 ***
+## treat        31.333952   1.842338   17.01   &lt;2e-16 ***
+## dist:treat   -0.200845   0.012438  -16.15   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 20.52 on 1996 degrees of freedom
+## Multiple R-squared:  0.6939,	Adjusted R-squared:  0.6934 
+## F-statistic:  1508 on 3 and 1996 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+---
+# We can be more flexible
+
+- The previous example just included linear terms, but you can also be more flexible:
+
+
+`$$Y_i = \beta_0 + \beta_1f(R_i-c) + \beta_2\mathrm{I}[R_i&gt;c] + \beta_3f(R_i-c)\mathrm{I}[R_i&gt; c]$$`
+
+   - Where `\(f\)` is any function you want.
+   
+---
+# What happens if we fit a quadratic model?
+
+```r
+lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales)
+```
+
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/rd_quad-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# What happens if we fit a quadratic model?
+.small[
+
+```r
+summary(lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales))
+```
+
+```
+## 
+## Call:
+## lm(formula = sales ~ dist + I(dist^2) + treat + dist * treat + 
+##     treat * I(dist^2), data = sales)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -66.090 -13.979   0.239  13.154  76.656 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)      1.698e+02  1.937e+00  87.665  &lt; 2e-16 ***
+## dist            -4.302e-03  3.556e-02  -0.121 0.903725    
+## I(dist^2)       -8.288e-04  1.363e-04  -6.083 1.41e-09 ***
+## treat            3.308e+01  2.747e+00  12.041  &lt; 2e-16 ***
+## dist:treat       1.713e-01  4.964e-02   3.452 0.000569 ***
+## I(dist^2):treat  2.034e-04  1.877e-04   1.084 0.278554    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 20.23 on 1994 degrees of freedom
+## Multiple R-squared:  0.7029,	Adjusted R-squared:  0.7021 
+## F-statistic: 943.5 on 5 and 1994 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+---
+# What happens if we only look at observations close to c?
+
+```r
+sales_close &lt;- sales %&gt;% filter(dist&gt;-100 &amp; dist&lt;100)
+
+lm(sales ~ dist + treat + dist*treat + treat, data = sales_close)
+lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales_close)
+```
+
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/rd_close-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# How do they compare?
+
+.small[
+
+```r
+summary(lm(sales ~ dist + treat + dist*treat + treat, data = sales_close))
+```
+
+```
+## 
+## Call:
+## lm(formula = sales ~ dist + treat + dist * treat + treat, data = sales_close)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -53.241 -14.764   0.268  12.938  57.811 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 170.84457    2.05528  83.125   &lt;2e-16 ***
+## dist          0.06345    0.03542   1.791   0.0736 .  
+## treat        32.21243    2.93614  10.971   &lt;2e-16 ***
+## dist:treat    0.06909    0.05047   1.369   0.1714    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 20.25 on 782 degrees of freedom
+## Multiple R-squared:  0.5261,	Adjusted R-squared:  0.5243 
+## F-statistic: 289.4 on 3 and 782 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+
+---
+# How do they compare?
+
+.small[
+
+```r
+summary(lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales_close))
+```
+
+```
+## 
+## Call:
+## lm(formula = sales ~ dist + I(dist^2) + treat + dist * treat + 
+##     treat * I(dist^2), data = sales_close)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -50.080 -14.238  -0.463  12.740  54.231 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     163.550012   3.001833  54.483  &lt; 2e-16 ***
+## dist             -0.375526   0.136936  -2.742 0.006240 ** 
+## I(dist^2)        -0.004415   0.001331  -3.317 0.000951 ***
+## treat            38.757140   4.316684   8.978  &lt; 2e-16 ***
+## dist:treat        0.552254   0.195847   2.820 0.004927 ** 
+## I(dist^2):treat   0.003975   0.001894   2.099 0.036121 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 20.13 on 780 degrees of freedom
+## Multiple R-squared:  0.5328,	Adjusted R-squared:  0.5298 
+## F-statistic: 177.9 on 5 and 780 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+---
+# Potential problems
+
+- There are **.darkorange[many potential problems]** with the previous examples:
+
+  - Which polynomial function should we choose? Linear, quadratic, other?
+  
+  - What bandwidth should we choose? Whole sample? [-100,100]?
+  
+.center[
+![:scale 20%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RDD/images/confusion.svg)
+]
+--
+
+- There are some ways to address these concerns.
+&lt;br&gt;
+&lt;br&gt;
+.bottom[
+.source[
+.tiny[
+&lt;div&gt;Icons made by &lt;a href="https://www.freepik.com" title="Freepik"&gt;Freepik&lt;/a&gt; from &lt;a href="https://www.flaticon.com/" title="Flaticon"&gt;www.flaticon.com&lt;/a&gt;&lt;/div&gt;]]]
+---
+# Package `rdrobust`
+
+- Robust Regression Discontinuity introduced by Cattaneo, Calonico, Farrell &amp; Titiunik (2014).
+
+- Use of **.darkorange[local polynomial]** for fit.
+
+- **.darkorange[Data-driven optimal bandwidth]** (bias vs variance).
+
+--
+
+- `rdrobust`: Estimation of LATE and opt. bandwidth
+
+- `rdplot`: Plotting RD with nonparametric local polynomial.
+
+---
+# Let's compare with previous parametric results
+
+
+```r
+rdplot(y = sales$sales, x = sales$time, c = c, 
+       title = "RD plot", x.label = "time", y.label = "sales")
+```
+
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/rdplot-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Let's compare with previous parametric results
+
+
+```r
+rdplot(y = sales$sales, x = sales$time, c = c, 
+       title = "RD plot", x.label = "time", y.label = "sales")
+```
+
+.pull-left[
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/rdplot2a-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/rdplot2b-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Let's compare with previous parametric results
+
+.small[
+
+```r
+summary(rdrobust(y = sales$sales, x = sales$time, c = c))
+```
+
+```
+## Call: rdrobust
+## 
+## Number of Obs.                 2000
+## BW type                       mserd
+## Kernel                   Triangular
+## VCE method                       NN
+## 
+## Number of Obs.                1000        1000
+## Eff. Number of Obs.            202         213
+## Order est. (p)                   1           1
+## Order bias  (q)                  2           2
+## BW est. (h)                 54.304      54.304
+## BW bias (b)                 87.787      87.787
+## rho (h/b)                    0.619       0.619
+## Unique Obs.                   1000        1000
+## 
+## =============================================================================
+##         Method     Coef. Std. Err.         z     P&gt;|z|      [ 95% C.I. ]       
+## =============================================================================
+##   Conventional   -37.434     4.344    -8.618     0.000   [-45.948 , -28.921]   
+##         Robust         -         -    -7.610     0.000   [-48.596 , -28.691]   
+## =============================================================================
+```
+]
+
+---
+# How do we weight observations?
+
+- `rdrobust` uses `rdbwselect()` function (by default) to estimate a data-driven bandwidth (i.e. what observations we are going to use for estimation).
+
+  - If we use a bandwidth, does this mean that the RD is estimating an effect for that population within the bandwidth?
+  
+--
+
+- **.darkorange[Kernels]** are also important in this context:
+
+  - How do I weight observations within the bandwidth (e.g. uniform, triangle)
+  
+---
+# Observing kernels
+
+&lt;img src="f2021_sta235h_12_RDD_files/figure-html/kernels-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Takeaway points
+
+.pull-left[
+- RD designs are **.darkorange[great]** for causal inference!
+
+  - Strong internal validity
+  - Number of robustness checks
+  
+- **.darkorange[Limited]** external validity.
+
+- Make sure to check your data:
+
+  - Discontinuity in treatment assignment
+  - Density across the cutoff
+  - Smoothness of covariates
+]
+
+.pull-right[
+![](https://media.giphy.com/media/yQF1MwG7u9OvgVAjmr/giphy.gif)
+]
+
+---
+# Finished with Causal Inference!
+
+.pull-left[
+.center[
+![:scale 90%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RDD/images/twitter.png)]
+]
+
+.pull-right[
+.center[
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RDD/images/amazon.png)]
+]
+
+.source[Check out the threads by &lt;a href="https://twitter.com/TwitterEng/status/1450179475426066433"&gt;Twitter Engineer&lt;/a&gt; and &lt;a href="https://twitter.com/AmazonScience/status/1450187131985530882"&gt;Amazon&lt;/a&gt;]
+
+---
+# References
+
+- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 4*.
+
+- Calonico, Cattaneo and Titiunik. (2015). "rdrobust: An R Package for Robust Nonparametric Inference in Regression-Discontinuity Designs". R Journal 7(1): 38-51.
+
+- Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 10: Regression Discontinuity I, Course at BYU*.
+
+- Lee, D. and T. Lemieux. (2010). "Regression Discontinuity in Economics". *Journal of Economic Literature 48, pp 281-355*.
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week7/2_DD/f2021_sta235h_11_DD.html') --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

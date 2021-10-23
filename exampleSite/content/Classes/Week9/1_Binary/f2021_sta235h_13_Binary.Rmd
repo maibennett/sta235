@@ -398,7 +398,7 @@ $$= Pr(Y = 1|X_1,...,X_p)$$
 - Home Mortgage Disclosure Act Data (HMDA) from the `AER` package
 
 .small[
-```{r echo=FALSE, warning=FALSE, message = FALSE}
+```{r echo=TRUE, warning=FALSE, message = FALSE}
 library(AER)
 
 data("HMDA")
@@ -541,6 +541,15 @@ modelsummary(list(lpm, lpm_r), stars = TRUE, gof_omit = 'DF|AIC|BIC|Log.Lik.|F|N
 - Can you interpret these parameters? Do they make sense?
 
 ---
+
+.center2[
+.box-4[Most issues are solvable, but...]
+
+
+.box-4[What about prediction?]
+]
+
+---
 # Logistic Regression
 
 - Typically used in the context of binary outcomes (*Probit is another popular one*)
@@ -612,25 +621,47 @@ summary(glm(deny ~ pirat + factor(afam), family = binomial(link = "logit"),
 ---
 # How to interpret the coefficients? (cont.)
 
-- **.darkorange[No easy way!]**
+**.darkorange[No easy way!]**
 
-  - An **.darkorange[odd]** is the probability of success over probability of failure: $\frac{p}{1-p}$
+- An **.darkorange[odd]** is the probability of success over probability of failure: $\frac{p}{1-p}$
 
-  - An **.darkorange[odds ratio]** is the odds for scenario 1 over the odds for scenario 2: $\frac{p_1}{1-p_1}\cdot \frac{1-p_2}{p_2}$
-  
+
 ---
 # How to interpret the coefficients? (cont.)
 
-- **.darkorange[No easy way!]**
+**.darkorange[No easy way!]**
 
-  - An **.darkorange[odd]** is the probability of success over probability of failure: $\frac{p}{1-p}$
-
-  - An **.darkorange[odds ratio]** is the odds for scenario 1 over the odds for scenario 2: $\frac{p_1}{1-p_1}\cdot \frac{1-p_2}{p_2}$
+- An **.darkorange[odd]** is the probability of success over probability of failure: $\frac{p}{1-p}$
   
-  - Coefficients in the output are **.darkorange[log odds ratio]**:
+  - e.g. "Your odds of getting into grad school are 2:1" (meaning, your probability of getting in is twice as much as your probability of <u>not</u> getting in)
+
+    
+---
+# How to interpret the coefficients? (cont.)
+
+**.darkorange[No easy way!]**
+
+- An **.darkorange[odd]** is the probability of success over probability of failure: $\frac{p}{1-p}$
+
+  - e.g. "Your odds of getting into grad school are 2:1" (meaning, your probability of getting in is twice as much as your probability of <u>not</u> getting in)
+
+- An **.darkorange[odds ratio]** is the odds for scenario 1 over the odds for scenario 2: $\frac{p_1}{1-p_1}\cdot \frac{1-p_2}{p_2}$
+
+  - e.g. "Your odds of getting into grad school if you are male are 1.5 times higher than if you are a female"
+
+---
+# How to interpret the coefficients? (cont.)
+
+**.darkorange[No easy way!]**
+
+- An **.darkorange[odd]** is the probability of success over probability of failure: $\frac{p}{1-p}$
+
+- An **.darkorange[odds ratio]** is the odds for scenario 1 over the odds for scenario 2: $\frac{p_1}{1-p_1}\cdot \frac{1-p_2}{p_2}$
+  
+- Coefficients in the output are **.darkorange[log odds ratio]**:
   
 $$\log(\frac{p}{1-p}) = \beta_0 + \beta_1 X_1 + ... + \beta_p X_p$$
-- $(\exp(\beta_1)-1)\cdot 100\%$ is the expected increase in the odds of $Y=1$ for a one unit increase of $X_1$.
+- $(\exp(\beta_1)-1)\cdot 100\%$ is the expected average increase in the odds of $Y=1$ for a one unit increase of $X_1$, holding other variables constant.
 
 ---
 # How to interpret the coefficients? (cont.)
@@ -726,4 +757,4 @@ diff(predictions_afam)
 - Bellemare, M. (2013) “A Rant on Estimation with Binary Dependent Variables (Technical)"
 
 
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week8/2_Binary/f2021_sta235h_13_Binary.html') -->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week9/1_Binary/f2021_sta235h_13_Binary.html') -->

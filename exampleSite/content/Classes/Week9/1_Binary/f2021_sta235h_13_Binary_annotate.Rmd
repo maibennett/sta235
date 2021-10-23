@@ -661,7 +661,7 @@ summary(glm(deny ~ pirat + factor(afam), family = binomial(link = "logit"),
 - Coefficients in the output are **.darkorange[log odds ratio]**:
   
 $$\log(\frac{p}{1-p}) = \beta_0 + \beta_1 X_1 + ... + \beta_p X_p$$
-- $(\exp(\beta_1)-1)\cdot 100\%$ is the expected increase in the odds of $Y=1$ for a one unit increase of $X_1$.
+- $(\exp(\beta_1)-1)\cdot 100\%$ is the expected average increase in the odds of $Y=1$ for a one unit increase of $X_1$, holding other variables constant.
 
 ---
 # How to interpret the coefficients? (cont.)
