@@ -8,7 +8,7 @@ disableToc: true
 
 ## What we will cover
 
-This week we will start diving into into prediction and model selection problems. We’ll be talking about model cheking, cross-validation, bias-variance tradeoff, and variable selection.
+This week we talk about binary outcome models, and will start diving into into prediction and model selection problems. We’ll be talking about model cheking, cross-validation, bias-variance tradeoff, and variable selection.
 
 ## Recommended readings/videos
 
