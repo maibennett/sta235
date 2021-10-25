@@ -1,5 +1,5 @@
 ---
-title: "STA 235H - Model Selection I: Bias vs Variance, Cross-Validation, and Stepwise" 
+title: "STA 235H - Model Selection I:<br/>Bias vs Variance, Cross-Validation, and Stepwise" 
 subtitle: "Fall 2021"
 author: "McCombs School of Business, UT Austin"
 output:
@@ -72,7 +72,7 @@ style_mono_accent(
                      "font-family" = "Yanone Kaffeesatz",
                      "font-weight"="400"),
     ".small" = list("font-size" = "80%"),
-    ".tiny" = list("font-size" = "50%"),
+    ".tiny" = list("font-size" = "70%"),
     ".large" = list("font-size" = "150%"),
     ".source" = list("color" = "#8c8c8c",
                      "font-size" = "80%"),
@@ -306,7 +306,7 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 }
 
 .tiny .remark-code { /*Change made here*/
-  font-size: 90% !important;
+  font-size: 80% !important;
 }
 ```
 
@@ -469,9 +469,9 @@ font.add.google("Fira Sans", "Fira Sans")
 
 --
 
-.box-7[Bias]
+.box-6[Bias]
 
-.box-7t["[E]rror introduced by approximating a real-life problem with a model"]
+.box-6t["[E]rror introduced by approximating a real-life problem with a model"]
 
 
 ---
@@ -953,10 +953,64 @@ logins_i =& \beta_0 + \beta_1\times mandalorian + \beta_2\times age + \beta_3\ti
 $$
 
 ---
+# Create Validation Sets
 
-.center2[
-.box-4LA[Let's go to R]
-]
+```{r}
+set.seed(100) #Always set seed for replication!
+
+n <- nrow(disney) #<<
+
+train <- sample(1:n, n*0.8) #randomly select 80% of the rows for our training sample
+
+train.data <- disney %>% slice(train)
+test.data <- disney %>% slice(-train)
+```
+
+---
+# Create Validation Sets
+
+```{r}
+set.seed(100) #Always set seed for replication!
+
+n <- nrow(disney)
+
+train <- sample(1:n, n*0.8) #<<
+
+train.data <- disney %>% slice(train)
+test.data <- disney %>% slice(-train)
+```
+
+---
+# Create Validation Sets
+
+```{r}
+set.seed(100) #Always set seed for replication!
+
+n <- nrow(disney)
+
+train <- sample(1:n, n*0.8) #randomly select 80% of the rows for our training sample
+
+train.data <- disney %>% slice(train) #<<
+test.data <- disney %>% slice(-train) #<<
+```
+---
+# Estimate Accuracy Measure
+
+```{r}
+library(modelr)
+
+lm_simple <- lm(logins ~ mandalorian + city, data = train.data)
+
+lm_complex <- lm(logins ~ female + city + age + I(age^2) + mandalorian, data = train.data)
+
+# For simple model:
+rmse(lm_simple, test.data)
+
+# For complex model:
+rmse(lm_complex, test.data)
+```
+
+- Which one would you prefer?
 
 ---
 # Cross-Validation
@@ -986,12 +1040,6 @@ $$
 Main advantage: Use the entire dataset for training **.darkorange[AND]** testing.
 
 Extreme scenario: $K=n$ $\rightarrow$ Leave One Out Cross-Validation (LOOCV)
-
----
-
-.center2[
-.box-7LA[Do you think 5-fold CV is better or worse than a LOOCV?]
-]
 
 ---
 # How do we do CV in R?
@@ -1105,6 +1153,25 @@ lm.fwd$results
 ```
 ]
 
+--
+
+- Which one would you choose out of the 5 models? Why?
+
+---
+# How do we do stepwise selection in R?
+.tiny[
+```{r}
+# We can see the number of covariates that is optimal to choose:
+lm.fwd$bestTune
+
+# And how does that model looks like:
+summary(lm.fwd$finalModel)
+
+# If we want to recover the coefficient names, we can use the coef() function:
+coef(lm.fwd$finalModel, lm.fwd$bestTune$nvmax)
+```
+]
+
 
 ---
 # Takeaway points
@@ -1153,4 +1220,4 @@ lm.fwd$results
 
 
 
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week9/1_Binary/f2021_sta235h_13_Binary.html') -->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week9/2_ModelSelection/f2021_sta235h_14_ModelSelectionI.html') -->

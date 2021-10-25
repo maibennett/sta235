@@ -18,7 +18,7 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# STA 235H - Model Selection I: Bias vs Variance, Cross-Validation, and Stepwise
+# STA 235H - Model Selection I:<br/>Bias vs Variance, Cross-Validation, and Stepwise
 ## Fall 2021
 ### McCombs School of Business, UT Austin
 
@@ -44,7 +44,7 @@ class: center, middle, inverse, title-slide
 }
 
 .tiny .remark-code { /*Change made here*/
-  font-size: 90% !important;
+  font-size: 80% !important;
 }
 &lt;/style&gt;
 
@@ -172,9 +172,9 @@ class: center, middle, inverse, title-slide
 
 --
 
-.box-7[Bias]
+.box-6[Bias]
 
-.box-7t["[E]rror introduced by approximating a real-life problem with a model"]
+.box-6t["[E]rror introduced by approximating a real-life problem with a model"]
 
 
 ---
@@ -285,10 +285,78 @@ logins_i =&amp; \beta_0 + \beta_1\times mandalorian + \beta_2\times age + \beta_
 $$
 
 ---
+# Create Validation Sets
 
-.center2[
-.box-4LA[Let's go to R]
-]
+
+```r
+set.seed(100) #Always set seed for replication!
+
+*n &lt;- nrow(disney)
+
+train &lt;- sample(1:n, n*0.8) #randomly select 80% of the rows for our training sample
+
+train.data &lt;- disney %&gt;% slice(train)
+test.data &lt;- disney %&gt;% slice(-train)
+```
+
+---
+# Create Validation Sets
+
+
+```r
+set.seed(100) #Always set seed for replication!
+
+n &lt;- nrow(disney)
+
+*train &lt;- sample(1:n, n*0.8)
+
+train.data &lt;- disney %&gt;% slice(train)
+test.data &lt;- disney %&gt;% slice(-train)
+```
+
+---
+# Create Validation Sets
+
+
+```r
+set.seed(100) #Always set seed for replication!
+
+n &lt;- nrow(disney)
+
+train &lt;- sample(1:n, n*0.8) #randomly select 80% of the rows for our training sample
+
+*train.data &lt;- disney %&gt;% slice(train)
+*test.data &lt;- disney %&gt;% slice(-train)
+```
+---
+# Estimate Accuracy Measure
+
+
+```r
+library(modelr)
+
+lm_simple &lt;- lm(logins ~ mandalorian + city, data = train.data)
+
+lm_complex &lt;- lm(logins ~ female + city + age + I(age^2) + mandalorian, data = train.data)
+
+# For simple model:
+rmse(lm_simple, test.data)
+```
+
+```
+## [1] 2.089868
+```
+
+```r
+# For complex model:
+rmse(lm_complex, test.data)
+```
+
+```
+## [1] 2.093429
+```
+
+- Which one would you prefer?
 
 ---
 # Cross-Validation
@@ -318,12 +386,6 @@ $$
 Main advantage: Use the entire dataset for training **.darkorange[AND]** testing.
 
 Extreme scenario: `\(K=n\)` `\(\rightarrow\)` Leave One Out Cross-Validation (LOOCV)
-
----
-
-.center2[
-.box-7LA[Do you think 5-fold CV is better or worse than a LOOCV?]
-]
 
 ---
 # How do we do CV in R?
@@ -489,6 +551,56 @@ lm.fwd$results
 ```
 ]
 
+--
+
+- Which one would you choose out of the 5 models? Why?
+
+---
+# How do we do stepwise selection in R?
+.tiny[
+
+```r
+# We can see the number of covariates that is optimal to choose:
+lm.fwd$bestTune
+```
+
+```
+##   nvmax
+## 2     2
+```
+
+```r
+# And how does that model looks like:
+summary(lm.fwd$finalModel)
+```
+
+```
+## Subset selection object
+## 5 Variables  (and intercept)
+##             Forced in Forced out
+## id              FALSE      FALSE
+## female          FALSE      FALSE
+## city            FALSE      FALSE
+## age             FALSE      FALSE
+## mandalorian     FALSE      FALSE
+## 1 subsets of each size up to 2
+## Selection Algorithm: forward
+##          id  female city age mandalorian
+## 1  ( 1 ) " " " "    " "  " " "*"        
+## 2  ( 1 ) " " " "    "*"  " " "*"
+```
+
+```r
+# If we want to recover the coefficient names, we can use the coef() function:
+coef(lm.fwd$finalModel, lm.fwd$bestTune$nvmax)
+```
+
+```
+## (Intercept)        city mandalorian 
+##    7.026494    2.577163   -6.265728
+```
+]
+
 
 ---
 # Takeaway points
@@ -537,7 +649,7 @@ lm.fwd$results
 
 
 
-&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week9/1_Binary/f2021_sta235h_13_Binary.html') --&gt;
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week9/2_ModelSelection/f2021_sta235h_14_ModelSelectionI.html') --&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

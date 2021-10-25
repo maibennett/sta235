@@ -32,8 +32,9 @@ set.seed(100) #Always set seed for replication!
 
 n <- nrow(disney) # Will tell us how many observations we have
 
-train <- sample(1:n, n*0.8) #randomly select 80% of the rows
+train <- sample(1:n, n*0.8) #randomly select 80% of the rows for our training sample
 
+# slice() selects rows from a dataset based on the row number.
 train.data <- disney %>% slice(train) #use only the rows that were selected for training
 
 test.data <- disney %>% slice(-train) #the rest are used for testing
@@ -95,16 +96,6 @@ lm_complex_cv
 ##### Stepwise selection
 ###############################################################################
 
-library(leaps)
-
-# In this case, we need to pass three arguments: (1) a formula, (2) data, and (3) method.
-# Formula: We need the outcome variable we want to predict (logins), and use all predictors in our data (we exclude "unsubscribe" because that's actually another outcome).
-regfit.fwd <- regsubsets(logins ~ . - unsubscribe, data=disney, method = "forward") # do forward stepwise selection
-
-summary(regfit.fwd) #interpret these results. 
-
-#Questions: Do the same procedure, but backwards. Do you get the same results?
-
 ### Adding cross-validation
 set.seed(100)
 
@@ -115,8 +106,15 @@ lm.fwd <- train(logins ~ . - unsubscribe, data = disney,
                     tuneGrid = data.frame(nvmax = 1:5), #We are saying that we will use max 5 covariates (this depends on your data and you need to change it accordingly)
                     trControl = train.control)
 lm.fwd$results
-
-sum.lm.fwd <- summary(lm.fwd)
 # Question: Which model do you choose?
+
+# We can see the number of covariates that is optimal to choose:
+lm.fwd$bestTune
+
+# And how does that model looks like:
+summary(lm.fwd$finalModel)
+
+# If we want to recover the coefficient names, we can use the coef() function:
+coef(lm.fwd$finalModel, lm.fwd$bestTune$nvmax)
 
 # Excercise: Do the same CV procedure, but with backwards stepwise. Which model do you choose in that case?

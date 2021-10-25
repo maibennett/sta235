@@ -349,6 +349,40 @@ font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
 font.add.google("Fira Sans", "Fira Sans")
 ```
 
+# Last Week
+
+.pull-left[
+- Discussed **.darkorange[Regression Discontinuity Designs]**:
+
+  - Strong internal validity vs. limited external validity
+  - Assumptions behind RD designs
+  - Robustness checks
+  
+- Finished with **.darkorange[causal inference]** chapter.
+]
+
+.pull-right[
+![](https://media.giphy.com/media/xT5LMUt1dWrBQtacJG/giphy.gif)
+]
+
+---
+# Today
+
+.pull-left[
+![](https://media.giphy.com/media/W1eqqboCKxCWmTPzX2/giphy.gif)
+]
+
+.pull-right[
+- Talking about **.darkorange[models with binary outcomes]**:
+
+  - Linear probability models vs. logistic regressions
+  
+- Start our **.darkorange[prediction chapter]**:
+
+  - Bias vs. Variance trade-off, importance of cross-validation, model selection.
+]
+
+---
 # Binary Outcomes
 
 .pull-left[
@@ -372,7 +406,7 @@ font.add.google("Fira Sans", "Fira Sans")
 ]
 
 ---
-# How to interpret an LPM?
+# How to interpret a LPM?
 
 - $\hat{\beta}$'s interpreted as **.darkorange[change in probability]**
 
@@ -380,7 +414,7 @@ $$E[Y|X_1,..., X_P] = Pr(Y = 0|X_1,...,X_p)\cdot 0 + Pr(Y = 1|X_1,...,X_p)\cdot 
 $$= Pr(Y = 1|X_1,...,X_p)$$
 
 ---
-# How to interpret an LPM?
+# How to interpret a LPM?
 
 - $\hat{\beta}$'s interpreted as **.darkorange[change in probability]**
 
@@ -470,7 +504,7 @@ ggplot(data = hmda, aes(x = pirat, y = deny)) +
 
 
 ---
-# Issues with an LPM?
+# Issues with a LPM?
 
 - **.darkorange[Main problems]**:
 
@@ -483,7 +517,7 @@ ggplot(data = hmda, aes(x = pirat, y = deny)) +
   - LPM imposes linearity assumption
   
 ---
-# Issues with an LPM?
+# Issues with a LPM?
 
 - **.darkorange[Main problems]**:
 
@@ -653,15 +687,13 @@ summary(glm(deny ~ pirat + factor(afam), family = binomial(link = "logit"),
 # How to interpret the coefficients? (cont.)
 
 **.darkorange[No easy way!]**
-
-- An **.darkorange[odd]** is the probability of success over probability of failure: $\frac{p}{1-p}$
-
-- An **.darkorange[odds ratio]** is the odds for scenario 1 over the odds for scenario 2: $\frac{p_1}{1-p_1}\cdot \frac{1-p_2}{p_2}$
   
 - Coefficients in the output are **.darkorange[log odds ratio]**:
   
 $$\log(\frac{p}{1-p}) = \beta_0 + \beta_1 X_1 + ... + \beta_p X_p$$
 - $(\exp(\beta_1)-1)\cdot 100\%$ is the expected average increase in the odds of $Y=1$ for a one unit increase of $X_1$, holding other variables constant.
+
+- The odds of $Y=1$ is $\exp(\beta_1)$ times higher/lower for a one unit increase of $X_1$, holding other variables constant.
 
 ---
 # How to interpret the coefficients? (cont.)
@@ -674,7 +706,9 @@ glm(deny ~ pirat + factor(afam), family = binomial(link = "logit"),
 ```
 ]
 
-- $(\exp(1.27)-1)\cdot 100\% = 257\%$ more likely to be denied a mortgage if you are African American vs not African American, holding payments to income ratio constant.
+- $(\exp(1.27)-1)\cdot 100\% = 256\%$ $\rightarrow$ Your odds of being denied a mortgage loan are 257% greater if you are African American vs not African American, holding payments to income ratio constant.
+
+- $(\exp(1.27)) = 3.56$ $\rightarrow$ Your odds of being denied a mortgage loan are 3.6 times greater if you are African American vs not African American, holding payments to income ratio constant.
 
 ---
 # How to interpret the coefficients? (cont.)
@@ -688,8 +722,11 @@ glm(deny ~ pirat + factor(afam), family = binomial(link = "logit"),
 logit1 <- glm(deny ~ pirat + factor(afam), family = binomial(link = "logit"),
               data = hmda)
 
+# Calculate the mean of `pirat` in the HDMA dataset
+mean_pirat <- hmda %>% select(pirat) %>% summarize_all(mean) %>% pull()
+
 predictions_afam <- predict(logit1, newdata = data.frame("afam" = c("no", "yes"),
-                                                         "pirat" = c(mean(hmda$pirat), mean(hmda$pirat))),
+                                                         "pirat" = c(mean_pirat, mean_pirat)),
                             type = "response")
 predictions_afam
 
@@ -719,7 +756,6 @@ predictions_afam
 
 ```{r echo=TRUE, warning=FALSE, message = FALSE}
 diff(predictions_afam)
-
 ```
 ]
 
@@ -757,4 +793,4 @@ diff(predictions_afam)
 - Bellemare, M. (2013) “A Rant on Estimation with Binary Dependent Variables (Technical)"
 
 
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week9/1_Binary/f2021_sta235h_13_Binary.html') -->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week8/2_Binary/f2021_sta235h_13_Binary.html') -->
