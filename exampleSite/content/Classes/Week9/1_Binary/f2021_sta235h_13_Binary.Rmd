@@ -542,7 +542,6 @@ ggplot(data = hmda, aes(x = pirat, y = deny)) +
 
 - **.darkorange[Use robust standard errors]**: Package `estimatr` in R is great!
 
-- **.darkorange[Not appropriate for prediction]**
 ]
 
 

@@ -542,7 +542,6 @@ ggplot(data = hmda, aes(x = pirat, y = deny)) +
 
 - **.darkorange[Use robust standard errors]**: Package `estimatr` in R is great!
 
-- **.darkorange[Not appropriate for prediction]**
 ]
 
 
@@ -793,4 +792,4 @@ diff(predictions_afam)
 - Bellemare, M. (2013) “A Rant on Estimation with Binary Dependent Variables (Technical)"
 
 
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week8/2_Binary/f2021_sta235h_13_Binary.html') -->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week9/1_Binary/f2021_sta235h_13_Binary.html') -->

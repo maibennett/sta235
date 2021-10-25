@@ -37,7 +37,7 @@ Complete before **Sunday Oct 24th (11:59 pm)** (if your section is on Tue) or **
 
 {{% button href="https://sta235.netlify.app/Classes/Week9/2_ModelSelection/f2021_sta235h_14_ModelSelectionI.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week9/2_ModelSelection/f2021_sta235h_14_ModelSelectionI.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week9/2_ModelSelection/f2021_sta235h_14_ModelSelectionI.html" >}}  -->
+{{< slides src="https://sta235.netlify.app/Classes/Week9/2_ModelSelection/f2021_sta235h_14_ModelSelectionI.html" >}} 
 
 ## Code
 
