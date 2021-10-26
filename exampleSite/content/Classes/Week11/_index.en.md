@@ -1,0 +1,39 @@
+---
+title: Week 11
+weight: 65
+disableToc: true
+---
+
+## Date: Nov 9th - Nov 11th
+
+## What we will cover
+
+This week we will be covering k-nearest neighbors, both in regression form and classification.
+
+## Recommended readings/videos
+
+- James, G. et al. (2021). "An Introduction to Statistical Learning with Applications in R" (ISLR). *Chapter 2.2.3 (pg. 37-42, but you can skip the subsection about Bayes classifier)* and *Chapter 3.5 (pg. 105-110)*. 
+
+- Intuitive Machine Learning. (2020). "K Nearest Neighbors | Intuitive explained | Machine Learning Basics". *Video materials from Intuitive Machine Learning. Note: You can ignore the Python code part of the video*.
+
+{{< youtube src="https://www.youtube.com/embed/0p0o5cmgLdE" >}}
+
+## JITT
+
+Complete before **Sunday Nov 7th (11:59 pm)** (if your section is on Tue) or **Tuesday Nov 9th (11:59 pm)** (if your section is on Thu). The assignment will be posted soon.<!--You can find the assignment [here](https://forms.gle/ZhBQcn3mNTYdT3bR9).-->
+
+## Slides
+
+<!-- {{% button href="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+
+{{< slides src="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.html" >}}
+
+<br>
+
+{{% button href="https://sta235.netlify.app/Classes/Week1/2_OLS/sp2021_sta235_2_reg.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week1/2_OLS/sp2021_sta235_2_reg.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+
+{{< slides src="https://sta235.netlify.app/Classes/Week1/2_OLS/sp2021_sta235_2_reg.html" >}}  -->
+
+## Code
+
+<!-- Here is the R code we will review in class, with some additional data and questions <a onclick="ga('send', 'event', 'External-Link','click','code1','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/code/sp2021_sta235_2_reg.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> -->
