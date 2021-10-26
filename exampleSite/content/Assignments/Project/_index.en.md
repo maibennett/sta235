@@ -42,3 +42,7 @@ Your models will be tested on a hold-out dataset that only the instruction team 
 4. **Predict the outcome for amount of the loan**: Play around with models and choose the best one (i.e. the one most accurate) for predicting the amount of the loan *for those that got a loan approved* (`loan_amount` is the variable you will need). You will need to compare it with at least one other method (e.g. if you choose to do a regression tree, you can compare their performance to KNN). Make sure you explain your results and show the appropriate plots/tables (e.g. if pertinent, show how you chose a parameter, a plot or list of the most important variables, etc.)
 
 5. **Submit a write-up, your Rcode, and a .RData file**: You will need to submit a write-up with your answers (e.g. showing plots and tables, and explaining your models, as well as the results of your tests), an R script (in .R extension; needs to be fully reproducible), and a .Rdata file, with your prediction object for both your classification task as well as your regression task. See the examples posted below to guide you.
+
+## Examples
+
+Coming soon...
