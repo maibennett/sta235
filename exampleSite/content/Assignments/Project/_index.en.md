@@ -23,6 +23,8 @@ Your models will be tested on a hold-out dataset that only the instruction team 
 # Instructions
 
 1. **Form a team**: Within your section, select a team of 3 or 4 students. Students can choose their own teammates, but whether you are able to form a team of 3 or 4 will depend on the slots available (each section has between 0 and 2 groups of 3 depending on the number of students). If you don't have enough people for a team, feel free to post on the Canvas discussion board to look for additional students!
+	
+	- The instruction team will send out an announcement when its time to choose your group.
 
 2. **Download and clean the data**: You can start with this straight away (and I recommend it given the amount of deadlines at the end of the semester). 
 	
