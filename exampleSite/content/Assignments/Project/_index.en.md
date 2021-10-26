@@ -10,6 +10,8 @@ The objective of this project is for you to **tackle a prediction task (or two) 
 
 In this case, we will be using **[HMDA data](https://ffiec.cfpb.gov/data-browser/)** for Travis County to predict (1) whether someone gets a loan denied or not and (2) the loan amount. You will need to filter and download a dataset, potentially select variables you want, and build prediction models that are as accurate as possible.
 
+Any prediction method is game. You can use what we have seen in class or include other methods that you might find. Be sure though that you can explain what is happening and the decision that you make along the way.
+
 # Evaluation
 
 Your models will be tested on a hold-out dataset that only the instruction team will have access to (that way is truly <u>unseen data</u>)... **and this will be a competition!** Groups that perform better in terms of prediction (for both the regression and classification task) will receive a higher grade than those that have worse predictive models in their "accuracy" item. Projects will be evaluated as following:
