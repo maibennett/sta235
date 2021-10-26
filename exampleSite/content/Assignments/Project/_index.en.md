@@ -18,7 +18,7 @@ Your models will be tested on a hold-out dataset that only the instruction team 
 
 - **Regression task (40 points)**: The team runs an appropriate (and preferred) prediction model and contrasts their results with one additional method. The group explains their results and provides support (e.g. plots and/or tables) for their findings. They show appropriate measures of accuracy (RMSE) for the model.
 
-- **Accuracy (5 points)**: According to their average ranking in terms of accuracy (both for the classification and regression task), students will receive a <u>bonus between 0 and 5 points</u>. If the code is not replicable (e.g. the instruction team cannot replicate their results), the group automatically have the lowest ranking.
+- **Accuracy (5 points)**: According to their average ranking in terms of accuracy (both for the classification and regression task), students will receive a <u>bonus between 0 and 5 points</u>. If the code is not replicable (e.g. the instruction team cannot replicate their results), the group automatically will have the lowest ranking.
 
 # Instructions
 
