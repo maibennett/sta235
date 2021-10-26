@@ -34,6 +34,6 @@ chapter: false
 <a onclick="ga('send', 'event', 'External-Link','click','midterm_rmd','0','Link');" href="https://sta235.netlify.app/exams/midterm/STA235H_midterm_template.Rmd" target="_blank" class="btn btn-default"> Rmarkdown Template <i class="fas fa-external-link-alt"></i></a>
 
 
-<!-- ## Answer Key
+## Answer Key
 
-- You can find the answer key for Homework 1 here: <a onclick="ga('send', 'event', 'External-Link','click','hw1_key','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework1/STA235H_Fall21_Homework1_AnswerKey.html" target="_blank" class="btn btn-default"> Open HW1 Answer Key <i class="fas fa-external-link-alt"></i></a>  -->
+- You can find the answer key for the midterm here: <a onclick="ga('send', 'event', 'External-Link','click','midterm_key','0','Link');" href="https://sta235.netlify.app/exams/midterm/STA235H_Fall21_Midterm_AnswerKey.html" target="_blank" class="btn btn-default"> Open Midterm Answer Key <i class="fas fa-external-link-alt"></i></a> 
