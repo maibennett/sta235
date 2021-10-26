@@ -8,7 +8,7 @@
     <script src="libs/fabric/fabric.min.js"></script>
     <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-scribble/scribble.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
     <script src="libs/clipboard/clipboard.min.js"></script>
     <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
@@ -270,7 +270,7 @@ model2 &lt;- lm_robust(deny ~ pirat + factor(afam), data = hmda)
 ]
 
 .small[
-&lt;table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto;" class="table"&gt;
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
  &lt;thead&gt;
   &lt;tr&gt;
    &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
@@ -282,7 +282,7 @@ model2 &lt;- lm_robust(deny ~ pirat + factor(afam), data = hmda)
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; (Intercept) &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; -0.091*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -0.091** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.091*** &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
@@ -325,8 +325,12 @@ model2 &lt;- lm_robust(deny ~ pirat + factor(afam), data = hmda)
    &lt;td style="text-align:center;"&gt; HC2 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
-&lt;tfoot&gt;&lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
-&lt;sup&gt;&lt;/sup&gt; + p &amp;lt; 0.1, * p &amp;lt; 0.05, ** p &amp;lt; 0.01, *** p &amp;lt; 0.001&lt;/td&gt;&lt;/tr&gt;&lt;/tfoot&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="padding: 0; border:0;" colspan="100%"&gt;
+&lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
 &lt;/table&gt;
 ]
 
