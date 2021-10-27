@@ -109,7 +109,7 @@ ggplot(data = sales, aes(x = time)) +
 
 sales <- sales %>% mutate(dist = c-time) # We are going to create a distance variable (distance to the cutoff)
 
-lm1 <- lm(sales ~ dist + treat + dist*treat, data = sales) # Then we will fit a linear model, allowing for different intercept and slopes for the two groups.
+lm1 <- lm(sales ~ dist*treat, data = sales) # Then we will fit a linear model, allowing for different intercept and slopes for the two groups.
 
 # we will use the `broom` package to estimate the predictions of sales based on our regression (stored in .fitted)
 library(broom)
