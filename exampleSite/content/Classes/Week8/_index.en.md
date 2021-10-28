@@ -38,3 +38,10 @@ Complete before **Sunday Oct 17th (11:59 pm)** (if your section is on Tue) or **
 ## Code
 
 Code for Regression Discontinuity Design <a onclick="ga('send', 'event', 'External-Link','click','code12','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RDD/code/f2021_sta235h_11_RDD.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+
+
+## Resources
+
+Here is a video where I go in more detail into the RDD code for this week.
+
+{{< youtube src="https://www.youtube.com/embed/nn0yt9fUn8o?controls=0" >}}
