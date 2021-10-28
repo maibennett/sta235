@@ -46,3 +46,9 @@ Code for Binary Outcomes <a onclick="ga('send', 'event', 'External-Link','click'
 <br>
 
 Code for Model Selection I <a onclick="ga('send', 'event', 'External-Link','click','code14','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week9/2_ModelSelection/code/f2021_sta235h_13_prediction1.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+
+## Resources
+
+Here is a video where I go in more detail into the prediction code for this week. Check it out if you have any questions!
+
+{{< youtube src="https://www.youtube.com/embed/hoIBabsfsYw?controls=0" >}}
