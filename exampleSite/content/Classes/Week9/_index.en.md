@@ -51,4 +51,4 @@ Code for Model Selection I <a onclick="ga('send', 'event', 'External-Link','clic
 
 Here is a video where I go in more detail into the prediction code for this week. Check it out if you have any questions!
 
-{{< youtube src="https://www.youtube.com/embed/hoIBabsfsYw?controls=0" >}}
+{{< youtube src="https://www.youtube.com/embed/hoIBabsfsYw" >}}

@@ -44,4 +44,4 @@ Code for Regression Discontinuity Design <a onclick="ga('send', 'event', 'Extern
 
 Here is a video where I go in more detail into the RDD code for this week.
 
-{{< youtube src="https://www.youtube.com/embed/nn0yt9fUn8o?controls=0" >}}
+{{< youtube src="https://www.youtube.com/embed/nn0yt9fUn8o" >}}
