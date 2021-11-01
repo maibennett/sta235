@@ -223,15 +223,15 @@ pre code {
 <pre class="r"><code>sillow &lt;- read.csv(&quot;https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/data/hw4/sillow1.csv&quot;)</code></pre>
 <div id="question-1.1" class="section level3">
 <h3>Question 1.1</h3>
-<p><strong>In this example, which variable is your running variable? Which one is your treatment variable? Which one is your outcome of interest?</strong></p>
+<p><strong>In this example, (a) which variable is your running variable? (b) Which one is your treatment variable? (c) Which one is your outcome of interest?</strong></p>
 </div>
 <div id="question-1.2" class="section level3">
 <h3>Question 1.2</h3>
-<p><strong>Create a plot to show whether the assignment rule exists or not. Was assignment to this program based on an arbitrary rule?</strong> <em>(Note: Remember to label your axis accordingly)</em></p>
+<p><strong>(a) Create a plot to show whether the assignment rule exists or not. (b) Was assignment to this program based on an arbitrary rule?</strong> <em>(Note: Remember to label your axis accordingly)</em></p>
 </div>
 <div id="question-1.3" class="section level3">
 <h3>Question 1.3</h3>
-<p><strong>We know that our RD is only valid if there is no discontinuity of the potential outcomes at the cutoff, and they are smooth across the threshold. Use one of the covariates in your dataset (you can choose which one) and <code>rdplot()</code> and <code>rdrobust()</code> to show support for this last assumption. What should you expect to see if the key assumption holds and why? Interpret your results</strong></p>
+<p><strong>We know that our RD is only valid if there is no discontinuity of the potential outcomes at the cutoff, and they are smooth across the threshold. (a) Use one of the covariates in your dataset (you can choose which one) and <code>rdplot()</code> and <code>rdrobust()</code> to show support for this last assumption. (b) What should you expect to see if the key assumption holds and why? Interpret your results</strong></p>
 </div>
 <div id="question-1.4" class="section level3">
 <h3>Question 1.4</h3>
@@ -239,11 +239,11 @@ pre code {
 </div>
 <div id="question-1.5" class="section level3">
 <h3>Question 1.5</h3>
-<p><strong>You have heard through the grapevine that realtors actually think the retreat is fun and useful, so most of them actually want to attend. You are now concerned that this might imply that employees are manipulating their performance score so they are just under the cutoff. What robustness check could you conduct to see if this is true? Show an appropriate plot and explain whether this would be an issue or not.</strong></p>
+<p><strong>You have heard through the grapevine that realtors actually think the retreat is fun and useful, so most of them actually want to attend. You are now concerned that this might imply that employees are manipulating their performance score so they are just under the cutoff. What robustness check could you conduct to see if this is true? (a) Show an appropriate plot and (b) explain whether this would be an issue or not.</strong></p>
 </div>
 <div id="question-1.6" class="section level3">
 <h3>Question 1.6</h3>
-<p><strong>Now your boss says they want to roll out this policy for the whole company, so she needs you to estimate an effect for everyone. She suggests fitting a regression of the outcome on the treatment variable and the other covariates in your data. You run the model (because she’s your boss). What do you find when you fit this model? Interpret the coefficient for the treatment variable. How would you explain these results to your boss?</strong> <em>(Note: Think from a causal inference perspective!)</em></p>
+<p><strong>Now your boss says they want to roll out this policy for the whole company, so she needs you to estimate an effect for everyone. She suggests fitting a regression of the outcome on the treatment variable and the other covariates in your data. You run the model (because she’s your boss). What do you find when you fit this model? (a) Interpret the coefficient for the treatment variable. (b) How would you explain these results to your boss?</strong> <em>(Note: Think from a causal inference perspective!)</em></p>
 </div>
 </div>
 <div id="task-2-minimum-wage-and-youth-employment-30-points" class="section level1">
@@ -261,7 +261,7 @@ pre code {
 <p>The causal question we are trying to answer in this case is what is the impact of a minimum wage increase on teen employment.</p>
 <div id="question-2.1" class="section level3">
 <h3>Question 2.1:</h3>
-<p><strong>What are the two dimensions of your differences-in-differences analysis in this case? What is the estimand that you want to estimate</strong>.</p>
+<p><strong>(a) What are the two dimensions of your differences-in-differences analysis in this case? (b) What is the estimand that you want to estimate</strong>.</p>
 </div>
 <div id="question-2.2" class="section level3">
 <h3>Question 2.2:</h3>
@@ -269,7 +269,7 @@ pre code {
 </div>
 <div id="question-2.3" class="section level3">
 <h3>Question 2.3:</h3>
-<p><strong>Create a new dataset, <code>employment_pre</code>, with only pre-intervention observations (for counties that experienced an increase in minimum wage) and control observations (use the <code>year_mw</code> and <code>year</code> variable for this). Using the new dataset, compare <code>lpop</code> and <code>lemp</code> between treated and non-treated counties. What can you conclude from these comparisons? Are these differences a threat to causal inference? Why or why not?</strong></p>
+<p><strong>Create a new dataset, <code>employment_pre</code>, with only pre-intervention observations (for counties that experienced an increase in minimum wage) and control observations (use the <code>year_mw</code> and <code>year</code> variable for this). Using the new dataset, compare <code>lpop</code> and <code>lemp</code> between treated and non-treated counties. (a) What can you conclude from these comparisons? (b) Are these differences a threat to causal inference? Why or why not?</strong></p>
 </div>
 <div id="question-2.4" class="section level3">
 <h3>Question 2.4:</h3>
@@ -305,7 +305,7 @@ pre code {
 </div>
 <div id="question-3.3" class="section level3">
 <h3>Question 3.3</h3>
-<p><strong>It doesn’t seem a good idea to just compare two models, so you decide to run a <u>backwards stepwise selection</u> algorithm to choose your model. What is the model you select in this case? Use 5-fold cross-validation in this case. Do you get the same result for forward stepwise selection? What is the RMSE for your backward selection model?</strong> <em>Note: You will need to create a new dataset with only the variables we discussed in the introduction and no missing values!</em></p>
+<p><strong>It doesn’t seem a good idea to just compare two models, so you decide to run a <u>backwards stepwise selection</u> algorithm to choose your model. (a) What is the model you select in this case and what’s is its RMSE? Use 5-fold cross-validation in this case. (b) Do you get the same result for forward stepwise selection?</strong> <em>Note: You will need to create a new dataset with only the variables we discussed in the introduction and no missing values!</em></p>
 </div>
 <div id="question-3.4" class="section level3">
 <h3>Question 3.4</h3>
