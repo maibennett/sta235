@@ -39,7 +39,7 @@ Besides the notes that have already been provided for previous assignments, I wa
 
 - **Keep your answers succint and pertinent:** Most questions (or sub-questions) can be answered in one or two sentences, so keep things to the point (it makes it easier for you and for the graders). In particular, please do not answer things that are not being asked. For example, if the questions asks to estimate the causal effect of an intervention, <u>do not interpret all coefficients</u>. It makes it seem like you are not sure which one is the one you should be interpreting, so discounts will be applied in this case.
 
-- **If there are sub-questions within a question, please label them**: In order to facilitate grading, please label each sub-question you are answering, if there are multiple ones. I have including this labels on the questions as well to facilitate this.
+- **If there are sub-questions within a question, please label them**: In order to facilitate grading, please label each sub-question you are answering, if there are multiple ones. I have included these labels on the questions as well to facilitate this.
 
 - **Make sure you are using the right number of decimal places**: I included notes on this for HW3, but please make sure that your p-values <u>have more than one decimal place</u> (remember that many times we want to assess whether a p-value is greater or less than .05, and that's not possible to assess with just one decimal place). It depends on the context, but usually 2 or 3 decimal places are enough. In general, please do not provide answers with 5 or 6 decimal places. Such a level of precision is usually not necessary. 
 
