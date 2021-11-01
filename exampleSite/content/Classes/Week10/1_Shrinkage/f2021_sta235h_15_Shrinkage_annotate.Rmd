@@ -326,6 +326,7 @@ library(firasans)
 library(kableExtra)
 library(scales)
 library(patchwork)
+library(caret)
 
 # for windows
 windowsFonts(sans = "Fira")
@@ -358,9 +359,11 @@ font.add.google("Fira Sans", "Fira Sans")
 --
 - Please check out the **.darkorange[notes for submissions]** on HW4.
 
-- I'll **.darkorange[complement]** what we see in class with R code videos.
+- Check out answers on **Canvas discussion board**!
 
-  - Make sure **.darkorange[all packages are installed and work]**
+- I'll **.darkorange[complement]** what we see in class with R code videos when needed.
+
+  - Make sure **.darkorange[all packages are installed and work]**.
 
 ---
 # Prediction project
@@ -470,7 +473,7 @@ data <- data.frame(freq = freq,
                    spend = spend)
 
 #previous code was how the data was generated
-data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
+data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_Shrinkage/data/purchases.csv")
 
 train <- data.frame(freq = c(2,6),
                     female = c(1,1),
@@ -1044,7 +1047,7 @@ library(caret) #<<
 
 set.seed(100)
 
-data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
+data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_Shrinkage/data/purchases.csv")
 
 lambda_seq <- 10^seq(-3, 3, length = 100)
 
@@ -1075,7 +1078,7 @@ library(caret)
 
 set.seed(100) #<<
 
-data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
+data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_Shrinkage/data/purchases.csv")
 
 lambda_seq <- 10^seq(-3, 3, length = 100)
 
@@ -1108,7 +1111,7 @@ library(caret)
 
 set.seed(100)
 
-data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
+data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_Shrinkage/data/purchases.csv")
 
 lambda_seq <- 10^seq(-3, 3, length = 100) #<<
 
@@ -1145,7 +1148,7 @@ library(caret)
 
 set.seed(100)
 
-data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
+data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_Shrinkage/data/purchases.csv")
 
 lambda_seq <- 10^seq(-3, 3, length = 100)
 
@@ -1187,7 +1190,7 @@ library(caret)
 
 set.seed(100)
 
-data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
+data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_Shrinkage/data/purchases.csv")
 
 lambda_seq <- 10^seq(-3, 3, length = 100)
 
@@ -1308,7 +1311,7 @@ library(caret)
 
 set.seed(100)
 
-data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
+data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_Shrinkage/data/purchases.csv")
 
 lambda_seq <- 10^seq(-3, 3, length = 100)
 
