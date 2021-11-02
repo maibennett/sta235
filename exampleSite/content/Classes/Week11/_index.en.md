@@ -20,7 +20,7 @@ This week we will be covering k-nearest neighbors, both in regression form and c
 
 ## JITT
 
-Complete before **Sunday Nov 7th (11:59 pm)** (if your section is on Tue) or **Tuesday Nov 9th (11:59 pm)** (if your section is on Thu). The assignment will be posted soon.<!--You can find the assignment [here](https://forms.gle/ZhBQcn3mNTYdT3bR9).-->
+Complete before **Sunday Nov 7th (11:59 pm)** (if your section is on Tue) or **Tuesday Nov 9th (11:59 pm)** (if your section is on Thu). You can find the assignment [here](https://forms.gle/uGRp73987uoAKNGp9).
 
 ## Slides
 

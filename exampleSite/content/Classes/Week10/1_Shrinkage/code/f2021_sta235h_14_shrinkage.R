@@ -32,8 +32,8 @@ n <- nrow(data)
 
 train.row <- sample(1:n, 0.8*n) # We generate a random sample for the training data
 
-test.data <- data[-train.row,] #Select testing data
-train.data <- data[train.row,] #Select training data
+test.data <- data %>% slice(-train.row) #Select testing data
+train.data <- data %>% slice(train.row) #Select training data
 
 ## Exercise: Play around with the proportions. What happens if you hold-out just 10% of the sample? (i.e. use only 10% of the sample for testing). How do your results change?
 
