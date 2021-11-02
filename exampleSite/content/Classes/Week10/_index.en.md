@@ -29,9 +29,9 @@ Complete before **Sunday Oct 31st (11:59 pm)** (if your section is on Tue) or **
 
 ## Slides
 
-{{% button href="https://sta235.netlify.app/Classes/Week10/2_Shrinkage/f2021_sta235h_15_Shrinkage.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week10/2_Shrinkage/f2021_sta235h_15_Shrinkage.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.netlify.app/Classes/Week10/1_Shrinkage/f2021_sta235h_15_Shrinkage.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week10/1_Shrinkage/f2021_sta235h_15_Shrinkage.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week10/2_Shrinkage/f2021_sta235h_15_Shrinkage.html" >}} 
+{{< slides src="https://sta235.netlify.app/Classes/Week10/1_Shrinkage/f2021_sta235h_15_Shrinkage.html" >}} 
 
 ## Code
 
