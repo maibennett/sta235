@@ -5,10 +5,6 @@
     <meta charset="utf-8" />
     <meta name="author" content="McCombs School of Business, UT Austin" />
     <script src="libs/header-attrs/header-attrs.js"></script>
-    <script src="libs/fabric/fabric.min.js"></script>
-    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
     <script src="libs/clipboard/clipboard.min.js"></script>
     <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
@@ -160,7 +156,7 @@ Let's build a ridge.
 
 - Window-shoppers vs. High rollers
 
-&lt;img src="f2021_sta235h_15_Shrinkage_annotate_files/figure-html/ridge_intro-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_15_Shrinkage_files/figure-html/ridge_intro-1.svg" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -169,7 +165,7 @@ Let's build a ridge.
 - In an **.darkorange[OLS]**: Minimize sum of squared-errors, i.e. `\(\min_\beta \sum_{i=1}^n(\text{spend}_i - \beta\text{freq}_i)^2\)`
 
 
-&lt;img src="f2021_sta235h_15_Shrinkage_annotate_files/figure-html/ridge_ols-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_15_Shrinkage_files/figure-html/ridge_ols-1.svg" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -178,7 +174,7 @@ Let's build a ridge.
 - Does the OLS fit the testing data well?
 
 
-&lt;img src="f2021_sta235h_15_Shrinkage_annotate_files/figure-html/ridge_test-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_15_Shrinkage_files/figure-html/ridge_test-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Ridge Regression
@@ -186,7 +182,7 @@ Let's build a ridge.
 - Let's shrink the coefficients!: **.darkorange[Ridge Regression]**
 
 
-&lt;img src="f2021_sta235h_15_Shrinkage_annotate_files/figure-html/ridge-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_15_Shrinkage_files/figure-html/ridge-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -219,28 +215,28 @@ Let's build a ridge.
 
 - Let's solve the minimization problem for ridge regression. **.darkorange[What line do we choose?]**
 
-&lt;img src="f2021_sta235h_15_Shrinkage_annotate_files/figure-html/ridge_ols2_a-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_15_Shrinkage_files/figure-html/ridge_ols2_a-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # For the OLS line
 
 `$$0 + \lambda \cdot (-16.25)^2 = 264.1\lambda$$`
 
-&lt;img src="f2021_sta235h_15_Shrinkage_annotate_files/figure-html/ridge_ols2_b-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_15_Shrinkage_files/figure-html/ridge_ols2_b-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # For the OLS line
 
 `$$0 + \lambda \cdot (-16.25)^2 = 264.1\times 3 = 792.3$$`
 
-&lt;img src="f2021_sta235h_15_Shrinkage_annotate_files/figure-html/ridge_ols2_c-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_15_Shrinkage_files/figure-html/ridge_ols2_c-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Now, for the ridge regression line
 
 `$$(3^2 + (-17)^2) + \lambda \cdot (-11.25)^2 = 298 + 126.6\times 3 = 677.8$$`
 
-&lt;img src="f2021_sta235h_15_Shrinkage_annotate_files/figure-html/ridge_2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_15_Shrinkage_files/figure-html/ridge_2-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -253,14 +249,14 @@ Let's build a ridge.
 
 `$$RMSE = \sqrt{\frac{1}{4}\sum_{i=1}^4(\text{spend}_i - (132.5 -16.25\cdot\text{freq}_i))^2} = 28.36$$`
 
-&lt;img src="f2021_sta235h_15_Shrinkage_annotate_files/figure-html/ols_mse-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_15_Shrinkage_files/figure-html/ols_mse-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # RMSE on the testing dataset: Ridge Regression
 
 `$$RMSE = \sqrt{\frac{1}{4}\sum_{i=1}^4(\text{spend}_i - (119.5 -11.25\cdot\text{freq}_i))^2} = 12.13$$`
 
-&lt;img src="f2021_sta235h_15_Shrinkage_annotate_files/figure-html/ridge_mse-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_15_Shrinkage_files/figure-html/ridge_mse-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Seems like these data points are cherry-picked...
@@ -302,7 +298,7 @@ Let's build a ridge.
 
 - Ridge regression is also referred to as `\(l_2\)` regularization:
    
-   - `\(l_2\)` norm `\(\rightarrow ||\beta||_2 = \sum_{k=1}^p \beta^2\)`
+   - `\(l_2\)` norm `\(\rightarrow ||\beta||_2 = \sqrt{\sum_{k=1}^p \beta^2}\)`
 
 --
 - Some important notes:
@@ -337,13 +333,13 @@ Let's build a ridge.
 # &amp;lambda; vs RMSE?
 
 
-&lt;img src="f2021_sta235h_15_Shrinkage_annotate_files/figure-html/lambda_rmse-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_15_Shrinkage_files/figure-html/lambda_rmse-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # &amp;lambda; vs RMSE? A zoom
 
 
-&lt;img src="f2021_sta235h_15_Shrinkage_annotate_files/figure-html/lambda_rmse_zoom-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_15_Shrinkage_files/figure-html/lambda_rmse_zoom-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # How do we do this in R?
@@ -750,9 +746,7 @@ rmse(lasso, test.data)
 
 - STDHA. (2018). ["Penalized Regression Essentials: Ridge, Lasso &amp; Elastic Net"](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/153-penalized-regression-essentials-ridge-lasso-elastic-net)
 
-&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week11/1_shrinkage/sp2021_sta235_13_shrinkage.html', timeout = 10)--&gt;
-
-&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week9/2_ModelSelection/f2021_sta235h_14_ModelSelectionI.html') --&gt;
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week10/1_Shrinkage/f2021_sta235h_15_Shrinkage.html') --&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
