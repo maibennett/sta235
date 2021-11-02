@@ -658,6 +658,7 @@ lambda_seq &lt;- 10^seq(-3, 3, length = 100)
 
 lasso &lt;- train(spend ~., data = train.data, 
             method = "glmnet",
+            preProcess = "scale",
             trControl = trainControl("cv", number = 10),
 *           tuneGrid = expand.grid(alpha = 1,
                          lambda = lambda_seq)
@@ -714,7 +715,7 @@ coef(lasso$finalModel, lasso$bestTune$lambda)
 ## 3 x 1 sparse Matrix of class "dgCMatrix"
 ##                     s1
 ## (Intercept) 117.032965
-## freq         -3.296245
+## freq         -9.429349
 ## female        .
 ```
 
@@ -728,6 +729,7 @@ rmse(lasso, test.data)
 ]
 
 --
+
 - Why isn't every coefficient smaller in the Ridge Regression?
 
 ---

@@ -100,6 +100,7 @@ ols <- train(spend ~., data = train.data,
 
 lasso <- train(spend ~., data = train.data, 
              method = "glmnet",
+             preProcess = "scale",
              trControl = trainControl("cv", number = 10),
              tuneGrid = expand.grid(alpha = 1,
                                     lambda = lambda_seq)
