@@ -661,8 +661,8 @@ ggplot(data = train, aes(x = freq, y = spend)) +
   geom_smooth(data = ridge, color = "#F89441", method = "lm", lwd = 2, lty = 2, fullrange = TRUE) +
   geom_point(data = test, aes(fill = "#5601A4"), pch = 21, color = "#5601A4", size = 5) +
   scale_fill_manual(values=c("#5601A4","#BF3984"),labels = c("#BF3984" = "Training","#5601A4" = "Testing"), name = "Data") +
-  annotate("text",x=0.5, y = 150, color = "dark grey", label = "y = -16.25 x freq", size = 5, hjust = 0)+
-  annotate("text",x=7.5, y = 60, color = "#F89441", label = "y = -11.25 x freq", size = 5, hjust = 0)+
+  annotate("text",x=0.5, y = 150, color = "dark grey", label = "y = 132.5 - 16.25xfreq", size = 5, hjust = 0)+
+  annotate("text",x=7, y = 60, color = "#F89441", label = "y = 119.5 - 11.25xfreq", size = 5, hjust = 0)+
   theme_bw()+
   theme_ipsum_fsc() + #plain 
   xlab("Frequency") + ylab("Spending ($)")+
