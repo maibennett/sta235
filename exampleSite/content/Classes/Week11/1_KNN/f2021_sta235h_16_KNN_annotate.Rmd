@@ -366,7 +366,7 @@ font.add.google("Fira Sans", "Fira Sans")
   
   - Ridge vs. Lasso;
   
-  - Estimating hyper-parameters ($\lambda$)
+  - Estimating hyper-parameters (&lambda;)
 
 ]
 
@@ -389,975 +389,677 @@ font.add.google("Fira Sans", "Fira Sans")
 
 .pull-right[
 .center[
-![](https://media.giphy.com/media/nyPZB25Mg1pe/giphy.gif)]
+![](https://media.giphy.com/media/a7NBvg3Ss8UYo/giphy.gif)]
 ]
 
 ---
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
-Honey, I shrunk the coefficients!
+Won't you be my neighbor?
 ]
-
 ---
-# What is shrinkage?
+# Prediction tasks
 
-- Last class, we saw **.darkorange[stepwise procedure]**: Subsetting model selection approach.
-  
-  - Select $k$ out of $p$ total predictors
-  
---
-  
-- **.darkorange[Shrinkage *(a.k.a Regularization)*]**: Fitting a model with all $p$ predictors, but introducing bias (i.e. shrinking coefficients towards 0) for improvement in variance.
+- We have seen the main issue with **.darkorange[bias vs variance trade-off]**
 
-  - Ridge regression
-  
-  - Lasso regression
-
----
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Let's build a ridge.
-]
-
----
-# Ridge Regression: An example
-
-- Window-shoppers vs. High rollers
-
-```{r ridge_intro, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-
-set.seed(100)
-
-n <- 1000
-
-freq <- sample(1:10, n, replace = TRUE)
-
-spend <- 150 - sqrt(15)*freq^2 - freq + rnorm(n, 0, 60) + freq*rnorm(n, 0, 45)
-
-spend <- round(rescale(spend, to = c(0,189)),0)
-
-female <- sample(c(0,1), n, replace = TRUE, prob = c(0.25,0.75))
-
-data <- data.frame(freq = freq,
-                   female = female,
-                   spend = spend)
-
-#previous code was how the data was generated
-data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_Shrinkage/data/purchases.csv")
-
-train <- data.frame(freq = c(2,6),
-                    female = c(1,1),
-                    spend = c(100,35))
-
-ggplot(data = train, aes(x = freq, y = spend)) + 
-  geom_point(aes(fill = "#BF3984"), pch = 21, color = "#BF3984", size = 5) +
-  scale_fill_manual(values=c("#BF3984"),labels = c("Training"), name = "Data") +
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("Frequency") + ylab("Spending ($)")+
-  ylim(0,200) + xlim(0,10) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.9),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-
-```
-
-
----
-# Ordinary Least Squares
-
-- In an **.darkorange[OLS]**: Minimize sum of squared-errors, i.e. $\min_\beta \sum_{i=1}^n(\text{spend}_i - \beta\text{freq}_i)^2$
-
-
-```{r ridge_ols, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-library(modelr)
-
-ggplot(data = train, aes(x = freq, y = spend)) + 
-  geom_smooth(method = "lm", color = "dark grey", lwd = 2, lty = 2, fullrange = TRUE) +
-  geom_point(aes(fill = "#BF3984"), pch = 21, color = "#BF3984", size = 5) +
-  scale_fill_manual(values=c("#BF3984"),labels = c("Training"), name = "Data") +
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("Frequency") + ylab("Spending ($)")+
-  ylim(0,200) + xlim(0,10) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.9),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-
-```
-
-
----
-# What about fit?
-
-- Does the OLS fit the testing data well?
-
-
-```{r ridge_test, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-
-test <- data.frame(freq = c(1,5,6,9),
-                   spend = c(105,70,75,20))
-
-
-ggplot(data = train, aes(x = freq, y = spend)) + 
-  geom_smooth(method = "lm", color = "dark grey", lwd = 2, lty = 2, fullrange = TRUE) +
-  geom_point(aes(fill = "#BF3984"), pch = 21, color = "#BF3984", size = 5) +
-  geom_point(data = test, aes(fill = "#5601A4"), pch = 21, color = "#5601A4", size = 5) +
-  scale_fill_manual(values=c("#5601A4","#BF3984"),labels = c("#BF3984" = "Training","#5601A4" = "Testing"), name = "Data") +
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("Frequency") + ylab("Spending ($)")+
-  ylim(0,200) + xlim(0,10) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.9),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-
-```
-
----
-# Ridge Regression
-
-- Let's shrink the coefficients!: **.darkorange[Ridge Regression]**
-
-
-```{r ridge, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-
-
-ridge <- data.frame(freq = c(2,6),
-                    spend = c(97,52))
-
-
-ggplot(data = train, aes(x = freq, y = spend)) + 
-  geom_smooth(method = "lm", color = "dark grey", lwd = 2, lty = 2, fullrange = TRUE) +
-  geom_point(aes(fill = "#BF3984"), pch = 21, color = "#BF3984", size = 5) +
-  geom_smooth(data = ridge, color = "#F89441", method = "lm", lwd = 2, lty = 2, fullrange = TRUE) +
-  geom_point(data = test, aes(fill = "#5601A4"), pch = 21, color = "#5601A4", size = 5) +
-  scale_fill_manual(values=c("#5601A4","#BF3984"),labels = c("#BF3984" = "Training","#5601A4" = "Testing"), name = "Data") +
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("Frequency") + ylab("Spending ($)")+
-  ylim(0,200) + xlim(0,10) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.9),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-
-```
-
----
-
-.center2[
-.box-2LA[Why does Ridge Regression reduce its slope compared to OLS?]
-]
-
----
-# Ridge Regression: What does it do?
-
-- Ridge regression **.darkorange[introduces bias to reduce variance]** in the testing data set.
-
-- In a simple regression (i.e. one regressor/covariate):
-
-$$\min_\beta \sum_{i=1}^n\underbrace{(y_i - \beta_0 - x_i\beta_1)^2}_{OLS}$$
----
-# Ridge Regression: What does it do?
-
-- Ridge regression **.darkorange[introduces bias to reduce variance]** in the testing data set.
-
-- In a simple regression (i.e. one regressor/covariate):
-
-$$\min_\beta \sum_{i=1}^n\underbrace{(y_i - \beta_0 - x_i\beta)^2}_{OLS} + \color{#F89441}{\underbrace{\lambda\cdot \beta_1^2}_{Ridge Penalty}}$$
+- Beyond regression, **.darkorange[what methods can we use for prediction?]**
 --
 
-- $\lambda$ is the **.darkorange[penalty factor]** $\rightarrow$ indicates how much we want to shrink the coefficients.
-
----
-# Back to the plots...
-
-- Let's solve the minimization problem for ridge regression. **.darkorange[What line do we choose?]**
-
-```{r ridge_ols2_a, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-
-lm1 <- lm(spend ~ freq, data = train)
-
-test$fitted <- predict(lm1, newdata = test)
-
-ggplot(data = train, aes(x = freq, y = spend)) + 
-  geom_smooth(method = "lm", color = "dark grey", lwd = 2, lty = 2, fullrange = TRUE) +
-#  geom_segment(data = test, aes(xend = freq, yend = fitted), lwd = 1.5, color = "#FCCE25") +
-  geom_point(aes(fill = "#BF3984"), pch = 21, color = "#BF3984", size = 5) +
-  geom_smooth(data = ridge, color = "#F89441", method = "lm", lwd = 2, lty = 2, fullrange = TRUE) +
-  geom_point(data = test, aes(fill = "#5601A4"), pch = 21, color = "#5601A4", size = 5) +
-  scale_fill_manual(values=c("#5601A4","#BF3984"),labels = c("#BF3984" = "Training","#5601A4" = "Testing"), name = "Data") +
-  annotate("text",x=0.5, y = 150, color = "dark grey", label = "y = 132.5 - 16.25xfreq", size = 5, hjust = 0)+
-  annotate("text",x=7, y = 60, color = "#F89441", label = "y = 119.5 - 11.25xfreq", size = 5, hjust = 0)+
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("Frequency") + ylab("Spending ($)")+
-  ylim(-20,200) + xlim(0,10) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.9),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-
-```
-
----
-# For the OLS line
-
-$$0 + \lambda \cdot (-16.25)^2 = 264.1\lambda$$
-
-```{r ridge_ols2_b, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-
-rs = test$spend - test$fitted
-
-ggplot(data = train, aes(x = freq, y = spend)) + 
-  geom_smooth(method = "lm", color = "dark grey", lwd = 2, lty = 2, fullrange = TRUE) +
-  #geom_segment(data = test, aes(xend = freq, yend = fitted), lwd = 1.5, color = "#FCCE25") +
-  geom_point(aes(fill = "#BF3984"), pch = 21, color = "#BF3984", size = 5) +
- # geom_smooth(data = ridge, color = "#F89441", method = "lm", lwd = 2, lty = 2, fullrange = TRUE) +
-  geom_point(data = test, aes(fill = "#5601A4"), pch = 21, color = "#5601A4", size = 5) +
-  scale_fill_manual(values=c("#5601A4","#BF3984"),labels = c("#BF3984" = "Training","#5601A4" = "Testing"), name = "Data") +
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("Frequency") + ylab("Spending ($)")+
-  ylim(-20,200) + xlim(0,10) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.9),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-
-```
-
----
-# For the OLS line
-
-$$0 + \lambda \cdot (-16.25)^2 = 264.1\times 3 = 792.3$$
-
-```{r ridge_ols2_c, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-
-rs = test$spend - test$fitted
-
-ggplot(data = train, aes(x = freq, y = spend)) + 
-  geom_smooth(method = "lm", color = "dark grey", lwd = 2, lty = 2, fullrange = TRUE) +
-  #geom_segment(data = test, aes(xend = freq, yend = fitted), lwd = 1.5, color = "#FCCE25") +
-  geom_point(aes(fill = "#BF3984"), pch = 21, color = "#BF3984", size = 5) +
- # geom_smooth(data = ridge, color = "#F89441", method = "lm", lwd = 2, lty = 2, fullrange = TRUE) +
-  geom_point(data = test, aes(fill = "#5601A4"), pch = 21, color = "#5601A4", size = 5) +
-  scale_fill_manual(values=c("#5601A4","#BF3984"),labels = c("#BF3984" = "Training","#5601A4" = "Testing"), name = "Data") +
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("Frequency") + ylab("Spending ($)")+
-  ylim(-20,200) + xlim(0,10) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.9),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-
-```
-
----
-# Now, for the ridge regression line
-
-$$(3^2 + (-17)^2) + \lambda \cdot (-11.25)^2 = 298 + 126.6\times 3 = 677.8$$
-
-```{r ridge_2, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-
-lm1 <- lm(spend ~ freq, data = ridge)
-rs = train$spend - predict(lm1, newdata = train)
-train$fitted <- predict(lm1, newdata = train)
-
-ggplot(data = train, aes(x = freq, y = spend)) + 
-  #geom_smooth(method = "lm", color = "dark grey", lwd = 2, lty = 2, fullrange = TRUE) +
-  geom_segment(data = train, aes(xend = freq, yend = fitted), lwd = 1.5, color = "#FCCE25") +
-  geom_point(aes(fill = "#BF3984"), pch = 21, color = "#BF3984", size = 5) +
-  geom_smooth(data = ridge, color = "#F89441", method = "lm", lwd = 2, lty = 2, fullrange = TRUE) +
-  geom_point(data = test, aes(fill = "#5601A4"), pch = 21, color = "#5601A4", size = 5) +
-  scale_fill_manual(values=c("#5601A4","#BF3984"),labels = c("#BF3984" = "Training","#5601A4" = "Testing"), name = "Data") +
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("Frequency") + ylab("Spending ($)")+
-  ylim(-20,200) + xlim(0,10) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.9),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-
-```
-
----
-
-.center2[
-.box-3LA[But remember... we care about accuracy in the testing dataset!]
-]
-
----
-# RMSE on the testing dataset: OLS
-
-$$RMSE = \sqrt{\frac{1}{4}\sum_{i=1}^4(\text{spend}_i - (132.5 -16.25\cdot\text{freq}_i))^2} = 28.36$$
-
-```{r ols_mse, fig.height=4.5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-
-lm1 <- lm(spend ~ freq, data = train)
-test$fitted <- predict(lm1, newdata = test)
-
-ggplot(data = train, aes(x = freq, y = spend)) + 
-  geom_smooth(method = "lm", color = "dark grey", lwd = 2, lty = 2, fullrange = TRUE) +
-  geom_segment(data = test, aes(xend = freq, yend = fitted), lwd = 1.5, color = "#FCCE25") +
-  geom_point(aes(fill = "#BF3984"), pch = 21, color = "#BF3984", size = 5) +
-  #geom_smooth(data = ridge, color = "#F89441", method = "lm", lwd = 2, lty = 2, fullrange = TRUE) +
-  geom_point(data = test, aes(fill = "#5601A4"), pch = 21, color = "#5601A4", size = 5) +
-  scale_fill_manual(values=c("#5601A4","#BF3984"),labels = c("#BF3984" = "Training","#5601A4" = "Testing"), name = "Data") +
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("Frequency") + ylab("Spending ($)")+
-  ylim(-20,200) + xlim(0,10) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.9),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-
-```
-
----
-# RMSE on the testing dataset: Ridge Regression
-
-$$RMSE = \sqrt{\frac{1}{4}\sum_{i=1}^4(\text{spend}_i - (119.5 -11.25\cdot\text{freq}_i))^2} = 12.13$$
-
-```{r ridge_mse, fig.height=4.5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-
-lm1 <- lm(spend ~ freq, data = ridge)
-test$fitted <- predict(lm1, newdata = test)
-
-ggplot(data = train, aes(x = freq, y = spend)) + 
-  #geom_smooth(method = "lm", color = "dark grey", lwd = 2, lty = 2, fullrange = TRUE) +
-  geom_segment(data = test, aes(xend = freq, yend = fitted), lwd = 1.5, color = "#FCCE25") +
-  geom_point(aes(fill = "#BF3984"), pch = 21, color = "#BF3984", size = 5) +
-  geom_smooth(data = ridge, color = "#F89441", method = "lm", lwd = 2, lty = 2, fullrange = TRUE) +
-  geom_point(data = test, aes(fill = "#5601A4"), pch = 21, color = "#5601A4", size = 5) +
-  scale_fill_manual(values=c("#5601A4","#BF3984"),labels = c("#BF3984" = "Training","#5601A4" = "Testing"), name = "Data") +
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("Frequency") + ylab("Spending ($)")+
-  ylim(-20,200) + xlim(0,10) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.9),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-
-```
-
----
-# Seems like these data points are cherry-picked...
-
---
-
-- **.darkorange[Yes!]** This is a stylized example to show what's happening in the background when we are running OLS and Ridge regression.
-
---
-
-- How can we know whether **.darkorange[OLS]** or **.darkorange[Ridge Regression]** is better without running the risk of cherry-picking training and testing data?
-
---
-
-- If the data is linear, **.darkorange[OLS]** might be the right model:
-
-  - **.darkorange[Penalty term &lambda;]** will most likely be 0.
-
----
+<br>
+<br>
 .center[
-![:scale 90%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_Shrinkage/images/ridge.png)]
-
----
-# Ridge Regression in general
-
-- For regressions that include **.darkorange[more than one regressor]**:
-
-$$\min_\beta \sum_{i=1}^n\underbrace{(y_i - \sum_{k=0}^px_i\beta_k)^2}_{OLS} + \color{#F89441}{\underbrace{\lambda\cdot \sum_{k=1}^p\beta_k^2}_{Ridge Penalty}}$$
---
-
-- In our previous example, if we had two regressors, $female$ and $freq$:
-
-$$\min_\beta \sum_{i=1}^n(\text{spend}_i - \beta_0 - \beta_1\text{female}_i - \beta_2\text{freq}_i)^2 + \lambda\cdot (\beta_1^2 + \beta_2^2)$$
+.box-3LA[Knearest neighbor]]
 
 --
 
-- Because the ridge penalty includes the $\beta$'s coefficients, **.darkorange[scale matters]**:
+.box-3t[Continuous outcome]
 
-  - Standardize coefficients to $SD=1 \rightarrow x'_{ij} = \frac{x_{ij}}{\sqrt{\frac{1}{n}(x_{ij}-\bar{x}_j)^2}}$
-  
----
-# Some jargon
+.box-3t[Binary outcome]
 
-- Ridge regression is also referred to as $l_2$ regularization:
-   
-   - $l_2$ norm $\rightarrow ||\beta||_2 = \sqrt{\sum_{k=1}^p \beta^2}$
-
---
-- Some important notes:
-
-  - $||\hat{\beta}^R_\lambda||_2$ will always decrease in $\lambda$.
-  
-  - $||\hat{\beta}^R_\lambda||_2/||\hat{\beta}||_2$ will always decrease in $\lambda$.
 
 ---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Let's make it classy
+]
+---
+# KNN as a classification problem
 
-.center2[
-.box-4LA[If &lambda;=0, what is the value of l<sub>2</sub> norm for the ridge regression over the l<sub>2</sub> norm of OLS?]
+- Again: Window shoppers vs high rollers
+
+.center[
+![:scale 60%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/images/emoji_intro.svg)
+]
+
+
+---
+# How would you classify this unit?
+
+.center[
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/images/emoji_class1.svg)
 ]
 
 ---
-# How do we choose &lambda;?
+# How would you classify this unit?
 
---
-
-.box-5[Cross-validation!]
-
---
-
-1) Choose a grid of $\lambda$ values
-  - The grid you choose will be context dependent (play around with it!)
-
-2) Compute cross-validation error (e.g. RMSE) for each
-
-3) Choose the smallest one.
+.center[
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/images/emoji_class2.svg)
+]
 
 ---
-# &lambda; vs RMSE?
+# But what about this one?
+
+.center[
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/images/emoji_class3.svg)
+]
+
+---
+# K-nearest neighbor classifier
+
+One of the **.darkorange[simplest classifications methods]**
+
+--
+
+<u>Algorithm:</u>
+
+1. Choose a **.darkorange[distance measure]** (e.g. eucledian).
+
+--
+
+2. Choose a **.darkorange[number of neighbors]**, $K$ (*Note: Choose an odd number!*).
+
+--
+
+3. **.darkorange[Calculate the distance]** between data and other points.
+
+--
+
+4. Calculate the **.darkorange[rate for each class]** according to $K$: $Pr(Y=j|X=x_0) = \frac{1}{K}\sum_{i \in N_0}\mathrm{I}(y_i=j)$.
+
+--
+
+5. **.darkorange[Assign the majority class]**.
+
+---
+# KNN with K=1
+
+.box-6[Classifier: High-roller]
+
+.center[
+![:scale 65%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/images/emoji_knn1.svg)
+]
+
+---
+# KNN with K=3
+
+.box-6[Classifier: High-roller]
+
+.center[
+![:scale 65%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/images/emoji_knn3.svg)
+]
+
+---
+# KNN with K=9
+
+.box-6[Classifier: Window-shopper]
+
+.center[
+![:scale 65%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/images/emoji_knn9.svg)
+]
+
+---
+.center2[
+.box-3LA[A lower number of neighbors K is associated to a (...) variance model. Why?]
+]
+
+---
+# So what is happening when we change K?
+
+```{r knn_map0, fig.height=5.2, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+
+u.knn <- "https://www.finley-lab.com/files/data/knnExample.csv"
+knnExample <- read.csv(u.knn, header=TRUE)
+
+knnExample <- knnExample %>% rename(freq = x1,
+                                    spend = x2)
+#%>%mutate(freq = (freq - min(freq))/(max(freq) - min(freq))*10,spend = (spend - min(spend))/(max(spend) - min(spend))*150)
+
+ggplot(data = knnExample, aes(x = freq, y = spend)) + 
+  geom_point(aes(color = as.factor(class), pch = as.factor(class),
+                 fill = as.factor(class)), 
+             size = 2, stroke = 1.1) +
+  scale_color_manual(values=c(alpha("#E16462",1), alpha("#F89441",1)),labels = c("Window Shoppers","High Rollers"), name = "Types") +
+  scale_fill_manual(values=c(alpha("#E16462",0.7), alpha("#F89441",0.7)),labels = c("Window Shoppers","High Rollers"), name = "Types") +
+  scale_shape_manual(values=c(22, 24),labels = c("Window Shoppers","High Rollers"), name = "Types") +
+  theme_bw() +
+    theme_ipsum_fsc() + #plain 
+  xlab("Frequency") + ylab("Spending ($)")+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=14),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_text(size=14),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position=c(0.9,0.9),
+        legend.title = element_text(size = 12),
+        legend.text = element_text(size=10),
+        legend.background = element_rect(fill="white",colour ="dark grey"),
+        title = element_text(size=14))
+
+```
+
+---
+# Classification boundaries for K=1
+
+```{r knn_map1, fig.height=5.2, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+
+x.test <- expand.grid(freq = seq(-2.6, 4.2, by = 0.1), 
+                      spend = seq(-2, 2.9, by = 0.1))
+
+library(class)
+# K = 1
+
+Example_knn <- knn(knnExample[,c(1,2)], x.test, 
+                   knnExample[,3], k = 1, prob = TRUE)
+prob <- attr(Example_knn, "prob")
+
+df1 <- mutate(x.test, prob = prob, class = 0,  
+              prob_cls = ifelse(Example_knn == class, 1, 0))
+
+df2 <- mutate(x.test, prob = prob, class = 1,  
+              prob_cls = ifelse(Example_knn == class, 1, 0))
+bigdf <- bind_rows(df1, df2)
+
+ggplot(bigdf) + 
+  geom_point(aes(x = freq, y = spend, col = class), 
+             data = mutate(x.test, class = Example_knn), size = 0.5) +
+  geom_point(aes(x = freq, y = spend, col = as.factor(class)), 
+             size = 3, shape = 1, data = knnExample, stroke = 1) + 
+  geom_contour(aes(x = freq, y = spend, z = prob_cls, group = as.factor(class), 
+                   color = as.factor(class)), size = 1, bins = 1, data = bigdf) + 
+  theme_bw() +
+    scale_color_manual(values=c(alpha("#E16462",1), alpha("#F89441",1)),labels = c("Window Shoppers","High Rollers"), name = "Types") +
+  theme_bw() +
+    theme_ipsum_fsc() + #plain 
+  xlab("Frequency") + ylab("Spending ($)")+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=14),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_text(size=14),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position=c(0.9,0.9),
+        legend.title = element_text(size = 12),
+        legend.text = element_text(size=10),
+        legend.background = element_rect(fill="white",colour ="dark grey"),
+        title = element_text(size=14))
+
+```
+
+---
+# Classification boundaries for K=10
+
+```{r knn_map10, fig.height=5.2, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+
+# K = 10
+
+Example_knn <- knn(knnExample[,c(1,2)], x.test, 
+                   knnExample[,3], k = 10, prob = TRUE)
+prob <- attr(Example_knn, "prob")
+
+df1 <- mutate(x.test, prob = prob, class = 0,  
+              prob_cls = ifelse(Example_knn == class, 1, 0))
+
+df2 <- mutate(x.test, prob = prob, class = 1,  
+              prob_cls = ifelse(Example_knn == class, 1, 0))
+bigdf <- bind_rows(df1, df2)
+
+ggplot(bigdf) + 
+  geom_point(aes(x = freq, y = spend, col = class), 
+             data = mutate(x.test, class = Example_knn), size = 0.5) +
+  geom_point(aes(x = freq, y = spend, col = as.factor(class)), 
+             size = 3, shape = 1, data = knnExample, stroke = 1) + 
+  geom_contour(aes(x = freq, y = spend, z = prob_cls, group = as.factor(class), 
+                   color = as.factor(class)), size = 1, bins = 1, data = bigdf) + 
+  theme_bw() +
+    scale_color_manual(values=c(alpha("#E16462",1), alpha("#F89441",1)),labels = c("Window Shoppers","High Rollers"), name = "Types") +
+  theme_bw() +
+    theme_ipsum_fsc() + #plain 
+  xlab("Frequency") + ylab("Spending ($)")+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=14),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_text(size=14),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position=c(0.9,0.9),
+        legend.title = element_text(size = 12),
+        legend.text = element_text(size=10),
+        legend.background = element_rect(fill="white",colour ="dark grey"),
+        title = element_text(size=14))
+
+```
+
+---
+# Classification boundaries for K=100
+
+```{r knn_map100, fig.height=5.2, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+
+# K = 10
+
+Example_knn <- knn(knnExample[,c(1,2)], x.test, 
+                   knnExample[,3], k = 100, prob = TRUE)
+prob <- attr(Example_knn, "prob")
+
+df1 <- mutate(x.test, prob = prob, class = 0,  
+              prob_cls = ifelse(Example_knn == class, 1, 0))
+
+df2 <- mutate(x.test, prob = prob, class = 1,  
+              prob_cls = ifelse(Example_knn == class, 1, 0))
+bigdf <- bind_rows(df1, df2)
+
+ggplot(bigdf) + 
+  geom_point(aes(x = freq, y = spend, col = class), 
+             data = mutate(x.test, class = Example_knn), size = 0.5) +
+  geom_point(aes(x = freq, y = spend, col = as.factor(class)), 
+             size = 3, shape = 1, data = knnExample, stroke = 1) + 
+  geom_contour(aes(x = freq, y = spend, z = prob_cls, group = as.factor(class), 
+                   color = as.factor(class)), size = 1, bins = 1, data = bigdf) + 
+  theme_bw() +
+    scale_color_manual(values=c(alpha("#E16462",1), alpha("#F89441",1)),labels = c("Window Shoppers","High Rollers"), name = "Types") +
+  theme_bw() +
+    theme_ipsum_fsc() + #plain 
+  xlab("Frequency") + ylab("Spending ($)")+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=14),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_text(size=14),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position=c(0.9,0.9),
+        legend.title = element_text(size = 12),
+        legend.text = element_text(size=10),
+        legend.background = element_rect(fill="white",colour ="dark grey"),
+        title = element_text(size=14))
+
+```
 
 
-```{r lambda_rmse, fig.height=6, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+---
+# KNN Classifier in R?
+
+```{r, echo=TRUE, warning=FALSE, message = FALSE}
+library(caret)
+
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/data/purchases_type.csv")
+
+head(d)
+```
+
+---
+# KNN Classifier in R?
+
+.pull-left[
+```{r, echo=TRUE, warning=FALSE, message = FALSE}
+library(caret)#<<
+
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/data/purchases_type.csv")
+
 set.seed(100)
+
+n <- nrow(d)
 
 train.row <- sample(1:n, 0.8*n)
 
-test.data <- data[-train.row,]
-train.data <- data[train.row,]
+test.data <- d %>% slice(-train.row)
+train.data <- d %>% slice(train.row)
 
-lambda_seq <- c(0,10^seq(-3, 3, length = 100))
-
-cv <- train(spend ~., data = train.data, 
-            method = "glmnet",
-            preProcess = "scale",
-            trControl = trainControl("cv", number = 10),
-            tuneGrid = expand.grid(alpha = 0, 
-                         lambda = lambda_seq)
+knn <- train(
+  type ~., data = train.data, 
+  method = "knn",
+  trControl = trainControl("cv", number = 10),
+  preProcess = c("center","scale"),
+  tuneLength = 15
   )
-
-
-lambda <- cv$results$lambda
-rmse <- cv$results$RMSE
-
-cv_lambda <- data.frame(lambda = lambda,
-                        rmse = rmse)
-
-ggplot(data = cv_lambda, aes(x = lambda, y = rmse)) + 
-  geom_line(aes(color = "#BF3984"), lwd = 2) +
-  geom_vline(aes(xintercept = cv$bestTune$lambda, color = "dark grey"), lty=2, lwd = 1.5) +
-  scale_color_manual(values=c("#BF3984","dark grey"),labels = c("#BF3984" = "CV-RMSE","dark grey" = "Min \u03BB")) +
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("\u03BB") + ylab("RMSE")+
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.1),
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-
 ```
+]
+
+.pull-right[
+- Again, we'll be using the `caret` package.
+]
 
 ---
-# &lambda; vs RMSE? A zoom
-
-
-```{r lambda_rmse_zoom, fig.height=6, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-
-cv_lambda_close <- cv_lambda %>% dplyr::filter(lambda<5)
-
-ggplot(data = cv_lambda_close, aes(x = lambda, y = rmse)) + 
-  geom_line(aes(color = "#BF3984"), lwd = 2) +
-  geom_vline(aes(xintercept = cv$bestTune$lambda, color = "dark grey"), lty=2, lwd = 1.5) +
-  scale_color_manual(values=c("#BF3984","dark grey"),labels = c("#BF3984" = "CV-RMSE","dark grey" = "Min \u03BB")) +
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("\u03BB") + ylab("RMSE")+
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.1),
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-
-```
-
----
-# How do we do this in R?
+# KNN Classifier in R?
 
 .pull-left[
 ```{r, echo=TRUE, warning=FALSE, message = FALSE}
-library(caret) #<<
+library(caret)
+
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/data/purchases_type.csv")
 
 set.seed(100)
 
-data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_Shrinkage/data/purchases.csv")
+n <- nrow(d)
 
-lambda_seq <- c(0,10^seq(-3, 3, length = 100))
+train.row <- sample(1:n, 0.8*n) #<<
 
-ridge <- train(spend ~., data = train.data, 
-            method = "glmnet",
-            preProcess = "scale",
-            trControl = trainControl("cv", number = 10),
-            tuneGrid = expand.grid(alpha = 0, 
-                         lambda = lambda_seq)
+test.data <- d %>% slice(-train.row) #<<
+train.data <- d %>% slice(train.row) #<<
+
+knn <- train(
+  type ~., data = train.data, 
+  method = "knn",
+  trControl = trainControl("cv", number = 10),
+  preProcess = c("center","scale"),
+  tuneLength = 15
   )
-
-cv_lambda <- data.frame(lambda = ridge$results$lambda,
-                        rmse = ridge$results$RMSE)
-
 ```
 ]
 
 .pull-right[
-- We will be using the `caret` package
+- Again, we'll be using the `caret` package.
+
+- Create a **.darkorange[training]** and **.darkorange[testing]** dataset.
 ]
 
 ---
-# How do we do this in R?
+# KNN Classifier in R?
 
 .pull-left[
 ```{r, echo=TRUE, warning=FALSE, message = FALSE}
-library(caret) 
+library(caret)
 
-set.seed(100) #<<
-
-data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_Shrinkage/data/purchases.csv")
-
-lambda_seq <- c(0,10^seq(-3, 3, length = 100))
-
-ridge <- train(spend ~., data = train.data, 
-            method = "glmnet",
-            preProcess = "scale",
-            trControl = trainControl("cv", number = 10),
-            tuneGrid = expand.grid(alpha = 0, 
-                         lambda = lambda_seq)
-  )
-
-cv_lambda <- data.frame(lambda = ridge$results$lambda,
-                        rmse = ridge$results$RMSE)
-
-```
-]
-
-.pull-right[
-- We will be using the `caret` package
-
-- We are doing **.darkorange[cross-validation]**, so remember to set a seed!
-]
-
----
-# How do we do this in R?
-
-.pull-left[
-```{r, echo=TRUE, warning=FALSE, message = FALSE}
-library(caret) 
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/data/purchases_type.csv")
 
 set.seed(100)
 
-data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_Shrinkage/data/purchases.csv")
+n <- nrow(d)
 
-lambda_seq <- c(0,10^seq(-3, 3, length = 100)) #<<
+train.row <- sample(1:n, 0.8*n)
 
-ridge <- train(spend ~., data = train.data, 
-            method = "glmnet",
-            preProcess = "scale",
-            trControl = trainControl("cv", number = 10),
-            tuneGrid = expand.grid(alpha = 0, 
-                         lambda = lambda_seq)
+test.data <- d %>% slice(-train.row)
+train.data <- d %>% slice(train.row)
+
+knn <- train(
+  type ~., data = train.data, 
+  method = "knn", #<<
+  trControl = trainControl("cv", number = 10),
+  preProcess = c("center","scale"),
+  tuneLength = 15
   )
-
-cv_lambda <- data.frame(lambda = ridge$results$lambda,
-                        rmse = ridge$results$RMSE)
-
 ```
 ]
 
 .pull-right[
-- We will be using the `caret` package
+- Again, we'll be using the `caret` package.
 
-- We are doing **.darkorange[cross-validation]**, so remember to set a seed!
+- Create a **.darkorange[training]** and **.darkorange[testing]** dataset.
 
-- You need to create a grid for the $\lambda$'s **.darkorange[that will be tested]**
-
+- Use the method `knn` on a <u>factor variable</u> (i.e. classification)
 ]
 
-
 ---
-# How do we do this in R?
+# KNN Classifier in R?
 
 .pull-left[
 ```{r, echo=TRUE, warning=FALSE, message = FALSE}
-library(caret) 
+library(caret)
+
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/data/purchases_type.csv")
 
 set.seed(100)
 
-data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_Shrinkage/data/purchases.csv")
+n <- nrow(d)
 
-lambda_seq <- c(0,10^seq(-3, 3, length = 100))
+train.row <- sample(1:n, 0.8*n)
 
-ridge <- train(spend ~., data = train.data, #<<
-            method = "glmnet", #<<
-            preProcess = "scale",
-            trControl = trainControl("cv", number = 10), #<<
-            tuneGrid = expand.grid(alpha = 0, #<<
-                         lambda = lambda_seq)#<<
+test.data <- d %>% slice(-train.row)
+train.data <- d %>% slice(train.row)
+
+knn <- train(
+  type ~., data = train.data, 
+  method = "knn",
+  trControl = trainControl("cv", number = 10),
+  preProcess = c("center","scale"), #<<
+  tuneLength = 15
   )
-
-cv_lambda <- data.frame(lambda = ridge$results$lambda,
-                        rmse = ridge$results$RMSE)
-
 ```
 ]
 
 .pull-right[
-- We will be using the `caret` package
+- Again, we'll be using the `caret` package.
 
-- We are doing **.darkorange[cross-validation]**, so remember to set a seed!
+- Create a **.darkorange[training]** and **.darkorange[testing]** dataset.
 
-- You need to create a grid for the $\lambda$'s **.darkorange[that will be tested]**
+- Use the method `knn` on a <u>factor variable</u> (i.e. classification)
 
-- The function we will use is `train`: Same as before
-.small[
-
-  - `method="glmnet"` means that it will run an elastic net.
-- `alpha=0` means is a **.darkorange[ridge regression]**
-- `lambda = lambda_seq` is not necessary (you can provide your own grid)]
+- We also **.darkorange[pre-process]** the data. <u>Why?</u>
 ]
 
 ---
-# How do we do this in R?
+# KNN Classifier in R?
 
 .pull-left[
 ```{r, echo=TRUE, warning=FALSE, message = FALSE}
-library(caret) 
+library(caret)
+
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/data/purchases_type.csv")
 
 set.seed(100)
 
-data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_Shrinkage/data/purchases.csv")
+n <- nrow(d)
 
-lambda_seq <- c(0,10^seq(-3, 3, length = 100))
+train.row <- sample(1:n, 0.8*n)
 
-ridge <- train(spend ~., data = train.data, 
-            method = "glmnet",
-            preProcess = "scale",
-            trControl = trainControl("cv", number = 10), 
-            tuneGrid = expand.grid(alpha = 0, 
-                         lambda = lambda_seq)
+test.data <- d %>% slice(-train.row)
+train.data <- d %>% slice(train.row)
+
+knn <- train(
+  type ~., data = train.data, 
+  method = "knn",
+  trControl = trainControl("cv", number = 10),
+  preProcess = c("center","scale"),
+  tuneLength = 15 #<<
   )
-
-cv_lambda <- data.frame(lambda = ridge$results$lambda,#<<
-                        rmse = ridge$results$RMSE)#<<
-
 ```
 ]
 
 .pull-right[
-- We will be using the `caret` package
+- Again, we'll be using the `caret` package.
 
-- We are doing **.darkorange[cross-validation]**, so remember to set a seed!
+- Create a **.darkorange[training]** and **.darkorange[testing]** dataset.
 
-- You need to create a grid for the $\lambda$'s **.darkorange[that will be tested]**
+- Use the method `knn` on a <u>factor variable</u> (i.e. classification)
 
-- The function we will use is `train`: Same as before
+- We also **.darkorange[pre-process]** the data. <u>Why?</u>
 
-- Important objects in `cv`:
-.small[
-
-  - `results$lambda`: Vector of $\lambda$ that was tested
-- `results$RMSE`: RMSE for each $\lambda$
-- `bestTune$lambda`: $\lambda$ that minimizes the error term.]
+- `tuneLength` is the level of granularity for searching $K$.
 ]
 
 ---
-# How do we do this in R?
+# How many neighbors?
 
-.pull-left[
-OLS regression:
+We can see the optimal K using `bestTune` parameter.
 
-```{r}
-lm1 <- lm(spend ~ freq + female,
-          data = train.data)
-
-coef(lm1)
-
-rmse(lm1, test.data)
+```{r knn_plot, fig.height=4.7, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+plot(knn)
 ```
-]
 
-.pull-right[
-Ridge regression:
 
-```{r}
-coef(ridge$finalModel, ridge$bestTune$lambda)
+---
+<br>
+.box-1LA[Which K would you choose?]
 
-rmse(ridge, test.data)
+```{r knn_plot2, fig.height=4.7, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+plot(knn)
 ```
-]
-
 ---
 
 .center2[
-.box-5LA[Let's look at this in R!]
+.box-6LA[Let's go to R]
 ]
+
+---
+# How accurate is this?
+
+.pull-left[
+- For **.darkorange[classification]** problems, we care about *false positive* and *false negative*.
+  
+  - Sometimes you will care more about being wrong on one side than the other.
+
+]
+
+.pull-right[
+```{r}
+pred.type <- knn %>% predict(test.data)
+
+test.data <- test.data %>% mutate(prediction = pred.type)
+
+
+test.data %>% select(type, prediction) %>% table
+
+test.data %>% select(type, prediction) %>% table %>% proportions(., margin = 1) %>%
+  round(., 3)
+
+```
+]
+
+---
+<br>
+<br>
+.box-5[In a table like this, where would you like to see most of the observations?]
+
+<br>
+```{r}
+test.data %>% select(type, prediction) %>% table
+
+test.data %>% select(type, prediction) %>% table %>% proportions(., margin = 1) %>%
+  round(., 3)
+```
 
 ---
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
-Throwing a lasso
+What about continuous outcomes?
 ]
-
 ---
-# Lasso regression
+# K-Nearest Neighbors Regression
 
-- Very similar to ridge regression, except it **.darkorange[changes the penalty term]**:
-
-$$\min_\beta \sum_{i=1}^n\underbrace{(y_i - \sum_{k=0}^px_i\beta_k)^2}_{OLS} + \color{#F89441}{\underbrace{\lambda\cdot \sum_{k=1}^p|\beta_k|}_{Lasso Penalty}}$$
+- We can also use KNN for **.darkorange[continuous outcomes]**
 
 --
 
-- In our previous example:
+- **.darkorange[Similar]** to the KNN classifier, but now we will take the *average of the K-neighbors* for prediction:
 
-$$\min_\beta \sum_{i=1}^n(\text{spend}_i - \beta_0 - \beta_1\text{female}_i - \beta_2\text{freq}_i)^2 + \lambda\cdot (|\beta_1| + |\beta_2|)$$
---
-
-- Lasso regression is also called $l_1$ regularization:
-
-$$||\beta||_1 = \sum_{k=1}^p |\beta|$$
----
-# Ridge vs Lasso
-
-.pull-left[
-.box-2[Ridge]
-
-.box-2t[Final model will have p coefficients]
-
-.box-2t[Usually better with multicollinearity]
-]
-
---
-
-.pull-left[
-.box-4[Lasso]
-
-.box-4t[Can set coefficients = 0]
-
-.box-4t[Improves interpretability of model]
-
-.box-4t[Can be used for model selection]
-]
+$$\hat{f}(x_0) = \frac{1}{K}\sum_{i \in N_0}y_i$$
 
 ---
-# And how do we do Lasso in R?
+# KNN Regression in R?
 
 .pull-left[
 ```{r, echo=TRUE, warning=FALSE, message = FALSE}
-library(caret) 
+library(caret)
+
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/data/purchases_type.csv")
 
 set.seed(100)
 
-data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_Shrinkage/data/purchases.csv")
+n <- nrow(d)
 
-lambda_seq <- 10^seq(-3, 3, length = 100)
+train.row <- sample(1:n, 0.8*n)
 
-lasso <- train(spend ~., data = train.data, 
-            method = "glmnet",
-            preProcess = "scale",
-            trControl = trainControl("cv", number = 10),
-            tuneGrid = expand.grid(alpha = 1, #<<
-                         lambda = lambda_seq)
+test.data <- d %>% slice(-train.row)
+train.data <- d %>% slice(train.row)
+
+knnr <- train(
+  spend ~. - type, data = train.data, #<<
+  method = "knn",
+  trControl = trainControl("cv", number = 10),
+  preProcess = c("center","scale"),
+  tuneLength = 50
   )
-
-cvl_lambda <- data.frame(lambda = lasso$results$lambda,
-                         rmse = lasso$results$RMSE)
 ```
 ]
 
 .pull-right[
-.box-7[Exactly the same!]
-
-- ... But change `alpha=1`!!
+.box-4[Same as before!]
+<br>
+<br>
+.box-4t[... but with a continuous variable]
 ]
 
 ---
-# And how do we do Lasso in R?
+# Choose optimal K
+
+We get the optimal $K$ the same way, using `knnr$bestTune`
+
+```{r knn_reg_plot1, fig.height=4.7, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+plot(knnr)
+```
+
+---
+<br>
+.box-7LA[Which K would you choose?]
+
+```{r knn_reg_plot2, fig.height=4.7, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+plot(knnr)
+```
+
+---
+# Takeaway points
 
 .pull-left[
-Ridge regression:
-
-```{r}
-coef(ridge$finalModel, ridge$bestTune$lambda)
-
-rmse(ridge, test.data)
-```
+.center[
+![](https://media.giphy.com/media/3o6MbgQCeyiYKNu9qM/giphy.gif)]
 ]
 
 .pull-right[
-Lasso regression:
+- KNN is a simple, nonparametric way to do prediction for both **.darkorange[categorical]** and **.darkorange[continuous]** outcomes.
 
-```{r}
-coef(lasso$finalModel, lasso$bestTune$lambda)
+- Be sure to **.darkorange[check your accuracy/error metric]** depending on your outcome.
 
-rmse(lasso, test.data)
-```
+- **.darkorange[Pre-processing]** can play an important role!
+
+.box-5[Plot your data and results]
 ]
 
---
-
-- Why isn't every coefficient smaller in the Ridge Regression?
-
 ---
-# Main takeway points
+# Next class
 
 .pull-left[
-- You can **.darkorange[shrink coefficients]** to introduce bias and decrease variance.
+- Dive into new prediction methods: **.darkorange[Decision Trees!]**
 
-- Ridge and Lasso regression are **.darkorange[similar]**:
-
-  - Lasso can be used for model selection.
-
-- Importance of understanding **.darkorange[how to estimate the penalty coefficient]**.
+  - How to choose order of the variables
+  
+  - How to choose splits
+  
+  - How deep should we go?
 ]
 
 .pull-right[
 .center[
-![](https://media.giphy.com/media/2AsEweF761Dji/source.gif)]
+![:scale 80%](https://media.giphy.com/media/VF81CbG2YvXDq/giphy.gif)]
 ]
+
 ---
 # References
 
-- James, G. et al. (2021). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 6.*
+- James, G. et al. (2021). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 2, Chapter 3.*
 
-- STDHA. (2018). ["Penalized Regression Essentials: Ridge, Lasso & Elastic Net"](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/153-penalized-regression-essentials-ridge-lasso-elastic-net)
-
+- STDHA. (2018). ["KNN: K-Nearest Neighbors Essentials"](http://www.sthda.com/english/articles/35-statistical-machine-learning-essentials/142-knn-k-nearest-neighbors-essentials)
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week10/1_Shrinkage/f2021_sta235h_15_Shrinkage.html') -->
