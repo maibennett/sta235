@@ -703,8 +703,6 @@ ggplot(bigdf) +
 # KNN Classifier in R?
 
 ```{r, echo=TRUE, warning=FALSE, message = FALSE}
-library(caret)
-
 d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/data/purchases_type.csv")
 
 head(d)
@@ -715,9 +713,7 @@ head(d)
 
 .pull-left[
 ```{r, echo=TRUE, warning=FALSE, message = FALSE}
-library(caret)#<<
-
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/data/purchases_type.csv")
+library(caret) #<<
 
 set.seed(100)
 
@@ -748,8 +744,6 @@ knn <- train(
 .pull-left[
 ```{r, echo=TRUE, warning=FALSE, message = FALSE}
 library(caret)
-
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/data/purchases_type.csv")
 
 set.seed(100)
 
@@ -782,8 +776,6 @@ knn <- train(
 .pull-left[
 ```{r, echo=TRUE, warning=FALSE, message = FALSE}
 library(caret)
-
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/data/purchases_type.csv")
 
 set.seed(100)
 
@@ -818,8 +810,6 @@ knn <- train(
 .pull-left[
 ```{r, echo=TRUE, warning=FALSE, message = FALSE}
 library(caret)
-
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/data/purchases_type.csv")
 
 set.seed(100)
 
@@ -856,8 +846,6 @@ knn <- train(
 .pull-left[
 ```{r, echo=TRUE, warning=FALSE, message = FALSE}
 library(caret)
-
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/data/purchases_type.csv")
 
 set.seed(100)
 
