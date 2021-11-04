@@ -404,12 +404,10 @@ Won't you be my neighbor?
 - We have seen the main issue with **.darkorange[bias vs variance trade-off]**
 
 - Beyond regression, **.darkorange[what methods can we use for prediction?]**
+
 --
 
-<br>
-<br>
-.center[
-.box-3LA[Knearest neighbor]]
+.box-7Trans[K-nearest neighbor]
 
 --
 
