@@ -32,7 +32,7 @@ Your models will be tested on a hold-out dataset that only the instruction team 
 
 2. **Download and clean the data**: You can start with this straight away (and I recommend it given the amount of deadlines at the end of the semester). 
 	
-	- You will need to go to the [HMDA data](https://ffiec.cfpb.gov/data-browser/) and download data <u>exclusively for Travis county</u> for 2020. If you want, you can select specific variables, but remember that the outcomes we will want to predict are whether the loan was denied or not (`action_taken`) and the loan amount (`loan_amount`). **Do not filter your data at this stage**. You can find the codebook for the different variables [here](https://ffiec.cfpb.gov/documentation/2021/lar-data-fields/).
+	- You will need to go to the [HMDA data](https://ffiec.cfpb.gov/data-browser/) and <u>download data exclusively for Travis county</u> for 2020. If you want, you can select specific variables, but remember that the outcomes we will want to predict are whether the loan was denied or not (`action_taken`) and the loan amount (`loan_amount`). **Do not filter your data at this stage**. You can find the codebook for the different variables [here](https://ffiec.cfpb.gov/documentation/2021/lar-data-fields/).
 
 	- Given the size of the dataset and to avoid crashing your computers, we will only use 1,000 observations from this dataset (and everyone will use the same ones). You need to **run the [following code](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Project/code/STA235H_f2021_prediction_project.R) to select the 1,000 observations you will need**.
 
