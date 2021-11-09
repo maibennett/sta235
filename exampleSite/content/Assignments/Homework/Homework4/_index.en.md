@@ -43,7 +43,6 @@ Besides the notes that have already been provided for previous assignments, I wa
 
 - **Make sure you are using the right number of decimal places**: I included notes on this for HW3, but please make sure that your p-values <u>have more than one decimal place</u> (remember that many times we want to assess whether a p-value is greater or less than .05, and that's not possible to assess with just one decimal place). It depends on the context, but usually 2 or 3 decimal places are enough. In general, please do not provide answers with 5 or 6 decimal places. Such a level of precision is usually not necessary. 
 
-<!-- ## Answer Key
+## Answer Key
 
-- You can find the answer key for Homework 2 here: <a onclick="ga('send', 'event', 'External-Link','click','hw3_key','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework3/STA235H_Fall21_Homework3_AnswerKey.html" target="_blank" class="btn btn-default"> Open HW3 Answer Key <i class="fas fa-external-link-alt"></i></a>
- -->
+- You can find the answer key for Homework 4 here: <a onclick="ga('send', 'event', 'External-Link','click','hw4_key','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework3/STA235H_Fall21_Homework4_AnswerKey.html" target="_blank" class="btn btn-default"> Open HW4 Answer Key <i class="fas fa-external-link-alt"></i></a>

@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235H - Prediction: K-Nearest Neighbors</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA 235H - Prediction: K-Nearest Neighbors
+## Fall 2021
+### McCombs School of Business, UT Austin
+
+---
+
+
+&lt;!-- &lt;script type="text/javascript"&gt; --&gt;
+&lt;!-- MathJax.Hub.Config({ --&gt;
+&lt;!--   "HTML-CSS": { --&gt;
+&lt;!--     preferredFont: null, --&gt;
+&lt;!--     webFont:  "Neo-Euler" --&gt;
+&lt;!--   } --&gt;
+&lt;!-- }); --&gt;
+&lt;!-- &lt;/script&gt; --&gt;
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+&lt;/style&gt;
+
+
+
+
+
+# Announcements
+
+&lt;br&gt;
+.center[
+.box-2LA[No classes on Thanksgiving week]
+]
+
+&lt;br&gt;
+--
+
+- **.darkorange[Homework 5]** will be posted on Thursday
+
+--
+
+- Grades for the Midterm and Homework 4 will be posted **.darkorange[this week]**
+
+---
+# Last week
+
+.pull-left[
+- Talked about **.darkorange[shrinkage methods]**:
+
+  - Why do they usually work better than OLS
+  
+  - Ridge vs. Lasso
+  
+  - Estimating hyper-parameters (&amp;lambda;)
+
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/26gspMAjhF2DM8b84/giphy.gif)
+]
+]
+
+---
+# Today
+
+.pull-left[
+- We will be discussing **.darkorange[K-Nearest neighbors]**:
+
+  - How we can use a non-parametric method for prediction?
+  
+  - Regression vs classification tasks
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/a7NBvg3Ss8UYo/giphy.gif)]
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Won't you be my neighbor?
+]
+---
+# Prediction tasks
+
+- We have seen the main issue with **.darkorange[bias vs variance trade-off]**
+
+- Beyond regression, **.darkorange[what methods can we use for prediction?]**
+
+--
+
+.box-7Trans[K-nearest neighbor]
+
+--
+
+.box-3t[Continuous outcome]
+
+.box-3t[Binary outcome]
+
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Let's make it classy
+]
+---
+# KNN as a classification problem
+
+- Again: Window shoppers vs high rollers
+
+.center[
+![:scale 60%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/images/emoji_intro.svg)
+]
+
+
+---
+# How would you classify this unit?
+
+.center[
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/images/emoji_class1.svg)
+]
+
+---
+# How would you classify this unit?
+
+.center[
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/images/emoji_class2.svg)
+]
+
+---
+# But what about this one?
+
+.center[
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/images/emoji_class3.svg)
+]
+
+---
+# K-nearest neighbor classifier
+
+One of the **.darkorange[simplest classifications methods]**
+
+--
+
+&lt;u&gt;Algorithm:&lt;/u&gt;
+
+1. Choose a **.darkorange[distance measure]** (e.g. eucledian).
+
+--
+
+2. Choose a **.darkorange[number of neighbors]**, `\(K\)` (*Note: Choose an odd number!*).
+
+--
+
+3. **.darkorange[Calculate the distance]** between data and other points.
+
+--
+
+4. Calculate the **.darkorange[rate for each class]** according to `\(K\)`: `\(Pr(Y=j|X=x_0) = \frac{1}{K}\sum_{i \in N_0}\mathrm{I}(y_i=j)\)`.
+
+--
+
+5. **.darkorange[Assign the majority class]**.
+
+---
+# KNN with K=1
+
+.box-6[Classifier: High-roller]
+
+.center[
+![:scale 65%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/images/emoji_knn1.svg)
+]
+
+---
+# KNN with K=3
+
+.box-6[Classifier: High-roller]
+
+.center[
+![:scale 65%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/images/emoji_knn3.svg)
+]
+
+---
+# KNN with K=9
+
+.box-6[Classifier: Window-shopper]
+
+.center[
+![:scale 65%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/images/emoji_knn9.svg)
+]
+
+---
+.center2[
+.box-3LA[A lower number of neighbors K is associated to a (...) variance model. Why?]
+]
+
+---
+# So what is happening when we change K?
+
+&lt;img src="f2021_sta235h_16_KNN_files/figure-html/knn_map0-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Classification boundaries for K=1
+
+&lt;img src="f2021_sta235h_16_KNN_files/figure-html/knn_map1-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Classification boundaries for K=10
+
+&lt;img src="f2021_sta235h_16_KNN_files/figure-html/knn_map10-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Classification boundaries for K=100
+
+&lt;img src="f2021_sta235h_16_KNN_files/figure-html/knn_map100-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# KNN Classifier in R?
+
+
+```r
+d &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/data/purchases_type.csv")
+
+head(d)
+```
+
+```
+##   freq female spend type
+## 1   10      1    59   WS
+## 2    7      1    71   WS
+## 3    6      1    79   WS
+## 4    3      0    97   HR
+## 5    9      1    52   WS
+## 6   10      1    56   WS
+```
+
+---
+# KNN Classifier in R?
+
+.pull-left[
+
+```r
+*library(caret)
+
+set.seed(100)
+
+n &lt;- nrow(d)
+
+train.row &lt;- sample(1:n, 0.8*n)
+
+test.data &lt;- d %&gt;% slice(-train.row)
+train.data &lt;- d %&gt;% slice(train.row)
+
+knn &lt;- train(
+  type ~., data = train.data, 
+  method = "knn",
+  trControl = trainControl("cv", number = 10),
+  preProcess = c("center","scale"),
+  tuneLength = 15
+  )
+```
+]
+
+.pull-right[
+- Again, we'll be using the `caret` package.
+]
+
+---
+# KNN Classifier in R?
+
+.pull-left[
+
+```r
+library(caret)
+
+set.seed(100)
+
+n &lt;- nrow(d)
+
+*train.row &lt;- sample(1:n, 0.8*n)
+
+*test.data &lt;- d %&gt;% slice(-train.row)
+*train.data &lt;- d %&gt;% slice(train.row)
+
+knn &lt;- train(
+  type ~., data = train.data, 
+  method = "knn",
+  trControl = trainControl("cv", number = 10),
+  preProcess = c("center","scale"),
+  tuneLength = 15
+  )
+```
+]
+
+.pull-right[
+- Again, we'll be using the `caret` package.
+
+- Create a **.darkorange[training]** and **.darkorange[testing]** dataset.
+]
+
+---
+# KNN Classifier in R?
+
+.pull-left[
+
+```r
+library(caret)
+
+set.seed(100)
+
+n &lt;- nrow(d)
+
+train.row &lt;- sample(1:n, 0.8*n)
+
+test.data &lt;- d %&gt;% slice(-train.row)
+train.data &lt;- d %&gt;% slice(train.row)
+
+knn &lt;- train(
+  type ~., data = train.data, 
+* method = "knn",
+  trControl = trainControl("cv", number = 10),
+  preProcess = c("center","scale"),
+  tuneLength = 15
+  )
+```
+]
+
+.pull-right[
+- Again, we'll be using the `caret` package.
+
+- Create a **.darkorange[training]** and **.darkorange[testing]** dataset.
+
+- Use the method `knn` on a &lt;u&gt;factor variable&lt;/u&gt; (i.e. classification)
+]
+
+---
+# KNN Classifier in R?
+
+.pull-left[
+
+```r
+library(caret)
+
+set.seed(100)
+
+n &lt;- nrow(d)
+
+train.row &lt;- sample(1:n, 0.8*n)
+
+test.data &lt;- d %&gt;% slice(-train.row)
+train.data &lt;- d %&gt;% slice(train.row)
+
+knn &lt;- train(
+  type ~., data = train.data, 
+  method = "knn",
+  trControl = trainControl("cv", number = 10),
+* preProcess = c("center","scale"),
+  tuneLength = 15
+  )
+```
+]
+
+.pull-right[
+- Again, we'll be using the `caret` package.
+
+- Create a **.darkorange[training]** and **.darkorange[testing]** dataset.
+
+- Use the method `knn` on a &lt;u&gt;factor variable&lt;/u&gt; (i.e. classification)
+
+- We also **.darkorange[pre-process]** the data. &lt;u&gt;Why?&lt;/u&gt;
+]
+
+---
+# KNN Classifier in R?
+
+.pull-left[
+
+```r
+library(caret)
+
+set.seed(100)
+
+n &lt;- nrow(d)
+
+train.row &lt;- sample(1:n, 0.8*n)
+
+test.data &lt;- d %&gt;% slice(-train.row)
+train.data &lt;- d %&gt;% slice(train.row)
+
+knn &lt;- train(
+  type ~., data = train.data, 
+  method = "knn",
+  trControl = trainControl("cv", number = 10),
+  preProcess = c("center","scale"),
+* tuneLength = 15
+  )
+```
+]
+
+.pull-right[
+- Again, we'll be using the `caret` package.
+
+- Create a **.darkorange[training]** and **.darkorange[testing]** dataset.
+
+- Use the method `knn` on a &lt;u&gt;factor variable&lt;/u&gt; (i.e. classification)
+
+- We also **.darkorange[pre-process]** the data. &lt;u&gt;Why?&lt;/u&gt;
+
+- `tuneLength` is the level of granularity for searching `\(K\)`.
+]
+
+---
+# How many neighbors?
+
+We can see the optimal K using `bestTune` parameter.
+
+&lt;img src="f2021_sta235h_16_KNN_files/figure-html/knn_plot-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+&lt;br&gt;
+.box-1LA[Which K would you choose?]
+
+&lt;img src="f2021_sta235h_16_KNN_files/figure-html/knn_plot2-1.svg" style="display: block; margin: auto;" /&gt;
+---
+
+.center2[
+.box-6LA[Let's go to R]
+]
+
+---
+# How accurate is this?
+
+.pull-left[
+- For **.darkorange[classification]** problems, we care about *false positive* and *false negative*.
+  
+  - Sometimes you will care more about being wrong on one side than the other.
+
+]
+
+.pull-right[
+
+```r
+pred.type &lt;- knn %&gt;% predict(test.data)
+
+test.data &lt;- test.data %&gt;% mutate(prediction = pred.type)
+
+
+test.data %&gt;% select(type, prediction) %&gt;% table
+```
+
+```
+##     prediction
+## type HR WS
+##   HR 72 17
+##   WS 28 83
+```
+
+```r
+test.data %&gt;% select(type, prediction) %&gt;% table %&gt;% proportions(., margin = 1) %&gt;%
+  round(., 3)
+```
+
+```
+##     prediction
+## type    HR    WS
+##   HR 0.809 0.191
+##   WS 0.252 0.748
+```
+]
+
+---
+&lt;br&gt;
+&lt;br&gt;
+.box-5[In a table like this, where would you like to see most of the observations?]
+
+&lt;br&gt;
+
+```r
+test.data %&gt;% select(type, prediction) %&gt;% table
+```
+
+```
+##     prediction
+## type HR WS
+##   HR 72 17
+##   WS 28 83
+```
+
+```r
+test.data %&gt;% select(type, prediction) %&gt;% table %&gt;% proportions(., margin = 1) %&gt;%
+  round(., 3)
+```
+
+```
+##     prediction
+## type    HR    WS
+##   HR 0.809 0.191
+##   WS 0.252 0.748
+```
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+What about continuous outcomes?
+]
+---
+# K-Nearest Neighbors Regression
+
+- We can also use KNN for **.darkorange[continuous outcomes]**
+
+--
+
+- **.darkorange[Similar]** to the KNN classifier, but now we will take the *average of the K-neighbors* for prediction:
+
+`$$\hat{f}(x_0) = \frac{1}{K}\sum_{i \in N_0}y_i$$`
+
+---
+# KNN Regression in R?
+
+.pull-left[
+
+```r
+library(caret)
+
+d &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_KNN/data/purchases_type.csv")
+
+set.seed(100)
+
+n &lt;- nrow(d)
+
+train.row &lt;- sample(1:n, 0.8*n)
+
+test.data &lt;- d %&gt;% slice(-train.row)
+train.data &lt;- d %&gt;% slice(train.row)
+
+knnr &lt;- train(
+* spend ~. - type, data = train.data,
+  method = "knn",
+  trControl = trainControl("cv", number = 10),
+  preProcess = c("center","scale"),
+  tuneLength = 50
+  )
+```
+]
+
+.pull-right[
+.box-4[Same as before!]
+&lt;br&gt;
+&lt;br&gt;
+.box-4t[... but with a continuous variable]
+]
+
+---
+# Choose optimal K
+
+We get the optimal `\(K\)` the same way, using `knnr$bestTune`
+
+&lt;img src="f2021_sta235h_16_KNN_files/figure-html/knn_reg_plot1-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;br&gt;
+.box-7LA[Which K would you choose?]
+
+&lt;img src="f2021_sta235h_16_KNN_files/figure-html/knn_reg_plot2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Takeaway points
+
+.pull-left[
+.center[
+![](https://media.giphy.com/media/3o6MbgQCeyiYKNu9qM/giphy.gif)]
+]
+
+.pull-right[
+- KNN is a simple, nonparametric way to do prediction for both **.darkorange[categorical]** and **.darkorange[continuous]** outcomes.
+
+- Be sure to **.darkorange[check your accuracy/error metric]** depending on your outcome.
+
+- **.darkorange[Pre-processing]** can play an important role!
+
+.box-5[Plot your data and results]
+]
+
+---
+# Next class
+
+.pull-left[
+- Dive into new prediction methods: **.darkorange[Decision Trees!]**
+
+  - How to choose order of the variables
+  
+  - How to choose splits
+  
+  - How deep should we go?
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://media.giphy.com/media/VF81CbG2YvXDq/giphy.gif)]
+]
+
+---
+# References
+
+- James, G. et al. (2021). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 2, Chapter 3.*
+
+- STDHA. (2018). ["KNN: K-Nearest Neighbors Essentials"](http://www.sthda.com/english/articles/35-statistical-machine-learning-essentials/142-knn-k-nearest-neighbors-essentials)
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week11/1_KNN/f2021_sta235h_16_KNN.html') --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
