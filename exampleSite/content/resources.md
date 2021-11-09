@@ -91,7 +91,7 @@ An important part of this course is for you to learn how to "teach" yourself how
 
 Ask and you shall receive! I created this [short cheat sheet](https://sta235.netlify.app/notation_cheatsheet/) which hopefully helps. Let me know if you want me to include something else!
 
-**5) Why can lasso regression set coefficients towards 0 and not ridge regression?**
+**5) Why can lasso regression set coefficients to 0 and not ridge regression?**
 
 This is a great question! And for answering it, we need to look at the optimization problems we are solving. Let's start with a simple regression, to make this easier.
 
@@ -109,7 +109,7 @@ $$\beta_1(\sum 2x^2 + 2\lambda) = \sum 2(y - \beta_0)x$$
 
 $$\beta_1 = \frac{\sum (y - \beta_0)x}{\sum x^2 + \lambda}$$
 
-So, as we see in this case, the only way $\beta_1$ reaches 0 in the optimum by maniputaling $\lambda$, is if $\lambda \rightarrow \infty$
+So, as we see in this case, the only way $\beta_1$ reaches 0 in the optimum by maniputaling $\lambda$, is if $\lambda \rightarrow \infty$, which actually never happens (asymptotically, it can get very close).
 
 
 Now, let's look at the same optimization problem but for Lasso:
@@ -124,6 +124,6 @@ Now solving for $\beta_1$:
 
 $$\beta_1\sum 2x^2 = \sum 2(y - \beta_0)x - \lambda$$
 
-$$\beta_1 = \frac{\sum (y - \beta_0)x - lambda}{\sum x^2}$$
+$$\beta_1 = \frac{\sum (y - \beta_0)x - \lambda}{\sum x^2}$$
 
-So, as we see in this case, $\beta_1$ reaches 0 in the optimal point if $\lambda = \sum (y - \beta_0)x$
+So, as we see in this case, $\beta_1$ reaches 0 in the optimal point if $\lambda = \sum (y - \beta_0)x$, which is a precise value.
