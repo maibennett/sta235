@@ -352,9 +352,19 @@ font.add.google("Fira Sans", "Fira Sans")
 
 # Announcements
 
-.center2[
+<br>
+.center[
 .box-2LA[No classes on Thanksgiving week]
 ]
+
+<br>
+--
+
+- **.darkorange[Homework 5]** will be posted on Thursday
+
+--
+
+- Grades for the Midterm and Homework 4 will be posted **.darkorange[this week]**
 
 ---
 # Last week
@@ -364,7 +374,7 @@ font.add.google("Fira Sans", "Fira Sans")
 
   - Why do they usually work better than OLS
   
-  - Ridge vs. Lasso;
+  - Ridge vs. Lasso
   
   - Estimating hyper-parameters (&lambda;)
 
