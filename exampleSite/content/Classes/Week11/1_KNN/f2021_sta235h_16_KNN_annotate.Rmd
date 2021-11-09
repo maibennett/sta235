@@ -1017,6 +1017,21 @@ plot(knnr)
 ```
 
 ---
+
+.center2[
+.box-5LA[Now it's your turn]
+]
+
+---
+# In-class exercise
+
+- Go to **.darkorange[https://sta235.netlify.app/in-class/ex1.R]** and download the code
+
+- You will have **.darkorange[10min]** for this task. Feel free to comment with your classmates here.
+
+- When time is up, **.darkorange[you can submit your R script in Canvas]** (no need for a write-up)
+
+---
 # Takeaway points
 
 .pull-left[
