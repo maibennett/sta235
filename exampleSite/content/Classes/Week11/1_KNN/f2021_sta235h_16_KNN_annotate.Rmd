@@ -1025,7 +1025,7 @@ plot(knnr)
 ---
 # In-class exercise
 
-- Go to **.darkorange[https://sta235.netlify.app/in-class/ex1.R]** and download the code
+- Go to **.darkorange[https://sta235.netlify.app/inclass/ex1.R]** and download the code
 
 - You will have **.darkorange[10min]** for this task. Feel free to comment with your classmates here.
 
