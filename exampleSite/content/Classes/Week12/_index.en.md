@@ -24,7 +24,7 @@ This week we will be diving into the amazing world of regression and clasificati
 
 ## JITT
 
-Complete before **Sunday Nov 14th (11:59 pm)** (if your section is on Tue) or **Tuesday Nov 16th (11:59 pm)** (if your section is on Thu). The assignment will be posted soon.<!--You can find the assignment [here](https://forms.gle/ZhBQcn3mNTYdT3bR9).-->
+Complete before **Sunday Nov 14th (11:59 pm)** (if your section is on Tue) or **Tuesday Nov 16th (11:59 pm)** (if your section is on Thu). You can find the assignment [here](https://forms.gle/W8PyUSWb8Prt3Zit9).
 
 ## Slides
 
