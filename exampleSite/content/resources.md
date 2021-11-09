@@ -90,3 +90,40 @@ An important part of this course is for you to learn how to "teach" yourself how
 **4) Notation is too hard! Can we get a cheat-sheet for this?**
 
 Ask and you shall receive! I created this [short cheat sheet](https://sta235.netlify.app/notation_cheatsheet/) which hopefully helps. Let me know if you want me to include something else!
+
+**5) Why can lasso regression set coefficients towards 0 and not ridge regression?**
+
+This is a great question! And for answering it, we need to look at the optimization problems we are solving. Let's start with a simple regression, to make this easier.
+
+As you remember, ridge regression is trying to solve the following problem:
+
+$$\min_{\beta} \sum_i(y_i - \beta_0 - \beta_1 x_i)^2 + \lambda \beta_1^2 = \min_{\beta} F(\beta)$$
+
+Taking the first order conditions (FOC) to solve this problem (meaning, differentiating and setting this to 0), we get that:
+
+$$\frac{\partial F}{\partial \beta_1} = \sum 2\beta_1x^2 - \sum 2(y - \beta_0)x + 2\lambda\beta_1 = 0$$
+
+Now solving for $\beta_1$:
+
+$$\beta_1(\sum 2x^2 + 2\lambda) = \sum 2(y - \beta_0)x$$
+
+$$\beta_1 = \frac{\sum (y - \beta_0)x}{\sum x^2 + \lambda}$$
+
+So, as we see in this case, the only way $\beta_1$ reaches 0 in the optimum by maniputaling $\lambda$, is if $\lambda \rightarrow \infty$
+
+
+Now, let's look at the same optimization problem but for Lasso:
+
+$$\min_{\beta} \sum_i(y_i - \beta_0 - \beta_1 x_i)^2 + \lambda |\beta_1| = \min_{\beta} F(\beta)$$
+
+Taking the first order conditions (FOC) to solve this problem (meaning, differentiating and setting this to 0), we get that (assuming $\beta_1>0$, but works the same for $\beta_1<0$):
+
+$$\frac{\partial F}{\partial \beta_1} = \sum 2\beta_1x^2 - \sum 2(y - \beta_0)x + \lambda = 0$$
+
+Now solving for $\beta_1$:
+
+$$\beta_1\sum 2x^2 = \sum 2(y - \beta_0)x - \lambda$$
+
+$$\beta_1 = \frac{\sum (y - \beta_0)x - lambda}{\sum x^2}$$
+
+So, as we see in this case, $\beta_1$ reaches 0 in the optimal point if $\lambda = \sum (y - \beta_0)x$
