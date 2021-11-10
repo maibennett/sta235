@@ -1,0 +1,27 @@
+sex - student's sex (binary: 'F' - female or 'M' - male)
+
+ssc_p - Secondary education percentage - 10th grade
+
+ssc_b - Board of education - central/others
+
+hsc_p - Higher secondary education percentage - 12th grade
+
+hsc_b - Board of education - central/others
+
+hsc_s - Specialization in higher secondary education
+
+degree_p - Degree percentage
+
+degree_t - Undergraduate field of degree education
+
+workex - Work experience
+
+etest_p - Employability test percentage (conducted by college)
+
+specialisation - Post graduation (MBA) specialization
+
+mba_p - MBA percentage
+
+status - Status of placement
+
+salary - Salary offered by corporate to candidates
