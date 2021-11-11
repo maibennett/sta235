@@ -45,9 +45,11 @@ Cheatsheets for R are amazing! Here are two of my favorite so you can look up fu
 - [Introduction to the Potential Outcomes Framework](https://www.causalconversations.com/post/po-introduction/) by G. Basse & I. Bojinov (2021), from their blog *Causal Conversations*.
 
 
-<!-- ### Machine Learning
+### Machine Learning
 
-- ["Hands-On Machine Learning"](https://bradleyboehmke.github.io/HOML/) by B. Boehmke & B. Greenwell (2020). *Note: Great resource to see different packages for bagging, random forests, and boosting, beyond what we have seen in class!* -->
+- ["Caret Package – A Practical Guide to Machine Learning in R"](https://www.machinelearningplus.com/machine-learning/caret-package) by S. Prabhakaran (2018). *Great resource for the prediciton project if you want to pick up some new tricks!*
+
+- ["Hands-On Machine Learning"](https://bradleyboehmke.github.io/HOML/) by B. Boehmke & B. Greenwell (2020). *Note: Great resource to see different packages for bagging, random forests, and boosting, beyond what we have seen in class!*
 
 ### Interesting readings
 
