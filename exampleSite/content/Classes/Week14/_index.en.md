@@ -14,13 +14,13 @@ Last class of the semester! We will finish the course with a bang, checking out 
 
 - James, G. et al. (2021). "An Introduction to Statistical Learning with Applications in R" (ISLR). *Chapter 8: 8.2 (pg. 340-348)*. 
 
-- Ritvik Kharkar. (2019). "Random Forests". *Video materials from ritvikmath*.
-
-{{< youtube src="https://www.youtube.com/embed/w-eWTxbRQcU?controls=0" >}}
-
 - Udacity. (2016). "Bootstrap aggregating bagging".
 
 {{< youtube src="https://www.youtube.com/embed/2Mg8QD0F1dQ?controls=0" >}}
+
+- Ritvik Kharkar. (2019). "Random Forests". *Video materials from ritvikmath*.
+
+{{< youtube src="https://www.youtube.com/embed/w-eWTxbRQcU?controls=0" >}}
 
 - Udacity. (2016). "Boosting".
 
