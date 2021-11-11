@@ -22,21 +22,19 @@ chapter: false
 
 ## Assignment
 
-The assignment will be posted soon.
-
-<!-- You can find Homework 4 here: <a onclick="ga('send', 'event', 'External-Link','click','hw4','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework4/STA235H_Fall21_Homework4.html" target="_blank" class="btn btn-default"> Open HW4 <i class="fas fa-external-link-alt"></i></a>
+You can find Homework 5 here: <a onclick="ga('send', 'event', 'External-Link','click','hw5','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework5/STA235H_Fall21_Homework5.html" target="_blank" class="btn btn-default"> Open HW5 <i class="fas fa-external-link-alt"></i></a>
 
 ## Templates
 
-<a onclick="ga('send', 'event', 'External-Link','click','hw3_doc','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework4/STA235H_HW4_template.docx" target="_blank" class="btn btn-default"> Write-up Template <i class="fas fa-external-link-alt"></i></a> 
+<a onclick="ga('send', 'event', 'External-Link','click','hw5_doc','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework5/STA235H_HW5_template.docx" target="_blank" class="btn btn-default"> Write-up Template <i class="fas fa-external-link-alt"></i></a> 
 <br>
 
-<a onclick="ga('send', 'event', 'External-Link','click','hw3_code','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework4/STA235H_HW4_template.R" target="_blank" class="btn btn-default"> Rcode Template <i class="fas fa-external-link-alt"></i></a> 
+<a onclick="ga('send', 'event', 'External-Link','click','hw5_code','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework5/STA235H_HW5_template.R" target="_blank" class="btn btn-default"> Rcode Template <i class="fas fa-external-link-alt"></i></a> 
 <br>
 
-<a onclick="ga('send', 'event', 'External-Link','click','hw3_rmd','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework4/STA235H_HW4_template.Rmd" target="_blank" class="btn btn-default"> Rmarkdown Template <i class="fas fa-external-link-alt"></i></a>
+<a onclick="ga('send', 'event', 'External-Link','click','hw5_rmd','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework5/STA235H_HW5_template.Rmd" target="_blank" class="btn btn-default"> Rmarkdown Template <i class="fas fa-external-link-alt"></i></a>
 
 
-## Answer Key
+<!-- ## Answer Key
 
-- You can find the answer key for Homework 4 here: <a onclick="ga('send', 'event', 'External-Link','click','hw4_key','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework3/STA235H_Fall21_Homework4_AnswerKey.html" target="_blank" class="btn btn-default"> Open HW4 Answer Key <i class="fas fa-external-link-alt"></i></a> -->
+- You can find the answer key for Homework 4 here: <a onclick="ga('send', 'event', 'External-Link','click','hw4_key','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework3/STA235H_Fall21_Homework4_AnswerKey.html" target="_blank" class="btn btn-default"> Open HW4 Answer Key <i class="fas fa-external-link-alt"></i></a>  -->
