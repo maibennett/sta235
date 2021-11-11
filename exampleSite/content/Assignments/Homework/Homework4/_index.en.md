@@ -45,4 +45,4 @@ Besides the notes that have already been provided for previous assignments, I wa
 
 ## Answer Key
 
-- You can find the answer key for Homework 4 here: <a onclick="ga('send', 'event', 'External-Link','click','hw4_key','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework3/STA235H_Fall21_Homework4_AnswerKey.html" target="_blank" class="btn btn-default"> Open HW4 Answer Key <i class="fas fa-external-link-alt"></i></a>
+- You can find the answer key for Homework 4 here: <a onclick="ga('send', 'event', 'External-Link','click','hw4_key','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework4/STA235H_Fall21_Homework4_AnswerKey.html" target="_blank" class="btn btn-default"> Open HW4 Answer Key <i class="fas fa-external-link-alt"></i></a>
