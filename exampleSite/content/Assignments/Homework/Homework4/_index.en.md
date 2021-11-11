@@ -24,13 +24,13 @@ You can find Homework 4 here: <a onclick="ga('send', 'event', 'External-Link','c
 
 ## Templates
 
-<a onclick="ga('send', 'event', 'External-Link','click','hw3_doc','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework4/STA235H_HW4_template.docx" target="_blank" class="btn btn-default"> Write-up Template <i class="fas fa-external-link-alt"></i></a> 
+<a onclick="ga('send', 'event', 'External-Link','click','hw4_doc','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework4/STA235H_HW4_template.docx" target="_blank" class="btn btn-default"> Write-up Template <i class="fas fa-external-link-alt"></i></a> 
 <br>
 
-<a onclick="ga('send', 'event', 'External-Link','click','hw3_code','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework4/STA235H_HW4_template.R" target="_blank" class="btn btn-default"> Rcode Template <i class="fas fa-external-link-alt"></i></a> 
+<a onclick="ga('send', 'event', 'External-Link','click','hw4_code','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework4/STA235H_HW4_template.R" target="_blank" class="btn btn-default"> Rcode Template <i class="fas fa-external-link-alt"></i></a> 
 <br>
 
-<a onclick="ga('send', 'event', 'External-Link','click','hw3_rmd','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework4/STA235H_HW4_template.Rmd" target="_blank" class="btn btn-default"> Rmarkdown Template <i class="fas fa-external-link-alt"></i></a>
+<a onclick="ga('send', 'event', 'External-Link','click','hw4_rmd','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework4/STA235H_HW4_template.Rmd" target="_blank" class="btn btn-default"> Rmarkdown Template <i class="fas fa-external-link-alt"></i></a>
 
 
 ## Things to look out for
