@@ -1,5 +1,5 @@
 ---
-title: "STA 235H - Prediction: Decision Trees" 
+title: "STA 235H - Prediction: Classification and Regression Trees (CART)" 
 subtitle: "Fall 2021"
 author: "McCombs School of Business, UT Austin"
 output:
@@ -373,19 +373,114 @@ font.add.google("Fira Sans", "Fira Sans")
 - **.darkorange[Great resources for the project]** uploaded to the course website ("Resources --> Machine Learning")
 
 ---
-# Last week
+# Where we've been...
 
 .pull-left[
-- We discussed **.darkorange[K Nearest Neighbors (KNN)]**:
+- Talking about **.darkorange[bias vs variance]** trade-off.
 
+- **.darkorange[Model selection and regularization]**: Stepwise selection, Ridge and Lasso regression.
 
+- **.darkorange[K-nearest neighbors]**: Simple non-parametric approach. Importance of finding the optimal $K$.
 ]
 
 .pull-right[
 .center[
+![](https://media.giphy.com/media/xld5ngDPQm1piFSYUe/source.gif)
+]
+]
+
+---
+# ... and where we're going.
+
+.pull-left[
+.center[
+![](https://media.giphy.com/media/xT5LMAsVINr1Zwsjmw/giphy.gif)
+]
+]
+
+.pull-right[
+- Continue on our **.darkorange[prediction]** journey:
+
+  - **.darkorange[Decision Trees]**: Classification and Regression Trees (CART)
+
+- **.darkorange[Participation]**: Activity in R.
 
 ]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Trees, trees everywhere!
 ]
+
+---
+# Idea behind Decision Trees
+
+- Create a **.darkorange[flow chart]** for making decisions
+
+  - *How do we classify an individual?*
+  
+--
+
+- ... But there are **.darkorange[many]** decisions!
+
+--
+  
+  - How many variables do we use?
+--
+
+  - How do we sort them? In what order do we place them?
+  
+--
+
+  - How do we split them?
+  
+--
+
+  - How deep do we go?
+
+---
+# Let's start with a simple example
+
+.box-5[Remember our Disney+ example?]
+
+--
+
+.box-5t[Predict who will cancel their subscription]
+
+--
+
+We have some **.darkorange[information:]**
+
+- `city`: Whether the customer lives in a big city or not
+- `female`: Whether the customer is female or not
+- `age`: Customer's age (in years)
+- `logins`: Number of logins to the platform in the past week.
+- `mandalorian`: Whether the person has watched the Mandalorian or not.
+- `unsubscribe`: Whether they canceled their subscription or not.
+
+
+---
+# The prediction task: Classification
+
+- Our outcome is **.darkorange[binary]**, so this is a **.darkorange[classification task]**.
+
+--
+
+- Let's start looking at **.darkorange[two variables]**:
+
+.box-5[City & Mandalorian]
+
+--
+
+- Which one do you think is a better predictor?
+
+--
+
+
+.box-5[Let's look at the data!]
+
 
 
 ---
