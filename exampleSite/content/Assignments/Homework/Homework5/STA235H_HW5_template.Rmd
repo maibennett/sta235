@@ -1,11 +1,11 @@
 ---
-title: "STA 235H - Homework 4" # You can put the title of your document here
+title: "STA 235H - Homework 5" # You can put the title of your document here
 author: 
   - Name 1  # You can include names here
   - Name 2
   - Name 3
   - Name 4
-date: "November 4th, 2021"
+date: "November 18th, 2021"
 output: 
   pdf_document: 
     latex_engine: xelatex  # More modern PDF typesetting engine
@@ -30,9 +30,9 @@ library(estimatr)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Task 1: Real Estate Tycoon (25 points)
+# Task 1: Selecting the best
 
 ### Question 1.1
-**In this example, which variable is your running variable? Which one is your treatment variable? Which one is your outcome of interest?**
+**Let's start splitting our data. Create a training and testing dataset with 90% for the former.**
 
 *[Answer here]*

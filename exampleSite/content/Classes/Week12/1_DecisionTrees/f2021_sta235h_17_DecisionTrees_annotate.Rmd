@@ -481,7 +481,99 @@ We have some **.darkorange[information:]**
 
 .box-5[Let's look at the data!]
 
+---
+# City vs. Mandalorian
 
+
+```{r, echo=TRUE,eval = FALSE, warning=FALSE}
+
+disney <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/data/disney2.csv")
+```
+.center[
+```{r, echo=FALSE, warning=FALSE, results = 'asis'}
+
+disney <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/data/disney2.csv")
+
+disney <- disney %>% mutate(mandalorian = factor(ifelse(mandalorian==0,"No","Yes")),
+                            city = factor(ifelse(city==0,"No","Yes")))
+
+disney.train <- disney %>% filter(train==1)
+
+disney_subs <- disney.train %>% select(unsubscribe)
+
+disney_covs <- disney.train %>% select(city, mandalorian)
+
+tab1 <- table(disney_subs)
+
+tab2 <- as.data.frame.matrix(table(disney_covs))
+tab2$City <- c("No","Yes")
+tab2 <- tab2 %>% relocate(City)
+
+library(kableExtra)
+
+k1_all <- kable(tab1, booktabs = TRUE, caption = "Subscribers vs Unsubscribers", escape = FALSE, row.names = FALSE, align = 'c',
+            stripe_color = 'white', col.names = c("Unsubscribe", "Freq"))  %>% 
+  kable_styling(latex_options = "basic") %>%
+  column_spec(1, bold=TRUE) %>%
+  collapse_rows(columns = 1)
+
+k2_all <- kable(tab2, booktabs = TRUE, caption = "2x2 Frequency table", escape = FALSE, row.names = FALSE, align = 'c',
+            stripe_color = 'white') %>% add_header_above(c(" ", "Mandalorian"=2)) %>% 
+  kable_styling(latex_options = "basic") %>%
+  column_spec(1, bold=TRUE) %>%
+  collapse_rows(columns = 1)
+
+knitr::kables(list(k1_all,k2_all))
+```
+
+]
+
+---
+# City vs. Mandalorian
+
+
+```{r, echo=TRUE,eval = FALSE, warning=FALSE}
+#Subscribers
+disney.train %>% filter(unsubscribe==0) %>% select(city, mandalorian) %>% table
+
+#Unsubscribers
+disney.train %>% filter(unsubscribe==1) %>% select(city, mandalorian) %>% table
+```
+.center[
+```{r, echo=FALSE, warning=FALSE, results = 'asis'}
+
+disney <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/data/disney2.csv")
+
+disney.train <- disney %>% filter(train==1)
+
+disney_subs <- disney.train %>% filter(unsubscribe==0)
+disney_unsubs <- disney.train %>% filter(unsubscribe==1)
+
+tab1 <- as.data.frame.matrix(table(disney_subs$city,disney_subs$mandalorian))
+tab1$City <- c(0,1)
+tab1 <- tab1 %>% relocate(City)
+
+tab2 <- as.data.frame.matrix(table(disney_unsubs$city,disney_unsubs$mandalorian))
+tab2$City <- c(0,1)
+tab2 <- tab2 %>% relocate(City)
+
+
+k1 <- kable(tab1, booktabs = TRUE, caption = "Subscribers", escape = FALSE, row.names = FALSE, align = 'c',
+            stripe_color = 'white') %>% add_header_above(c(" ", "Mandalorian"=2)) %>% 
+  kable_styling(latex_options = "basic") %>%
+  column_spec(1, bold=TRUE) %>%
+  collapse_rows(columns = 1)
+
+k2 <- kable(tab2, booktabs = TRUE, caption = "Unsubscribers", escape = FALSE, row.names = FALSE, align = 'c',
+            stripe_color = 'white') %>% add_header_above(c(" ", "Mandalorian"=2)) %>% 
+  kable_styling(latex_options = "basic") %>%
+  column_spec(1, bold=TRUE) %>%
+  collapse_rows(columns = 1)
+
+knitr::kables(list(k1,k2))
+```
+
+]
 
 ---
 # References

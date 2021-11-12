@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>STA 235H - Prediction: Decision Trees</title>
+    <title>STA 235H - Prediction: Classification and Regression Trees (CART)</title>
     <meta charset="utf-8" />
     <meta name="author" content="McCombs School of Business, UT Austin" />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -22,7 +22,7 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# STA 235H - Prediction: Decision Trees
+# STA 235H - Prediction: Classification and Regression Trees (CART)
 ## Fall 2021
 ### McCombs School of Business, UT Austin
 
@@ -79,20 +79,267 @@ class: center, middle, inverse, title-slide
 - **.darkorange[Great resources for the project]** uploaded to the course website ("Resources --&gt; Machine Learning")
 
 ---
-# Last week
+# Where we've been...
 
 .pull-left[
-- We discussed **.darkorange[K Nearest Neighbors (KNN)]**:
+- Talking about **.darkorange[bias vs variance]** trade-off.
 
+- **.darkorange[Model selection and regularization]**: Stepwise selection, Ridge and Lasso regression.
 
+- **.darkorange[K-nearest neighbors]**: Simple non-parametric approach. Importance of finding the optimal `\(K\)`.
 ]
 
 .pull-right[
 .center[
-
+![](https://media.giphy.com/media/xld5ngDPQm1piFSYUe/source.gif)
 ]
 ]
 
+---
+# ... and where we're going.
+
+.pull-left[
+.center[
+![](https://media.giphy.com/media/xT5LMAsVINr1Zwsjmw/giphy.gif)
+]
+]
+
+.pull-right[
+- Continue on our **.darkorange[prediction]** journey:
+
+  - **.darkorange[Decision Trees]**: Classification and Regression Trees (CART)
+
+- **.darkorange[Participation]**: Activity in R.
+
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Trees, trees everywhere!
+]
+
+---
+# Idea behind Decision Trees
+
+- Create a **.darkorange[flow chart]** for making decisions
+
+  - *How do we classify an individual?*
+  
+--
+
+- ... But there are **.darkorange[many]** decisions!
+
+--
+  
+  - How many variables do we use?
+--
+
+  - How do we sort them? In what order do we place them?
+  
+--
+
+  - How do we split them?
+  
+--
+
+  - How deep do we go?
+
+---
+# Let's start with a simple example
+
+.box-5[Remember our Disney+ example?]
+
+--
+
+.box-5t[Predict who will cancel their subscription]
+
+--
+
+We have some **.darkorange[information:]**
+
+- `city`: Whether the customer lives in a big city or not
+- `female`: Whether the customer is female or not
+- `age`: Customer's age (in years)
+- `logins`: Number of logins to the platform in the past week.
+- `mandalorian`: Whether the person has watched the Mandalorian or not.
+- `unsubscribe`: Whether they canceled their subscription or not.
+
+
+---
+# The prediction task: Classification
+
+- Our outcome is **.darkorange[binary]**, so this is a **.darkorange[classification task]**.
+
+--
+
+- Let's start looking at **.darkorange[two variables]**:
+
+.box-5[City &amp; Mandalorian]
+
+--
+
+- Which one do you think is a better predictor?
+
+--
+
+
+.box-5[Let's look at the data!]
+
+---
+# City vs. Mandalorian
+
+
+
+```r
+disney &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/data/disney2.csv")
+```
+.center[
+&lt;table class="kable_wrapper"&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td&gt; 
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Subscribers vs Unsubscribers&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; Unsubscribe &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Freq &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2900 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2100 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+ &lt;/td&gt;
+   &lt;td&gt; 
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;2x2 Frequency table&lt;/caption&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Mandalorian&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; City &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; No &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Yes &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; No &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 212 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 500 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; Yes &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1253 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3035 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+ &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+
+---
+# City vs. Mandalorian
+
+
+
+```r
+#Subscribers
+disney.train %&gt;% filter(unsubscribe==0) %&gt;%
+        select(city, mandalorian) %&gt;% table
+#Unsubscribers
+disney.train %&gt;% filter(unsubscribe==1) %&gt;%
+        select(city, mandalorian) %&gt;% table
+```
+.center[
+&lt;table class="kable_wrapper"&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td&gt; 
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Subscribers&lt;/caption&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Mandalorian&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; City &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 0 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 1 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 173 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 155 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1067 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1505 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+ &lt;/td&gt;
+   &lt;td&gt; 
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Unsubscribers&lt;/caption&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Mandalorian&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; City &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 0 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 1 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 39 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 345 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 186 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1530 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+ &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
 
 ---
 # References
