@@ -366,11 +366,13 @@ font.add.google("Fira Sans", "Fira Sans")
 
 --
 
-- I will still hold **.darkorange[Office Hours on Tuesday 23rd]**
+- I will still hold **.darkorange[Office Hours on Tuesday 10/23]**
 
 --
 
 - **.darkorange[Great resources for the project]** uploaded to the course website ("Resources --> Machine Learning")
+
+- **.darkorange[Start the project early]**
 
 ---
 # Where we've been...
@@ -443,11 +445,11 @@ Trees, trees everywhere!
 ---
 # Let's start with a simple example
 
-.box-5[Remember our Disney+ example?]
+.box-3[Remember our Disney+ example?]
 
 --
 
-.box-5t[Predict who will cancel their subscription]
+.box-3t[Predict who will cancel their subscription]
 
 --
 
@@ -470,11 +472,11 @@ We have some **.darkorange[information:]**
 
 - Let's start looking at **.darkorange[two variables]**:
 
-.box-5[City & Mandalorian]
+.box-4[City & Mandalorian]
 
 --
 
-- Which one do you think is a better predictor?
+- Which one do you think should be at the top of the tree?
 
 --
 
@@ -573,6 +575,800 @@ k2 <- kable(tab2, booktabs = TRUE, caption = "Unsubscribers", escape = FALSE, ro
 knitr::kables(list(k1,k2))
 ```
 
+]
+---
+
+.center2[
+.box-4LA[Let's talk about the JITT]
+]
+
+---
+# How do we decide?
+
+- **.darkorange[Recursive Binary Splitting]**:
+
+  - Divide regions of covariates in two (recursively).
+  
+  - This works both for continuous and categorical variables
+  
+--
+
+- We test out every covariate and see **.darkorange[which one reduces the error the most]** in our predictions
+
+  - In **.darkorange[regression tasks]**, we can use RMSE (or MSE).
+  
+  - In **.darkorange[classification tasks]**, we can use accuracy/classification error rate, <u>Gini Index</u>, or entropy
+  
+--
+
+$$G = \sum_{k=1}^K\hat{p}_{mk}(1-\hat{p}_{mk})$$
+where $\hat{p}_{mk}$ is the proportion of obs. in the $m$ region for class $k$.
+
+---
+# Let's split by city first...
+
+.pull-left[
+```{r, echo=FALSE, warning=FALSE, results = 'asis'}
+knitr::kables(list(k1,k2))
+```
+
+]
+
+.pull-right[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_city1.png)]
+]
+
+
+---
+# Let's split by city first...
+
+.pull-left[
+```{r, echo=FALSE, warning=FALSE, results = 'asis'}
+k1p <- kable(tab1, booktabs = TRUE, caption = "Subscribers", escape = FALSE, row.names = FALSE, align = 'c',
+            stripe_color = 'white') %>% add_header_above(c(" ", "Mandalorian"=2)) %>% 
+  kable_styling(latex_options = "basic") %>%
+  column_spec(1, bold=TRUE) %>%
+  collapse_rows(columns = 1) %>%
+   row_spec(1, bold = T, color = "white", background = "#E16462")
+
+k2p <- kable(tab2, booktabs = TRUE, caption = "Unsubscribers", escape = FALSE, row.names = FALSE, align = 'c',
+            stripe_color = 'white') %>% add_header_above(c(" ", "Mandalorian"=2)) %>% 
+  kable_styling(latex_options = "basic") %>%
+  column_spec(1, bold=TRUE) %>%
+  collapse_rows(columns = 1) %>%
+   row_spec(1, bold = T, color = "white", background = "#E16462")
+
+knitr::kables(list(k1p,k2p))
+```
+
+]
+
+.pull-right[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_city3.png)]
+]
+
+---
+# Let's split by city first...
+
+.pull-left[
+```{r, echo=FALSE, warning=FALSE, results = 'asis'}
+k1p <- kable(tab1, booktabs = TRUE, caption = "Subscribers", escape = FALSE, row.names = FALSE, align = 'c',
+            stripe_color = 'white') %>% add_header_above(c(" ", "Mandalorian"=2)) %>% 
+  kable_styling(latex_options = "basic") %>%
+  column_spec(1, bold=TRUE) %>%
+  collapse_rows(columns = 1) %>%
+   row_spec(2, bold = T, color = "white", background = "#E16462")
+
+k2p <- kable(tab2, booktabs = TRUE, caption = "Unsubscribers", escape = FALSE, row.names = FALSE, align = 'c',
+            stripe_color = 'white') %>% add_header_above(c(" ", "Mandalorian"=2)) %>% 
+  kable_styling(latex_options = "basic") %>%
+  column_spec(1, bold=TRUE) %>%
+  collapse_rows(columns = 1) %>%
+   row_spec(2, bold = T, color = "white", background = "#E16462")
+
+knitr::kables(list(k1p,k2p))
+```
+
+]
+
+.pull-right[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_city2.png)]
+]
+
+---
+# Calculate Gini for city
+
+.pull-left-little_r[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_city2.png)]
+]
+
+.pull-right-little_r[
+$$G_0 = \sum_{k=1}^Kp_{mk}(1-p_{mk}) = ?$$
+]
+
+
+---
+# Calculate Gini for city
+
+.pull-left-little_r[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_city2.png)]
+]
+
+.pull-right-little_r[
+$$\begin{aligned}
+G_0 = \sum_{k=0}^1p_{0k}(1-p_{0k}) =& \frac{384}{328 + 384}\cdot(1 - \frac{384}{328+384}) +\\  &\frac{328}{328 + 384}\cdot(1 - \frac{328}{328 + 384}) =
+\end{aligned}$$
+
+$$= 0.497$$
+]
+
+---
+# Calculate Gini for city
+
+.pull-left-little_r[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_city2.png)]
+]
+
+.pull-right-little_r[
+$$\begin{aligned}
+G_1 = \sum_{k=0}^1p_{1k}(1-p_{1k}) =& \frac{1716}{1716 + 2572}\cdot(1 - \frac{1716}{1716 + 2572}) +\\  & \frac{2572}{1716 + 2572}\cdot(1 - \frac{2572}{1716 + 2572}) =
+\end{aligned}$$
+
+$$= 0.48$$
+]
+
+---
+# Calculate Gini for city
+
+.pull-left-little_r[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_city2.png)]
+]
+
+.pull-right-little_r[
+$$G = \omega_0G_0 + \omega_1G_1$$
+]
+
+---
+# Calculate Gini for city
+
+.pull-left-little_r[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_city2.png)]
+]
+
+.pull-right-little_r[
+$$G = \omega_0G_0 + \omega_1G_1$$
+
+$$G = \frac{384+328}{384 + 328 + 1716 + 2572}G_0 + \frac{1716+2572}{384 + 328 + 1716 + 2572}G_1$$
+
+$$G = 0.482$$
+]
+
+---
+# And we can do the same for mandalorian
+
+.pull-left-little_r[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian2.png)]
+]
+
+.pull-right-little_r[
+$$\begin{align}
+G =& \omega_0(\frac{225}{1465}\cdot(1-\frac{225}{1465}) + \frac{1240}{1465}\cdot(1-\frac{1240}{1465})) +\\
+&\omega_1(\frac{1875}{3535}\cdot(1-\frac{1875}{3535}) + \frac{1660}{3535}\cdot(1-\frac{1660}{3535}))\\
+=& 0.428
+\end{align}$$
+]
+
+---
+.center2[
+.box-4LA[Which variable would you choose for prediction?]
+]
+
+---
+# Choosing predictors
+
+- From the previous exercise, we can see that **.darkorange[using `mandalorian` yields a lower Gini compared to `city`]** (0.428 vs. 0.482)
+
+--
+<br>
+<br>
+.box-2[But we have more variables]
+
+--
+
+.box-3[How do we choose?]
+
+---
+# Decision trees: Basic Algorithm
+
+- Main idea $\rightarrow$ **.darkorange[flowchart!]**
+
+--
+
+- We will **.darkorange[stratify]** (or segment) the predictor space into regions (ISLR, Ch. 8).
+
+--
+
+- Similar to KNN, we assign the **.darkorange[mean]** or **.darkorange[mode]** of the training obs in the region.
+
+--
+
+.pull-left[
+.box-4[Main advantages]
+<br>
+.box-4t[Simple interpretation]
+]
+
+.pull-left[
+.box-6[Main disadvantages]
+<br>
+.box-6t[Overfitting]
+]
+
+---
+# Structure of Decision Trees
+
+.pull-left[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/tree_example.png)]
+]
+
+.pull-right[
+**.darkorange[Structure:]**
+
+  - Root node
+  - Internal nodes
+  - Leaves
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Classification Trees
+]
+---
+# Classification  Tree
+
+- Outcome is **.darkorange[categorical]** (e.g. binary)
+
+--
+
+- Previous example: Chose splitting variable based on $\text{Pr(Correct)}$
+
+--
+
+- What if we just assigned **.darkorange[based on the proportion in each leave?]** (i.e. similar to KNN)
+
+---
+# Let's go back to our drawing
+
+.pull-left[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian2.png)]
+]
+
+.pull-right[
+- $\text{Pr[U | Leaf 1]} = 0.15$
+
+- $\text{Pr[U | Leaf 2]} = 0.53$
+]
+
+---
+# Let's go back to our drawing
+
+.pull-left[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian3.png)]
+]
+
+.pull-right[
+- $\text{Pr[U | Leaf 1]} = 0.15$
+
+- $\text{Pr[U | Leaf 2]} = 0.53$
+
+.box-7[Classification error: 42%]
+]
+
+---
+# Measures for accuracy
+
+- The classification error rate is **.darkorange[not very sensitive for tree-growing]**.
+
+---
+
+.center2[
+.box-2LA[Poll time!]
+]
+
+---
+
+.center2[
+.box-2LA[What is the main problem if our measure is not very sensitive for tree-growing?]
+]
+---
+# Measures for accuracy
+
+- The classification error rate is **.darkorange[not very sensitive for tree-growing]**.
+
+- Another measure is called **.darkorange[Gini index]**:
+
+  - Total variance across classes:
+  
+  $$G = \sum_{k=1}^K\hat{p}_{mk}(1-\hat{p}_{mk})$$
+where $\hat{p}_{mk}$ is the proportion of training obs in region $m$ for class $k$.
+
+--
+.small[
+- In our previous example:
+$$\begin{align}
+G_{mandalorian=0} =& \frac{1240}{1240 + 225}(1-\frac{1240}{1240 + 225}) + \frac{225}{1240 + 225}(1-\frac{225}{1240 + 225}) = 0.26
+\end{align}$$]
+
+---
+
+.center2[
+.box-5LA[Poll time!]
+]
+
+---
+
+.center2[
+.box-5LA[According to the Gini Index, is it better or worse to have a high p<sub>mk</sub>?]
+<br>
+<br>
+$$G = \sum_{k=1}^K\hat{p}_{mk}(1-\hat{p}_{mk})$$
+]
+
+---
+# Ok, but how about including other variables?
+
+.center[
+![:scale 60%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian4.png)]
+
+
+---
+# Let's see how to do it in R!
+
+```{r, echo=TRUE}
+library(rpart) #<<
+
+d.train <- disney.train %>% dplyr::select(mandalorian, city, unsubscribe)
+
+set.seed(100)
+
+m1 <- rpart(unsubscribe ~., data = d.train, method = "class", cp=-1)
+
+```
+
+---
+# Let's see how to do it in R!
+
+```{r, eval=FALSE}
+library(rpart)
+
+d.train <- disney.train %>% dplyr::select(mandalorian, city, unsubscribe)
+
+set.seed(100) #<<
+
+m1 <- rpart(unsubscribe ~., data = d.train, method = "class", cp=-1)
+
+```
+
+---
+# Let's see how to do it in R!
+
+```{r, eval=FALSE}
+library(rpart)
+
+d.train <- disney.train %>% dplyr::select(mandalorian, city, unsubscribe)
+
+set.seed(100)
+
+m1 <- rpart(unsubscribe ~., data = d.train, method = "class", cp=-1) #<<
+
+```
+
+
+---
+# Tree using all the covariates
+
+```{r full_tree, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+library(rpart.plot)
+
+rpart.plot(m1)
+```
+
+---
+
+.center2[
+.box-4LA[Poll time!]
+]
+
+---
+<br>
+.box-4LA[What do you think the percentages in the leaves represent?]
+
+```{r full_tree2, fig.height=4, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+library(rpart.plot)
+suppressMessages(library(rattle))
+rpart.plot(m1)
+```
+
+---
+# Some parameters that might be important
+
+```{r}
+m1 <- rpart(unsubscribe ~., data = d.train, method = "class", 
+            control = rpart.control(cp=-1, #<<
+                                    minsplit = 20))
+
+```
+
+- `cp`: Complexity parameter
+
+  - Split must decrease the overall lack of fit by a factor of `cp`, or is not attempted.
+  
+  - Parameter for **.darkorange[pruning the tree]**.
+  
+  - Higher `cp`, smaller the tree!
+  
+---
+# Some parameters that might be important
+
+```{r}
+m1 <- rpart(unsubscribe ~., data = d.train, method = "class", 
+            control = rpart.control(cp=-1,
+                                    minsplit = 20)) #<<
+
+```
+
+- `minsplit`: Min. number of obs in a node to attempt a split.
+  
+---
+# If we set `minsplit` to 1500...
+
+```{r tree_minsplit, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+m2 <- rpart(unsubscribe ~., data = d.train, method = "class", 
+            control = rpart.control(cp=-1,
+                                    minsplit = 1500))
+
+rpart.plot(m2)
+```
+
+---
+# If we don't set `cp`...
+
+```{r tree_cp, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+m3 <- rpart(unsubscribe ~., data = d.train, method = "class", 
+            control = rpart.control(minsplit = 20))
+
+rpart.plot(m3)
+```
+
+---
+# If we don't set `cp`...
+
+```{r}
+m1$cptable
+
+m3$cptable
+```
+
+---
+# How can we use this for selecting the size of our tree?
+
+```{r plot_cp, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+plotcp(m1)
+```
+  
+---
+# Basic Algorithm
+
+.box-2[1) Start at the root node]
+<br>
+.box-4[2) Split the parent node at covariate x<sub>i</sub> to minimize the sum of child node impurities]
+<br>
+.box-6[3) Assign training samples to new child nodes]
+<br>
+.box-7[4) Stop if leaves are pure or early stopping criteria is satisfied, else repeat step (1) and (2) for each new child nodes]
+
+.source["Machine Learning FAQs" (Raschka, 2021)]
+---
+.center2[
+.box-3LA[Now it's your turn!]
+]
+
+---
+
+.box-5LA[Instructions]
+
+- Using the code **.darkorange[provided on the course's website]**:
+
+  - Fit a classification tree using **.darkorange[all the covariates]**
+
+--
+<br>
+<br>
+.box-5t[Play around with cp. What happens?]
+
+<br>
+.box-5t[Interpret your tree!]
+
+---
+# Results
+
+.pull-left[
+```{r plot_mex, fig.height=3.8, fig.width=5, fig.align='center', dev='svg', echo=TRUE, warning=FALSE}
+set.seed(100)
+mex <- rpart(unsubscribe ~., data = disney.train,
+             method = "class", cp = 0.01)
+rpart.plot(mex) #<<
+```
+]
+
+.pull-right[
+```{r plot_cp2, fig.height=5, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+plotcp(mex)
+```
+]
+
+---
+# Let's see this in another plot
+
+```{r plot_regions, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, results=FALSE}
+
+ggplot(data = disney.train, aes(x = mandalorian, y = logins)) +
+  geom_point(size = 5, color = "white", fill = "#BF3984", pch=21) +
+  geom_segment(aes(x = 0.5, xend = 1.1, y=1, yend=1), color = "dark grey", lty=2, lwd=2)+
+  geom_vline(aes(xintercept = 0.5), color = "dark grey", lty=2, lwd=2)+
+  theme_bw()+
+  theme_ipsum_fsc()+
+  #scale_x_continuous(breaks = c(0,1))+
+  scale_x_discrete(breaks=c(0,1),
+        labels=c("No", "Yes"), name="Mandalorian") +
+  xlab("Mandalorian") + ylab("logins") +
+      theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        #panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_blank())+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position=c(0.9,0.2),
+        legend.title = element_text(size=14),
+        legend.text = element_text(size=14),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+```
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Regression Trees
+]
+---
+# Regression Trees
+
+- Outcome is **.darkorange[continuous]**
+
+--
+
+- Very similar to what we have seen with **.darkorange[classification trees]**:
+
+  - Predicted outcome is the **.darkorange[mean outcome for the leaf/region]**.
+
+---
+# In R is basically the same
+
+```{r plot_reg, fig.height=4, fig.width=10, fig.align='center', dev='svg', echo=TRUE, warning=FALSE}
+set.seed(100)
+r1 <- rpart(logins ~. - unsubscribe, data = disney.train,
+            method = "anova")#<<
+
+rpart.plot(r1)
+```
+
+---
+# Let's incorporate cross-validation!
+
+.pull-left[
+```{r, echo=TRUE, warning=FALSE, fig.show='hide'}
+library(caret)
+set.seed(100)
+
+mcv <- train(
+  logins ~. - unsubscribe, data = disney.train, 
+  method = "rpart",
+  trControl = trainControl("cv", number = 10),
+  tuneLength = 50
+  )
+
+plot(mcv)
+```
+]
+
+.pull-right[
+```{r plot_cv, fig.height=5, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, results=FALSE}
+library(caret)
+set.seed(100)
+
+mcv <- train(
+  logins ~. - unsubscribe, data = disney.train, 
+  method = "rpart",
+  trControl = trainControl("cv", number = 10),
+  tuneLength = 50 #<<
+  )
+
+plot(mcv)
+```
+]
+
+---
+# Let's incorporate cross-validation!
+
+.pull-left[
+```{r, echo=TRUE, warning=FALSE, fig.show='hide'}
+library(caret)
+set.seed(100)
+
+tuneGrid <- expand.grid(cp = seq(0, 0.1, 0.005)) #<<
+
+mcv <- train(
+  logins ~. - unsubscribe, data = disney.train, 
+  method = "rpart",
+  trControl = trainControl("cv", number = 10),
+  tuneGrid = tuneGrid #<<
+  )
+
+plot(mcv)
+```
+]
+
+.pull-right[
+```{r plot_cv2, fig.height=5, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, results=FALSE}
+library(caret)
+set.seed(100)
+
+tuneGrid <- expand.grid(cp = seq(0, 0.1, 0.005))
+
+mcv2 <- train(
+  logins ~. - unsubscribe, data = disney.train, 
+  method = "rpart",
+  trControl = trainControl("cv", number = 10),
+  tuneGrid = tuneGrid
+  )
+
+plot(mcv2)
+```
+]
+
+---
+# Plot the tree
+
+.pull-left[
+```{r plot_tree_reg, fig.height=5, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, results=FALSE}
+par(xpd = NA) # Avoid clipping the text in some device
+plot(mcv$finalModel)
+text(mcv$finalModel, digits = 3)
+```
+]
+
+.pull-right[
+```{r}
+mcv$finalModel
+```
+]
+
+---
+
+.center2[
+.box-6LA[Poll time!]
+]
+
+---
+.box-6LA[What would the predicted value be for a customer who hasn't watched The Mandalorian and lives in a city?]
+
+.pull-left[
+```{r plot_tree_reg2, fig.height=4, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, results=FALSE}
+par(xpd = NA) # Avoid clipping the text in some device
+plot(mcv$finalModel)
+text(mcv$finalModel, digits = 3)
+```
+]
+
+.pull-right[
+```{r}
+mcv$finalModel
+```
+]
+
+---
+# Remember that we care about predictions outside our training sample
+
+.pull-left[
+- For predicting **.darkorange[unsubscribe]**
+
+```{r}
+disney.test <- disney %>% dplyr::filter(train==0)
+
+mclass <- train(
+  factor(unsubscribe) ~., data = disney.train, 
+  method = "rpart",
+  trControl = trainControl("cv", number = 10),
+  tuneLength = 50
+  )
+
+pred.class <- mclass %>% predict(disney.test)
+
+mean(pred.class==disney.test$unsubscribe)
+```
+]
+
+--
+.pull-right[
+- For predicting **.darkorange[logins]**:
+
+```{r}
+pred.reg <- mcv %>% predict(disney.test)
+
+RMSE(pred.reg, disney.test$logins)
+```
+]
+
+---
+# Main takeaways of decision trees
+
+.pull-left[
+.center[
+![](https://media.giphy.com/media/1xOyKwXRD0a96CcCfT/giphy.gif)
+]
+]
+
+.pull-right[
+**.darkorange[Main advantages:]**
+
+- Easy to interpret and explain (you can plot them!)
+  
+- Mirrors human decision-making.
+  
+- Can handle qualitative predictors (without need for dummies).
+  
+**.darkorange[Main disadvantages:]**
+
+  - Accuracy not as high as other methods
+  
+  - Very sensitive to training data (e.g. overfitting)
+]
+
+---
+# Next class
+
+.pull-left[
+Use of decision trees as building blocks for **.darkorange[more powerful prediction methods!]**
+
+- Bagging
+  
+- Random Forests
+  
+- Boosting]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/cRH5deQTgTMR2/giphy.gif)
+]
 ]
 
 ---
