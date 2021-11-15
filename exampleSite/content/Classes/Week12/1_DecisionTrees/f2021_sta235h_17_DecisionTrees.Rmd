@@ -343,7 +343,7 @@ windowsFonts(sans = "Fira")
 loadfonts(device="win")
 loadfonts(device="postscript")
 
-xaringanExtra::use_scribble()
+#xaringanExtra::use_scribble()
 
 htmltools::tagList(
   xaringanExtra::use_clipboard(
@@ -1136,32 +1136,6 @@ fancyRpartPlot(mcv$finalModel, caption="")
 mcv$finalModel
 ```
 ]
-
----
-.center2[
-.box-3LA[Now it's your turn!]
-]
-
----
-
-.box-5LA[Instructions]
-
-Using the code on **https://sta235.netlify.app/inclass/ex2**:
-
-  - Fit a classification tree using **.darkorange[all the covariates]**
-  
-  - Show your optimal `cp` and your final classification tree.
-  
-  - What is the accuracy of your tree?
-
---
-<br>
-<br>
-.box-5t[Play around with cp. What happens?]
-
-<br>
-.box-5t[Interpret your tree!]
-
 
 ---
 # Main takeaways of decision trees

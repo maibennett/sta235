@@ -5,10 +5,6 @@
     <meta charset="utf-8" />
     <meta name="author" content="McCombs School of Business, UT Austin" />
     <script src="libs/header-attrs/header-attrs.js"></script>
-    <script src="libs/fabric/fabric.min.js"></script>
-    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
     <script src="libs/clipboard/clipboard.min.js"></script>
     <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
@@ -328,7 +324,7 @@ disney.train %&gt;% filter(unsubscribe==1) %&gt;% select(city, mandalorian) %&gt
 ---
 # Answers (up to Monday morning)
 
-&lt;img src="f2021_sta235h_17_DecisionTrees_annotate_files/figure-html/jitt_dt-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_17_DecisionTrees_files/figure-html/jitt_dt-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 # How do we decide?
 
@@ -793,13 +789,13 @@ set.seed(100)
 # Tree using all the covariates
 
 
-&lt;img src="f2021_sta235h_17_DecisionTrees_annotate_files/figure-html/full_tree-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_17_DecisionTrees_files/figure-html/full_tree-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 &lt;br&gt;
 .box-4LA[What do you think the percentages in the leaves represent?]
 
-&lt;img src="f2021_sta235h_17_DecisionTrees_annotate_files/figure-html/full_tree2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_17_DecisionTrees_files/figure-html/full_tree2-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Some parameters that might be important
@@ -877,7 +873,7 @@ plot(mcv)
 ]
 
 .pull-right[
-&lt;img src="f2021_sta235h_17_DecisionTrees_annotate_files/figure-html/plot_cv-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_17_DecisionTrees_files/figure-html/plot_cv-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -903,14 +899,14 @@ plot(mcv)
 ]
 
 .pull-right[
-&lt;img src="f2021_sta235h_17_DecisionTrees_annotate_files/figure-html/plot_cv2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_17_DecisionTrees_files/figure-html/plot_cv2-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
 # Plot the tree
 
 .pull-left[
-&lt;img src="f2021_sta235h_17_DecisionTrees_annotate_files/figure-html/plot_tree_reg-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_17_DecisionTrees_files/figure-html/plot_tree_reg-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -940,7 +936,7 @@ mcv$finalModel
 .box-6LA[What would the predicted value be for a customer who hasn't watched The Mandalorian and lives in a city?]
 
 .pull-left[
-&lt;img src="f2021_sta235h_17_DecisionTrees_annotate_files/figure-html/plot_tree_reg2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2021_sta235h_17_DecisionTrees_files/figure-html/plot_tree_reg2-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -964,32 +960,6 @@ mcv$finalModel
 ##     7) cityYes&gt;=0.5 1253   728.8571 9.428571 *
 ```
 ]
-
----
-.center2[
-.box-3LA[Now it's your turn!]
-]
-
----
-
-.box-5LA[Instructions]
-
-Using the code on **https://sta235.netlify.app/inclass/ex2**:
-
-  - Fit a classification tree using **.darkorange[all the covariates]**
-  
-  - Show your optimal `cp` and your final classification tree.
-  
-  - What is the accuracy of your tree?
-
---
-&lt;br&gt;
-&lt;br&gt;
-.box-5t[Play around with cp. What happens?]
-
-&lt;br&gt;
-.box-5t[Interpret your tree!]
-
 
 ---
 # Main takeaways of decision trees

@@ -33,6 +33,7 @@ disney <- disney %>% mutate(mandalorian = factor(ifelse(mandalorian==0,"No","Yes
 
 # I already provide a training dataset (identified by train==1)
 disney.train <- disney %>% filter(train==1)
+disney.test <- disney %>% filter(train==0)
 
 # Exercise: Ignore the variable train, and create your own train and testing dataset! Do you get the same results?
 
@@ -93,63 +94,17 @@ fancyRpartPlot(ct$finalModel, caption = "Disney+ example - Simple classification
                palettes = c("Purples","Greens"))
 
 
+# We can also see the final model here:
+ct$finalModel
+# Note that it shows you every split in order (the indentation shows you the levels!)
+# Terminal nodes are indicated by an asterisk *
 
+#Let's now look on whether we did a good job with prediction or not
 
+pred.class <- ct %>% predict(disney.test)
+disney.test <- disney.test %>% mutate(prediction = pred.class)
 
-
-
-
-
-
-
-
-
-ct <- rpart(unsubscribe ~., data = d.train, method = "class", cp=-1) # Why do we set cp=-1?
-
-
-
-rpart.plot(m1) #Interpret this tree!
-
-# Now, let's play with some parameters:
-
-m1 <- rpart(unsubscribe ~., data = d.train, method = "class", 
-            control = rpart.control(cp = 0.05, minsplit = 20)) #Let's use a cp of 0.05
-
-# Question: What does this do? Change it around and see how your tree changes!
-
-rpart.plot(m1)
-
-# Exercise: Change minsplit = 1500. What happens now? Why? (You can use ?rpart.control to gain some insight)
-
-m1 <- rpart(unsubscribe ~., data = d.train, method = "class", 
-            control = rpart.control(minsplit = 20)) #Let's not fix any cp. What happens then?
-
-m1$cptable #cptable gives you the value of CPs tested, the number of splits for each cp, the relative error (relative to no split), the mean error, and the std dev of that error.
-
-plotcp(m1) # Question: Which cp would you choose? What does "size of tree" mean?
-
-# Finally, let's test the accuracy of our model!
-
-disney.test <- disney %>% dplyr::filter(train==0)
-
-# We use cross-validation to find the cp parameter.
-mclass <- train(
-  factor(unsubscribe) ~., data = disney.train, 
-  method = "rpart",
-  trControl = trainControl("cv", number = 10),
-  tuneLength = 50
-)
-
-pred.class <- mclass %>% predict(disney.test)
-
-mean(pred.class==disney.test$unsubscribe) # This gives us the accuracy rate.
-
-# This is how you plot the traditional models
-plot(mclass$finalModel)
-text(mclass$finalModel)
-
-# But you can make it prettier!
-fancyRpartPlot(mclass$finalModel)
+mean(factor(disney.test$unsubscribe) == disney.test$prediction)
 
 #####################################################
 ########## Regression Tree
@@ -158,41 +113,27 @@ fancyRpartPlot(mclass$finalModel)
 #Let's predict logins now.
 
 set.seed(100)
-r1 <- rpart(logins ~. - unsubscribe, data = disney.train,
-            method = "anova")#<<
 
-rpart.plot(r1)
-
-# Question: What's the cp for r1? Can you find it?
-
-# We might want to obtain our cp parameter through cross-validation. For that, we can use the caret package:
-mcv <- train(
+rt <- train(
   logins ~. - unsubscribe, data = disney.train, # We give it our model and data (look that I use -unsubscribe so I don't use it as a predictor!)
   method = "rpart", #Method is rpart (any decision tree will use rpart)
   trControl = trainControl("cv", number = 10), # We want cross-validation with 10 fold
   tuneLength = 50 #That basically gives the number of values that will search for cp
 )
 
-plot(mcv)
+plot(rt)
 
 # Exercise: We saw in class that we can also give the train() function an explicit grid for it to search cp. Can you recreate that code here?
 
-# We can also plot the model
-par(xpd = NA) # Avoid clipping the text in some device
-plot(mcv$finalModel) # This will plot the tree
-text(mcv$finalModel, digits = 3) # This will plot the labels!
-
 # Question: Look at the final model. Can you interpret it from this table?
-mcv$finalModel
+rt$finalModel
 
 # Let's predict the RMSE
 
-pred.reg <- mcv %>% predict(disney.test)
-
-RMSE(pred.reg, disney.test$logins)
+rmse(rt, disney.test)
 
 # Question: How would you interpret that RMSE?
 
 # Let's plot this tree now:
-fancyRpartPlot(mcv$finalModel)
+fancyRpartPlot(rt$finalModel)
 
