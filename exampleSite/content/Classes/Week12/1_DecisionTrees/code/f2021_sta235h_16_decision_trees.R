@@ -51,7 +51,7 @@ set.seed(100)
 # Let's use the caret package to run a classification tree
 ct <- train(
   unsubscribe ~ ., data = d.train,
-  method = "rpart", # The method is called rpart (regression partition)
+  method = "rpart", # The method is called rpart (Recursive Partitioning And Regression Trees)
   trControl = trainControl("cv", number = 10), # cross-validation with 10 fold
   tuneLength = 15 # Play around with this parameter: Is the granularity for the search of the best complexity parameter
 )

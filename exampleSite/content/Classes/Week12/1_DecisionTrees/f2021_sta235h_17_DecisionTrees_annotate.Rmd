@@ -430,6 +430,7 @@ Trees, trees everywhere!
 --
   
   - How many variables do we use?
+  
 --
 
   - How do we sort them? In what order do we place them?
@@ -441,6 +442,45 @@ Trees, trees everywhere!
 --
 
   - How deep do we go?
+
+---
+# Structure of Decision Trees
+
+.pull-left[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/tree_example.png)]
+]
+
+.pull-right[
+**.darkorange[Structure:]**
+
+  - Root node
+  - Internal nodes
+  - Leaves
+]
+
+---
+# Why do we like/not like Decision Trees?
+
+.pull-left[
+.box-4[Main advantages]
+<br>
+.box-4t[Simple interpretation]
+<br>
+.box-4t[Mirror human decision-making]
+<br>
+.box-4t[Graphic displays!]
+<br>
+.box-4t[Handle categorical variables]
+]
+
+.pull-left[
+.box-6[Main disadvantages]
+<br>
+.box-6t[Overfitting]
+<br>
+.box-6t[Not very accurate/not very robust]
+]
 
 ---
 # Let's start with a simple example
@@ -583,6 +623,47 @@ knitr::kables(list(k1,k2))
 ]
 
 ---
+# Answers (up to Monday morning)
+
+```{r jitt_dt, fig.height=5.5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+library(ggplot2)
+library(gridExtra)
+library(hrbrthemes)
+library(firasans)
+
+jitt <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/data/jitt.csv")
+
+jitt2 <- as.data.frame(cbind(as.vector(table(jitt$Answer)),rownames(table(jitt$Answer))))
+names(jitt2) = c("value","bin")
+jitt2$bin <- factor(jitt2$bin,levels = c("l","m","o"), labels = c("Logged in past week", "Mandalorian", "Other"))
+
+cols1 = c("#FCCE25","#F89441","#E16462")
+
+ggplot(data = jitt2, aes(x="", y=as.numeric(value),fill=bin)) + 
+  geom_bar(lwd=1.5, stat="identity", color="white") +
+  coord_polar("y",start = 0)+
+  scale_fill_manual(values=cols1, name = "") + 
+  theme_void()+
+  theme_ipsum_fsc() + #plain 
+  #ggtitle("How do you find the pace of the class?")+
+  #ylim(0,5)+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_blank())+
+  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank(),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position="right",
+        legend.title = element_text(size=12),
+        legend.text = element_text(size=10),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=12))
+
+```
+---
 # How do we decide?
 
 - **.darkorange[Recursive Binary Splitting]**:
@@ -603,6 +684,15 @@ knitr::kables(list(k1,k2))
 
 $$G = \sum_{k=1}^K\hat{p}_{mk}(1-\hat{p}_{mk})$$
 where $\hat{p}_{mk}$ is the proportion of obs. in the $m$ region for class $k$.
+
+---
+
+.center2[
+.box-5LA[According to the Gini Index, is it better or worse to have a high p<sub>mk</sub>?]
+<br>
+<br>
+$$G = \sum_{k=1}^K\hat{p}_{mk}(1-\hat{p}_{mk})$$
+]
 
 ---
 # Let's split by city first...
@@ -786,147 +876,6 @@ G =& \omega_0(\frac{225}{1465}\cdot(1-\frac{225}{1465}) + \frac{1240}{1465}\cdot
 
 .box-3[How do we choose?]
 
----
-# Decision trees: Basic Algorithm
-
-- Main idea $\rightarrow$ **.darkorange[flowchart!]**
-
---
-
-- We will **.darkorange[stratify]** (or segment) the predictor space into regions (ISLR, Ch. 8).
-
---
-
-- Similar to KNN, we assign the **.darkorange[mean]** or **.darkorange[mode]** of the training obs in the region.
-
---
-
-.pull-left[
-.box-4[Main advantages]
-<br>
-.box-4t[Simple interpretation]
-]
-
-.pull-left[
-.box-6[Main disadvantages]
-<br>
-.box-6t[Overfitting]
-]
-
----
-# Structure of Decision Trees
-
-.pull-left[
-.center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/tree_example.png)]
-]
-
-.pull-right[
-**.darkorange[Structure:]**
-
-  - Root node
-  - Internal nodes
-  - Leaves
-]
-
----
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Classification Trees
-]
----
-# Classification  Tree
-
-- Outcome is **.darkorange[categorical]** (e.g. binary)
-
---
-
-- Previous example: Chose splitting variable based on $\text{Pr(Correct)}$
-
---
-
-- What if we just assigned **.darkorange[based on the proportion in each leave?]** (i.e. similar to KNN)
-
----
-# Let's go back to our drawing
-
-.pull-left[
-.center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian2.png)]
-]
-
-.pull-right[
-- $\text{Pr[U | Leaf 1]} = 0.15$
-
-- $\text{Pr[U | Leaf 2]} = 0.53$
-]
-
----
-# Let's go back to our drawing
-
-.pull-left[
-.center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian3.png)]
-]
-
-.pull-right[
-- $\text{Pr[U | Leaf 1]} = 0.15$
-
-- $\text{Pr[U | Leaf 2]} = 0.53$
-
-.box-7[Classification error: 42%]
-]
-
----
-# Measures for accuracy
-
-- The classification error rate is **.darkorange[not very sensitive for tree-growing]**.
-
----
-
-.center2[
-.box-2LA[Poll time!]
-]
-
----
-
-.center2[
-.box-2LA[What is the main problem if our measure is not very sensitive for tree-growing?]
-]
----
-# Measures for accuracy
-
-- The classification error rate is **.darkorange[not very sensitive for tree-growing]**.
-
-- Another measure is called **.darkorange[Gini index]**:
-
-  - Total variance across classes:
-  
-  $$G = \sum_{k=1}^K\hat{p}_{mk}(1-\hat{p}_{mk})$$
-where $\hat{p}_{mk}$ is the proportion of training obs in region $m$ for class $k$.
-
---
-.small[
-- In our previous example:
-$$\begin{align}
-G_{mandalorian=0} =& \frac{1240}{1240 + 225}(1-\frac{1240}{1240 + 225}) + \frac{225}{1240 + 225}(1-\frac{225}{1240 + 225}) = 0.26
-\end{align}$$]
-
----
-
-.center2[
-.box-5LA[Poll time!]
-]
-
----
-
-.center2[
-.box-5LA[According to the Gini Index, is it better or worse to have a high p<sub>mk</sub>?]
-<br>
-<br>
-$$G = \sum_{k=1}^K\hat{p}_{mk}(1-\hat{p}_{mk})$$
-]
 
 ---
 # Ok, but how about including other variables?
@@ -934,82 +883,134 @@ $$G = \sum_{k=1}^K\hat{p}_{mk}(1-\hat{p}_{mk})$$
 .center[
 ![:scale 60%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian4.png)]
 
+---
+# Basic Algorithm
+
+.box-2[1) Start at the root node]
+<br>
+.box-4[2) Split the parent node at covariate x<sub>i</sub> to minimize the sum of child node impurities]
+<br>
+.box-7[3) Stop if leaves are pure or early stopping criteria is satisfied, else repeat step (1) and (2) for each new child nodes]
+<br>
+.box-7[4) Prune your tree according to a complexity parameter (cp). Choose the optimal one through CV.]
+
+.source[Adapted from "Machine Learning FAQs" (Raschka, 2021)]
+
+---
+# Hyper-parameter: Complexity parameter
+
+- Measure of how much a split should **.darkorange[improve prediction]** for it to be worth it.
+
+--
+
+$$\sum_{m=1}^{|T|} \sum_{i: i \in R_m} (y_i - \hat{y}_i)^2 + \alpha|T|$$
+
+- $|T|$: Number of terminal nodes or leaves (e.g. size of the tree)
+- $R_m$: Predictor space of the $m$th leaf
+- $\alpha$: Tuning parameter
+
+--
+
+What happens if $\alpha=0$?
+
 
 ---
 # Let's see how to do it in R!
 
-```{r, echo=TRUE}
+```{r, echo=FALSE}
+# Load the data for this exercise
+disney <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/data/disney2.csv")
+
+# For simplicity, we are going to make dummy covariates into factor variables
+disney <- disney %>% mutate(mandalorian = factor(ifelse(mandalorian==0,"No","Yes")),
+                            city = factor(ifelse(city==0,"No","Yes")))
+
+# I already provide a training dataset (identified by train==1)
+disney.train <- disney %>% filter(train==1)
+
+# Exercise: Ignore the variable train, and create your own train and testing dataset! Do you get the same results?
+
+# Let's create a dataset only with few variables so it's easy to see (you can recreate this with all the variable too!)
+d.train <- disney.train %>% select(female, city, logins, mandalorian, unsubscribe)
+
+```
+
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
+library(caret) #<<
 library(rpart) #<<
 
-d.train <- disney.train %>% dplyr::select(mandalorian, city, unsubscribe)
-
 set.seed(100)
 
-m1 <- rpart(unsubscribe ~., data = d.train, method = "class", cp=-1)
+ct <- train(
+  unsubscribe ~ ., data = d.train, #remember your outcome needs to be a factor!
+  method = "rpart", # The method is called rpart
+  trControl = trainControl("cv", number = 10),
+  tuneLength = 15
+)
 
 ```
 
 ---
-# Let's see how to do it in R!
 
-```{r, eval=FALSE}
-library(rpart)
-
-d.train <- disney.train %>% dplyr::select(mandalorian, city, unsubscribe)
-
-set.seed(100) #<<
-
-m1 <- rpart(unsubscribe ~., data = d.train, method = "class", cp=-1)
-
-```
+.center2[
+.box-3LA[Let's go to R]
+]
 
 ---
-# Let's see how to do it in R!
+# We could also provide a specific complexity parameter
 
 ```{r, eval=FALSE}
 library(rpart)
 
-d.train <- disney.train %>% dplyr::select(mandalorian, city, unsubscribe)
+d.train <- disney.train %>% select(mandalorian, city, unsubscribe)
 
 set.seed(100)
 
-m1 <- rpart(unsubscribe ~., data = d.train, method = "class", cp=-1) #<<
+m1 <- rpart(unsubscribe ~., data = d.train, method = "class", #<<
+            control = rpart.control(minsplit = 1, cp=-1)) #<<
 
 ```
 
 
 ---
 # Tree using all the covariates
+```{r, echo=FALSE}
+library(rpart)
 
-```{r full_tree, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-library(rpart.plot)
+d.train <- disney.train %>% select(mandalorian, city, unsubscribe)
 
-rpart.plot(m1)
+set.seed(100)
+
+m1 <- rpart(unsubscribe ~., data = d.train, method = "class", #<<
+            control = rpart.control(minsplit = 1, cp=-1)) #<<
+
 ```
 
----
+```{r full_tree, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+library(rattle)
 
-.center2[
-.box-4LA[Poll time!]
-]
+fancyRpartPlot(m1, caption = "")
+```
 
 ---
 <br>
 .box-4LA[What do you think the percentages in the leaves represent?]
 
 ```{r full_tree2, fig.height=4, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-library(rpart.plot)
-suppressMessages(library(rattle))
-rpart.plot(m1)
+fancyRpartPlot(m1, caption = "")
 ```
 
 ---
 # Some parameters that might be important
 
 ```{r}
-m1 <- rpart(unsubscribe ~., data = d.train, method = "class", 
-            control = rpart.control(cp=-1, #<<
-                                    minsplit = 20))
+ct <- train(
+  unsubscribe ~ ., data = d.train,
+  method = "rpart",
+  trControl = trainControl("cv", number = 10),
+  tuneGrid = expand.grid(cp = seq(0,2, by = 0.01)), #<<
+  control = rpart.control(minsplit = 20)
+)
 
 ```
 
@@ -1025,63 +1026,17 @@ m1 <- rpart(unsubscribe ~., data = d.train, method = "class",
 # Some parameters that might be important
 
 ```{r}
-m1 <- rpart(unsubscribe ~., data = d.train, method = "class", 
-            control = rpart.control(cp=-1,
-                                    minsplit = 20)) #<<
-
+ct <- train(
+  unsubscribe ~ ., data = d.train,
+  method = "rpart",
+  trControl = trainControl("cv", number = 10),
+  tuneGrid = expand.grid(cp = seq(0,2, by = 0.01)),
+  control = rpart.control(minsplit = 20)#<<
+)
 ```
 
 - `minsplit`: Min. number of obs in a node to attempt a split.
   
----
-# If we set `minsplit` to 1500...
-
-```{r tree_minsplit, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-m2 <- rpart(unsubscribe ~., data = d.train, method = "class", 
-            control = rpart.control(cp=-1,
-                                    minsplit = 1500))
-
-rpart.plot(m2)
-```
-
----
-# If we don't set `cp`...
-
-```{r tree_cp, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-m3 <- rpart(unsubscribe ~., data = d.train, method = "class", 
-            control = rpart.control(minsplit = 20))
-
-rpart.plot(m3)
-```
-
----
-# If we don't set `cp`...
-
-```{r}
-m1$cptable
-
-m3$cptable
-```
-
----
-# How can we use this for selecting the size of our tree?
-
-```{r plot_cp, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-plotcp(m1)
-```
-  
----
-# Basic Algorithm
-
-.box-2[1) Start at the root node]
-<br>
-.box-4[2) Split the parent node at covariate x<sub>i</sub> to minimize the sum of child node impurities]
-<br>
-.box-6[3) Assign training samples to new child nodes]
-<br>
-.box-7[4) Stop if leaves are pure or early stopping criteria is satisfied, else repeat step (1) and (2) for each new child nodes]
-
-.source["Machine Learning FAQs" (Raschka, 2021)]
 ---
 .center2[
 .box-3LA[Now it's your turn!]
@@ -1103,23 +1058,6 @@ plotcp(m1)
 <br>
 .box-5t[Interpret your tree!]
 
----
-# Results
-
-.pull-left[
-```{r plot_mex, fig.height=3.8, fig.width=5, fig.align='center', dev='svg', echo=TRUE, warning=FALSE}
-set.seed(100)
-mex <- rpart(unsubscribe ~., data = disney.train,
-             method = "class", cp = 0.01)
-rpart.plot(mex) #<<
-```
-]
-
-.pull-right[
-```{r plot_cp2, fig.height=5, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-plotcp(mex)
-```
-]
 
 ---
 # Let's see this in another plot
@@ -1174,11 +1112,7 @@ Regression Trees
 # In R is basically the same
 
 ```{r plot_reg, fig.height=4, fig.width=10, fig.align='center', dev='svg', echo=TRUE, warning=FALSE}
-set.seed(100)
-r1 <- rpart(logins ~. - unsubscribe, data = disney.train,
-            method = "anova")#<<
 
-rpart.plot(r1)
 ```
 
 ---

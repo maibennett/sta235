@@ -136,6 +136,7 @@ Trees, trees everywhere!
 --
   
   - How many variables do we use?
+  
 --
 
   - How do we sort them? In what order do we place them?
@@ -147,6 +148,45 @@ Trees, trees everywhere!
 --
 
   - How deep do we go?
+
+---
+# Structure of Decision Trees
+
+.pull-left[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/tree_example.png)]
+]
+
+.pull-right[
+**.darkorange[Structure:]**
+
+  - Root node
+  - Internal nodes
+  - Leaves
+]
+
+---
+# Why do we like/not like Decision Trees?
+
+.pull-left[
+.box-4[Main advantages]
+&lt;br&gt;
+.box-4t[Simple interpretation]
+&lt;br&gt;
+.box-4t[Mirror human decision-making]
+&lt;br&gt;
+.box-4t[Graphic displays!]
+&lt;br&gt;
+.box-4t[Handle categorical variables]
+]
+
+.pull-left[
+.box-6[Main disadvantages]
+&lt;br&gt;
+.box-6t[Overfitting]
+&lt;br&gt;
+.box-6t[Not very accurate/not very robust]
+]
 
 ---
 # Let's start with a simple example
@@ -341,7 +381,16 @@ disney.train %&gt;% filter(unsubscribe==1) %&gt;% select(city, mandalorian) %&gt
 &lt;/table&gt;
 
 ]
+---
 
+.center2[
+.box-4LA[Let's talk about the JITT]
+]
+
+---
+# Answers (up to Monday morning)
+
+&lt;img src="f2021_sta235h_17_DecisionTrees_annotate_files/figure-html/jitt_dt-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 # How do we decide?
 
@@ -363,6 +412,15 @@ disney.train %&gt;% filter(unsubscribe==1) %&gt;% select(city, mandalorian) %&gt
 
 `$$G = \sum_{k=1}^K\hat{p}_{mk}(1-\hat{p}_{mk})$$`
 where `\(\hat{p}_{mk}\)` is the proportion of obs. in the `\(m\)` region for class `\(k\)`.
+
+---
+
+.center2[
+.box-5LA[According to the Gini Index, is it better or worse to have a high p&lt;sub&gt;mk&lt;/sub&gt;?]
+&lt;br&gt;
+&lt;br&gt;
+`$$G = \sum_{k=1}^K\hat{p}_{mk}(1-\hat{p}_{mk})$$`
+]
 
 ---
 # Let's split by city first...
@@ -707,147 +765,6 @@ G =&amp; \omega_0(\frac{225}{1465}\cdot(1-\frac{225}{1465}) + \frac{1240}{1465}\
 
 .box-3[How do we choose?]
 
----
-# Decision trees: Basic Algorithm
-
-- Main idea `\(\rightarrow\)` **.darkorange[flowchart!]**
-
---
-
-- We will **.darkorange[stratify]** (or segment) the predictor space into regions (ISLR, Ch. 8).
-
---
-
-- Similar to KNN, we assign the **.darkorange[mean]** or **.darkorange[mode]** of the training obs in the region.
-
---
-
-.pull-left[
-.box-4[Main advantages]
-&lt;br&gt;
-.box-4t[Simple interpretation]
-]
-
-.pull-left[
-.box-6[Main disadvantages]
-&lt;br&gt;
-.box-6t[Overfitting]
-]
-
----
-# Structure of Decision Trees
-
-.pull-left[
-.center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/tree_example.png)]
-]
-
-.pull-right[
-**.darkorange[Structure:]**
-
-  - Root node
-  - Internal nodes
-  - Leaves
-]
-
----
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Classification Trees
-]
----
-# Classification  Tree
-
-- Outcome is **.darkorange[categorical]** (e.g. binary)
-
---
-
-- Previous example: Chose splitting variable based on `\(\text{Pr(Correct)}\)`
-
---
-
-- What if we just assigned **.darkorange[based on the proportion in each leave?]** (i.e. similar to KNN)
-
----
-# Let's go back to our drawing
-
-.pull-left[
-.center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian2.png)]
-]
-
-.pull-right[
-- `\(\text{Pr[U | Leaf 1]} = 0.15\)`
-
-- `\(\text{Pr[U | Leaf 2]} = 0.53\)`
-]
-
----
-# Let's go back to our drawing
-
-.pull-left[
-.center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian3.png)]
-]
-
-.pull-right[
-- `\(\text{Pr[U | Leaf 1]} = 0.15\)`
-
-- `\(\text{Pr[U | Leaf 2]} = 0.53\)`
-
-.box-7[Classification error: 42%]
-]
-
----
-# Measures for accuracy
-
-- The classification error rate is **.darkorange[not very sensitive for tree-growing]**.
-
----
-
-.center2[
-.box-2LA[Poll time!]
-]
-
----
-
-.center2[
-.box-2LA[What is the main problem if our measure is not very sensitive for tree-growing?]
-]
----
-# Measures for accuracy
-
-- The classification error rate is **.darkorange[not very sensitive for tree-growing]**.
-
-- Another measure is called **.darkorange[Gini index]**:
-
-  - Total variance across classes:
-  
-  `$$G = \sum_{k=1}^K\hat{p}_{mk}(1-\hat{p}_{mk})$$`
-where `\(\hat{p}_{mk}\)` is the proportion of training obs in region `\(m\)` for class `\(k\)`.
-
---
-.small[
-- In our previous example:
-`$$\begin{align}
-G_{mandalorian=0} =&amp; \frac{1240}{1240 + 225}(1-\frac{1240}{1240 + 225}) + \frac{225}{1240 + 225}(1-\frac{225}{1240 + 225}) = 0.26
-\end{align}$$]
-
----
-
-.center2[
-.box-5LA[Poll time!]
-]
-
----
-
-.center2[
-.box-5LA[According to the Gini Index, is it better or worse to have a high p&lt;sub&gt;mk&lt;/sub&gt;?]
-&lt;br&gt;
-&lt;br&gt;
-`$$G = \sum_{k=1}^K\hat{p}_{mk}(1-\hat{p}_{mk})$$`
-]
 
 ---
 # Ok, but how about including other variables?
@@ -855,60 +772,84 @@ G_{mandalorian=0} =&amp; \frac{1240}{1240 + 225}(1-\frac{1240}{1240 + 225}) + \f
 .center[
 ![:scale 60%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/DT_mandalorian4.png)]
 
+---
+# Basic Algorithm
+
+.box-2[1) Start at the root node]
+&lt;br&gt;
+.box-4[2) Split the parent node at covariate x&lt;sub&gt;i&lt;/sub&gt; to minimize the sum of child node impurities]
+&lt;br&gt;
+.box-6[3) Assign training samples to new child nodes]
+&lt;br&gt;
+.box-7[4) Stop if leaves are pure or early stopping criteria is satisfied, else repeat step (1) and (2) for each new child nodes]
+
+.source["Machine Learning FAQs" (Raschka, 2021)]
+
+---
+# Hyper-parameter: Complexity parameter
+
+- Measure of how much a split should **.darkorange[improve prediction]** for it to be worth it.
+
+--
+
+`$$\sum_{m=1}^{|T|} \sum_{i: i \in R_m} (y_i - \hat{y}_i)^2 + \alpha|T|$$`
+
+- `\(|T|\)`: Number of terminal nodes or leaves (e.g. size of the tree)
+- `\(R_m\)`: Predictor space of the `\(m\)`th leaf
+- `\(\alpha\)`: Tuning parameter
+
+--
+
+What happens if `\(\alpha=0\)`?
+
 
 ---
 # Let's see how to do it in R!
 
 
+
+
 ```r
+*library(caret)
 *library(rpart)
 
-d.train &lt;- disney.train %&gt;% dplyr::select(mandalorian, city, unsubscribe)
-
 set.seed(100)
 
-m1 &lt;- rpart(unsubscribe ~., data = d.train, method = "class", cp=-1)
+ct &lt;- train(
+  unsubscribe ~ ., data = d.train, #remember your outcome needs to be a factor!
+  method = "rpart", # The method is called rpart
+  trControl = trainControl("cv", number = 10),
+  tuneLength = 15
+)
 ```
 
 ---
-# Let's see how to do it in R!
+
+.center2[
+.box-3LA[Let's go to R]
+]
+
+---
+# We could also provide a specific complexity parameter
 
 
 ```r
 library(rpart)
 
-d.train &lt;- disney.train %&gt;% dplyr::select(mandalorian, city, unsubscribe)
-
-*set.seed(100)
-
-m1 &lt;- rpart(unsubscribe ~., data = d.train, method = "class", cp=-1)
-```
-
----
-# Let's see how to do it in R!
-
-
-```r
-library(rpart)
-
-d.train &lt;- disney.train %&gt;% dplyr::select(mandalorian, city, unsubscribe)
+d.train &lt;- disney.train %&gt;% select(mandalorian, city, unsubscribe)
 
 set.seed(100)
 
-*m1 &lt;- rpart(unsubscribe ~., data = d.train, method = "class", cp=-1)
+*m1 &lt;- rpart(unsubscribe ~., data = d.train, method = "class",
+*           control = rpart.control(minsplit = 1, cp=-1))
 ```
 
 
 ---
 # Tree using all the covariates
 
+
 &lt;img src="f2021_sta235h_17_DecisionTrees_annotate_files/figure-html/full_tree-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-
-.center2[
-.box-4LA[Poll time!]
-]
 
 ---
 &lt;br&gt;
@@ -921,9 +862,13 @@ set.seed(100)
 
 
 ```r
-m1 &lt;- rpart(unsubscribe ~., data = d.train, method = "class", 
-*           control = rpart.control(cp=-1,
-                                    minsplit = 20))
+ct &lt;- train(
+  unsubscribe ~ ., data = d.train,
+  method = "rpart",
+  trControl = trainControl("cv", number = 10),
+* tuneGrid = expand.grid(cp = seq(0,2, by = 0.01)),
+  control = rpart.control(minsplit = 20)
+)
 ```
 
 - `cp`: Complexity parameter
@@ -939,65 +884,17 @@ m1 &lt;- rpart(unsubscribe ~., data = d.train, method = "class",
 
 
 ```r
-m1 &lt;- rpart(unsubscribe ~., data = d.train, method = "class", 
-            control = rpart.control(cp=-1,
-*                                   minsplit = 20))
+ct &lt;- train(
+  unsubscribe ~ ., data = d.train,
+  method = "rpart",
+  trControl = trainControl("cv", number = 10),
+  tuneGrid = expand.grid(cp = seq(0,2, by = 0.01)),
+* control = rpart.control(minsplit = 20)
+)
 ```
 
 - `minsplit`: Min. number of obs in a node to attempt a split.
   
----
-# If we set `minsplit` to 1500...
-
-&lt;img src="f2021_sta235h_17_DecisionTrees_annotate_files/figure-html/tree_minsplit-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-# If we don't set `cp`...
-
-&lt;img src="f2021_sta235h_17_DecisionTrees_annotate_files/figure-html/tree_cp-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-# If we don't set `cp`...
-
-
-```r
-m1$cptable
-```
-
-```
-##          CP nsplit rel error    xerror       xstd
-## 1  0.102381      0  1.000000 1.0000000 0.01661898
-## 2  0.000000      1  0.897619 0.9328571 0.01643695
-## 3 -1.000000      3  0.897619 0.9328571 0.01643695
-```
-
-```r
-m3$cptable
-```
-
-```
-##         CP nsplit rel error   xerror       xstd
-## 1 0.102381      0  1.000000 1.000000 0.01661898
-## 2 0.010000      1  0.897619 0.897619 0.01631851
-```
-
----
-# How can we use this for selecting the size of our tree?
-
-&lt;img src="f2021_sta235h_17_DecisionTrees_annotate_files/figure-html/plot_cp-1.svg" style="display: block; margin: auto;" /&gt;
-  
----
-# Basic Algorithm
-
-.box-2[1) Start at the root node]
-&lt;br&gt;
-.box-4[2) Split the parent node at covariate x&lt;sub&gt;i&lt;/sub&gt; to minimize the sum of child node impurities]
-&lt;br&gt;
-.box-6[3) Assign training samples to new child nodes]
-&lt;br&gt;
-.box-7[4) Stop if leaves are pure or early stopping criteria is satisfied, else repeat step (1) and (2) for each new child nodes]
-
-.source["Machine Learning FAQs" (Raschka, 2021)]
 ---
 .center2[
 .box-3LA[Now it's your turn!]
@@ -1019,24 +916,6 @@ m3$cptable
 &lt;br&gt;
 .box-5t[Interpret your tree!]
 
----
-# Results
-
-.pull-left[
-
-```r
-set.seed(100)
-mex &lt;- rpart(unsubscribe ~., data = disney.train,
-             method = "class", cp = 0.01)
-*rpart.plot(mex)
-```
-
-&lt;img src="f2021_sta235h_17_DecisionTrees_annotate_files/figure-html/plot_mex-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-.pull-right[
-&lt;img src="f2021_sta235h_17_DecisionTrees_annotate_files/figure-html/plot_cp2-1.svg" style="display: block; margin: auto;" /&gt;
-]
 
 ---
 # Let's see this in another plot
@@ -1064,15 +943,6 @@ Regression Trees
 # In R is basically the same
 
 
-```r
-set.seed(100)
-r1 &lt;- rpart(logins ~. - unsubscribe, data = disney.train,
-*           method = "anova")
-
-rpart.plot(r1)
-```
-
-&lt;img src="f2021_sta235h_17_DecisionTrees_annotate_files/figure-html/plot_reg-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Let's incorporate cross-validation!
@@ -1144,12 +1014,12 @@ mcv$finalModel
 ##       * denotes terminal node
 ## 
 ## 1) root 5000 66387.3700 4.806800  
-##   2) mandalorian&gt;=0.5 3535 24633.5000 2.973409  
-##     4) city&lt; 0.5 500   517.1580 0.322000 *
-##     5) city&gt;=0.5 3035 20022.2800 3.410214 *
-##   3) mandalorian&lt; 0.5 1465  1200.0180 9.230717  
-##     6) city&lt; 0.5 212   132.2028 8.061321 *
-##     7) city&gt;=0.5 1253   728.8571 9.428571 *
+##   2) mandalorianYes&gt;=0.5 3535 24633.5000 2.973409  
+##     4) cityYes&lt; 0.5 500   517.1580 0.322000 *
+##     5) cityYes&gt;=0.5 3035 20022.2800 3.410214 *
+##   3) mandalorianYes&lt; 0.5 1465  1200.0180 9.230717  
+##     6) cityYes&lt; 0.5 212   132.2028 8.061321 *
+##     7) cityYes&gt;=0.5 1253   728.8571 9.428571 *
 ```
 ]
 
@@ -1179,12 +1049,12 @@ mcv$finalModel
 ##       * denotes terminal node
 ## 
 ## 1) root 5000 66387.3700 4.806800  
-##   2) mandalorian&gt;=0.5 3535 24633.5000 2.973409  
-##     4) city&lt; 0.5 500   517.1580 0.322000 *
-##     5) city&gt;=0.5 3035 20022.2800 3.410214 *
-##   3) mandalorian&lt; 0.5 1465  1200.0180 9.230717  
-##     6) city&lt; 0.5 212   132.2028 8.061321 *
-##     7) city&gt;=0.5 1253   728.8571 9.428571 *
+##   2) mandalorianYes&gt;=0.5 3535 24633.5000 2.973409  
+##     4) cityYes&lt; 0.5 500   517.1580 0.322000 *
+##     5) cityYes&gt;=0.5 3035 20022.2800 3.410214 *
+##   3) mandalorianYes&lt; 0.5 1465  1200.0180 9.230717  
+##     6) cityYes&lt; 0.5 212   132.2028 8.061321 *
+##     7) cityYes&gt;=0.5 1253   728.8571 9.428571 *
 ```
 ]
 
