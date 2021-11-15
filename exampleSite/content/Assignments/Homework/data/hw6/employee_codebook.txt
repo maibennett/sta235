@@ -1,4 +1,4 @@
-Age - Age of the employee
+age - Age of the employee
 
 Attrition - Whether the employee quit or not
 
