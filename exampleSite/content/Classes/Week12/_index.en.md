@@ -28,10 +28,10 @@ Complete before **Sunday Nov 14th (11:59 pm)** (if your section is on Tue) or **
 
 ## Slides
 
-{{% button href="https://sta235.netlify.app/Classes/Week12/12_DecisionTrees/f2021_sta235h_17_DecisionTrees.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week12/12_DecisionTrees/f2021_sta235h_17_DecisionTrees.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.netlify.app/Classes/Week12/1_DecisionTrees/f2021_sta235h_17_DecisionTrees.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week12/1_DecisionTrees/f2021_sta235h_17_DecisionTrees.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week12/12_DecisionTrees/f2021_sta235h_17_DecisionTrees.html" >}}
+{{< slides src="https://sta235.netlify.app/Classes/Week12/1_DecisionTrees/f2021_sta235h_17_DecisionTrees.html" >}}
 
 ## Code
 
-Here is the R code we will review in class, with some additional questions <a onclick="ga('send', 'event', 'External-Link','click','code17','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/12_DecisionTrees/code/f2021_sta235h_16_decision_trees.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+Here is the R code we will review in class, with some additional questions <a onclick="ga('send', 'event', 'External-Link','click','code17','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/code/f2021_sta235h_16_decision_trees.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
