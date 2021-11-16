@@ -29,7 +29,7 @@ Last class of the semester! We will finish the course with a bang, checking out 
 
 ## JITT
 
-Complete before **Sunday Nov 28th (11:59 pm)** (if your section is on Tue) or **Tuesday Nov 30th (11:59 pm)** (if your section is on Thu). Assignment will be posted soon.<!-- You can find the assignment [here](https://forms.gle/W8PyUSWb8Prt3Zit9). -->
+Complete before **Sunday Nov 28th (11:59 pm)** (if your section is on Tue) or **Tuesday Nov 30th (11:59 pm)** (if your section is on Thu). You can find the assignment [here](https://forms.gle/8L8BZCcj54pPKM1m6).
 
 ## Slides
 
