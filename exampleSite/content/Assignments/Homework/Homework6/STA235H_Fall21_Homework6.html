@@ -248,7 +248,7 @@ random.quit &lt;- sample(c(0,1), size = nrow(test.data), replace = TRUE, prob = 
 </div>
 <div id="task-2-making-news-popular" class="section level1">
 <h1>Task 2: Making News Popular</h1>
-<p>You are working at an online news outlet and have been assigned the task of maximizing user engagement in your platform. For that reason, you start analyzing previous data from the site to understand better what makes a story more engaging from a user-experience perspective:</p>
+<p>You are working at an online news outlet and have been assigned the task of maximizing user engagement in your platform. For that reason, you start analyzing previous data from the site to better understand what makes a story more engaging from a user-experience perspective:</p>
 <pre class="r"><code>news &lt;- read.csv(&quot;https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/data/hw6/news.csv&quot;)</code></pre>
 <p>You can see a codebook of the variables <a href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/data/hw6/news_codebook.txt">here</a></p>
 <p>In this case, you are interested in predicting the number of shares that an article will have.</p>
@@ -258,7 +258,7 @@ random.quit &lt;- sample(c(0,1), size = nrow(test.data), replace = TRUE, prob = 
 </div>
 <div id="question-2.2" class="section level3">
 <h3>Question 2.2</h3>
-<p><strong>Plot the distribution of your outcome. (a) What can you say about this distribution? (b) Create a new dataset called <code>news_no_outliers</code> where you remove the top 5% of the observations according to the outcome, and plot your distribution again. (c) Create a new testing and dataset using <code>news_no_outliers</code></strong> <em>(Note: You can use the function <code>quantile()</code> to know which value corresponds to the 95th percentile)</em></p>
+<p><strong>Plot the distribution of your outcome. (a) What can you say about this distribution? (b) Create a new dataset called <code>news_no_outliers</code> where you remove the top 5% of the observations according to the outcome, and plot your distribution again. (c) Create a new testing and training dataset using <code>news_no_outliers</code></strong> <em>(Note: You can use the function <code>quantile()</code> to know which value corresponds to the 95th percentile)</em></p>
 </div>
 <div id="question-2.3" class="section level3">
 <h3>Question 2.3</h3>
@@ -267,11 +267,11 @@ random.quit &lt;- sample(c(0,1), size = nrow(test.data), replace = TRUE, prob = 
 <div id="question-2.4" class="section level3">
 <h3>Question 2.4</h3>
 <p><strong>Using your original dataset <code>news</code>, create a categorical variable named <code>performance</code> that takes the value of 1 if the article doesn’t do well (bottom 25% of the distribution), 2 if it does ok (between the 25th and 75th percentile), and 3 if it becomes viral (top 25%).</strong></p>
-<p><strong>Create a classification tree for this variable, but remember to remove <code>shares</code> from your predictors (no need to show the tree in your write-up). (a) Show both your complexity parameter in a plot, what do you find? (b) Which is the most predictive covariate? How do you find it? (c) How accurate are your predictions <u>by category</u>?</strong> <em>(Note: Consider that the bottom and top of the distribution include the 25th and 75th percentile, respectively)</em></p>
+<p><strong>Create a classification tree for this variable, but remember to remove <code>shares</code> from your predictors (no need to show the tree in your write-up). (a) Show your complexity parameter in a plot, what do you find? (b) Which is the most predictive covariate? How do you find it? (c) How accurate are your predictions <u>by category</u>?</strong> <em>(Note: Consider that the bottom and top of the distribution include the 25th and 75th percentile, respectively)</em></p>
 </div>
 <div id="question-2.5" class="section level3">
 <h3>Question 2.5</h3>
-<p><strong>Talking to the advertising team, they tell you that they promote stories equally, but if they see a story that has gotten over 10,000 shares in the previous week, they take new actions to try to bump it up even more (e.g. increase promotions in Twitter, paid advertising on Facebook, among others). Given this new knowledge and using existing data in the company, how could you design a study to estimate a causal effect of these interventions? Explain. What is the estimand that you would be able to recover?</strong></p>
+<p><strong>Talking to the advertising team, they tell you that they promote stories equally, but if they see a story that has gotten over 10,000 shares in the previous week, they take new actions to try to bump it up even more (e.g. increase promotions on Twitter, paid advertising on Facebook, among others). Given this new knowledge and using existing data in the company, how could you design a study to estimate a causal effect of these interventions? Explain. What is the estimand that you would be able to recover?</strong></p>
 </div>
 </div>
 
