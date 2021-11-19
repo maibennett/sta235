@@ -1,5 +1,5 @@
 ######################################################################
-### Title: "Homework 5"
+### Title: "Homework 6"
 ### Course: STA 235H
 ### Semester: Fall 2021
 ### Students: Name 1, Name 2, Name 3, and Name 4
@@ -18,10 +18,12 @@ library(tidyverse)
 
 
 ################################################################################
-### Task 1: Selecting the best
+### Task 1: IBM knows you are leaving
 ################################################################################
 
-students <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/data/hw5/student.csv")
+employees <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/data/hw6/employee_attrition.csv") %>% 
+  select(-c(EmployeeCount, Over18, StandardHours))
+
 ## Question 1.1
 
 
