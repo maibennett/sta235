@@ -22,7 +22,7 @@ chapter: false
 
 ## Assignment
 
-<!-- You can find Homework 6 here: <a onclick="ga('send', 'event', 'External-Link','click','hw6','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework6/STA235H_Fall21_Homework6.html" target="_blank" class="btn btn-default"> Open HW6 <i class="fas fa-external-link-alt"></i></a> -->
+You can find Homework 6 here: <a onclick="ga('send', 'event', 'External-Link','click','hw6','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework6/STA235H_Fall21_Homework6.html" target="_blank" class="btn btn-default"> Open HW6 <i class="fas fa-external-link-alt"></i></a>
 
 ## Templates
 
