@@ -45,6 +45,13 @@ Your models will be tested on a hold-out dataset that only the instruction team 
 
 5. **Submit a write-up, your Rcode, and a .RData file**: You will need to submit a write-up with your answers (e.g. showing plots and tables, and explaining your models, as well as the results of your tests), an R script (in .R extension; needs to be fully reproducible), and a .Rdata file, with your prediction object for both your classification task as well as your regression task. See the examples posted below to guide you.
 
+6. **Do not include code in your write-up**: Unlike homework assignments, think of this report as something that you will give to your boss. Include all relevant tables and plots, but do not include lines of code. Make sure that your tables have an appropriate format and are not just a screenshot of the R console.
+
+7. **Save <u>all</u> your files under the following name:** "STA235H_SectionX_GroupY", where X is your section number (1: Tue 10-12, 2: Tue 12-2, 3: Thu 10-12, 4: Thu 12-2) and Y is your group number (check Canvas for this).
+
 ## Examples
 
-Coming soon...
+<a onclick="ga('send', 'event', 'External-Link','click','writeup_template','0','Link');" href="https://sta235.netlify.app/assignments/project/STA235H_SectionX_GroupY.docx" target="_blank" class="btn btn-default"> Write-up Template <i class="fas fa-external-link-alt"></i></a>
+
+<a onclick="ga('send', 'event', 'External-Link','click','code_template','0','Link');" href="https://sta235.netlify.app/assignments/project/STA235H_SectionX_GroupY.R" target="_blank" class="btn btn-default"> Code Template <i class="fas fa-external-link-alt"></i></a>
+
