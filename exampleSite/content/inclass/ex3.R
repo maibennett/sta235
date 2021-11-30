@@ -50,14 +50,9 @@ train.data <- d %>% slice(train.row)
 
 
 tuneGrid <- expand.grid(
-  mtry = seq(2:11), # Number of random covariates that will test
-  splitrule = "variance", # Split rule (for regressions use "variance", for classification use "gini")
+  mtry = , # COMPLETE
+  splitrule = "gini", # Split rule (for regressions use "variance", for classification use "gini")
   min.node.size = 5
 )
 
-rfcv <- train(Sales ~ ., data = carseats.train,
-              method = "ranger", # You can also use "rf", but "ranger" is faster!
-              trControl = trainControl("cv", number = 10),
-              importance = "permutation",
-              ntrees = 100, # You can erase this argument, but if you want, you can control the number of trees!
-              tuneGrid = tuneGrid)
+rfcv <- train() #COMPLETE
