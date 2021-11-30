@@ -354,29 +354,33 @@ font.add.google("Fira Sans", "Fira Sans")
 
 <br>
 .center[
-.box-4LA[No class next week]
+.box-4LA[Homework 6 due on Thursday]
 ]
 
 <br>
 --
 
-- **.darkorange[Homework 5]** is due on Thursday
+- **.darkorange[Grades for Homework 5]** have been posted: Check the returned submissions!
 
-- **.darkorange[Homework 6]** will be posted on Thursday (<u>not due until Dec. 2nd</u>)
-
---
-
-- I will still hold **.darkorange[Office Hours on Tuesday 23rd]**
+  - Bi-modal distribution of grades
+  
+  - Work as a group!
 
 --
 
-- **.darkorange[Great resources for the project]** uploaded to the course website ("Resources --> Machine Learning")
+- **.darkorange[Final Exam]** is cumulative: Due on <u>Wednesday Dec 8th</u>
+
+  - It should take you <u>3 hrs</u> at most to complete.
+  
+  - It will be posted Monday Dec 6th (8:00am)
+  
+  - No extensions
 
 ---
 # Last week
 
 .pull-left[
-- We discussed **.darkorange[K Nearest Neighbors (KNN)]**:
+- We discussed **.darkorange[Decision trees]**:
 
 
 ]
