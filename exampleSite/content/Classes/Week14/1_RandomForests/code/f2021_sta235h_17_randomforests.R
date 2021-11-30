@@ -108,7 +108,6 @@ rfcv <- train(Sales ~ ., data = carseats.train,
               method = "ranger", # You can also use "rf", but "ranger" is faster!
               trControl = trainControl("cv", number = 10),
               importance = "permutation",
-              ntrees = 100, # You can erase this argument, but if you want, you can control the number of trees!
               tuneGrid = tuneGrid)
 
 # Question: Change tuneGrid to tuneLength = 10, what do you get?
