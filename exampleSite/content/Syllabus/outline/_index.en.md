@@ -92,7 +92,7 @@ Below you will find a general outline of the topics we’ll cover in this course
 </tr>
 <tr>
 <td>15</td>
-<td>December 7</td>
+<td>December 8</td>
 <td><i>Final Exam due</i></td>
 </tr>
 <tr>
