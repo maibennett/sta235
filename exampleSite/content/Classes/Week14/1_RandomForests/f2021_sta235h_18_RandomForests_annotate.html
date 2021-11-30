@@ -236,6 +236,7 @@ mcv &lt;- train(Sales ~., data = carseats.train, method = "rpart",
 library(caret) 
 library(rattle)
 *library(rsample)
+library(modelr)
 
 set.seed(100)
 
@@ -257,6 +258,7 @@ mcv &lt;- train(Sales ~., data = carseats.train, method = "rpart",
 library(caret) 
 library(rattle)
 library(rsample)
+library(modelr)
 
 *set.seed(100)
 
@@ -279,6 +281,7 @@ mcv &lt;- train(Sales ~., data = carseats.train, method = "rpart",
 library(caret) 
 library(rattle)
 library(rsample)
+library(modelr)
 
 set.seed(100)
 
@@ -302,6 +305,7 @@ mcv &lt;- train(Sales ~., data = carseats.train, method = "rpart",
 library(caret) 
 library(rattle)
 library(rsample)
+library(modelr)
 
 set.seed(100)
 
@@ -753,7 +757,7 @@ plot(varImp(rfcv))
 ---
 
 .center2[
-.box-3LA[In a Random Forest, a higher number of trees will yield an... underfitted model? overfitted model? does't affect?]
+.box-3LA[In a Random Forest, a higher number of trees will yield an... underfitted model? overfitted model? doesn't affect?]
 ]
 
 ---
@@ -809,7 +813,7 @@ Boosting!
 - More effective on models with **.darkorange[high bias]** and **.darkorange[low variance]**
 
 .center[
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/boosting2.png)]
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_RandomForests/images/boosting2.png)]
 
 ---
 # Tuning parameters for boosting
@@ -981,18 +985,24 @@ rmse(gbm, carseats.test)
 ]
 
 ---
-.center2[.box4-LA[Happy Final Class!]]
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.center[.box-4LA[Happy Final Class!]]
 
 --
+&lt;br&gt;
 
-.center[.box4-Trans[Thank you for all your participation]]
+.center[.box-4Trans[Thank you for all your participation]]
 
 ---
 # References
 
 - Boehmke, B. &amp; B. Greenwell. (2020). ["Hands-on Machine Learning with R"](https://bradleyboehmke.github.io/HOML/bagging.html)
 
-- James, G. et al. (2013). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 8.*
+- James, G. et al. (2021). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 8.*
 
 - Singhal, G. (2020). ["Ensemble methods in Machine Learning: Bagging vs. Boosting"](https://www.pluralsight.com/guides/ensemble-methods:-bagging-versus-boosting)
 

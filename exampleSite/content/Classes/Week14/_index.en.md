@@ -33,16 +33,11 @@ Complete before **Sunday Nov 28th (11:59 pm)** (if your section is on Tue) or **
 
 ## Slides
 
-<!-- {{% button href="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.netlify.app/Classes/Week14/1_RandomForests/f2021_sta235h_18_RandomForests.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week14/1_RandomForests/f2021_sta235h_18_RandomForests.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week1/1_Intro/sp2021_sta235_1_intro.html" >}}
+{{< slides src="https://sta235.netlify.app/Classes/Week14/1_RandomForests/f2021_sta235h_18_RandomForests.html" >}}
 
-<br>
-
-{{% button href="https://sta235.netlify.app/Classes/Week1/2_OLS/sp2021_sta235_2_reg.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week1/2_OLS/sp2021_sta235_2_reg.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
-
-{{< slides src="https://sta235.netlify.app/Classes/Week1/2_OLS/sp2021_sta235_2_reg.html" >}}  -->
 
 ## Code
 
-<!-- Here is the R code we will review in class, with some additional data and questions <a onclick="ga('send', 'event', 'External-Link','click','code1','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/code/sp2021_sta235_2_reg.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> -->
+Here is the R code we will review in class, with some additional questions <a onclick="ga('send', 'event', 'External-Link','click','code17','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_RandomForests/code/f2021_sta235h_17_randomforests.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> 
