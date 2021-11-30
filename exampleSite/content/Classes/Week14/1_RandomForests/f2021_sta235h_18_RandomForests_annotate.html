@@ -682,6 +682,7 @@ tuneGrid &lt;- expand.grid(
 rfcv &lt;- train(Sales ~ ., data = carseats.train,
              method = "ranger", 
              trControl = trainControl("cv", number = 10),
+             importance = "permutation",
              tuneGrid = tuneGrid)
 
 plot(rfcv)

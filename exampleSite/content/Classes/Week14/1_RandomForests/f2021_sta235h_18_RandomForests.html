@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235H - Prediction: Bagging, Random Forests, and Boosting</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA 235H - Prediction: Bagging, Random Forests, and Boosting
+## Fall 2021
+### McCombs School of Business, UT Austin
+
+---
+
+
+&lt;!-- &lt;script type="text/javascript"&gt; --&gt;
+&lt;!-- MathJax.Hub.Config({ --&gt;
+&lt;!--   "HTML-CSS": { --&gt;
+&lt;!--     preferredFont: null, --&gt;
+&lt;!--     webFont:  "Neo-Euler" --&gt;
+&lt;!--   } --&gt;
+&lt;!-- }); --&gt;
+&lt;!-- &lt;/script&gt; --&gt;
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+&lt;/style&gt;
+
+
+
+
+
+# Announcements
+
+.center[
+.box-4LA[Homework 6 due on Thursday]
+]
+
+&lt;br&gt;
+--
+
+- **.darkorange[Grades for Homework 5]** have been posted: Check the returned submissions!
+
+  - Bi-modal distribution of grades
+  - Work as a group!
+
+--
+
+- **.darkorange[Final Exam]** is cumulative: Due on &lt;u&gt;Wednesday Dec 8th&lt;/u&gt;
+
+  - It should take you &lt;u&gt;3 hrs&lt;/u&gt; at most to complete.
+  - It will be posted Monday Dec 6th (8:00am)
+  - No extensions
+
+---
+# Announcements (Cont.)
+
+
+.center2[
+.box-5LA[Re-grading only until Friday Dec 3rd]
+]
+
+---
+# What we have seen...
+
+.pull-left[
+.center[
+![:scale 80%](https://media.giphy.com/media/RJNUfl6G1jNJvJfY11/giphy.gif)
+]
+]
+
+.pull-right[
+- **.darkorange[Decision trees:]**
+
+  - Classification and Regression Trees
+  
+  - When to split? Complexity parameter
+  
+  - Advantages and disadvantages.
+]
+
+---
+# What we'll cover today
+
+.pull-left[
+
+- **.darkorange[Ensemble methods]**:
+
+  - Bagging (e.g. tree bagging)
+  
+  - Random Forests
+  
+  - Boosting
+
+]
+
+.pull-right[
+&lt;br&gt;
+.center[
+![](https://media.giphy.com/media/ZoAa7lsmym6UE/source.gif)
+]
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Quick recap on trees
+]
+---
+# Quick refresher on decision trees
+
+.pull-left[
+- A decision tree is a structure that **.darkorange[works like a flowchart]**
+
+- You start at the **.darkorange[root node]**, make your way down the branches through the **.darkorange[(internal) nodes]**, and get to the **.darkorange[leaves (terminal nodes)]**.
+
+  - At the leaves is where prediction happens!
+]
+
+.pull-right[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_RandomForests/images/tree_example.png)]
+]
+
+---
+# To split or not to split
+
+.pull-left[
+- In general, we will only increase the size of our tree (additional split) **.darkorange[if we gain some additional information for prediction]**
+
+- We will actually grow **.darkorange[full trees]** and then **.darkorange[prune]** them.
+
+- How do we measure that information gain?
+
+  - **.darkorange[Classification:]** Impurity measure (like Gini Index).
+  - **.darkorange[Regression:]** Decrease in RSS.
+
+]
+
+.pull-right[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_RandomForests/images/tree_example.png)]
+]
+
+---
+
+.center2[
+.box-4LA[In term of bias, which one is better: A deep tree or a shallow tree?]
+]
+
+---
+# Let's look at an example: Car seat prices
+
+.small[
+
+```r
+library(ISLR)
+data(Carseats)
+
+head(Carseats)
+```
+
+```
+##   Sales CompPrice Income Advertising Population Price ShelveLoc Age Education
+## 1  9.50       138     73          11        276   120       Bad  42        17
+## 2 11.22       111     48          16        260    83      Good  65        10
+## 3 10.06       113     35          10        269    80    Medium  59        12
+## 4  7.40       117    100           4        466    97    Medium  55        14
+## 5  4.15       141     64           3        340   128       Bad  38        13
+## 6 10.81       124    113          13        501    72       Bad  78        16
+##   Urban  US
+## 1   Yes Yes
+## 2   Yes Yes
+## 3   Yes Yes
+## 4   Yes Yes
+## 5   Yes  No
+## 6    No Yes
+```
+]
+
+---
+# Do you wanna build a... tree?
+
+
+```r
+*library(caret)
+library(rattle)
+library(rsample)
+library(modelr)
+
+set.seed(100)
+
+split &lt;- initial_split(Carseats, prop = 0.7, strata = "Sales")
+
+carseats.train  &lt;- training(split)
+carseats.test   &lt;- testing(split)
+
+tuneGrid &lt;- expand.grid(cp = seq(0, 0.01, 0.0001))
+
+mcv &lt;- train(Sales ~., data = carseats.train, method = "rpart", 
+  trControl = trainControl("cv", number = 10), tuneGrid = tuneGrid)
+```
+
+---
+# Do you wanna build a... tree?
+
+
+```r
+library(caret) 
+library(rattle)
+*library(rsample)
+library(modelr)
+
+set.seed(100)
+
+split &lt;- initial_split(Carseats, prop = 0.7, strata = "Sales")
+
+carseats.train  &lt;- training(split)
+carseats.test   &lt;- testing(split)
+
+tuneGrid &lt;- expand.grid(cp = seq(0, 0.01, 0.0001))
+
+mcv &lt;- train(Sales ~., data = carseats.train, method = "rpart", 
+  trControl = trainControl("cv", number = 10), tuneGrid = tuneGrid)
+```
+---
+# Do you wanna build a... tree?
+
+
+```r
+library(caret) 
+library(rattle)
+library(rsample)
+library(modelr)
+
+*set.seed(100)
+
+split &lt;- initial_split(Carseats, prop = 0.7, strata = "Sales")
+
+carseats.train  &lt;- training(split)
+carseats.test   &lt;- testing(split)
+
+tuneGrid &lt;- expand.grid(cp = seq(0, 0.01, 0.0001))
+
+mcv &lt;- train(Sales ~., data = carseats.train, method = "rpart", 
+  trControl = trainControl("cv", number = 10), tuneGrid = tuneGrid)
+```
+
+---
+# Do you wanna build a... tree?
+
+
+```r
+library(caret) 
+library(rattle)
+library(rsample)
+library(modelr)
+
+set.seed(100)
+
+split &lt;- initial_split(Carseats, prop = 0.7, strata = "Sales")
+
+carseats.train  &lt;- training(split)
+carseats.test   &lt;- testing(split)
+
+*tuneGrid &lt;- expand.grid(cp = seq(0, 0.01, 0.0001))
+
+mcv &lt;- train(Sales ~., data = carseats.train, method = "rpart", 
+  trControl = trainControl("cv", number = 10), tuneGrid = tuneGrid)
+```
+
+
+---
+# Do you wanna build a... tree?
+
+
+```r
+library(caret) 
+library(rattle)
+library(rsample)
+library(modelr)
+
+set.seed(100)
+
+split &lt;- initial_split(Carseats, prop = 0.7, strata = "Sales")
+
+carseats.train  &lt;- training(split)
+carseats.test   &lt;- testing(split)
+
+tuneGrid &lt;- expand.grid(cp = seq(0, 0.01, 0.0001))
+
+*mcv &lt;- train(Sales ~., data = carseats.train, method = "rpart",
+* trControl = trainControl("cv", number = 10), tuneGrid = tuneGrid)
+```
+
+---
+# Do you wanna build a... tree?
+
+
+```r
+fancyRpartPlot(mcv$finalModel, caption="")
+```
+
+&lt;img src="f2021_sta235h_18_RandomForests_files/figure-html/fancy_mcv-1.svg" style="display: block; margin: auto;" /&gt;
+---
+
+.center2[
+.box-2LA[Seems a pretty complex tree... can we improve it?]
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Bagging
+]
+
+---
+# Introduction to Bagging
+
+- **.darkorange[Bagging (Bootstrap Aggregation)]**: Meant to reduce variance.
+
+--
+
+- Remember **.darkorange[bootstrap sampling]**?
+
+--
+
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_RandomForests/images/bootstrap1.png)
+
+---
+# Introduction to Bagging
+
+- **.darkorange[Bagging (Bootstrap Aggregation)]**: Meant to reduce variance.
+
+
+- Remember **.darkorange[bootstrap sampling]**?
+
+
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_RandomForests/images/bootstrap2.png)
+---
+# Introduction to Bagging
+
+- **.darkorange[Bagging (Bootstrap Aggregation)]**: Meant to reduce variance.
+
+
+- Remember **.darkorange[bootstrap sampling]**?
+
+
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_RandomForests/images/bootstrap3.png)
+---
+# Introduction to Bagging
+
+- **.darkorange[Bagging (Bootstrap Aggregation)]**: Meant to reduce variance.
+
+
+- Remember **.darkorange[bootstrap sampling]**?
+
+
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_RandomForests/images/bootstrap4.png)
+---
+# Introduction to Bagging
+
+- **.darkorange[Bagging (Bootstrap Aggregation)]**: Meant to reduce variance.
+
+
+- Remember **.darkorange[bootstrap sampling]**?
+
+
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_RandomForests/images/bootstrap5.png)
+
+---
+# Bagging and Decision Trees
+
+.pull-left[
+1. Bootstrap your training sample `\(B\)` times
+
+2. For each sample `\(b\)`, build a full-grown tree (no pruning).
+
+3. Predict your outcomes!
+
+  a) Regression: Average the outcomes
+  
+  &lt;br&gt;
+  b) Classification: Majority vote
+]
+
+.pull-right[
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_RandomForests/images/bagging.jpg)
+]
+
+.source[Source: Singhal (2020)]
+---
+# But... how does this reduce variance?
+
+--
+
+`$$\hat{f}_{bag}(x) = \frac{1}{B}\sum_{b=1}^B\hat{f}^b(x)$$`
+--
+
+- If `\(Var(\hat{f}^b(x)) = \sigma^2 \ \ \forall \ b\)`, then:
+
+`$$Var(\hat{f}_{bag}(x)) = Var(\frac{1}{B}\sum_{b=1}^B\hat{f}^b(x)) = \frac{B}{B^2}\sigma^2 = \frac{\sigma^2}{B}$$`
+
+---
+# Let's go back to our example
+
+
+```r
+*library(ipred)
+library(rpart)
+
+set.seed(100)
+
+# train bagged model
+b1 &lt;- bagging(Sales ~ ., data = carseats.train,
+              nbagg = 100,coob = TRUE,
+              control = rpart.control(cp = 0))
+
+b1
+```
+
+---
+# Let's go back to our example
+
+
+```r
+library(ipred)
+*library(rpart)
+
+set.seed(100)
+
+# train bagged model
+b1 &lt;- bagging(Sales ~ ., data = carseats.train,
+              nbagg = 100,coob = TRUE,
+              control = rpart.control(cp = 0))
+
+b1
+```
+
+---
+# Let's go back to our example
+
+
+```r
+library(ipred)
+library(rpart)
+
+set.seed(100)
+
+# train bagged model
+*b1 &lt;- bagging(Sales ~ ., data = carseats.train,
+*             nbagg = 100,coob = TRUE,
+*             control = rpart.control(cp = 0))
+
+b1
+```
+
+---
+
+.center2[
+.box-5LA[Why do we set cp=0?]
+]
+
+---
+# Let's go back to our example
+
+
+```r
+library(ipred)
+library(rpart)
+
+set.seed(100)
+
+# train bagged model
+b1 &lt;- bagging(Sales ~ ., data = carseats.train,
+              nbagg = 100,coob = TRUE,
+              control = rpart.control(cp = 0))
+
+*b1
+```
+
+```
+## 
+## Bagging regression trees with 100 bootstrap replications 
+## 
+## Call: bagging.data.frame(formula = Sales ~ ., data = carseats.train, 
+##     nbagg = 100, coob = TRUE, control = rpart.control(cp = 0))
+## 
+## Out-of-bag estimate of root mean squared error:  1.7034
+```
+
+---
+# What is OOB RMSE?
+
+- **.darkorange[OOB = Out of Bag]**: It represents the RMSE for units that *were not used for building certain trees*.
+
+--
+
+- Example:
+  
+  - Bag 1 has units `\(\{1,2,2\}\)`, Bag 2 units `\(\{1,2,3\}\)`, and Bag 3 `\(\{2,3,3\}\)`
+  
+--
+
+  - OOB RMSE would be estimating using RMSE for **.darkorange[unit 1 in Bag 3]** and **.darkorange[unit 3 in Bag 1]**.
+  
+--
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.box-6[No need for cross-validation!]
+
+
+---
+
+.center2[
+.box-7LA[What is the main objective of bagging?]
+]
+
+---
+&lt;br&gt;
+&lt;br&gt;
+.box-4LA[How does it compare to the best pruned decision tree?]
+
+--
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.box-7LA[Let's see!]
+
+
+---
+# Best DT vs Bagging
+
+
+```r
+set.seed(100)
+
+tuneGrid &lt;- expand.grid(cp = seq(0.002, 0.004, 0.00001))
+
+mcv &lt;- train(Sales ~ ., data = carseats.train,
+             method = "rpart", trControl = trainControl("cv", number = 10),
+             tuneGrid = tuneGrid)
+
+*rmse(mcv, carseats.test)
+```
+
+```
+## [1] 2.082905
+```
+
+---
+# Best DT vs Bagging
+
+&lt;img src="f2021_sta235h_18_RandomForests_files/figure-html/dt_vs_bag-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Interpretability?
+
+
+```r
+bt &lt;- train(Sales ~ ., data = carseats.train, method = "treebag", trControl = trainControl("cv", number = 10),
+            nbagg = 100, control = rpart.control(cp = 0))
+
+plot(varImp(bt, scale = TRUE))
+```
+
+&lt;img src="f2021_sta235h_18_RandomForests_files/figure-html/dt_vs_bag2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Disadvantages of bagged trees? (Tree 2)
+
+
+```r
+fancyRpartPlot(b1$mtrees[[2]]$btree, caption="") #There are 100 trees!
+```
+
+&lt;img src="f2021_sta235h_18_RandomForests_files/figure-html/fancy_bt1-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Disadvantages of bagged trees? (Tree 3)
+
+
+```r
+fancyRpartPlot(b1$mtrees[[3]]$btree, caption="") #There are 100 trees!
+```
+
+&lt;img src="f2021_sta235h_18_RandomForests_files/figure-html/fancy_bt2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+.center2[
+.box-3LA[We can do better...]
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Random forests
+]
+
+---
+# Bringing trees together
+
+- **.darkorange[Random Forests]** uses both the concepts of **.darkorange[decision trees]** and **.darkorange[bagging]**, but also **.darkorange[de-correlates]** the trees.
+
+--
+
+.box-4[Bootstrap: Vary *n* dimension]
+
+--
+
+.box-4[De-correlation: Vary *p* dimension]
+
+--
+
+- For each bagged tree, **.darkorange[choose *m* out of *p* regressors]**.
+
+---
+# Basic algorithm
+
+    1.  Given a training data set
+    2.  Select number of trees to build (n_trees)
+    3.  for i = 1 to n_trees do
+    4.  |  Generate a bootstrap sample of the original data
+    5.  |  Grow a regression/classification tree to the bootstrapped data
+    6.  |  for each split do
+    7.  |  | Select m_try variables at random from all p variables
+    8.  |  | Pick the best variable/split-point among the m_try
+    9.  |  | Split the node into two child nodes
+    10. |  end
+    11. | Use typical tree model stopping criteria to determine when a 
+        | tree is complete (but do not prune)
+    12. end
+    13. Output ensemble of trees 
+
+.source[Source: Boehmke &amp; Greenwell (2020)]
+
+---
+# Back to our example!
+
+.pull-left[
+
+```r
+set.seed(100)
+
+tuneGrid &lt;- expand.grid(
+  mtry = seq(2:11),
+  splitrule = "variance",
+  min.node.size = 5
+)
+
+rfcv &lt;- train(Sales ~ ., data = carseats.train,
+             method = "ranger", 
+             trControl = trainControl("cv", number = 10),
+             importance = "permutation",
+             tuneGrid = tuneGrid)
+
+plot(rfcv)
+```
+]
+
+.pull-right[
+&lt;img src="f2021_sta235h_18_RandomForests_files/figure-html/rf_plot-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+.center2[
+.box-6LA[Our dataset has 11 variables (1 outcome + 10 predictors)... why do the predictors go from 2 to 11?]
+]
+
+---
+# We need to look at the model.matrix
+
+
+```r
+head(model.matrix(Sales ~ ., data = carseats.train))
+```
+
+```
+##    (Intercept) CompPrice Income Advertising Population Price ShelveLocGood
+## 1            1       138     73          11        276   120             0
+## 2            1       111     48          16        260    83             1
+## 4            1       117    100           4        466    97             0
+## 5            1       141     64           3        340   128             0
+## 7            1       115    105           0         45   108             0
+## 11           1       121     78           9        150   100             0
+##    ShelveLocMedium Age Education UrbanYes USYes
+## 1                0  42        17        1     1
+## 2                0  65        10        1     1
+## 4                1  55        14        1     1
+## 5                0  38        13        1     0
+## 7                1  71        15        1     0
+## 11               0  26        10        0     1
+```
+
+---
+# Back to our example! (Runs faster: 30s vs 11s)
+
+
+```r
+library(doParallel)
+cl &lt;- makePSOCKcluster(7)
+registerDoParallel(cl)
+
+set.seed(100)
+
+rfcv_fast &lt;- train(Sales ~ ., data = carseats.train,
+                   method = "ranger", 
+                   trControl = trainControl("cv", number = 10, 
+                                            allowParallel = TRUE),
+                   tuneGrid = tuneGrid)
+
+stopCluster(cl)
+registerDoSEQ()
+```
+
+---
+# Covariance importance?
+
+
+```r
+plot(varImp(rfcv))
+```
+
+&lt;img src="f2021_sta235h_18_RandomForests_files/figure-html/cov_importance-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+.center2[
+.box-3LA[In a Random Forest, a higher number of trees will yield an... underfitted model? overfitted model? doesn't affect?]
+]
+
+---
+# Let's compare our models:
+
+
+```r
+# Pruned tree
+rmse(mcv, carseats.test)
+```
+
+```
+## [1] 2.082905
+```
+
+```r
+# Bagged trees
+rmse(bt, carseats.test)
+```
+
+```
+## [1] 1.604022
+```
+
+```r
+# Random Forest
+rmse(rfcv, carseats.test)
+```
+
+```
+## [1] 1.484919
+```
+
+---
+
+.center2[
+.box-2LA[Can we do better than this?]
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Boosting!
+]
+---
+# What is boosting?
+
+- Similar to bagging, but now **.darkorange[trees grow sequentially]**.
+
+- Slowly learning!
+
+- More effective on models with **.darkorange[high bias]** and **.darkorange[low variance]**
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_RandomForests/images/boosting2.png)]
+
+---
+# Tuning parameters for boosting
+
+- **.darkorange[Number of trees:]** We need to select the `\(B\)` number of trees we will fit. We can get this through cross-validation.
+
+--
+
+- **.darkorange[Shrinkage parameter:]** `\(\lambda\)` determines how fast the boosting will learn. Typical numbers range are 0.001 to 0.01. If your algorithm is learning too slow (low `\(\lambda\)`), you're going to need a lot of trees!
+
+--
+
+- **.darkorange[Number of splits:]** Number of splits `\(d\)` controls the complexity of your trees. We usually work with low-complexity trees (d=1) 
+
+
+---
+
+.center2[
+.box-6LA[A tree with just a root and two leaves is called a stomp. Are these high or low-bias trees?]
+]
+
+---
+
+.center2[
+.box-4LA[In boosting, a higher number of trees will yield an... underfitted model? overfitted model? does't affect?]
+]
+
+---
+# Boosting in R
+
+- We have seen **.darkorange[gradient boosting]** so far.
+
+- There are other types of boosting, like **.darkorange[adaptive boosting]** (you saw it in the video!)
+
+  - For classification problems
+
+.small[
+
+```r
+modelLookup("ada")
+```
+
+```
+##   model parameter          label forReg forClass probModel
+## 1   ada      iter         #Trees  FALSE     TRUE      TRUE
+## 2   ada  maxdepth Max Tree Depth  FALSE     TRUE      TRUE
+## 3   ada        nu  Learning Rate  FALSE     TRUE      TRUE
+```
+
+```r
+modelLookup("gbm")
+```
+
+```
+##   model         parameter                   label forReg forClass probModel
+## 1   gbm           n.trees   # Boosting Iterations   TRUE     TRUE      TRUE
+## 2   gbm interaction.depth          Max Tree Depth   TRUE     TRUE      TRUE
+## 3   gbm         shrinkage               Shrinkage   TRUE     TRUE      TRUE
+## 4   gbm    n.minobsinnode Min. Terminal Node Size   TRUE     TRUE      TRUE
+```
+]
+
+---
+# Gradient Boosting in R
+
+```r
+set.seed(100)
+
+gbm &lt;- train(Sales ~ ., data = carseats.train,
+             method = "gbm", 
+             trControl = trainControl("cv", number = 10),
+             tuneLength = 20)
+```
+
+---
+# Gradient Boosting in R
+
+```r
+# Final Model information
+gbm$finalModel
+```
+
+```
+## A gradient boosted model with gaussian loss function.
+## 350 iterations were performed.
+## There were 11 predictors of which 11 had non-zero influence.
+```
+
+```r
+# Best Tuning parameters?
+gbm$bestTune
+```
+
+```
+##   n.trees interaction.depth shrinkage n.minobsinnode
+## 7     350                 1       0.1             10
+```
+
+---
+# Let's do a comparison!
+--
+
+```r
+# Pruned tree
+rmse(mcv, carseats.test)
+```
+
+```
+## [1] 2.082905
+```
+
+```r
+# Bagged trees
+rmse(bt, carseats.test)
+```
+
+```
+## [1] 1.604022
+```
+
+```r
+# Random Forest
+rmse(rfcv, carseats.test)
+```
+
+```
+## [1] 1.484919
+```
+
+```r
+# Gradient Boosting
+rmse(gbm, carseats.test)
+```
+
+```
+## [1] 1.201098
+```
+---
+.center2[
+![](https://media.giphy.com/media/5aLrlDiJPMPFS/source.gif)
+]
+
+
+---
+
+.center2[
+.box-7LA[What is the main objective of boosting?]
+]
+
+---
+# Main takeaway points
+
+.pull-left[
+- There's a lot we can do to **.darkorange[improve our prediction models!]**
+
+- Decision trees by itself are not great...
+
+  - ... but they are awesome for building other stuff like **.darkorange[random forests]**.
+  
+- **.darkorange[Bagging]** and **.darkorange[boosting]** can be used with other learners, not only DT!
+
+.box-5[There are a lot of other methods out there and ways to combine them! (e.g. stacking)]
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/TI32JwHmWQEi4/giphy.gif)
+]
+]
+
+---
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.center[.box-4LA[Happy Final Class!]]
+
+--
+&lt;br&gt;
+
+.center[.box-4Trans[Thank you for all your participation]]
+
+---
+# References
+
+- Boehmke, B. &amp; B. Greenwell. (2020). ["Hands-on Machine Learning with R"](https://bradleyboehmke.github.io/HOML/bagging.html)
+
+- James, G. et al. (2021). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 8.*
+
+- Singhal, G. (2020). ["Ensemble methods in Machine Learning: Bagging vs. Boosting"](https://www.pluralsight.com/guides/ensemble-methods:-bagging-versus-boosting)
+
+
+
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week14/1_RandomForests/f2021_sta235h_18_RandomForests.html') --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

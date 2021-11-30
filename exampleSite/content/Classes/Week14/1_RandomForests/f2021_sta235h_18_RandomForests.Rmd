@@ -1220,4 +1220,4 @@ rmse(gbm, carseats.test)
 
 
 
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week11/1_KNN/f2021_sta235h_16_KNN.html') -->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week14/1_RandomForests/f2021_sta235h_18_RandomForests.html') -->
