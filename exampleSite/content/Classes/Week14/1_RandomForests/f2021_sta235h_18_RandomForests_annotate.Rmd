@@ -1176,6 +1176,26 @@ rmse(gbm, carseats.test)
 ]
 
 ---
+.center2[
+.box-3LA[Now it's your turn!]
+]
+
+---
+
+.box-5LA[Instructions]
+
+Using the code on **https://sta235.netlify.app/inclass/ex3.R**:
+
+  - Fit a random forest using **.darkorange[all the covariates]**
+  
+  - Complete the code and show your optimal number of covariates.
+  
+  - What is the most important covariate?
+  
+  - What is the accuracy of your RF?
+
+
+---
 # Main takeaway points
 
 .pull-left[
