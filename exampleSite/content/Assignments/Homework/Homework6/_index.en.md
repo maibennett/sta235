@@ -37,4 +37,4 @@ You can find Homework 6 here: <a onclick="ga('send', 'event', 'External-Link','c
 
 ## Answer Key
 
-- You can find the answer key for Homework 6 here: <a onclick="ga('send', 'event', 'External-Link','click','hw6_key','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework6/STA235H_Fall21_Homework6_AnswerKey.html" target="_blank" class="btn btn-default"> Open HW4 Answer Key <i class="fas fa-external-link-alt"></i></a>
+- You can find the answer key for Homework 6 here: <a onclick="ga('send', 'event', 'External-Link','click','hw6_key','0','Link');" href="https://sta235.netlify.app/assignments/homework/homework6/STA235H_Fall21_Homework6_AnswerKey.html" target="_blank" class="btn btn-default"> Open HW6 Answer Key <i class="fas fa-external-link-alt"></i></a>
