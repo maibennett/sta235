@@ -670,7 +670,7 @@ Random forests
 set.seed(100)
 
 tuneGrid &lt;- expand.grid(
-  mtry = seq(2:11),
+  mtry = 2:11,
   splitrule = "variance",
   min.node.size = 5
 )
