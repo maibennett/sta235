@@ -99,7 +99,7 @@ set.seed(100)
 # We have a lot of parameters! (we can also use tuneLength as an overall default parameter)
 
 tuneGrid <- expand.grid(
-  mtry = seq(2:11), # Number of random covariates that will test
+  mtry = 2:11, # Number of random covariates that will test
   splitrule = "variance", # Split rule (for regressions use "variance", for classification use "gini")
   min.node.size = 5
 )
