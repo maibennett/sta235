@@ -37,7 +37,7 @@ chapter: false
 
 <a onclick="ga('send', 'event', 'External-Link','click','final_rmd','0','Link');" href="https://sta235.netlify.app/exams/final/STA235H_final_template.Rmd" target="_blank" class="btn btn-default"> Rmarkdown Template <i class="fas fa-external-link-alt"></i></a>
 
-<!--
+
 ## Answer Key
 
-- You can find the answer key for the midterm here: <a onclick="ga('send', 'event', 'External-Link','click','midterm_key','0','Link');" href="https://sta235.netlify.app/exams/midterm/STA235H_Fall21_Midterm_AnswerKey.html" target="_blank" class="btn btn-default"> Open Midterm Answer Key <i class="fas fa-external-link-alt"></i></a>  -->
+- You can find the answer key for the final here: <a onclick="ga('send', 'event', 'External-Link','click','midterm_key','0','Link');" href="https://sta235.netlify.app/exams/final/STA235H_Fall21_Final_AnswerKey.html" target="_blank" class="btn btn-default"> Open Final Answer Key <i class="fas fa-external-link-alt"></i></a> 
