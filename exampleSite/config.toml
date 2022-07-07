@@ -26,6 +26,8 @@ defaultContentLanguageInSubdir= false
   disableMermaid = true
   customMermaidURL = "https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"
   titleSeparator = "::"
+  # Google Analytics 4
+  googleAnalyticsID = "G-LSJSZ45RSH"
 
 [outputs]
 home = [ "HTML", "RSS", "JSON"]
