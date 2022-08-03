@@ -8,6 +8,7 @@ themesdir = "../.."
 googleAnalytics = "UA-190320018-1"
 metaDataFormat = "yaml"
 defaultContentLanguageInSubdir= false
+enableEmoji = true
 
 [markup]
   defaultMarkdownHandler = "goldmark"
