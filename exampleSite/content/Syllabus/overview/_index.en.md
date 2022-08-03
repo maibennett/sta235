@@ -18,7 +18,7 @@ Statistics 301 or Statistics 301H, Mathematics 408Q or credit registration for 4
 
 #### COURSE FORMAT
 
-This class meets in person once a week for two hours (see schedule according to your section in the first page). Attendance is not mandatory, but highly encouraged. You will also be required to bring a laptop to class, because we will be doing in-class coding exercises. If you do not have a laptop that you can bring to class, please contact the instructor so we can find an alternative solution.
+This class meets in person once a week for two hours (see schedule according to your section in the first page). Attendance is highly encouraged and will count towards your grade (see the Grading section for details). You will also be required to bring a laptop to class, because we will be doing in-class coding exercises. If you do not have a laptop that you can bring to class, please contact the instructor so we can find an alternative solution.
 
 {{% notice warning %}}
 Even though attendance is important, given the current worldwide context, I would encourage you to stay home if you are not feeling well. The instruction team will work with students that have to miss class in order to get them back on track.  
