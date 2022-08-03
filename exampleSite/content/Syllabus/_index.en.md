@@ -14,7 +14,7 @@ Please read the syllabus. It has important information about the course, includi
 
 ## Welcome to STA 235H!
 
-Our class meets on one of these four schedules (depending on your section) in **UTC 1.130**: 
+Our class meets on one of these four schedules (depending on your section) in **UTC 1.102**: 
 
 - Section 1: Tue 10:00 AM – 12:00 PM
 - Section 2: Tue 12:00 PM – 2:00 PM
@@ -23,7 +23,7 @@ Our class meets on one of these four schedules (depending on your section) in **
 
 The objective of this course is for you to **gain the tools you need to tackle real-world problems from a quantitative perspective**. We will be covering topics on regression modelling, causal inference, and predictive modelling. You will have the opportunity to be exposed to an array of different real-world examples, get hands-on experience in working with data, and improve your R coding skills for data science. 
 
-**Your success in this class is important to me**. These are difficult times, and I am committed to making appropriate accommodations that meet your needs and that also allows you to complete the requirements of this course. My goal is for you to learn everything you were hoping to learn in this class.
+**Your success in this class is important to me**, and my goal is for you to learn everything you were hoping to learn in this class. I have accommodations in place to allow you to complete the requirements of this course, but if you feel you need additional accommodations, please reach out.
 
 If you feel you are falling behind or that there are any aspects of this class that are preventing you from learning, reach out to me or a teaching assistant as soon as possible, so we can work something out. We also encourage you to reach out to the student resources available through UT, many of which are listed on this syllabus.
 
@@ -45,31 +45,16 @@ If you feel you are falling behind or that there are any aspects of this class t
 
 ---
 
-### **RESOURCES FOR COVID-19**
+### **TL;DR**
 
-Here you can find additional resources and guidelines provided by the University to protect our community during the COVID-19 Pandemic:
+The Syllabus has important information, so please check out the different sections. I understand, though, that it has a lot of information, so here's the summarized version of the main highlights:
 
-{{% notice note %}}
-<a href="https://t.e2ma.net/click/7zhfmf/nwp3gbo/3w0c1bb" style='text-align: center'> "UT strongly encourages all members of our community to <b>get vaccinated</b> if they are able to do so"</a>
-{{% /notice %}}
+- Be nice :smile:
+- Ask questions! (in class and in office hours) :raising_hand:
+- If you fall behind, reach out :confused:
 
-{{% notice note %}}
-Between Aug. 23 and Sept. 24, there will be a **pop-up vaccine clinic** in the **Texas Union Eastwoods Room (UNB 2.102)** every Mon (except Labor Day), Wed, and Fri from noon-4:00 p.m., no appointment needed.
-{{% /notice %}}
+There are different assignments to be completed in this class, including **homework** assignments, **Just In Time Teaching assignments**, **midterm** and **final exam**, and a **final project**. Additionnally, part of your grade will depend on **participation**.
 
+You will be able to drop some assignments, to accommodate students that have unforeseeable issues, so check out the specifics in the [Grading](https://sta235.netlify.app/syllabus/grading) section.
 
-- UT is following [the CDC masking guidance](https://utexas.app.box.com/s/wxlmh2jxtiqmx3b74yt9gjsgk6x6kv8l/file/820274516452), and masks are strongly recommended, but optional, inside university buildings for vaccinated and unvaccinated individuals.
-
-- [UHS COVID-19 Information](https://healthyhorns.utexas.edu/coronavirus.html)
-
-- [Behavior Concerns and COVID-19 Advice Line (BCCAL)](https://safety.utexas.edu/behavior-concerns-advice-line)
-
-- What to do when there's COVID-19 exposure? Check out the information [here](https://healthyhorns.utexas.edu/coronavirus_exposure_action_chart.html)
-
-- Check out [this interactive map of campus](https://trecs.maps.arcgis.com/apps/webappviewer/index.html?id=ea2c74553a09450ebaa4e0093a1d3ef2) where you can get essential resources (e.g. hand sanitizer, free masks, testing, etc.)
-
-- You can easily get tested through [UT's Proactive Community Testing](https://www.healthyhorns.utexas.edu/coronavirus_proactive_testing.html) (it's quick and painless!).
-
-{{% notice warning %}}
-For students that are presenting symptoms or have been in close contact with a COVID-19 confirmed case, the instruction team will make all necessary accommodations during their absence until they recover/learn more about their situation.
-{{% /notice %}}
+Finally, make sure you **check the Canvas announcements** periodically (turn on your notifications!).

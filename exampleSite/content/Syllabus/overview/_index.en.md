@@ -41,7 +41,7 @@ For the optimal in-class experience, I suggest that you:
 
 1)	Attend class each week (unless you are not feeling well) and be an active learner. If something is unclear, don’t be afraid to ask a question. Active participation in class enhances the learning experience for everyone!
 
-2)	Slides will be available before each class, so you can use them to follow along. These slides, however, are not self-contained, so I recommend taking notes of the main concepts to complement your understanding.
+2)	Slides will be available before each class, so you can use them to follow along. These slides, however, are **not self-contained**, so I recommend taking notes of the main concepts to complement your understanding.
 
 3)	Asking questions in class is always a good thing! It helps clear the material not only for you, but probably for other students as well. However, if you require additional help, I encourage you to attend students’ office hours. These are designed to help you solve any questions outside the classroom, so take advantage of this instance. Please watch [this video](https://vimeo.com/270014784) on understanding why office hours are important and how they usually work. 
 
