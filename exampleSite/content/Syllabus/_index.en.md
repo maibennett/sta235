@@ -53,7 +53,7 @@ The Syllabus has important information, so please check out the different sectio
 - Ask questions! (in class and in office hours) :raising_hand:
 - If you fall behind, reach out :confused:
 
-There are different assignments to be completed in this class, including **homework** assignments, **Just In Time Teaching assignments**, **midterm** and **final exam**, and a **final project**. Additionnally, part of your grade will depend on **participation**.
+There are different assignments to be completed in this class, including **homework** assignments, **Just In Time Teaching assignments**, a take-home **midterm**, **final exam**, and a **final project**. Additionnally, part of your grade will depend on **participation**.
 
 You will be able to drop some assignments, to accommodate students that have unforeseeable issues, so check out the specifics in the [Grading](https://sta235.netlify.app/syllabus/grading) section.
 

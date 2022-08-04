@@ -127,6 +127,12 @@ I now explain each of these grading components in more detail.
 	
 -	Please refer to the guidelines on the course website to see what is expected for each of these milestones.
 
+-	Final presentations will be conducted during a “uniform exam schedule”, so please check the dates for your section and let me know in advance if you have a time conflict. All students must attend the final presentations.
+
+	- Section 1 (Tue 10:00-12:00): Thursday Dec 8th 3.30pm – 6.30pm
+	- Section 2 (Tue 12:00-2:00): Thursday Dec 8th 7.00pm – 10.00pm
+	- Section 3 (Thu 10:00-12:00): Friday Dec 9th 3.30pm – 6:30pm
+	- Section 4 (Thu 12:00-2:00): Friday Dec 9th 7:00pm – 10.00pm 
 
 
 {{% notice warning %}}
