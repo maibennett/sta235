@@ -64,9 +64,9 @@ I now explain each of these grading components in more detail.
 
 -	Homework assignments will be posted online and submitted through Canvas.  
 
--	You must submit your homework write-up as a PDF, as well as your R Script (or Rmarkdown file). Failure to submit your script will be considered as an incomplete homework. The code you submit with your homework should be fully reproducible (i.e. another person running it on their machine should be able to get the same results as you). See guidelines in our course website for R scripts.
+-	You must submit your homework write-up as a PDF, when required, as well as your R Script (or Rmarkdown file). Failure to submit your script will be considered as an incomplete homework. The code you submit with your homework should be fully reproducible (i.e. another person running it on their machine should be able to get the same results as you). See guidelines in our course website for R scripts.
 
--	**Only six homework assignments will be considered for your grade, dropping the lowest assignment**. However, you can only drop an assignment for which you haven’t been penalized for (e.g. you can’t drop a late assignment or an assignment that you have been penalized for copying).  
+-	**Only six homework assignments will be considered for your grade, dropping the assignment with the lowest grade**. However, you can only drop an assignment for which you haven’t been penalized for misconduct.  
 
 -	There is a 10-point penalty for each day your assignment is late. This penalty is to give everyone the same amount of time to submit their work. If for any reason you have an issue submitting a homework that goes beyond the extension, please reach out to the instruction team as soon as possible (ideally, before the deadline).
 
@@ -94,7 +94,7 @@ I now explain each of these grading components in more detail.
 
 -	During the semester, **I will record attendance for at least 5 classes**. Students can be absent from one of those classes, without penalty. Any further absences need to be justified through the appropriate channels (i.e. Student Emergency Services).
 
--	If a student misses more than one class where attendance is recorded, they can make up for it by **participating in at least 2 classes of recorded participation**. Classes where participation is recorded will chosen randomly throughout the semester.
+-	If a student misses more than one class where attendance is recorded, they can make up for it by **participating in at least 2 classes of recorded participation**. Classes where participation is recorded will be chosen randomly throughout the semester.
 
 -	In order for in-class participation to count, students must either ask a specific question or voluntarily answer a question asked by the instructor. 
 

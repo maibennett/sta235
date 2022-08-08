@@ -64,7 +64,7 @@ You need `tinytex` (or another LaTeX program) to be able to knit (compile) your 
 <u>All material and resources</u> in the following sections were created by <b><a href="https://talks.andrewheiss.com/2021-gpl/03_markdown-interactivity/index.html" style="color: #E5A00C">Andrew Heiss</a></b>.
 {{% /notice %}}
 
-[**Markdown**](https://daringfireball.net/projects/markdown/) is a special kind of markup language that lets you format text with simple syntax. You can then use a converter program like [pandoc](https://pandoc.org/) to convert Markdown into whatever format you want: HTML, PDF, Word, PowerPoint, etc. We will be using specifically {**Rmarkdown**}(https://rmarkdown.rstudio.com/), which is just a markdown file that combines R code as well.
+[**Markdown**](https://daringfireball.net/projects/markdown/) is a special kind of markup language that lets you format text with simple syntax. You can then use a converter program like [pandoc](https://pandoc.org/) to convert Markdown into whatever format you want: HTML, PDF, Word, PowerPoint, etc. We will be using specifically [**Rmarkdown**](https://rmarkdown.rstudio.com/), which is just a markdown file that combines R code as well.
 
 <textarea rows="1" class="invisible-text">Delete this text and start playing with Markdown here!</textarea>
 
