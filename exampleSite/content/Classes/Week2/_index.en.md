@@ -1,25 +1,25 @@
 ---
-title: Week 2
+title: Week 2 - 08/29
 weight: 20
 disableToc: true
 ---
 
-## Date: Sep 7th - Sep 9th
+## Date: Aug 30th - Sep 1st
 
 ## What we will cover
 
-In this class, we will go dipper into statistical adjustment, and specific issues related to collinearity. Additionally, we will start discussing the differences between correlation and causation.
+In this class, we will go dipper into statistical adjustment, specifically when we have interactions. We will discuss potential issues with rregressions, such as outliers and collinearity. We will also discuss how to compare effect sizes.
 
 ## Recommended readings/videos
 
 - [Ismay, C. & A. Kim. (2021). "Statistical Inference via Data Science". Chapter 6 (section 6.1 and 6.2)](https://moderndive.com/6-multiple-regression.html)
 
-- [Gallo, A. (2015). "A refresher on regression analysis". *Harvard Business Review*](https://hbr.org/2015/11/a-refresher-on-regression-analysis)
+- [Ismay, C. & A. Kim. (2021). "Statistical Inference via Data Science". Chapter 10 (sections 10.3)](https://moderndive.com/10-inference-for-regression.html)
 
-<!-- ## JITT
+- [Healy, K. (2018). "Data Visualization: A Practical Introduction". Chapter 1 (section 1.1). *Princeton University Press*.](https://socviz.co/lookatdata.html)
 
-Complete before **Sunday Sep 5th (11:59 pm)** (if your section is on Tue) or **Tuesday Sep 7th (11:59 pm)** (if your section is on Thu). You can find the assignment [here](https://forms.gle/7yAgw1GpXTGXDg4U8).
 
+<!-- 
 ## Slides
 
 {{% button href="https://sta235.netlify.app/Classes/Week2/1_OLS/f2021_sta235h_3_reg.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week2/1_OLS/f2021_sta235h_3_reg.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 

@@ -1,30 +1,25 @@
 ---
-title: Week 3
+title: Week 3 - 09/5
 weight: 25
 disableToc: true
 ---
 
-## Date: Sep 14th - Sep 16th
+## Date: Sep 6th - Sep 8th
 
 ## What we will cover
 
-In this session, we will fully dive into Causal Inference: Potential outcomes framework, the fundamental problem of causal inference, causal estimands, and study design.
+In this session, we will talk about models with discrete outcomes, and how we can tackle some of these issues.
 
 ## Recommended readings/videos
 
-- Angrist & Pischke. (2015). "Mastering Metrics". *Chapter 1: Randomized Trials*. Pg. 1-11. 
+- Grace-Martin, K. (2018). [“Why logistic regression for binary responses?"](https://www.theanalysisfactor.com/why-logistic-regression-for-binary-response/)
 
-- Marginal Revolution University. (2019). "Ceteris Paribus: Public vs. Private University". *Video materials from Mastering Metrics*.
+- Bellemare, M. (2013) [“A Rant on Estimation with Binary Dependent Variables (Technical)"](http://marcfbellemare.com/wordpress/8951)
 
-{{< youtube src="https://www.youtube.com/embed/iPBV3BlV7jk?controls=0" >}}
-
-<!-- ## JITT
-
-Complete before **Sunday Sep 12th (11:59 pm)** (if your section is on Tue) or **Tuesday Sep 14th (11:59 pm)** (if your section is on Thu). You can find the assignment [here](https://forms.gle/atbUTPiXeSESFBe39).
-
+<!-- 
 ## Slides
 
-{{% button href="https://sta235.netlify.app/Classes/Week3/2_PotentialOutcomes/f2021_sta235h_5_PotentialOutcomes.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week3/2_PotentialOutcomes/f2021_sta235h_5_PotentialOutcomes.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.netlify.app/Classes/Week3/2_PotentialOutcomes/f2022_sta235h_5_PotentialOutcomes.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week3/2_PotentialOutcomes/f2021_sta235h_5_PotentialOutcomes.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
 {{< slides src="https://sta235.netlify.app/Classes/Week3/2_PotentialOutcomes/f2021_sta235h_5_PotentialOutcomes.html" >}}
 

@@ -1,0 +1,840 @@
+---
+title: "STA 235H - Introduction"
+subtitle: "Fall 2022"
+author: "McCombs School of Business, UT Austin"
+output:
+  xaringan::moon_reader:
+    css: ["xaringan-themer.css", "custom.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: ["macros.js","cols_macro.js"]
+    includes:
+      in_header: header.html
+---
+
+```{r setup, include=FALSE, warning=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.showtext = TRUE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE, message=FALSE}
+library(xaringanthemer)
+
+theme_xaringan(
+  text_color = "#333f48",
+  background_color = "#FFFFFF",
+  accent_color = "#900DA4",
+  text_font = "Fira Mono",
+  text_font_use_google = TRUE,
+  title_font = "Yanone Kaffeesatz",
+  title_font_use_google = TRUE
+)
+
+style_mono_accent(
+  #base_color = "#bf5700",
+  extra_fonts = list(google_font("Fira Sans","200","300","400","500","600"),
+                     google_font("Fira Sans Condensed","200","300","400","500","600")),
+  base_color = "#333f48",
+  header_font_google = google_font("Yanone Kaffeesatz","200","300","400","500","600","700"),
+  text_font_google   = google_font("Jost"),
+  code_font_google   = google_font("Fira Mono"),
+  text_bold_color = "#333f48",
+  text_font_size = "115%",
+  colors = c(
+    lightgrey = "#C0C0C0",
+    red = "#f34213",
+    purple = "#900DA4",
+    darkpurple = "#61077a",
+    darkorange = "#db5f12",
+    orange = "#ff8811",
+    green = "#136f63",
+    white = "#FFFFFF"),
+  extra_css = list(
+    ".remark-slide table" = list("display" = "table",
+                   "width" = "80%",
+                   "text-align" = "left"),
+    ".remark-slide-number" = list("display" = "none"),
+    ".strong" = list("font-weight" = "400"),
+    ".big" = list("font-size" = "350%",
+                     "font-family" = "Yanone Kaffeesatz",
+                     "font-weight"="400"),
+    ".small" = list("font-size" = "80%"),
+    ".tiny" = list("font-size" = "50%"),
+    ".large" = list("font-size" = "150%"),
+    ".source" = list("color" = "#8c8c8c",
+                     "font-size" = "80%"),
+    ".remark-slide table td#highlight" = list("background-color" = "#eee1f0",
+                                  "color" = "#900DA4",
+                                  "font-weight" = "500"),
+   # ".remark-slide table thead th" = list(),
+    ".title-slide h1" = list("font-weight" = "500"),
+    ".title-slide h2" = list("font-weight" = "400",
+                             "font-size" =  "170%"),
+    ".title-slide h3" = list("font-family" = "Jost",
+                             "font-size" = "100%",
+                             "font-weight" = "200"),
+    ".center2" = list("margin" = "0",
+                      "position" = "absolute",
+                      "top" = "50%",
+                      "left" = "50%",
+                      "-ms-transform" = "translate(-50%, -50%)",
+                      "transform" = "translate(-50%, -50%)"),
+   ".bottom2" = list("margin" = "0",
+                      "position" = "absolute",
+                      "top" = "90%",
+                      "left" = "10%",
+                      "-ms-transform" = "translate(-10%, -90%)",
+                      "transform" = "translate(-10%, -90%)"),
+    ".section-title h1" = list("color" = "#FFFFFF",
+                               "font-size" = "2.3em",
+                               "line-height" = "1.3"),
+    ".medium" = list("font-size" = "1.4em"),
+    ".sp-after-half" = list("margin-bottom" = "0.7em !important"),
+    ".box-1,.box-1a,.box-1s,.box-1b,.box-1l,.box-1LA,.section-title-1" = list("background-color" = "#0D0887"),
+    ".box-2,.box-2a,.box-2s,.box-2b,.box-2l,.box-2LA,.section-title-2" = list("background-color" = "#5601A4"),
+    ".box-3,.box-3a,.box-3s,.box-3b,.box-3l,.box-3LA,.section-title-3" = list("background-color" = "#900DA4"),
+    ".box-4,.box-4a,.box-4s,.box-4b,.box-4l,.box-4LA,.section-title-4" = list("background-color" = "#BF3984"),
+    ".box-5,.box-5a,.box-5s,.box-5b,.box-5l,.box-5LA,.section-title-5" = list("background-color" = "#E16462"),
+    ".box-6,.box-6a,.box-6s,.box-6b,.box-6l,.box-6LA,.section-title-6" = list("background-color" = "#F89441"),
+    ".box-7,.box-7a,.box-7s,.box-7b,.box-7l,.box-7LA,.section-title-7" = list("background-color" = "#FCCE25"),
+   
+    ".box-1trans,.box-2trans,.box-3trans,.box-4trans,.box-5trans,.box-6trans,.box-7trans" = list("background-color" = "#FFFFFF",
+                                                                                                 "font-family" = "Yanone Kaffeesatz",
+                                                                                                 "border-radius" = "15px",
+                                                                                                 "margin" = "0em auto",
+                                                                                                 "overflow" = "hidden",
+                                                                                                 "padding" = "0.4em 0.4em",
+                                                                                                 "font-weight" = "600",
+                                                                                                 "font-size" = "31px",
+                                                                                                 "display" = "table",
+                                                                                                 "text-align" = "center",
+                                                                                                 "border-width" = "thick",
+                                                                                                 "color" = "#333f48"),
+   
+       ".box-1Trans,.box-2Trans,.box-3Trans,.box-4Trans,.box-5Trans,.box-6Trans,.box-7Trans" = list("background-color" = "#FFFFFF",
+                                                                                                 "font-family" = "Yanone Kaffeesatz",
+                                                                                                 "border-radius" = "15px",
+                                                                                                 "margin" = "0em auto",
+                                                                                                 "overflow" = "hidden",
+                                                                                                 "padding" = "0.4em 0.4em",
+                                                                                                 "font-weight" = "600",
+                                                                                                 "font-size" = "51px",
+                                                                                                 "display" = "table",
+                                                                                                 "text-align" = "center",
+                                                                                                 "border-width" = "thick",
+                                                                                                 "color" = "#333f48"),
+   
+       ".box-1transl,.box-2transl,.box-3transl,.box-4transl,.box-5transl,.box-6transl,.box-7transl" = list("background-color" = "#FFFFFF",
+                                                                                                           "font-family" = "Yanone Kaffeesatz",
+                                                                                                           "border-radius" = "15px",
+                                                                                                           "left" = "0px",
+                                                                                                           "overflow" = "hidden",
+                                                                                                           "padding" = "0.4em 0.4em",
+                                                                                                           "font-weight" = "600",
+                                                                                                           "font-size" = "31px",
+                                                                                                           "display" = "table",
+                                                                                                           "text-align" = "left",
+                                                                                                           "border-width" = "thick",
+                                                                                                           "color" = "#333f48"),
+   
+   
+    ".box-1trans,.box-1transl,.box-1Trans" = list("border"="5px solid rgba(13, 8, 135,1)"),
+    ".box-2trans,.box-2transl,.box-2Trans" = list("border"="5px solid rgba(86, 1, 164,1)"),
+    ".box-3trans,.box-3transl,.box-3Trans" = list("border"="5px solid rgba(144, 13, 164,1)"),
+    ".box-4trans,.box-4transl,.box-4Trans" = list("border"="5px solid rgba(191, 57, 132,1)"),
+    ".box-5trans,.box-5transl,.box-5Trans" = list("border"="5px solid rgba(225, 100, 98,1)"),
+    ".box-6trans,.box-6transl,.box-6Trans" = list("border"="5px solid rgba(248, 148, 65,1)"),
+    ".box-7trans,.box-7transl,.box-7Trans" = list("border"="5px solid rgba(252, 206, 37,1)"),
+
+   
+   ".box-1t,.box-1tL,.section-title-1t" = list("background-color" = "rgba(13, 8, 135,0.3)",
+                                      "color"="rgba(13, 8, 135,1)",
+                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-2t,.box-2tL,.section-title-2t" = list("background-color" = "rgba(86, 1, 164,0.3)",
+                                       "color" = "rgba(86, 1, 164,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-3t,.box-3tL,.section-title-3t" = list("background-color" = "rgba(144, 13, 164,0.3)",
+                                       "color" = "rgba(144, 13, 164,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-4t,.box-4tL,.section-title-4t" = list("background-color" = "rgba(191, 57, 132,0.3)",
+                                       "color" = "rgba(191, 57, 132,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-5t,.box-5tL,.section-title-5t" = list("background-color" = "rgba(225, 100, 98,0.3)",
+                                       "color" = "rgba(225, 100, 98,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-6t,.box-6tL,.section-title-6t" = list("background-color" = "rgba(248, 148, 65,0.3)",
+                                       "color" = "rgba(248, 148, 65,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-7t,.box-7tL,.section-title-7t" = list("background-color" = "rgba(252, 206, 37,0.3)",
+                                       "color" = "rgba(252, 206, 37,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   
+   ".box-7t, .box-6t, .box-5t, .box-4t, .box-3t, .box-2t, .box-1t" = list("margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "31px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "border-radius" = "15px"),
+   
+   ".box-7tL, .box-6tL, .box-5tL, .box-4tL, .box-3tL, .box-2tL, .box-1tL" = list("margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "50px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "border-radius" = "15px"),
+   
+    ".box-7, .box-6, .box-5, .box-4, .box-3, .box-2, .box-1" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "31px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+    ".box-7a, .box-6a, .box-5a, .box-4a, .box-3a, .box-2a, .box-1a" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.4em 0.4em",
+                                                                      "font-weight" = "600",
+                                                                      "font-size" = "25px",
+                                                                      "display" = "table",
+                                                                      "text-align" = "center",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+   ".box-7s, .box-6s, .box-5s, .box-4s, .box-3s, .box-2s, .box-1s" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.2em 0.2em",
+                                                                      "font-weight" = "400",
+                                                                      "font-size" = "100%",
+                                                                      "display" = "inline",
+                                                                      "text-align" = "center",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+       ".box-7b, .box-6b, .box-5b, .box-4b, .box-3b, .box-2b, .box-1b" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.4em 0.4em",
+                                                                      "font-weight" = "600",
+                                                                      "font-size" = "25px",
+                                                                      "display" = "table",
+                                                                      "text-align" = "left",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+   ".box-7l, .box-6l, .box-5l, .box-4l, .box-3l, .box-2l, .box-1l" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "45px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   ".box-7LA, .box-6LA, .box-5LA, .box-4LA, .box-3LA, .box-2LA, .box-1LA" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "55px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   ".image-80 img" = list("scale" = "80%"),
+   ".pull-left-little_l" = list("float" = "left",
+                                "width" = "67%"),
+   ".pull-right-little_l" = list("float" = "right",
+                                "width" = "27%"),
+   ".pull-left-little_r" = list("float" = "left",
+                                "width" = "27%"),
+   ".pull-right-little_r" = list("float" = "right",
+                                "width" = "67%")
+
+
+  )
+)
+
+#,"li" = list("font-size" = "150%")
+#    "li" = list("font-size" = "110%"),
+#    "ul" = list("font-size" = "110%"),
+#color palette
+#5601A4
+#900DA4
+#F89441
+#FCCE25
+
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+
+```
+```{css, echo = FALSE}
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+```
+
+```{r setup2, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(showtext)
+library(xaringanExtra)
+
+#xaringanExtra::use_scribble()
+
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r fonts, message=FALSE, echo=FALSE, warning=FALSE}
+font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
+font.add.google("Fira Sans", "Fira Sans")
+```
+
+<br>
+<br>
+<br>
+<br>
+.center[
+.big[
+.box-5LA[Welcome to STA 235H<br />
+Data Science for Business Applications]
+]]
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Introductions
+]
+---
+# About the instruction team
+
+.pull-left[
+.box-2transl[Prof: Magdalena Bennett, Ph.D.]
+
+  - Assistant Professor in the Stats Group (IROM department)
+  
+  - Ph.D. in Economics of Education, Columbia University
+  
+  - Research: Causal Inference (+ ML) applied to social policies (e.g. education).
+
+]
+--
+.pull-right[
+.box-4transl[T.A.: Shentao Yang (Ph.D. student)]
+
+
+.box-6transl[T.A.: Katie Aufricht (3rd-year Honors)]
+
+
+.box-7transl[T.A.: Isabella Hsu (3rd-year Honors)]
+]
+
+---
+background-position: 50% 50%
+class: center, middle
+
+.box-2LA.medium.sp-after-half[Introduce yourself!]
+
+.box-5l.medium.sp-after-half[Interesting (or uninteresting) fact about yourself]
+
+---
+# Interesting fact about me?
+
+
+... I have a credit on IMDB.
+
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/imdb.png)
+]
+---
+background-position: 50% 50%
+class: center, middle
+
+.box-2LA.medium.sp-after-half[Introduce yourself!]
+
+.box-5l.medium.sp-after-half[Interesting (or uninteresting) fact about yourself]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Let's review the syllabus
+]
+---
+# Please, read the syllabus!
+
+- **.darkorange[Task before our first class]**: $\approx$ 60% of students completed it.
+
+--
+
+- How did you do in the survey?
+
+---
+# About this course
+
+- <p style = "color:#db5f12;font-size:100%;"><b>Objective:</b></p>
+
+<p align="center"> <i>"[G]ain the tools you need to tackle real-world problems from a quantitative perspective."</i> </p>
+
+--
+
+.box-5trans[You don't need to be a data scientist for this class to be useful!]
+
+---
+# About this course
+
+.box-2l.medium.sp-after-half[1) Multiple Regression]
+
+.box-4l.medium.sp-after-half[2) Causal Inference]
+
+.box-7l.medium.sp-after-half[3) Prediction]
+
+---
+# How, when, and where?
+
+- **.darkorange[In-person (Fall 2022)]:** 2 hrs/week at UTC 1.102
+
+- **.darkorange[Drop-in Office Hours]**:
+
+.pull-left[  
+.box-5[Prof. Bennett:<br>
+Tue 3:30 - 5:30 PM<br>
+Thu 3:30 - 5:30 PM]]
+.pull-right[.box-5[T.A.s:<br>
+<i>TBD</i>]
+]
+ 
+<br>  
+  - .small[Other times available upon request]
+    
+  
+---
+# How, when, and where? (Cont.)
+
+<p align = "center" style = "color:#db5f12;font-size:150%;"><b>http://sta235.netlify.app</b></p>
+
+<p align="center">
+![:scale 75%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/sta235_website.png)
+</p>
+---
+# Classroom Norms
+
+.pull-left[
+- Please, **.darkorange[be on time]**.
+
+- **.darkorange[Participate and ask questions!]** (cold-calling can be used to loosen the atmosphere)
+
+- **.darkorange[Bring your laptop]**: We will be doing in-class coding (let me know if you have any issues with this point).
+]
+.pull-right[
+![](https://media.giphy.com/media/iB4PoTVka0Xnul7UaC/giphy.gif)
+]
+
+
+---
+# What will you need?
+
+.pull-left-little_l[
+- A **.darkorange[laptop]** to bring to class.
+
+- **.darkorange[R & R Studio]**
+
+- **.darkorange[Required Books]**:
+
+  - Angrist, J. & J. Pischke. (2015). "Mastering Metrics". Princeton University Press. (*Buy used or new*)
+  
+  - James, G et. al. (2021). "An Introduction to Statistical Learning with Applications in R". Springer. (*Available online*)
+]
+.pull-right-little_l[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/mm.png)
+]
+
+---
+# How to succeed in this course?
+
+- **.darkorange[Attend class]**
+  
+- Slides are uploaded before class (*not self-contained*). Take notes but focus on **.darkorange[understanding]**.
+
+- **.darkorange[Ask questions]** during class!
+
+- Complete all **.darkorange[readings]** and **.darkorange[assignments]** by the assigned date
+  
+- Get an **.darkorange[early]** start on assignments and **.darkorange[follow the submission guidelines]**
+
+
+---
+# Assignments, Exams, and Grading
+
+- CAVEAT ABOUT TIME TO DO THE ASSIGNMENTS.
+
+---
+# Assignments, Exams, and Grading
+
+- **.darkorange[Just in Time Teaching (JITT) assignments (10%):]**
+
+  - Short online questionnaires about readings and/or material.
+  - Submit by 11:59 PM on Sunday (for Tue class) or Tuesday (for Thu class) before that week's class.
+  - Graded for completion (new material) and correctness (for material already seen). You can re-take it as many times as you want!
+
+--
+
+- **.darkorange[7 homework assignments (30%):]**
+
+  - Assignments include both written questions and code.
+  - You can drop one hw assignment (only 6 will count).
+  - Assignments are individual. No collaboration, copying, or plagiarism will be accepted.
+  
+.box-4[Read submission guidelines]
+
+---
+# Assignments, Exams, and Grading (Cont.)
+
+- **.darkorange[Midterm (15%) and Final Exam (20%):]**
+
+  - Take-home exam (timed). Final exam is cumulative.
+  
+- **.darkorange[Final project (20%):]**
+
+  - Group project about data analysis.
+  
+- **.darkorange[Participation (5%):]**
+
+  - Attendance will be taken on 5 random classes. You can be absent in one of them without justification.
+  
+  - If you miss more than one (1) of those classes, you can make up with participation. 
+  
+---
+# Assignments, Exams, and Grading (Cont.)
+
+- There are **.darkorange[no extensions]** for assignments, but you can drop **.darkorange[drop one (1) HW]** and **.darkorange[drop one (1) JITT]**.
+
+  - Assignments are posted with enough time to account for frequent issues (e.g. sickness, interviews, etc.)
+  
+.box-7trans[Please reach out to the instruction team if you have any issues]
+
+--
+
+- Cutoffs for final letter grade:
+
+|Grade|A|A-|B+|B|B-|C+|C|C-|D|F|
+|-----|-|--|--|-|--|--|-|--|-|-|
+|Cutoff|94%|90%|87%|84%|80%|77%|70%|65%|60%|<60%|
+
+.source[There can be curving in individual assignments, but NOT for the final grade.<br>There will not be extra credit]
+
+---
+# Communicating with the instruction team
+
+- **.darkorange[Email address: m.bennett@austin.utexas.edu]**
+
+  - Use the subject **.darkorange[STA 235H - Your subject]**.
+  - Email me directly for questions related to course administration.
+  - Usually respond in 1 business day.
+  - **.darkorange[Please, do not send messages through Canvas.]**
+  - *General questions should be posted on Canvas (Chatter)*
+  
+- **.darkorange[Chatter:]**
+
+  - Forum style discussion board.
+  - Quickest way to get an answer about class material.
+  - You can post with your name or anonymously (see instructions on Canvas)
+
+---
+# Collaborations and Academic Integrity
+
+- **.darkorange[You are encouraged to form study groups!]**
+
+  - Studying or discussing class material with others does **.darkorange[not]** mean you can copy or directly collaborate on assignments.
+  - Students are responsible for their own work. All of it.
+  
+- **.darkorange[Do not share your files with other students]**
+
+  - If we find any evidence of copying or plagiarism, all students involved will be subject to disciplinary measures.
+  
+- **.darkorange[Remember to give credit where credit is due!]**
+
+  - Use citations and references when you use someone else's work.
+
+---
+background-position: 50% 50%
+class: center, middle
+.big[
+.darkorange[What questions do you have?]
+]
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Your expectations
+]
+---
+# What do you expect to learn from this course?
+
+
+```{r results='hide', message=FALSE,echo=FALSE, warning=FALSE}
+library(ggplot2)
+library(firasans)
+library(hrbrthemes)
+library(extrafont)
+library("RColorBrewer")
+library(viridis)
+library("tm")
+library("SnowballC")
+library("wordcloud")
+library("RColorBrewer")
+library("firasans")
+library(hrbrthemes)
+library(extrafont)
+library(ghibli)
+library(tidyverse)
+```
+```{r wordcloud, fig.height=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+text <- readLines("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/1_Intro/data/STA%20235H%20-%20Intro%20Survey_wordcloud.csv")
+
+docs <- Corpus(VectorSource(text))
+
+toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
+docs <- tm_map(docs, toSpace, "/")
+docs <- tm_map(docs, toSpace, "@")
+docs <- tm_map(docs, toSpace, "\\|")
+
+# Convert the text to lower case
+docs <- tm_map(docs, content_transformer(tolower))
+# Remove numbers
+docs <- tm_map(docs, removeNumbers)
+# Remove english common stopwords
+docs <- tm_map(docs, removeWords, stopwords(kind="en"))
+# Remove your own stop word
+# specify your stopwords as a character vector
+docs <- tm_map(docs, removeWords, c("blabla1", "blabla2","yet")) 
+# Remove punctuations
+docs <- tm_map(docs, removePunctuation)
+# Eliminate extra white spaces
+docs <- tm_map(docs, stripWhitespace)
+# Text stemming
+# docs <- tm_map(docs, stemDocument)
+
+dtm <- TermDocumentMatrix(docs,list(wordLengths=c(1,Inf)))
+m <- as.matrix(dtm)
+v <- sort(rowSums(m),decreasing=TRUE)
+d <- data.frame(word = names(v),freq=v, stringsAsFactors = FALSE)
+#head(d, 10)
+
+d$word[d$word=="r"] = "R"
+
+set.seed(1234)
+#wordcloud(words = d$word, freq = d$freq, min.freq = 1,
+#          max.words=200, random.order=FALSE, rot.per=0.35, 
+#          colors=brewer.pal(5, "Dark2"), family = "Fira Sans Condensed SemiBold")
+#wordcloud(words = d$word, freq = d$freq, min.freq = 1,
+#          max.words=200, random.order=FALSE, rot.per=0.35, 
+#          colors=ghibli_palettes$PonyoMedium[c(2,3,4,6)], family = "Fira Sans Condensed SemiBold")
+wordcloud(words = d$word, freq = d$freq, min.freq = 1,
+          max.words=200, random.order=FALSE, rot.per=0.35, 
+          colors=c("#118ab2","#06d6a0","#ffd166","#ef476f"), family = "Fira Sans")
+```
+
+---
+# How comfortable are you with R?
+
+
+```{r hist1, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/1_Intro/data/STA%20235H%20-%20Intro%20Survey.csv",
+              stringsAsFactors = FALSE)
+
+d <- d %>% filter(!is.na(How.comfortable.are.you.with.coding.in.R.))
+
+ggplot(data = d, aes(x = factor(How.comfortable.are.you.with.coding.in.R.,
+                                levels = seq(1,10,1)))) + 
+  geom_bar(color="#900DA4", fill = alpha("#900DA4",0.5), lwd=1.5) +
+  scale_x_discrete(labels = c("1" = "1\nVery\nuncomfortable","2" = "2","3" = "3","4" = "4","5" = "5","6" = "6",
+                              "7" = "7","8" = "8","9" = "9","10" = "10\nSuper\ncomfortable"), drop = FALSE) +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  xlab("") + ylab("Count")+#ggtitle("How comfortable are you with R?")+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+```
+
+---
+# What grade do you expect to get?
+
+- Confidence is great (but also **.darkorange[hard work]**)
+
+```{r pie1, fig.height=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/1_Intro/data/STA%20235H%20-%20Intro%20Survey.csv",
+              stringsAsFactors = FALSE)
+
+d <- d %>% filter(Thinking.forward.to.the.end.of.the.semester..what.grade.do.you.think.you.will.get.in.this.course.!="")
+
+d$grades = factor(d$Thinking.forward.to.the.end.of.the.semester..what.grade.do.you.think.you.will.get.in.this.course.,
+                  levels = c("A","A-","B+","B","B-","C+","C","C-","D","F"))
+
+d2 = as.data.frame(cbind(table(d$grades),rownames(table(d$grades))), stringsAsFactors = FALSE)
+names(d2) = c("value","Grades")
+
+d2$Grades = factor(d2$Grades, levels = c("A","A-","B+","B","B-","C+","C","C-","D","F"))
+
+cols = c("#0D0887","#5601A4","#900DA4","#BF3984","#900DA4","#E16462","#F89441","#f5c542","#FCCE25","#f5dc7f")
+
+ggplot(data = d2, aes(x="",y=as.numeric(value),fill=Grades)) + 
+  geom_bar(lwd=1.5, stat="identity", color="white") +
+  coord_polar("y",start = 0)+
+  scale_fill_manual(values=cols) + 
+  #scale_x_discrete(name="x", breaks=seq(1,10,1), labels = c("1\nVery uncomfortable","2","3","4","5","6","7","8","9","10\nSuper comfortable"), limits = c(1,2,3,4,5,6,7,8,9,10)) +
+  theme_void()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  #ggtitle("How comfortable are you with R?")+
+  #ylim(0,5)+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_blank())+
+  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank(),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),legend.position="right",
+        legend.title = element_text(size=15),
+        legend.text = element_text(size=12),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+```
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+A brief motivation
+]
+---
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+.box-2.medium.sp-after-half[What is Data Science?]
+
+.box-4.medium.sp-after-half[What are we going to see in this course?]
+
+.box-7.medium.sp-after-half[What should I expect to learn by the end of the semester?]
+---
+# What is Data Science?
+
+<p align="center">
+![:scale 50%](https://media.giphy.com/media/A06UFEx8jxEwU/source.gif)</p>
+
+---
+# Data Science tasks
+
+By **.darkorange[Hernán, Hsu, and Healy:]**
+--
+.box-2tL.medium.sp-after-half[Description]
+--
+.box-4tL.medium.sp-after-half[Prediction]
+--
+.box-7tL.medium.sp-after-half[Causal Inference]
+
+---
+# Data Science tasks
+
+<br>
+
+.box-2tL.medium.sp-after-half[Can we classify our customers into different segments?]
+--
+.box-4tL.medium.sp-after-half[What is the probability of a shopper coming back to our website?]
+--
+.box-7tL.medium.sp-after-half[What is the effect of increasing our advertising budget on our total revenue?]
+
+---
+background-position: 50% 50%
+class: center, middle
+.big[
+.darkorange[We'll review all of these in this class!]
+]
+
+---
+# Data Science vs. Statistics?
+
+.center[<iframe width="672" height="378" align="middle" src="https://www.youtube.com/embed/uHGlCi9jOWY?start=0&end=148;controls=0&amp;showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>]
+
+> "But it's a shallow journey if ONLY the machine's learning"
+
+<br>
+.source[Lübke, K. (2020). "Causality in Data Science Education". *Causal Data Science Meeting*]
+
+---
+# After this course...
+
+<br>
+
+.box-3Trans[1) Bridge the gap between the "what" and the "how"]
+
+--
+
+<br>
+.box-7Trans[2) Be critical consumers of "Data Science"]
+
+---
+# Some notes before the break
+
+- We will be using a **.darkorange[seating chart]** for contact-tracing purposes:
+
+  - Choose your preferred seat during the break and then write it down on the sitting chart I'll pass around.
+  
+--
+
+
+- "Services for Students with Disabilities (SSD) is seeking the assistance of students to serve as **.darkorange[volunteer notetakers]**."
+
+  - Volunteers will be eligible to receive volunteer hours in appreciation for their time. 
+  - If you are a good notetaker and interested in helping other students, please contact me after class.
+
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week1/1_Intro/f2022_sta235h_1_intro.html') -->
+
