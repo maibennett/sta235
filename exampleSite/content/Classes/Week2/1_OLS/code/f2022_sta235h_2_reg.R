@@ -44,7 +44,7 @@ summary(lmb)
 
 ### Cars, cars, cars
 
-cars <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/2_OLS_probs/data/SoCalCars.csv", stringsAsFactors = FALSE)
+cars <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/SoCalCars.csv", stringsAsFactors = FALSE)
 
 ## Let's clean some data
 
