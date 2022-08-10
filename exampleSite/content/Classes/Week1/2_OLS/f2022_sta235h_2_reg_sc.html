@@ -337,7 +337,7 @@ summary(lm(Adj_Revenue ~ bechdel_test, data = bechdel))
 
 - `\(\hat{\beta}_0\)` is the average adjusted revenue (in millions of dollars) for movies that do not pass the Bechdel test.
 
-- &lt;u&gt;On average&lt;/u&gt;, movies that pass the Bechdel test have an &lt;u&gt;estimated&lt;/u&gt; adjusted revenue that is `\(|\hat{\beta}_1|\)` millions less than a movie that doesn't pass the Bechdel test.
+- &lt;u&gt;On average&lt;/u&gt;, movies that pass the Bechdel test have an adjusted revenue that is `\(|\hat{\beta}_1|\)` millions less than a movie that doesn't pass the Bechdel test.
 
 &lt;br&gt;
 &lt;br&gt;
@@ -384,6 +384,10 @@ lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechde
 --
 
 - How do we interpret the relevant coefficient now?
+
+--
+
+- &lt;u&gt;On average&lt;/u&gt;, movies that pass the Bechdel test have 11 millions more in adjusted revenue compared to a movie that doesn't pass the Bechdel test, &lt;u&gt;holding other variables constant&lt;/u&gt;.
 
 ---
 # Main takeaway points

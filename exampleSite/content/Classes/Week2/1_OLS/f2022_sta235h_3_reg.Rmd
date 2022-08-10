@@ -1,5 +1,5 @@
 ---
-title: "STA 235H - Multiple Regression: Overview and Statistical Adjustment"
+title: "STA 235H - Multiple Regression: Interactions & Other Issues"
 subtitle: "Fall 2022"
 author: "McCombs School of Business, UT Austin"
 output:
@@ -332,359 +332,51 @@ font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
 font.add.google("Fira Sans", "Fira Sans")
 ```
 
+
+# Before we start...
+
+**.darkorange[Feedback/Questions on the JITT:]**
+
+--
+
+[INSERT FEEDBACK]
+
+--
+
+.box-6Trans[No need to remember **everything** from STA 301]
+
+--
+
+.box-7trans[Intuition about regression + R basics]
+
+--
+
+.box-4trans[Check the course website for resources!]
+
+---
 # Today
 
 .pull-left[
-- Quick **.darkorange[multiple regression]** review
-  - How does OLS work?
-
-- **.darkorange[What can we say]** using regressions?
+- Quick **.darkorange[multiple regression]** review:
   - Interpreting coefficients
-
-]
-
-.pull-right[
-![](https://media.giphy.com/media/3o752flP8nVxQjXhO8/source.gif)
-]
----
-background-position: 50% 50%
-class: left, bottom, inverse
-
-.big[
-Nothing "Ordinary" about OLS
-]
----
-background-position: 50% 50%
-class: center, middle
-
-.box-3Trans[What do **you** understand about regressions?]
-
----
-# Remembering Regressions
-
-- Linear Regression is a **.darkorange[very useful tool]**.
-
-  - Simple supervised learning approach.
-  - Many fancy methods are generalizations or extensions of linear regression!
+  - Interaction models
   
-- It's a way to (partially) describe a **.darkorange[data generating process (DGP)]**.
-
-.box-3Trans.medium[$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \varepsilon$$]
-
----
-# Essential Parts of a Regression
-
-.pull-left[
-.box-2tL[Y]
-
-.box-2[Outcome Variable]
-
-.box-2[Response Variable]
-
-.box-2[Dependent Variable]
-
-.box-2t[*Thing you want to explain or predict*]
+- **.darkorange[Potential issues in regressions:]**
+  - Multicollinearity
   
-]
-
-
----
-# Essential Parts of a Regression
-
-.pull-left[
-.box-2tL[Y]
-
-.box-2[Outcome Variable]
-
-.box-2[Response Variable]
-
-.box-2[Dependent Variable]
-
-.box-2t[*Thing you want to explain or predict*]
+- **.darkorange[Looking at your data:]**
+  - Distributions
+  - Outliers?
   
 ]
 
 .pull-right[
-.box-2tL[X]
-
-.box-2[Explanatory Variable]
-
-.box-2[Predictor Variable]
-
-.box-2[Independent Variable]
-
-.box-2t[*Thing you use to explain or predict Y*]
+.center[
+![](https://media.giphy.com/media/htpqWaJTwL8nkW7sV5/giphy.gif?cid=ecf05e473yn7ils7vegujkfd3syebu5k2ongn1mbbve9y59b&rid=giphy.gif&ct=g)]
 ]
 
 ---
-# Identify the variables
-
-.pull-left[
-.box-2transl.jost-normal[A study examines the effect of smoking on lung cancer]
-<br>
-]
-
----
-# Identify the variables
-
-.pull-left[
-.box-2transl.jost-normal[A study examines the effect of smoking on lung cancer]
-<br>
-.box-4transl.jost-normal[Fantasy football fanatics predict the performance of a player based on past performance, health status, and characteristics of the opposite team]
-]
-
----
-# Identify the variables
-
-.pull-left[
-.box-2transl.jost-normal[A study examines the effect of smoking on lung cancer]
-<br>
-.box-4transl.jost-normal[Fantasy football fanatics predict the performance of a player based on past performance, health status, and characteristics of the opposite team]
-]
-.pull-right[
-.box-5transl.jost-normal[You want to see if taking more AP classes in high school improves college grades]
-<br>
-]
-
----
-# Identify the variables
-
-.pull-left[
-.box-2transl.jost-normal[A study examines the effect of smoking on lung cancer]
-<br>
-.box-4transl.jost-normal[Fantasy football fanatics predict the performance of a player based on past performance, health status, and characteristics of the opposite team]
-]
-.pull-right[
-.box-5transl.jost-normal[You want to see if taking more AP classes in high school improves college grades]
-<br>
-.box-7transl.jost-normal[Netflix uses your past viewing history, the day of the week, and the time of the day to guess which show you want to watch next]
-]
-
----
-# Two Purposes of Regression
-
-.pull-left[
-.box-3tL[Prediction]
-
-.box-3[Forecast the future]
-
-.box-3[Focus is on <b>Y</b>]
-
-.box-3tL[Netflix trying to guess your next show]
-]
---
-.pull-right[
-.box-6tL[Explanation]
-
-.box-6[Explain the effect of <b>X</b> on <b>Y</b>]
-
-.box-6[Focus is on <b>X</b>]
-
-.box-6tL[Netflix looking at the effect of time of the day on show selection]
-]
----
-# What do we want to estimate in a regression?
-
-- When we run a regression we have an outcome $Y$ and explanatory variables or covariates $X$.
-
-- **We want to estimate the $\beta$'s**
-
---
-
-- One important distinction:
-
-  - $\beta$'s are the **.darkorange[population parameters]** we want to estimate.
-  - $\hat\beta$ are the **.darkorange[estimates]** of those parameters.
-
----
-# How do we estimate the coefficients in a regression ?
-.pull-left[
-- **.darkorange[Ordinary Least Squares]** is the most popular way.
-
-$$\min_{\beta} \sum[Y_i - (\sum_{j=1}^p\beta_jX_{ij})]^2$$
-]
---
-.pull-right[
-```{r make-cookies, include=FALSE}
-library(generics)
-library(ggplot2)
-library(firasans)
-library(hrbrthemes)
-library(extrafont)
-library("RColorBrewer")
-library(viridis)
-library("tm")
-library("SnowballC")
-library("wordcloud")
-library("RColorBrewer")
-library("firasans")
-library(hrbrthemes)
-library(extrafont)
-library(tidyverse)
-
-cookies <- tibble(happiness = c(0.5, 2, 1, 2.5, 3, 1.5, 2, 2.5, 2, 3),
-                  stomach_ache = c(0,0,0.2,0.05,0.05,0.7,0.6,0.5,0.8,0.5),
-                  cookies = 1:10)
-cookies_data <- cookies
-cookies_model <- lm(happiness ~ cookies, data = cookies)
-cookies_fitted <- augment(cookies_model)
-cookies_base <- ggplot(cookies_fitted, aes(x = cookies, y = happiness)) +
-  geom_point(size = 4, color="#333f48", pch=21, fill=alpha("#333f48",0.4)) +
-  scale_x_continuous(breaks = 0:10) +
-  theme_bw()+
-  theme_ipsum_fsc(plot_title_face = "bold") + #plain 
-  xlab("cookies") + ylab("happiness")+ggtitle("Simple regression")+
-  #xlim(-1,2) + ylim(0,5)+
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=10),
-        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=10),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-```
-
-```{r cookies1, fig.height=5, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message=FALSE}
-cookies_with_residual <- cookies_base +
-  geom_smooth(method = "lm", color = "#E16462", se = FALSE) +
-  geom_segment(aes(xend = cookies, yend = .fitted), color = "#F89441", size = 1)
-cookies_with_residual
-```
-]
-
----
-# How do we estimate the coefficients in a regression ? (cont.)
-
-```{r make-cookies2, include=FALSE}
-library(plotly)
-
-fit <- lm(happiness ~  cookies + stomach_ache,    
-          data = cookies_data)
-
-x_grid <- seq(from = min(cookies_data$cookies), to = max(cookies_data$cookies), length = 50)
-y_grid <- seq(from = min(cookies_data$stomach_ache), to = max(cookies_data$stomach_ache), length = 50)
-
-beta_hat <- cookies_data %>% 
-  lm(happiness ~ cookies + stomach_ache, data=.) %>% 
-  coef()
-fitted_values <- crossing(y_grid, x_grid) %>% 
-  mutate(z_grid = beta_hat[1] + beta_hat[2]*x_grid + beta_hat[3]*y_grid)
-z_grid <- fitted_values %>% 
-  pull(z_grid) %>%
-  matrix(nrow = length(x_grid)) %>%
-  t()
-
-
-group2NA <- function(data, groupNames = "group", nested = NULL, ordered = NULL,
-                     retrace.first = inherits(data, "GeomPolygon")) {
-  
-  if (NROW(data) == 0) return(data)
-  
-  # for restoring class information on exit
-  datClass <- oldClass(data)
-  
-  # data.table doesn't play nice with list-columns
-  if (inherits(data, "sf")) data <- fortify_sf(data)
-  
-  # evaluate this lazy argument now (in case we change class of data)
-  retrace <- force(retrace.first)
-  
-  # sanitize variable names (TODO: throw warnings if non-existing vars are referenced?)
-  groupNames <- groupNames[groupNames %in% names(data)]
-  nested <- nested[nested %in% names(data)]
-  ordered <- ordered[ordered %in% names(data)]
-  
-  dt <- data.table::as.data.table(data)
-  
-  # if group doesn't exist, just order the rows and exit
-  if (!length(groupNames)) {
-    keyVars <- c(nested, ordered)
-    if (length(keyVars)) data.table::setorderv(dt, cols = keyVars)
-    return(structure(dt, class = datClass))
-  }
-  
-  # order the rows
-  data.table::setorderv(dt, cols = c(nested, groupNames, ordered))
-  
-  # when connectgaps=FALSE, inserting NAs ensures each "group" 
-  # will be visually distinct https://plotly.com/r/reference/#scatter-connectgaps
-  # also, retracing is useful for creating polygon(s) via scatter trace(s)
-  keyVars <- c(nested, groupNames)
-  keyNum <- length(keyVars) + 1
-  idx <- if (retrace) {
-    dt[, c(.I, .I[1], NA), by = keyVars][[keyNum]]
-  } else {
-    dt[, c(.I, NA), by = keyVars][[keyNum]]
-  }
-  dt <- dt[idx]
-  
-  # remove NAs that unnecessarily seperate nested groups
-  # (at least internally, nested really tracks trace index, meaning we don't need 
-  # to seperate them)
-  NAidx <- which(is.na(idx))
-  for (i in seq_along(keyVars)) {
-    dt[[keyVars[[i]]]][NAidx] <- dt[[keyVars[[i]]]][NAidx - 1]
-  }
-  if (length(nested)) {
-    dt <- dt[ dt[, .I[-.N], by = nested][[length(nested) + 1]] ]
-  } else {
-    dt <- dt[-.N]
-  }
-
-  structure(dt, class = datClass)
-}
-
-utils::globalVariables(c(".I", ".N"))
-
-
-cookies_data$id <- seq_len(nrow(cookies_data))
-cookies_data_rep <- replicate(2, cookies_data, simplify = F)
-cookies_data_rep[[2]]$happiness <- fit$coef[1] + 
-    fit$coef[2]*cookies_data_rep[[2]]$cookies + fit$coef[3]*cookies_data_rep[[2]]$stomach_ache
-m <- group2NA(dplyr::bind_rows(cookies_data_rep), "id")
-
-```
-
-```{r cookies2, echo=FALSE, warning=FALSE, message=FALSE, include = FALSE}
-plot_ly(data = cookies_data, z = ~happiness, x = ~cookies, y = ~stomach_ache, opacity = 1,
-        showlegend = FALSE) %>%
-  add_markers() %>%
-  add_surface(x = x_grid, y = y_grid, z = z_grid, showscale = FALSE, opacity = 0.5) %>%
-  add_paths(data = m, x = ~cookies, y = ~stomach_ache, z = ~happiness, color=I("#333f48")) %>%
-  layout(
-    scene = list(
-      xaxis = list(title = "Cookies"),
-      yaxis = list(title = "Stomach Ache"),
-      zaxis = list(title = "Happiness")
-    ))
-```
-
-.pull-left[
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/3dplot1.png)
-]
-.pull-right[
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/3dplot2.png)
-]
----
-background-position: 50% 50%
-class: left, bottom, inverse
-
-.big[
-Let's get into some data
-]
-
----
-# Let's introduce an example: The Bechdel Test
-
---
+# Remember last week's example? The Bechdel Test
 
 .pull-left[
 - **.darkorange[Three criteria:]**
@@ -693,31 +385,81 @@ Let's get into some data
   2. Who talk to each other
   3. About something besides a man
 ]
-
 .pull-right[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/bechdel.png)
-]
-
----
-# Do movies pass the test?
-
 .center[
-![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/hickey-bechdel-11.png)]
-
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/bechdel.png)]
+]
 
 ---
 # Is it convenient for my movie to pass the Bechdel test?
 
 - I'm a profit-maximizing investor and want to know whether it's in my best interest to switch a male for a female character.
 
-  - What is the **.darkorange[simplest model]** you could fit?
 --
 
+$$AdjRevenue = \beta_0 + \beta_1 Bechdel + \beta_3AdjBudget + \beta_4IMDB + \beta_5 MetaScore + \varepsilon$$
 
-.box-6trans.medium[$$Revenue = \alpha + \beta Bechdel + \varepsilon$$]
+--
+
+.box-6.Trans[How did we interpret the relevant coefficient?]
+
+--
+
+.box-6[Remember the key words!]
 
 ---
-# Let's analyze some models
+# One extra dollar in our budget
+
+- Imagine now that you have an hypothesis that Bechdel movies also make more bang for their buck, e.g. they get more revenue for an additional dollar in their budget.
+
+.box-7Trans[How would you test that in an equation?]
+
+--
+
+.box-4[Interactions!]
+
+---
+#One extra dollar in our budget
+
+Interaction model:
+
+$$Revenue = \beta_0 + \beta_1 Bechdel + \beta_3Budget + \color{#db5f12}{\beta_6(Budget \times Bechdel)} + \beta_4IMDB + \beta_5 MetaScore + \varepsilon$$
+--
+
+How should we think about this?
+
+- Write the equation for a movie that **.darkorange[does not pass the Bechdel test]**. How does it look like?
+  
+--
+
+$$Revenue = \beta_0 + \beta_3Budget + \beta_4IMDB + \beta_5 MetaScore + \varepsilon$$
+--
+
+- Now do the same for a movie that **.darkorange[passes the Bechdel test]**. How does it look like?
+
+$$Revenue = (\beta_0 + \beta_1) + (\beta_3 + \beta_6)Budget + \beta_4IMDB + \beta_5 MetaScore + \varepsilon$$
+
+---
+# One extra dollar in our budget
+
+Now, let's interpret some coefficients:
+
+- If $Bechdel = 0$, then:
+  
+  $$Revenue = \beta_0 + \beta_3Budget + \beta_4IMDB + \beta_5 MetaScore + \varepsilon$$
+--
+
+- If $Bechdel = 1$, then:
+
+$$Revenue = (\beta_0 + \beta_1) + (\beta_3 + \beta_6)Budget + \beta_4IMDB + \beta_5 MetaScore + \varepsilon$$
+
+--
+
+- What is the **.darkorange[difference]** in the association between budget and revenue for movies that pass the Bechdel test vs. those that don't?
+
+
+---
+# Let's put some data into it
 
 ```{r results='hide', message=FALSE,echo=FALSE, warning=FALSE}
 library(tidyverse)
@@ -733,113 +475,502 @@ bechdel <- bechdel %>% mutate(bechdel_test = ifelse(rating==3, 1, 0),
                               Adj_Budget = Adj_Budget/10^6)
 ```
 ```{r bechdel1, results = FALSE}
-summary(lm(Adj_Revenue ~ bechdel_test, data = bechdel))
+lm(Adj_Revenue ~ bechdel_test*Adj_Budget + Metascore + imdbRating, data=bechdel)
 ```
 ```{r bechdel1r,echo=FALSE}
-round(summary(lm(Adj_Revenue ~ bechdel_test, data = bechdel))$coeff, 4)
+round(summary(lm(Adj_Revenue ~ bechdel_test*Adj_Budget + Metascore + imdbRating, data=bechdel))$coeff, 4)
 
 ```
 
-- How do you interpret these results?
+--
+
+- What is the association between budget and revenue for movies that **.darkorange[pass the Bechdel test]**?
+
+- What is the difference in the association between budget and revenue for **.darkorange[movies that pass vs movies that don't pass the Bechdel test]**?
 
 ---
-# Let's analyze some models
+background-position: 50% 50%
+class: center, middle
 
-```{r bechdel12, results = FALSE}
-summary(lm(Adj_Revenue ~ bechdel_test, data = bechdel))
+.box-5Trans[Let's look at another example]
 
+---
+# Cars, cars, cars
+
+- Used cars in South California (from this week's JITT)
+
+.small[
+```{r}
+cars <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/2_OLS_probs/data/SoCalCars.csv", stringsAsFactors = FALSE)
+
+names(cars)
 ```
-```{r bechdel1r2,echo=FALSE}
-round(summary(lm(Adj_Revenue ~ bechdel_test, data = bechdel))$coeff, 4)
+]
 
+.source[Data source: "Modern Business Analytics" (Taddy, Hendrix, & Harding, 2018)]
+
+---
+# How do mileage and year affect price?
+
+--
+```{r mileage_year, fig.height=5, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+library(ggplot2)
+library(firasans)
+library(hrbrthemes)
+library(hrbrthemes)
+library(extrafont)
+library(tidyverse)
+library(vtable)
+library(patchwork)
+
+luxury_brands <- c("Audi", "BMW", "Cadillac", "Ferrari", "Jaguar", "Lamborghini", "Land Rover", "Lexus",
+                   "Maserati", "Mercedes-Benz", "Porsche", "Rolls-Royce", "Tesla", "Volvo")
+
+cars <- cars %>% filter(type != "new" & mileage >= 10000 & mileage <= 150000 & price < 100000 & year >= 1970) %>%
+  mutate(luxury = ifelse(make %in% luxury_brands, 1, 0),
+         price = price/1000,
+         mileage = mileage/1000,
+         year = year - 1970)
+
+g1 <- ggplot(data = cars, aes(x = mileage, y = price)) +
+  geom_point(color = "#F89441", fill = "white", pch=21, size = 2) + 
+  theme_bw()+
+  xlab("Mileage") + ylab("Price") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+g2 <- ggplot(data = cars, aes(x = year, y = price)) +
+  geom_point(color = "#E16462", fill = "white", pch=21, size = 2) + 
+  theme_bw()+
+  xlab("Year") + ylab("Price") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+g1 + g2
 ```
 
-- $\hat{\beta}_0$ is the average adjusted revenue (in millions of dollars) for movies that do not pass the Bechdel test.
+---
+# Let's run a model
 
-- <u>On average</u>, movies that pass the Bechdel test have an adjusted revenue that is $|\hat{\beta}_1|$ millions less than a movie that doesn't pass the Bechdel test.
+--
+.small[
+```{r}
+lm1 <- lm(price ~ year + mileage + rating, data = cars)
+summary(lm1)
+```
+]
 
-<br>
-<br>
-.box-3LA[Negative effect of including more women?]
+--
+
+- What does the **.darkorange[intercept]** tell us in this case? Is it meaningful?
+- Why do you think these **.darkorange[partial correlations]** are both negative for `year` and `mileage`?
 
 ---
-# What gives?
-.center[
-![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/538_bechdel.png)]
+# Multicollinearity in Regressors
 
----
-# More variables
+- If two covariates are **.darkorange[highly correlated]**, it is difficult to separate the contribution of each!
 
-.pull-left[
-.center[
-![:scale 80%](https://media.giphy.com/media/1ZlrrYTN7gAxdGE8nM/source.gif)
-]]
-.pull-right[
-- **.darkorange[Bechdel test]** could be capturing the effect of other variables:
+  - E.g. They move together
 
-  - What **.darkorange[type]** of movies are the ones that pass the test?
+--
+
+- It can be **.darkorange[structural]** (e.g. include $X$ and $X^2$) or from the **.darkorange[data]**
+
+--
+
+- **.darkorange[Be careful]** with interpretations
+
+  - The same with extrapolation zones!
   
-  - What is their **.darkorange[budget]**?
-]  
 ---
-# More variables
+# Luxury vs. non-luxury cars?
 
-```{r bechdel2, results = FALSE}
-lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechdel)
-
-```
-```{r bechdel2r, echo=FALSE}
-round(summary(lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechdel))$coeff, 4)
-
-```
 <br>
-.box-3LA[Positive and significant!]
+<br>
+<br>
+.box-7trans[Do you think there's a difference between how price changes over time for luxury vs non-luxury cars?]
 
 --
 
-- How do we interpret the relevant coefficient now?
+.box-4trans[How would you test this?]
+
+---
+background-position: 50% 50%
+class: center, middle
+.big[
+.box-5LA[Let's go to R]
+
+]
+
+---
+# Models with interactions
+
+- You include the interaction between two (or more) covariates:
+
+$$\widehat{Price} = \beta_0 + \hat{\beta}_1 Rating + \hat{\beta}_2 Miles + \hat{\beta}_3 Luxury + \hat{\beta}_4 Year + \hat{\beta}_5 Luxury \times Year$$
+--
+
+  - $\hat{\beta}_3$ and $\hat{\beta}_4$ are considered the **.darkorange[main effects]** (no interaction)
 
 --
 
-- <u>On average</u>, movies that pass the Bechdel test have 11 millions more in adjusted revenue compared to a movie that doesn't pass the Bechdel test, <u>holding other variables constant</u>.
+- The coefficient you are interested in is $\hat{\beta}_5$:
+
+  - Difference in the **.darkorange[price change]** for one additional year between **.darkorange[luxury vs non-luxury cars]**, holding other variables constant.
+  
+---
+# Now it's your turn
+
+- Looking at this equation:
+
+$$\widehat{Price} = \beta_0 + \hat{\beta}_1 Rating + \hat{\beta}_2 Miles + \hat{\beta}_3 Luxury + \hat{\beta}_4 Year + \hat{\beta}_5 Luxury \times Year$$
+1) What is the association between price and year for non-luxury cars?
+
+--
+
+2) What is the association between price and year for luxury cars?
+
+---
+# Looking at our data
+
+- We have dived into running models head on. **.darkorange[Is that a good idea?]**
+
+--
+.center[
+![:scale 30%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/images/stop.png)]
+
+---
+class: center, middle
+
+.box-5Trans[What should we do before we ran any model?]
+
+---
+class: center, middle
+
+.box-3Trans[Inspect your data!]
+
+---
+# Some ideas:
+
+- Use `vtable`:
+
+```{r results='hide', message=FALSE,echo=TRUE, warning=FALSE}
+library(vtable)
+
+vtable(cars)
+```
+
+--
+
+- Use `summary` to see the min, max, mean, and quartile:
+
+```{r results='hide', message=FALSE,echo=TRUE, warning=FALSE}
+cars %>% select(price, mileage, year) %>% summary(.)
+```
+.small[
+
+```{r, message=FALSE,echo=FALSE, warning=FALSE}
+cars %>% select(price, mileage, year) %>% summary(.)
+```
+]
+
+--
+
+- Plot your data!
+
+---
+# Look at the data
+
+<br>
+
+```{r cars_inspect, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+ggplot(data = cars, aes(x = price)) +
+  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5, bins = 40) + 
+  theme_bw()+
+  xlab("Price (M $)") + ylab("Count") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# Look at the data
+
+What can you say about this variable?
+
+```{r cars_inspect2, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+ggplot(data = cars, aes(x = price)) +
+  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5, bins = 40) + 
+  theme_bw()+
+  xlab("Price (M $)") + ylab("Count") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# Logarithms to the rescue?
+
+<br>
+--
+
+```{r cars_inspect_log, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+ggplot(data = cars, aes(x = log(price))) +
+  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5, bins = 40) + 
+  theme_bw()+
+  xlab("log(Price)") + ylab("Count") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# How would we interpret coefficients now?
+
+- Let's interpret the coefficient for $Miles$ in the following equation:
+
+$$\log(Price) = \beta_0 + \beta_1 Rating + \beta_2 Miles + \beta_3 Luxury + \beta_4 Year + \varepsilon$$
+--
+
+- Remember: $\beta_2$ represents the average change in the outcome variable, $\log(Price)$, for a one-unit increase in the independent variable $Miles$.
+
+  - *Think about the units of the dependent and independent variables!*
+
+---
+# A side note on log-transformed variables...
+
+.medium30[$$\log(y) = \hat{\beta}_0 + \hat{\beta}_1 x$$]
+
+---
+# A side note on log-transformed variables...
+
+.medium30[$$\log(y) = \hat{\beta}_0 + \hat{\beta}_1 x$$]
+
+.medium30[$$\log(y_{1}) - \log(y_0) = \hat{\beta}_0 + \hat{\beta}_1(x+1) - (\hat{\beta}_0 + \hat{\beta}_1 x)$$]
+
+.medium30[$$\log(\frac{y_{1}}{y_0}) = \hat{\beta}_1$$]
+
+.medium30[$$\log(1+\frac{y_1-y_0}{y_0}) = \hat{\beta}_1$$]
+
+---
+# A side note on log-transformed variables...
+
+.medium30[$$\log(y) = \hat{\beta}_0 + \hat{\beta}_1 x$$]
+
+.medium30[$$\log(y_{1}) - \log(y_0) = \hat{\beta}_0 + \hat{\beta}_1(x+1) - (\hat{\beta}_0 + \hat{\beta}_1 x)$$]
+
+.medium30[$$\log(\frac{y_{1}}{y_0}) = \hat{\beta}_1$$]
+
+.medium30[$$\log(1+\frac{y_1-y_0}{y_0}) = \hat{\beta}_1$$]
+
+.box-7Trans.medium30[$$\rightarrow \frac{\Delta y}{y} = \exp(\hat{\hat{\beta}}_1)-1$$]
+
+---
+# How would we interpret coefficients now?
+
+- Let's interpret the coefficient for $Miles$ in the following equation:
+
+$$\log(Price) = \beta_0 + \beta_1 Rating + \beta_2 Miles + \beta_3 Luxury + \beta_4 Year + \varepsilon$$
+--
+
+- For an additional 1,000 miles (*Note: Remember Miles is measured in thousands of miles*), the logarithm of the price increases/decreases, on average, by $\hat{\beta}_2$, holding other variables constant.
+
+--
+
+- For an additional 1,000 miles, the price inscreases/decreases, on average, by $(e^{\hat{\beta}}-2)\cdot 100$%, holding other variables constant.
+
+---
+# Let's talk about outliers
+
+- Another objective of looking at our data is to see whether we have observations that look "strange".
+
+```{r cars_outliers, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+ggplot(data = cars, aes(y = price, x = year)) +
+  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
+  theme_bw()+
+  xlab("Year") + ylab("Price") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+--
+
+- Which ones do you think could be outliers?
+
+---
+background-position: 50% 50%
+class: center, middle
+.big[
+.box-7LA[Let's go to R]
+
+]
+
+---
+# What to do with outliers?
+
+1. **.darkorange[Check them!]**
+
+  - Make sure there's no coding error; try to understand what's happening there.
+
+--
+
+2a. **.darkorange[If they are wrongly coded]**:
+
+  - You can remove them, always adding a note of why you did so. Issues with the analysis will come from sample selection.
+  
+2b. **.darkorange[If they are correctly coded]**:
+
+  - Run analysis both with and without outliers (don't just drop them!). E.g. Results do not depend exclusively on a few observations.
+  
 
 ---
 # Main takeaway points
 
-- Regressions are super useful... 
-
-  - But you need to know **.darkorange[how]** to interpret them.
-
---
-
-- Be sure not to overstate your claims!
-
-
----
-# Next class
-
 .pull-left[
-- Continue with **.darkorange[multiple regression models]**:
+- The model you fit **.darkorange[depends on what you want to analyze]**.
 
-  - Interactions and how to interpret them
+- Data can tell different stories depending on how you handle it.
 
-- Assumptions for **.darkorange[OLS]**
-
+  - Does that mean that we can get data to say **.darkorange[anything]**?
+  
 ]
 
 .pull-right[
+<br>
+.center[
+![](https://media.giphy.com/media/l0MYBJzJ7elsmG1K8/giphy.gif)]
 
-![](https://media.giphy.com/media/1Q9AekyhJ2U5bdTzdr/giphy.gif?cid=ecf05e47lcna24lgv5gbpkiciso4ykvxq9urjrc5d50bfq8b&rid=giphy.gif&ct=g)
+]
+
+---
+# Main takeaway points
+
+.pull-left[
+- The model you fit **.darkorange[depends on what you want to analyze]**.
+
+- Data can tell different stories depending on how you handle it.
+
+  - Does that mean that we can get data to say **.darkorange[anything]**?
+  
+  .box-5["If you torture the data long enough, it will confess to anything"]
+  
+- Plot your data!
+  
+]
+
+.pull-right[
+<br>
+.center[
+![](https://media.giphy.com/media/l0MYBJzJ7elsmG1K8/giphy.gif)]
+
+]
+
+---
+# Next week
+
+.pull-left[
+- What is hetersokedasticty?
+
+- Regression models with discrete outcomes:
+
+  - Probability linear models
+  
+  - Logistic regression
+]
+
+.pull-right[
+<br>
+.center[
+![](https://media.giphy.com/media/jCL5JbYPYQz96/giphy.gif)]
 ]
 
 ---
 # References
 
-- Heiss, A. (2020). "Course: Program Evaluation for Public Service". *Slides for Regression and Inference*.
-
-- Ismay, C. & A. Kim. (2021). “Statistical Inference via Data Science”. Chapter 10.
+- Ismay, C. & A. Kim. (2021). “Statistical Inference via Data Science”. Chapter 6 & 10.
 
 - Keegan, B. (2018). "The Need for Openess in Data Journalism". *[Github Repository](https://github.com/brianckeegan/Bechdel/blob/master/Bechdel_test.ipynb)*
 
 
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week1/2_OLS/f2021_sta235h_2_reg.html') -->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week2/1_OLS/f2021_sta235h_3_reg.html') -->
