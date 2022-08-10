@@ -12,16 +12,16 @@ disableToc: true
 
 	I will usually respond within one business day, but sometimes it might take me two. If you haven’t heard back from me, please send me another email (and include the course number in the subject line!).
 
-	If you send general questions about course content or assignments to a TA or me, we will likely respond to suggest that you post the question on Canvas.
+	If you send general questions about course content or assignments to a TA or me, we will likely respond to suggest that you post the question on Chatter.
 
 {{% notice info %}}
 Please check out the FAQs on how to e-mail professors <b><a href="https://sta235.netlify.app/resources/" style="color: #f0b37e">here</a></b>
 {{% /notice %}}
 
 
-2. **Canvas Discussion board**, accessible on the left menu link on our Canvas home page. 
+2. **Chatter**, accessible on the left menu link on our Canvas home page. 
 
-	If you have a question about content covered in a class session or assigned reading, about instructions for a homework assignment, about the intuition behind a knowledge check question, about R, or something similar: post your question on Canvas. If you have a question, it is likely that other students are wondering the same thing. Canvas is monitored regularly by the TAs and instructors and will often be the fastest way to get help. Students are also able to post responses to peers’ questions and we encourage you to do so.
+	If you have a question about content covered in a class session or assigned reading, about instructions for a homework assignment, about the intuition behind a knowledge check question, about R, or something similar: post your question on the Chatter app available through Canvas. If you have a question, it is likely that other students are wondering the same thing. Chatter is monitored regularly by the TAs and instructors and will often be the fastest way to get help. Students are also able to post responses to peers’ questions and we encourage you to do so.
 
 
 I also decided to put an Easter egg in this syllabus, to see whether students actually read it or not! So, if you have read this far, please post a link to your favorite dog GIF [here](https://forms.gle/Rtk3cDWXyns9UyXQ7).

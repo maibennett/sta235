@@ -8,7 +8,7 @@ disableToc: true
 |------------|----------|----------|--------------|
 | Dr. Magdalena Bennett   | <a href="mailto:m.bennett@austin.utexas.edu">m.bennett@austin.utexas.edu</a>   | CBA 6.476   | Tue: 3:30-5:30 PM <br /> Thu: 3:30-5:30 PM|
 
-**Office hours will be held in-person on a first-come-first-served basis**. However, given that we are still in a pandemic, I encourage you to reach out to schedule a virtual appointment if you are not feeling well. 
+**Office hours will be held in-person on a first-come-first-serve basis**. However, given that we are still in a pandemic, I encourage you to reach out to schedule a virtual appointment if you are not feeling well. 
 
 Teaching assistants may be emailed at their official UT email and will hold office hours based on the schedule below.
 

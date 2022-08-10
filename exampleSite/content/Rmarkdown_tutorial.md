@@ -183,7 +183,7 @@ Heading 3
 <tr class="even">
 <td><pre>Horizontal line
 
----</pre></td>
+--- </pre></td>
 <td><pre>Horizontal line
 
 ***</pre></td>

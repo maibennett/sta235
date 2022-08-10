@@ -16,7 +16,9 @@ All lecture slides, supplemental readings, course videos, and additional materia
 
 ### ATTENDANCE EXPECTATIONS
 
-I expect all students will attend each class, *if they are feeling well*. Attendance is the easiest way to learn the different topics that will be covered in class and ask questions. Even though I will not take attendance every class, there will be some classes that attendance will be registered, and it will count towards your participation grade. 
+I expect all students will attend each class, *if they are feeling well*. Attendance is the easiest way to learn the different topics that will be covered in class and ask questions. Even though I will not take attendance every class, there will be some classes that attendance will be registered, and it will count towards your participation grade.
+
+If you need to justify an absence due to sickness, please do it through the appropriate channels by contacting Student Emergency Services (SES). 
 
 ### BEHAVIOR EXPECTATIONS
 
@@ -44,6 +46,10 @@ I will use the cutoffs below to translate your overall course average into a fin
 |Grade|A|A-|B+|B|B-|C+|C|C-|D|F|
 |-----|-|--|--|-|--|--|-|--|-|-|
 |Cutoff|94%|90%|87%|84%|80%|77%|70%|65%|60%|<60%|
+
+{{% notice warning %}}
+All assignments and exams are “take-home” in this class, and even though there are no extensions set in place for these, you will be given ample time to complete your assignments even if some unforeseeable, but common, situation comes up. However, if you have an extraordinary situation, please reach out to the instruction team. 
+{{% /notice %}}
 
 I now explain each of these grading components in more detail. 
 
