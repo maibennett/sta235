@@ -46,11 +46,8 @@ One relevant item in this submission is also **originality**. Make sure you are 
 
 {{% notice grading %}}
 **Pertinence:** The question at hand tackles one of the areas covered in this class and it is presented in a clear way.
-
 **Relevance:** Proper motivatation of why this question is relevant/interesting.
-
 **Originallity:** The question is not a copy of another project already available and tackles an issue not addressed by another team in the class.
-
 **Peer assessment:** Students will be evaluated by their peers in terms of their contributions and responsiblity.
 {{% /notice %}}
 
@@ -60,11 +57,8 @@ At this stage, you should have a solid research question, as well as the data to
 
 {{% notice grading %}}
 **Research question:** The question at hand tackles one of the areas covered in this class, it is presented in a clear way, and it is motivated appropriately.
-
 **Data description:** Appropriate plots and tables showing the relevant data.
-
 **Analysis plan:** Clear roadmap on how the question will be tackled in terms of analysis.
-
 **Peer assessment:** Students will be evaluated by their peers in terms of their contributions and responsiblity.
 {{% /notice %}}
 
@@ -75,14 +69,11 @@ The final report should include everything that is included in the preliminary r
 {{% notice grading %}}
 
 **Research question:** The question at hand tackles one of the areas covered in this class, it is presented in a clear way, and it is motivated appropriately.
-
 **Data description:** Appropriate plots and tables showing the relevant data.
-
 **Analysis:** Pertinent analysis of the data to answer the research question. Includes some robustness checks (if appropriate) and limitations.
-
 **Conclusions:** Main takeaway points of the project.
-
 **Peer assessment:** Students will be evaluated by their peers in terms of their contributions and responsiblity.
+
 {{% /notice %}}
 
 ### Final presentations
@@ -93,11 +84,8 @@ Presentations will short presentations (5 minutes) followed by a couple of quest
 
 {{% notice grading %}}
 **Presentation:** The slides show the main points fo the project and convey the message in an appropriate way.
-
 **Presenter:** The presenter shows knowledge of the project and they are able to convey the information in the appropriate time.
-
 **Questions:** The group is able to answer the questions successfully.
-
 **Peer assessment:** Students will be evaluated by their peers in terms of their contributions and responsiblity.
 {{% /notice %}}
 
