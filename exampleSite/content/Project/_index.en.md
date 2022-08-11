@@ -108,3 +108,27 @@ You can use any data you want (as long as it can be shared with the instruction 
 
 I'm also providing some resources here that can be useful if you don't know where to start:
 
+- [#TidyTuesday](https://github.com/rfordatascience/tidytuesday): *A lot* of datasets that can be useful. Some of them are paired down, but usually you also have a link to the main data source.
+
+- [Data Is Plural](https://docs.google.com/spreadsheets/d/1wZhPLMCHKJvwOkP4juclhjFgqIY8fQFMemwKL2c64vk/edit#gid=0): A long list of datasets that might be interesting.
+
+- [Education Data Portal](https://educationdata.urban.org/documentation/schools.html)
+
+- [Our World in Data](https://ourworldindata.org/)
+
+- [Opportunity Insights](https://opportunityinsights.org/): Comprehensive datasets put together by the OI team, such as social capital, college mobility, economic tracker, etc.
+
+- Open data portals (e.g. [NYC restaurant inspection](https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/43nn-pn8j)): Most cities and states have open data portals that allow you to download a lot of relevant data in different areas (e.g. education, health, crime, etc.)
+
+- [Illinois Workplace Wellness Study](https://github.com/reifjulian/illinois-wellness-data)
+
+- [Awesome Public Datasets](https://github.com/awesomedata/awesome-public-datasets)
+
+- [mosaicData](https://github.com/ProjectMOSAIC/mosaicData): R package that contains multiple datasets (see list [here](https://cran.r-project.org/web/packages/mosaicData/mosaicData.pdf))
+
+- [YouTube API](https://support.google.com/youtube/contact/yt_researcher_certification?hl=en): This requires some API knowledge, and you need to submit an application for it, but really cool data if you want to dive into this.
+
+- [Twitter API](https://developer.twitter.com/en/products/twitter-api/academic-research): Twitter API for academic purpose. You can follow some of the tutorials to see how you can use it (there's also an R package).
+
+
+*I'll keep adding to this list during the first weeks of class*
