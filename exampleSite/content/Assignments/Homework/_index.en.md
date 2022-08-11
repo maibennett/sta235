@@ -4,7 +4,7 @@ weight: 15
 chapter: false
 ---
 
-# Objective
+## Objective
 
 - The goal of homework assignments is for you to **apply** what we have seen in class.
 
@@ -13,7 +13,7 @@ chapter: false
 - All homework assignments include a substantial part of coding, though this is only used as a mean to analyze data. <u>If you are stuck in a specific code for too long, make sure to reach out to the instruction team!</u>
 
 
-# Instructions
+## Instructions
 
 - Homework assignments are posted on **Canvas**, so make sure you check the instructions and deadlines in the platform.
 
@@ -24,7 +24,7 @@ chapter: false
 - In addition to your PDF write-up, you will need to **submit your R script** (.R extension). This script has to contain all the code you used to complete the homework assignment in a coherent way. Review the tips below to make sure your code complies with the requirements.
 
 
-# What should my R Script look like?
+## What should my R Script look like?
 
 - Use the template provided in each homework assignment to make it easier.
 

@@ -5,7 +5,7 @@ chapter: true
 pre: "<b>5. </b>"
 ---
 
-# Objective
+## Objective
 
 - The objective of the final project is for you to **apply what we've seen in the class to real-world data**. You get to choose the question you tackle!
 
@@ -13,7 +13,7 @@ pre: "<b>5. </b>"
 
 - Students have the option (and are encouraged!) to **reach out** at any time during the semester to get feedback about their project. Additionally, there are some milestones during the semester designed to provide feedback to students.
 
-# Format
+## Format
 
 - The final project is a **group project** (3 to 4 students). Students are free to choose their own group, but will be assigned to one by the instructor if they haven't chosen one (or if their group doesn't comply with the requirements) by Sept 9th.
 
@@ -26,9 +26,9 @@ pre: "<b>5. </b>"
 	3. Final report
 	4. Presentation
 
-# Submissions
+## Submissions
 
-## Initial idea and data pitch
+### Initial idea and data pitch
 
 You are asked to submit two to three ideas for the group project (<u>at least two</u>). Ideas can be overall general, but should tackle at least one of the areas we will see in this course: i) causal inference or ii) prediction.
 
@@ -42,7 +42,7 @@ Make sure that your idea is grounded on data that you can obtain. There are many
 
 One relevant item in this submission is also **originality**. Make sure you are not copying another project or using the same idea as another group. 
 
-### Evaluation Criteria
+#### Evaluation Criteria
 
 - Pertinence: The question at hand tackles one of the areas covered in this class and it is presented in a clear way.
 
@@ -53,11 +53,11 @@ One relevant item in this submission is also **originality**. Make sure you are 
 - Peer assessment: Students will be evaluated by their peers in terms of their contributions and responsiblity.
 
 
-## Preliminary report
+### Preliminary report
 
 At this stage, you should have a solid research question, as well as the data to tackle that question.
 
-### Evaluation Criteria
+#### Evaluation Criteria
 
 - Research question: The question at hand tackles one of the areas covered in this class, it is presented in a clear way, and it is motivated appropriately.
 
@@ -67,11 +67,11 @@ At this stage, you should have a solid research question, as well as the data to
 
 - Peer assessment: Students will be evaluated by their peers in terms of their contributions and responsiblity.
 
-## Final report
+### Final report
 
 The final report should include everything that is included in the preliminary report (including the instructor's feedback), in addition to the finalyzed analysis.
 
-### Evaluation Criteria
+#### Evaluation Criteria
 
 - Research question: The question at hand tackles one of the areas covered in this class, it is presented in a clear way, and it is motivated appropriately.
 
