@@ -5,6 +5,8 @@ chapter: true
 pre: "<b>5. </b>"
 ---
 
+# Final Project
+
 ## Objective
 
 - The objective of the final project is for you to **apply what we've seen in the class to real-world data**. You get to choose the question you tackle!
