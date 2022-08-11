@@ -514,6 +514,8 @@ div.notices.info p {
 div.notices.info p:first-child:after {
     content: 'Info';
 }
+
+
 div.notices.warning p {
     border-top: 30px solid rgba(217, 83, 79, 0.8);
     background: #FAE2E2;
@@ -528,6 +530,15 @@ div.notices.note p {
 div.notices.note p:first-child:after {
     content: 'Note';
 }
+
+div.notices.grading p {
+    border-top: 30px solid #6AB0DE;
+    background: #E7F2FA;
+}
+div.notices.grading p:first-child:after {
+    content: 'Evaluation Criteria';
+}
+
 div.notices.tip p {
     border-top: 30px solid rgba(92, 184, 92, 0.8);
     background: #E6F9E6;

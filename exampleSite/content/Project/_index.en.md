@@ -44,8 +44,7 @@ Make sure that your idea is grounded on data that you can obtain. There are many
 
 One relevant item in this submission is also **originality**. Make sure you are not copying another project or using the same idea as another group. 
 
-#### Evaluation Criteria
-
+{{% notice grading %}}
 - Pertinence: The question at hand tackles one of the areas covered in this class and it is presented in a clear way.
 
 - Relevance: Proper motivatation of why this question is relevant/interesting.
@@ -53,14 +52,13 @@ One relevant item in this submission is also **originality**. Make sure you are 
 - Originallity: The question is not a copy of another project already available and tackles an issue not addressed by another team in the class.
 
 - Peer assessment: Students will be evaluated by their peers in terms of their contributions and responsiblity.
-
+{{% /notice %}}
 
 ### Preliminary report
 
 At this stage, you should have a solid research question, as well as the data to tackle that question.
 
-#### Evaluation Criteria
-
+{{% notice grading %}}
 - Research question: The question at hand tackles one of the areas covered in this class, it is presented in a clear way, and it is motivated appropriately.
 
 - Data description: Appropriate plots and tables showing the relevant data.
@@ -68,13 +66,13 @@ At this stage, you should have a solid research question, as well as the data to
 - Analysis plan: Clear roadmap on how the question will be tackled in terms of analysis.
 
 - Peer assessment: Students will be evaluated by their peers in terms of their contributions and responsiblity.
+{{% /notice %}}
 
 ### Final report
 
 The final report should include everything that is included in the preliminary report (including the instructor's feedback), in addition to the finalyzed analysis.
 
-#### Evaluation Criteria
-
+{{% notice grading %}}
 - Research question: The question at hand tackles one of the areas covered in this class, it is presented in a clear way, and it is motivated appropriately.
 
 - Data description: Appropriate plots and tables showing the relevant data.
@@ -84,15 +82,15 @@ The final report should include everything that is included in the preliminary r
 - Conclusions: Main takeaway points of the project.
 
 - Peer assessment: Students will be evaluated by their peers in terms of their contributions and responsiblity.
+{{% /notice %}}
 
-## Final presentations
+### Final presentations
 
 Final presentations will be conducted during finals, and every student in the group has to be present, though only one (1) will present (it will be randomly selected). All students should be prepared to answer questions.
 
 Presentations will short presentations (5 minutes) followed by a couple of questions. All slides need to be submitted by Thursday Dec. 8th by noon.
 
-### Evaluation Criteria
-
+{{% notice grading %}}
 - Presentation: The slides show the main points fo the project and convey the message in an appropriate way.
 
 - Presenter: The presenter shows knowledge of the project and they are able to convey the information in the appropriate time.
@@ -100,3 +98,4 @@ Presentations will short presentations (5 minutes) followed by a couple of quest
 - Questions: The group is able to answer the questions successfully.
 
 - Peer assessment: Students will be evaluated by their peers in terms of their contributions and responsiblity.
+{{% /notice %}}
