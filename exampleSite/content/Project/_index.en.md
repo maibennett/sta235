@@ -120,5 +120,7 @@ I'm also providing some resources here that can be useful if you don't know wher
 
 - [Twitter API](https://developer.twitter.com/en/products/twitter-api/academic-research): Twitter API for academic purpose. You can follow some of the tutorials to see how you can use it (there's also an R package).
 
+- Site-limited testing on Google (especially for Github): One good way of discovering new data can be to search Github for it in Google, for example: climate data .csv site:http://github.com
+
 
 *I'll keep adding to this list during the first weeks of class*
