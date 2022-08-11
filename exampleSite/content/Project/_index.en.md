@@ -45,13 +45,13 @@ Make sure that your idea is grounded on data that you can obtain. There are many
 One relevant item in this submission is also **originality**. Make sure you are not copying another project or using the same idea as another group. 
 
 {{% notice grading %}}
-- Pertinence: The question at hand tackles one of the areas covered in this class and it is presented in a clear way.
+**Pertinence:** The question at hand tackles one of the areas covered in this class and it is presented in a clear way.
 
-- Relevance: Proper motivatation of why this question is relevant/interesting.
+**Relevance:** Proper motivatation of why this question is relevant/interesting.
 
-- Originallity: The question is not a copy of another project already available and tackles an issue not addressed by another team in the class.
+**Originallity:** The question is not a copy of another project already available and tackles an issue not addressed by another team in the class.
 
-- Peer assessment: Students will be evaluated by their peers in terms of their contributions and responsiblity.
+**Peer assessment:** Students will be evaluated by their peers in terms of their contributions and responsiblity.
 {{% /notice %}}
 
 ### Preliminary report
@@ -59,13 +59,13 @@ One relevant item in this submission is also **originality**. Make sure you are 
 At this stage, you should have a solid research question, as well as the data to tackle that question.
 
 {{% notice grading %}}
-- Research question: The question at hand tackles one of the areas covered in this class, it is presented in a clear way, and it is motivated appropriately.
+**Research question:** The question at hand tackles one of the areas covered in this class, it is presented in a clear way, and it is motivated appropriately.
 
-- Data description: Appropriate plots and tables showing the relevant data.
+**Data description:** Appropriate plots and tables showing the relevant data.
 
-- Analysis plan: Clear roadmap on how the question will be tackled in terms of analysis.
+**Analysis plan:** Clear roadmap on how the question will be tackled in terms of analysis.
 
-- Peer assessment: Students will be evaluated by their peers in terms of their contributions and responsiblity.
+**Peer assessment:** Students will be evaluated by their peers in terms of their contributions and responsiblity.
 {{% /notice %}}
 
 ### Final report
@@ -73,15 +73,16 @@ At this stage, you should have a solid research question, as well as the data to
 The final report should include everything that is included in the preliminary report (including the instructor's feedback), in addition to the finalyzed analysis.
 
 {{% notice grading %}}
-- Research question: The question at hand tackles one of the areas covered in this class, it is presented in a clear way, and it is motivated appropriately.
 
-- Data description: Appropriate plots and tables showing the relevant data.
+**Research question:** The question at hand tackles one of the areas covered in this class, it is presented in a clear way, and it is motivated appropriately.
 
-- Analysis: Pertinent analysis of the data to answer the research question. Includes some robustness checks (if appropriate) and limitations.
+**Data description:** Appropriate plots and tables showing the relevant data.
 
-- Conclusions: Main takeaway points of the project.
+**Analysis:** Pertinent analysis of the data to answer the research question. Includes some robustness checks (if appropriate) and limitations.
 
-- Peer assessment: Students will be evaluated by their peers in terms of their contributions and responsiblity.
+**Conclusions:** Main takeaway points of the project.
+
+**Peer assessment:** Students will be evaluated by their peers in terms of their contributions and responsiblity.
 {{% /notice %}}
 
 ### Final presentations
@@ -91,11 +92,19 @@ Final presentations will be conducted during finals, and every student in the gr
 Presentations will short presentations (5 minutes) followed by a couple of questions. All slides need to be submitted by Thursday Dec. 8th by noon.
 
 {{% notice grading %}}
-- Presentation: The slides show the main points fo the project and convey the message in an appropriate way.
+**Presentation:** The slides show the main points fo the project and convey the message in an appropriate way.
 
-- Presenter: The presenter shows knowledge of the project and they are able to convey the information in the appropriate time.
+**Presenter:** The presenter shows knowledge of the project and they are able to convey the information in the appropriate time.
 
-- Questions: The group is able to answer the questions successfully.
+**Questions:** The group is able to answer the questions successfully.
 
-- Peer assessment: Students will be evaluated by their peers in terms of their contributions and responsiblity.
+**Peer assessment:** Students will be evaluated by their peers in terms of their contributions and responsiblity.
 {{% /notice %}}
+
+
+## Where to get data
+
+You can use any data you want (as long as it can be shared with the instruction team), but you need to describe how and where you obtained it.
+
+I'm also providing some resources here that can be useful if you don't know where to start:
+
