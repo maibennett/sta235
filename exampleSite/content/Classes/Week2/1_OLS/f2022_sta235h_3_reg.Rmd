@@ -501,7 +501,7 @@ class: center, middle
 
 .small[
 ```{r}
-cars <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/2_OLS_probs/data/SoCalCars.csv", stringsAsFactors = FALSE)
+cars <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/SoCalCars.csv", stringsAsFactors = FALSE)
 
 names(cars)
 ```
@@ -844,7 +844,23 @@ $$\log(Price) = \beta_0 + \beta_1 Rating + \beta_2 Miles + \beta_3 Luxury + \bet
 
 --
 
-- For an additional 1,000 miles, the price inscreases/decreases, on average, by $(e^{\hat{\beta}}-2)\cdot 100$%, holding other variables constant.
+- For an additional 1,000 miles, the price inscreases/decreases, on average, by $(e^{\hat{\beta}}-1)\cdot 100$%, holding other variables constant.
+
+---
+# How would we interpret coefficients now?
+
+- There are also approximations that can be useful!
+
+|**Model**|**Interpretation of $\beta$**|
+|:-----:|:-----:|
+|Level-Level regression<br> $y = \alpha + \beta x$ | $\Delta y = \beta\Delta x$ |
+|Log-Level regression<br> $\log(y) = \alpha + \beta x$ | $\%\Delta y = 100\cdot\beta\Delta x$ |
+|Level-Log regression<br> $y = \alpha + \beta \log(x)$ | $\Delta y = \frac{\beta}{100}\% \Delta x$ |
+|Log-Log regression<br> $\log(y) = \alpha + \beta \log(x)$ | $\%\Delta y = \beta\%\Delta x$ |
+
+--
+
+- What would be the interpretation for the Mileage coefficient using these approximations?
 
 ---
 # Let's talk about outliers

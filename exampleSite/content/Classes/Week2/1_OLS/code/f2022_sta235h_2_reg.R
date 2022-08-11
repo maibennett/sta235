@@ -183,6 +183,8 @@ lm_log$coefficients["mileage"]
 # This is the percentage change
 (exp(lm_log$coefficients["mileage"]) - 1)*100
 
+#Q: How does this compare with \beta_1*100% ?
+
 
 ## Outliers
 

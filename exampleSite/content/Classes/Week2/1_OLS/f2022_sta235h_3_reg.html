@@ -223,7 +223,7 @@ class: center, middle
 .small[
 
 ```r
-cars &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/2_OLS_probs/data/SoCalCars.csv", stringsAsFactors = FALSE)
+cars &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/SoCalCars.csv", stringsAsFactors = FALSE)
 
 names(cars)
 ```
@@ -480,7 +480,23 @@ What can you say about this variable?
 
 --
 
-- For an additional 1,000 miles, the price inscreases/decreases, on average, by `\((e^{\hat{\beta}}-2)\cdot 100\)`%, holding other variables constant.
+- For an additional 1,000 miles, the price inscreases/decreases, on average, by `\((e^{\hat{\beta}}-1)\cdot 100\)`%, holding other variables constant.
+
+---
+# How would we interpret coefficients now?
+
+- There are also approximations that can be useful!
+
+|**Model**|**Interpretation of `\(\beta\)`**|
+|:-----:|:-----:|
+|Level-Level regression&lt;br&gt; `\(y = \alpha + \beta x\)` | `\(\Delta y = \beta\Delta x\)` |
+|Log-Level regression&lt;br&gt; `\(\log(y) = \alpha + \beta x\)` | `\(\%\Delta y = 100\cdot\beta\Delta x\)` |
+|Level-Log regression&lt;br&gt; `\(y = \alpha + \beta \log(x)\)` | `\(\Delta y = \frac{\beta}{100}\% \Delta x\)` |
+|Log-Log regression&lt;br&gt; `\(\log(y) = \alpha + \beta \log(x)\)` | `\(\%\Delta y = \beta\%\Delta x\)` |
+
+--
+
+- What would be the interpretation for the Mileage coefficient using these approximations?
 
 ---
 # Let's talk about outliers

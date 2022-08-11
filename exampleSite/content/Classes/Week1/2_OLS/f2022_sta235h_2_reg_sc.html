@@ -321,6 +321,8 @@ summary(lm(Adj_Revenue ~ bechdel_test, data = bechdel))
 
 - How do you interpret these results?
 
+  - Remember to look at the point estimate, but also its variance!
+
 ---
 # Let's analyze some models
 
@@ -337,7 +339,7 @@ summary(lm(Adj_Revenue ~ bechdel_test, data = bechdel))
 
 - `\(\hat{\beta}_0\)` is the average adjusted revenue (in millions of dollars) for movies that do not pass the Bechdel test.
 
-- &lt;u&gt;On average&lt;/u&gt;, movies that pass the Bechdel test have an adjusted revenue that is `\(|\hat{\beta}_1|\)` millions less than a movie that doesn't pass the Bechdel test.
+- &lt;u&gt;On average&lt;/u&gt;, movies that pass the Bechdel test have an adjusted revenue that is `\(|\hat{\beta}_1|\)` millions less than a movie that doesn't pass the Bechdel test. The association is &lt;u&gt;statistically significant at a 1% level&lt;/u&gt;
 
 &lt;br&gt;
 &lt;br&gt;
@@ -387,7 +389,7 @@ lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechde
 
 --
 
-- &lt;u&gt;On average&lt;/u&gt;, movies that pass the Bechdel test have 11 millions more in adjusted revenue compared to a movie that doesn't pass the Bechdel test, &lt;u&gt;holding other variables constant&lt;/u&gt;.
+- &lt;u&gt;On average&lt;/u&gt;, movies that pass the Bechdel test have 11 millions more in adjusted revenue compared to a movie that doesn't pass the Bechdel test, &lt;u&gt;holding other variables constant&lt;/u&gt;. The association is statistically significant at the 5% level.
 
 ---
 # Main takeaway points
