@@ -483,6 +483,7 @@ blockquote cite {
 div.notices {
     margin: 2rem 0;
     position: relative;
+    border-radius: 15px;
 }
 div.notices p {
     padding: 15px;
@@ -534,7 +535,6 @@ div.notices.note p:first-child:after {
 div.notices.grading p {
     border-top: 30px solid #6AB0DE;
     background: #E7F2FA;
-    border-radius: 15px,
 }
 div.notices.grading p:first-child:after {
     content: 'Evaluation Criteria';

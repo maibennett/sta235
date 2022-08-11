@@ -45,10 +45,12 @@ Make sure that your idea is grounded on data that you can obtain. There are many
 One relevant item in this submission is also **originality**. Make sure you are not copying another project or using the same idea as another group. 
 
 {{% notice grading %}}
-**Pertinence:** The question at hand tackles one of the areas covered in this class and it is presented in a clear way.
-**Relevance:** Proper motivatation of why this question is relevant/interesting.
-**Originallity:** The question is not a copy of another project already available and tackles an issue not addressed by another team in the class.
+
+**Pertinence:** The question at hand tackles one of the areas covered in this class and it is presented in a clear way.<br>
+**Relevance:** Proper motivatation of why this question is relevant/interesting.<br>
+**Originallity:** The question is not a copy of another project already available and tackles an issue not addressed by another team in the class.<br>
 **Peer assessment:** Students will be evaluated by their peers in terms of their contributions and responsiblity.
+
 {{% /notice %}}
 
 ### Preliminary report
