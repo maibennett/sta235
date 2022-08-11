@@ -34,9 +34,9 @@ pre: "<b>5. </b>"
 
 You are asked to submit two to three ideas for the group project (<u>at least two</u>). Ideas can be overall general, but should tackle at least one of the areas we will see in this course: i) causal inference or ii) prediction.
 
-	- **Causal inference:** The question is focused on answering a causal question (e.g. "What is the effect of X on Y?"). It is ok if there are limitations to your analysis, as long as you are able to identify them and propose potential solutions.
+- **Causal inference:** The question is focused on answering a causal question (e.g. "What is the effect of X on Y?"). It is ok if there are limitations to your analysis, as long as you are able to identify them and propose potential solutions.
 
-	- **Prediction:** Even though we will not cover prediction until week 10, you can definitely tackle a prediction problem (e.g. "Can I identify unsubcribers (before they unsuscribe) based on their characteristics?", "Can I predict the results for the midterms based on prior elections and current polls?").
+- **Prediction:** Even though we will not cover prediction until week 10, you can definitely tackle a prediction problem (e.g. "Can I identify unsubcribers (before they unsuscribe) based on their characteristics?", "Can I predict the results for the midterms based on prior elections and current polls?").
 
 At this stage, <u>you do not need to have full clarity on how you will tackle the question in terms of analysis</u>. The instruction team will provide appropriate feedback based on your ideas, and can guide you throughout the process. 
 
