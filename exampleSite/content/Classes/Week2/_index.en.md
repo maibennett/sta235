@@ -8,7 +8,7 @@ disableToc: true
 
 ## What we will cover
 
-In this class, we will go dipper into statistical adjustment, specifically when we have interactions. We will discuss potential issues with rregressions, such as outliers and collinearity. We will also discuss how to compare effect sizes.
+In this class, we will go dipper into statistical adjustment, specifically when we have interactions. We will also dive into "nonlinear" models.
 
 ## Recommended readings/videos
 

@@ -361,13 +361,12 @@ font.add.google("Fira Sans", "Fira Sans")
   - Interpreting coefficients
   - Interaction models
   
-- **.darkorange[Potential issues in regressions:]**
-  - Multicollinearity
-  
 - **.darkorange[Looking at your data:]**
   - Distributions
-  - Outliers?
   
+- **.darkorange[Nonlinear models:]**
+  - Logarithmic outcomes
+  - Polynomial terms
 ]
 
 .pull-right[
@@ -510,74 +509,6 @@ names(cars)
 .source[Data source: "Modern Business Analytics" (Taddy, Hendrix, & Harding, 2018)]
 
 ---
-# How do mileage and year affect price?
-
---
-```{r mileage_year, fig.height=5, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-library(ggplot2)
-library(firasans)
-library(hrbrthemes)
-library(hrbrthemes)
-library(extrafont)
-library(tidyverse)
-library(vtable)
-library(patchwork)
-
-luxury_brands <- c("Audi", "BMW", "Cadillac", "Ferrari", "Jaguar", "Lamborghini", "Land Rover", "Lexus",
-                   "Maserati", "Mercedes-Benz", "Porsche", "Rolls-Royce", "Tesla", "Volvo")
-
-cars <- cars %>% filter(type != "new" & mileage >= 10000 & mileage <= 150000 & price < 100000 & year >= 1970) %>%
-  mutate(luxury = ifelse(make %in% luxury_brands, 1, 0),
-         price = price/1000,
-         mileage = mileage/1000,
-         year = year - 1970)
-
-g1 <- ggplot(data = cars, aes(x = mileage, y = price)) +
-  geom_point(color = "#F89441", fill = "white", pch=21, size = 2) + 
-  theme_bw()+
-  xlab("Mileage") + ylab("Price") +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-g2 <- ggplot(data = cars, aes(x = year, y = price)) +
-  geom_point(color = "#E16462", fill = "white", pch=21, size = 2) + 
-  theme_bw()+
-  xlab("Year") + ylab("Price") +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-g1 + g2
-```
-
----
 # Let's run a model
 
 --
@@ -591,25 +522,7 @@ summary(lm1)
 --
 
 - What does the **.darkorange[intercept]** tell us in this case? Is it meaningful?
-- Why do you think these **.darkorange[partial correlations]** are both negative for `year` and `mileage`?
 
----
-# Multicollinearity in Regressors
-
-- If two covariates are **.darkorange[highly correlated]**, it is difficult to separate the contribution of each!
-
-  - E.g. They move together
-
---
-
-- It can be **.darkorange[structural]** (e.g. include $X$ and $X^2$) or from the **.darkorange[data]**
-
---
-
-- **.darkorange[Be careful]** with interpretations
-
-  - The same with extrapolation zones!
-  
 ---
 # Luxury vs. non-luxury cars?
 
@@ -844,7 +757,7 @@ $$\log(Price) = \beta_0 + \beta_1 Rating + \beta_2 Miles + \beta_3 Luxury + \bet
 
 --
 
-- For an additional 1,000 miles, the price inscreases/decreases, on average, by $(e^{\hat{\beta}}-1)\cdot 100$%, holding other variables constant.
+- For an additional 1,000 miles, the price increases/decreases, on average, by $(e^{\hat{\beta}}-1)\cdot 100$%, holding other variables constant.
 
 ---
 # How would we interpret coefficients now?
@@ -863,17 +776,29 @@ $$\log(Price) = \beta_0 + \beta_1 Rating + \beta_2 Miles + \beta_3 Luxury + \bet
 - What would be the interpretation for the Mileage coefficient using these approximations?
 
 ---
-# Let's talk about outliers
+# Adding polynomial terms
 
-- Another objective of looking at our data is to see whether we have observations that look "strange".
+- Another way to capture **.darkorange[nonlinear associations]** between the outcome ($Y$) and covariates ($X$) is to include **.darkorange[polynomial terms]**:
+  
+  - e.g. $Y = \beta_0 + \beta_1X + \beta_2X^2 + \varepsilon$
+  
+--
 
-```{r cars_outliers, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-ggplot(data = cars, aes(y = price, x = year)) +
+- Let's look at an example!
+
+---
+# Experience vs wages
+
+```{r exp_wages, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message=FALSE}
+library(AER)
+data("CPS1988")
+
+ggplot(data = CPS1988, aes(y = wage, x = experience)) +
   geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
   theme_bw()+
-  xlab("Year") + ylab("Price") +
+  xlab("Experience") + ylab("Wage") +
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-
+  
   theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
@@ -889,36 +814,12 @@ ggplot(data = cars, aes(y = price, x = year)) +
         legend.background = element_rect(fill="white",colour ="white"),
         title = element_text(size=14))
 ```
-
---
-
-- Which ones do you think could be outliers?
-
 ---
-background-position: 50% 50%
-class: center, middle
-.big[
-.box-7LA[Let's go to R]
+# The Mincer Equation
 
-]
+- Desribes the return to experience in the labor market
 
----
-# What to do with outliers?
 
-1. **.darkorange[Check them!]**
-
-  - Make sure there's no coding error; try to understand what's happening there.
-
---
-
-2a. **.darkorange[If they are wrongly coded]**:
-
-  - You can remove them, always adding a note of why you did so. Issues with the analysis will come from sample selection.
-  
-2b. **.darkorange[If they are correctly coded]**:
-
-  - Run analysis both with and without outliers (don't just drop them!). E.g. Results do not depend exclusively on a few observations.
-  
 
 ---
 # Main takeaway points

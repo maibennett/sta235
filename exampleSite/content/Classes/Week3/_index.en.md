@@ -8,9 +8,11 @@ disableToc: true
 
 ## What we will cover
 
-In this session, we will talk about models with discrete outcomes, and how we can tackle some of these issues.
+In this session, we will discuss potential issues with regressions, such as outliers and collinearity. We will also discuss how to compare effect sizes. Finally, we will talk about models with discrete outcomes, and how we can tackle some of these issues.
 
 ## Recommended readings/videos
+
+- Frost, J. (2019). ["5 Ways to Find Outliers in Your Data"](https://statisticsbyjim.com/basics/outliers/) *Note: You can skip the "Finding outliers with hypothesis tests" section*
 
 - Grace-Martin, K. (2018). [“Why logistic regression for binary responses?"](https://www.theanalysisfactor.com/why-logistic-regression-for-binary-response/)
 
