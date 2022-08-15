@@ -8,7 +8,7 @@ disableToc: true
 
 ## What we will cover
 
-In this session, we will discuss potential issues with regressions, such as outliers and collinearity. We will also discuss how to compare effect sizes. Finally, we will talk about models with discrete outcomes, and how we can tackle some of these issues.
+In this session, we will discuss potential issues with regressions, such as outliers and collinearity. Finally, we will talk about models with discrete outcomes, and how we can tackle some of these issues.
 
 ## Recommended readings/videos
 
