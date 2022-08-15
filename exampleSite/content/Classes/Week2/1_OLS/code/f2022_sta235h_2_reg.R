@@ -22,14 +22,14 @@ library(vtable)
 ### In-class exercises
 ################################################################################
 
-### Continuation of the Bechdel Test Example
+# Continuation of the Bechdel Test Example ----
 
 rawData <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/data/bechdel.csv")
 
-# Select movies post 1990
+## Select movies post 1990
 bechdel <- rawData %>% filter(Year>1989)
 
-# Passes Bechdel test:
+## Passes Bechdel test:
 bechdel <- bechdel %>% mutate(bechdel_test = ifelse(rating==3, 1, 0),
                               Adj_Revenue = Adj_Revenue/10^6,
                               Adj_Budget = Adj_Budget/10^6)
@@ -38,23 +38,23 @@ lmb <- lm(Adj_Revenue ~ bechdel_test*Adj_Budget + Metascore + imdbRating, data=b
 
 summary(lmb)
 
-# Q: We are using "*" to interact two variables. What happens if you use ":" instead? Do you think this is correct?
-# Q: Create a new variable, bechdel_budget, that interacts bechdel_test and Adj_Budget, and write a new regression that replicates lmb. Do you get the same results? (Hint: You should!)
+#### Q: We are using "*" to interact two variables. What happens if you use ":" instead? Do you think this is correct?
+#### Q: Create a new variable, bechdel_budget, that interacts bechdel_test and Adj_Budget, and write a new regression that replicates lmb. Do you get the same results? (Hint: You should!)
 
 
-### Cars, cars, cars
+# Cars, cars, cars ----
 
 cars <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/SoCalCars.csv", stringsAsFactors = FALSE)
 
 ## Let's clean some data
 
-# Select only cars from the year 1970 onwards, that are under $100k, and have less than 150k miles.
+## Select only cars from the year 1970 onwards, that are under $100k, and have less than 150k miles.
 
-# Let's create new variables:
+## Let's create new variables:
 
-# luxury: dummy variable for luxury brands (in `luxury_brand` vector) (source: https://luxe.digital/business/digital-luxury-ranking/best-luxury-car-brands/)
-# Transform price from dollars to thousands of dollars, and miles to thousands of miles.
-# Transform year so that it's the number of years since 1970s
+### luxury: dummy variable for luxury brands (in `luxury_brand` vector) (source: https://luxe.digital/business/digital-luxury-ranking/best-luxury-car-brands/)
+### Transform price from dollars to thousands of dollars, and miles to thousands of miles.
+### Transform year so that it's the number of years since 1970s
 
 luxury_brands <- c("Audi", "BMW", "Cadillac", "Ferrari", "Jaguar", "Lamborghini", "Land Rover", "Lexus",
                    "Maserati", "Mercedes-Benz", "Porsche", "Rolls-Royce", "Tesla", "Volvo")
@@ -66,25 +66,24 @@ cars <- cars %>% filter(type != "new" & mileage >= 10000 & mileage <= 150000 & p
          year = year - 1970)
 
 
-# Let's run a regression of price on mileage, year, and rating.
+## Let's run a regression of price on mileage, year, and rating.
 
 lm1 <- lm() #complete this function
 
 summary(lm1) #Interpret the intercept
 
-#How do we recover only coefficients?
+### How do we recover only coefficients?
 coef(lm1) # vector of coefficients
 
 summary(lm1)$coefficients #matrix of coefficients, SE, t-value and p-values
 
-# Question: Are the signs of the coefficients what you expected?
 
-## Let's plot mileage against year. What do you see?
+## Let's plot mileage against price. What do you see?
 
-ggplot(data = cars, aes(y = mileage, x = year)) +
+ggplot(data = cars, aes(y = price, x = mileage)) +
   geom_point(fill = "white", color = "orange", size = 3, pch = 21) + #pch changes the type of the marker (you can see the options here: http://www.sthda.com/english/wiki/r-plot-pch-symbols-the-different-point-shapes-available-in-r)
   theme_bw()+
-  xlab("Year") + ylab("Mileage") +
+  xlab("Mileage (1,000 Miles)") + ylab("Price (1,000 USD)") +
   # The options below (in theme) are just to show you how to make your plots look better. Adapt them as you wish.
   theme(axis.title.x = element_text(size=18),
         axis.text.x = element_text(size=14),
@@ -97,12 +96,13 @@ ggplot(data = cars, aes(y = mileage, x = year)) +
         axis.line = element_line(colour = "dark grey"))
 
 
-# We can also easiy include a regression line using geom_smooth:
-ggplot(data = cars, aes(y = mileage, x = year)) +
+### We can also easiy include a regression line using geom_smooth:
+
+ggplot(data = cars, aes(y = price, x = mileage)) +
   geom_point(fill = "white", color = "orange", size = 3, pch = 21) + #pch changes the type of the marker (you can see the options here: http://www.sthda.com/english/wiki/r-plot-pch-symbols-the-different-point-shapes-available-in-r)
   geom_smooth(method = "lm", color = "#900DA4", lwd = 1.5, se = FALSE) + #The method is `lm` (linear model), and we don't want to include the standard errors for the fitted line 
   theme_bw()+
-  xlab("Year") + ylab("Mileage") +
+  xlab("Mileage (1,000 Miles)") + ylab("Price (1,000 USD)") +
   theme(axis.title.x = element_text(size=18),
         axis.text.x = element_text(size=14),
         axis.title.y = element_text(size=18),
@@ -113,109 +113,146 @@ ggplot(data = cars, aes(y = mileage, x = year)) +
         panel.grid = element_blank(),
         axis.line = element_line(colour = "dark grey"))
 
-# Let's look at the correlation between year and mileage
-cars %>% select(year, mileage) %>% cor(.)
-
-# Let's run a regression of price on mileage, year, rating, and the interaction of mileage and year.
+## Let's run a regression of price on mileage, year, rating, and the interaction of mileage and year.
 lm2 <- lm(price ~ rating + mileage + year*luxury, data = cars)
 
 summary(lm2)
 
-#Question: What's the change in price for one additional year for luxury-brand cars vs non-luxury-brand cars, holding other variables constant?
+#### Q: What's the change in price for one additional year for luxury-brand cars vs non-luxury-brand cars, holding other variables constant?
 
 
-# Now, let's look at year and mileage by luxury vs non-luxury car
-ggplot(data = cars, aes(y = mileage, x = year, color = factor(luxury))) + #Q: Why do we use factor(luxury) and not just luxury? Try it out without factor.
-  geom_point(size = 3, pch = 21) +
-  geom_smooth(method = "lm", lwd = 1.5, se = FALSE) + #The method is `lm` (linear model), and we don't want to include the standard errors for the fitted line 
-  scale_color_manual("Luxury",values=c("#E16462","#F89441")) + #with scale_color_manual we can choose the title of the legend and the colors for the different groups.
-  theme_bw()+
-  xlab("Year") + ylab("Mileage") + 
-  theme(axis.title.x = element_text(size=18),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),
-        axis.text.y = element_text(size=14),
-        legend.position=c(0.9,0.82),
-        title = element_text(size=12),
-        plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid = element_blank(),
-        axis.line = element_line(colour = "dark grey"))
+# Visualizing data ----
 
-# Looking at the previous plot, what correlation is greater (in absolute terms)?
-
-
-## Visualizing data
-
-# Let's do a histogram of our outcome variable
+## Let's do a histogram of our outcome variable
 
 ggplot(data = cars, aes(x = price)) +
   geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5, bins = 40) + #You can change "bins" depending on your data. Make sure you don't have too many or too few! Play around with.
   theme_bw()+
   xlab("Price (M $)") + ylab("Count")
 
-#Q: Describe this plot. What can you say about it?
+#### Q: Describe this plot. What can you say about it?
 
-# We can also look at some descriptive statistics:
+## We can also look at some descriptive statistics:
+
 cars %>% select(price) %>% summary(.)
 
-# Let's create a new variable, log_price
+## Let's create a new variable, log_price
 
 cars <- cars %>% mutate(log_price = log(price)) #Be careful here! If Y=0, then log is not defined!
 
-# Q; Now, plot the same plot as before, but using log_price. How would you describe this 
+#### Q; Now, plot the same plot as before, but using log_price. How would you describe this 
   
 ggplot(...)
 
-# Now let's run the regression:
+## Now let's run the regression:
 
 lm_log <- lm(log_price ~ rating + mileage + luxury + year, data = cars)
 
 summary(lm_log)
 
-# Q: How do we interpret the coefficient for mileage as a percentage?
+#### Q: How do we interpret the coefficient for mileage as a percentage?
 
-# This is a vector of coefficients
+### This is a vector of coefficients
 lm_log$coefficients
 
-# This is the coefficient for mileage:
+### This is the coefficient for mileage:
 lm_log$coefficients["mileage"]
 
-# This is the percentage change
+### This is the percentage change
 (exp(lm_log$coefficients["mileage"]) - 1)*100
 
-#Q: How does this compare with \beta_1*100% ?
+##### Q: How does this compare with \beta_1*100% ?
 
 
-## Outliers
+# Quadratic model ----
 
-# Let's plot Price vs Year:
+## Let's look at data from the Current Population Survey (CPS) 1985
+library(AER) #Install this package if you haven't
+data("CPS1985")
 
-ggplot(data = cars, aes(y = price, x = year)) +
-  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
-  theme_bw()+
-  xlab("Year") + ylab("Price")
+## We can look at the variable descriptions using ?CPS1985
 
-# Q: Which do you think look like outliers?
+## Let's plot our outcome variable:
 
-#Let's identify them in the data:
-# For the purpose of this exercise, every observation that has year<10 will be considered an outlier
-cars <- cars %>% mutate(outliers_year = ifelse(year<10, 1, 0)) #ifelse() works like the IF() function in Excel: The first parameter is a logic statement, 
-                                                               # then the value if that statement is TRUE, and then if it's FALSE.
+CPS1985 %>%
+  ggplot(data = ., aes(x = wage)) + # The "." is a stand-in for whatever is piped before (in this case, the dataset)
+  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5, bins = 40) + 
+  theme_minimal()+
+  xlab("Wages (USD$/hr)") + ylab("Count")
 
-# Let's plot it again, identifying the outliers (this is the same as we did it with luxury cars before)
-ggplot(data = cars, aes(y = price, x = year, color = factor(outliers_year))) +
-  geom_point(size = 3, pch = 21) +
-  theme_bw()+
-  xlab("Year") + ylab("Price") +
-  scale_color_manual("Outliers", values = c("blue","red"))
+## Combining pipes (%>%) and ggplot is useful, because you don't necessarily have to create new datasets
+## Try it! Let's do the same histogram but only for females
 
-# Now, let's run a regression with all observations:
-lm1 <- cars %>% lm(price ~ rating + mileage + luxury + year, data = .) #We use a . as a stand-in for the data (`cars`) we are piping in
+CPS1985 %>% filter(gender == "female") %>%
+  ggplot(data = ., aes(x = wage)) + # The "." is a stand-in for whatever is piped before (in this case, the dataset)
+  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5, bins = 40) + 
+  theme_minimal()+
+  xlab("Wages (USD$/hr)") + ylab("Count")
+  
+
+## Going back to our original histogram, how would you describe the distribution?
+## Let's plot log(wage) now
+CPS1985 %>%
+  ggplot(data = ., aes(x = log(wage))) + # The "." is a stand-in for whatever is piped before (in this case, the dataset)
+  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5, bins = 40) + 
+  theme_minimal()+
+  xlab("log(Wages)") + ylab("Count")
+
+## Let's run a regression:
+
+CPS1985 <- CPS1985 %>% mutate(log_wage = log(wage)) #create a variable that is the log of wages (Note: Make sure all wages are >0!)
+
+lm1 <- lm(log_wage ~ education + experience, data = CPS1985)
+
 summary(lm1)
 
-# Now, let's do the same but exclude the outliers:
+#### Q: Interpret the coefficient for education
 
-lm1_wo <- cars %>% filter(outliers_year==0) %>% lm(price ~ rating + mileage + luxury + year, data = .)
-summary(lm1_wo)
+## Let's plot the relationship between log(wage) and experience:
 
-# Q: What can you say about the association between year and price? Is it sensitive to outliers?
+ggplot(data = CPS1985, aes(y = log_wage, x = experience)) +
+  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
+  theme_minimal()+
+  xlab("Experience (Years)") + ylab("log(Wage)")
+
+## What if we wanted to add the regression line for the model we fit in `lm1`?
+
+## We will create a copy of our original dataset, but we will fix other variables (besides experience) to their mean.
+
+CPS1985_fit <- CPS1985 %>% mutate(education = mean(education, na.rm=TRUE)) # What does na.rm do?
+
+## Finally, we use the function "predict()" to get the fitted values for log(wages) based on our model lm1
+
+CPS1985_fit <- CPS1985_fit %>% mutate(log_wage_hat_lm = predict(lm1, newdata = .))
+
+## Now let's add this to the previous plot
+
+ggplot(data = CPS1985_fit, aes(y = log_wage, x = experience)) +
+  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
+  geom_line(aes(x = experience, y = log_wage_hat_lm), color = "orange", lwd = 1.1) +
+  theme_minimal()+
+  xlab("Experience (Years)") + ylab("log(Wage)")
+
+## This line doesn't look like it fits the data that well, so we want to include the Mincer equation:
+
+lm_mincer <- lm(log_wage ~ education + experience + I(experience^2), data = CPS1985)
+
+summary(lm_mincer)
+
+## Note: To add a polynomial term we use I() and whatever exponent we want
+
+## Let's repeat the same process as before to add the quadratic fit to the data
+
+CPS1985_fit <- CPS1985_fit %>% mutate(log_wage_hat_lq = predict(lm_mincer, newdata = .))
+
+## Now let's add this to the previous plot
+
+ggplot(data = CPS1985_fit, aes(y = log_wage, x = experience)) +
+  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
+  geom_line(aes(x = experience, y = log_wage_hat_lq), color = "orange", lwd = 1.1) +
+  theme_minimal()+
+  xlab("Experience (Years)") + ylab("log(Wage)")
+
+#### Q: Does it look like it fits better?
+
+#### Q: After what point does the return to experience starts being negative instead of positive?

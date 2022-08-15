@@ -1,5 +1,5 @@
 ---
-title: "STA 235H - Multiple Regression: Interactions & Other Issues"
+title: "STA 235H - Multiple Regression: Interactions & Nonlinearity"
 subtitle: "Fall 2022"
 author: "McCombs School of Business, UT Austin"
 output:
@@ -361,13 +361,12 @@ font.add.google("Fira Sans", "Fira Sans")
   - Interpreting coefficients
   - Interaction models
   
-- **.darkorange[Potential issues in regressions:]**
-  - Multicollinearity
-  
 - **.darkorange[Looking at your data:]**
   - Distributions
-  - Outliers?
   
+- **.darkorange[Nonlinear models:]**
+  - Logarithmic outcomes
+  - Polynomial terms
 ]
 
 .pull-right[
@@ -501,81 +500,13 @@ class: center, middle
 
 .small[
 ```{r}
-cars <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/2_OLS_probs/data/SoCalCars.csv", stringsAsFactors = FALSE)
+cars <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/SoCalCars.csv", stringsAsFactors = FALSE)
 
 names(cars)
 ```
 ]
 
 .source[Data source: "Modern Business Analytics" (Taddy, Hendrix, & Harding, 2018)]
-
----
-# How do mileage and year affect price?
-
---
-```{r mileage_year, fig.height=5, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-library(ggplot2)
-library(firasans)
-library(hrbrthemes)
-library(hrbrthemes)
-library(extrafont)
-library(tidyverse)
-library(vtable)
-library(patchwork)
-
-luxury_brands <- c("Audi", "BMW", "Cadillac", "Ferrari", "Jaguar", "Lamborghini", "Land Rover", "Lexus",
-                   "Maserati", "Mercedes-Benz", "Porsche", "Rolls-Royce", "Tesla", "Volvo")
-
-cars <- cars %>% filter(type != "new" & mileage >= 10000 & mileage <= 150000 & price < 100000 & year >= 1970) %>%
-  mutate(luxury = ifelse(make %in% luxury_brands, 1, 0),
-         price = price/1000,
-         mileage = mileage/1000,
-         year = year - 1970)
-
-g1 <- ggplot(data = cars, aes(x = mileage, y = price)) +
-  geom_point(color = "#F89441", fill = "white", pch=21, size = 2) + 
-  theme_bw()+
-  xlab("Mileage") + ylab("Price") +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-g2 <- ggplot(data = cars, aes(x = year, y = price)) +
-  geom_point(color = "#E16462", fill = "white", pch=21, size = 2) + 
-  theme_bw()+
-  xlab("Year") + ylab("Price") +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-g1 + g2
-```
 
 ---
 # Let's run a model
@@ -591,25 +522,7 @@ summary(lm1)
 --
 
 - What does the **.darkorange[intercept]** tell us in this case? Is it meaningful?
-- Why do you think these **.darkorange[partial correlations]** are both negative for `year` and `mileage`?
 
----
-# Multicollinearity in Regressors
-
-- If two covariates are **.darkorange[highly correlated]**, it is difficult to separate the contribution of each!
-
-  - E.g. They move together
-
---
-
-- It can be **.darkorange[structural]** (e.g. include $X$ and $X^2$) or from the **.darkorange[data]**
-
---
-
-- **.darkorange[Be careful]** with interpretations
-
-  - The same with extrapolation zones!
-  
 ---
 # Luxury vs. non-luxury cars?
 
@@ -712,6 +625,9 @@ cars %>% select(price, mileage, year) %>% summary(.)
 <br>
 
 ```{r cars_inspect, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+library(firasans)
+library(hrbrthemes)
+
 ggplot(data = cars, aes(x = price)) +
   geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5, bins = 40) + 
   theme_bw()+
@@ -844,18 +760,47 @@ $$\log(Price) = \beta_0 + \beta_1 Rating + \beta_2 Miles + \beta_3 Luxury + \bet
 
 --
 
-- For an additional 1,000 miles, the price inscreases/decreases, on average, by $(e^{\hat{\beta}}-2)\cdot 100$%, holding other variables constant.
+- For an additional 1,000 miles, the price increases/decreases, on average, by $(e^{\hat{\beta}}-1)\cdot 100$%, holding other variables constant.
 
 ---
-# Let's talk about outliers
+# How would we interpret coefficients now?
 
-- Another objective of looking at our data is to see whether we have observations that look "strange".
+- There are also approximations that can be useful!
 
-```{r cars_outliers, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-ggplot(data = cars, aes(y = price, x = year)) +
-  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
+|**Model**|**Interpretation of $\beta$**|
+|:-----:|:-----:|
+|Level-Level regression<br> $y = \alpha + \beta x$ | $\Delta y = \beta\Delta x$ |
+|Log-Level regression<br> $\log(y) = \alpha + \beta x$ | $\%\Delta y = 100\cdot\beta\Delta x$ |
+|Level-Log regression<br> $y = \alpha + \beta \log(x)$ | $\Delta y = \frac{\beta}{100}\% \Delta x$ |
+|Log-Log regression<br> $\log(y) = \alpha + \beta \log(x)$ | $\%\Delta y = \beta\%\Delta x$ |
+
+--
+
+- What would be the interpretation for the Mileage coefficient using these approximations?
+
+---
+# Adding polynomial terms
+
+- Another way to capture **.darkorange[nonlinear associations]** between the outcome (Y) and covariates (X) is to include **.darkorange[polynomial terms]**:
+  
+  - e.g. $Y = \beta_0 + \beta_1X + \beta_2X^2 + \varepsilon$
+  
+--
+
+- Let's look at an example!
+
+---
+# Determinants of wages: CPS 1985
+
+```{r wages_inspect, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+library(AER)
+data("CPS1985")
+
+CPS1985 %>%
+ggplot(data = ., aes(x = wage)) +
+  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5, bins = 40) + 
   theme_bw()+
-  xlab("Year") + ylab("Price") +
+  xlab("Wages (USD$/hr)") + ylab("Count") +
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
 
   theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
@@ -874,68 +819,315 @@ ggplot(data = cars, aes(y = price, x = year)) +
         title = element_text(size=14))
 ```
 
---
+---
+# Determinants of wages: CPS 1985
 
-- Which ones do you think could be outliers?
+```{r wages_inspect2, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+CPS1985 %>%
+ggplot(data = ., aes(x = log(wage))) +
+  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5, bins = 40) + 
+  theme_bw()+
+  xlab("log(Wage)") + ylab("Count") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
 
 ---
-background-position: 50% 50%
-class: center, middle
-.big[
-.box-7LA[Let's go to R]
+# Experience vs wages: CPS 1985
 
-]
-
----
-# What to do with outliers?
-
-1. **.darkorange[Check them!]**
-
-  - Make sure there's no coding error; try to understand what's happening there.
-
---
-
-2a. **.darkorange[If they are wrongly coded]**:
-
-  - You can remove them, always adding a note of why you did so. Issues with the analysis will come from sample selection.
-  
-2b. **.darkorange[If they are correctly coded]**:
-
-  - Run analysis both with and without outliers (don't just drop them!). E.g. Results do not depend exclusively on a few observations.
-  
-
----
-# Main takeaway points
-
-.pull-left[
-- The model you fit **.darkorange[depends on what you want to analyze]**.
-
-- Data can tell different stories depending on how you handle it.
-
-  - Does that mean that we can get data to say **.darkorange[anything]**?
-  
-]
-
-.pull-right[
 <br>
-.center[
-![](https://media.giphy.com/media/l0MYBJzJ7elsmG1K8/giphy.gif)]
 
-]
+```{r exp_wages, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message=FALSE}
+
+CPS1985 %>% mutate(log_wage = log(wage)) %>%
+ggplot(data = ., aes(y = log_wage, x = experience)) +
+  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
+  theme_bw()+
+  xlab("Experience (Years)") + ylab("log(Wage)") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# Experience vs wages: CPS 1985
+
+$$\log(Wage) = \beta_0 + \beta_1 Educ + \beta_2Exp + \varepsilon$$
+
+```{r exp_wages2, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message=FALSE}
+
+lm_wages <- lm(log(wage) ~ education + experience, data = CPS1985)
+
+CPS1985_fit <- CPS1985 %>% mutate(education = mean(education)) %>%
+  mutate(log_wage_fit = predict(lm_wages, newdata = .))
+
+
+CPS1985_fit %>% mutate(log_wage = log(wage)) %>%
+ggplot(data = ., aes(y = log_wage, x = experience)) +
+  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
+  geom_line(aes(y = log_wage_fit, x = experience), color = "#E16462", lwd =1.2) + 
+  theme_bw()+
+  xlab("Experience (Years)") + ylab("log(Wage)") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# Experience vs wages: CPS 1985
+
+$$\log(Wage) = \beta_0 + \beta_1 Educ + \beta_2 Exp + \beta_3 Exp^2 + \varepsilon$$
+```{r exp_wages3, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message=FALSE}
+
+lm_mincer <- lm(log(wage) ~ education + experience + I(experience^2), data = CPS1985)
+
+CPS1985_fit <- CPS1985 %>% mutate(education = mean(education)) %>%
+  mutate(log_wage_fit = predict(lm_mincer, newdata = .))
+
+
+CPS1985_fit %>% mutate(log_wage = log(wage)) %>%
+ggplot(data = ., aes(y = log_wage, x = experience)) +
+  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
+  geom_line(aes(y = log_wage_fit, x = experience), color = "#E16462", lwd =1.2) + 
+  theme_bw()+
+  xlab("Experience (Years)") + ylab("log(Wage)") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# Mincer equation
+
+$$\log(Wage) = \beta_0 + \beta_1 Educ + \beta_2 Exp + \beta_3 Exp^2 + \varepsilon$$
+
+- Interpret the coefficient for **.darkorange[education]**
+
+--
+
+.center[
+*One additional year of education is associated, on average, to $\hat{\beta}_1\times100$% increase in hourly wages, holding experience constant*]
+
+--
+
+- What is the association between experience and wages?
+
+---
+# Interpreting coefficients in quadratic equation
+
+```{r exp_wages4, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message=FALSE}
+
+x0 = 20
+
+l1 = (lm_mincer$coefficients["experience"] + 
+  2*lm_mincer$coefficients["I(experience^2)"]*x0)*(CPS1985_fit$experience - x0) + lm_mincer$coefficients["(Intercept)"] + lm_mincer$coefficients["education"]*CPS1985_fit$education +
+lm_mincer$coefficients["experience"]*x0 + lm_mincer$coefficients["I(experience^2)"]*x0^2
+  
+y0 = lm_mincer$coefficients["(Intercept)"] + lm_mincer$coefficients["education"]*CPS1985_fit$education +
+lm_mincer$coefficients["experience"]*x0 + lm_mincer$coefficients["I(experience^2)"]*x0^2
+
+CPS1985_fit <- CPS1985_fit %>% mutate(lm_20 = l1)
+
+CPS1985_fit %>% mutate(log_wage = log(wage)) %>%
+ggplot(data = ., aes(y = log_wage, x = experience)) +
+  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
+  geom_line(aes(y = log_wage_fit, x = experience), color = "#E16462", lwd =1.2) + 
+  geom_line(aes(y = lm_20, x = experience), color = "#BF3984", lwd =1.2, lty = 2) + 
+  geom_segment(aes(x = x0, xend = x0, y = 0, yend = y0),
+               lty = 2, color = "dark grey") +
+  theme_bw()+
+  xlab("Experience (Years)") + ylab("log(Wage)") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# Interpreting coefficients in quadratic equation
+
+```{r exp_wages5, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message=FALSE}
+
+x1 = 40
+
+l1 = (lm_mincer$coefficients["experience"] + 
+  2*lm_mincer$coefficients["I(experience^2)"]*x1)*(CPS1985_fit$experience - x1) + lm_mincer$coefficients["(Intercept)"] + lm_mincer$coefficients["education"]*CPS1985_fit$education +
+lm_mincer$coefficients["experience"]*x1 + lm_mincer$coefficients["I(experience^2)"]*x1^2
+  
+y1 = lm_mincer$coefficients["(Intercept)"] + lm_mincer$coefficients["education"]*CPS1985_fit$education +
+lm_mincer$coefficients["experience"]*x1 + lm_mincer$coefficients["I(experience^2)"]*x1^2
+
+CPS1985_fit <- CPS1985_fit %>% mutate(lm_40 = l1)
+
+CPS1985_fit %>% mutate(log_wage = log(wage)) %>%
+ggplot(data = ., aes(y = log_wage, x = experience)) +
+  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
+  geom_line(aes(y = log_wage_fit, x = experience), color = "#E16462", lwd =1.2) + 
+  geom_line(aes(y = lm_20, x = experience), color = "#BF3984", lwd =1.2, lty = 2) + 
+  geom_segment(aes(x = x0, xend = x0, y = 0, yend = y0),
+               lty = 2, color = "dark grey") +
+  geom_line(aes(y = lm_40, x = experience), color = "#5601A4", lwd =1.2, lty = 2) + 
+  geom_segment(aes(x = x1, xend = x1, y = 0, yend = y0),
+               lty = 2, color = "dark grey") +
+  theme_bw()+
+  xlab("Experience (Years)") + ylab("log(Wage)") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+
+---
+# Interpreting coefficients in quadratic equation
+
+```{r exp_wages6, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message=FALSE}
+library(latex2exp)
+x1 = 40
+
+l1 = (lm_mincer$coefficients["experience"] + 
+  2*lm_mincer$coefficients["I(experience^2)"]*x1)*(CPS1985_fit$experience - x1) + lm_mincer$coefficients["(Intercept)"] + lm_mincer$coefficients["education"]*CPS1985_fit$education +
+lm_mincer$coefficients["experience"]*x1 + lm_mincer$coefficients["I(experience^2)"]*x1^2
+  
+y1 = lm_mincer$coefficients["(Intercept)"] + lm_mincer$coefficients["education"]*CPS1985_fit$education +
+lm_mincer$coefficients["experience"]*x1 + lm_mincer$coefficients["I(experience^2)"]*x1^2
+
+CPS1985_fit <- CPS1985_fit %>% mutate(lm_40 = l1)
+
+CPS1985_fit %>% mutate(log_wage = log(wage)) %>%
+ggplot(data = ., aes(y = log_wage, x = experience)) +
+  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
+  geom_line(aes(y = log_wage_fit, x = experience), color = "#E16462", lwd =1.2) + 
+  geom_line(aes(y = lm_20, x = experience), color = "#BF3984", lwd =1.2, lty = 2) + 
+  geom_segment(aes(x = x0, xend = x0, y = 0, yend = y0),
+               lty = 2, color = "dark grey") +
+  geom_line(aes(y = lm_40, x = experience), color = "#5601A4", lwd =1.2, lty = 2) + 
+  geom_segment(aes(x = x1, xend = x1, y = 0, yend = y0),
+               lty = 2, color = "dark grey") +
+  annotate("text", x=10,y=2.7, label = TeX("$m = \\beta_2 + 2\\beta_3 Exp$"), color = "#5601A4", size = 4) +
+  
+  theme_bw()+
+  xlab("Experience (Years)") + ylab("log(Wage)") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+
+---
+# Interpreting coefficients in quadratic equation
+
+$$\log(Wage) = \beta_0 + \beta_1 Educ + \beta_2 Exp + \beta_3 Exp^2 + \varepsilon$$
+What is the association between experience and wages?
+
+--
+
+- Pick a value for $Exp_0$ (e.g. mean, median, one value of interest)
+
+--
+.center[
+*Increasing work experience from 20 to 21 years is associated, on average, to a $(\hat{\beta}_2 + 2\hat{\beta}_3\cdot 20)100$% increase on hourly wages, holding education constant*]
+
 
 ---
 # Main takeaway points
 
 .pull-left[
 - The model you fit **.darkorange[depends on what you want to analyze]**.
-
-- Data can tell different stories depending on how you handle it.
-
-  - Does that mean that we can get data to say **.darkorange[anything]**?
   
-  .box-5["If you torture the data long enough, it will confess to anything"]
-  
-- Plot your data!
+- **.darkorange[Plot your data!]**
+
+- Make sure you capture associations that **.darkorange[make sense]**.
   
 ]
 
@@ -950,7 +1142,11 @@ class: center, middle
 # Next week
 
 .pull-left[
-- What is hetersokedasticty?
+- Issues with regressions and our data:
+
+  - Outliers?
+  
+  - Multicollinearity & Heteroskedasticity
 
 - Regression models with discrete outcomes:
 
