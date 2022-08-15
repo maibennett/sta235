@@ -23,12 +23,12 @@ Below you will find a general outline of the topics we’ll cover in this course
 <tr>
 <td>2</td>
 <td>Aug 30 – Sep 1</td>
-<td>Multiple regression models (cont.): Interactions in regressions; potential issues with regressions: outliers and collinearity.</td>
+<td>Multiple regression models (cont.): Interactions in regressions; Nonlinear models.</td>
 </tr>
 <tr>
 <td>3</td>
 <td>Sep 6 – Sep 8</td>
-<td>Regression models with discrete outcomes: logistic regression <br><i>Homework 1 due</i> <br><i>Submit your group for the FINAL PROJECT</i></td>
+<td>Potential issues with regressions: Outliers, collinearity. Regression models with discrete outcomes: logistic regression. <br><i>Homework 1 due</i> <br><i>Submit your group for the FINAL PROJECT</i></td>
 </tr>
 <tr>
 <td>4</td>
