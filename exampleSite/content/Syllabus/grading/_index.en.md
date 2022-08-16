@@ -40,7 +40,7 @@ There will be one individual midterm, one final exam, and one final group projec
 4.	Final: 20%
 5.	Final project: 20%
 
-I will use the cutoffs below to translate your overall course average into a final letter grade. **These cutoffs are firm; we do not round course averages**. So, for example, an overall course average of 89.99 is a B+, not an A-. I sometimes (but not always) curve grades for each assignment, but **not** for the final grade. There will be no extra credit.
+I will use the cutoffs below to translate your overall course average into a final letter grade. **These cutoffs are firm; we do not round course averages**. So, for example, an overall course average of 89.99 is a B+, not an A-. I sometimes (but not always) curve grades for each assignment, but **not** for the final grade. <u>There will be no extra credit</u>, except for a small bonus for completing the course evaluation at the end of the semester.
 
 
 |Grade|A|A-|B+|B|B-|C+|C|C-|D|F|
@@ -63,7 +63,7 @@ I now explain each of these grading components in more detail.
 	- HW4: October 14th, 11:59 PM
 	- HW5: November 4th, 11:59 PM
 	- HW6: November 18th, 11:59 PM
-	- HW7: December 2nd, 11:59 PM
+	- HW7: November 30th, 11:59 PM
 
  
 -	Homework assignments have to be completed individually. All students are expected to do their own work, and any sign of plagiarism or copying with another student will be penalized. If there is evidence of misconduct, all students involved will be reported to the corresponding office.
