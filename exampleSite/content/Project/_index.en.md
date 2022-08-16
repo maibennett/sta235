@@ -108,6 +108,12 @@ I'm also providing some resources here that can be useful if you don't know wher
 
 - [Opportunity Insights](https://opportunityinsights.org/): Comprehensive datasets put together by the OI team, such as social capital, college mobility, economic tracker, etc.
 
+- [Current Population Survey](https://www.census.gov/programs-surveys/cps/data.html): Survey created jointly by the Census Bureau and the Bureau of Labor Statistics.
+
+- [Home Mortgage Disclosure Act](https://www.consumerfinance.gov/data-research/hmda/): Publicly available data on the US mortgage market.
+
+- [Zillow data](https://www.zillow.com/research/data/): Many real estate platforms have some aggregated information available that could be interesting to analyze. You can merge their datasets with other datasets if you need more information (e.g. census data).
+
 - Open data portals (e.g. [NYC restaurant inspection](https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/43nn-pn8j)): Most cities and states have open data portals that allow you to download a lot of relevant data in different areas (e.g. education, health, crime, etc.)
 
 - [Illinois Workplace Wellness Study](https://github.com/reifjulian/illinois-wellness-data)
@@ -115,6 +121,8 @@ I'm also providing some resources here that can be useful if you don't know wher
 - [Awesome Public Datasets](https://github.com/awesomedata/awesome-public-datasets)
 
 - [Project Datasets](https://perso.telecom-paristech.fr/eagan/class/igr204/datasets)
+
+- [Iowa State University - Business Analytics Research Guide (List of Datasets)](https://instr.iastate.libguides.com/BAMS/Data)
 
 - [mosaicData](https://github.com/ProjectMOSAIC/mosaicData): R package that contains multiple datasets (see list [here](https://cran.r-project.org/web/packages/mosaicData/mosaicData.pdf))
 
