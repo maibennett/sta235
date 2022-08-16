@@ -35,11 +35,143 @@ This document is meant to show you some useful code that we will be using in thi
 
 # Starting with R
 
+## Check your version
+
 For this class, make sure you have the most updated version of R (you can check your \R version by typing `version` on the console). If your version is older than `R 4.2.1`, please [download]() and install the latest \R version.
 
-```{r, echo = TRUE, warning = FALSE, message = FALSE}
-sports <- sports %>% filter(!is.na(total_rev_menwomen) & !is.na(rev_men) & !is.na(rev_women))
+## Code header
+
+It's always good practice to have some annotations on your code, especially on the header, so future you remembers what past you was doing (sometimes they don't get along). This is personal preference, but for simple projects, I tend to have a descriptive header as following:
+
+```{r}
+################################################################################
+### Title: My Project
+### Author: Magdalena Bennett
+### Created on: 2022/08/04
+### Last edit: 2022/08/16
+###      Edit: [MB] - Created script
+###      Edit: [MB] - Included additional data
+################################################################################
+
+# Clears memory
+rm(list = ls())
+# Clears console
+cat("\014")
 ```
+
+This is particularly helpful when you are working with collaborators, so you can keep track of the main edits.
+
+Another slightly more sofisticated but incredibly useful way of keep track of changes in R scripts is using [Github](https://www.github.com). This goes beyond the scope of this document, but I highly suggest you look into it if you plan of coding more frequently (*Tip: Look into Github Desktop if you've never used git*).
+
+Note that I also include code to clear the memory and the console, to make sure I'm starting from scratch when running code. This is very useful to make sure your code is reproducible, because others will most likely start with a clear memory as well.
+
+## Load your packages
+
+One good practice is to load all required packages for your code at the top of your script. For example, for this document I will be using the following packages:
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(patchwork)
+library(AER)
+```
+
+Make sure your packages are installed, or the previous code will give you an error. If one or more of the packages are not installed, you need to install them only once as following:
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+install.packages("AER")
+```
+
+**Do not include this line of code on your R script**. If you do, every time you run the code, you will be re-installing the package and that is not necessary (also it may lead to errors or inconsistencies if the package is updated).
+
+For this course, we will almost always be using the `tidyverse` package, which include an array of other packages as well (e.g. `dplyr`, `ggplot2`, etc.). If you load the `tidyverse`, there's no need to include these other ones. Also, make sure you load the packages you need, and not every package you have ever used. **Keep your code clean**.
+
+## Opening your data
+
+How you load your data depends on how your data is stored (csv? json? dta?). In this course, we will usually use CSV data (Comma-Separated Values), which you can load as following:
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE}
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/data/cereal.csv")
+```
+
+In this case, we are loading the data directly from a web repository, but you can also load it with local data (e.g. changing the file to `"C:/Documents/DS/cereal.csv"`).
+
+*Note: Always make sure you look at your dataset after you load it, to make sure you are reading it correctly*.
+
+If you are using other type of data, there other packages that might be useful, such as `haven`, `readxl`, or `rjson`, among others.  
+
+# Data Wrangling
+
+Now that we have setup our session and have our data loaded, let's start wrangling the data (e.g. setting it up for analysis). We will be using the `cereal.csv` data we previously loaded, and you can check out more information about this dataset [here](http://lib.stat.cmu.edu/datasets/1993.expo/).
+
+## Inspect data
+
+We can look at some of the data with plots. For example, a histogram:
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE}
+ggplot(data = d, aes(x = rating)) +
+  geom_histogram(color = "skyblue", fill = "white", lwd = 1.1, bins = 30) +
+  xlab("Rating") + ylab("Count") +
+  ggtitle("Rating for Cereals") + 
+    theme_minimal()
+```
+
+In `ggplot`, we always load the data and pass the aesthetics (e.g. variables you want to plot). There are many options to personalize your plots! Make sure they are readable and provide the information you want to convey. For that, titles, captions, axis labels, scale, etc., are always important. In this case, **looks ARE important** (in order to convey information).
+
+Besides histograms, we can have density plots (`geom_density()`), scatter plots (`geom_point()`), and line plots (`geom_line`), among many, many others.
+
+For example, let's look at a scatter plot between `sugars` and `rating`:
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE}
+ggplot(data = d, aes(y = rating, x = sugars)) +
+  geom_point(color = "skyblue") +
+  xlab("Sugars") + ylab("Ratings") +
+  ggtitle("Rating vs Sugars") + 
+    theme_minimal()
+```
+
+We can also show two plots side-by-side using the `patchwork` package:
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE}
+hist1 <- ggplot(data = d, aes(x = rating)) +
+  geom_histogram(color = "skyblue", fill = "white", lwd = 1.1, bins = 30) +
+  xlab("Rating") + ylab("Count") +
+  ggtitle("Rating for Cereals") + 
+    theme_minimal()
+
+scat1 <- ggplot(data = d, aes(y = rating, x = sugars)) +
+  geom_point(color = "skyblue") +
+  xlab("Sugars") + ylab("Ratings") +
+  ggtitle("Rating vs Sugars") + 
+    theme_minimal()
+
+hist1 + scat1
+```
+
+One thing that you might want to do when inspecting your data is to know how many observations/groups you have available. For example, how many different manufacturers do we have and do they make higher or lower calories cereal?
+
+For this, the `group_by` function could be very useful. What it does is group your dataset by whatever variable(s) you want, and then do operations at that group-level (e.g. mutate or summarize):
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE}
+d %>% group_by(mfr) %>% summarize(n_cereals = n(),
+                                  mean_calories = mean(calories))
+```
+
+From the previous code, you can see that now we are creating two new variables: `n_cereals`, which is the number of different cereals in our dataset *by manufacturer*, and `mean_calories`, which captures the average calories of cereals made by that manufacturer. Also, what are the dimensions of our new dataset? Can you guess why?
+
+## Cleaning data
+
+One important task (and usually the one that takes the most time) is cleaning your data. In this section, we will review some of the main functions you will need to remove observations, create new variables, change existing ones, etc.
+
+### Let's apply a filter
+
+Many times, you will have a dataset that contains observations that you may want to remove (e.g. a specific population or missing observations). These decisions are not automatic, and you should always explain *why* you are removing observations. But for now, let's get to the code. For this example, we will be suing the `CreditCard` dataset from the `AER` package (type `?CreditCard` to get an idea of what the dataset contains):
+
+```{r}
+data("CreditCard")
+```
+
+Let's keep a subset of 
+
 
 We now have `r nrow(sports)` observations
 
