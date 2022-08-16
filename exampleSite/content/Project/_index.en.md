@@ -94,7 +94,7 @@ Presentations will short presentations (5 minutes) followed by a couple of quest
 
 ## Where to get data
 
-You can use any data you want (as long as it can be shared with the instruction team), but you need to describe how and where you obtained it from.
+You can use any data you want (as long as it can be shared with the instruction team), but you need to describe how and where you obtained it from. Make sure your data is not *too* simple (e.g. too few variables, very small dataset), so you can run some interesting analysis on it. 
 
 I'm also providing some resources here that can be useful if you don't know where to start:
 
@@ -113,6 +113,8 @@ I'm also providing some resources here that can be useful if you don't know wher
 - [Illinois Workplace Wellness Study](https://github.com/reifjulian/illinois-wellness-data)
 
 - [Awesome Public Datasets](https://github.com/awesomedata/awesome-public-datasets)
+
+- [Project Datasets](https://perso.telecom-paristech.fr/eagan/class/igr204/datasets)
 
 - [mosaicData](https://github.com/ProjectMOSAIC/mosaicData): R package that contains multiple datasets (see list [here](https://cran.r-project.org/web/packages/mosaicData/mosaicData.pdf))
 

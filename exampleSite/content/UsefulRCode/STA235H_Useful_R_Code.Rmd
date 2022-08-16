@@ -1,0 +1,221 @@
+---
+title: "Some Useful R Code"
+author: "STA 235H - Fall 2022"
+date: "August 16th, 2022"
+output: 
+  html_document:
+    css: style.css 
+    toc: no
+  pdf_document: 
+    latex_engine: xelatex
+    toc: no
+---
+<style type="text/css">
+.main-container {
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media only screen and (max-width: 600px) {
+   body {
+      margin: 0;
+      padding: 0;
+   }
+   .sample {
+      width: 100%;
+   }
+}
+</style>
+
+
+# Introduction
+
+This document is meant to show you some useful code that we will be using in this class. However, **it is not meant to be a comprehensive list of tips and tricks** for R users. If you want a deeper dive into R, please check the external resources that have been added on the [course website](https://sta235.netlify.app/resources/).
+
+# Starting with R
+
+For this class, make sure you have the most updated version of R (you can check your \R version by typing `version` on the console). If your version is older than `R 4.2.1`, please [download]() and install the latest \R version.
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE}
+sports <- sports %>% filter(!is.na(total_rev_menwomen) & !is.na(rev_men) & !is.na(rev_women))
+```
+
+We now have `r nrow(sports)` observations
+
+**4) Transform revenue and expenditure variables into thousands of USD (instead of USD). Plot a histogram for total revenue and another histogram for total expenditure (they do not need to be on the same plot). What can you say about these plots? (1 sentence)** *(7 points)*
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE}
+library(ggplot2)
+library(patchwork)
+
+sports <- sports %>% mutate(total_exp_menwomen = total_exp_menwomen/1000,
+                            exp_men = exp_men/1000,
+                            exp_women = exp_women/1000,
+                            total_rev_menwomen = total_rev_menwomen/1000,
+                            rev_men = rev_men/1000,
+                            rev_women = rev_women/1000)
+
+g_exp <- ggplot(data = sports, aes(x = total_exp_menwomen)) +
+  geom_histogram(color = "skyblue", fill = "white", lwd = 1.1, bins = 50) +
+  xlab("Expenditure") + ylab("Count") +
+    theme_minimal()
+
+g_rev <- ggplot(data = sports, aes(x = total_rev_menwomen)) +
+  geom_histogram(color = "skyblue", fill = "white", lwd = 1.1, bins = 50) +
+  xlab("Revenue") + ylab("Count") +
+    theme_minimal()
+
+g_exp + g_rev
+```
+
+These distributions are skewed, and have a long right tail.
+
+**5) Now transform the variables into logarithms and create the same plots. What can you say now about these graphs? (1 sentence)** *(5 points)*
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE}
+sports <- sports %>% mutate(log_total_exp = log(total_exp_menwomen),
+                            log_total_rev = log(total_rev_menwomen))
+
+g_exp <- ggplot(data = sports, aes(x = log_total_exp)) +
+  geom_histogram(color = "skyblue", fill = "white", lwd = 1.1, bins = 50) +
+  xlab("log(Expenditure)") + ylab("Count") +
+    theme_minimal()
+
+g_rev <- ggplot(data = sports, aes(x = log_total_rev)) +
+  geom_histogram(color = "skyblue", fill = "white", lwd = 1.1, bins = 50) +
+  xlab("log(Revenue)") + ylab("Count") +
+    theme_minimal()
+
+g_exp + g_rev
+```
+
+By transforming expenditure and revenue with log, we can see that now they distribute normally. 
+
+**6) Fit the following model using the data:**
+$$\log(TotalRevenue) = \beta_0 + \beta_1\log(TotalExpenditure) + \beta_2 Year + \varepsilon$$
+**Fit the regression, show your results, and interpret $\hat{\beta}_1$** *(8 points)*
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE}
+lm1 <- lm(log_total_rev ~ log_total_exp + year, data = sports)
+
+summary(lm1)
+```
+
+An increase in 1% of total expenditures is associated with a increase of 0.93% in total revenue, holding year constant, which is statistically significant at a 1% level.
+
+
+---
+
+Now that we have analyzed some general associations, let's look at whether the association between revenue and expenditure is different for men and women's sports.
+
+For this, we will use a transformation of the previous dataset, where we will append data for men and women separately at the institution level to make the analysis easier. You can find the new dataset here:
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+sports_m <- sports %>% select(rev_men, exp_men, year, ef_male_count, partic_men, unitid) %>% group_by(unitid, year) %>%
+  summarise(revenue = sum(rev_men), expenditure = sum(exp_men), enrollment = mean(ef_male_count, na.rm = TRUE), partic = sum(partic_men)) %>%
+  mutate(women = 0) %>% filter(expenditure>0 & revenue>0)
+
+sports_w <- sports %>% select(rev_women, exp_women, year, ef_female_count, partic_women, unitid) %>% group_by(unitid, year) %>%
+  summarise(revenue = sum(rev_women), expenditure = sum(exp_women), enrollment = mean(ef_female_count, na.rm = TRUE), partic = sum(partic_women)) %>%
+  mutate(women = 1) %>% filter(expenditure>0 & revenue>0)
+
+sports_mw <- bind_rows(sports_m, sports_w)# append the two previous datasets
+
+#write.csv(sports_mw, file = "C:/Users/mc72574/Dropbox/UT/Teaching/2022Fall_STA235H/homework/homework1/data/sports_mw.csv", row.names = FALSE)
+  
+```
+
+```{r, message=FALSE, warning=FALSE, echo=TRUE, eval = FALSE}
+sports_mw <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/HW1/data/sports_mw.csv")
+```
+
+In `sports_mw`, we have the same data as before, but at the institution-year-gender level:
+
+|variable             |class     |description |
+|:--------------------|:---------|:-----------|
+|unitid               |integer   | School ID |
+|year                 |integer   | year, which is year: year + 1, eg 2015 is 2015 to 2016 |
+|women                |integer   | 1: data refers to women sports, and 0: data refers to male sports|
+|revenue              |double    | Total revenue for all sports at the unitid-year-women level, measured in 1,000 USD |
+|expenditure          |double    | Total expenditure for all sports at the unitid-year-women level, measured in 1,000 USD  |
+|enrollment           |double    | Enrollment at the unitid-year-women level |
+|partic               |double    | Total participation in sports at the unitid-year-women level |
+
+
+**7) Using the dataset `sports_mw`, fit the following regression:** *(12 points)*
+
+$$\begin{eqnarray*}
+\log(Revenue) = &\beta_0& + \beta_1Participation + \beta_2Enrollment + \beta_3\log(Expenditure) + \\&\beta_4&Women + \beta_5log(Expenditure)\times Women+ \varepsilon
+\end{eqnarray*}$$
+**What is the association between revenue and expenditure for men's sports? and for women's? Are they significantly different? Explain**
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE}
+
+sports_mw <- sports_mw %>% mutate(log_revenue = log(revenue),
+                                  log_expenditure = log(expenditure))
+
+lm2 <- lm(log_revenue ~ partic + enrollment + log_expenditure*women, data = sports_mw)
+
+summary(lm2)
+
+```
+
+- For a 1% increase in expenditure, male sports increase their revenue, on average, by 1.019%, holding other variables constant. The association is statistically significant at 1% level.
+
+- For a 1% increase in expenditure, female sports increase their revenue by 0.956%, holding other variables constant. The association is statistically significant at a 1% level.
+
+- The difference in the association between revenue and expenditure for men and women's sports is statistically significant at a 1% level, where the association for female's is -0.006% lower than for male's sports.
+
+---
+
+# Task 2 - All about that real estate bubble (45 points)
+
+As you may have noticed, real estate prices are soaring in some cities, and 
+
+**1) Create a scatter plot for price (y-axis) and square-footage (x-axis)**
+
+**2) Using the previous plot and whatever regression(s) model(s) you see fit, which of the following statements better describes the relation between price and square-footage?** (5 points)
+
+a) The relation is linear and positive
+b) The relation is quadratic and positive
+c) The relation is not statistically significant
+d) We cannot properly assess the relation with this data
+
+**2) Fit the following model:**
+$$Price = \beta_0 + \beta_1 NumRooms + \beta_2 NumBathrooms + \beta_3 SqFootage + \beta_4...$$
+
+**What is the average price for a house with 2 bed/1 bath and 700 sqft?**
+
+**3) Interpret the intercept for the previous regression. What is it capturing?**
+
+**4) Fit the following quadratic model:**
+
+$$Price = \beta_0 + \beta_1 SqFootage + \beta_2 SqFootage^2 + \varepsilon$$
+
+**Based on the previous model, what is the relation between price and square footage?**
+
+---
+
+# Task 3 - Understanding regression outputs (10 points)
+
+**1) Which column shows the point estimates?** (2 points)
+
+**2) What is the t-statistic that is missing in the previous table?** (2 points)
+
+**3) What is the null hypothesis that is being tested if you look at column 4?** (2 points)
+
+**4) Looking at the previous table, which of the following statements is/are true?** (2 points)
+
+- The relation between X1 and Y is larger than the relation between X2 and Y
+
+- Looking at the p-value, we can accept that the relation between X3 and Y is 0.
+
+- One-unit increase in X1 is associated to an average increase of B1% in Y, holding other variables constant.
+
+- 1% increase in X1 is associated to an average inrease of B1 in Y, holding other variables constant.
+
+- [COMPLETE]
+
+**5) Complete the following code:** (2 points)
+
