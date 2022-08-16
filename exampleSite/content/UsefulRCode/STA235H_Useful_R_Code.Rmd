@@ -68,6 +68,8 @@ One good practice is to load all required packages for your code at the top of y
 ```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(patchwork)
+library(flextable)
+library(gtsummary)
 library(AER)
 ```
 
@@ -115,20 +117,6 @@ In `ggplot`, we always load the data and pass the aesthetics (e.g. variables you
 
 Besides histograms, we can have density plots (`geom_density()`), scatter plots (`geom_point()`), and line plots (`geom_line`), among many, many others.
 
-Some arguments that might be useful to have in mind:
-
-- `color`: Refers to the outline color of objects. If `fill` is not defined, usually both take the same argument.
-- `fill`: Refers to what color objects are filled (e.g. bars). In a scatter plot, it only works if the marker has a different outline.
-- `pch`: In a scatter plot, defines the type of marker you are using (e.g. circles, squares, triangles).
-- `lwd`: Line width for a line or a bar plot, for example.
-- `lty`: Line type (1: solid, 2: dashed, etc.).
-
-In terms of aesthetics, `aes()`:
-
-- `x`: X-axis variable
-- `y`: Y-axis variable
-- `color`, `fill`: Variable that will define the color of lines or markers (e.g. if you want to distinguish between two groups)
-
 For example, let's look at a scatter plot between `sugars` and `rating`:
 
 ```{r, echo = TRUE, warning = FALSE, message = FALSE}
@@ -156,6 +144,20 @@ scat1 <- ggplot(data = d, aes(y = rating, x = sugars)) +
 
 hist1 + scat1
 ```
+
+Some arguments that might be useful to have in mind:
+
+- `color`: Refers to the outline color of objects. If `fill` is not defined, usually both take the same argument.
+- `fill`: Refers to what color objects are filled (e.g. bars). In a scatter plot, it only works if the marker has a different outline.
+- `pch`: In a scatter plot, defines the type of marker you are using (e.g. circles, squares, triangles).
+- `lwd`: Line width for a line or a bar plot, for example.
+- `lty`: Line type (1: solid, 2: dashed, etc.).
+
+In terms of aesthetics, `aes()`:
+
+- `x`: X-axis variable
+- `y`: Y-axis variable
+- `color`, `fill`: Variable that will define the color of lines or markers (e.g. if you want to distinguish between two groups)
 
 One thing that you might want to do when inspecting your data is to know how many observations/groups you have available. For example, how many different manufacturers do we have and do they make higher or lower calories cereal?
 
@@ -193,3 +195,82 @@ The following figure shows the more typical functions for merging datasets, avai
 ```{r join, fig.align = 'center', out.width = "50%", fig.cap = "Overview of the dplyr Join Functions ([Source](Source: https://statisticsglobe.com/r-dplyr-join-inner-left-right-full-semi-anti))"}
 knitr::include_graphics("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/join_functions.png")
 ```
+
+As an example, let's load two datasets: (1) one at the zipcode level, and (2) another one at the individual level.
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE}
+zipcode <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/data/zipcode.csv")
+
+individual <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/data/individual.csv")
+
+head(individual)
+```
+
+We will merge both datasets **by their zipcode** (*Note: make sure both variables are named the same and have the same format!*), and keep all observations in the `individual` dataset:
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE}
+individual <- left_join(individual, zipcode, by = "zipcode")
+
+head(individual)
+```
+
+# Some analysis output
+
+We will not go into depth in terms of how to analyze data (check slides and code provided for each class), but one relevant tip for assignments is how to present your results in an appropriate way.
+
+For that, we will use the `stargazer` package to format tables.
+
+## Summary tables
+
+Besides what we will see in class, you can use [`flextable`](https://davidgohel.github.io/flextable/) to create a table of your dataset (or a subset of the most relevant variables). For example, you can use `continuous_summary()`:
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE, results = "asis"}
+cereal <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/data/cereal.csv")
+
+flextable::continuous_summary(cereal, digits = 2) %>% 
+  set_caption(., "Summary of my cereal dataset")
+```
+
+You can also export your table in different formats (e.g. docx, html, tex, ppt). Just add the respective function after, including your file name (and path):
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
+continuous_summary(d, digits = 2) %>% 
+  set_caption(., "Summary of my cereal dataset") %>%
+  save_as_docx(path = "cereal_summary.docx")
+```
+
+For a regression, you can a do a similar thing:
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE, results = "asis"}
+lm0 <- lm(rating ~ sugars, data = d)
+lm1 <- lm(rating ~ sugars + fat, data = d)
+lm2 <- lm(rating ~ sugars + fat + fiber + cups, data = d)
+
+
+```
+
+Make sure to check out the additional arguments that `stargazer` can take! You can really customize your tables with this package.
+
+# How to debug my code
+
+One important thing to learn is how to find solutions when your code is not running. Here are some tips:
+
+1) **Start from a clean environment**: Run your entire code. Does it throw an error? Identify which line.
+
+2) **Is this an error or a warning?**: Both of them are important, but warnings allow you to run your code, while errors don't. Read warnings to make sure that is something that you shouldn't be concerned about.
+
+3) **Read your error message**: Sometimes the solution is on the error itself! If it tells you that the function can't run because there are missing values, inspect your data to see what they are.
+
+4) **Google is your friend**: If you can't identify the problem from the error message itself, google it! Most likely someone else has ran into the same issue and have posted the question on [StackOverflow](https://stackoverflow.com/), for example. Use that collective knowledge to help you find answers.
+
+5) **I still don't know what's wrong**: If you've already read, googled, tried different solutions, and still feel stuck (e.g. > 10 min), reach out to the instruction team! We are more than happy to guide you to a solution. Make sure to let us know what you have tried, but don't spend too much time stuck.
+
+With coding, you learn something new every day. New packages come out, functions sometimes change, new problems require different skills, but the idea is that *you learn how to teach yourself how to code*, regardless of the language or software. It can be frustrating, but it is an **incredible useful skill** and your hard work will certainly pay!
+
+# Some final thoughts
+
+There are **a lot** of things we can do in \R, and in this class we are going to dive into a lot of them. Make sure you check the weekly R scripts that are posted with each class and play around with them. Add some of these tricks, try new functions, search for errors, and be curious!
+
+The instruction team is always here to help you, so be sure to reach out if you are having any issues.
+
+**Happy coding!**
