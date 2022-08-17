@@ -4,7 +4,8 @@ author: "STA 235H - Fall 2022"
 date: "August 16th, 2022"
 output: 
   html_document:
-    css: style.css 
+    css: style.css
+    df_print: "kable"
 ---
 <!-- <style type="text/css"> -->
 <!-- .main-container { -->
@@ -68,8 +69,8 @@ One good practice is to load all required packages for your code at the top of y
 ```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(patchwork)
-library(flextable)
-library(gtsummary)
+library(vtable)
+library(stargazer)
 library(AER)
 ```
 
@@ -163,9 +164,18 @@ One thing that you might want to do when inspecting your data is to know how man
 
 For this, the `group_by` function could be very useful. What it does is group your dataset by whatever variable(s) you want, and then do operations at that group-level (e.g. mutate or summarize):
 
-```{r, echo = TRUE, warning = FALSE, message = FALSE}
+```{r, echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
 d %>% group_by(mfr) %>% summarize(n_cereals = n(),
                                   mean_calories = mean(calories))
+```
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+library(kableExtra)
+
+d %>% group_by(mfr) %>% summarize(n_cereals = n(),
+                                  mean_calories = mean(calories)) %>%
+  kbl() %>%
+  kable_paper("hover", full_width = F)
 ```
 
 From the previous code, you can see that now we are creating two new variables: `n_cereals`, which is the number of different cereals in our dataset *by manufacturer*, and `mean_calories`, which captures the average calories of cereals made by that manufacturer.
@@ -198,7 +208,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/maibennett/sta235/mai
 
 As an example, let's load two datasets: (1) one at the zipcode level, and (2) another one at the individual level.
 
-```{r, echo = TRUE, warning = FALSE, message = FALSE}
+```{r, echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
 zipcode <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/data/zipcode.csv")
 
 individual <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/data/individual.csv")
@@ -206,12 +216,30 @@ individual <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main
 head(individual)
 ```
 
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+zipcode <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/data/zipcode.csv")
+
+individual <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/data/individual.csv")
+
+head(individual) %>%
+  kbl() %>%
+  kable_paper("hover", full_width = F)
+```
+  
 We will merge both datasets **by their zipcode** (*Note: make sure both variables are named the same and have the same format!*), and keep all observations in the `individual` dataset:
 
-```{r, echo = TRUE, warning = FALSE, message = FALSE}
+```{r, echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
 individual <- left_join(individual, zipcode, by = "zipcode")
 
 head(individual)
+```
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+individual <- left_join(individual, zipcode, by = "zipcode")
+
+head(individual) %>%
+  kbl() %>%
+  kable_paper("hover", full_width = F)
 ```
 
 # Some analysis output
@@ -222,34 +250,67 @@ For that, we will use the `stargazer` package to format tables.
 
 ## Summary tables
 
-Besides what we will see in class, you can use [`flextable`](https://davidgohel.github.io/flextable/) to create a table of your dataset (or a subset of the most relevant variables). For example, you can use `continuous_summary()`:
+Besides what we will see in class, you can use different packages to export tables in a more "format-friendly" way. Here, I'll review just a couple of packages that can be useful for this purpose.
+
+### `vtable`
+
+We will mention this package in class as a way to quickly inspect your data, but you can also create summary tables with the `sumtable()` function.
 
 ```{r, echo = TRUE, warning = FALSE, message = FALSE, results = "asis"}
 cereal <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/data/cereal.csv")
 
-flextable::continuous_summary(cereal, digits = 2) %>% 
-  set_caption(., "Summary of my cereal dataset")
+sumtable(cereal, digits = 2, title = "Summary statistics for Cereal Data")
 ```
 
-You can also export your table in different formats (e.g. docx, html, tex, ppt). Just add the respective function after, including your file name (and path):
+You can also export the table to a CSV file using the arguments `out = "csv"` and `file`, or an HTML file to keep the formatting.
 
 ```{r, echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
-continuous_summary(d, digits = 2) %>% 
-  set_caption(., "Summary of my cereal dataset") %>%
-  save_as_docx(path = "cereal_summary.docx")
+sumtable(cereal, out = "csv", file = "C:/Users/mc72574/Desktop/sumtable_cereal.csv", digits = 2,
+         title = "Summary statistics for Cereal Data")
+
+sumtable(cereal, out = "html", file = "C:/Users/mc72574/Desktop/sumtable_cereal.html", digits = 2,
+         title = "Summary statistics for Cereal Data")
 ```
 
-For a regression, you can a do a similar thing:
+Check out more examples [here](https://cran.r-project.org/web/packages/vtable/vignettes/sumtable.html) to customize labels, groups, etc.
+
+### `stargazer`
+
+You can also use the `stargazer` package to create similar tables. For example:
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE, results = "asis"}
+stargazer(cereal, title = "Summary statistics for Cereal Data")
+```
+
+You can also use this package for regression results. For example, if we have three models:
 
 ```{r, echo = TRUE, warning = FALSE, message = FALSE, results = "asis"}
 lm0 <- lm(rating ~ sugars, data = d)
 lm1 <- lm(rating ~ sugars + fat, data = d)
 lm2 <- lm(rating ~ sugars + fat + fiber + cups, data = d)
 
-
+stargazer(lm0, lm1, lm2,
+          title="Regressions results for Cereal Ratings")
 ```
 
-Make sure to check out the additional arguments that `stargazer` can take! You can really customize your tables with this package.
+Same as before, you can also export these tables, but stargazer does have a more limited capability:
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
+stargazer(lm0, lm1, lm2,
+          title="Regressions results for Cereal Ratings", out = "C:/Users/mc72574/Desktop/reg_cereals.html")
+```
+
+If you want to keep the format of the table, one way is to export html into a .doc file, but you have to make small modifications to the p-value legends:
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
+stargazer(lm0, lm1, lm2,
+          title="Regressions results for Cereal Ratings", type = "html", out = "C:/Users/mc72574/Desktop/reg_cereals.doc")
+```
+
+## Other packages
+
+There are other packages out there that could also be useful (e.g. `flextable` or `gtsummary`), but in my opinion, the two presented here are some of the more beginner-friendly. I encourage you, though, to explore the different arguments and options to personalize your tables appropriately! Remember that the information you present needs to convey a message, so it needs to be clear.
+
 
 # How to debug my code
 
