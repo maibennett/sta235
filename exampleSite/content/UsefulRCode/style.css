@@ -6,9 +6,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@100&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Fira+Code:700&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
 
 body{
-	font-family: 'Roboto Condensed', sans-serif;
+	font-family: 'Jost', sans-serif;
     font-weight: 400;
 }
 /* Headers */
@@ -21,8 +22,44 @@ h1,h2,h3,h4,h5,h6{
 }
 
 .book .book-body .page-wrapper .page-inner {
-  max-width: 95%;
+  max-width: 100%;
 }
 
 #print { visibility: hidden; display: none; }
 #noprint { display: block; }
+
+html, code{
+  font: 13px/20px 'Fira Code',sans-serif;
+}
+
+.colorbox {
+  font-family: 'Yanone Kaffeesatz';
+  border-radius: 15px;
+  margin: 0em auto;
+  padding: 0.4em 0.4em;
+  overflow: hidden;
+  font-weight: 400;
+  font-size: 40px;
+  display:  table;
+  text-align: center;
+  background-color: #009acd;
+  color: white;
+  border: 5px solid #009acd;
+  max-width: 35%;
+}
+.center {
+  text-align: center;
+}
+
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    background-color: #009acd;
+    border-color: #337ab7;
+}
+
+.title.toc-ignore{
+  text-align: center;
+}
+
+.author{
+  text-align: center;
+}

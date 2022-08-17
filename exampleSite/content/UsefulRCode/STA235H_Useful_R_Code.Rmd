@@ -4,15 +4,19 @@ author: "STA 235H - Fall 2022"
 date: "August 16th, 2022"
 output: 
   html_document:
+    toc: true
+    toc_float:
+      collapsed: true
     css: style.css
     df_print: "kable"
 ---
-<!-- <style type="text/css"> -->
-<!-- .main-container { -->
-<!--   max-width: 1800px; -->
-<!--   margin-left: auto; -->
-<!--   margin-right: auto; -->
-<!-- } -->
+<style type="text/css">
+.main-container {
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
 
 <!-- @media only screen and (max-width: 600px) { -->
 <!--    body { -->
@@ -26,6 +30,7 @@ output:
 <!-- </style> -->
 
 
+
 # Introduction
 
 This document is meant to show you some useful code that we will be using in this class. However, **it is not meant to be a comprehensive list of tips and tricks** for R users. If you want a deeper dive into R, please check the external resources that have been added on the [course website](https://sta235.netlify.app/resources/).
@@ -34,7 +39,7 @@ This document is meant to show you some useful code that we will be using in thi
 
 ## Check your version
 
-For this class, make sure you have the most updated version of R (you can check your \R version by typing `version` on the console). If your version is older than `R 4.2.1`, please [download]() and install the latest \R version.
+For this class, make sure you have the most updated version of R (you can check your R version by typing `version` on the console). If your version is older than `R 4.2.1`, please [download]() and install the latest R version.
 
 ## Code header
 
@@ -97,6 +102,8 @@ In this case, we are loading the data directly from a web repository, but you ca
 *Note: Always make sure you look at your dataset after you load it, to make sure you are reading it correctly*.
 
 If you are using other type of data, there other packages that might be useful, such as `haven`, `readxl`, or `rjson`, among others.  
+
+---
 
 # Data Wrangling
 
@@ -242,6 +249,8 @@ head(individual) %>%
   kable_paper("hover", full_width = F)
 ```
 
+---
+
 # Some analysis output
 
 We will not go into depth in terms of how to analyze data (check slides and code provided for each class), but one relevant tip for assignments is how to present your results in an appropriate way.
@@ -252,65 +261,108 @@ For that, we will use the `stargazer` package to format tables.
 
 Besides what we will see in class, you can use different packages to export tables in a more "format-friendly" way. Here, I'll review just a couple of packages that can be useful for this purpose.
 
-### `vtable`
+### vtable
 
 We will mention this package in class as a way to quickly inspect your data, but you can also create summary tables with the `sumtable()` function.
 
-```{r, echo = TRUE, warning = FALSE, message = FALSE, results = "asis"}
+```{r, echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
 cereal <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/data/cereal.csv")
 
 sumtable(cereal, digits = 2, title = "Summary statistics for Cereal Data")
 ```
 
+```{r, echo = FALSE, warning = FALSE, message = FALSE, out.width="70%", align = "center"}
+cereal <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/data/cereal.csv")
+
+tab <- sumtable(cereal, digits = 2, title = "Summary statistics for Cereal Data", out = "return")
+
+tab %>% kbl() %>%
+  kable_paper("hover", full_width = F)
+```
+
+
 You can also export the table to a CSV file using the arguments `out = "csv"` and `file`, or an HTML file to keep the formatting.
 
 ```{r, echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
-sumtable(cereal, out = "csv", file = "C:/Users/mc72574/Desktop/sumtable_cereal.csv", digits = 2,
+sumtable(cereal, out = "csv", file = "C:/DS/sumtable_cereal.csv", digits = 2,
          title = "Summary statistics for Cereal Data")
 
-sumtable(cereal, out = "html", file = "C:/Users/mc72574/Desktop/sumtable_cereal.html", digits = 2,
+sumtable(cereal, out = "html", file = "C:/DS/sumtable_cereal.html", digits = 2,
          title = "Summary statistics for Cereal Data")
+```
+
+```{r outputs, echo = FALSE, fig.align = 'center', out.width = "45%", fig.cap = "Different Outputs for sumtable()", fig.show='hold'}
+
+knitr::include_graphics(c("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/images/vtable_excel.png", 
+                          "https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/images/vtable_html.png"))
+
 ```
 
 Check out more examples [here](https://cran.r-project.org/web/packages/vtable/vignettes/sumtable.html) to customize labels, groups, etc.
 
-### `stargazer`
+### stargazer
 
 You can also use the `stargazer` package to create similar tables. For example:
 
-```{r, echo = TRUE, warning = FALSE, message = FALSE, results = "asis"}
-stargazer(cereal, title = "Summary statistics for Cereal Data")
+<style type="text/css">
+  td {
+    padding: 0 15px;
+  }
+</style>
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE, results='asis'}
+stargazer(cereal, title = "Summary statistics for Cereal Data", header = FALSE,
+          type = "html")
 ```
+
 
 You can also use this package for regression results. For example, if we have three models:
 
-```{r, echo = TRUE, warning = FALSE, message = FALSE, results = "asis"}
+```{r, echo = TRUE, warning = FALSE, message = FALSE, eval=FALSE}
 lm0 <- lm(rating ~ sugars, data = d)
 lm1 <- lm(rating ~ sugars + fat, data = d)
 lm2 <- lm(rating ~ sugars + fat + fiber + cups, data = d)
 
-stargazer(lm0, lm1, lm2,
+stargazer(lm0, lm1, lm2, header = FALSE,
           title="Regressions results for Cereal Ratings")
 ```
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE, results="asis"}
+lm0 <- lm(rating ~ sugars, data = d)
+lm1 <- lm(rating ~ sugars + fat, data = d)
+lm2 <- lm(rating ~ sugars + fat + fiber + cups, data = d)
+
+library(htmltools)
+
+stargazer(lm0, lm1, lm2, header = FALSE,
+          title="Regressions results for Cereal Ratings", out = "tab1.html")
+
+htmltools::includeHTML("tab1.html")
+```
+
 
 Same as before, you can also export these tables, but stargazer does have a more limited capability:
 
 ```{r, echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
 stargazer(lm0, lm1, lm2,
-          title="Regressions results for Cereal Ratings", out = "C:/Users/mc72574/Desktop/reg_cereals.html")
+          title="Regressions results for Cereal Ratings", out = "C:/DS/reg_cereals.html")
 ```
 
-If you want to keep the format of the table, one way is to export html into a .doc file, but you have to make small modifications to the p-value legends:
+If you want to keep the format of the table and be able to edit it in your document, one way is to export html into a .doc file, but you have to make small modifications to the p-value legends:
 
 ```{r, echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
+notes ="***: p<a>&#60;</a>0.01; **: p<a>&#60;</a>0.05; *: p<a>&#60;</a>0.1"
+
 stargazer(lm0, lm1, lm2,
-          title="Regressions results for Cereal Ratings", type = "html", out = "C:/Users/mc72574/Desktop/reg_cereals.doc")
+          title="Regressions results for Cereal Ratings", type = "html", out = "C:/DS/reg_cereals.doc",
+          notes = notes, notes.append=F)
 ```
 
 ## Other packages
 
 There are other packages out there that could also be useful (e.g. `flextable` or `gtsummary`), but in my opinion, the two presented here are some of the more beginner-friendly. I encourage you, though, to explore the different arguments and options to personalize your tables appropriately! Remember that the information you present needs to convey a message, so it needs to be clear.
 
+---
 
 # How to debug my code
 
@@ -328,10 +380,21 @@ One important thing to learn is how to find solutions when your code is not runn
 
 With coding, you learn something new every day. New packages come out, functions sometimes change, new problems require different skills, but the idea is that *you learn how to teach yourself how to code*, regardless of the language or software. It can be frustrating, but it is an **incredible useful skill** and your hard work will certainly pay!
 
+---
 # Some final thoughts
 
-There are **a lot** of things we can do in \R, and in this class we are going to dive into a lot of them. Make sure you check the weekly R scripts that are posted with each class and play around with them. Add some of these tricks, try new functions, search for errors, and be curious!
+There are **a lot** of things we can do in R, and in this class we are going to dive into a lot of them. Make sure you check the weekly R scripts that are posted with each class and play around with them. Add some of these tricks, try new functions, search for errors, and be curious!
 
 The instruction team is always here to help you, so be sure to reach out if you are having any issues.
 
-**Happy coding!**
+<style type="text/css">
+  p {
+    margin-top: 0px !important;
+  }
+</style>
+
+<br>
+
+::: {.colorbox}
+Happy coding!
+:::
