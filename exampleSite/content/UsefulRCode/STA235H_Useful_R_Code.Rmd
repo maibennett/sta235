@@ -187,6 +187,7 @@ d %>% group_by(mfr) %>% summarize(n_cereals = n(),
   kable_paper("hover", full_width = F)
 ```
 
+<br>
 From the previous code, you can see that now we are creating two new variables: `n_cereals`, which is the number of different cereals in our dataset *by manufacturer*, and `mean_calories`, which captures the average calories of cereals made by that manufacturer.
 
 ## Cleaning data
@@ -215,6 +216,7 @@ The following figure shows the more typical functions for merging datasets, avai
 knitr::include_graphics("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/join_functions.png")
 ```
 
+<br>
 As an example, let's load two datasets: (1) one at the zipcode level, and (2) another one at the individual level.
 
 ```{r, echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
@@ -282,7 +284,7 @@ tab %>% kbl() %>%
   kable_paper("hover", full_width = F)
 ```
 
-
+<br>
 You can also export the table to a CSV file using the arguments `out = "csv"` and `file`, or an HTML file to keep the formatting.
 
 ```{r, echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
@@ -300,6 +302,7 @@ knitr::include_graphics(c("https://raw.githubusercontent.com/maibennett/sta235/m
 
 ```
 
+<br>
 Check out more examples [here](https://cran.r-project.org/web/packages/vtable/vignettes/sumtable.html) to customize labels, groups, etc.
 
 ### stargazer
@@ -317,6 +320,7 @@ stargazer(cereal, title = "Summary statistics for Cereal Data", header = FALSE,
           type = "html")
 ```
 
+<br>
 
 You can also use this package for regression results. For example, if we have three models:
 
@@ -342,6 +346,7 @@ stargazer(lm0, lm1, lm2, header = FALSE,
 htmltools::includeHTML("tab1.html")
 ```
 
+<br>
 
 Same as before, you can also export these tables, but stargazer does have a more limited capability:
 
