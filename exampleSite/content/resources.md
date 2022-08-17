@@ -10,7 +10,9 @@ In these notes, you can get a refresher from the material covered in STA 301:
 
 ### R resources
 
-For those that want some R refresher, these resources can be useful:
+[**Some Useful R Code**](https://sta235.netlify.html/UsefulRCode/STA235H_Useful_R_Code.html): I put together this short document showing some useful packages and functions that might come in handy during this course!
+
+For those that want some R refresher, these external resources can be useful:
 
 - [Introduction to Data Science](https://rafalab.github.io/dsbook/) by R. Irizarri (2021). Check out specifically [R Basics](https://rafalab.github.io/dsbook/r-basics.html), [the tidyverse](https://rafalab.github.io/dsbook/tidyverse.html), and [ggplot](https://rafalab.github.io/dsbook/ggplot2.html).
 

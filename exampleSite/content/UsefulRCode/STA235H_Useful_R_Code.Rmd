@@ -1,7 +1,7 @@
 ---
 title: "Some Useful R Code"
 author: "STA 235H - Fall 2022"
-date: "August 16th, 2022"
+date: ""
 output: 
   html_document:
     toc: true
@@ -29,7 +29,9 @@ output:
 <!-- } -->
 <!-- </style> -->
 
-
+```{r header, fig.align = 'center', out.width = "50%", echo=FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/images/r_rollercoaster.png")
+```
 
 # Introduction
 
