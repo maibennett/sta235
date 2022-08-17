@@ -8,7 +8,7 @@ disableToc: true
 
 ## What we will cover
 
-In this class, we will go dipper into statistical adjustment, specifically when we have interactions. We will also dive into "nonlinear" models.
+In this class, we will go deepper into statistical adjustment, specifically when we have interactions. We will also dive into "nonlinear" models.
 
 ## Recommended readings/videos
 
