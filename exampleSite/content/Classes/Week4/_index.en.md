@@ -12,11 +12,11 @@ In this session, we will fully dive into Causal Inference: Potential outcomes fr
 
 ## Recommended readings/videos
 
-- Angrist & Pischke. (2015). "Mastering Metrics". *Chapter 1: Randomized Trials*. Pg. 1-11. 
+<!-- - Angrist & Pischke. (2015). "Mastering Metrics". *Chapter 1: Randomized Trials*. Pg. 1-11. 
 
 - Marginal Revolution University. (2019). "Ceteris Paribus: Public vs. Private University". *Video materials from Mastering Metrics*.
 
-{{< youtube src="https://www.youtube.com/embed/iPBV3BlV7jk?controls=0" >}}
+{{< youtube src="https://www.youtube.com/embed/iPBV3BlV7jk?controls=0" >}} -->
 
 
 <!-- 
