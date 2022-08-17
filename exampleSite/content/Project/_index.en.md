@@ -98,7 +98,7 @@ You can use any data you want (as long as it can be shared with the instruction 
 
 I'm also providing some resources here that can be useful if you don't know where to start:
 
-- [#TidyTuesday](https://github.com/rfordatascience/tidytuesday): *A lot* of datasets that can be useful. Some of them are paired down, but usually you also have a link to the main data source.
+- [#TidyTuesday](https://github.com/rfordatascience/tidytuesday): *A lot* of datasets that can be useful. Some of them are pared down, but usually you also have a link to the main data source.
 
 - [Data Is Plural](https://docs.google.com/spreadsheets/d/1wZhPLMCHKJvwOkP4juclhjFgqIY8fQFMemwKL2c64vk/edit#gid=0): A long list of datasets that might be interesting.
 
@@ -130,7 +130,7 @@ I'm also providing some resources here that can be useful if you don't know wher
 
 - [Twitter API](https://developer.twitter.com/en/products/twitter-api/academic-research): Twitter API for academic purpose. You can follow some of the tutorials to see how you can use it (there's also an R package).
 
-- Site-limited testing on Google (especially for Github): One good way of discovering new data can be to search Github for it in Google, for example: climate data .csv site:http://github.com
+- [Site-limited testing on Google](https://www.google.com/search?q=business+data+.csv+site%3Ahttp%3A%2F%2Fgithub.com&rlz=1C1GCEB_enUS917US917&sxsrf=ALiCzsYzFavSt3g_Dfrt1LySa9b4Y_UNgQ%3A1660763797780&ei=lT79YsibL9SlqtsPuv6E0As&ved=0ahUKEwiIuuOhy875AhXUkmoFHTo_AboQ4dUDCA4&uact=5&oq=business+data+.csv+site%3Ahttp%3A%2F%2Fgithub.com&gs_lcp=Cgdnd3Mtd2l6EANKBAhBGABKBAhGGABQAFjjJWCXJ2gEcAF4AIABeYgB8gaSAQQxMS4xmAEAoAECoAEBwAEB&sclient=gws-wiz) (especially for Github): One good way of discovering new data can be to search Github for it in Google, for example: climate data .csv site:http://github.com
 
 
 *I'll keep adding to this list during the first weeks of class*
