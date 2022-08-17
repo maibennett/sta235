@@ -42,7 +42,7 @@ At this stage, <u>you do not need to have full clarity on how you will tackle th
 
 Make sure that your idea is grounded on data that you can obtain. There are many good ideas that unfortunately don't have pertinent data to be tackled, so make sure that whatever idea you have, you can accompany it with respective data. The instruction team will also provide feedback on whether the data is pertinent or not.
 
-One relevant item in this submission is also **originality**. Make sure you are not copying another project or using the same idea as another group. 
+One relevant item in this submission is also **originality**. Make sure you are not copying another project or using the same idea another group is already working on. 
 
 {{% notice grading %}}
 
