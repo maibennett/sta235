@@ -82,7 +82,7 @@ The final report should include everything that is included in the preliminary r
 
 Final presentations will be conducted during finals, and every student in the group has to be present, though only one (1) will present (it will be randomly selected). All students should be prepared to answer questions.
 
-Presentations will short presentations (5 minutes) followed by a couple of questions. All slides need to be submitted by Thursday Dec. 8th by noon.
+Presentations will be short presentations (5 minutes) followed by a couple of questions. All slides need to be submitted by Thursday Dec. 8th by noon.
 
 {{% notice grading %}}
 **Presentation:** The slides show the main points of the project and convey the message in an appropriate way.<br>
