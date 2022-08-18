@@ -145,8 +145,9 @@ d %>% mutate(over100ca = ifelse(calories>100,1,0)) %>%
 ggplot(data = ., aes(y = rating, x = sugars, color = factor(over100ca))) +
   geom_point() +
   xlab("Sugars") + ylab("Ratings") + 
-  # scale_X_manual() allows you to include specific colors, legend titles, and labels!
-  scale_color_manual("Over 100 calories?", values = c("skyblue","purple"), label = c("No","Yes")) +
+  # scale_X_manual() allows you to include specific colors, titles, and labels!
+  scale_color_manual("Over 100 calories?", values = c("skyblue","purple"), 
+                     label = c("No","Yes")) +
   ggtitle("Rating vs Sugars") + 
     theme_minimal()
 ```
@@ -165,7 +166,8 @@ scat1 <- d %>% mutate(over100ca = ifelse(calories>100,1,0)) %>%
   ggplot(data = ., aes(y = rating, x = sugars, color = factor(over100ca))) +
     geom_point() +
     xlab("Sugars") + ylab("Ratings") + 
-    scale_color_manual("Over 100 calories?", values = c("skyblue","purple"), label = c("No","Yes")) +
+    scale_color_manual("Over 100 calories?", values = c("skyblue","purple"), 
+                       label = c("No","Yes")) +
     ggtitle("Rating vs Sugars") + 
       theme_minimal() +
   theme(legend.position = c(0.8,0.9))
@@ -296,7 +298,9 @@ sumtable(cereal, digits = 2, title = "Summary statistics for Cereal Data")
 ```{r, echo = FALSE, warning = FALSE, message = FALSE, out.width="70%", align = "center"}
 cereal <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/data/cereal.csv")
 
-tab <- sumtable(cereal, digits = 2, title = "Summary statistics for Cereal Data", out = "return")
+tab <- sumtable(cereal, digits = 2, 
+                title = "Summary statistics for Cereal Data", 
+                out = "return")
 
 tab %>% kbl() %>%
   kable_paper("hover", full_width = F)
@@ -370,7 +374,8 @@ Same as before, you can also export these tables, but stargazer does have a more
 
 ```{r, echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
 stargazer(lm0, lm1, lm2,
-          title="Regressions results for Cereal Ratings", out = "C:/DS/reg_cereals.html")
+          title="Regressions results for Cereal Ratings", 
+          out = "C:/DS/reg_cereals.html")
 ```
 
 If you want to keep the format of the table and be able to edit it in your document, one way is to export html into a .doc file, but you have to make small modifications to the p-value legends:
@@ -379,7 +384,8 @@ If you want to keep the format of the table and be able to edit it in your docum
 notes ="***: p<a>&#60;</a>0.01; **: p<a>&#60;</a>0.05; *: p<a>&#60;</a>0.1"
 
 stargazer(lm0, lm1, lm2,
-          title="Regressions results for Cereal Ratings", type = "html", out = "C:/DS/reg_cereals.doc",
+          title="Regressions results for Cereal Ratings", type = "html", 
+          out = "C:/DS/reg_cereals.doc",
           notes = notes, notes.append=F)
 ```
 
@@ -392,6 +398,8 @@ There are other packages out there that could also be useful (e.g. `flextable` o
 # How to debug my code
 
 One important thing to learn is how to find solutions when your code is not running. Here are some tips:
+<br>
+<br>
 
 1) **Start from a clean environment**: Run your entire code. Does it throw an error? Identify which line.
 
