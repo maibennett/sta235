@@ -19,6 +19,8 @@
     <script src="libs/crosstalk/js/crosstalk.min.js"></script>
     <link href="libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
     <script src="libs/plotly-main/plotly-latest.min.js"></script>
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/5235085b15.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -26,15 +28,9 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-.title[
 # STA 235H - Multiple Regression: Overview and Statistical Adjustment
-]
-.subtitle[
 ## Fall 2022
-]
-.author[
 ### McCombs School of Business, UT Austin
-]
 
 ---
 
@@ -303,6 +299,92 @@ Let's get into some data
 ---
 # Let's analyze some models
 
+- We have some data and code on the **&lt;u&gt;.darkorange[[course website](https://sta235.netlify.app/classes/week1/)]&lt;/u&gt;**
+
+- Dataset from **&lt;u&gt;.darkorange[[fivethirtyeight.com](https://github.com/fivethirtyeight/data/tree/master/bechdel)]&lt;/u&gt;**:
+
+  - Focus on 1990 onward
+
+&lt;table class=" lightable-paper" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;'&gt;
+&lt;caption&gt;Summary Statistics&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Variable &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; N &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Mean &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Std. Dev. &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Min &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Pctl. 25 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Pctl. 75 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Max &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Year &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2087 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2004.963 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6.755 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1990 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1999 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2011 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2014 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adj_Revenue &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2087 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 66.254 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 92.07 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4.36 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 86.936 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 968.41 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adj_Budget &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1369 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 61.498 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 57.784 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.02 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 19.3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 88.47 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 470.839 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Metascore &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1755 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5.663 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1.66 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1.1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4.5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6.8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 9.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; imdbRating &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2085 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6.546 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.979 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1.5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7.2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 9.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; bechdel_test &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2087 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.571 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.495 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+# Let's analyze some models
 
 
 ```r
@@ -388,13 +470,23 @@ lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechde
 ---
 # Main takeaway points
 
+.pull-left[
+
+.center[
+![](https://media.giphy.com/media/PLHdpauwfN2MvHcHxL/giphy.gif)
+]
+
+]
+.pull-right[
 - Regressions are super useful... 
 
   - But you need to know **.darkorange[how]** to interpret them.
 
---
-
 - Be sure not to overstate your claims!
+
+- Remember the magic words for interpretation
+
+]
 
 
 ---
@@ -405,7 +497,7 @@ lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechde
 
   - Interactions and how to interpret them
 
-- Assumptions for **.darkorange[OLS]**
+- **.darkorange["Nonlinear" models]**
 
 ]
 
@@ -474,19 +566,6 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
-// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
-// screen reader (see PR #262)
-(function(d) {
-  let res = {};
-  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
-    const t = tr.querySelector('td:nth-child(2)').innerText;
-    tr.querySelectorAll('td:first-child .key').forEach(key => {
-      const k = key.innerText;
-      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
-    });
-  });
-  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
-})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

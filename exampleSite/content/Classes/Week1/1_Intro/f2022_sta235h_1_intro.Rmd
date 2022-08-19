@@ -735,28 +735,35 @@ Weekly + HW weeks <i>(TBD)</i>]
 ---
 # Communicating with the instruction team
 
-- **.darkorange[Email address: m.bennett@austin.utexas.edu]**
+**.darkorange[Email address: m.bennett@austin.utexas.edu]**
 
-  - Use the subject **.darkorange[STA 235H - Your subject]**.
-  - Email me directly for questions related to course administration.
-  - Usually respond in 1 business day.
-  - **.darkorange[Please, do not send messages through Canvas.]**
-  - *General questions should be posted on Canvas (Chatter)*
+- Use the subject **.darkorange[STA 235H - Your subject]**.
+- Email me directly for questions related to course administration.
+- Usually respond in 1 business day.
+- General questions should be posted on Canvas (Chatter)
+- **.darkorange[Please, do not send messages through Canvas.]**
   
 --
 
+
 - Note: This is Ms. Bennett
 
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/miss_bennett.jpg)
+.center[
+![:scale 30%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/ms_bennett.jpeg)]
   
 ---
 # Communicating with the instruction team
 
-- **.darkorange[Chatter:]**
+.pull-left[
+**.darkorange[Chatter:]**
+- Forum style discussion board.
+- Quickest way to get an answer about class material.
+- You can post with your name or anonymously (see instructions on Canvas)
+]  
 
-  - Forum style discussion board.
-  - Quickest way to get an answer about class material.
-  - You can post with your name or anonymously (see instructions on Canvas)
+.pull-right[
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/chatter.png)]]
 
 ---
 # Collaborations and Academic Integrity
@@ -1012,7 +1019,7 @@ class: center, middle
 --
 
 
-- "Services for Students with Disabilities (SSD) is seeking the assistance of students to serve as **.darkorange[volunteer notetakers]**."
+- "Disability & Access (D&A) is seeking the assistance of students to serve as **.darkorange[volunteer notetakers]**."
 
   - Volunteers will be eligible to receive volunteer hours in appreciation for their time. 
   - If you are a good notetaker and interested in helping other students, please contact me after class.

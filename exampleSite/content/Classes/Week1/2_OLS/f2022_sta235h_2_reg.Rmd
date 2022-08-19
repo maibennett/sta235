@@ -719,8 +719,16 @@ Let's get into some data
 ---
 # Let's analyze some models
 
-```{r results='hide', message=FALSE,echo=FALSE, warning=FALSE}
+- We have some data and code on the **<u>.darkorange[[course website](https://sta235.netlify.app/classes/week1/)]</u>**
+
+- Dataset from **<u>.darkorange[[fivethirtyeight.com](https://github.com/fivethirtyeight/data/tree/master/bechdel)]</u>**:
+
+  - Focus on 1990 onward
+
+```{r, message=FALSE,echo=FALSE, warning=FALSE, results='asis'}
 library(tidyverse)
+library(vtable)
+library(kableExtra)
 
 rawData <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/data/bechdel.csv")
 
@@ -731,7 +739,14 @@ bechdel <- rawData %>% filter(Year>1989)
 bechdel <- bechdel %>% mutate(bechdel_test = ifelse(rating==3, 1, 0),
                               Adj_Revenue = Adj_Revenue/10^6,
                               Adj_Budget = Adj_Budget/10^6)
+
+bechdel %>% select(Year, Adj_Revenue, Adj_Budget, Metascore, imdbRating, bechdel_test) %>%
+  sumtable(., out = 'kable') %>% kable_paper()
 ```
+
+---
+# Let's analyze some models
+
 ```{r bechdel1, results = FALSE}
 summary(lm(Adj_Revenue ~ bechdel_test, data = bechdel))
 ```
@@ -806,13 +821,23 @@ round(summary(lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRatin
 ---
 # Main takeaway points
 
+.pull-left[
+
+.center[
+![](https://media.giphy.com/media/PLHdpauwfN2MvHcHxL/giphy.gif)
+]
+
+]
+.pull-right[
 - Regressions are super useful... 
 
   - But you need to know **.darkorange[how]** to interpret them.
 
---
-
 - Be sure not to overstate your claims!
+
+- Remember the magic words for interpretation
+
+]
 
 
 ---
@@ -823,7 +848,7 @@ round(summary(lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRatin
 
   - Interactions and how to interpret them
 
-- Assumptions for **.darkorange[OLS]**
+- **.darkorange["Nonlinear" models]**
 
 ]
 
