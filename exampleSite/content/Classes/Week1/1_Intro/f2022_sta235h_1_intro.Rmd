@@ -393,7 +393,7 @@ Let's review the syllabus
 
 How did you do in the survey?
 
-```{r syllabus, fig.height=6, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+```{r, echo =FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(hrbrthemes)
 library(firasans)
@@ -413,7 +413,7 @@ g_off <- d %>% filter(!is.na(points_off)) %>% rename(office = X28697441..Where.i
   ggtitle("Where is Prof. Bennett's office?") + 
   theme_void()+
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 14) + 
-  theme(plot.margin=unit(c(0.5,0.5,0.5,0.5),"cm"),
+  theme(plot.margin=unit(c(0,0,0,0),"cm"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
         panel.grid.major.y = element_blank(),
@@ -438,7 +438,7 @@ g_att <- d %>% filter(!is.na(points_att)) %>% rename(attendance = X28697443..Doe
   ggtitle("Does attendance count\ntowards your grade?") + 
   theme_void()+
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 14) + 
-  theme(plot.margin=unit(c(0.5,0.5,0.5,0.5),"cm"),
+  theme(plot.margin=unit(c(0,0,0,0),"cm"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
         panel.grid.major.y = element_blank(),
@@ -463,7 +463,7 @@ g_jitt <- d %>% filter(!is.na(points_jitt)) %>% rename(jitt = X28697446..True.or
   ggtitle("JITTs are due every\nweek") + 
   theme_void()+
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 14) + 
-  theme(plot.margin=unit(c(0.5,0.5,0.5,0.5),"cm"),
+  theme(plot.margin=unit(c(0,0,0,0),"cm"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
         panel.grid.major.y = element_blank(),
@@ -488,7 +488,7 @@ g_hw <- d %>% filter(!is.na(points_hw)) %>% rename(hw = X28697442..How.many.home
   ggtitle("How many homework assignments\ncan you drop?") + 
   theme_void()+
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 14) + 
-  theme(plot.margin=unit(c(0.5,0.5,0.5,0.5),"cm"),
+  theme(plot.margin=unit(c(0,0,0,0),"cm"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
         panel.grid.major.y = element_blank(),
@@ -511,10 +511,10 @@ g_ext <- d %>% filter(!is.na(points_ext)) %>% rename(ext = X28697445..True.or.Fa
   geom_bar(lwd=1.2, stat="identity", color="white") +
   coord_polar("y",start = 0)+
   scale_fill_manual(values=c(cols[1],cols[3])) + 
-  ggtitle("It's ok to submit late\nassignments because there are extensions") + 
+  ggtitle("It's ok to submit late\nassignments because there\nare extensions") + 
   theme_void()+
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 14) + 
-  theme(plot.margin=unit(c(0.5,0.5,0.5,0.5),"cm"),
+  theme(plot.margin=unit(c(0,0,0,0),"cm"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
         panel.grid.major.y = element_blank(),
@@ -539,7 +539,7 @@ g_ppt <- d %>% filter(!is.na(points_ppt)) %>% rename(ppt = X28697444..Do.you.hav
   ggtitle("Do you have to be present\nfor the final project presentations?") + 
   theme_void()+
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 14) + 
-  theme(plot.margin=unit(c(0.5,0.5,0.5,0.5),"cm"),
+  theme(plot.margin=unit(c(0,0,0,0),"cm"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
         panel.grid.major.y = element_blank(),
@@ -553,8 +553,13 @@ g_ppt <- d %>% filter(!is.na(points_ppt)) %>% rename(ppt = X28697444..Do.you.hav
         legend.text = element_text(size=12),
         legend.background = element_rect(fill="white",colour ="white"),
         title = element_text(size=14))
+```
 
-g_off + g_att + g_jitt + g_hw + g_ext + g_ppt + plot_layout(ncol = 3)
+--
+
+```{r syllabus, fig.height=4.5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+g_off + g_att + g_jitt + g_hw + g_ext + g_ppt + plot_layout(nrow = 2)
+#plot_grid(g_off,g_att,g_jitt,g_hw,g_ext,g_ppt, nrow = 2, align = 'hv')
   
 ``` 
 
@@ -592,7 +597,7 @@ g_off + g_att + g_jitt + g_hw + g_ext + g_ppt + plot_layout(ncol = 3)
 Tue 3:30 - 5:30 PM<br>
 Thu 3:30 - 5:30 PM]]
 .pull-right[.box-5[T.A.s:<br>
-<i>TBD</i>]
+Weekly + HW weeks <i>(TBD)</i>]
 ]
  
 <br>  
@@ -657,7 +662,21 @@ Thu 3:30 - 5:30 PM]]
 ---
 # Assignments, Exams, and Grading
 
-- CAVEAT ABOUT TIME TO DO THE ASSIGNMENTS.
+
+- All assignments and exams are **.darkorange[take-home]** and **.darkorange[open-book]**.
+
+--
+
+- Time provided for the assignments takes into account **.darkorange[typical foreseeable (and unforeseeable) events]**.
+
+  - No extensions
+  
+  - Drop an assignment
+
+--
+
+- In the case of other circumstances that do not fit in the previous description, **.darkorange[please reach out]**.
+
 
 ---
 # Assignments, Exams, and Grading
@@ -672,6 +691,7 @@ Thu 3:30 - 5:30 PM]]
 
 - **.darkorange[7 homework assignments (30%):]**
 
+  - All in Canvas.
   - Assignments include both written questions and code.
   - You can drop one hw assignment (only 6 will count).
   - Assignments are individual. No collaboration, copying, or plagiarism will be accepted.
@@ -683,7 +703,7 @@ Thu 3:30 - 5:30 PM]]
 
 - **.darkorange[Midterm (15%) and Final Exam (20%):]**
 
-  - Take-home exam (timed). Final exam is cumulative.
+  - Take-home exam (restricted time). Final exam is cumulative.
   
 - **.darkorange[Final project (20%):]**
 
@@ -691,18 +711,16 @@ Thu 3:30 - 5:30 PM]]
   
 - **.darkorange[Participation (5%):]**
 
-  - Attendance will be taken on 5 random classes. You can be absent in one of them without justification.
+  - Attendance will be taken on 5 random classes. You can be absent in one of them without penalty.
   
   - If you miss more than one (1) of those classes, you can make up with participation. 
   
 ---
 # Assignments, Exams, and Grading (Cont.)
 
-- There are **.darkorange[no extensions]** for assignments, but you can drop **.darkorange[drop one (1) HW]** and **.darkorange[drop one (1) JITT]**.
+- Assignments and exams are **.darkorange[usually curved]**
 
-  - Assignments are posted with enough time to account for frequent issues (e.g. sickness, interviews, etc.)
-  
-.box-7trans[Please reach out to the instruction team if you have any issues]
+  - Final grade **.darkorange[will not be curved]**.
 
 --
 
@@ -712,7 +730,7 @@ Thu 3:30 - 5:30 PM]]
 |-----|-|--|--|-|--|--|-|--|-|-|
 |Cutoff|94%|90%|87%|84%|80%|77%|70%|65%|60%|<60%|
 
-.source[There can be curving in individual assignments, but NOT for the final grade.<br>There will not be extra credit]
+- Cutoff scores are strict (no rounding)
 
 ---
 # Communicating with the instruction team
@@ -725,6 +743,15 @@ Thu 3:30 - 5:30 PM]]
   - **.darkorange[Please, do not send messages through Canvas.]**
   - *General questions should be posted on Canvas (Chatter)*
   
+--
+
+- Note: This is Ms. Bennett
+
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/miss_bennett.jpg)
+  
+---
+# Communicating with the instruction team
+
 - **.darkorange[Chatter:]**
 
   - Forum style discussion board.
