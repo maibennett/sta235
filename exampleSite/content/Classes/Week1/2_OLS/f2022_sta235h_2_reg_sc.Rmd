@@ -719,8 +719,16 @@ Let's get into some data
 ---
 # Let's analyze some models
 
-```{r results='hide', message=FALSE,echo=FALSE, warning=FALSE}
+- We have some data and code on the **<u>.darkorange[[course website](https://sta235.netlify.app/classes/week1/)]</u>**
+
+- Dataset from **<u>.darkorange[[fivethirtyeight.com](https://github.com/fivethirtyeight/data/tree/master/bechdel)]</u>**:
+
+  - Focus on 1990 onward
+
+```{r, message=FALSE,echo=FALSE, warning=FALSE, results='asis'}
 library(tidyverse)
+library(vtable)
+library(kableExtra)
 
 rawData <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/data/bechdel.csv")
 
@@ -731,7 +739,14 @@ bechdel <- rawData %>% filter(Year>1989)
 bechdel <- bechdel %>% mutate(bechdel_test = ifelse(rating==3, 1, 0),
                               Adj_Revenue = Adj_Revenue/10^6,
                               Adj_Budget = Adj_Budget/10^6)
+
+bechdel %>% select(Year, Adj_Revenue, Adj_Budget, Metascore, imdbRating, bechdel_test) %>%
+  sumtable(., out = 'kable') %>% kable_paper()
 ```
+
+---
+# Let's analyze some models
+
 ```{r bechdel1, results = FALSE}
 summary(lm(Adj_Revenue ~ bechdel_test, data = bechdel))
 ```
@@ -741,8 +756,6 @@ round(summary(lm(Adj_Revenue ~ bechdel_test, data = bechdel))$coeff, 4)
 ```
 
 - How do you interpret these results?
-
-  - Remember to look at the point estimate, but also its variance!
 
 ---
 # Let's analyze some models
@@ -758,7 +771,7 @@ round(summary(lm(Adj_Revenue ~ bechdel_test, data = bechdel))$coeff, 4)
 
 - $\hat{\beta}_0$ is the average adjusted revenue (in millions of dollars) for movies that do not pass the Bechdel test.
 
-- <u>On average</u>, movies that pass the Bechdel test have an adjusted revenue that is $|\hat{\beta}_1|$ millions less than a movie that doesn't pass the Bechdel test. The association is <u>statistically significant at a 1% level</u>
+- <u>On average</u>, movies that pass the Bechdel test have an adjusted revenue that is $|\hat{\beta}_1|$ millions less than a movie that doesn't pass the Bechdel test.
 
 <br>
 <br>
@@ -803,18 +816,28 @@ round(summary(lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRatin
 
 --
 
-- <u>On average</u>, movies that pass the Bechdel test have 11 millions more in adjusted revenue compared to a movie that doesn't pass the Bechdel test, <u>holding other variables constant</u>. The association is statistically significant at the 5% level.
+- <u>On average</u>, movies that pass the Bechdel test have 11 millions more in adjusted revenue compared to a movie that doesn't pass the Bechdel test, <u>holding other variables constant</u>.
 
 ---
 # Main takeaway points
 
+.pull-left[
+
+.center[
+![](https://media.giphy.com/media/PLHdpauwfN2MvHcHxL/giphy.gif)
+]
+
+]
+.pull-right[
 - Regressions are super useful... 
 
   - But you need to know **.darkorange[how]** to interpret them.
 
---
-
 - Be sure not to overstate your claims!
+
+- Remember the magic words for interpretation
+
+]
 
 
 ---
@@ -825,7 +848,7 @@ round(summary(lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRatin
 
   - Interactions and how to interpret them
 
-- Assumptions for **.darkorange[OLS]**
+- **.darkorange["Nonlinear" models]**
 
 ]
 

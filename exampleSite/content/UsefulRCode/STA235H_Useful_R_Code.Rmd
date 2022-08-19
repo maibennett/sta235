@@ -189,6 +189,16 @@ In terms of aesthetics, `aes()`:
 - `y`: Y-axis variable
 - `color`, `fill`: Variable that will define the color of lines or markers (e.g. if you want to distinguish between two groups)
 
+Also, please **always** remember to label your axis!!
+
+<br>
+```{r convincing, fig.align = 'center', out.width = "80%", echo=FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/images/convincing.png")
+```
+
+
+<br>
+
 One thing that you might want to do when inspecting your data is to know how many observations/groups you have available. For example, how many different manufacturers do we have and do they make higher or lower calories cereal?
 
 For this, the `group_by` function could be very useful. What it does is group your dataset by whatever variable(s) you want, and then do operations at that group-level (e.g. mutate or summarize):
