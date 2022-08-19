@@ -30,13 +30,13 @@ pre: "<b>5. </b>"
 
 ## Submissions
 
-1) [Pitch]("https://sta235.netlify.app/project/pitch")
+1) [Idea Pitch](https://sta235.netlify.app/project/pitch)
 
-2) [Preliminary Report]("https://sta235.netlify.app/project/PreliminaryReport")
+2) [Preliminary Report](https://sta235.netlify.app/project/PreliminaryReport)
 
-3) [Final Report]("https://sta235.netlify.app/project/FinalReport")
+3) [Final Report](https://sta235.netlify.app/project/FinalReport)
 
-4) [Final Presentation]("https://sta235.netlify.app/project/FinalPresentation")
+4) [Final Presentation](https://sta235.netlify.app/project/FinalPresentation)
 
 
 ## Where to get data
