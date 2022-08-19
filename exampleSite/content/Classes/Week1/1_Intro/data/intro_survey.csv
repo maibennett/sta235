@@ -1,0 +1,39 @@
+﻿name,id,sis_id,section,section_id,section_sis_id,submitted,attempt,"28697449: Preferred name:
+(If you go by another name than the one in the class roster, let me know here!)",points1,28697436: Pronouns:,points2,28697437: What is(are) your area(s) of interests with respect to your degree?,points3,"28697438: What do you expect to learn in this course?
+(It's ok if you're not sure yet)",points4,"28697439: 
+
+
+How comfortable are you with coding in R?
+[Select]
+
+
+
+",points5,"28697440: 
+
+
+Thinking towards the end of the semester, what grade do you think you will get in this course?
+[Select]
+
+
+
+",points6,28697441: Where is Professor Bennett's office?,points_off,28697443: Does attendance count towards your grade?,points_att,"28697446: True or False: ""JITTs are due every week""",points_jitt,28697442: How many homework assignments can you drop?,points_hw,"28697445: True or False: ""It's ok if I submit a late assignment because there are extensions""",points_ext,28697444: Do you have to be present for the final project presentations?,points_ppt,n correct,n incorrect,score
+Shashank Kota,4473469,sk53929,STA235H(05355),1601869,05355_229,2022-08-19 05:14:42 UTC,1,Shashank Kota,0,He/him/his,0,"Management,Computer Science",0,I'm not really sure yet. I do want to become more comfortable with R.,0,5,0,A,0,"CBA Building, 6th Floor",1,Yes,1,,,,,,,,,6,2,2
+Brydn Abraham,4472678,bpa459,STA235H(05340),1601847,05340_229,2022-08-19 03:47:16 UTC,1,Brydn,0,He/him/his,0,"Management,Other",0,"Not sure, I anticipate we build from STA 301 from last semester and apply more data analytics to problems. In STA 301 the focus was mainly on form & understanding how R code works, so I'm thinking that we'll branch off and apply analytics more intensively.",0,7,0,A,0,"CBA Building, 6th Floor",1,,,TRUE,1,,,,,,,6,2,2
+Archit Junnarkar,4472717,asj2336,STA235H(05340),1601847,05340_229,2022-08-19 00:26:44 UTC,1,Archit,0,He/him/his,0,"Accounting,Business Analytics,Finance,Management Information Systems,Wealth Management,Computer Science,Economics",0,"I don't specifically know, but I assume I will learn more complicated data science tools and methods using R.",0,7,0,A,0,,,,,TRUE,1,1,1,,,,,6,2,2
+Marley Gomez-Olivas,4473313,mrg4437,STA235H(05345),1601855,05345_229,2022-08-18 23:38:56 UTC,1,Marley,0,She/her/hers,0,"Finance,Management Information Systems",0,Iâ€™d love to further develop my R coding skills and learn more about the bell curve and predictive modeling.Â ,0,6,0,A-,0,"CBA Building, 6th Floor",1,Yes,1,,,,,,,,,5,3,2
+Elie Lam,4486150,etl479,STA235H(05340),1601847,05340_229,2022-08-18 22:53:33 UTC,1,,0,Prefer not to say,0,"Accounting,Finance",0,I expect to learn some applicable statistics methods that will be needed in a business career.,0,6,0,A,0,,,Yes,1,,,,,FALSE,1,,,6,2,2
+Brady Lamme,4485621,brl929,STA235H(05350),1601863,05350_229,2022-08-18 22:22:04 UTC,1,Brady Lamme,0,He/him/his,0,"Finance,Management,Wealth Management,Other",0,I expect to learn about the ways business can use data in order to improve their business practices.,0,5,0,A,0,,,Yes,1,,,1,1,,,,,6,2,2
+Kaylani Addison,4481548,kaa3329,STA235H(05350),1601863,05350_229,2022-08-18 22:03:25 UTC,1,,0,She/her/hers,0,"Marketing,Other",0,,0,5,0,A,0,,,,,,,,,FALSE,1,Yes,1,6,2,2
+Kutay Gokcen,4494056,kg33624,STA235H(05345),1601855,05345_229,2022-08-18 21:23:50 UTC,1,Kutay Gokcen,0,He/him/his,0,"Finance,Management",0,How to apply quantitative reasoning and software to real-life business problems,0,5,0,A,0,,,Yes,1,,,,,FALSE,1,,,6,2,2
+Shishir Chandra Nambi,4487472,sn26695,STA235H(05355),1601869,05355_229,2022-08-18 20:49:04 UTC,1,Shishir,0,He/him/his,0,"Business Analytics,Management Information Systems",0,"I expect this course to be a further elaboration on modeling through R and for it to provide an understanding of how to utilize, connect, and visualize data.",0,7,0,A,0,"CBA Building, 6th Floor",1,,,TRUE,1,,,,,,,6,2,2
+Arianna Zhao,4485527,axz83,STA235H(05355),1601869,05355_229,2022-08-18 20:37:33 UTC,1,,0,She/her/hers,0,"Finance,Computer Science,Other",0,gaining a more advanced skillset to perform advanced regression,0,5,0,A,0,,,,,TRUE,1,,,TRUE,0,,,5,3,1
+Alex Foote,4485217,af35228,STA235H(05350),1601863,05350_229,2022-08-18 20:22:15 UTC,1,Alex,0,He/him/his,0,Finance,0,Get more advanced experience with R and learn more about data science to build off my experience in STA 301.,0,8,0,A,0,,,,,,,1,1,,,Yes,1,6,2,2
+Navya Rao,4494632,nr24885,STA235H(05355),1601869,05355_229,2022-08-18 19:48:57 UTC,1,,0,She/her/hers,0,"Business Analytics,Management,Computer Science",0,I expect to strengthen my R programming skills and get a strong introduction to data science and analytics.,0,2,0,A,0,,,Yes,1,,,,,TRUE,0,,,5,3,1
+Sergio Lopez Elizondo,4482357,sal4293,STA235H(05340),1601847,05340_229,2022-08-18 19:45:09 UTC,1,,0,,0,"Finance,Management Information Systems",0,"I expect to become more knowledgeable in different data analytical methods. Last year, in STA 301, we learned some machine learning/predictive models; I hope to become more knowledgeable in this area to be able to build my own predictive models.",0,6,0,A,0,,,Yes,1,TRUE,1,,,,,,,5,3,2
+Tina Li,4482612,twl587,STA235H(05340),1601847,05340_229,2022-08-18 18:45:40 UTC,1,Tina Li,0,She/her/hers,0,"Finance,Other",0,I expect to learn what I learned last year on a deeper level in which we will apply our skills to solving real-world problems.,0,7,0,A-,0,,,,,,,,,FALSE,1,Yes,1,5,3,2
+Lara Jones,4486770,ljj647,STA235H(05340),1601847,05340_229,2022-08-18 17:20:39 UTC,1,Lara Jones,0,She/her/hers,0,Finance,0,Problem solving with R!,0,5,0,A,0,,,,,TRUE,1,,,,,Yes,1,6,2,2
+Diego Robbins,4480761,ddr2433,STA235H(05345),1601855,05345_229,2022-08-18 16:40:45 UTC,1,,0,He/him/his,0,"Business Analytics,Finance,Management Information Systems",0,I would like to expand on the modeling concepts that were covered in my freshman stats class.,0,7,0,A-,0,,,,,,,,,FALSE,1,Yes,1,5,3,2
+Gilberto Orozco,4331039,go4368,STA235H(05345),1601855,05345_229,2022-08-18 15:39:52 UTC,1,Gilberto,0,He/him/his,0,"Accounting,Finance",0,I am not sure yet.Â ,0,6,0,A,0,,,,,TRUE,1,,,FALSE,1,,,6,2,2
+Charanyan Sriram,4480786,cs57497,STA235H(05345),1601855,05345_229,2022-08-18 15:15:24 UTC,1,Charan Sriram,0,He/him/his,0,"Business Analytics,Finance,Management,Computer Science,Economics",0,"Hopefully, how to tackle statistical questions in practical contexts. Iâ€™m also excited to learn R and apply it to my statistics knowledge.Â ",0,4,0,A,0,,,Yes,1,,,,,,,Yes,1,6,2,2
+Anthony Treistman,4485268,agt859,STA235H(05350),1601863,05350_229,2022-08-18 14:25:07 UTC,1,,0,He/him/his,0,"Finance,Marketing",0,I am not entirely sure!,0,7,0,A,0,"CBA Building, 6th Floor",1,,,TRUE,1,,,,,,,6,2,2
+Katherine Yu,4481279,hy6973,STA235H(05355),1601869,05355_229,2022-08-18 14:10:29 UTC,1,Katherine Yu,0,She/her/hers,0,"Business Analytics,Finance,Computer Science",0,Iâ€™m looking forward to learning about using R to analyze data related to business and writing analysis report for the real world examples.,0,3,0,A,0,"CBA Building, 6th Floor",1,Yes,1,,,,,,,,,6,2,2

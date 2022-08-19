@@ -368,11 +368,11 @@ class: center, middle
 # Interesting fact about me?
 
 
-... I have a credit on IMDB.
+... I have a very cute pup.
 
 
 .center[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/imdb.png)
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/BobDylan.png)
 ]
 ---
 background-position: 50% 50%
@@ -391,11 +391,7 @@ Let's review the syllabus
 ---
 # Please, read the syllabus!
 
-- **.darkorange[Task before our first class]**: $\approx$ 60% of students completed it.
-
---
-
-- How did you do in the survey?
+How did you do in the survey?
 
 ---
 # About this course
