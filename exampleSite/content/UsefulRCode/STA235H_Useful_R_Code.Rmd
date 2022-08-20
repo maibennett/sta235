@@ -11,7 +11,7 @@ output:
     df_print: "kable"
 ---
 <style type="text/css">
-.main-container {
+div.main-container {
   max-width: 1800px;
   margin-left: auto;
   margin-right: auto;
