@@ -14,6 +14,8 @@ In these notes, you can get a refresher from the material covered in STA 301:
 
 For those that want some R refresher, these external resources can be useful:
 
+- [Introduction to R programming](https://jacobjameson.github.io/Intro%20R.html) by Jacob Jameson. It's a beginner-friendly start-up guide, that includes short videos and labs to test your skills. If you're very lost in R, this might be a good place to start. 
+
 - [Introduction to Data Science](https://rafalab.github.io/dsbook/) by R. Irizarri (2021). Check out specifically [R Basics](https://rafalab.github.io/dsbook/r-basics.html), [the tidyverse](https://rafalab.github.io/dsbook/tidyverse.html), and [ggplot](https://rafalab.github.io/dsbook/ggplot2.html).
 
 - [YouTube Playlist](https://youtube.com/playlist?list=PL8Yi9OGQMf2EFHkS8-n5AXuaFpD_rXdoA) by Prof. James Scott, used in STA 301.
