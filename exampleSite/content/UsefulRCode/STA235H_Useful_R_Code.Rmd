@@ -114,7 +114,7 @@ Now that we have setup our session and have our data loaded, let's start wrangli
 
 We can look at some of the data with plots. For example, a histogram:
 
-```{r, echo = TRUE, warning = FALSE, message = FALSE}
+```{r, echo = TRUE, warning = FALSE, message = FALSE, align = 'center'}
 ggplot(data = d, aes(x = rating)) +
   geom_histogram(color = "skyblue", fill = "white", lwd = 1.1, bins = 30) +
   xlab("Rating") + ylab("Count") +
@@ -128,7 +128,7 @@ Besides histograms, we can have density plots (`geom_density()`), scatter plots 
 
 For example, let's look at a scatter plot between `sugars` and `rating`:
 
-```{r, echo = TRUE, warning = FALSE, message = FALSE}
+```{r, echo = TRUE, warning = FALSE, message = FALSE, align = 'center'}
 ggplot(data = d, aes(y = rating, x = sugars)) +
   geom_point(color = "skyblue") +
   xlab("Sugars") + ylab("Ratings") +
@@ -138,7 +138,7 @@ ggplot(data = d, aes(y = rating, x = sugars)) +
 
 And now let's look at the same plot, but for cereals below and above 100 calories per portion. Notice how I create a new variable (`over100ca`), and use it to color different points (*Question: What happens if I don't use `factor(over100ca)` and use `over100ca` directly?*):
 
-```{r, echo = TRUE, warning = FALSE, message = FALSE}
+```{r, echo = TRUE, warning = FALSE, message = FALSE, align = 'center'}
 d %>% mutate(over100ca = ifelse(calories>100,1,0)) %>%
   
 ggplot(data = ., aes(y = rating, x = sugars, color = factor(over100ca))) +
@@ -154,7 +154,7 @@ ggplot(data = ., aes(y = rating, x = sugars, color = factor(over100ca))) +
 
 We can also show two plots side-by-side using the `patchwork` package:
 
-```{r, echo = TRUE, warning = FALSE, message = FALSE}
+```{r, echo = TRUE, warning = FALSE, message = FALSE, align = 'center'}
 hist1 <- ggplot(data = d, aes(x = rating)) +
   geom_histogram(color = "skyblue", fill = "white", lwd = 1.1, bins = 30) +
   xlab("Rating") + ylab("Count") +
@@ -178,7 +178,7 @@ Some arguments that might be useful to have in mind:
 
 - `color`: Refers to the outline color of objects. If `fill` is not defined, usually both take the same argument.
 - `fill`: Refers to what color objects are filled (e.g. bars). In a scatter plot, it only works if the marker has a different outline.
-- `pch`: In a scatter plot, defines the type of marker you are using (e.g. circles, squares, triangles).
+- `pch`: In a scatter plot, defines the type of marker you are using (e.g. circles, squares, triangles). Check out the different options [here](http://www.sthda.com/english/wiki/r-plot-pch-symbols-the-different-point-shapes-available-in-r)
 - `lwd`: Line width for a line or a bar plot, for example.
 - `lty`: Line type (1: solid, 2: dashed, etc.).
 
@@ -207,7 +207,7 @@ d %>% group_by(mfr) %>% summarize(n_cereals = n(),
                                   mean_calories = mean(calories))
 ```
 
-```{r, echo = FALSE, warning = FALSE, message = FALSE}
+```{r, echo = FALSE, warning = FALSE, message = FALSE, align = 'center'}
 library(kableExtra)
 
 d %>% group_by(mfr) %>% summarize(n_cereals = n(),
@@ -256,7 +256,7 @@ individual <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main
 head(individual)
 ```
 
-```{r, echo = FALSE, warning = FALSE, message = FALSE}
+```{r, echo = FALSE, warning = FALSE, message = FALSE, align = 'center'}
 zipcode <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/data/zipcode.csv")
 
 individual <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/data/individual.csv")
@@ -274,7 +274,7 @@ individual <- left_join(individual, zipcode, by = "zipcode")
 head(individual)
 ```
 
-```{r, echo = FALSE, warning = FALSE, message = FALSE}
+```{r, echo = FALSE, warning = FALSE, message = FALSE, align = 'center'}
 individual <- left_join(individual, zipcode, by = "zipcode")
 
 head(individual) %>%
@@ -346,7 +346,7 @@ You can also use the `stargazer` package to create similar tables. For example:
   }
 </style>
 
-```{r, echo = TRUE, warning = FALSE, message = FALSE, results='asis'}
+```{r, echo = TRUE, warning = FALSE, message = FALSE, results='asis', align = 'center'}
 stargazer(cereal, title = "Summary statistics for Cereal Data", header = FALSE,
           type = "html")
 ```
@@ -364,7 +364,7 @@ stargazer(lm0, lm1, lm2, header = FALSE,
           title="Regressions results for Cereal Ratings")
 ```
 
-```{r, echo = FALSE, warning = FALSE, message = FALSE, results="asis"}
+```{r, echo = FALSE, warning = FALSE, message = FALSE, results="asis", align = 'center'}
 lm0 <- lm(rating ~ sugars, data = d)
 lm1 <- lm(rating ~ sugars + fat, data = d)
 lm2 <- lm(rating ~ sugars + fat + fiber + cups, data = d)
