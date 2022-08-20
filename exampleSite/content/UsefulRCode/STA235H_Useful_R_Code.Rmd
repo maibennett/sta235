@@ -16,18 +16,17 @@ div.main-container {
   margin-left: auto;
   margin-right: auto;
 }
-</style>
 
-<!-- @media only screen and (max-width: 600px) { -->
-<!--    body { -->
-<!--       margin: 0; -->
-<!--       padding: 0; -->
-<!--    } -->
-<!--    .sample { -->
-<!--       width: 100%; -->
-<!--    } -->
-<!-- } -->
-<!-- </style> -->
+@media only screen and (max-width: 600px) {
+   body {
+      margin: 0;
+      padding: 0;
+   }
+   .sample {
+      width: 100%;
+   }
+}
+</style>
 
 ```{r header, fig.align = 'center', out.width = "50%", echo=FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/images/r_rollercoaster.png")
