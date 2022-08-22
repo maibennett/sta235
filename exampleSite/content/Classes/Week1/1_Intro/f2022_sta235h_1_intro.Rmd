@@ -667,11 +667,13 @@ Weekly + HW weeks <i>(TBD)</i>]
 
 --
 
-- Time provided for the assignments takes into account **.darkorange[typical foreseeable (and unforeseeable) events]**.
+- Provide **.darkorange[structured flexibility]** in submission of assignments to avoid academic inequality:
 
-  - No extensions
+  - E.g. HW assignments $\sim$ 2-3hrs $\rightarrow$ 1 week: Accounts for (typical) foreseeable and unforeseeable events
   
   - Drop an assignment
+  
+  - No extensions
 
 --
 
