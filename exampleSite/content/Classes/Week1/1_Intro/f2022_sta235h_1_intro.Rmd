@@ -859,7 +859,7 @@ wordcloud(words = d_text$word, freq = d_text$freq, min.freq = 1,
 
 ```{r hist1, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
 
-d_aux <- d %>% filter(!is.na(X28697439.....How.comfortable.are.you.with.coding.in.R...Select.....))
+d_aux <- d %>% filter(X28697439.....How.comfortable.are.you.with.coding.in.R...Select.....!="")
 
 d_aux <- d_aux %>% rename(comfortable_r = X28697439.....How.comfortable.are.you.with.coding.in.R...Select.....) %>% 
   mutate(comfortable_r = ifelse(comfortable_r == "1 (Really unfcomfortable)", 1, comfortable_r),
