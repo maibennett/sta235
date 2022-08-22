@@ -836,10 +836,10 @@ docs <- tm_map(docs, stripWhitespace)
 dtm <- TermDocumentMatrix(docs,list(wordLengths=c(1,Inf)))
 m <- as.matrix(dtm)
 v <- sort(rowSums(m),decreasing=TRUE)
-d <- data.frame(word = names(v),freq=v, stringsAsFactors = FALSE)
+d_text <- data.frame(word = names(v),freq=v, stringsAsFactors = FALSE)
 #head(d, 10)
 
-d$word[d$word=="r"] = "R"
+d_text$word[d_text$word=="r"] = "R"
 
 set.seed(1234)
 #wordcloud(words = d$word, freq = d$freq, min.freq = 1,
@@ -848,7 +848,7 @@ set.seed(1234)
 #wordcloud(words = d$word, freq = d$freq, min.freq = 1,
 #          max.words=200, random.order=FALSE, rot.per=0.35, 
 #          colors=ghibli_palettes$PonyoMedium[c(2,3,4,6)], family = "Fira Sans Condensed SemiBold")
-wordcloud(words = d$word, freq = d$freq, min.freq = 1,
+wordcloud(words = d_text$word, freq = d_text$freq, min.freq = 1,
           max.words=200, random.order=FALSE, rot.per=0.35, 
           colors=c("#118ab2","#06d6a0","#ffd166","#ef476f"), family = "Fira Sans")
 ```
@@ -859,12 +859,13 @@ wordcloud(words = d$word, freq = d$freq, min.freq = 1,
 
 ```{r hist1, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
 
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/1_Intro/data/STA%20235H%20-%20Intro%20Survey.csv",
-              stringsAsFactors = FALSE)
+d_aux <- d %>% filter(!is.na(X28697439.....How.comfortable.are.you.with.coding.in.R...Select.....))
 
-d <- d %>% filter(!is.na(How.comfortable.are.you.with.coding.in.R.))
+d_aux <- d_aux %>% rename(comfortable_r = X28697439.....How.comfortable.are.you.with.coding.in.R...Select.....) %>% 
+  mutate(comfortable_r = ifelse(comfortable_r == "1 (Really unfcomfortable)", 1, comfortable_r),
+         comfortable_r = ifelse(comfortable_r == "10 (Super comfortable)", 10, comfortable_r),)
 
-ggplot(data = d, aes(x = factor(How.comfortable.are.you.with.coding.in.R.,
+ggplot(data = d_aux, aes(x = factor(comfortable_r,
                                 levels = seq(1,10,1)))) + 
   geom_bar(color="#900DA4", fill = alpha("#900DA4",0.5), lwd=1.5) +
   scale_x_discrete(labels = c("1" = "1\nVery\nuncomfortable","2" = "2","3" = "3","4" = "4","5" = "5","6" = "6",
@@ -895,21 +896,18 @@ ggplot(data = d, aes(x = factor(How.comfortable.are.you.with.coding.in.R.,
 - Confidence is great (but also **.darkorange[hard work]**)
 
 ```{r pie1, fig.height=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+d_aux <- d %>% rename(grade_expected = X28697440.....Thinking.towards.the.end.of.the.semester..what.grade.do.you.think.you.will.get.in.this.course...Select.....) %>%
+  filter(grade_expected!="")
 
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/1_Intro/data/STA%20235H%20-%20Intro%20Survey.csv",
-              stringsAsFactors = FALSE)
+d_aux$grades = factor(d_aux$grade_expected,
+                  levels = c("A","A-","B+","B","B-","C+","C or less"))
 
-d <- d %>% filter(Thinking.forward.to.the.end.of.the.semester..what.grade.do.you.think.you.will.get.in.this.course.!="")
-
-d$grades = factor(d$Thinking.forward.to.the.end.of.the.semester..what.grade.do.you.think.you.will.get.in.this.course.,
-                  levels = c("A","A-","B+","B","B-","C+","C","C-","D","F"))
-
-d2 = as.data.frame(cbind(table(d$grades),rownames(table(d$grades))), stringsAsFactors = FALSE)
+d2 = as.data.frame(cbind(table(d_aux$grades),rownames(table(d_aux$grades))), stringsAsFactors = FALSE)
 names(d2) = c("value","Grades")
 
-d2$Grades = factor(d2$Grades, levels = c("A","A-","B+","B","B-","C+","C","C-","D","F"))
+d2$Grades = factor(d2$Grades, levels = c("A","A-","B+","B","B-","C+","C or less"))
 
-cols = c("#0D0887","#5601A4","#900DA4","#BF3984","#900DA4","#E16462","#F89441","#f5c542","#FCCE25","#f5dc7f")
+cols = c("#0D0887","#900DA4","#BF3984","#900DA4","#F89441","#FCCE25","#f5dc7f")
 
 ggplot(data = d2, aes(x="",y=as.numeric(value),fill=Grades)) + 
   geom_bar(lwd=1.5, stat="identity", color="white") +
