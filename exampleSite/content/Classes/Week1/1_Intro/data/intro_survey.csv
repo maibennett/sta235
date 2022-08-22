@@ -1,6 +1,6 @@
 "28697449: Preferred name:
-(If you go by another name than the one in the class roster, let me know here!)",points1,28697436: Pronouns:,points2,28697437: What is(are) your area(s) of interests with respect to your degree?,points3,"28697438: What do you expect to learn in this course?
-(It's ok if you're not sure yet)",points4,"28697439: 
+(If you go by another name than the one in the class roster, let me know here!)",0,28697436: Pronouns:,02,28697437: What is(are) your area(s) of interests with respect to your degree?,03,"28697438: What do you expect to learn in this course?
+(It's ok if you're not sure yet)",04,"28697439: 
 
 
 How comfortable are you with coding in R?
@@ -8,7 +8,7 @@ How comfortable are you with coding in R?
 
 
 
-",points5,"28697440: 
+",05,"28697440: 
 
 
 Thinking towards the end of the semester, what grade do you think you will get in this course?
@@ -16,7 +16,7 @@ Thinking towards the end of the semester, what grade do you think you will get i
 
 
 
-",points6,28697441: Where is Professor Bennett's office?,points_off,28697443: Does attendance count towards your grade?,points_att,"28697446: True or False: ""JITTs are due every week""",points_jitt,28697442: How many homework assignments can you drop?,points_hw,"28697445: True or False: ""It's ok if I submit a late assignment because there are extensions""",points_ext,28697444: Do you have to be present for the final project presentations?,points_ppt,n correct,n incorrect,score
+",06,28697441: Where is Professor Bennett's office?,points_off,28697442: How many homework assignments can you drop?,points_hw,"28697445: True or False: ""It's ok if I submit a late assignment because there are extensions""",point_ext,"28697446: True or False: ""JITTs are due every week""",points_jitt,28697444: Do you have to be present for the final project presentations?,points_ppt,28697443: Does attendance count towards your grade?,points_att,n correct,n incorrect,score
 Nick,0,He/him/his,0,"Business Analytics,Finance,Management,Marketing,Economics",0,I am not sure yet. I hope to be able to learn how to analyze data in larger quantities and apply these skills to real-life business scenarios.,0,6,0,A,0,"CBA Building, 6th Floor",1,1,1,,,,,,,,,6,2,2
 Pranav Mereddy,0,He/him/his,0,"Finance,Computer Science",0,,0,3,0,A-,0,"CBA Building, 6th Floor",1,,,FALSE,1,,,,,,,5,3,2
 Rehan,0,He/him/his,0,"Finance,Management Information Systems",0,How to better analyze data and make use of it.,0,2,0,A-,0,,,,,,,TRUE,1,Yes,1,,,5,3,2
