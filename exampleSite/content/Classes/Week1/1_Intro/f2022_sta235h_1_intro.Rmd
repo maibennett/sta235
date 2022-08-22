@@ -907,7 +907,7 @@ names(d2) = c("value","Grades")
 
 d2$Grades = factor(d2$Grades, levels = c("A","A-","B+","B","B-","C+","C or less"))
 
-cols = c("#0D0887","#900DA4","#BF3984","#900DA4","#F89441","#FCCE25","#f5dc7f")
+cols = c("#0D0887","#900DA4","#BF3984","#E16462","#F89441","#FCCE25","#f5dc7f")
 
 ggplot(data = d2, aes(x="",y=as.numeric(value),fill=Grades)) + 
   geom_bar(lwd=1.5, stat="identity", color="white") +
