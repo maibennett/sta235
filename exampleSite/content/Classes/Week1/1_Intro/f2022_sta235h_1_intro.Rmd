@@ -409,7 +409,7 @@ g_off <- d %>% filter(!is.na(points_off)) %>% rename(office = X28697441..Where.i
   ggplot(data = ., aes(x="", y = value, fill = factor(office))) +
   geom_bar(lwd=1.2, stat="identity", color="white") +
   coord_polar("y",start = 0)+
-  scale_fill_manual(values=cols[1]) + 
+  scale_fill_manual(values=c(cols[1], cols[3])) + 
   ggtitle("Where is Prof. Bennett's office?") + 
   theme_void()+
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 14) + 
@@ -434,7 +434,7 @@ g_att <- d %>% filter(!is.na(points_att)) %>% rename(attendance = X28697443..Doe
   ggplot(data = ., aes(x="", y = value, fill = factor(attendance))) +
   geom_bar(lwd=1.2, stat="identity", color="white") +
   coord_polar("y",start = 0)+
-  scale_fill_manual(values=cols[1]) + 
+  scale_fill_manual(values=c(cols[3],cols[1])) + 
   ggtitle("Does attendance count\ntowards your grade?") + 
   theme_void()+
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 14) + 
@@ -459,7 +459,7 @@ g_jitt <- d %>% filter(!is.na(points_jitt)) %>% rename(jitt = X28697446..True.or
   ggplot(data = ., aes(x="", y = value, fill = factor(jitt))) +
   geom_bar(lwd=1.2, stat="identity", color="white") +
   coord_polar("y",start = 0)+
-  scale_fill_manual(values=cols[1]) + 
+  scale_fill_manual(values=c(cols[3],cols[1])) + 
   ggtitle("JITTs are due every\nweek") + 
   theme_void()+
   theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 14) + 
