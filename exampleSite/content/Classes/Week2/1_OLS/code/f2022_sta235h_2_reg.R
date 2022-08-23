@@ -15,7 +15,6 @@ options(scipen = 0)
 ### Load libraries
 # If you don't have one of these packages installed already, you will need to run install.packages() line
 library(tidyverse)
-library(ggplot2)
 library(vtable)
 
 ################################################################################

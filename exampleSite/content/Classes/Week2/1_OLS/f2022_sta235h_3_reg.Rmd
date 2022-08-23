@@ -409,7 +409,7 @@ $$AdjRevenue = \beta_0 + \beta_1 Bechdel + \beta_3AdjBudget + \beta_4IMDB + \bet
 ---
 # One extra dollar in our budget
 
-- Imagine now that you have an hypothesis that Bechdel movies also make more bang for their buck, e.g. they get more revenue for an additional dollar in their budget.
+- Imagine now that you have an hypothesis that Bechdel movies also get more bang for their buck, e.g. they get more revenue for an additional dollar in their budget.
 
 .box-7Trans[How would you test that in an equation?]
 
