@@ -4,7 +4,8 @@ subtitle: "Fall 2022"
 author: "McCombs School of Business, UT Austin"
 output:
   xaringan::moon_reader:
-    css: [xaringan-themer.css]    lib_dir: libs
+    css: [xaringan-themer.css]    
+    lib_dir: libs
     nature:
       highlightStyle: github
       highlightLines: true
@@ -353,6 +354,7 @@ font.add.google("Fira Sans", "Fira Sans")
 
 .pull-left[
 - **.darkorange[Assessing issues with our data:]**
+  
   - Outliers
   - Collinearity
   
@@ -366,22 +368,84 @@ font.add.google("Fira Sans", "Fira Sans")
 ]
 
 ---
-# Let's look at some data
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+First thing is first...
+]
 
-- Used cars in South California (from this week's JITT)
+---
+background-position: 50% 50%
+class: center, middle
+
+.box-5Trans[Why should we inspect our data before doing anything else?]
+
+---
+# Identifying outliers
+
+- How do we **.darkorange[identify outliers]**?
+
+--
+  
+  - Visual inspection (e.g. plots, tables)
+  
+  - Creating thresholds (e.g. z-scores, IQ)
+  
+--
+
+- There is **.darkorange[no defined way to identify outliers]**
+
+  - Like the characterization of pornography, "I know it when I see it" (P. Stewart, 1964)
+
+---
+background-position: 50% 50%
+class: center, middle
+
+.box-3Large[Let's go to R]
+
+---
+# Bottomline about outliers
+
+[INSERT PREVIOUS SLIDE ABOUT OUTLIERS]
+
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+What about collinearity?
+]
+
+---
+# What's the problem with collinearity?
+
+- What do you think would happen if I ran this regression?
+
+$$Cancer = \beta_0 + \beta_1 Pack Cigarettes + \beta_2 NCigarettes + \varepsilon$$
+
+--
+
+- If two covariates are **.darkorange[perfectly collinear]**, we can't run the regression
+  
+  - R will drop one of them!
+  
+--
+
+- But what happens when they are highly correlated but not *perfectly collinear*?
+
+---
+# Remember last week's data?
+
+- Used cars in South California:
 
 .small[
 ```{r}
 library(tidyverse)
-library(vtable)
 
-hmda <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/1_OLS_Issues/data/hmda_2017_austin_bastrop.csv", stringsAsFactors = FALSE)
+cars <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/SoCalCars.csv", stringsAsFactors = FALSE)
 
-names(hmda)
 ```
 ]
-
-.source[Data source: "Modern Business Analytics" (Taddy, Hendrix, & Harding, 2018)]
 
 ---
 # How do mileage and year affect price?
@@ -479,205 +543,21 @@ summary(lm1)
   - The same with extrapolation zones!
   
 ---
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Let's start interacting
-]
+# What can we do about it?
 
----
-# Luxury vs. non-luxury cars?
-
-<br>
-<br>
-<br>
-.box-7trans[Do you think there's a difference between how price changes over time for luxury vs non-luxury cars?]
+- Exclude one variable
 
 --
 
-.box-4trans[How would you test this?]
+- Create a new variable that captures clean information
 
-
----
-background-position: 50% 50%
-class: center, middle
-.big[
-.box-5LA[Let's go to R]
-
-]
-
----
-# Models with interactions
-
-- You include the interaction between two (or more) covariates:
-
-$$\widehat{Price} = \beta_0 + \hat{\beta}_1 Rating + \hat{\beta}_2 Miles + \hat{\beta}_3 Luxury + \hat{\beta}_4 Year + \hat{\beta}_5 Luxury \times Year$$
---
-
-  - $\hat{\beta}_3$ and $\hat{\beta}_4$ are considered the **.darkorange[main effects]** (no interaction)
+  - E.g. average miles/year
 
 --
 
-- The coefficient you are interested in is $\hat{\beta}_5$:
+- Aggregate both variables into one:
 
-  - Difference in the **.darkorange[price change]** for one additional year between **.darkorange[luxury vs non-luxury cars]**, holding other variables constant.
-  
----
-
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Let's look at what's left
-]
-
----
-# Residuals in an OLS regression
-
-- **.darkorange[Residuals]** are a fundamental part of OLS regression: They represent what is not explained by the covariates.
-
---
-
-- When making *probabilistic inference*, we assume (among other things):
-
-  - The distribution of the error term is **.darkorange[normal]**
-  - The error terms are **.darkorange[iid]** (independent and identically distributed).
-  
---
-
-.box-7Trans[$$\varepsilon_i \sim \mathcal{N}(\mu,\sigma)$$]
-
----
-# Let's look at the residuals
-
-```{r, eval = FALSE}
-cars <- cars %>% mutate(price_hat = predict(lm(price ~ rating + mileage + year, data = .)), 
-                        residual = price - price_hat)
-
-ggplot(data = cars, aes(x = residual)) + geom_histogram()
-```
-```{r resid_hist, fig.height=4.5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-cars <- cars %>% mutate(price_hat = predict(lm(price ~ rating + mileage + year, data = .)), 
-                        residual = price - price_hat)
-
-ggplot(data = cars, aes(x = residual)) +
-  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5) + 
-  theme_bw()+
-  xlab("Residuals") + ylab("Count") +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-# Let's look at the variance!
-
-```{r, eval = FALSE}
-ggplot(data = cars, aes(x = price_hat, y = residual)) + geom_point()
-```
-```{r resid_scatter, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-ggplot(data = cars, aes(x = price_hat, y = residual)) +
-  geom_point(color = "#BF3984", fill = "white", pch=21, size = 3) + 
-      geom_hline(aes(yintercept = 0), color = "dark grey", lwd = 1) +
-  theme_bw()+
-  xlab("Fitted values") + ylab("Residuals") +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-# Let's look at the variance!
-
-```{r, eval = FALSE}
-ggplot(data = cars, aes(x = price_hat, y = residual)) + geom_point()
-```
-```{r resid_scatter2, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-ggplot(data = cars, aes(x = price_hat, y = residual)) +
-  geom_point(color = "#BF3984", fill = "white", pch=21, size = 3) +
-  geom_vline(aes(xintercept = 10), color = "#5601A4", lwd = 1.2) +
-  geom_vline(aes(xintercept = 28), color = "#5601A4", lwd = 1.2) + 
-      geom_hline(aes(yintercept = 0), color = "dark grey", lwd = 1) +
-  theme_bw()+
-  xlab("Fitted values") + ylab("Residuals") +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-# Can we fix that?
-
-```{r, eval = FALSE}
-cars <- cars %>% mutate(price_hat = predict(lm(log(price) ~ rating + mileage + year, data = .)), #<<
-                        residual = log(price) - price_hat) #<<
-
-ggplot(data = cars, aes(x = price_hat, y = residual)) + geom_point()
-```
-```{r resid_log, fig.height=4.5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-cars <- cars %>% mutate(price_hat = predict(lm(log(price) ~ rating + mileage + year, data = .)), 
-                        residual = log(price) - price_hat)
-
-ggplot(data = cars, aes(x = price_hat, y = residual)) +
-  geom_point(color = "#BF3984", fill = "white", pch=21, size = 3) +
-  geom_vline(aes(xintercept = 2.2), color = "#5601A4", lwd = 1.2) +
-  geom_vline(aes(xintercept = 3), color = "#5601A4", lwd = 1.2) + 
-  geom_hline(aes(yintercept = 0), color = "dark grey", lwd = 1) + 
-  theme_bw()+
-  xlab("Fitted values") + ylab("Residuals") +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
+  - 
 
 ---
 # Takeaway points

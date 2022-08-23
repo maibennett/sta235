@@ -30,7 +30,7 @@ In this session, we will review the syllabus in more detail: what you should exp
 
 ## Code
 
-Here is the R code we will review in class, with some additional data and questions <a onclick="ga('send', 'event', 'External-Link','click','code1','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/code/f2022_sta235h_2_reg.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+Here is the R code we will review in class, with some additional data and questions <a onclick="ga('send', 'event', 'External-Link','click','code1','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/code/f2022_sta235h_1_reg.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
 ## Notes
 
