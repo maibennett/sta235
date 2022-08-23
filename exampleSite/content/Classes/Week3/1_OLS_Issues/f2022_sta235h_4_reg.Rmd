@@ -366,18 +366,18 @@ font.add.google("Fira Sans", "Fira Sans")
 ]
 
 ---
-
 # Let's look at some data
 
 - Used cars in South California (from this week's JITT)
 
 .small[
 ```{r}
+library(tidyverse)
 library(vtable)
 
-cars <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/2_OLS_probs/data/SoCalCars.csv", stringsAsFactors = FALSE)
+hmda <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/1_OLS_Issues/data/hmda_2017_austin_bastrop.csv", stringsAsFactors = FALSE)
 
-names(cars)
+names(hmda)
 ```
 ]
 
