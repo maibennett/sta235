@@ -1,5 +1,5 @@
 ---
-title: "STA 235H - Multiple Regression: Interactions, Collinearity, and Residuals"
+title: "STA 235H - Multiple Regression: Outliers and Collinearity"
 subtitle: "Fall 2022"
 author: "McCombs School of Business, UT Austin"
 output:
@@ -331,6 +331,41 @@ font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
 font.add.google("Fira Sans", "Fira Sans")
 ```
 
+# Last week
+
+.pull-left[
+.center[
+![](https://media.giphy.com/media/7SQDv1QwEGjvEdCf5d/giphy.gif)]
+]
+
+.pull-right[
+- Reviewed more **.darkorange[multiple regression]** models:
+  
+  - Interaction models
+  
+  - Logarithmic outcomes
+  
+  - Polynomial terms
+]
+
+---
+# Today
+
+.pull-left[
+- **.darkorange[Assessing issues with our data:]**
+  - Outliers
+  - Collinearity
+  
+- **.darkorange[Binary response models:]**
+  - Should we do something different than traditional OLS?
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/3oEjHZPivwdJ0syhKE/giphy.gifg)]
+]
+
+---
 
 # Let's look at some data
 
@@ -661,7 +696,7 @@ ggplot(data = cars, aes(x = price_hat, y = residual)) +
 .pull-right[
 <br>
 <br>
-![](https://media.giphy.com/media/l0MYBJzJ7elsmG1K8/giphy.gif)
+![](https://media.giphy.com/media/xT5LMNLNu7ZMpRgVgc/giphy.gif)
 
 ]
 
