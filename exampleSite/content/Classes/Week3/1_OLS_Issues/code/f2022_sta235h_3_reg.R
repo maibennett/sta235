@@ -111,4 +111,6 @@ hmda %>% select(outlier) %>% table(.)
 
 ###################### MULTICOLLINEARTITY ######################################
 
+## Ames Housing dataset
 
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/1_OLS_Issues/data/AmesHousing.csv")
