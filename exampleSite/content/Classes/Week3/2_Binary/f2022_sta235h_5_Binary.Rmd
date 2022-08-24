@@ -349,24 +349,7 @@ font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
 font.add.google("Fira Sans", "Fira Sans")
 ```
 
-# Last Week
-
-.pull-left[
-- Discussed **.darkorange[Regression Discontinuity Designs]**:
-
-  - Strong internal validity vs. limited external validity
-  - Assumptions behind RD designs
-  - Robustness checks
-  
-- Finished with **.darkorange[causal inference]** chapter.
-]
-
-.pull-right[
-![](https://media.giphy.com/media/xT5LMUt1dWrBQtacJG/giphy.gif)
-]
-
----
-# Today
+# Continuing with today's class
 
 .pull-left[
 ![](https://media.giphy.com/media/W1eqqboCKxCWmTPzX2/giphy.gif)
@@ -377,16 +360,13 @@ font.add.google("Fira Sans", "Fira Sans")
 
   - Linear probability models vs. logistic regressions
   
-- Start our **.darkorange[prediction chapter]**:
-
-  - Bias vs. Variance trade-off, importance of cross-validation, model selection.
 ]
 
 ---
 # Binary Outcomes
 
 .pull-left[
-- We have been using **.darkorange[binary outcomes]** in regressions, but haven't fully discussed the issues they might bring.
+- You have probably used **.darkorange[binary outcomes]** in regressions, but do you know the issues that they may bring to the table?
 
 .box-6[What can we do about them?]
   
@@ -408,6 +388,10 @@ font.add.google("Fira Sans", "Fira Sans")
 ---
 # How to interpret a LPM?
 
+- A Linear Probability Model is just a **.darkorange[traditional regression with a binary outcome]**
+
+--
+
 - $\hat{\beta}$'s interpreted as **.darkorange[change in probability]**
 
 $$E[Y|X_1,..., X_P] = Pr(Y = 0|X_1,...,X_p)\cdot 0 + Pr(Y = 1|X_1,...,X_p)\cdot 1$$
@@ -422,9 +406,9 @@ $$E[Y|X_1,..., X_P] = Pr(Y = 0|X_1,...,X_p)\cdot 0 + Pr(Y = 1|X_1,...,X_p)\cdot 
 $$= Pr(Y = 1|X_1,...,X_p)$$
 - Example:
 
-.box-2t[$$Pass = \beta_0 + \beta_1 \cdot Study + \varepsilon$$]
+.box-2t[$$GradeA = \beta_0 + \beta_1 \cdot Study + \varepsilon$$]
 
-- $\hat{\beta}_1$ is the estimated change in probability of passing STA 235H if I study one more hour.
+- $\hat{\beta}_1$ is the estimated change in probability of getting an A if I study one more hour.
 
 ---
 # Let's look at an example
@@ -567,7 +551,7 @@ lpm_r <- lm_robust(deny ~ pirat + factor(afam), data = hmda)
 
 library(estimatr)
 
-modelsummary(list(lpm, lpm_r), stars = TRUE, gof_omit = 'DF|AIC|BIC|Log.Lik.|F|Num.Obs.')
+modelsummary(list(lpm, lpm_r), stars = TRUE, gof_omit = 'R2|R2Adj|RMSE|DF|AIC|BIC|Log.Lik.|F|Num.Obs.')
 ```
 ]
 
@@ -766,7 +750,7 @@ diff(predictions_afam)
 .pull-left[
 <br>
 <br>
-![](https://media.giphy.com/media/l0MYBJzJ7elsmG1K8/giphy.gif)
+![](https://media.giphy.com/media/xT5LMUt1dWrBQtacJG/giphy.gif)
 ]
 .pull-right[
 <br>
@@ -779,6 +763,22 @@ diff(predictions_afam)
 
 ]
 
+---
+# Next week
+
+.pull-left[
+
+- We dive into **.darkorange[Causal Inference]**
+
+- We'll discuss the **.darkorange[potential outcomes framework]**
+
+- Also, start looking at **.darkorange[randomized-controlled trials]**
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/xTiN0CNHgoRf1Ha7CM/giphy.gif)]
+]
 
 ---
 # References

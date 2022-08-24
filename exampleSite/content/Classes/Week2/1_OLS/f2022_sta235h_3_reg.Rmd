@@ -335,19 +335,11 @@ font.add.google("Fira Sans", "Fira Sans")
 
 # Before we start...
 
-**.darkorange[Feedback/Questions on the JITT:]**
+- Students where given **.darkorange[free-pass]** on the knowledge check:
 
---
-
-[INSERT FEEDBACK]
-
---
-
-.box-6Trans[No need to remember **everything** from STA 301]
-
---
-
-.box-7trans[Intuition about regression + R basics]
+  - Be sure to answer the question correctly (look at the feedback provided)
+  
+  - Feedback are **.darkorange[guidelines]**! Use your *own words*.
 
 --
 

@@ -111,6 +111,44 @@ hmda %>% select(outlier) %>% table(.)
 
 ###################### MULTICOLLINEARTITY ######################################
 
-## Ames Housing dataset
+## Ames Housing dataset: Data for the housing market in Ames, Iowa.
+## You can check the codebook here: https://sta235.netlify.app/Classes/Week3/1_OLS_Issues/data/ames_codebook.csv
 
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/1_OLS_Issues/data/AmesHousing.csv")
+housing <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/1_OLS_Issues/data/AmesHousing.csv")
+
+# Only keep single family housing: (Bldg.Type)
+
+housing <- housing %>% filter(Bldg.Type=="1Fam")
+
+# Run a regression of Sale Price on total number of rooms, living area, garage (cars), fireplace, total area of the basement, and lot area.  
+
+lm_full <- lm(SalePrice ~ TotRms.AbvGrd + Gr.Liv.Area + Garage.Cars + Fireplaces + Total.Bsmt.SF, data = housing)
+
+summary(lm_full)
+
+# Q: Total number of rooms is not statistically significant. 
+
+# Run the same regression as before, but only include total number of rooms and living area as covariates:
+
+lm_size <- lm(SalePrice ~ TotRms.AbvGrd + Gr.Liv.Area , data = housing)
+
+summary(lm_size)
+
+
+# Plot number of rooms against living area:
+
+ggplot(data = housing, aes(x = TotRms.AbvGrd, y = Gr.Liv.Area)) +
+  geom_point(color = "skyblue") +
+  geom_smooth(color = "purple", fill = alpha("purple", 0.2), method = "lm") +
+  theme_minimal() +
+  xlab("Total Number of Rooms") + ylab("Living Area (Sq Ft)")
+
+summary(lm(Gr.Liv.Area ~ TotRms.AbvGrd, data = housing))
+
+# Q: Look at the R^2. Does it look high?
+
+# Get the correlation between number of rooms and living area:
+
+housing %>% select(Gr.Liv.Area, TotRms.AbvGrd) %>% cor(.)
+
+
