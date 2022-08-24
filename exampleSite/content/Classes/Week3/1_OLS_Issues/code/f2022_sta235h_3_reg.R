@@ -1,5 +1,5 @@
 ######################################################################
-### Title: "Week 3 - Outliers and Collinearity"
+### Title: "Week 3 - Outliers and Mulyicollinearity"
 ### Course: STA 235H
 ### Semester: Fall 2022
 ### Professor: Magdalena Bennett
@@ -20,6 +20,10 @@ library(vtable)
 ################################################################################
 ### In-class exercises
 ################################################################################
+
+###################### OUTLIERS ################################################
+
+### HMDA Example
 
 # This is the data from 2017 HMDA for Bastrop county (https://www.consumerfinance.gov/data-research/hmda/historic-data/?geo=tx&records=first-lien-owner-occupied-1-4-family-records&field_descriptions=labels)
 # (you can also find the whole dataset for Austin by changing the name of the file to hmda_2017_austin.csv)
@@ -105,33 +109,6 @@ hmda %>% select(outlier) %>% table(.)
 # Q: Run a regression with and without outliers. Do your results change qualitatively?
 
 
-###########################################
-## Collinearity
-###########################################
+###################### MULTICOLLINEARTITY ######################################
 
-cars <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/SoCalCars.csv", stringsAsFactors = FALSE)
 
-## Let's clean some data
-
-## Select only cars from the year 1970 onwards, that are under $100k, and have less than 150k miles.
-
-## Let's create new variables:
-
-### luxury: dummy variable for luxury brands (in `luxury_brand` vector) (source: https://luxe.digital/business/digital-luxury-ranking/best-luxury-car-brands/)
-### Transform price from dollars to thousands of dollars, and miles to thousands of miles.
-### Transform year so that it's the number of years since 1970s
-
-luxury_brands <- c("Audi", "BMW", "Cadillac", "Ferrari", "Jaguar", "Lamborghini", "Land Rover", "Lexus",
-                   "Maserati", "Mercedes-Benz", "Porsche", "Rolls-Royce", "Tesla", "Volvo")
-
-cars <- cars %>% filter(type != "new" & mileage >= 10000 & mileage <= 150000 & price < 100000 & year >= 1970) %>%
-  mutate(luxury = ifelse(make %in% luxury_brands, 1, 0),
-         price = price/1000,
-         mileage = mileage/1000,
-         year = year - 1970)
-
-summary(lm(price ~ year + mileage + rating, data = cars))
-
-cars <- cars %>% mutate(mileage_per_year = mileage/(2021-(1970+year)))
-
-summary(lm(price ~ mileage_per_year + year + rating, data = cars))

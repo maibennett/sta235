@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>STA 235H - Multiple Regression: Outliers and Collinearity</title>
+    <title>STA 235H - Multiple Regression: Outliers and Multicollinearity</title>
     <meta charset="utf-8" />
     <meta name="author" content="McCombs School of Business, UT Austin" />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -18,7 +18,7 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# STA 235H - Multiple Regression: Outliers and Collinearity
+# STA 235H - Multiple Regression: Outliers and Multicollinearity
 ## Fall 2022
 ### McCombs School of Business, UT Austin
 
@@ -76,7 +76,7 @@ class: center, middle, inverse, title-slide
 - **.darkorange[Assessing issues with our data:]**
   
   - Outliers
-  - Collinearity
+  - Multicollinearity
   
 - **.darkorange[Binary response models:]**
   - Should we do something different than traditional OLS?
@@ -84,7 +84,7 @@ class: center, middle, inverse, title-slide
 
 .pull-right[
 .center[
-![](https://media.giphy.com/media/3oEjHZPivwdJ0syhKE/giphy.gifg)]
+![](https://media.giphy.com/media/3oEjHZPivwdJ0syhKE/giphy.gif)]
 ]
 
 ---
@@ -113,7 +113,7 @@ class: center, middle
   
 --
 
-- There is **.darkorange[no defined way to identify outliers]**
+- There is **.darkorange[no definite way to identify outliers]**
 
   - Like the characterization of pornography, "I know it when I see it" (P. Stewart, 1964)
 
@@ -121,12 +121,28 @@ class: center, middle
 background-position: 50% 50%
 class: center, middle
 
-.box-3Large[Let's go to R]
+.box-3LA[Let's go to R]
 
 ---
-# Bottomline about outliers
+# What to do with outliers?
 
-[INSERT PREVIOUS SLIDE ABOUT OUTLIERS]
+1. **.darkorange[Check them!]**
+
+  - Make sure there's no coding error; try to understand what's happening there.
+
+--
+
+2a. **.darkorange[If they are wrongly coded]**:
+
+  - You can remove them, always adding a note of why you did so
+  - Be aware of sample selection!
+  
+--
+  
+2b. **.darkorange[If they are correctly coded]**:
+
+  - Run analysis both with and without outliers (don't just drop them!).
+  - Robust results: Do not depend exclusively on a few observations.
 
 
 ---
@@ -225,34 +241,39 @@ summary(lm1)
   - The same with extrapolation zones!
   
 ---
-# What can we do about it?
+# Can we do something about it?
 
-- Exclude one variable
+- **.darkorange[Exclude]** one variable
 
+  - Depends on what you are analyzing.
+  
 --
 
-- Create a new variable that captures clean information
+- Create a **.darkorange[new variable]** that captures clean information
 
   - E.g. average miles/year
 
 --
 
-- Aggregate both variables into one:
+- **.darkorange[Aggregate]** both variables into one:
 
-  - 
+  - Linear combination (e.g. add them)
+  
+  - Create an index (e.g. Principal Component Analysis)
 
 ---
 # Takeaway points
 
 .pull-left[
 
-- It's important to **.darkorange[think about the model we are fitting]**
+- Always make sure to **.darkorange[check your data]**:
 
-  - Does it make sense? *Contextual knowledge is important*
+  - What are analyzing? Does the data behave as I would expect? Should I exclude observations?
   
-- Interactions terms can capture important **.darkorange[heterogeneity]**
-
-- Always **.darkorange[check your assumptions]**
+- Is it a problem if my covariates are **.darkorange[highly correlated]**?
+  
+  - Sometimes yes, sometimes no.
+  
 ]
 
 .pull-right[
@@ -261,23 +282,6 @@ summary(lm1)
 ![](https://media.giphy.com/media/xT5LMNLNu7ZMpRgVgc/giphy.gif)
 
 ]
-
----
-# Next Class
-
-.pull-left[
-![](https://media.giphy.com/media/1Q9AekyhJ2U5bdTzdr/giphy.gif?cid=ecf05e47lcna24lgv5gbpkiciso4ykvxq9urjrc5d50bfq8b&amp;rid=giphy.gif&amp;ct=g)
-]
-
-.pull-right[
-
-- Start with **.darkorange[Causal Inference]**
-
-- Homework 1 will be posted on **.darkorange[Thursday]**
-
-- JITT 2 will be posted **.darkorange[today]**
-]
-
 
 ---
 # References

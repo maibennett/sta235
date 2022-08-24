@@ -8,15 +8,21 @@ disableToc: true
 
 ## What we will cover
 
-In this session, we will fully dive into Causal Inference: Potential outcomes framework, the fundamental problem of causal inference, causal estimands, and study design.
+In this session, we will fully dive into Causal Inference: Potential outcomes framework, the fundamental problem of causal inference, causal estimands, and study design. We will also start discussing Randomized Controlled Trials.
 
 ## Recommended readings/videos
 
-<!-- - Angrist & Pischke. (2015). "Mastering Metrics". *Chapter 1: Randomized Trials*. Pg. 1-11. 
+- Angrist & Pischke. (2015). "Mastering Metrics". *Chapter 1: Randomized Trials*. Pg. 1-11. 
 
 - Marginal Revolution University. (2019). "Ceteris Paribus: Public vs. Private University". *Video materials from Mastering Metrics*.
 
-{{< youtube src="https://www.youtube.com/embed/iPBV3BlV7jk?controls=0" >}} -->
+{{< youtube src="https://www.youtube.com/embed/iPBV3BlV7jk?controls=0" >}}
+
+- Angrist & Pischke. (2015). "Mastering Metrics". *Chapter 1: Randomized Trials*. Pg. 12-33. [CHECK THIS] 
+
+- Marginal Revolution University. (2020). "Randomized Trials: The Ideal Weapon". *Video materials from Mastering Metrics*.
+
+{{< youtube src="https://www.youtube.com/embed/eGRd8jBdNYg?controls=0" >}}
 
 
 <!-- 
