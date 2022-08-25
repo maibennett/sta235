@@ -22,15 +22,10 @@ In this class, we will go deepper into statistical adjustment, specifically when
 
 ## Slides
 <!-- 
-{{% button href="https://sta235.netlify.app/Classes/Week2/1_OLS/f2021_sta235h_3_reg.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week2/1_OLS/f2021_sta235h_3_reg.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.netlify.app/Classes/Week2/1_OLS/f2022_sta235h_3_reg.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week2/1_OLS/f2022_sta235h_3_reg.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week2/1_OLS/f2021_sta235h_3_reg.html" >}}
+{{< slides src="https://sta235.netlify.app/Classes/Week2/1_OLS/f2022_sta235h_3_reg.html" >}}
 
-<br>
-
-{{% button href="https://sta235.netlify.app/Classes/Week2/2_OLS_probs/f2021_sta235h_4_reg.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week2/2_OLS_probs/f2021_sta235h_4_reg.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
-
-{{< slides src="https://sta235.netlify.app/Classes/Week2/2_OLS_probs/f2021_sta235h_4_reg.html" >}}
 -->
 ## Code
 <!-- 

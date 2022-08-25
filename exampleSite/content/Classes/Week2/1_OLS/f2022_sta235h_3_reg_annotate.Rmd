@@ -335,23 +335,19 @@ font.add.google("Fira Sans", "Fira Sans")
 
 # Before we start...
 
-**.darkorange[Feedback/Questions on the JITT:]**
+- Students where given **.darkorange[free-pass]** on the knowledge check:
 
---
-
-[INSERT FEEDBACK]
-
---
-
-.box-6Trans[No need to remember **everything** from STA 301]
-
---
-
-.box-7trans[Intuition about regression + R basics]
+  - Be sure to answer the question correctly (look at the feedback provided)
+  
+  - Feedback are **.darkorange[guidelines]**! Try to use your *own words*.
 
 --
 
 .box-4trans[Check the course website for resources!]
+
+--
+
+- Also, **.darkorange[remember to sign up your group (Canvas > People > Final Project)]**
 
 ---
 # Today
@@ -409,7 +405,7 @@ $$AdjRevenue = \beta_0 + \beta_1 Bechdel + \beta_3AdjBudget + \beta_4IMDB + \bet
 ---
 # One extra dollar in our budget
 
-- Imagine now that you have an hypothesis that Bechdel movies also make more bang for their buck, e.g. they get more revenue for an additional dollar in their budget.
+- Imagine now that you have an hypothesis that Bechdel movies also get more bang for their buck, e.g. they get more revenue for an additional dollar in their budget.
 
 .box-7Trans[How would you test that in an equation?]
 
@@ -722,12 +718,22 @@ $$\log(Price) = \beta_0 + \beta_1 Rating + \beta_2 Miles + \beta_3 Luxury + \bet
 ---
 # A side note on log-transformed variables...
 
-.medium30[$$\log(y) = \hat{\beta}_0 + \hat{\beta}_1 x$$]
+.medium30[$$\log(Y) = \hat{\beta}_0 + \hat{\beta}_1 X$$]
+
+We want to compare the outcome for a regression with $X = x$ and $X = x+1$
+
+--
+
+.medium30[$$\log(y_0) = \hat{\beta}_0 + \hat{\beta}_1 x$$]
+
+and
+
+.medium30[$$\log(y_1) = \hat{\beta}_0 + \hat{\beta}_1 (x+1)$$]
 
 ---
 # A side note on log-transformed variables...
 
-.medium30[$$\log(y) = \hat{\beta}_0 + \hat{\beta}_1 x$$]
+.medium30[$$\log(Y) = \hat{\beta}_0 + \hat{\beta}_1 X$$]
 
 .medium30[$$\log(y_{1}) - \log(y_0) = \hat{\beta}_0 + \hat{\beta}_1(x+1) - (\hat{\beta}_0 + \hat{\beta}_1 x)$$]
 
