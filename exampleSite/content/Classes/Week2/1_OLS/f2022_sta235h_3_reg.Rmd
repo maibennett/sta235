@@ -335,11 +335,13 @@ font.add.google("Fira Sans", "Fira Sans")
 
 # Before we start...
 
-- Students where given **.darkorange[free-pass]** on the knowledge check:
+- Use the **.darkorange[knowledge check]** portion of the JITT to assess your own understanding:
 
   - Be sure to answer the question correctly (look at the feedback provided)
   
-  - Feedback are **.darkorange[guidelines]**! Try to use your *own words*.
+  - Feedback are **.darkorange[guidelines]**; Try to use your *own words*.
+  
+  - I gave a **.darkorange[free-pass this time]**.
 
 --
 
@@ -401,7 +403,69 @@ $$AdjRevenue = \beta_0 + \beta_1 Bechdel + \beta_3AdjBudget + \beta_4IMDB + \bet
 --
 
 .box-6[Remember the key words!]
+---
+# Let's also do a quick review of R output
 
+```{r results='hide', message=FALSE,echo=FALSE, warning=FALSE}
+library(tidyverse)
+
+rawData <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/data/bechdel.csv")
+
+# Select movies post 1990
+bechdel <- rawData %>% filter(Year>1989)
+
+# Passes Bechdel test:
+bechdel <- bechdel %>% mutate(bechdel_test = ifelse(rating==3, 1, 0),
+                              Adj_Revenue = Adj_Revenue/10^6,
+                              Adj_Budget = Adj_Budget/10^6)
+```
+```{r bechdel1a, results = FALSE}
+lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechdel)
+```
+```{r bechdel1ra,echo=FALSE}
+round(summary(lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechdel))$coeff, 4)
+
+```
+
+- **.darkorange["Estimate"]**: Point estimates of our paramters $\beta$. We call them $\hat{\beta}$.
+
+- **.darkorange["Standard Error"]** (SE): You can think about it as the variability of $\hat{\beta}$. The smaller, the more precise $\hat{\beta}$ is!
+
+- **.darkorange["t-value"]**: A value of the Student distribution that measures how many SE away $\hat{\beta}$ is from 0. You can calculate it as $tval = \frac{\hat{\beta}}{SE}$. It relates to our null-hypothesis $H_0: \beta=0$.
+
+- **.darkorange["p-value"]**: Probability of rejecting the null hypothesis and being *wrong* (Type I error). You want this to be a small as possible (statistically significant).
+
+---
+# Reminder: Null-Hypothesis
+
+We are testing $H_0: \beta = 0$ vs $H_1: \beta \neq 0$
+
+.pull-left[
+- "Reject the null hypothesis"
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/images/ttest_null.png)]
+]
+
+.pull-right[
+- "Not reject the null hypothesis"
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/images/ttest_not_null.png)
+]
+]
+
+.source[Note: Figures adapted from @AllisonHorst's art]
+---
+# Reminder: Null-Hypothesis
+
+Reject the null if the estimate falls **outside** the dashed lines.
+
+
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/images/reject.png)
+]
+
+
+.source[Note: Figures adapted from @AllisonHorst's art]
 ---
 # One extra dollar in our budget
 
@@ -482,6 +546,10 @@ round(summary(lm(Adj_Revenue ~ bechdel_test*Adj_Budget + Metascore + imdbRating,
 - What is the association between budget and revenue for movies that **.darkorange[pass the Bechdel test]**?
 
 - What is the difference in the association between budget and revenue for **.darkorange[movies that pass vs movies that don't pass the Bechdel test]**?
+
+--
+
+- Is that difference **.darkorange[statistically significant]** (at conventional levels)?
 
 ---
 background-position: 50% 50%
@@ -744,7 +812,7 @@ and
 ---
 # A side note on log-transformed variables...
 
-.medium30[$$\log(y) = \hat{\beta}_0 + \hat{\beta}_1 x$$]
+.medium30[$$\log(Y) = \hat{\beta}_0 + \hat{\beta}_1 X$$]
 
 .medium30[$$\log(y_{1}) - \log(y_0) = \hat{\beta}_0 + \hat{\beta}_1(x+1) - (\hat{\beta}_0 + \hat{\beta}_1 x)$$]
 
