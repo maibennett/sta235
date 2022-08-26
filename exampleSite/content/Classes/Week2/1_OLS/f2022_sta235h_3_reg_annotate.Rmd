@@ -401,6 +401,42 @@ $$AdjRevenue = \beta_0 + \beta_1 Bechdel + \beta_3AdjBudget + \beta_4IMDB + \bet
 --
 
 .box-6[Remember the key words!]
+---
+# Let's also do a quick review of R output
+
+```{r results='hide', message=FALSE,echo=FALSE, warning=FALSE}
+library(tidyverse)
+
+rawData <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/data/bechdel.csv")
+
+# Select movies post 1990
+bechdel <- rawData %>% filter(Year>1989)
+
+# Passes Bechdel test:
+bechdel <- bechdel %>% mutate(bechdel_test = ifelse(rating==3, 1, 0),
+                              Adj_Revenue = Adj_Revenue/10^6,
+                              Adj_Budget = Adj_Budget/10^6)
+```
+```{r bechdel1a, results = FALSE}
+lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechdel)
+```
+```{r bechdel1ra,echo=FALSE}
+round(summary(lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechdel))$coeff, 4)
+
+```
+
+- **.darkorange["Estimate"]**: Point estimates of our paramters $\beta$. We call them $\hat{\beta}$.
+
+- **.darkorange["Standard Error"]** (SE): You can think about it as the variability of $\hat{\beta}$. The smaller, the more precise $\hat{\beta}$ is!
+
+- **.darkorange["t-stat"]**: A value of the Student distribution that measures how many SE away $\hat{\beta}$ is from 0. You can calculate as $\frac{\hat{\beta}}{SE}$. It relates to our null-hypothesis $H_0: \beta=0$.
+
+- **.darkorange["p-value"]**: Probability of rejecting the null hypothesis and being *wrong*. You want this to be a small as possible (statistically significant).
+
+---
+# Reminder: Null-Hypothesis
+
+
 
 ---
 # One extra dollar in our budget

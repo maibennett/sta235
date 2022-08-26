@@ -125,6 +125,31 @@ class: center, middle, inverse, title-slide
 --
 
 .box-6[Remember the key words!]
+---
+# Let's also do a quick review of R output
+
+
+
+```r
+lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechdel)
+```
+
+```
+##               Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)  -127.0710    17.0563 -7.4501   0.0000
+## bechdel_test   11.0009     4.3786  2.5124   0.0121
+## Adj_Budget      1.1192     0.0367 30.4866   0.0000
+## Metascore       7.0254     1.9058  3.6864   0.0002
+## imdbRating     15.4631     3.3914  4.5595   0.0000
+```
+
+- **.darkorange["Estimate"]**: Point estimates of our paramters `\(\beta\)`. We call them `\(\hat{\beta}\)`.
+
+- **.darkorange["Standard Error"]** (SE): You can think about it as the variability of `\(\hat{\beta}\)`. The smaller, the more precise `\(\hat{\beta}\)` is!
+
+- **.darkorange["t-stat"]**: A value of the Student distribution that measures how many SE away `\(\hat{\beta}\)` is from 0. It relates to our null-hypothesis `\(H_0: \beta=0\)`
+
+- **.darkorange["p-value"]**: Probability of rejecting the null hypothesis and being *wrong*. You want this to be a small as possible (statistically significant).
 
 ---
 # One extra dollar in our budget
