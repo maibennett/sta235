@@ -38,3 +38,9 @@ Katie Aufricht, 3rd-year student Honors Program
 Isabella Hsu, 3rd-year student Honors Program
 
 - <i class="fas fa-envelope"></i> Email [isabellahsu@utexas.edu](mailto:isabellahsu@utexas.edu)
+
+### Office Hours
+
+Office hours will be held in person (Prof. Bennett) or online (TAs), according to the schedule below. Please remember to check the Zoom link for TA's office hours on [Canvas](https://utexas.instructure.com/courses/1347230/pages/office-hours):
+
+<iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=2&bgcolor=%23ffffff&ctz=America%2FChicago&src=cjM2NWZmanF0NWZzYjEwZ2tkMmo4a2toN2tAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&color=%23F09300" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
