@@ -431,7 +431,7 @@ round(summary(lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRatin
 
 - **.darkorange["Standard Error"]** (SE): You can think about it as the variability of $\hat{\beta}$. The smaller, the more precise $\hat{\beta}$ is!
 
-- **.darkorange["t-value"]**: A value of the Student distribution that measures how many SE away $\hat{\beta}$ is from 0. You can calculate it as $ tval = \frac{\hat{\beta}}{SE}$. It relates to our null-hypothesis $H_0: \beta=0$.
+- **.darkorange["t-value"]**: A value of the Student distribution that measures how many SE away $\hat{\beta}$ is from 0. You can calculate it as $tval = \frac{\hat{\beta}}{SE}$. It relates to our null-hypothesis $H_0: \beta=0$.
 
 - **.darkorange["p-value"]**: Probability of rejecting the null hypothesis and being *wrong* (Type I error). You want this to be a small as possible (statistically significant).
 
@@ -577,6 +577,17 @@ names(cars)
 
 --
 .small[
+```{r, echo = FALSE, warning = FALSE, message= FALSE}
+luxury_brands <- c("Audi", "BMW", "Cadillac", "Ferrari", "Jaguar", "Lamborghini", "Land Rover", "Lexus",
+                   "Maserati", "Mercedes-Benz", "Porsche", "Rolls-Royce", "Tesla", "Volvo")
+
+cars <- cars %>% filter(type != "new" & mileage >= 10000 & mileage <= 150000 & price < 100000 & year >= 1970) %>%
+  mutate(luxury = ifelse(make %in% luxury_brands, 1, 0),
+         price = price/1000,
+         mileage = mileage/1000,
+         year = year - 1970)
+
+```
 ```{r}
 lm1 <- lm(price ~ year + mileage + rating, data = cars)
 summary(lm1)

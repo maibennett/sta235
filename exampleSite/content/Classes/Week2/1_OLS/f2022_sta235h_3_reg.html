@@ -294,6 +294,7 @@ names(cars)
 --
 .small[
 
+
 ```r
 lm1 &lt;- lm(price ~ year + mileage + rating, data = cars)
 summary(lm1)
@@ -306,20 +307,20 @@ summary(lm1)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -117887  -16093   -7326    4074 1392215 
+## -21.945  -7.180  -2.465   3.791  72.444 
 ## 
 ## Coefficients:
-##               Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  4.912e+06  5.173e+05   9.495   &lt;2e-16 ***
-## year        -2.411e+03  2.561e+02  -9.413   &lt;2e-16 ***
-## mileage     -5.640e-01  2.994e-02 -18.838   &lt;2e-16 ***
-## rating      -6.140e+02  3.725e+02  -1.648   0.0994 .  
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 43.78158    4.16486  10.512  &lt; 2e-16 ***
+## year        -0.36028    0.08284  -4.349 1.43e-05 ***
+## mileage     -0.23406    0.01186 -19.738  &lt; 2e-16 ***
+## rating       1.21791    0.15886   7.666 2.69e-14 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 41690 on 4827 degrees of freedom
-## Multiple R-squared:  0.08049,	Adjusted R-squared:  0.07992 
-## F-statistic: 140.8 on 3 and 4827 DF,  p-value: &lt; 2.2e-16
+## Residual standard error: 12.08 on 2086 degrees of freedom
+## Multiple R-squared:  0.2098,	Adjusted R-squared:  0.2086 
+## F-statistic: 184.6 on 3 and 2086 DF,  p-value: &lt; 2.2e-16
 ```
 ]
 
@@ -418,13 +419,13 @@ cars %&gt;% select(price, mileage, year) %&gt;% summary(.)
 
 
 ```
-##      price            mileage            year     
-##  Min.   :   1790   Min.   :     0   Min.   :1966  
-##  1st Qu.:  16234   1st Qu.:     5   1st Qu.:2017  
-##  Median :  23981   Median :    56   Median :2019  
-##  Mean   :  32959   Mean   : 21873   Mean   :2018  
-##  3rd Qu.:  36745   3rd Qu.: 36445   3rd Qu.:2020  
-##  Max.   :1499000   Max.   :292952   Max.   :2021
+##      price           mileage            year      
+##  Min.   :  1.79   Min.   : 10.07   Min.   : 0.00  
+##  1st Qu.: 10.80   1st Qu.: 27.43   1st Qu.:44.00  
+##  Median : 15.99   Median : 40.46   Median :47.00  
+##  Mean   : 19.67   Mean   : 47.51   Mean   :45.29  
+##  3rd Qu.: 24.49   3rd Qu.: 62.25   3rd Qu.:48.00  
+##  Max.   :100.00   Max.   :149.90   Max.   :50.00
 ```
 ]
 
