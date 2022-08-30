@@ -47,7 +47,7 @@ cars <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/examp
 
 ## Let's clean some data
 
-## Select only cars from the year 1970 onwards, that are under $100k, and have less than 150k miles.
+## Select only cars from the year 1970 onwards, that are under $100k, and have less than 150k miles (and more than 10k).
 
 ## Let's create new variables:
 
