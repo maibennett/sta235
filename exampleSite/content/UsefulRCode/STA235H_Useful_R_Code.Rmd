@@ -241,7 +241,7 @@ For merging datasets, you will need at least two dataframes, and a common variab
 
 The following figure shows the more typical functions for merging datasets, available on the `tidyverse`:
 
-```{r join, fig.align = 'center', out.width = "50%", fig.cap = "Overview of the dplyr Join Functions ([Source](Source: https://statisticsglobe.com/r-dplyr-join-inner-left-right-full-semi-anti))"}
+```{r join, echo = FALSE,fig.align = 'center', out.width = "50%", fig.cap = "Overview of the dplyr Join Functions ([Source](Source: https://statisticsglobe.com/r-dplyr-join-inner-left-right-full-semi-anti))"}
 knitr::include_graphics("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/join_functions.png")
 ```
 
