@@ -40,5 +40,17 @@ cars <- cars %>% filter(type != "new" & mileage >= 10000 & mileage <= 150000 & p
          mileage = mileage/1000,
          year = year - 1970)
 
-# Scatter plot price vs mileage
+# Scatter plot price vs mileage, by luxury status
+
+ggplot(data = cars, aes(x = mileage, y = price, color = factor(luxury))) +
+  geom_point() + xlab("Mileage (1,000 mi)") + ylab("Price (1,000 $)") +
+  theme_minimal() +
+  scale_color_manual("Is this car luxury?", values = c("skyblue","purple"),
+                     labels = c("No","Yes")) +
+  theme(legend.position = c(0.8, 0.9))
+
+
+
+
+
 
