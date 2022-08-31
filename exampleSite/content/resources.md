@@ -8,6 +8,13 @@ In these notes, you can get a refresher from the material covered in STA 301:
 
 - Scott, J. (2021). ["Data Science in R: A Gentle Introduction"](https://bookdown.org/jgscott/DSGI/).
 
+### Videos for this class
+
+I will be uploading short videos in this section, mainly focused on R coding, but also other topics, depending on what is needed!
+
+{{% button href="https://sta235.netlify.app/videos" icon="fas fa-external-link-alt" icon-position="right" %}}Go to Videos{{% /button %}}  
+
+
 ### R resources
 
 [**Some Useful R Code**](https://sta235.netlify.app/UsefulRCode/STA235H_Useful_R_Code.html): I put together this short document showing some useful packages and functions that might come in handy during this course!
