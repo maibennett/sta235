@@ -4,6 +4,12 @@ weight: 15
 chapter: false
 ---
 
+
+{{% notice warning %}}
+Homework assignments are posted **one week before they are due**. Check the [syllabus](https://sta235.netlify.app/syllabus/grading/) for the submission deadlines.
+{{% /notice %}}
+
+
 ## Objective
 
 - The goal of homework assignments is for you to **apply** what we have seen in class.
