@@ -42,6 +42,15 @@ This document is meant to show you some useful code that we will be using in thi
 
 For this class, make sure you have the most updated version of R (you can check your R version by typing `version` on the console). If your version is older than `R 4.2.1`, please [download]() and install the latest R version.
 
+## Start with a clean space
+
+Make sure that you are starting with a clean space when you open RStudio. This will save memory and also minimize potential problems! For this, go to `Tools -> Global Options -> General`. As you can see from the image below, make sure you are not loading your previous .RData into your space every time you open R Studio (make sure that option is **not selected**). Tip: If you want your previous R Scripts to be loaded the next time you open RStudio, you can check the two options above Workspace.
+
+<br>
+```{r clean_space, fig.align = 'center', out.width = "80%", echo=FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/images/global_options.png")
+```
+
 ## Code header
 
 It's always good practice to have some annotations on your code, especially on the header, so future you remembers what past you was doing (sometimes they don't get along). This is personal preference, but for simple projects, I tend to have a descriptive header as following:
