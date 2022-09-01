@@ -7,7 +7,7 @@ pre: ""
 
 # Videos
 
-I will be making short videos to help you solve some common issues in R coding, but also the class material, as needed.
+I will be making short videos to help you solve some common issues in R coding, but also with respect to the class material, as needed.
 
 ### Scatter plot?
 
