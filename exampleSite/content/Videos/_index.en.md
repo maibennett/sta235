@@ -2,7 +2,7 @@
 title: Videos
 weight: 45
 chapter: true
-pre: ""
+pre: "<b>6. </b>"
 ---
 
 # Videos
