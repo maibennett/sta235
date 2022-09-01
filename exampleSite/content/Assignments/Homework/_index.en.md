@@ -46,3 +46,7 @@ Homework assignments are posted **one week before they are due**. Check the [syl
 
 - Make sure all the code is there. If there is a question for which you needed code and the chunk of code is not there, that question will not be reviewed.
 
+## Templates for Homework Assignments
+
+<a onclick="ga('send', 'event', 'External-Link','click','hw1_code','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/HW1/templates/STA235H_HW1_Template.R" target="_blank" class="btn btn-default">Template HW1<i class="fas fa-code"></i></a>
+
