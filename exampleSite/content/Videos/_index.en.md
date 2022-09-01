@@ -16,7 +16,7 @@ In this video, I go over scatter plots and, in particular, how to do a scatter p
 {{< youtube src="https://www.youtube.com/embed/b4nC6TcZjzc" >}}
 
 
-<a href="https://sta235.netlify.app/Videos/code/week2_code.R" target="_blank" class="btn btn-default">Download Code<i class="fas fa-code"></i></a> 
+<a href="https://sta235.netlify.app/Videos/code/week2_code.R" target="_blank" class="btn btn-default">Download Code <i class="fas fa-code"></i></a> 
 
 
 - [Here](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf) you can find names of colors for R (but you can also use HEX colors)
@@ -29,4 +29,4 @@ It's very important to have a good grasp on some basic tidyverse functions, such
 {{< youtube src="https://www.youtube.com/embed/mdBwE3yBGOM" >}}
 
 
-<a href="https://sta235.netlify.app/Videos/code/clean_data.R" target="_blank" class="btn btn-default">Download Code<i class="fas fa-code"></i></a> 
+<a href="https://sta235.netlify.app/Videos/code/clean_data.R" target="_blank" class="btn btn-default">Download Code <i class="fas fa-code"></i></a> 
