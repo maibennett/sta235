@@ -3,10 +3,12 @@ library(tidyverse)
 
 set.seed(100)
 
+#### THIS JUST CREATES THE  FAKE DATASET, NO NEED TO WORRY ABOUT IT
 data  = data.frame(gender = c(rep("F",5), rep("M",3)),
                    age = round(runif(8,18,60)),
                    income = round(runif(8,25000,150000)),
                    married = sample(c(0,1), 8, replace = TRUE, prob = c(0.65,0.35)))
+####
 
 # Create a dataset with only married females:
 
