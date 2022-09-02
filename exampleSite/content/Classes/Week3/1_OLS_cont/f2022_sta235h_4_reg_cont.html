@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235H - Multiple Regression: Nonlinearity</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA 235H - Multiple Regression: Nonlinearity
+## Fall 2022
+### McCombs School of Business, UT Austin
+
+---
+
+
+&lt;!-- &lt;script type="text/javascript"&gt; --&gt;
+&lt;!-- MathJax.Hub.Config({ --&gt;
+&lt;!--   "HTML-CSS": { --&gt;
+&lt;!--     preferredFont: null, --&gt;
+&lt;!--     webFont:  "Neo-Euler" --&gt;
+&lt;!--   } --&gt;
+&lt;!-- }); --&gt;
+&lt;!-- &lt;/script&gt; --&gt;
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+&lt;/style&gt;
+
+
+
+
+
+# Last week
+
+.pull-left[
+.center[
+![](https://media.giphy.com/media/7SQDv1QwEGjvEdCf5d/giphy.gif)]
+]
+
+.pull-right[
+- Reviewed more **.darkorange[multiple regression]** models:
+  
+  - Interaction models
+  
+  - Logarithmic outcomes
+
+]
+
+---
+# Today
+
+.pull-left[
+- **.darkorange[Continue with nonlinearity]**:
+
+  - Review of regressions with log variables
+  
+  - Polynomial terms in regressions
+
+- **.darkorange[Assessing issues with our data:]**
+  
+  - Outliers
+  - Multicollinearity
+  
+- **.darkorange[Binary response models:]**
+  - Should we do something different than traditional OLS?
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/3oEjHZPivwdJ0syhKE/giphy.gif)]
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Logs, logs everywhere
+]
+
+---
+# Regressions and logarithms
+
+- Every time we have a variable in a logarithm, we should think **.darkorange[percentage change]**
+
+--
+
+- For a **.darkorange[log-level]** regression `\(\log(Y) = \beta_1 + \beta_2 X + \varepsilon\)`:
+
+  - **.darkorange[Exact association]**: "For a one-unit increase in X, Y changes, on average, by `\((\exp(\hat{\beta}_2)-1)\times100\)`%"
+  
+  - **.darkorange[Approximation]**: "For a one-unit increase in X, Y changes, on average by `\(\hat{\beta}_2\times100\)`%"
+
+--
+
+.box4-Trans[What about if X is also in a logarithm?]
+
+---
+# How would we interpret coefficients now?
+
+- There are also approximations that can be useful!
+
+|**Model**|**Interpretation of `\(\beta\)`**|
+|:-----:|:-----:|
+|Level-Level regression&lt;br&gt; `\(y = \alpha + \beta x\)` | `\(\Delta y = \beta\Delta x\)` |
+|Log-Level regression&lt;br&gt; `\(\log(y) = \alpha + \beta x\)` | `\(\%\Delta y = 100\cdot\beta\Delta x\)` |
+|Level-Log regression&lt;br&gt; `\(y = \alpha + \beta \log(x)\)` | `\(\Delta y = \frac{\beta}{100}\% \Delta x\)` |
+|Log-Log regression&lt;br&gt; `\(\log(y) = \alpha + \beta \log(x)\)` | `\(\%\Delta y = \beta\%\Delta x\)` |
+
+---
+# Let's practice!
+
+--
+
+.box-1trans[log(Revenue) = &amp;beta;&lt;sub&gt;0&lt;/sub&gt; + &amp;beta;&lt;sub&gt;1&lt;/sub&gt;Bechdel + &amp;beta;&lt;sub&gt;2&lt;/sub&gt;Rating + &amp;epsilon;]
+
+--
+
+&lt;br&gt;
+
+.box-3trans[log(Income) = &amp;beta;&lt;sub&gt;0&lt;/sub&gt; + &amp;beta;&lt;sub&gt;1&lt;/sub&gt;City + &amp;beta;&lt;sub&gt;2&lt;/sub&gt;Profession + &amp;beta;&lt;sub&gt;3&lt;/sub&gt;Education + &amp;epsilon;]
+
+
+--
+
+&lt;br&gt;
+
+.box-5trans[GPACollege = &amp;beta;&lt;sub&gt;0&lt;/sub&gt; + &amp;beta;&lt;sub&gt;1&lt;/sub&gt;SAT + &amp;beta;&lt;sub&gt;2&lt;/sub&gt;log(FamilyIncome) + &amp;beta;&lt;sub&gt;3&lt;/sub&gt;GPAHS + &amp;epsilon;]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Getting squared
+]
+
+---
+# Adding polynomial terms
+
+- Another way to capture **.darkorange[nonlinear associations]** between the outcome (Y) and covariates (X) is to include **.darkorange[polynomial terms]**:
+  
+  - e.g. `\(Y = \beta_0 + \beta_1X + \beta_2X^2 + \varepsilon\)`
+  
+--
+
+- Let's look at an example!
+
+---
+# Determinants of wages: CPS 1985
+
+&lt;img src="f2022_sta235h_4_reg_cont_files/figure-html/wages_inspect-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Determinants of wages: CPS 1985
+
+&lt;img src="f2022_sta235h_4_reg_cont_files/figure-html/wages_inspect2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Experience vs wages: CPS 1985
+
+&lt;br&gt;
+
+&lt;img src="f2022_sta235h_4_reg_cont_files/figure-html/exp_wages-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Experience vs wages: CPS 1985
+
+`$$\log(Wage) = \beta_0 + \beta_1 Educ + \beta_2Exp + \varepsilon$$`
+
+&lt;img src="f2022_sta235h_4_reg_cont_files/figure-html/exp_wages2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Experience vs wages: CPS 1985
+
+`$$\log(Wage) = \beta_0 + \beta_1 Educ + \beta_2 Exp + \beta_3 Exp^2 + \varepsilon$$`
+&lt;img src="f2022_sta235h_4_reg_cont_files/figure-html/exp_wages3-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Mincer equation
+
+`$$\log(Wage) = \beta_0 + \beta_1 Educ + \beta_2 Exp + \beta_3 Exp^2 + \varepsilon$$`
+
+- Interpret the coefficient for **.darkorange[education]**
+
+--
+
+.center[
+*One additional year of education is associated, on average, to `\(\hat{\beta}_1\times100\)`% increase in hourly wages, holding experience constant*]
+
+--
+
+- What is the association between experience and wages?
+
+---
+# Interpreting coefficients in quadratic equation
+
+&lt;img src="f2022_sta235h_4_reg_cont_files/figure-html/exp_wages4-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Interpreting coefficients in quadratic equation
+
+&lt;img src="f2022_sta235h_4_reg_cont_files/figure-html/exp_wages5-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Interpreting coefficients in quadratic equation
+
+&lt;img src="f2022_sta235h_4_reg_cont_files/figure-html/exp_wages6-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Interpreting coefficients in quadratic equation
+
+`$$\log(Wage) = \beta_0 + \beta_1 Educ + \beta_2 Exp + \beta_3 Exp^2 + \varepsilon$$`
+What is the association between experience and wages?
+
+--
+
+- Pick a value for `\(Exp_0\)` (e.g. mean, median, one value of interest)
+
+--
+.center[
+*Increasing work experience from 20 to 21 years is associated, on average, to a `\((\hat{\beta}_2 + 2\hat{\beta}_3\cdot 20)100\)`% increase on hourly wages, holding education constant*]
+
+---
+
+class: center, middle
+
+.box-3Trans[Let's go to R!]
+
+
+---
+# References
+
+- Ismay, C. &amp; A. Kim. (2021). “Statistical Inference via Data Science”. Chapter 6 &amp; 10.
+
+
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week2/1_OLS/f2021_sta235h_3_reg.html') --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
