@@ -23,9 +23,9 @@ This week, we will continue talking about Randomized Controlled Trials (RCTs). W
 {{< youtube src="https://www.youtube.com/embed/8XyRVcJz7RY?controls=0" >}}
 
 
-<!-- 
-## Slides
 
+## Slides
+<!-- 
 {{% button href="https://sta235.netlify.app/Classes/Week4/1_PotentialOutcomes/f2021_sta235h_6_PotentialOutcomes.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week4/1_PotentialOutcomes/f2021_sta235h_6_PotentialOutcomes.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
 {{< slides src="https://sta235.netlify.app/Classes/Week4/1_PotentialOutcomes/f2021_sta235h_6_PotentialOutcomes.html" >}}
@@ -35,9 +35,9 @@ This week, we will continue talking about Randomized Controlled Trials (RCTs). W
 {{% button href="https://sta235.netlify.app/Classes/Week4/2_RCT/f2021_sta235h_7_RCT.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week4/2_RCT/f2021_sta235h_7_RCT.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
 {{< slides src="https://sta235.netlify.app/Classes/Week4/2_RCT/f2021_sta235h_7_RCT.html" >}}
-
+-->
 ## Code
-
+<!--
 Here is the code for "Beauty in the classroom" example <a onclick="ga('send', 'event', 'External-Link','click','code3','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/code/f2021_sta235h_5_PO.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
 Here is the code for RCTs <a onclick="ga('send', 'event', 'External-Link','click','code4','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/2_RCT/code/f2021_sta235h_7_RCT.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
