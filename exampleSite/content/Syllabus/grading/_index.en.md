@@ -126,7 +126,7 @@ I now explain each of these grading components in more detail.
 -	The final project will be completed in groups of 3 or 4 students. There will be different milestones throughout the semester to make sure you are set up to succeed in terms of the project:
 
 	- Friday Sept 9th: Choose a group of 3 or 4 students (0%)
-	- Friday Oct 8th: Pitch your idea for the final project, including data ideas (2%)
+	- Friday Oct 7th: Pitch your idea for the final project, including data ideas (2%)
 	- Friday Nov 11th: Preliminary report (5%)
 	- Thursday Dec 8th: Final report (8%)
 	- Thursday Dec 8th and Friday Dec 9th: Presentations (5%)
