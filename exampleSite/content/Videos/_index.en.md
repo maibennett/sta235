@@ -26,7 +26,7 @@ In this video, I go over scatter plots and, in particular, how to do a scatter p
 
 It's very important to have a good grasp on some basic tidyverse functions, such as `filter` and `mutate`. In this video, I go through them with a toy data set that is easy to undertand
 
-{{< youtube src="https://www.youtube.com/embed/mdBwE3yBGOM" >}}
+{{< youtube src="https://www.youtube.com/embed/meQKZdpw6aw" >}}
 
 
 <a href="https://sta235.netlify.app/Videos/code/clean_data.R" target="_blank" class="btn btn-default">Download Code <i class="fas fa-code"></i></a> 
