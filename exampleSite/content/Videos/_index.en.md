@@ -36,4 +36,4 @@ It's very important to have a good grasp on some basic tidyverse functions, such
 
 Short explanation on how to interpret coefficients and associations when Y or X (or both!) are in logarithms
 
-{{< youtube src="https://www.youtube.com/embed/FPRkoaduPJo" >}}
+{{< youtube src="https://www.youtube.com/embed/BwBmPGSj8VU" >}}
