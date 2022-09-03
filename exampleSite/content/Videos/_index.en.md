@@ -13,7 +13,7 @@ I will be making short videos to help you solve some common issues in R coding, 
 
 In this video, I go over scatter plots and, in particular, how to do a scatter plot with two groups.
 
-{{< youtube src="https://www.youtube.com/embed/b4nC6TcZjzc" >}}
+{{< youtube src="https://www.youtube.com/embed/TaE-C4vYK2Q" >}}
 
 
 <a href="https://sta235.netlify.app/Videos/code/week2_code.R" target="_blank" class="btn btn-default">Download Code <i class="fas fa-code"></i></a> 
