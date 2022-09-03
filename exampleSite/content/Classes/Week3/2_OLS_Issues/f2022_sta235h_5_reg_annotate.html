@@ -146,7 +146,7 @@ What about multicollinearity?
 ```r
 library(tidyverse)
 
-housing &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/1_OLS_Issues/data/AmesHousing.csv")
+housing &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/2_OLS_Issues/data/AmesHousing.csv")
 
 housing &lt;- housing %&gt;% filter(Bldg.Type=="1Fam")
 ```
@@ -270,7 +270,11 @@ What about binary responses?
 
 .box-2t[$$GradeA = \beta_0 + \beta_1 \cdot Study + \varepsilon$$]
 
-- `\(\hat{\beta}_1\)` is the estimated change in probability of getting an A if I study one more hour.
+- `\(\hat{\beta}_1\)` is the average change in probability of getting an A if I study one more hour.
+
+--
+
+- Studying one more hour is associated with an increase in the probability of getting an A of `\(\hat{\beta}_1\times100\)` **percentage points**. 
 
 ---
 # Let's look at an example
@@ -312,6 +316,7 @@ head(hmda)
 
 - Getting mortgage denied (1) based on race, conditional on payments to income ratio (`pirat`)
 
+.pull-left-little_l[
 .small[
 
 ```r
@@ -341,6 +346,20 @@ summary(lm(deny ~ pirat + factor(afam), data = hmda))
 ## Multiple R-squared:  0.076,	Adjusted R-squared:  0.07523 
 ## F-statistic: 97.76 on 2 and 2377 DF,  p-value: &lt; 2.2e-16
 ```
+]
+]
+
+--
+.small[
+.pull-right_little_l[
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+- Holding payment-to-income ratio constant, an AA client has a probability of getting their loan denied that is **.darkorange[18 pp higher]**, &lt;u&gt;on average, than a non AA client&lt;/u&gt;.
+
+- Being AA is associated to an &lt;u&gt;average&lt;/u&gt; increase of **.darkorange[0.177 in the probability]** of getting a loan denied &lt;u&gt;compared to a non AA&lt;/u&gt;, holding payment-to-income ratio constant.
+]
 ]
 
 ---
