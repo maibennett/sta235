@@ -20,7 +20,7 @@ In this session, we will discuss potential issues with regressions, such as outl
 
 
 ## Slides
-<!-- 
+
 {{% button href="https://sta235.netlify.app/Classes/Week3/1_OLS_cont/f2022_sta235h_4_reg_cont.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week3/1_OLS_cont/f2022_sta235h_4_reg_cont.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
 {{< slides src="https://sta235.netlify.app/Classes/Week3/1_OLS_cont/f2022_sta235h_4_reg_cont.html" >}}
@@ -29,9 +29,8 @@ In this session, we will discuss potential issues with regressions, such as outl
 {{% button href="https://sta235.netlify.app/Classes/Week3/2_OLS_issues/f2022_sta235h_5_reg.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week3/2_OLS_issues/f2022_sta235h_5_reg.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
 {{< slides src="https://sta235.netlify.app/Classes/Week3/2_OLS_issues/f2022_sta235h_5_reg.html" >}}
--->
 
 ## Code
- <!-- 
+ 
 Here is the R code we will review in class, with some additional data and questions <a onclick="ga('send', 'event', 'External-Link','click','code3','0','Link');" href="https://sta235.netlify.app/Classes/Week3/2_OLS_issues/code/f2022_sta235h_3_reg.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
--->
+

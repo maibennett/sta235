@@ -355,7 +355,6 @@ font.add.google("Fira Sans", "Fira Sans")
 - **.darkorange[Continue with nonlinearity]**:
 
   - Review of regressions with log variables
-  
   - Polynomial terms in regressions
 
 - **.darkorange[Assessing issues with our data:]**
@@ -409,24 +408,46 @@ Logs, logs everywhere
 |Log-Log regression<br> $\log(y) = \alpha + \beta \log(x)$ | $\%\Delta y = \beta\%\Delta x$ |
 
 ---
+# What steps should I follow?
+
+--
+
+1. **.darkorange[Check]** your variables!
+
+  - If a variable is in a log(), think "percentage change".
+  - If a variable is *not* transformed, think "unit change".
+
+--
+
+2. **.darkorange[Calculate]** your association
+
+  - Depending on the scenario, calculate $\exp(\hat{\beta})-1$ or $\hat{\beta}\times100$ or $\frac{\hat{\beta}}{100}$.
+  
+--
+
+3. **.darkorange[Interpret]** away
+
+  - Remember key words (e.g. *on average*, *holding other variables constant*, what are you comparing with?)
+
+---
 # Let's practice!
 
 --
 
-.box-1trans[log(Revenue) = &beta;<sub>0</sub> + &beta;<sub>1</sub>Bechdel + &beta;<sub>2</sub>Rating + &epsilon;]
+.box-1trans[log(Revenue) = &beta;<sub>0</sub> + &beta;<sub>1</sub>Bechdel + &beta;<sub>2</sub>Rating + <u>&beta;<sub>3</sub>log(Budget)</u> + &epsilon;]
 
 --
 
 <br>
 
-.box-3trans[log(Income) = &beta;<sub>0</sub> + &beta;<sub>1</sub>City + &beta;<sub>2</sub>Profession + &beta;<sub>3</sub>Education + &epsilon;]
+.box-3trans[log(Income) = &beta;<sub>0</sub> + &beta;<sub>1</sub>City + &beta;<sub>2</sub>Profession + <u>&beta;<sub>3</sub>Education</u> + &epsilon;]
 
 
 --
 
 <br>
 
-.box-5trans[GPACollege = &beta;<sub>0</sub> + &beta;<sub>1</sub>SAT + &beta;<sub>2</sub>log(FamilyIncome) + &beta;<sub>3</sub>GPAHS + &epsilon;]
+.box-5trans[GPACollege = &beta;<sub>0</sub> + &beta;<sub>1</sub>SAT + <u>&beta;<sub>2</sub>log(FamilyIncome)</u> + &beta;<sub>3</sub>GPAHS + &epsilon;]
 
 ---
 background-position: 50% 50%

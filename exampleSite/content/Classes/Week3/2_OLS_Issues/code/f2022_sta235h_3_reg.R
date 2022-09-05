@@ -30,11 +30,11 @@ library(estimatr)
 # This is the data from 2017 HMDA for Bastrop county (https://www.consumerfinance.gov/data-research/hmda/historic-data/?geo=tx&records=first-lien-owner-occupied-1-4-family-records&field_descriptions=labels)
 # (you can also find the whole dataset for Austin by changing the name of the file to hmda_2017_austin.csv)
 
-hmda <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/1_OLS_Issues/data/hmda_2017_austin_bastrop.csv", stringsAsFactors = FALSE)
+hmda <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/2_OLS_Issues/data/hmda_2017_austin_bastrop.csv", stringsAsFactors = FALSE)
 
 # You can find information about the variables here: https://files.consumerfinance.gov/hmda-historic-data-dictionaries/lar_record_codes.pdf
 
-# Let's look at loans that were approved (action taken = 1) for home purchase (loan_purpose = 1)
+# Let's look at loans that were approved (action taken = 1) for home purchase (loan_purpose = 1) (hint: you will need to subset your data)
 
 hmda <- hmda %>% ... #complete this
 
@@ -48,46 +48,50 @@ ggplot(data = hmda, aes(x = loan_amount_000s)) +
 # Show a scatter plot of loan amount vs applicant's income:
 
 ggplot(data = hmda, aes(x = applicant_income_000s, y = loan_amount_000s)) +
-  geom_point(color = "skyblue") +
+  geom_point(color = "skyblue3") +
   theme_minimal() +
-  xlab("Applicant's income (1,000 US$)") + ylab("Loan Amount (1,000 US$)")  
+  xlab("Applicant's income (M US$)") + ylab("Loan Amount (M US$)")  
 
 # Fit a regression line to the previous plot:
 
 ggplot(data = hmda, aes(x = applicant_income_000s, y = loan_amount_000s)) +
-  geom_point(color = "skyblue") +
+  geom_point(color = "skyblue3") +
   theme_minimal() +
-  xlab("Applicant's income (1,000 US$)") + ylab("Loan Amount (1,000 US$)") +
+  xlab("Applicant's income (M US$)") + ylab("Loan Amount (M US$)") +
   geom_smooth(method = "lm", se = FALSE, color = "blue", lwd = 1.1)
 
 # Fit a regression line but *excluding* the clear outliers
 
 ## Exclude both income outliers 
+hmda_without_outliers <- hmda %>% filter(applicant_income_000s<700)
+
 ggplot(data = hmda, aes(x = applicant_income_000s, y = loan_amount_000s)) +
-  geom_point(color = "skyblue") +
+  geom_point(color = "skyblue3") +
   theme_minimal() +
-  xlab("Applicant's income (1,000 US$)") + ylab("Loan Amount (1,000 US$)") +
+  xlab("Applicant's income (M US$)") + ylab("Loan Amount (M US$)") +
   geom_smooth(method = "lm", se = FALSE, color = "blue", lwd = 1.1) +
-  geom_smooth(data = hmda %>% filter(applicant_income_000s<700),
+  geom_smooth(data = hmda_without_outliers,
               aes(x = applicant_income_000s, y = loan_amount_000s),
               method = "lm",
               se = FALSE,
               color = "purple")
 
 ## Exclude only loan outlier
+hmda_without_outliers <- hmda %>% filter(loan_amount_000s<750)
+
 ggplot(data = hmda, aes(x = applicant_income_000s, y = loan_amount_000s)) +
   geom_point(color = "skyblue") +
   theme_minimal() +
   xlab("Applicant's income (1,000 US$)") + ylab("Loan Amount (1,000 US$)") +
   geom_smooth(method = "lm", se = FALSE, color = "blue", lwd = 1.1) +
-  geom_smooth(data = hmda %>% filter(loan_amount_000s<750),
+  geom_smooth(data = hmda_without_outliers,
               aes(x = applicant_income_000s, y = loan_amount_000s),
               method = "lm",
               se = FALSE,
               color = "purple")
 
 
-### Tip: If you want to add labels to your smooth lines, you can add "color" as an aes() feature
+### Tip: If you want to add labels to your smooth lines, you can add "color" as an aes() feature (use whatever names you want!)
 
 ggplot(data = hmda, aes(x = applicant_income_000s, y = loan_amount_000s)) +
   geom_point(color = "skyblue") +

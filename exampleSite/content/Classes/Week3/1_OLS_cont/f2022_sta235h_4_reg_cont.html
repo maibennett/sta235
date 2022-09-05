@@ -75,7 +75,6 @@ class: center, middle, inverse, title-slide
 - **.darkorange[Continue with nonlinearity]**:
 
   - Review of regressions with log variables
-  
   - Polynomial terms in regressions
 
 - **.darkorange[Assessing issues with our data:]**
@@ -129,24 +128,46 @@ Logs, logs everywhere
 |Log-Log regression&lt;br&gt; `\(\log(y) = \alpha + \beta \log(x)\)` | `\(\%\Delta y = \beta\%\Delta x\)` |
 
 ---
+# What steps should I follow?
+
+--
+
+1. **.darkorange[Check]** your variables!
+
+  - If a variable is in a log(), think "percentage change".
+  - If a variable is *not* transformed, think "unit change".
+
+--
+
+2. **.darkorange[Calculate]** your association
+
+  - Depending on the scenario, calculate `\(\exp(\hat{\beta})-1\)` or `\(\hat{\beta}\times100\)` or `\(\frac{\hat{\beta}}{100}\)`.
+  
+--
+
+3. **.darkorange[Interpret]** away
+
+  - Remember key words (e.g. *on average*, *holding other variables constant*, what are you comparing with?)
+
+---
 # Let's practice!
 
 --
 
-.box-1trans[log(Revenue) = &amp;beta;&lt;sub&gt;0&lt;/sub&gt; + &amp;beta;&lt;sub&gt;1&lt;/sub&gt;Bechdel + &amp;beta;&lt;sub&gt;2&lt;/sub&gt;Rating + &amp;epsilon;]
+.box-1trans[log(Revenue) = &amp;beta;&lt;sub&gt;0&lt;/sub&gt; + &amp;beta;&lt;sub&gt;1&lt;/sub&gt;Bechdel + &amp;beta;&lt;sub&gt;2&lt;/sub&gt;Rating + &lt;u&gt;&amp;beta;&lt;sub&gt;3&lt;/sub&gt;log(Budget)&lt;/u&gt; + &amp;epsilon;]
 
 --
 
 &lt;br&gt;
 
-.box-3trans[log(Income) = &amp;beta;&lt;sub&gt;0&lt;/sub&gt; + &amp;beta;&lt;sub&gt;1&lt;/sub&gt;City + &amp;beta;&lt;sub&gt;2&lt;/sub&gt;Profession + &amp;beta;&lt;sub&gt;3&lt;/sub&gt;Education + &amp;epsilon;]
+.box-3trans[log(Income) = &amp;beta;&lt;sub&gt;0&lt;/sub&gt; + &amp;beta;&lt;sub&gt;1&lt;/sub&gt;City + &amp;beta;&lt;sub&gt;2&lt;/sub&gt;Profession + &lt;u&gt;&amp;beta;&lt;sub&gt;3&lt;/sub&gt;Education&lt;/u&gt; + &amp;epsilon;]
 
 
 --
 
 &lt;br&gt;
 
-.box-5trans[GPACollege = &amp;beta;&lt;sub&gt;0&lt;/sub&gt; + &amp;beta;&lt;sub&gt;1&lt;/sub&gt;SAT + &amp;beta;&lt;sub&gt;2&lt;/sub&gt;log(FamilyIncome) + &amp;beta;&lt;sub&gt;3&lt;/sub&gt;GPAHS + &amp;epsilon;]
+.box-5trans[GPACollege = &amp;beta;&lt;sub&gt;0&lt;/sub&gt; + &amp;beta;&lt;sub&gt;1&lt;/sub&gt;SAT + &lt;u&gt;&amp;beta;&lt;sub&gt;2&lt;/sub&gt;log(FamilyIncome)&lt;/u&gt; + &amp;beta;&lt;sub&gt;3&lt;/sub&gt;GPAHS + &amp;epsilon;]
 
 ---
 background-position: 50% 50%
