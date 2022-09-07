@@ -612,17 +612,17 @@ $$ICE_i = Y_i(1) - Y_i(0)$$
 .pull-left[
 .box-2[Z=1]
 .center[
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/headache_pill_happy.png)
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/headache_pill_happy.png)
 
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/headache_pill_headache.png)]
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/headache_pill_headache.png)]
 ]
 
 .pull-right[
 .box-2[Z=0]
 .center[
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/headache_nopill_happy.png)
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/headache_nopill_happy.png)
 
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/headache_nopill_headache.png)]
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/headache_nopill_headache.png)]
 ]
 
 ---
@@ -631,17 +631,17 @@ $$ICE_i = Y_i(1) - Y_i(0)$$
 .pull-left[
 .box-2[Z=1]
 .center[
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/headache_pill_happy_highlight.png)
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/headache_pill_happy_highlight.png)
 
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/headache_pill_headache.png)]
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/headache_pill_headache.png)]
 ]
 
 .pull-right[
 .box-2[Z=0]
 .center[
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/headache_nopill_happy.png)
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/headache_nopill_happy.png)
 
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week3/2_PotentialOutcomes/images/headache_nopill_headache.png)]
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/headache_nopill_headache.png)]
 ]
 
 ---
@@ -656,18 +656,18 @@ The "What": Causal estimands, estimates, and estimators
 .pull-left-little_r[
 .box-2[Estimand]
 
-.box-2t[A quantity we want to estimate]
+.box-2trans[A quantity we want to estimate]
 ]
 .pull-right-little_l[
 .box-7[Estimate]
 
-.box-7t[The result of an estimation]
+.box-7trans[The result of an estimation]
 ]
 
 .center[
 .box-4[Estimator]
 
-<span class="box-4t">A rule for calculating<br>an 
+<span class="box-4trans">A rule for calculating<br>an 
 estimate based on data</span>
 ]
 
@@ -703,6 +703,14 @@ estimate based on data</span>
 .box-4t[$$\frac{1}{n}\sum_i Y_i$$]
 ]
 
+---
+# Estimands vs Estimates vs Estimators
+
+.center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/estimands.png)
+]
+
+.source[Source: [Deng, 2022](http://onbiostatistics.blogspot.com/2022/04/estimands-estimator-estimate-and.html)]
 ---
 # Estimands vs Estimates vs Estimators
 
