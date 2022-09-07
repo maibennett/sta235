@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235H - Multiple Regression: Binary Outcomes and Heteroskedasticity</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA 235H - Multiple Regression: Binary Outcomes and Heteroskedasticity
+## Fall 2022
+### McCombs School of Business, UT Austin
+
+---
+
+
+&lt;!-- &lt;script type="text/javascript"&gt; --&gt;
+&lt;!-- MathJax.Hub.Config({ --&gt;
+&lt;!--   "HTML-CSS": { --&gt;
+&lt;!--     preferredFont: null, --&gt;
+&lt;!--     webFont:  "Neo-Euler" --&gt;
+&lt;!--   } --&gt;
+&lt;!-- }); --&gt;
+&lt;!-- &lt;/script&gt; --&gt;
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+&lt;/style&gt;
+
+
+
+
+
+# Last week
+
+.pull-left[
+- (Almost) finished our chapter on **.darkorange[multiple regression]**.
+  
+  - **.darkorange[Statistical Adjustment]**: Unveiling useful associations, interaction terms, nonlinearity. 
+
+- Pushed **.darkorange[multicollinearity]**: Uploaded a short video and we'll talk more about it when we ran into the issue.
+]
+
+.pull-right[
+![:scale 90%](https://media.giphy.com/media/xUOwGb8GuMRhxZcBuo/giphy-downsized-large.gif)
+]
+---
+# Today
+
+.pull-left[
+.center[
+![](https://media.giphy.com/media/xTiN0CNHgoRf1Ha7CM/giphy.gif)]
+]
+.pull-right[
+
+- What's the deal with **.darkorange[binary outcomes]**?
+
+- **.darkorange[Introduction to Causal Inference]**:
+  
+  - How? Potential Outcomes Framework
+  
+  - What? Causal Estimands
+  
+  - Why? Causal Questions and Study Design
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+What about binary responses?
+]
+
+---
+# Binary Outcomes
+
+.pull-left[
+- You have probably used **.darkorange[binary outcomes]** in regressions, but do you know the issues that they may bring to the table?
+
+.box-6[What can we do about them?]
+  
+]
+
+.pull-right[
+![](https://media.giphy.com/media/HUkOv6BNWc1HO/giphy.gif)
+]
+
+---
+# How to handle binary outcomes?
+
+.center2[
+.box-2tL[Linear Probability Model]
+
+.box-4tL[Logistic Regression]
+]
+
+---
+# How to interpret a LPM?
+
+- A Linear Probability Model is just a **.darkorange[traditional regression with a binary outcome]**
+
+--
+
+- `\(\hat{\beta}\)`'s interpreted as **.darkorange[change in probability]**
+
+`$$E[Y|X_1,..., X_P] = Pr(Y = 0|X_1,...,X_p)\cdot 0 + Pr(Y = 1|X_1,...,X_p)\cdot 1$$`
+`$$= Pr(Y = 1|X_1,...,X_p)$$`
+
+---
+# How to interpret a LPM?
+
+- `\(\hat{\beta}\)`'s interpreted as **.darkorange[change in probability]**
+
+`$$E[Y|X_1,..., X_P] = Pr(Y = 0|X_1,...,X_p)\cdot 0 + Pr(Y = 1|X_1,...,X_p)\cdot 1$$`
+`$$= Pr(Y = 1|X_1,...,X_p)$$`
+- Example:
+
+.box-2t[$$GradeA = \beta_0 + \beta_1 \cdot Study + \varepsilon$$]
+
+- `\(\hat{\beta}_1\)` is the average change in probability of getting an A if I study one more hour.
+
+--
+
+- Studying one more hour is associated with an average increase in the probability of getting an A of `\(\hat{\beta}_1\times100\)` **percentage points**. 
+
+---
+# Let's look at an example
+
+- Home Mortgage Disclosure Act Data (HMDA) from the `AER` package
+
+.small[
+
+```r
+library(AER)
+
+data("HMDA")
+
+hmda &lt;- data.frame(HMDA)
+
+head(hmda)
+```
+
+```
+##   deny pirat hirat     lvrat chist mhist phist unemp selfemp insurance condomin
+## 1   no 0.221 0.221 0.8000000     5     2    no   3.9      no        no       no
+## 2   no 0.265 0.265 0.9218750     2     2    no   3.2      no        no       no
+## 3   no 0.372 0.248 0.9203980     1     2    no   3.2      no        no       no
+## 4   no 0.320 0.250 0.8604651     1     2    no   4.3      no        no       no
+## 5   no 0.360 0.350 0.6000000     1     1    no   3.2      no        no       no
+## 6   no 0.240 0.170 0.5105263     1     1    no   3.9      no        no       no
+##   afam single hschool
+## 1   no     no     yes
+## 2   no    yes     yes
+## 3   no     no     yes
+## 4   no     no     yes
+## 5   no     no     yes
+## 6   no     no     yes
+```
+]
+
+---
+# Probability of someone getting a mortgage loan denied?
+
+- Getting mortgage denied (1) based on race, conditional on payments to income ratio (`pirat`)
+
+.pull-left-little_l[
+.small[
+
+```r
+hmda &lt;- hmda %&gt;% mutate(deny = as.numeric(deny) - 1)
+
+summary(lm(deny ~ pirat + factor(afam), data = hmda))
+```
+
+```
+## 
+## Call:
+## lm(formula = deny ~ pirat + factor(afam), data = hmda)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.62526 -0.11772 -0.09293 -0.05488  1.06815 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     -0.09051    0.02079  -4.354 1.39e-05 ***
+## pirat            0.55919    0.05987   9.340  &lt; 2e-16 ***
+## factor(afam)yes  0.17743    0.01837   9.659  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.3123 on 2377 degrees of freedom
+## Multiple R-squared:  0.076,	Adjusted R-squared:  0.07523 
+## F-statistic: 97.76 on 2 and 2377 DF,  p-value: &lt; 2.2e-16
+```
+]
+]
+
+--
+.small[
+.pull-right_little_l[
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+- Holding payment-to-income ratio constant, an AA client has a probability of getting their loan denied that is **.darkorange[18 pp higher]**, &lt;u&gt;on average, than a non AA client&lt;/u&gt;.
+
+- Being AA is associated to an &lt;u&gt;average&lt;/u&gt; increase of **.darkorange[0.177 in the probability]** of getting a loan denied &lt;u&gt;compared to a non AA&lt;/u&gt;, holding payment-to-income ratio constant.
+]
+]
+
+---
+# How does this LPM look?
+
+
+&lt;img src="f2022_sta235h_5_reg_cont_files/figure-html/lpm1-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Issues with a LPM?
+
+- **.darkorange[Main problems]**:
+
+  - Non-normality of the error term
+  
+  - Heteroskedasticity (i.e. variance of the error term is not constant)
+  
+  - Predictions can be outside [0,1]
+  
+  - LPM imposes linearity assumption
+  
+---
+# Issues with a LPM?
+
+- **.darkorange[Main problems]**:
+
+  - Non-normality of the error term `\(\rightarrow\)` **.darkorange[Hypothesis testing]**
+  
+  - Heteroskedasticity `\(\rightarrow\)` **.darkorange[Validity of SE]**
+  
+  - Predictions can be outside [0,1] `\(\rightarrow\)` **.darkorange[Issues for prediction]**
+  
+  - LPM imposes linearity assumption `\(\rightarrow\)` **.darkorange[Too strict?]**
+  
+---
+# Are there solutions?
+
+.pull-left[
+![](https://media.giphy.com/media/xT5LMHMVvWbyDAtYQ0/giphy.gif)
+]
+.pull-right[
+- **.darkorange[Don't use small samples]**: With the CLT, non-normality shouldn't matter much.
+
+- **.darkorange[Saturate your model]**: In a fully saturated model (i.e. include dummies and interactions), CEF is linear.
+
+- **.darkorange[Use robust standard errors]**: Package `estimatr` in R is great!
+
+]
+
+
+---
+# Run again with robust standard errors
+
+.small[
+
+```r
+library(estimatr)
+
+model1 &lt;- lm(deny ~ pirat + factor(afam), data = hmda)
+model2 &lt;- lm_robust(deny ~ pirat + factor(afam), data = hmda)
+```
+]
+
+.small[
+&lt;table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto;" class="table"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 1 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 2 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (Intercept) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.091*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.091** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.021) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.031) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; pirat &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.559*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.559*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.060) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.095) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; factor(afam)yes &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.177*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.177*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (0.018) &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (0.025) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Std.Errors &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; HC2 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;&lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
+&lt;sup&gt;&lt;/sup&gt; + p &amp;lt; 0.1, * p &amp;lt; 0.05, ** p &amp;lt; 0.01, *** p &amp;lt; 0.001&lt;/td&gt;&lt;/tr&gt;&lt;/tfoot&gt;
+&lt;/table&gt;
+]
+
+- Can you interpret these parameters? Do they make sense?
+
+---
+
+.center2[
+.box-4[Most issues are solvable, but...]
+
+
+.box-4[What about prediction?]
+]
+
+---
+# Logistic Regression
+
+- Typically used in the context of binary outcomes (*Probit is another popular one*)
+
+- **.darkorange[Nonlinear function]** to model the conditional probability function of a binary outcome.
+
+`$$Pr(Y = 1|X_1,...,X_p) = F(\beta_0 + \beta_1 X_1 + ... + \beta_p X_p)$$`
+Where in a **.darkorange[logistic regression]**: `\(F(x) = \frac{1}{1+exp(-x)}\)`
+
+- *In the LPM, `\(F(x) = x\)`*
+
+
+---
+# How does this look in a plot?
+
+
+```r
+logit1 &lt;- glm(deny ~ pirat, family = binomial(link = "logit"),
+              data = hmda)
+
+prob &lt;- predict(logit1, type = "response") # probabilities
+```
+
+&lt;img src="f2022_sta235h_5_reg_cont_files/figure-html/logit1-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# When will we use logistic regression?
+
+- As you discovered in the readings, logit is great for prediction (**.darkorange[much better]** than LPM).
+
+- For explanation, however, **.darkorange[LPM simplifies interpretation]**.
+
+--
+
+.box-6Trans[Use LPM for explanation and logit for prediction]
+
+--
+
+.box-7Trans[(but remember robust SE!)]
+
+
+---
+# References
+
+- Grace-Martin, K. (2018). “Why logistic regression for binary responses?"
+
+- Bellemare, M. (2013) “A Rant on Estimation with Binary Dependent Variables (Technical)"
+
+
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week2/4_OLS_probs/f2021_sta235h_4_reg.html') --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
