@@ -315,7 +315,7 @@ library(knitr)
 library(showtext)
 library(xaringanExtra)
 
-#xaringanExtra::use_scribble()
+xaringanExtra::use_scribble()
 
 htmltools::tagList(
   xaringanExtra::use_clipboard(
@@ -1371,6 +1371,7 @@ tbl
 .box-5trans[Would you go to a physician/urgent care?]
 
 ---
+<br>
 <br>
 <br>
 
