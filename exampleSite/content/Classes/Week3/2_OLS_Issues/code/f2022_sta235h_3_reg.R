@@ -120,7 +120,7 @@ hmda %>% select(outlier) %>% table(.)
 ## Ames Housing dataset: Data for the housing market in Ames, Iowa.
 ## You can check the codebook here: https://sta235.netlify.app/Classes/Week3/1_OLS_Issues/data/ames_codebook.csv
 
-housing <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/1_OLS_Issues/data/AmesHousing.csv")
+housing <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/2_OLS_Issues/data/AmesHousing.csv")
 
 # Only keep single family housing: (Bldg.Type)
 
