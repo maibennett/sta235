@@ -32,8 +32,15 @@ It's very important to have a good grasp on some basic tidyverse functions, such
 <a href="https://sta235.netlify.app/Videos/code/clean_data.R" target="_blank" class="btn btn-default">Download Code <i class="fas fa-code"></i></a> 
 
 
-### Logarithms and Regressions
+### Logarithms and Regressions: Interpretation
 
 Short explanation on how to interpret coefficients and associations when Y or X (or both!) are in logarithms
 
 {{< youtube src="https://www.youtube.com/embed/BwBmPGSj8VU" >}}
+
+
+### Logarithms and Regressions: The why
+
+In this video I briefly go through the math of why we interpret changes in logarithms as percentage changes.
+
+{{< youtube src="https://www.youtube.com/embed/zPqzVvznwX0" >}}
