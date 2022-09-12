@@ -50,4 +50,5 @@ In this video I briefly go through the math of why we interpret changes in logar
 
 Why is multicollinearity a problem in regressions?
 
-{{< youtube src="https://www.youtube.com/embed/bbj2_yp_wPI" >}}
+{{< youtube src="https://www.youtube.com/embed/HsnUM3U7ksE" >}}
+
