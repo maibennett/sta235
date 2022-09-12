@@ -44,3 +44,10 @@ Short explanation on how to interpret coefficients and associations when Y or X 
 In this video I briefly go through the math of why we interpret changes in logarithms as percentage changes.
 
 {{< youtube src="https://www.youtube.com/embed/zPqzVvznwX0" >}}
+
+
+### A Primer on Multicollinearity
+
+Why is multicollinearity a problem in regressions?
+
+{{< youtube src="https://www.youtube.com/embed/bbj2_yp_wPI" >}}
