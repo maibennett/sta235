@@ -29,20 +29,18 @@ library(estimatr)
 data("HMDA")
 
 # To know what the variables are, you can type ?HMDA on the console
-hmda <- data.frame(HMDA)
-
-head(hmda)
+head(HMDA)
 
 #Let's transform the variable deny into a 0-1 variable:
-hmda <- hmda %>% mutate(deny = as.numeric(deny) - 1)
+HMDA <- HMDA %>% mutate(deny = as.numeric(deny) - 1)
 
 ## Linear Probability Model
 
 # Let's run a simple model:
-summary(lm(deny ~ pirat, data = hmda))
+summary(lm(deny ~ pirat, data = HMDA))
 
 # Let's look at the fitted regression line and the data:
-ggplot(data = hmda, aes(x = pirat, y = deny)) + 
+ggplot(data = HMDA, aes(x = pirat, y = deny)) + 
   #"pch=21" selects a marker with a different outline (circle), "color" changes the outline of the marker, "fill" changes the fill color (alpha changes transparency)
   geom_point(color = "#5601A4", fill = alpha("#5601A4",0.4), pch=21, size = 3) +
   
@@ -58,12 +56,12 @@ ggplot(data = hmda, aes(x = pirat, y = deny)) +
 
 # Let's run robust standard errors now
 
-model2 <- lm_robust(deny ~ pirat, data = hmda)
+model2 <- lm_robust(deny ~ pirat, data = HMDA)
 
 summary(model2)
 
 # We can add more variables too:
-model3 <- estimatr::lm_robust(deny ~ pirat + factor(afam), data = hmda)
+model3 <- estimatr::lm_robust(deny ~ pirat + factor(afam), data = HMDA)
 summary(model3)
 
 # Q: How do these standard errors compare to the same LPM WITHOUT robust standard errors? Are they larger or smaller?
