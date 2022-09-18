@@ -52,3 +52,9 @@ Why is multicollinearity a problem in regressions?
 
 {{< youtube src="https://www.youtube.com/embed/HsnUM3U7ksE" >}}
 
+
+### Heteroskedasticity
+
+What is this strange word and can we see it in data? What are the implications in terms of inference? Let's see!
+
+{{< youtube src="https://www.youtube.com/embed/XCuqj2NvIg0" >}}
