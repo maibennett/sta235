@@ -388,263 +388,148 @@ font.add.google("Fira Sans", "Fira Sans")
 ]
 
 ---
+# Before we start, let's check this week's JITT
+
+.pull-left[
+.small[
+"You are trying to analyze what variables contribute to someone donating or not to a charity. You are running the following linear probability mode to analyze the association between different covariates and a binary response of whether someone responds with a charitable gift or not."]
+
+.small[
+"The variables used in this model are the following:
+- *respond*: Binary variable of whether the person responded with a gift (1) or not (0).
+- *mailsyear*: number of mailings per year
+- *propresp*: response rate to mailings. Continuous variable, measured from 0 to 1.
+- *avggift*: average amount of past gifts (in US$)."]]
+
+.pull-right[
+.center[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week5/1_PotentialOutcomes/images/jitt_lpm.png)]]
+
+
+--
+
+<br>
+**.darkorange[TRUE OR FALSE]**: "For one additional mailing a year, the probability of donating increases by 0.06%"
+
+---
+# Before we start, let's check this week's JITT
+
+.pull-left[
+.small[
+"You are trying to analyze what variables contribute to someone donating or not to a charity. You are running the following linear probability mode to analyze the association between different covariates and a binary response of whether someone responds with a charitable gift or not."]
+
+.small[
+"The variables used in this model are the following:
+- *respond*: Binary variable of whether the person responded with a gift (1) or not (0).
+- *mailsyear*: number of mailings per year
+- *propresp*: response rate to mailings. Continuous variable, measured from 0 to 1.
+- *avggift*: average amount of past gifts (in US$)."]]
+
+.pull-right[
+.center[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week5/1_PotentialOutcomes/images/jitt_lpm.png)]]
+
+
+--
+
+<br>
+**.darkorange[TRUE OR FALSE]**: "For one additional dollar donated in the past, the probability of donating increases by 0.0002, on average, holding other variables constant."
+
+---
+# Before we start, let's check this week's JITT
+
+.pull-left[
+.small[
+"You are trying to analyze what variables contribute to someone donating or not to a charity. You are running the following linear probability mode to analyze the association between different covariates and a binary response of whether someone responds with a charitable gift or not."]
+
+.small[
+"The variables used in this model are the following:
+- *respond*: Binary variable of whether the person responded with a gift (1) or not (0).
+- *mailsyear*: number of mailings per year
+- *propresp*: response rate to mailings. Continuous variable, measured from 0 to 1.
+- *avggift*: average amount of past gifts (in US$)."]]
+
+.pull-right[
+.center[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week5/1_PotentialOutcomes/images/jitt_lpm.png)]]
+
+
+--
+
+<br>
+**.darkorange[TRUE OR FALSE]**: "Holding mailings per year and average past gift constant, increasing the response rate of mailings from 0% to 100% is associated with an average 84 percentage point increase in the probability of donating."
+
+---
+# Before we start, let's check this week's JITT
+
+.pull-left[
+.small[
+"You are trying to analyze what variables contribute to someone donating or not to a charity. You are running the following linear probability mode to analyze the association between different covariates and a binary response of whether someone responds with a charitable gift or not."]
+
+.small[
+"The variables used in this model are the following:
+- *respond*: Binary variable of whether the person responded with a gift (1) or not (0).
+- *mailsyear*: number of mailings per year
+- *propresp*: response rate to mailings. Continuous variable, measured from 0 to 1.
+- *avggift*: average amount of past gifts (in US$)."]]
+
+.pull-right[
+.center[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week5/1_PotentialOutcomes/images/jitt_lpm.png)]]
+
+
+--
+
+<br>
+**.darkorange[TRUE OR FALSE]**: "Holding mailings per year and average past gift constant, a 1% increase in the response rate of mailings is associated with an average 84% increase in the probability of donating."
+
+---
+# Before we start, let's check this week's JITT
+
+.pull-left[
+.small[
+"You are trying to analyze what variables contribute to someone donating or not to a charity. You are running the following linear probability mode to analyze the association between different covariates and a binary response of whether someone responds with a charitable gift or not."]
+
+.small[
+"The variables used in this model are the following:
+- *respond*: Binary variable of whether the person responded with a gift (1) or not (0).
+- *mailsyear*: number of mailings per year
+- *propresp*: response rate to mailings. Continuous variable, measured from 0 to 1.
+- *avggift*: average amount of past gifts (in US$)."]]
+
+.pull-right[
+.center[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week5/1_PotentialOutcomes/images/jitt_lpm.png)]]
+
+
+--
+
+<br>
+**.darkorange[TRUE OR FALSE]**: "In this model, standard errors are larger than they would have been if we used lm() instead."
+
+---
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
-The "How": Potential outcomes framework
+Causal Inference: Terminology and Notation
 ]
 
 ---
-<br>
-.center[![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/greta_tweet.png)]
----
-.center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/greta_effect.png)]
----
-<br>
-<br>
-.center[![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/greta_dag.png)]
----
-.center2[.box-3LA[What do you think are the biggest issues here?]]
----
-.center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/khoa_tweet.png)]
----
-.center2[.box-6LA[What about other topics?]]
----
-# Before we start...
+# Potential Outcomes
 
-.center[.box-2LA[Be clear about your language]]
----
-# Before we start...
-
-.center[.box-2LA[Be clear about your language]]
-<br>
-.center[.box-4LA[Be clear about your data]]
-
----
-# Before we start...
-
-.center[.box-2LA[Be clear about your language]]
-<br>
-.center[.box-4LA[Be clear about your data]]
-<br>
-.center[.box-7LA[Be clear about your assumptions]]
----
-# What is Causal Inference?
-
-.box-5LA[Inferring the effect of one thing on another thing]
-
----
-# What is Causal Inference?
-
-.box-5LA[Inferring the effect of one thing on another thing]
-<br>
-<br>
-- "My headache went away because I took an aspirin".
-
----
-# What is Causal Inference?
-
-.box-5LA[Inferring the effect of one thing on another thing]
-<br>
-<br>
-- "My headache went away because I took an aspirin".
-
-- "The new marketing campaign increased our sales by 20%"
-
----
-# What is Causal Inference?
-
-.box-5LA[Inferring the effect of one thing on another thing]
-<br>
-<br>
-- "My headache went away because I took an aspirin".
-
-- "The new marketing campaign increased our sales by 20%"
-
-- "Providing students support when filling out FAFSA forms improves college access and completion."
-
----
-# A world of potential (outcomes)
-
-- Under a binary treatment or intervention, there are **.darkorange[two potential worlds]**:
-
----
-# A world of potential (outcomes)
-
-- Under a binary treatment or intervention, there are **.darkorange[two potential worlds]**:
-
-.pull-left[
-- **.darkorange[World 1]**: You take the pill
+- Last week we discussed potential outcomes, (e.g. $Y_i(1)$ and $Y_i(0)$):
+  .center["The outcome that *we would have observed* in the case of difference scenarios"]
   
-- **.darkorange[World 2]**: You don't take the pill
-]
-.pull-right[
-![](https://media.giphy.com/media/SCt3Miv6ugvSg/source.gif)
-]
----
-# A world of potential (outcomes)
-
-- A **.darkorange[potential outcome]** is the outcome under each of these scenarios or "worlds".
-
-  - *There will be one for each path!*
-
----
-# A world of potential (outcomes)
-
-- A **.darkorange[potential outcome]** is the outcome under each of these scenarios or "worlds".
-
-  - *There will be one for each path!*
-
-- A priori, each of these scenarios has a *potential outcome*
-
-- A posteriori, I can only observe **.darkorange[at most one of the potential outcomes]**
-
-
----
-# A world of potential (outcomes)
-
-- A **.darkorange[potential outcome]** is the outcome under each of these scenarios or "worlds".
-
-  - *There will be one for each path!*
-
-- A priori, each of these scenarios has a *potential outcome*
-
-- A posteriori, I can only observe **.darkorange[at most one of the potential outcomes]**
-
-.box-3LA[Fundamental Problem of Causal Inference]
-
----
-.center2[
-.box-6LA[What are the potential outcomes for our previous example?]
-]
-
----
-# Potential Outcomes Examples
-
-- "My headache went away because I took an aspirin".
-
 --
 
-.box-3trans[*Outcome if I take an aspirin/ Outcome if I don't take an aspirin*]
-
+- Potential outcomes are related to your choices/possible conditions:
+  
+  - One for each path!
+  - Do not confuse them with the **.darkorange[values]** that your outcome variable can take.
 --
 
-- "The new marketing campaign increased our sales by 20%"
-
---
-
-.box-5trans[*Sales with a marketing campaign/ Sales without a marketing campaign*]
-
---
-
-- "Providing students support when filling out FAFSA forms improves college access and completion."
-
---
-
-.box-7trans[*College access and completion with support/ College access and completion without support*]
-
----
-<br>
-<br>
-<br>
-<br>
-<br>
-
-.box-6Trans[What are some causal questions you might be interested in?]
-
----
-# Potential Outcomes Framework
-
-Let's introduce some notation:
-
-- Let $Y_i$ be the observed outcome for unit $i$ (e.g. whether I have a headache or not in an hour).
-- Let $Z_i$ be the treatment or intervention (e.g. taking a pill).
-
-Then,
-
-$$Y_i | (Z_i = 1) \overset{\Delta}{=} Y_i(1) $$
-where $Y_i(1)$ is the **.darkorange[potential outcome under treatment]**.
-
---
-
-In the same fashion,
-
-$$Y_i | (Z_i = 0) \overset{\Delta}{=} Y_i(0) $$
-where $Y_i(0)$ is the **.darkorange[potential outcome under control]**.
-
----
-# Potential Outcomes Framework
-
-This means that we can write the observed outcome as a function of the *potential outcomes*:
-
-.box-5LA[$$\rightarrow Y_i = Z_i\cdot Y_i(1) + (1-Z_i)\cdot Y_i(0)$$]
-
-- This definition will be useful because we can see this as a **.darkorange[missing data problem]**.
-
----
-# Causal Effects
-
-.box-4tL[Individual Causal Effect]
+- Definition of **.darkorange[Individual Causal Effect]**:
 
 $$ICE_i = Y_i(1) - Y_i(0)$$
----
-# Causal Effects
+--
 
-.box-4tL[Individual Causal Effect]
+.box-4trans[What was the Fundamental Problem of Causal Inference?]
 
-$$ICE_i = Y_i(1) - Y_i(0)$$
-<br>
-.box-3LA[Can we ever observe individual causal effects?]
-
----
-# Causal Effects
-
-.box-4tL[Individual Causal Effect]
-
-$$ICE_i = Y_i(1) - Y_i(0)$$
-
-<br>
-.box-3LA[Can we ever observe individual causal effects?]
-
-.box-7LA[No!*]
-
----
-# Only one realization
-
-.pull-left[
-.box-2[Z=1]
-.center[
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/headache_pill_happy.png)]
-]
-
-.pull-right[
-.box-2[Z=0]
-.center[
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/headache_nopill_happy.png)]
-]
-
----
-# Only one realization
-
-.pull-left[
-.box-2[Z=1]
-.center[
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/headache_pill_happy_highlight.png)]
-
-]
-
-.pull-right[
-.box-2[Z=0]
-.center[
-![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/headache_nopill_happy.png)]
-]
-
----
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-The "What": Causal estimands, estimates, and estimators
-]
 ---
 # Estimands vs Estimates vs Estimators
 
@@ -1065,6 +950,12 @@ $$\hat{\tau} = \frac{1}{3}(\sum_{i \in Z=1}Y_i - \sum_{i \in Z=0}Y_i) = -0.333$$
 <br>
 
 .box-7Trans[What could be the problem with comparing the sample means?]
+
+---
+# Remember our exercise last week!
+
+
+
 
 ---
 background-position: 50% 50%
