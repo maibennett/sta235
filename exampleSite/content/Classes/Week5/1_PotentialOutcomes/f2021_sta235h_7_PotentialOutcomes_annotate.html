@@ -137,28 +137,6 @@ class: center, middle, inverse, title-slide
 
 --
 
-**.darkorange[TRUE OR FALSE]**: "For one additional mailing a year, the probability of donating increases by 0.06%"
-
----
-# Before we start, let's check this week's JITT
-
-.pull-left[
-.small[
-"You are trying to analyze what variables contribute to someone donating or not to a charity. You are running the following linear probability mode to analyze the association between different covariates and a binary response of whether someone responds with a charitable gift or not."]
-
-.small[
-"The variables used in this model are the following:
-- *respond*: Binary variable of whether the person responded with a gift (1) or not (0).
-- *mailsyear*: number of mailings per year
-- *propresp*: response rate to mailings. Continuous variable, measured from 0 to 1.
-- *avggift*: average amount of past gifts (in US$)."]]
-
-.pull-right[
-.center[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week5/1_PotentialOutcomes/images/jitt_lpm.png)]]
-
-
---
-
 **.darkorange[TRUE OR FALSE]**: "For one additional dollar donated in the past, the probability of donating increases by 0.0002, on average, holding other variables constant."
 
 ---
@@ -206,29 +184,6 @@ class: center, middle, inverse, title-slide
 **.darkorange[TRUE OR FALSE]**: "Holding mailings per year and average past gift constant, a 1% increase in the response rate of mailings is associated with an average 84% increase in the probability of donating."
 
 ---
-# Before we start, let's check this week's JITT
-
-.pull-left[
-.small[
-"You are trying to analyze what variables contribute to someone donating or not to a charity. You are running the following linear probability mode to analyze the association between different covariates and a binary response of whether someone responds with a charitable gift or not."]
-
-.small[
-"The variables used in this model are the following:
-- *respond*: Binary variable of whether the person responded with a gift (1) or not (0).
-- *mailsyear*: number of mailings per year
-- *propresp*: response rate to mailings. Continuous variable, measured from 0 to 1.
-- *avggift*: average amount of past gifts (in US$)."]]
-
-.pull-right[
-.center[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week5/1_PotentialOutcomes/images/jitt_lpm.png)]]
-
-
---
-
-&lt;br&gt;
-**.darkorange[TRUE OR FALSE]**: "In this model, standard errors are larger than they would have been if we used lm() instead."
-
----
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
@@ -247,6 +202,7 @@ Causal Inference: Terminology and Notation
 - Potential outcomes are related to your choices/possible conditions:
   - One for each path!
   - Do not confuse them with the **.darkorange[values]** that your outcome variable can take.
+  - Q: "You have to choose between three portfolios (P&lt;sub&gt;1&lt;/sub&gt;, P&lt;sub&gt;2&lt;/sub&gt;, P&lt;sub&gt;3&lt;/sub&gt;) for investing your money. What are your potential outcomes?"
 
 --
 
@@ -347,8 +303,8 @@ estimate based on data&lt;/span&gt;
 - Let's go back to our original example: **.darkorange[Does a pill help reduce headaches?]**
 
 .small[
-<div id="htmlwidget-69bbffb138ee028542d1" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-69bbffb138ee028542d1">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"6f0481a4f5d9bfcc677b581f15541866","key":"6f0481a4f5d9bfcc677b581f15541866"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2c000eedd4f0e6d7d1ef" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-2c000eedd4f0e6d7d1ef">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"6f0481a4f5d9bfcc677b581f15541866","key":"6f0481a4f5d9bfcc677b581f15541866"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 ]
 
 ---
@@ -357,8 +313,8 @@ estimate based on data&lt;/span&gt;
 - We have a **.darkorange[missing data problem]**
 
 .small[
-<div id="htmlwidget-3c1a8d0fa4f4599e9892" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-3c1a8d0fa4f4599e9892">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center","style":[{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400}]},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center","style":[{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600}]},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center","style":[{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600}]}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"519da094876debccd4f5ff7c198e2359","key":"519da094876debccd4f5ff7c198e2359"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c7cbd489308064bbc9e5" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-c7cbd489308064bbc9e5">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center","style":[{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400}]},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center","style":[{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600}]},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center","style":[{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600}]}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"519da094876debccd4f5ff7c198e2359","key":"519da094876debccd4f5ff7c198e2359"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 ]
 
 ---
@@ -367,8 +323,8 @@ estimate based on data&lt;/span&gt;
 - Compare those who **.darkorange[took the pill]** to the ones **.darkorange[did not take it.]**
 
 .small[
-<div id="htmlwidget-8c2885069c340325c15f" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-8c2885069c340325c15f">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[null,{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"},{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"},null,null,{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"}],"dataKey":"6f0481a4f5d9bfcc677b581f15541866","key":"6f0481a4f5d9bfcc677b581f15541866"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-81cdc4a675965a977a0a" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-81cdc4a675965a977a0a">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[null,{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"},{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"},null,null,{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"}],"dataKey":"6f0481a4f5d9bfcc677b581f15541866","key":"6f0481a4f5d9bfcc677b581f15541866"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 ]
 
 ---
@@ -377,8 +333,8 @@ estimate based on data&lt;/span&gt;
 - Compare those who **.darkorange[took the pill]** to the ones **.darkorange[did not take it.]**
 
 .small[
-<div id="htmlwidget-9cccb2f9611ef9c85bd2" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-9cccb2f9611ef9c85bd2">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},null,null,{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},null],"dataKey":"6f0481a4f5d9bfcc677b581f15541866","key":"6f0481a4f5d9bfcc677b581f15541866"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-b45f0d582882c2ca6d97" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b45f0d582882c2ca6d97">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},null,null,{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},null],"dataKey":"6f0481a4f5d9bfcc677b581f15541866","key":"6f0481a4f5d9bfcc677b581f15541866"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 ]
 
 
@@ -388,8 +344,8 @@ estimate based on data&lt;/span&gt;
 - Compare those who **.darkorange[took the pill]** to the ones **.darkorange[did not take it.]**
 
 .small[
-<div id="htmlwidget-277a9101a7e1af24c32d" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-277a9101a7e1af24c32d">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"6f0481a4f5d9bfcc677b581f15541866","key":"6f0481a4f5d9bfcc677b581f15541866"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1985fa4aa5f4fc04a437" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1985fa4aa5f4fc04a437">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"accessor":"i","name":"i","type":"character","align":"center"},{"accessor":"Z","name":"Z","type":"character","align":"center"},{"accessor":"Y","name":"Y","type":"character","align":"center"},{"accessor":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"accessor":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"accessor":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"6f0481a4f5d9bfcc677b581f15541866","key":"6f0481a4f5d9bfcc677b581f15541866"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 ]
 
 `$$\hat{\tau} = \frac{1}{3}(\sum_{i \in Z=1}Y_i - \sum_{i \in Z=0}Y_i) = -0.333$$`
@@ -508,7 +464,7 @@ to estimate:
 
 `$$\tau = E[Y_i(1) - Y_i(0)]$$`
 
-.box-7LA[Let's do some math]
+.box-7Trans[Let's do some math]
 
 ---
 # Under what assumptions is our estimate causal?
@@ -530,9 +486,10 @@ to estimate:
 
 .box-3[Ignorability]
 
-- Ignorability means that the potential outcomes `\(Y(0)\)` and `\(Y(1)\)` are independent of the treatment, e.g. `\((Y(0), Y(1)) \perp\!\!\!\perp Z\)`. 
+- Ignorability means that the potential outcomes `\(Y(0)\)` and `\(Y(1)\)` are independent of the treatment, e.g. `\((Y(0), Y(1)) \perp\!\!\!\perp Z\)`.
 
   - *Remember that if* `\(A \perp\!\!\!\perp B \ \rightarrow \ E[A|B] = E[A]\)`
+  - *Remember that if `\(Z=1\)`, then `\(Y_i = Y_i(1)\)`, and if `\(Z=0\)`, then `\(Y_i=Y_i(0)\)`*
 
 ---
 # Under what assumptions is our estimate causal?

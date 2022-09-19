@@ -642,7 +642,7 @@ i.e. Some units will **.darkorange[randomly]** be chosen to be in the treatment 
 ---
 # The power of randomization
 
-- One way to make sure the ignorability assumption holds, is to do it by design:
+- One way to make sure the ignorability assumption holds is to do it by design:
 
 .box-6Trans[Randomize the assignment of Z]
 
@@ -659,19 +659,22 @@ i.e. Some units will **.darkorange[randomly]** be chosen to be in the treatment 
 ```{r, echo=FALSE}
 fig
 ```
-
 ---
-# Observational Causal Graph
+# Non-Experimental Causal Graph
+
+- Confounder is a variable that **.darkorange[affects both the treatment AND the outcome]**
 
 .center[
-![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/2_RCT/images/obs_dag.png)
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/2_RCT/images/obs_dag.png)
 ]
 
 ---
 # Experimental Causal Graph
 
+- Due to randomization, we know that **.darkorange[the treatment is not affected\* by a confounder]**
+
 .center[
-![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/2_RCT/images/experimental_dag.png)
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/2_RCT/images/experimental_dag.png)
 ]
 
 ---
@@ -684,7 +687,7 @@ fig
 # Just by chance!
 
 .center[
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/2_RCT/images/nicholas_cage.png)]
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/2_RCT/images/nicholas_cage.png)]
 
 ---
 # Definition: Identification Strategy
@@ -704,13 +707,13 @@ According to Keele (2015):
 
 .pull-left[
 .center[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/2_RCT/images/nobel.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/2_RCT/images/nobel.png)
 ]
 ]
 
 .pull-right[
 .center[
-![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/2_RCT/images/nobel2.png)
+![:scale 90%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/2_RCT/images/nobel2.png)
 ]
 ]
 

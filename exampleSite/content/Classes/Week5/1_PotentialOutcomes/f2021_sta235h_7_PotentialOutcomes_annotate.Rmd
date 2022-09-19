@@ -407,28 +407,6 @@ font.add.google("Fira Sans", "Fira Sans")
 
 --
 
-**.darkorange[TRUE OR FALSE]**: "For one additional mailing a year, the probability of donating increases by 0.06%"
-
----
-# Before we start, let's check this week's JITT
-
-.pull-left[
-.small[
-"You are trying to analyze what variables contribute to someone donating or not to a charity. You are running the following linear probability mode to analyze the association between different covariates and a binary response of whether someone responds with a charitable gift or not."]
-
-.small[
-"The variables used in this model are the following:
-- *respond*: Binary variable of whether the person responded with a gift (1) or not (0).
-- *mailsyear*: number of mailings per year
-- *propresp*: response rate to mailings. Continuous variable, measured from 0 to 1.
-- *avggift*: average amount of past gifts (in US$)."]]
-
-.pull-right[
-.center[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week5/1_PotentialOutcomes/images/jitt_lpm.png)]]
-
-
---
-
 **.darkorange[TRUE OR FALSE]**: "For one additional dollar donated in the past, the probability of donating increases by 0.0002, on average, holding other variables constant."
 
 ---
@@ -476,29 +454,6 @@ font.add.google("Fira Sans", "Fira Sans")
 **.darkorange[TRUE OR FALSE]**: "Holding mailings per year and average past gift constant, a 1% increase in the response rate of mailings is associated with an average 84% increase in the probability of donating."
 
 ---
-# Before we start, let's check this week's JITT
-
-.pull-left[
-.small[
-"You are trying to analyze what variables contribute to someone donating or not to a charity. You are running the following linear probability mode to analyze the association between different covariates and a binary response of whether someone responds with a charitable gift or not."]
-
-.small[
-"The variables used in this model are the following:
-- *respond*: Binary variable of whether the person responded with a gift (1) or not (0).
-- *mailsyear*: number of mailings per year
-- *propresp*: response rate to mailings. Continuous variable, measured from 0 to 1.
-- *avggift*: average amount of past gifts (in US$)."]]
-
-.pull-right[
-.center[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week5/1_PotentialOutcomes/images/jitt_lpm.png)]]
-
-
---
-
-<br>
-**.darkorange[TRUE OR FALSE]**: "In this model, standard errors are larger than they would have been if we used lm() instead."
-
----
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
@@ -517,6 +472,7 @@ Causal Inference: Terminology and Notation
 - Potential outcomes are related to your choices/possible conditions:
   - One for each path!
   - Do not confuse them with the **.darkorange[values]** that your outcome variable can take.
+  - Q: "You have to choose between three portfolios (P<sub>1</sub>, P<sub>2</sub>, P<sub>3</sub>) for investing your money. What are your potential outcomes?"
 
 --
 
@@ -1037,7 +993,7 @@ to estimate:
 
 $$\tau = E[Y_i(1) - Y_i(0)]$$
 
-.box-7LA[Let's do some math]
+.box-7Trans[Let's do some math]
 
 ---
 # Under what assumptions is our estimate causal?
@@ -1059,9 +1015,10 @@ $$= E[Y_i(1)] - E[Y_i(0)]$$
 
 .box-3[Ignorability]
 
-- Ignorability means that the potential outcomes $Y(0)$ and $Y(1)$ are independent of the treatment, e.g. $(Y(0), Y(1)) \perp\!\!\!\perp Z$. 
+- Ignorability means that the potential outcomes $Y(0)$ and $Y(1)$ are independent of the treatment, e.g. $(Y(0), Y(1)) \perp\!\!\!\perp Z$.
 
   - *Remember that if* $A \perp\!\!\!\perp B \ \rightarrow \ E[A|B] = E[A]$
+  - *Remember that if $Z=1$, then $Y_i = Y_i(1)$, and if $Z=0$, then $Y_i=Y_i(0)$*
 
 ---
 # Under what assumptions is our estimate causal?
