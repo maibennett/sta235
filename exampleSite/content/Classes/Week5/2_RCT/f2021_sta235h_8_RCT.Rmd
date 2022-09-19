@@ -1,6 +1,6 @@
 ---
 title: "STA 235H - Randomized Controlled Trials I"
-subtitle: "Fall 2021"
+subtitle: "Fall 2022"
 author: "McCombs School of Business, UT Austin"
 output:
   xaringan::moon_reader:
@@ -577,21 +577,21 @@ fig2 <- dffull %>% plot_ly() %>%
   animation_slider(hide = TRUE) %>% config(displayModeBar = FALSE)
 ```
 
-# Today
+# Continuing our path of Causal Inference
 
 .pull-left[
 <br>
 <br>
-![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/xkcd-p-value-jellybeans.jpg)
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week5/2_RCT/images/xkcd-p-value-jellybeans.jpg)
 ]
 .pull-right[
-- **.darkorange[Randomized Controlled Trials]**:
+**.darkorange[Randomized Controlled Trials]**:
   
-  .box-2t[Assumptions: The power of randomization]
+- Assumptions: The power of randomization
   
-  .box-4t[Design: What should we consider?]
+- Design: What should we consider?
   
-  .box-7t[Limitations: Gold Standard?]
+- Limitations: Gold Standard?
 ]
 
 ---
@@ -610,7 +610,7 @@ The Magic of Randomization
   - E.g. if $Z$ is binary, either $Y(0)$ **OR** $Y(1)$
 
 <br>
-.box-7[Fundamental Problem of Causal Inference]
+.box-7Trans[Fundamental Problem of Causal Inference]
 
 --
 
@@ -620,23 +620,6 @@ $$Y(z) \perp\!\!\!\perp Z \ \ \ \ \ \forall \ z\in Z$$
 --
 
 - Most times, **.darkorange[the ignorability assumption doesn't hold]**
-
-  - Why? (Remember the two types of bias we saw the previous class?)
-  
----
-# Ignorability Assumption
-
-
-$$(Y(0), Y(1)) \perp\!\!\!\perp Z$$
-
-
-- Most times, **.darkorange[the ignorability assumption doesn't hold]**
-
-  - For ATE:
-  
-.box-2t[Selection bias]
-<br>
-.box-4t[Heterogeneous treatment effect bias]
   
 ---
 # The problem with self-selection
@@ -648,26 +631,26 @@ fig2
 ---
 # The power of randomization
 
-- One way to make sure the ignorability assumption holds, is to do it by design:
+- One way to make sure the ignorability assumption holds is to do it by design:
 
-.box-6[Randomize the assignment of Z]
+.box-6Trans[Randomize the assignment of Z]
 
 i.e. Some units will **.darkorange[randomly]** be chosen to be in the treatment group and others to be in the control group.
 
-.box-4t[What does randomization buy us?]
+.box-4trans[What does randomization buy us?]
 
 ---
 # The power of randomization
 
 - One way to make sure the ignorability assumption holds, is to do it by design:
 
-.box-6[Randomize the assignment of Z]
+.box-6Trans[Randomize the assignment of Z]
 
 i.e. Some units will **.darkorange[randomly]** be chosen to be in the treatment group and others to be in the control group.
 
-.box-4t[What does randomization buy us?]
+.box-4trans[What does randomization buy us?]
 
-.box-3t[No (systematic) selection on observables OR unobservables]
+.box-3trans[No (systematic) selection on observables OR unobservables]
 
 
 ---
@@ -681,14 +664,14 @@ fig
 # Observational Causal Graph
 
 .center[
-![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/obs_dag.png)
+![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/2_RCT/images/obs_dag.png)
 ]
 
 ---
 # Experimental Causal Graph
 
 .center[
-![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/experimental_dag.png)
+![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/2_RCT/images/experimental_dag.png)
 ]
 
 ---
@@ -701,7 +684,7 @@ fig
 # Just by chance!
 
 .center[
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/nicholas_cage.png)]
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/2_RCT/images/nicholas_cage.png)]
 
 ---
 # Definition: Identification Strategy
@@ -721,13 +704,13 @@ According to Keele (2015):
 
 .pull-left[
 .center[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/nobel.png)
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/2_RCT/images/nobel.png)
 ]
 ]
 
 .pull-right[
 .center[
-![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_RCT/images/nobel2.png)
+![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/week5/2_RCT/images/nobel2.png)
 ]
 ]
 
@@ -746,7 +729,7 @@ According to Keele (2015):
 .box-7LA[Easy! (Statistically speaking)]
 <br>
 <br>
-.box-6tL[1) Check for balance]
+.box-6Trans[1) Check for balance]
 <br>
 
 ---
@@ -755,9 +738,9 @@ According to Keele (2015):
 .box-7LA[Easy! (Statistically speaking)]
 <br>
 <br>
-.box-6tL[1) Check for balance]
+.box-6Trans[1) Check for balance]
 <br>
-.box-6tL[2) Calculate difference in sample means between treatment and control group]
+.box-6Trans[2) Calculate difference in sample means between treatment and control group]
 
 ---
 
