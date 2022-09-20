@@ -465,7 +465,7 @@ Causal Inference: Terminology and Notation
 
 - Last week we discussed potential outcomes, (e.g. $Y_i(1)$ and $Y_i(0)$):
   
-  .center["The outcome that *we would have observed* in the case of difference scenarios"]
+  .center["The outcome that *we would have observed* under different scenarios"]
   
 --
 
