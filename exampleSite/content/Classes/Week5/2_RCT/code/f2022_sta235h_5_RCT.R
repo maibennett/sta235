@@ -35,8 +35,6 @@ d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleS
 # city: c = chicago, b = boston
 # call: applicant was called back
 
-
-
 ## Let's assume we are only interested in the "race" treatment. Create a variable treat = 1 if race = "b" and 0 if race = "w"
 
 d <- d %>% mutate(treat = ifelse(race == "b", 1, 0))
