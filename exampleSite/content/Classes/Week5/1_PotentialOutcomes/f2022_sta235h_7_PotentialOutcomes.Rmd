@@ -472,7 +472,7 @@ Causal Inference: Terminology and Notation
 - Potential outcomes are related to your choices/possible conditions:
   - One for each path!
   - Do not confuse them with the **.darkorange[values]** that your outcome variable can take.
-  - Q: "You have to choose between three portfolios (P<sub>1</sub>, P<sub>2</sub>, P<sub>3</sub>) for investing your money. What are your potential outcomes?"
+  - Q: "You have to choose between three different majors at McCombs (M<sub>1</sub>, M<sub>2</sub>, M<sub>3</sub>), and you are worried about employability. What are your potential outcomes?"
 
 --
 
