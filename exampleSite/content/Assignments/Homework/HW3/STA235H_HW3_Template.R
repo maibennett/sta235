@@ -14,7 +14,9 @@ cat("\014")
 # [LOAD PACKAGES HERE]
 library(tidyverse)
 
-dating <- read.csv("C:/Users/mc72574/Dropbox/UT/Teaching/2022Fall_STA235H/homework/2022/homework3/data/SpeedDatingData.csv")
+dating <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/HW3/data/SpeedDatingData.csv")
+
+# Let's do a little bit of data-wrangling:
 
 dating <- dating %>% mutate(income = as.numeric(gsub(",","",income)),
                             race = factor(race, 
@@ -23,3 +25,4 @@ dating <- dating %>% mutate(income = as.numeric(gsub(",","",income)),
                             race_o = factor(race_o, labels = c("Black/AA", "White", 
                                                                "Latino", "AAPI","Other"))) %>%
   rename(female = gender)
+
