@@ -231,6 +231,20 @@ E.g. Individuals that can take **.darkorange[more advantage from college (in ter
 ![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/random.png)]
 
 ---
+# Examples of RCTs
+
+.pull-left[
+.center[
+![:scale 75%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/linkedin_exp.png)
+]
+]
+--
+.pull-right[
+.center[
+![:scale 75%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/nyt_exp.jpg)
+]
+]
+---
 # What does randomization buy us?
 
 --
@@ -382,15 +396,15 @@ summary(lm_robust(vote02 ~ treat_real + strata, data = d_s1))
 ## Standard error type:  HC2 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value  Pr(&gt;|t|)  CI Lower CI Upper     DF
-## (Intercept) 0.486984  0.0008837 551.048 0.000e+00  0.485252 0.488716 733335
-## treat_real  0.000369  0.0027329   0.135 8.926e-01 -0.004987 0.005725 733335
-## strata1.1   0.108725  0.0018181  59.800 0.000e+00  0.105161 0.112288 733335
-## strata0.2   0.044896  0.0057059   7.868 3.602e-15  0.033712 0.056079 733335
-## strata1.2   0.169422  0.0012373 136.931 0.000e+00  0.166997 0.171848 733335
+##             Estimate Std. Error t value   Pr(&gt;|t|)  CI Lower CI Upper     DF
+## (Intercept) 0.510811   0.001036 493.086  0.000e+00  0.508780  0.51284 381057
+## treat_real  0.006854   0.004626   1.482  1.385e-01 -0.002213  0.01592 381057
+## strata1.1   0.086655   0.003658  23.690 5.666e-124  0.079485  0.09382 381057
+## strata0.2   0.048892   0.002191  22.314 3.196e-110  0.044598  0.05319 381057
+## strata1.2   0.145496   0.002192  66.382  0.000e+00  0.141200  0.14979 381057
 ## 
-## Multiple R-squared:  0.02537 ,	Adjusted R-squared:  0.02536 
-## F-statistic:  4777 on 4 and 733335 DF,  p-value: &lt; 2.2e-16
+## Multiple R-squared:  0.01166 ,	Adjusted R-squared:  0.01165 
+## F-statistic:  1181 on 4 and 381057 DF,  p-value: &lt; 2.2e-16
 ```
 ]
 
@@ -406,9 +420,9 @@ d_s1 %&gt;% count(treat_real, contact)
 
 ```
 ##   treat_real contact      n
-## 1          0       0 698815
-## 2          1       0  19210
-## 3          1       1  15315
+## 1          0       0 369068
+## 2          1       0   6980
+## 3          1       1   5014
 ```
 
 --

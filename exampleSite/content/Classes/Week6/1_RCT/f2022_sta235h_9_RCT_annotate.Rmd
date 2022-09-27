@@ -696,6 +696,20 @@ g1 / g2
 ![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/random.png)]
 
 ---
+# Examples of RCTs
+
+.pull-left[
+.center[
+![:scale 75%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/linkedin_exp.png)
+]
+]
+--
+.pull-right[
+.center[
+![:scale 75%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/nyt_exp.jpg)
+]
+]
+---
 # What does randomization buy us?
 
 --
@@ -890,7 +904,7 @@ $$Y_i = \beta_0 + \beta_1 Z_i + \varepsilon_i$$
 # Estimating the effect
 
 ```{r, echo=FALSE}
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/data/voters_covariates.csv")
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/data/sample_gotv.csv")
 
 # Drop variables with unlisted phone numbers
 d_s1 <- d %>% filter(!is.na(treat_real))
