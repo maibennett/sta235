@@ -684,7 +684,39 @@ g1 / g2
 ---
 # Randomized Controlled Trials
 
-- RCTs make the ignorability assumption hold by design
+- RCTs make the **.darkorange[ignorability assumption hold by design]**
+
+--
+
+.box-4trans[How?]
+
+--
+
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/random.png)]
+
+---
+# What does randomization buy us?
+
+--
+
+- Groups will be comparable **.darkorange[in expectation]** in terms of their observable and unobservable characteristics.
+
+--
+
+- Are **.darkorange[unbalances]** a problem?
+
+--
+
+  - Check magnitude and how many significant differences we have!
+
+--
+
+- Always conduct **.darkprange[robustness checks]**!
+
+--
+
+  - Run simple regression (e.g. Y ~ Z) and then add covariates.
 
 
 ---
