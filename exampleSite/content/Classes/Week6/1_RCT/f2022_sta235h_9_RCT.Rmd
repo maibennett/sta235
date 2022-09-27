@@ -939,4 +939,16 @@ When we assume...
 
 - Can an individual in the control group be affected by the treatment?
 
+--
+
+.box-7trans[General equilibrium effects]
+
+--
+
+- What happens if we scale up an intervention? Will the effect be the same?
+
+---
+# Generalizability or External Validity
+
+- 
 
