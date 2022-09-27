@@ -1020,8 +1020,8 @@ When we assume...
 ---
 # Network effects
 
-.box-6LA[Can we do something about this?]
 <br>
+.box-6LA[Can we do something about this?]
 <br>
 <br>
 --
@@ -1047,3 +1047,19 @@ When we assume...
 <br>
 <br>
 .box-7LA[What could happen if you offer it to everyone?]
+
+
+---
+# Wrapping things up
+
+- Randomized controlled trials are great... **.darkorange[but not for everything!]**
+
+--
+
+- Randomization buys us **.darkorange[no systematic selection on observables or unobservables]**
+
+  - But things can go wrong, too!
+  
+--
+
+.box-6LA[Check your assumptions and look out for potential issues!]
