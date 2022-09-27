@@ -334,11 +334,9 @@ font.add.google("Fira Sans", "Fira Sans")
 
 # Some announcements
 
-- **.darkorange[Homework 3]** is due this Friday
+- **.darkorange[Homework 3]** is due this Friday.
 
-- **.darkorange[Answer Key for Homework 2]** will be posted on Wednesday
-
-- From HW4 onward, homework assignments can only be submitted **.darkorange[one day late at the most]**.
+- **.darkorange[Answer Key for Homework 2]** will be posted on Wednesday.
   
 --
 
@@ -723,6 +721,8 @@ g1 / g2
 
 ---
 # Can we ensure balance?
+
+--
 
 - In RCTs, in general, you can't ensure balance on all covariates.
 
