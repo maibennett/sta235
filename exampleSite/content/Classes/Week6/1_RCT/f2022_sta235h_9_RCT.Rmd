@@ -334,11 +334,9 @@ font.add.google("Fira Sans", "Fira Sans")
 
 # Some announcements
 
-- **.darkorange[Homework 3]** is due this Friday
+- **.darkorange[Homework 3]** is due this Friday.
 
-- **.darkorange[Answer Key for Homework 2]** will be posted on Wednesday
-
-- From HW4 onward, homework assignments can only be submitted **.darkorange[one day late at the most]**.
+- **.darkorange[Answer Key for Homework 2]** will be posted on Wednesday.
   
 --
 
@@ -724,6 +722,8 @@ g1 / g2
 ---
 # Can we ensure balance?
 
+--
+
 - In RCTs, in general, you can't ensure balance on all covariates.
 
 - But you can **.darkorange[stratify]**!
@@ -774,7 +774,7 @@ g1 / g2
 
 ---
 # Checking for balance
-
+<!--
 .small[
 ```{r, echo=FALSE, message=FALSE}
 tab <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/data/balance_gotv.csv")
@@ -806,7 +806,7 @@ tbl <- tab[4:10,] %>%
     defaultColDef = colDef(
       align = "center"),
     style = list(fontFamily = "Fira Sans, sans-serif"),
-    
+
     columns = list(
       V1 = colDef(name = "Treat"),
       V2 = colDef(name = "Control",
@@ -826,10 +826,10 @@ tbl <- tab[4:10,] %>%
       colGroup(name = "Non-competitive", columns = c("V5", "V6")),
       colGroup(name = "Competitive", columns = c("V7", "V8")),
       colGroup(name = "State 1", columns = c("V1","V2","V3", "V4"))
-      
+
     ),
     highlight = TRUE
-    
+
   )
 
 div(
@@ -843,9 +843,11 @@ div(
   # The actual table
   tbl
 )
-
-
 ```
+-->
+
+.center[
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/balance_table_stratum.png)
 ]
 
 ---
