@@ -352,6 +352,11 @@ font.add.google("Fira Sans", "Fira Sans")
 # Last week
 
 .pull-left[
+
+![:scale 80%](https://media.giphy.com/media/YMwRxPhWq5SoIBPvMY/giphy.gif?cid=ecf05e47xugy72kyps7kvffoanb4duyaufr9d8um1kdplohn&rid=giphy.gif&ct=g)
+]
+
+.pull-right[
 - Continued discussing the **.darkorange[potential outcomes framework]**.
   
 - Introduced the **.darkorange[ignorability assumption]**: 
@@ -361,19 +366,10 @@ font.add.google("Fira Sans", "Fira Sans")
 - Introduced **.darkorange[Randomized Controlled Trial]**
 ]
 
-.pull-right[
-.center[
-![:scale 100%](https://media.giphy.com/media/JUGrMkg1JQlMnr9qLE/giphy.gif)]
-]
-
 ---
 # Today
 
 .pull-left[
-.center[
-![](https://media.giphy.com/media/xlVvWxyeUJsDcHPMsO/giphy.gif)]
-]
-.pull-right[
 
 - Continue with **.darkorange[Randomized Controlled Trials]**:
 
@@ -384,6 +380,10 @@ font.add.google("Fira Sans", "Fira Sans")
 
   - Types of bias
   - Matching
+]
+
+.pull-right[
+![](https://media.giphy.com/media/l3dj09hpsfuYkijDi/giphy.gif?cid=ecf05e47u8xm2usaj4n89v5gkwypeewheumjciut4l3vw5ph&rid=giphy.gif&ct=g)
 ]
 
 ---
@@ -720,25 +720,209 @@ g1 / g2
 
 
 ---
-# Stratification
+# Can we ensure balance?
+
+- In RCTs, in general, you can't ensure balance on all covariates.
+
+- But you can **.darkorange[stratify]**!
+
+--
+
+- Stratification means dividing your data into different stratas or groups *S*, based on one or more covariates.
+
+- Then, you randomize in the same way *within strata*.
+
+---
+# Randomization of treatment
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/study1.png)
+]
+
+---
+# Randomization of treatment with no strata
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/study2.png)
+]
+
+---
+# Randomization of treatment with strata
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/study3.png)
+]
+
 
 ---
 # Get Out The Vote
 
----
-Could we do this if we didn't randomize?
- 
----
-
-Matching
-
----
-
-What happened?
-
----
-
-Show types of bias
+.pull-left[
+- "Get out the Vote" Large-Scale Mobilization experiment (Arceneaux, Gerber, and Green, 2006)
+  
+  - "Households containing one or two registered voters where **.darkorange[randomly assigned]** to treatment or control groups"
+  
+  - Treatment: GOTV phone calls
+  
+  - Stratified RCT: Two states divided into competitive and noncompetitive 
+]
+.pull-right[
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/vote.jpg)
+]
 
 ---
-END
+# Checking for balance
+
+.small[
+```{r, echo=FALSE, message=FALSE}
+tab <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/data/balance_gotv.csv")
+
+rnames <- tab$X
+
+tab <- tab[,-1]
+
+rownames(tab) <- rnames
+
+library(reactable)
+library(htmltools)
+
+tbl <- tab[4:10,] %>%
+  reactable(
+    # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = TRUE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = TRUE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center"),
+    style = list(fontFamily = "Fira Sans, sans-serif"),
+    
+    columns = list(
+      V1 = colDef(name = "Treat"),
+      V2 = colDef(name = "Control",
+                  style = list(borderRight = "1px solid rgba(0, 0, 0, 0.1)")),
+      V3 = colDef(name = "Treat"),
+      V4 = colDef(name = "Control",
+                  style = list(borderRight = "3px solid rgba(0, 0, 0, 0.1)")),
+      V5 = colDef(name = "Treat"),
+      V6 = colDef(name = "Control",
+                  style = list(borderRight = "1px solid rgba(0, 0, 0, 0.1)")),
+      V7 = colDef(name = "Treat"),
+      V8 = colDef(name = "Control")
+    ),
+    columnGroups = list(
+      colGroup(name = "Non-competitive", columns = c("V1", "V2")),
+      colGroup(name = "Competitive", columns = c("V3", "V4")),
+      colGroup(name = "Non-competitive", columns = c("V5", "V6")),
+      colGroup(name = "Competitive", columns = c("V7", "V8")),
+      colGroup(name = "State 1", columns = c("V1","V2","V3", "V4"))
+      
+    ),
+    highlight = TRUE
+    
+  )
+
+div(
+  # this class can be called with CSS now via .salary
+  class = "tab",
+  div(
+    # this can be called with CSS now via .title
+    class = "title",
+    h3("Balance Table by Stratum")
+  ),
+  # The actual table
+  tbl
+)
+
+
+```
+]
+
+---
+# Estimating the effect
+
+- Depending on the design, usually you can **.darkorange[compare group means]** or fit a **.darkorange[simple regression]**
+
+--
+
+$$\frac{1}{N_T}\sum_{i\in T}Y_i - \frac{1}{N_C}\sum_{i\in C}Y_i$$
+
+$$Y_i = \beta_0 + \beta_1 Z_i + \varepsilon_i$$
+
+--
+
+.box-4[How do we incorporate stratification here?]
+
+---
+# Estimating the effect
+
+- In stratified RCTs, we need to consider the strata!
+
+--
+
+- Run a regression with *fixed effects by strata*
+
+.box-6[$$Y_i = \beta_0 + \beta_1 Z_i + \gamma_s + \varepsilon_i$$]
+
+
+---
+# Estimating the effect
+
+```{r, echo=FALSE}
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/data/voters_covariates.csv")
+
+# Drop variables with unlisted phone numbers
+d_s1 <- d %>% filter(!is.na(treat_real))
+```
+.small[
+```{r, echo = TRUE, message = FALSE}
+library(estimatr)
+
+d_s1 <- d_s1 %>% mutate(strata = interaction(state, competiv))
+
+summary(lm_robust(vote02 ~ treat_real + strata, data = d_s1))
+```
+]
+
+---
+# Estimating the effect
+
+- One important thing to note in the previous analysis is that **.darkorange[assignment to treatment]** $\neq$ **.darkorange[contact]**
+
+```{r, echo = TRUE, message = FALSE}
+d_s1 %>% count(treat_real, contact)
+```
+
+--
+
+.box-5[Does this break the ignorability assumption?]
+
+
+---
+# Other potential issues to have in mind
+
+--
+
+.box-3trans[generalizability of our estimated effects]
+
+--
+
+- Where did we get our sample for our study from? Is it representative of a larger population?
+
+--
+
+.box-5trans[Spillover effects]
+
+--
+
+- Can an individual in the control group be affected by the treatment?
+
+
