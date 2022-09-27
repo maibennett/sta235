@@ -890,7 +890,7 @@ $$Y_i = \beta_0 + \beta_1 Z_i + \varepsilon_i$$
 # Estimating the effect
 
 ```{r, echo=FALSE}
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/data/voters_covariates.csv")
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/data/sample_gotv.csv")
 
 # Drop variables with unlisted phone numbers
 d_s1 <- d %>% filter(!is.na(treat_real))
