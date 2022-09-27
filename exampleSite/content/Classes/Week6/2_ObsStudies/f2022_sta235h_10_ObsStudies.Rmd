@@ -314,6 +314,7 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 library(knitr)
 library(showtext)
 library(xaringanExtra)
+library(embedr)
 
 #xaringanExtra::use_scribble()
 
@@ -586,3 +587,37 @@ An important question could be: **.darkorange[Does going to office hours increas
 - What could be an example of **.darkorange[heterogeneous return to treatment bias]**?
 
   - Remember that heterogeneous return to treatment bias means that $Y(1)-Y(0)$ is different for those that go vs those that don't go to office hours.
+  
+---
+# How do confounders affect our causal estimate?
+
+<br>
+<br>
+.center[
+<iframe width="560" height="315" src="https://www.youtube.com/embed/TmkESn_LpJg?playlist=TmkESn_LpJg&loop=1&rel=0&showinfo=0&color=white&iv_load_policy=3" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+]
+
+
+---
+# What happens if we control by our confounders?
+
+<br>
+<br>
+.center[
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qGJMsnGszjs?playlist=qGJMsnGszjs&loop=1&rel=0&showinfo=0&color=white&iv_load_policy=3" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+]
+
+---
+# Next class
+
+.pull-left[
+- Continue talking about **.darkorange[Observational Studies]**
+
+- Can we use **.darkorange[matching]** for causal effects?
+
+- Introduce **.darkorange[difference-in-differences]**
+]
+
+.pull-right[
+![](https://media.giphy.com/media/jUzczP42fMgE8NxSZ0/giphy.gif)
+]

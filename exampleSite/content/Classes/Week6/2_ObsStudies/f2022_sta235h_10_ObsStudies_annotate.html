@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235H - Observational Studies</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA 235H - Observational Studies
+## Fall 2022
+### McCombs School of Business, UT Austin
+
+---
+
+
+&lt;!-- &lt;script type="text/javascript"&gt; --&gt;
+&lt;!-- MathJax.Hub.Config({ --&gt;
+&lt;!--   "HTML-CSS": { --&gt;
+&lt;!--     preferredFont: null, --&gt;
+&lt;!--     webFont:  "Neo-Euler" --&gt;
+&lt;!--   } --&gt;
+&lt;!-- }); --&gt;
+&lt;!-- &lt;/script&gt; --&gt;
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+&lt;/style&gt;
+
+
+
+
+
+# What happens when the ignorability assumption doesn't hold?
+
+- Imagine **.darkorange[we can't randomize]**
+
+--
+
+.box-5Trans[Observational Study]
+
+--
+
+.box-7trans[Can we compare two groups to get a causal effect?]
+
+---
+# What happens if the ignorability assumption doesn't hold?
+
+- Now, let's assume `\((Y(0), Y(1)) \not\!\perp\!\!\!\perp Z\)`
+
+`$$\tau = E[Y_i(1)] - E[Y_i(0)] \neq E[Y_i| Z=1] - E[Y_i| Z=0]$$`
+
+.box-4LA[Correlation does not imply causation]
+
+---
+# What happens if the ignorability assumption doesn't hold?
+
+- Now, let's assume `\((Y(0), Y(1)) \not\!\perp\!\!\!\perp Z\)`
+
+$$\tau = E[Y_i(1) - Y_i(0)] = $$
+`$$=E[Y_i(1) - Y_i(0)|Z=1]Pr(Z=1) + E[Y_i(1) - Y_i(0)|Z=0](1-Pr(Z=1))$$`
+---
+# What happens if the ignorability assumption doesn't hold?
+
+- Now, let's assume `\((Y(0), Y(1)) \not\!\perp\!\!\!\perp Z\)`
+
+$$\tau = E[Y_i(1) - Y_i(0)] = $$
+
+`$$=\color{#900DA4}{\underbrace{E[Y_i(1) - Y_i(0)|Z=1]}_\text{ATT}}Pr(Z=1) + \color{#F89441}{\overbrace{E[Y_i(1) - Y_i(0)|Z=0]}^\text{ATC}}(1-Pr(Z=1))$$`
+- Weighted average of the ATT and ATC.
+
+---
+# What happens if the ignorability assumption doesn't hold?
+
+- After some simple math, you can get to:
+
+`$$\tau = E[Y_i(1) - Y_i(0)] = ATE$$`
+
+`$$\begin{aligned}
+ATE &amp;=E[Y_i|Z=1] - E[Y_i|Z=0] \\
+\\
+&amp; - (E[Y_i(0)|Z=1]-E[Y_i(0)|Z=0]) \\
+\\
+&amp; - (1-Pr(Z=1))(ATT - ATC)
+\end{aligned}$$`
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.source[Check out [Scott Cunningham's "Causal Inference: The Mixtape" (Ch. 4.1.3)](https://mixtape.scunning.com/04-potential_outcomes) for the decomposition]
+
+---
+# What happens if the ignorability assumption doesn't hold?
+
+- After some simple math, you can get to:
+
+`$$\tau = E[Y_i(1) - Y_i(0)] = ATE$$`
+
+`$$\begin{aligned}
+ATE &amp;=\color{#900DA4}{\underbrace{E[Y_i|Z=1] - E[Y_i|Z=0]}_\text{Obs diff in means}} \\
+&amp; - \color{#E16462}{\underbrace{(E[Y_i(0)|Z=1]-E[Y_i(0)|Z=0])}_\text{Selection bias}} \\
+&amp; - \color{#FCCE25}{\underbrace{(1-Pr(Z=1))(ATT - ATC)}_\text{Heterogeneous treat. effect bias}}
+\end{aligned}$$`
+- **.darkorange[Selection Bias:]** Difference between groups if they both were under control (e.g. baseline differences).
+- **.darkorange[Heterogeneous Treatment Effect Bias:]** Difference in returns to treatment for the two groups (weighted by the control population).
+&lt;br&gt;
+.source[Check out [Scott Cunningham's "Causal Inference: The Mixtape" (Ch. 4.1.3)](https://mixtape.scunning.com/04-potential_outcomes) for the decomposition]
+
+---
+# How would bias look like?
+
+&lt;img src="f2022_sta235h_10_ObsStudies_annotate_files/figure-html/PO1-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# How would bias look like?
+
+&lt;img src="f2022_sta235h_10_ObsStudies_annotate_files/figure-html/PO2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# How would bias look like?
+
+&lt;img src="f2022_sta235h_10_ObsStudies_annotate_files/figure-html/PO3-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Example: Effect of types of advertising on sales
+
+You want to know whether is more convenient to **.darkorange[e-mail]** or **.darkorange[physically mail]** potential customers to increase your subscribers.
+
+.pull-left[.center[
+![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week6/2_ObsStudies/images/freshdirect_mail.png)]
+]
+
+.pull-right[
+.center[
+![:scale 55%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week6/2_ObsStudies/images/freshdirect_email.jpg)]
+]
+
+--
+
+- Can we compare take-up between both groups and establish a causal effect?
+
+---
+# Example: Going to Office Hours
+
+An important question could be: **.darkorange[Does going to office hours increase our GPA?]**
+
+--
+
+- What could be an example of **.darkorange[selection bias]**?
+
+  - Remember that selection bias means differences in `\(Y(0)\)` for people that go to office hours vs those that don't.
+  
+--
+
+- What could be an example of **.darkorange[heterogeneous return to treatment bias]**?
+
+  - Remember that heterogeneous return to treatment bias means that `\(Y(1)-Y(0)\)` is different for those that go vs those that don't go to office hours.
+  
+---
+# How do confounders affect our causal estimate?
+
+&lt;br&gt;
+&lt;br&gt;
+.center[
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/TmkESn_LpJg?playlist=TmkESn_LpJg&amp;loop=1&amp;rel=0&amp;showinfo=0&amp;color=white&amp;iv_load_policy=3" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+]
+
+
+---
+# What happens if we control by our confounders?
+
+&lt;br&gt;
+&lt;br&gt;
+.center[
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/qGJMsnGszjs?playlist=qGJMsnGszjs&amp;loop=1&amp;rel=0&amp;showinfo=0&amp;color=white&amp;iv_load_policy=3" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+]
+
+---
+# Next class
+
+.pull-left[
+- Continue talking about **.darkorange[Observational Studies]**
+
+- Can we use **.darkorange[matching]** for causal effects?
+
+- Introduce **.darkorange[difference-in-differences]**
+]
+
+.pull-right[
+![](https://media.giphy.com/media/jUzczP42fMgE8NxSZ0/giphy.gif)
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
