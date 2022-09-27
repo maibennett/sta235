@@ -693,7 +693,7 @@ g1 / g2
 --
 
 .center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/random.png)]
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/random.png)]
 
 ---
 # What does randomization buy us?
@@ -712,7 +712,7 @@ g1 / g2
 
 --
 
-- Always conduct **.darkprange[robustness checks]**!
+- Always conduct **.darkorange[robustness checks]**!
 
 --
 
@@ -847,6 +847,15 @@ div(
 ]
 
 ---
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+.box-4LA[Let's go to R]
+
+---
 # Estimating the effect
 
 - Depending on the design, usually you can **.darkorange[compare group means]** or fit a **.darkorange[simple regression]**
@@ -877,7 +886,7 @@ $$Y_i = \beta_0 + \beta_1 Z_i + \varepsilon_i$$
 # Estimating the effect
 
 ```{r, echo=FALSE}
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/data/voters_covariates.csv")
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/data/voters_covariates.csv")
 
 # Drop variables with unlisted phone numbers
 d_s1 <- d %>% filter(!is.na(treat_real))
@@ -905,13 +914,18 @@ d_s1 %>% count(treat_real, contact)
 
 .box-5[Does this break the ignorability assumption?]
 
-
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+When we assume...
+]
 ---
 # Other potential issues to have in mind
 
 --
 
-.box-3trans[generalizability of our estimated effects]
+.box-3trans[Generalizability of our estimated effects]
 
 --
 
