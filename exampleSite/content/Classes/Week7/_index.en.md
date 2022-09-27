@@ -28,9 +28,9 @@ In this class we will continue our talk on observational studies. We will cover 
 
 ## Slides
 <!--
-{{% button href="https://sta235.netlify.app/Classes/Week5/1_RCT/f2021_sta235h_8_RCT.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week5/1_RCT/f2021_sta235h_8_RCT.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.netlify.app/Classes/Week6/2_ObsStudies/f2022_sta235h_10_ObsStudies.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week6/2_ObsStudies/f2022_sta235h_10_ObsStudies.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week5/1_RCT/f2021_sta235h_8_RCT.html" >}}
+{{< slides src="https://sta235.netlify.app/Classes/Week6/2_ObsStudies/f2022_sta235h_10_ObsStudies.html" >}}
 -->
 
 ## Code
