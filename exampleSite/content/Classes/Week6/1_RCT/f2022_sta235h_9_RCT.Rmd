@@ -392,6 +392,8 @@ font.add.google("Fira Sans", "Fira Sans")
 <br>
 <br>
 <br>
+<br>
+<br>
 .box-6Trans[Reviewing the Ignorability Assumption]
 
 ---
@@ -520,14 +522,14 @@ d %>% filter(z==1) %>% ggplot(data = .) +
         #panel.grid.major.y = element_blank(),
         panel.grid.minor.y = element_blank(),
         axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.15,0.9),
+  theme(axis.title.x = element_text(size=30),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=25),
+        axis.title.y = element_text(size=30),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=25),legend.position=c(0.15,0.9),
         legend.title = element_blank(),
-        legend.text = element_text(size=15),
+        legend.text = element_text(size=30),
         legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
+        plot.title = element_text(size=35))
 ```
 ]
 
@@ -542,29 +544,35 @@ d %>% filter(z==0) %>% ggplot(data = .) +
   theme_bw() + theme_ipsum_fsc() + ggtitle("Didn't go to college") +
   xlab("Income") + ylab("Density") + xlim(20,125) +
       theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-       # panel.grid.major.x = element_blank(),
+        #panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
-       # panel.grid.major.y = element_blank(),
+        #panel.grid.major.y = element_blank(),
         panel.grid.minor.y = element_blank(),
         axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.15,0.9),
+  theme(axis.title.x = element_text(size=30),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=25),
+        axis.title.y = element_text(size=30),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=25),legend.position=c(0.15,0.9),
         legend.title = element_blank(),
-        legend.text = element_text(size=15),
+        legend.text = element_text(size=30),
         legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
+        plot.title = element_text(size=35))
 ```
 ]
 ---
 # Under Ignorability Assumption
 
+.pull-left-little_r[
+<br>
+<br>
+<br>
+<br>
+
 $$Y(0),Y(1)\perp\!\!\!\perp Z$$
 
---
+$$Income(0),Income(1)\perp\!\!\!\perp College$$]
 
-$$Income(0),Income(1)\perp\!\!\!\perp College$$
+.pull-right-little_r[
 
 ```{r, fig.height=5, fig.width=7, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
 g1 <- d %>% filter(z==1) %>% ggplot(data = .) +
@@ -611,17 +619,21 @@ g2 <- d %>% filter(z==0) %>% ggplot(data = .) +
 
 g1 / g2
 ```
+]
 
 ---
 # What about if the ignorability assumption doesn't hold?
 
+.pull-left-little_r[
+<br>
+<br>
+<br>
+
 $$Y(0),Y(1)\not\perp Z$$
 
---
+E.g. Individuals that can take **.darkorange[more advantage from college (in terms of income) are more likely to go]**.]
 
-E.g. Individuals that can take **.darkorange[more advantage from college (in terms of income) are more likely to go]**.
-
-
+.pull-right-little_r[
 ```{r, fig.height=5, fig.width=7, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
 g1 <- d %>% filter(z==1) %>% ggplot(data = .) +
   geom_density(aes(x = income0, color = "Y(0)|Z=1"), lwd = 1.1, lty = 2) +
@@ -667,6 +679,7 @@ g2 <- d %>% filter(z==0) %>% ggplot(data = .) +
 
 g1 / g2
 ```
+]
 
 ---
 # Randomized Controlled Trials
