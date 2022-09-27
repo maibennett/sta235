@@ -33,32 +33,32 @@ Below you will find a general outline of the topics we’ll cover in this course
 <tr>
 <td>4</td>
 <td>Sep 13 – Sep 15</td>
-<td>Introduction to Causal Inference: Potential outcomes framework, the fundamental problem of causal inference, causal estimands, and study design. Introduction to Randomized-Controlled Trials.</td>
+<td>Introduction to Causal Inference: Potential outcomes framework, the fundamental problem of causal inference, causal estimands, and study design.</td>
 </tr>
 <tr>
 <td>5</td>
 <td>Sep 20 – Sep 22</td>
-<td>Randomized-Controlled trials: The gold standard? How can we use RCTs to answer causal questions? Limitations of RCTs. Internal and external validity. A/B testing. <br><i>Homework 2 due</i></td>
+<td>Introduction to Randomized-Controlled trials: The gold standard? How can we use RCTs to answer causal questions?. <br><i>Homework 2 due</i></td>
 </tr>
 <tr>
 <td>6</td>
 <td>Sep 27 – Sep 29</td>
-<td>Introduction to Observational Studies: Can we use data outside experiments to make causal claims? Selection on observables. Matching and its comparison to RCTs. Overt and hidden biases. Propensity score matching. How does matching compare to regression adjustment? <br><i>Homework 3 due</i></td>
+<td> Continuation of Randomized Controlled Trials: Design and Limitations.<br><i>Homework 3 due</i></td>
 </tr>
 <tr>
 <td>7</td>
 <td>Oct 4 – Oct 6</td>
-<td>Observational studies: Using real-world variation to estimate causal effects. Natural experiments, Diff-in-Diff. <br><i>Submit your idea for the FINAL PROJECT (including data ideas)</i></td>
+<td>Introduction to Observational Studies: Can we use data outside experiments to make causal claims? Selection on observables. Matching and its comparison to RCTs. Overt and hidden biases. Propensity score matching. How does matching compare to regression adjustment? <br><i>Submit your idea for the FINAL PROJECT (including data ideas)</i></td>
 </tr>
 <tr>
 <td>8</td>
 <td>Oct 11 – Oct 13</td>
-<td>Observational studies (cont.): Regression discontinuity design (RDD).<br><i>Homework 4 due</i></td>
+<td>Observational studies: Using real-world variation to estimate causal effects. Natural experiments, Diff-in-Diff.<br><i>Homework 4 due</i></td>
 </tr>
 <tr>
 <td>9</td>
 <td>Oct 18 – Oct 20</td>
-<td>What about prediction? Overview of model checking.<br><i>Midterm exam due</i></td>
+<td>Observational studies (cont.): Regression discontinuity design (RDD).<br><i>Midterm exam due</i></td>
 </tr>
 <tr>
 <td>10</td>

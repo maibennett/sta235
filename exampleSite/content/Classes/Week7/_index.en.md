@@ -8,23 +8,19 @@ disableToc: true
 
 ## What we will cover
 
-In this class we will continue our talk on observational studies. We will cover natural experiments and differences-in-differences.  
+This week, we will be introducing observational studies. Can we use data outside experiments to make causal claims? We will also be looking into matching and its comparison to RCTs, in addition to discussing the differences between overt and hidden biases. 
 
 ## Recommended readings/videos
 
-- Social Science Research Institute at Duke University. (2015). "The Two Kinds of Natural Experiments: Causal Inference Bootcamp". *Video materials from Mod-U: Powerful Concepts in Social Science*.
+- Angrist & Pischke. (2015). "Mastering Metrics". *Chapter 2: Regression*. Pg. 47-79. 
 
-{{< youtube src="https://www.youtube.com/embed/xdRyjhGVj_Q?controls=0" >}}
+- Marginal Revolution University. (2019). "Selection Bias: Will You Make More Going to a Private University?". *Video materials from Mastering Metrics*.
 
-- Social Science Research Institute at Duke University. (2015). "Resistance to Policy Manipulation in Natural Experiments: Causal Inference Bootcamp". *Video materials from Mod-U: Powerful Concepts in Social Science*.
+{{< youtube src="https://www.youtube.com/embed/6YrIDhaUQOE?controls=0" >}}
 
-{{< youtube src="https://www.youtube.com/embed/u1pOXq7THj8?controls=0" >}}
+- Social Science Research Institute at Duke University. (2015). "Matching Methods: Causal Inference Bootcamp". *Video materials from Mod-U: Powerful Concepts in Social Science*.
 
-- Angrist & Pischke. (2015). "Mastering Metrics". *Chapter 5: Differences-in-Differences*. Pg. 178-191. 
-
-- Social Science Research Institute at Duke University. (2015). "London Cholera Outbreak: Was it a Natural Experiment?: Causal Inference Bootcamp". *Video materials from Mod-U: Powerful Concepts in Social Science*. **Note: Watch after reading "Master of 'Metrics: John Snow" in MM.**
-
-{{< youtube src="https://www.youtube.com/embed/4n4F5qtfDIY?controls=0" >}}
+{{< youtube src="https://www.youtube.com/embed/02DYZkpc3-o?controls=0" >}}
 
 ## Slides
 <!--
