@@ -338,7 +338,11 @@ font.add.google("Fira Sans", "Fira Sans")
 
 --
 
-.box-5Trans[Can we compare two groups to get a causal effect?]
+.box-5Trans[Observational Study]
+
+--
+
+.box-7trans[Can we compare two groups to get a causal effect?]
 
 ---
 # What happens if the ignorability assumption doesn't hold?
@@ -551,7 +555,7 @@ ggplot(data = d, aes(x = t, y = y0_0)) +
 ---
 # Example: Effect of types of advertising on sales
 
-You want to know whether is more convenient to **.darkorange[e-mail]** or **.darkorange[physically mail]** potential customers to increase your sales.
+You want to know whether is more convenient to **.darkorange[e-mail]** or **.darkorange[physically mail]** potential customers to increase your subscribers.
 
 .pull-left[.center[
 ![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week6/2_ObsStudies/images/freshdirect_mail.png)]
@@ -562,105 +566,23 @@ You want to know whether is more convenient to **.darkorange[e-mail]** or **.dar
 ![:scale 55%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week6/2_ObsStudies/images/freshdirect_email.jpg)]
 ]
 
----
-# Looking at some data
+--
 
-- You get some data from a friend in Silicon Valley, who works at a similar company:
-
-.center[
-```{r echo=FALSE}
-library(reactable)
-library(htmltools)
-
-tab <- cbind(c("E-mail","","Mail",""),c("19%","(290/1500)","16%","(88/550)"))
-
-colnames(tab) <- c("Treatment","Total")
-
-tbl <- tab %>%
-  reactable(
-      # ALL one page (no scrolling or page swapping)
-    pagination = TRUE,
-    rownames = FALSE,
-    # compact for an overall smaller table width wise
-    compact = FALSE,
-    # borderless - TRUE or FALSE
-    borderless = FALSE,
-    # Stripes - TRUE or FALSE
-    striped = TRUE,
-    # fullWidth - either fit to width or not
-    fullWidth = FALSE,
-    # apply defaults
-    # 100 px and align to center of column
-    defaultColDef = colDef(
-      align = "center",
-      minWidth = 200
-  ),
-    style = list(fontFamily = "Fira Sans, sans-serif"))
-
-div(
-  # this class can be called with CSS now via .salary
-  class = "tab",
-  div(
-    # this can be called with CSS now via .title
-    class = "title",
-    h3("% of New Registrations by Type of Campaign")
-  ),
-  # The actual table
-  tbl
-)
-
-```
-]
+- Can we compare take-up between both groups and establish a causal effect?
 
 ---
-# Looking at some data
+# Example: Going to Office Hours
 
-- You get some data from a friend in Silicon Valley, who works at a similar company:
+An important question could be: **.darkorange[Does going to office hours increase our GPA?]**
 
-.center[
-```{r echo=FALSE}
+--
 
-tbl <- tab %>%
-  reactable(
-      # ALL one page (no scrolling or page swapping)
-    pagination = TRUE,
-    rownames = FALSE,
-    # compact for an overall smaller table width wise
-    compact = FALSE,
-    # borderless - TRUE or FALSE
-    borderless = FALSE,
-    # Stripes - TRUE or FALSE
-    striped = TRUE,
-    # fullWidth - either fit to width or not
-    fullWidth = FALSE,
-    # apply defaults
-    # 100 px and align to center of column
-    defaultColDef = colDef(
-      align = "center",
-      minWidth = 200
-  ),
-  rowStyle = function(index) {
-  if (index==1) list(fontWeight = "bold",
-                      background = "rgba(144, 13, 164,0.3)",
-                     color = "rgba(144, 13, 164,1)")
-  },
-    style = list(fontFamily = "Fira Sans, sans-serif")
-  )
+- What could be an example of **.darkorange[selection bias]**?
 
-div(
-  # this class can be called with CSS now via .salary
-  class = "tab",
-  div(
-    # this can be called with CSS now via .title
-    class = "title",
-    h3("% of New Registrations by Type of Campaign")
-  ),
-  # The actual table
-  tbl
-)
+  - Remember that selection bias means differences in $Y(0)$ for people that go to office hours vs those that don't.
+  
+--
 
-```
-]
+- What could be an example of **.darkorange[heterogeneous return to treatment bias]**?
 
-**.darkorange[Does this mean that e-mailing is more effective in getting new customers?]**
-
+  - Remember that heterogeneous return to treatment bias means that $Y(1)-Y(0)$ is different for those that go vs those that don't go to office hours.

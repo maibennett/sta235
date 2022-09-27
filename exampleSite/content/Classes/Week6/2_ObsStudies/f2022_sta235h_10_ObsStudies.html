@@ -11,12 +11,6 @@
     <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
     <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
-    <script src="libs/core-js/shim.min.js"></script>
-    <script src="libs/react/react.min.js"></script>
-    <script src="libs/react/react-dom.min.js"></script>
-    <script src="libs/reactwidget/react-tools.js"></script>
-    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
-    <script src="libs/reactable-binding/reactable.js"></script>
     <script src="https://use.fontawesome.com/5235085b15.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -147,7 +141,7 @@ ATE &amp;=\color{#900DA4}{\underbrace{E[Y_i|Z=1] - E[Y_i|Z=0]}_\text{Obs diff in
 ---
 # Example: Effect of types of advertising on sales
 
-You want to know whether is more convenient to **.darkorange[e-mail]** or **.darkorange[physically mail]** potential customers to increase your sales.
+You want to know whether is more convenient to **.darkorange[e-mail]** or **.darkorange[physically mail]** potential customers to increase your subscribers.
 
 .pull-left[.center[
 ![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week6/2_ObsStudies/images/freshdirect_mail.png)]
@@ -158,38 +152,26 @@ You want to know whether is more convenient to **.darkorange[e-mail]** or **.dar
 ![:scale 55%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week6/2_ObsStudies/images/freshdirect_email.jpg)]
 ]
 
----
-# Looking at some data
+--
 
-- You get some data from a friend in Silicon Valley, who works at a similar company:
-
-.center[
-<div class="tab">
-<div class="title">
-<h3>% of New Registrations by Type of Campaign</h3>
-</div>
-<div id="htmlwidget-e466a07750fa5e9ceaf2" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-e466a07750fa5e9ceaf2">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Total":["19%","(290/1500)","16%","(88/550)"]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center"},{"accessor":"Total","name":"Total","type":"character","minWidth":200,"align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"inline":true,"dataKey":"9a6887731affb91a43eb444462e538ac","key":"9a6887731affb91a43eb444462e538ac"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
-</div>
-]
+- Can we compare take-up between both groups and establish a causal effect?
 
 ---
-# Looking at some data
+# Example: Going to Office Hours
 
-- You get some data from a friend in Silicon Valley, who works at a similar company:
+An important question could be: **.darkorange[Does going to office hours increase our GPA?]**
 
-.center[
-<div class="tab">
-<div class="title">
-<h3>% of New Registrations by Type of Campaign</h3>
-</div>
-<div id="htmlwidget-733e8c6960dc6e6327d4" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-733e8c6960dc6e6327d4">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Treatment":["E-mail","","Mail",""],"Total":["19%","(290/1500)","16%","(88/550)"]},"columns":[{"accessor":"Treatment","name":"Treatment","type":"character","minWidth":200,"align":"center"},{"accessor":"Total","name":"Total","type":"character","minWidth":200,"align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[{"fontWeight":"bold","background":"rgba(144, 13, 164,0.3)","color":"rgba(144, 13, 164,1)"},null,null,null],"inline":true,"dataKey":"9a6887731affb91a43eb444462e538ac","key":"9a6887731affb91a43eb444462e538ac"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
-</div>
-]
+--
 
-**.darkorange[Does this mean that e-mailing is more effective in getting new customers?]**
+- What could be an example of **.darkorange[selection bias]**?
 
+  - Remember that selection bias means differences in `\(Y(0)\)` for people that go to office hours vs those that don't.
+  
+--
+
+- What could be an example of **.darkorange[heterogeneous return to treatment bias]**?
+
+  - Remember that heterogeneous return to treatment bias means that `\(Y(1)-Y(0)\)` is different for those that go vs those that don't go to office hours.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
