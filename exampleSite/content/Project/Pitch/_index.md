@@ -23,7 +23,7 @@ One relevant item in this submission is also **originality**. Make sure you are 
 **Pertinence:** The question at hand tackles one of the areas covered in this class and it is presented in a clear way.<br>
 **Relevance:** Proper motivatation of why this question is relevant/interesting.<br>
 **Originality:** The question is not a copy of another project already available and tackles an issue not addressed by another team in the class.<br>
-**Data availability:** The group has a good idea of the data they will need and it is feasible to obtain.
+**Data availability:** The group has a good idea of the data they will need and it is feasible to obtain.<br>
 **Peer assessment:** Students will be evaluated by their peers in terms of their contributions and responsiblity.
 
 {{% /notice %}}
