@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235H - Review Session I</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA 235H - Review Session I
+## Fall 2022
+### McCombs School of Business, UT Austin
+
+---
+
+
+&lt;!-- &lt;script type="text/javascript"&gt; --&gt;
+&lt;!-- MathJax.Hub.Config({ --&gt;
+&lt;!--   "HTML-CSS": { --&gt;
+&lt;!--     preferredFont: null, --&gt;
+&lt;!--     webFont:  "Neo-Euler" --&gt;
+&lt;!--   } --&gt;
+&lt;!-- }); --&gt;
+&lt;!-- &lt;/script&gt; --&gt;
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+&lt;/style&gt;
+
+
+
+
+
+# Structure
+
+- We will review **.darkorange[different types of regressions]**
+
+--
+
+- I will provide a general framework of **.darkorange[how to think about these regressions]**
+
+--
+
+- We will do one exercise **.darkorange[together]**
+
+--
+
+.box-7Trans[Lightning round!]
+
+---
+&lt;br&gt;
+&lt;br&gt;
+
+.box-2Trans[Participate!]
+
+.box-2trans[Even if you make a mistake, everyone can learn from that]
+
+--
+
+.box-4Trans[Ask questions!]
+
+.box-4trans[You are here on a Friday afternoon.. take advantage of it :)]
+
+---
+# Typical regression: Continuous variables
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+`$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \varepsilon$$`
+
+- `\(Y\)` is a continuous variable
+
+- `\(X\)` is a continuous variable
+
+--
+
+.center[
+*A one-unit increase in `\(X_1\)` is associated with an average increase in `\(Y\)` of `\(\beta_1\)` units, holding `\(X_2\)` constant*
+]
+
+---
+# Typical regression: Example
+
+Let's analyze what factors associate to someone's grade:
+
+`$$Grade = \beta_0 + \beta_1 HrsAssign + \beta_2PreGrade + \beta_3ClassAtt + \varepsilon$$`
+
+Where:
+
+- **Grade**: Grade in an assignment (out of 100 points).
+- **HrsAssign**: Hours dedicated to the assignment.
+- **PreGrade**: Grade in the previous assignment (out of 100 points).
+- **ClassAtt**: Whether someone attended the last class (1) or not (0).
+
+
+.box-5trans[Interpret the coefficient for Hours]
+
+---
+# Typical regression: Example
+
+.small[
+
+
+```r
+summary(lm(grade ~ hours + pregrade + classatt, data = d))
+```
+
+```
+## 
+## Call:
+## lm(formula = grade ~ hours + pregrade + classatt, data = d)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.59771 -0.62967  0.07248  0.57736  2.42308 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 24.22912    1.12686   21.50  &lt; 2e-16 ***
+## hours        1.89525    0.02079   91.16  &lt; 2e-16 ***
+## pregrade     0.44563    0.01227   36.32  &lt; 2e-16 ***
+## classatt     1.04993    0.14461    7.26 8.85e-12 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9254 on 196 degrees of freedom
+## Multiple R-squared:  0.9808,	Adjusted R-squared:  0.9805 
+## F-statistic:  3338 on 3 and 196 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+---
+# Typical regression: Binary covariate
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+`$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \varepsilon$$`
+
+- `\(Y\)` is a continuous variable
+
+- `\(X\)` is a binary variable
+
+--
+
+.center[
+&lt;i&gt;The event of `\(X_1=1\)` is associated with an average increase in `\(Y\)` of `\(\beta_1\)` units compared to `\(X_1=0\)`, holding `\(X_2\)` constant&lt;/i&gt;
+]
+
+---
+# Typical regression: Example
+
+Let's analyze what factors associate to someone's grade:
+
+`$$Grade = \beta_0 + \beta_1 HrsAssign + \beta_2PreGrade + \beta_3ClassAtt + \varepsilon$$`
+
+Where:
+
+- **Grade**: Grade in an assignment (out of 100 points).
+- **HrsAssign**: Hours dedicated to the assignment.
+- **PreGrade**: Grade in the previous assignment (out of 100 points).
+- **ClassAtt**: Whether someone attended the last class (1) or not (0).
+
+
+.box-5trans[Interpret the coefficient for Class Attendance]
+
+---
+# Typical regression: Example
+
+- Interpret the coefficient for *ClassAtt*:
+
+.small[
+
+```r
+summary(lm(grade ~ hours + pregrade + classatt, data = d))
+```
+
+```
+## 
+## Call:
+## lm(formula = grade ~ hours + pregrade + classatt, data = d)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.59771 -0.62967  0.07248  0.57736  2.42308 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 24.22912    1.12686   21.50  &lt; 2e-16 ***
+## hours        1.89525    0.02079   91.16  &lt; 2e-16 ***
+## pregrade     0.44563    0.01227   36.32  &lt; 2e-16 ***
+## classatt     1.04993    0.14461    7.26 8.85e-12 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9254 on 196 degrees of freedom
+## Multiple R-squared:  0.9808,	Adjusted R-squared:  0.9805 
+## F-statistic:  3338 on 3 and 196 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+---
+# Regressions with logarithms: Log-level
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+`$$\log(Y) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \varepsilon$$`
+
+- The outcome variable is in a logarithm, `\(\log(Y)\)`
+
+- `\(X\)` is a continuous variable, not in a logarithm.
+
+--
+
+.center[
+*A one-unit increase in `\(X_1\)` is associated with an average increase in `\(Y\)` of `\(\beta_1\times100\)` percent, holding `\(X_2\)` constant*
+]
+
+---
+# Regressions with logarithms: Example
+
+Let's analyze what characteristics are associated with sales on Etsy:
+
+`$$\log(Sales) = \beta_0 + \beta_1 Price + \beta_2AvgRating + \beta_3NReviews + \varepsilon$$`
+
+Where:
+
+- **log(Sales)**: Weekly sales of a product ($), in a logarithm.
+- **Price**: Price of the product ($)
+- **AvgRating**: Average rating of the product (in a scale fo 1-5).
+- **NReviews**: Number of reviews of a product.
+
+
+.box-5trans[Interpret the coefficient for Number of Reviews]
+
+---
+# Regressions with logarithms: Example
+
+- Interpret the coefficient for *NReviews*:
+
+.small[
+
+
+
+```r
+summary(lm(log(sales) ~ price + avgrating + nreviews, data = d))
+```
+
+```
+## 
+## Call:
+## lm(formula = log(sales) ~ price + avgrating + nreviews, data = d)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.54727 -0.03702  0.01991  0.06927  0.19050 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 6.3319302  0.0405368 156.202  &lt; 2e-16 ***
+## price       0.0004073  0.0006945   0.586    0.558    
+## avgrating   0.0381499  0.0077626   4.915 1.48e-06 ***
+## nreviews    0.0190180  0.0003177  59.866  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.1119 on 296 degrees of freedom
+## Multiple R-squared:  0.9261,	Adjusted R-squared:  0.9253 
+## F-statistic:  1236 on 3 and 296 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+---
+# Regressions with logarithms: Your turn
+
+- Interpret the coefficient for *Price*:
+
+.small[
+
+```r
+summary(lm(log(sales) ~ price + avgrating + nreviews, data = d))
+```
+
+```
+## 
+## Call:
+## lm(formula = log(sales) ~ price + avgrating + nreviews, data = d)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.54727 -0.03702  0.01991  0.06927  0.19050 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 6.3319302  0.0405368 156.202  &lt; 2e-16 ***
+## price       0.0004073  0.0006945   0.586    0.558    
+## avgrating   0.0381499  0.0077626   4.915 1.48e-06 ***
+## nreviews    0.0190180  0.0003177  59.866  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.1119 on 296 degrees of freedom
+## Multiple R-squared:  0.9261,	Adjusted R-squared:  0.9253 
+## F-statistic:  1236 on 3 and 296 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+---
+# Regressions with Interactions
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+`$$Y = \beta_0 + \beta_1 X_1 + \beta_2D +  \beta_3X_1\times D + \beta_4 X_2 + \varepsilon$$`
+
+- `\(Y\)` is a continuous variable
+
+- `\(X\)` is a continuous variable
+
+- `\(D\)` is a binary variable
+
+--
+
+.center[
+*A one-unit increase in `\(X_1\)` is associated with an average increase in `\(Y\)` of `\(\beta_1\)` units for `\(D=0\)`, holding `\(X_2\)` constant*
+]
+
+--
+
+.center[
+*A one-unit increase in `\(X_1\)` is associated with an average increase in `\(Y\)` of `\(\beta_1 + \beta_3\)` units for `\(D=1\)`, holding `\(X_2\)` constant*
+]
+
+
+---
+# Why?
+
+
+
+
+---
+# Regressions with Interactions: Example
+
+Let's analyze what factors associate to someone's grade:
+
+`$$Grade = \beta_0 + \beta_1PreGrade + \beta_2 HrsAssign + \beta_3ClassAtt + \beta_4HrsAssign \times ClassAtt + \varepsilon$$`
+
+Where:
+
+- **Grade**: Grade in an assignment (out of 100 points).
+- **HrsAssign**: Hours dedicated to the assignment.
+- **PreGrade**: Grade in the previous assignment (out of 100 points).
+- **ClassAtt**: Whether someone attended the last class (1) or not (0).
+
+
+.box-5trans[Interpret the association between Hours and Grade for students that attended the last class and those that did not]
+
+---
+# Regressions with Interactions: Example
+
+- Interpret the association the assicuation between *hours* and *grade* for the two groups.
+
+.small[
+
+
+
+```r
+summary(lm(grade ~ pregrade + hours*classatt, data = d))
+```
+
+```
+## 
+## Call:
+## lm(formula = grade ~ pregrade + hours * classatt, data = d)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.74995 -0.39230 -0.03793  0.43372  1.99286 
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    30.42867    0.88578  34.353   &lt;2e-16 ***
+## pregrade        0.35736    0.00957  37.341   &lt;2e-16 ***
+## hours           1.65246    0.02769  59.669   &lt;2e-16 ***
+## classatt        0.12650    0.22545   0.561    0.575    
+## hours:classatt  0.56198    0.03412  16.471   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.7216 on 195 degrees of freedom
+## Multiple R-squared:  0.9894,	Adjusted R-squared:  0.9892 
+## F-statistic:  4540 on 4 and 195 DF,  p-value: &lt; 2.2e-16
+```
+]
+---
+# Quadratic Regressions
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+`$$Y = \beta_0 + \beta_1 X_1 + \beta_2X_1^2 + \beta_3 X_2 + \varepsilon$$`
+
+- `\(Y\)` is a continuous variable
+
+- `\(X\)` is a continuous variable and includes a quadratic term
+
+--
+
+.center[
+*Increasing `\(X_1\)` in one unit, from `\(x_0\)` to `\(x_0+1\)`, is associated with an average increase in Y of `\(2\beta_2 x_0 + \beta_1\)` units, holding `\(X_2\)` constant*
+]
+
+---
+# Quadratic Regressions: Example
+
+We think there is a quadratic association between price and sales, so we fit the following model:
+
+`$$Sales = \beta_0 + \beta_1 Price + \beta_2Price^2  + \beta_3AvgRating + \beta_4NReviews + \varepsilon$$`
+
+Where:
+
+- **Sales**: Weekly sales of a product ($)
+- **Price**: Price of the product ($)
+- **AvgRating**: Average rating of the product (in a scale fo 1-5).
+- **NReviews**: Number of reviews of a product.
+
+
+.box-5trans[Interpret the association between Sales and Price, for an increase in Price from &amp;dollar;15 to &amp;dollar;16]
+
+---
+# Quadratic Regressions: Example
+
+- Interpret the association between *sales* and *price* (for an increase in price from 15 to 16 dollars)
+
+.small[
+
+
+
+```r
+summary(lm(sales ~ price + I(price^2) + avgrating + nreviews, data = d))
+```
+
+```
+## 
+## Call:
+## lm(formula = sales ~ price + I(price^2) + avgrating + nreviews, 
+##     data = d)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -238.849  -52.604    5.526   53.160  228.929 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 106.13919   52.09422   2.037   0.0425 *  
+## price       -10.33381    2.58888  -3.992 8.29e-05 ***
+## I(price^2)    2.50065    0.03527  70.901  &lt; 2e-16 ***
+## avgrating    50.24900    5.42595   9.261  &lt; 2e-16 ***
+## nreviews     30.03823    0.22195 135.337  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 78.17 on 295 degrees of freedom
+## Multiple R-squared:  0.9981,	Adjusted R-squared:  0.998 
+## F-statistic: 3.781e+04 on 4 and 295 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+---
+# Linear Probability Model
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+`$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \varepsilon$$`
+
+- `\(Y\)` is a binary variable
+
+- `\(X\)` is a continuous variable
+
+--
+
+.center[
+*Increasing `\(X_1\)` in one unit is associated with an average increase in the probability of `\(Y=1\)` of `\(\beta_1\)`, holding `\(X_2\)` constant*
+]
+
+
+.center[
+*Increasing `\(X_1\)` in one unit is associated with an average increase in the probability of `\(Y=1\)` of `\(\beta_1\times100\)` percentage points, holding `\(X_2\)` constant*
+]
+
+---
+# Linear Probability Model: Example
+
+Let's analyze what factors associate to getting an A in an assignment:
+
+`$$Grade = \beta_0 + \beta_1 HrsAssign + \beta_2PreGrade + \beta_3ClassAtt + \varepsilon$$`
+
+Where:
+
+- **GradeA**: Binary variable if the grade in the assignment is A (1) or not (0).
+- **HrsAssign**: Hours dedicated to the assignment.
+- **PreGrade**: Grade in the previous assignment (out of 100 points).
+- **ClassAtt**: Whether someone attended the last class (1) or not (0).
+
+
+.box-5trans[Interpret the coefficient for Hours]
+
+---
+# Linear Probability Model: Example
+
+- Interpret the coefficient for *Hours*.
+
+.small[
+
+
+```r
+summary(lm(gradeA ~ hours + pregrade + classatt, data = d))
+```
+
+```
+## 
+## Call:
+## lm(formula = gradeA ~ hours + pregrade + classatt, data = d)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.18649 -0.05634 -0.01766  0.02702  0.80487 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -0.516716   0.170502  -3.031  0.00277 ** 
+## hours        0.020050   0.003146   6.374 1.29e-09 ***
+## pregrade     0.004937   0.001857   2.659  0.00849 ** 
+## classatt    -0.026360   0.021881  -1.205  0.22976    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.14 on 196 degrees of freedom
+## Multiple R-squared:  0.2117,	Adjusted R-squared:  0.1997 
+## F-statistic: 17.55 on 3 and 196 DF,  p-value: 3.936e-10
+```
+]
+
+---
+# Putting everything together
+
+Let's interpret what is the return to experience (i.e. association between income and experience) for men and women:
+
+`$$Income = \beta_0 + \beta_1education + \beta_2exp + \beta_3exp^2 + \beta_4 female + \beta_5exp\times female + \beta_6exp^2\times female + \varepsilon$$`
+
+---
+# Putting everything together
+
+.small[
+
+
+```r
+summary(lm(income ~ education + experience*female + I(experience^2)*female, data = d))
+```
+
+```
+## 
+## Call:
+## lm(formula = income ~ education + experience * female + I(experience^2) * 
+##     female, data = d)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -16033.6  -3393.6   -221.4   3500.0  15994.1 
+## 
+## Coefficients:
+##                         Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)            10865.874   5017.814   2.165  0.03055 *  
+## education               1955.037     50.306  38.863  &lt; 2e-16 ***
+## experience              1713.175    266.341   6.432 1.82e-10 ***
+## female                  6662.077   6606.571   1.008  0.31347    
+## I(experience^2)          -14.771      3.586  -4.119 4.07e-05 ***
+## experience:female      -1004.739    382.104  -2.629  0.00866 ** 
+## female:I(experience^2)   -11.941      5.477  -2.180  0.02944 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 5147 on 1193 degrees of freedom
+## Multiple R-squared:  0.9534,	Adjusted R-squared:  0.9531 
+## F-statistic:  4066 on 6 and 1193 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+---
+
+---
+# Answers
+.small[
+1. A one-hour increase in studying is associated with an average 1.9 point increase in the assignment grade, holding other variables constant.
+
+2. Attending the last class is associated with an average increase in grade of 1.05 points compared to not attending, holding other variables constant.
+
+3. Having one additional review is associated with an average increase in sales of 1.9 percent, holding price and average rating constant.
+
+4. One additional hour dedicated to the assignment is associated to an average increase of 1.65 points in the homework score for students that didn't attend the last class, holding previous grade constant.
+
+5. One additional hour dedicated to the assignment is associated to an average increase of 2.2 points in the homework score for students that attended the last class, holding previous grade constant.
+
+6. Increasing the sales price from 15 to 16 dollars is associated to an average increase in sales of &amp;dollar;64.7, holding other variables constant.
+
+7. One additional hour dedicated to the homework is associated to an average increase in the probability of getting an A of 2 percentage points, holding other variables constant.
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
