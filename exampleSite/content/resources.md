@@ -14,6 +14,10 @@ I will be uploading short videos in this section, mainly focused on R coding, bu
 
 {{% button href="https://sta235.netlify.app/videos" icon="fas fa-external-link-alt" icon-position="right" %}}Go to Videos{{% /button %}}  
 
+### Review Session
+ <!--
+You can check the slides for the Review Session I here: {{% button href="https://sta235.netlify.app/Classes/Week6/2_ReviewSession/f2022_sta235h_9a_ReviewSession.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week6/2_ReviewSession/f2022_sta235h_9a_ReviewSession.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+-->
 
 ### R resources
 
