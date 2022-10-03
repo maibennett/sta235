@@ -22,9 +22,15 @@ In this class we will continue our talk on observational studies. We will cover 
 
 - Angrist & Pischke. (2015). "Mastering Metrics". *Chapter 5: Differences-in-Differences*. Pg. 178-191. 
 
-- Social Science Research Institute at Duke University. (2015). "London Cholera Outbreak: Was it a Natural Experiment?: Causal Inference Bootcamp". *Video materials from Mod-U: Powerful Concepts in Social Science*. **Note: Watch after reading "Master of 'Metrics: John Snow" in MM.**
+- Social Science Research Institute at Duke University. (2015). "Introduction to Panel Data: Does the Death Penalty Reduce Homicides?: Causal Inference Bootcamp". *Video materials from Mod-U: Powerful Concepts in Social Science*.
 
-{{< youtube src="https://www.youtube.com/embed/4n4F5qtfDIY?controls=0" >}}
+{{< youtube src="https://www.youtube.com/embed/tO99T1GQ6SY?controls=0" >}}
+
+- Social Science Research Institute at Duke University. (2015). "The Common Trends Assumption: Causal Inference Bootcamp". *Video materials from Mod-U: Powerful Concepts in Social Science*.
+
+{{< youtube src="https://www.youtube.com/embed/6d64Vy2-peY?controls=0" >}}
+
+
 
 ## Slides
 <!--
