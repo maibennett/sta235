@@ -855,3 +855,66 @@ Controlling by Confounders
 ---
 # Matching
 
+Start with two groups: A treatment and a control group
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching1.png)]
+
+---
+# Matching
+
+For each unit in the treatment group, let's find a similar unit in the control group
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching2.png)]
+
+---
+# Matching
+
+And we do this for all units
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching3.png)]
+
+---
+# Matching
+
+Note that we might not be able to find similar units for everyone!
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching4.png)]
+
+---
+# Matching
+
+The we just compare our matched groups
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching5.png)]
+
+---
+# Propensity Score Matching
+
+- It is **.darkorange[difficult (impossible) to match on all the variables we want]** (potential confounders)
+
+  - The curse of dimensionality
+  
+--
+
+- **.darkorange[Propensity score]**: Probability of being in the treatment group given the individuals characteristics.
+
+$$p = Pr(Z = 1) = \hat{\beta}_0 + \hat{\beta}_1X_1 + \hat{\beta}_2X_2 + ... + \hat{\beta}_kX_k$$
+- Don't need to calculate this by hand; we will use the `MatchIt` package.
+
+---
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+.box-7Trans[Let's go to R]
+
+---
+
+
