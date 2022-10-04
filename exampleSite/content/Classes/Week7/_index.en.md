@@ -31,4 +31,4 @@ This week, we will be introducing observational studies. Can we use data outside
 
 ## Code
 
-Here is the R code we will review in class, with additional questions! Remember to review it in detail after class <a onclick="ga('send', 'event', 'External-Link','click','code6','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/code/f2022_sta235h_7_ObsStudies.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+Here is the R code we will review in class, with additional questions! Remember to review it in detail after class <a onclick="ga('send', 'event', 'External-Link','click','code6','0','Link');" href="https://sta235.netlify.app/Classes/Week7/1_ObsStudies/code/f2022_sta235h_7_ObsStudies.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
