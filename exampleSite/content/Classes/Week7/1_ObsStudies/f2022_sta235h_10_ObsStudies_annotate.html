@@ -236,10 +236,6 @@ Limitations of RCTs
 
 --
 
-  - Note that you will have to **.darkorange[cluster your standard errors]** (e.g. `lm_robust(y ~ treat, cluster = group)`)
-
---
-
 2. **.darkorange[Model the network!]**
 
 ---
@@ -252,7 +248,7 @@ Limitations of RCTs
 --
 &lt;br&gt;
 &lt;br&gt;
-.box-7LA[What could happen if you offer it to everyone?]
+.box-7Trans[What could happen if you offer it to everyone?]
 
 
 ---
@@ -290,7 +286,7 @@ What if we can't randomize?
 .box-7trans[Can we compare two groups to get a causal effect?]
 
 ---
-# What happens if the ignorability assumption doesn't hold?
+# What happens when the ignorability assumption doesn't hold?
 
 - If the ignorability assumption doesn't hold, then `\((Y(0), Y(1)) \not\!\perp\!\!\!\perp Z\)`
 
@@ -299,7 +295,7 @@ What if we can't randomize?
 .box-4LA[Correlation does not imply causation]
 
 ---
-# What happens if the ignorability assumption doesn't hold?
+# What happens when the ignorability assumption doesn't hold?
 
 - Now, let's assume `\((Y(0), Y(1)) \not\!\perp\!\!\!\perp Z\)`
 
@@ -377,12 +373,12 @@ You want to know whether is more convenient to **.darkorange[e-mail]** or **.dar
 - FD sends emails to a list of contacts they purchased.
 
 .pull-left[.center[
-![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/freshdirect_mail.png)]
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/freshdirect_mail.png)]
 ]
 
 .pull-right[
 .center[
-![:scale 55%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/freshdirect_email.jpg)]
+![:scale 25%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/freshdirect_email.jpg)]
 ]
 
 --
@@ -447,6 +443,69 @@ Controlling by Confounders
 
 ---
 # Matching
+
+Start with two groups: A treatment and a control group
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching1.png)]
+
+---
+# Matching
+
+For each unit in the treatment group, let's find a similar unit in the control group
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching2.png)]
+
+---
+# Matching
+
+And we do this for all units
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching3.png)]
+
+---
+# Matching
+
+Note that we might not be able to find similar units for everyone!
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching4.png)]
+
+---
+# Matching
+
+The we just compare our matched groups
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching5.png)]
+
+---
+# Propensity Score Matching
+
+- It is **.darkorange[difficult (impossible) to match on all the variables we want]** (potential confounders)
+
+  - The curse of dimensionality
+  
+--
+
+- **.darkorange[Propensity score]**: Probability of being in the treatment group given the individuals characteristics.
+
+`$$p = Pr(Z = 1) = \hat{\beta}_0 + \hat{\beta}_1X_1 + \hat{\beta}_2X_2 + ... + \hat{\beta}_kX_k$$`
+- Don't need to calculate this by hand; we will use the `MatchIt` package.
+
+---
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.box-7Trans[Let's go to R]
+
+---
+
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

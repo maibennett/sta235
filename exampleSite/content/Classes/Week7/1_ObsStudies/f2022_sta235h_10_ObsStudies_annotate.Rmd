@@ -513,10 +513,6 @@ Limitations of RCTs
 
 --
 
-  - Note that you will have to **.darkorange[cluster your standard errors]** (e.g. `lm_robust(y ~ treat, cluster = group)`)
-
---
-
 2. **.darkorange[Model the network!]**
 
 ---
@@ -529,7 +525,7 @@ Limitations of RCTs
 --
 <br>
 <br>
-.box-7LA[What could happen if you offer it to everyone?]
+.box-7Trans[What could happen if you offer it to everyone?]
 
 
 ---
@@ -567,7 +563,7 @@ What if we can't randomize?
 .box-7trans[Can we compare two groups to get a causal effect?]
 
 ---
-# What happens if the ignorability assumption doesn't hold?
+# What happens when the ignorability assumption doesn't hold?
 
 - If the ignorability assumption doesn't hold, then $(Y(0), Y(1)) \not\!\perp\!\!\!\perp Z$
 
@@ -576,7 +572,7 @@ $$\tau = E[Y_i(1)] - E[Y_i(0)] \neq E[Y_i| Z=1] - E[Y_i| Z=0]$$
 .box-4LA[Correlation does not imply causation]
 
 ---
-# What happens if the ignorability assumption doesn't hold?
+# What happens when the ignorability assumption doesn't hold?
 
 - Now, let's assume $(Y(0), Y(1)) \not\!\perp\!\!\!\perp Z$
 
@@ -784,12 +780,12 @@ You want to know whether is more convenient to **.darkorange[e-mail]** or **.dar
 - FD sends emails to a list of contacts they purchased.
 
 .pull-left[.center[
-![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/freshdirect_mail.png)]
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/freshdirect_mail.png)]
 ]
 
 .pull-right[
 .center[
-![:scale 55%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/freshdirect_email.jpg)]
+![:scale 25%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/freshdirect_email.jpg)]
 ]
 
 --

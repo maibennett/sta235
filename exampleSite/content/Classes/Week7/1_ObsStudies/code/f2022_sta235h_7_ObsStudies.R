@@ -105,3 +105,51 @@ summary(lm_robust(vote02 ~ contact + persons + vote00 + vote98 + newreg + age + 
 #### EXERCISE #############################################################
 ###########################################################################
 
+# Data for student's evaluations (at the professor level) for UT Austin
+
+profs <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/data/profs.csv",
+                  stringsAsFactors = TRUE)
+
+head(profs)
+
+# Variables:
+# minority: Is the professor from a minority?
+# age: age in years
+# gender: professor's gender
+# credits: single credits or more
+# beauty: beauty rating (normalized to mean 0 SD 1)
+# eval: student's evaluation
+# division: upper or lower division course
+# native: Is the professor a native English speaker?
+# tenure: Does the professor have tenure?
+# students: Number of students that respond the survey
+# allstudents: Total number of students
+# prof: professor's ID.
+
+
+# We will transform factor variables into binary (numeric) variables. Remember to always check what the base category is!!
+profs <- profs %>% mutate(treat = as.numeric(beauty > 0),
+                          female = 2 - as.numeric(gender), # Notice that gender has two levels: (1) female and (2) male. First, we transform it to numeric, and then substract it from 2 (notice that now we will get a binary variable with 1 for female and 0 for male)
+                          single_credit = as.numeric(credits)-1,
+                          upper_div = as.numeric(division)-1,
+                          native = as.numeric(native)-1,
+                          tenure = as.numeric(tenure)-1,
+                          minority = as.numeric(minority)-1) 
+
+# Question 1: 
+# Run a simple regression between eval (outcome) and treat (beauty above the mean). 
+# Interpret the coefficient of interest. Can we say it's a causal effect?
+
+# Question 2:
+# Match professors based on female, native, single_credit, tenure, minority, allstudents, and age. Run a regression on the matched sample between eval (outcome) and treat.
+# Interpret the coefficient of interest. Can we say it's a causal effect?
+
+# Use this template (complete where required)
+
+m2 <- matchit(#COMPLETE,
+              method = "nearest", caliper = 0.2)
+
+# Get matched data
+
+
+# Run simple regression
