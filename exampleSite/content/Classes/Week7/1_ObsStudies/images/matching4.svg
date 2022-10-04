@@ -27,7 +27,7 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="0.77771465"
-     inkscape:cx="358.1005"
+     inkscape:cx="358.7434"
      inkscape:cy="560.61693"
      inkscape:window-width="2560"
      inkscape:window-height="1377"
@@ -264,7 +264,7 @@
        ry="6.6744919" />
     <path
        sodipodi:type="star"
-       style="fill:#aeeb7d;stroke:#2f2a00;stroke-width:5.53701;stroke-opacity:1;fill-opacity:1"
+       style="fill:#19dc7d;stroke:#2f2a00;stroke-width:5.53701;stroke-opacity:1;fill-opacity:1"
        id="path1654-2"
        inkscape:flatsided="false"
        sodipodi:sides="5"
@@ -295,7 +295,7 @@
        y="0"><tspan
          x="218.45569"
          y="726.4555"
-         id="tspan55945">Treatment</tspan></text>
+         id="tspan57570">Treatment</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.69897604,0,0,0.80115013,32.849515,-369.7636)"
@@ -305,9 +305,9 @@
        y="0"><tspan
          x="243.52967"
          y="718.84379"
-         id="tspan55949"><tspan
+         id="tspan57574"><tspan
            style="font-family:'Yanone Kaffeesatz';-inkscape-font-specification:'Yanone Kaffeesatz';text-align:center;text-anchor:middle"
-           id="tspan55947">Control</tspan></tspan></text>
+           id="tspan57572">Control</tspan></tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:1.065;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:6.39,1.065;stroke-dashoffset:0"
        d="M 93.5567,80.628865 C 220.79381,134.72165 220.79381,134.72165 220.79381,134.72165"

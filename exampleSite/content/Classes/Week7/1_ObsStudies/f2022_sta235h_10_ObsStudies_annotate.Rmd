@@ -854,7 +854,7 @@ Controlling by Confounders
 Start with two groups: A treatment and a control group
 
 .center[
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching1.png)]
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching1.png)]
 
 ---
 # Matching
@@ -862,7 +862,7 @@ Start with two groups: A treatment and a control group
 For each unit in the treatment group, let's find a similar unit in the control group
 
 .center[
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching2.png)]
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching2.png)]
 
 ---
 # Matching
@@ -870,7 +870,7 @@ For each unit in the treatment group, let's find a similar unit in the control g
 And we do this for all units
 
 .center[
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching3.png)]
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching3.png)]
 
 ---
 # Matching
@@ -878,7 +878,7 @@ And we do this for all units
 Note that we might not be able to find similar units for everyone!
 
 .center[
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching4.png)]
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching4.png)]
 
 ---
 # Matching
@@ -886,7 +886,7 @@ Note that we might not be able to find similar units for everyone!
 The we just compare our matched groups
 
 .center[
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching5.png)]
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching5.png)]
 
 ---
 # Propensity Score Matching
