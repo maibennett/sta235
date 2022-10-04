@@ -66,7 +66,7 @@ library(optmatch)
 # We will just use Nearest Neighbor matching first.
 
 # Note that the arguments in the matchit() function are the formula (just like in lm(), I include all the covariates I want to control for)
-# I also give matchit the sample I want to use
+# I also give matchit the sample I want to use with data = 
 # The method then it's important. There are different kind of methods, but here we are using "nearest", which refers to nearest neighbor matching 
 # (looks for the closest neighbor in terms of propensity score and matches it to that!)
 # This is optional, but I'm asking the function to match exactly on state (meaning, I can only find a treated unit for a control unit within the same state)
@@ -118,7 +118,7 @@ head(profs)
 # gender: professor's gender
 # credits: single credits or more
 # beauty: beauty rating (normalized to mean 0 SD 1)
-# eval: student's evaluation
+# eval: student's evaluation (average score, from 1 to 5)
 # division: upper or lower division course
 # native: Is the professor a native English speaker?
 # tenure: Does the professor have tenure?

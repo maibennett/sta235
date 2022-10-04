@@ -333,6 +333,22 @@ font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
 font.add.google("Fira Sans", "Fira Sans")
 ```
 
+#Announcements
+
+- **.darkorange[Grades for Homework 2]** posted on Friday
+
+  - Review the Answer Key and re-grading requests until this Friday.
+  
+--
+- **.darkorange[Slides for the review session]** on the course website (Resources)
+
+  - Many opportunities for students to get support. **.darkorange[Reach out!]**
+  
+--
+- Check out the schedule for **.darkorange[final presentations]**:
+
+  - Syllabus > Grading > Project (at the end)
+
 ---
 # Last week
 
@@ -840,6 +856,8 @@ Controlling by Confounders
 
   - After we control for it, we are doing a fair comparison (e.g. *"holding X constant"*)
   
+  .box-4trans[Conditional Independence Assumption (CIA)]
+  
 --
 
 - But is there another way to control for confounders?
@@ -912,5 +930,22 @@ $$p = Pr(Z = 1) = \hat{\beta}_0 + \hat{\beta}_1X_1 + \hat{\beta}_2X_2 + ... + \h
 .box-7Trans[Let's go to R]
 
 ---
+# Wrapping things up
+
+.pull-left[
+- If the **.darkorange[ignorability assumption doesn't hold]**, I can potentially control by all my confounders.
+
+  - Conditional Independence Assumption.
+  
+- **.darkorange[Unlikely to hold]**
+
+- Do we have other alternatives?
+
+  - Let's see next class!
+]
 
 
+.pull-right[
+.center[
+![](https://media.giphy.com/media/d42bbeRtFSSru/giphy.gif)]
+]
