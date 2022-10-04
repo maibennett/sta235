@@ -338,7 +338,8 @@ font.add.google("Fira Sans", "Fira Sans")
 
 .pull-left[
 
-![:scale 80%](https://media.giphy.com/media/YMwRxPhWq5SoIBPvMY/giphy.gif?cid=ecf05e47xugy72kyps7kvffoanb4duyaufr9d8um1kdplohn&rid=giphy.gif&ct=g)
+.center[
+![:scale 100%](https://media.giphy.com/media/jUzczP42fMgE8NxSZ0/giphy.gif)]
 ]
 
 .pull-right[
@@ -366,7 +367,7 @@ font.add.google("Fira Sans", "Fira Sans")
 ]
 
 .pull-right[
-![](https://media.giphy.com/media/l3dj09hpsfuYkijDi/giphy.gif?cid=ecf05e47u8xm2usaj4n89v5gkwypeewheumjciut4l3vw5ph&rid=giphy.gif&ct=g)
+![](https://media.giphy.com/media/a7NBvg3Ss8UYo/giphy.gif)
 ]
 
 ---
@@ -375,6 +376,25 @@ class: left, bottom, inverse
 .big[
 Limitations of RCTs
 ]
+---
+# Recap
+
+- In RCTs, **.darkorange[ignorability assumption holds by design]**
+
+  - No systematic differences in observed or unobserved characteristics.
+  
+--
+
+- Under the ignorability assumption, we can just **.darkorange[compare the means of both groups]** to obtain a causal effect
+
+  - $\bar{Y}_T - \bar{Y}_C$ or `lm(y ~ treat)`
+  
+--
+
+- If we want to ensure balance on certain characteristics, we can **.darkorange[stratify]**
+
+  - At the design stage!
+  
 ---
 # Potential issues to have in mind
 
@@ -471,7 +491,15 @@ Limitations of RCTs
 .center[
 ![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/networks5.png)
 ]
-
+---
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+.box-7Trans[Examples where the treatment of one person can affect another one?]
 ---
 # Network effects
 
@@ -485,7 +513,7 @@ Limitations of RCTs
 
 --
 
-  - Note that you will have to **.darkorange[cluster your standard errors]**
+  - Note that you will have to **.darkorange[cluster your standard errors]** (e.g. `lm_robust(y ~ treat, cluster = group)`)
 
 --
 
@@ -519,7 +547,12 @@ Limitations of RCTs
 
 .box-6LA[Check your assumptions and look out for potential issues!]
 
-
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+What if we can't randomize?
+]
 ---
 # What happens when the ignorability assumption doesn't hold?
 
@@ -536,7 +569,7 @@ Limitations of RCTs
 ---
 # What happens if the ignorability assumption doesn't hold?
 
-- Now, let's assume $(Y(0), Y(1)) \not\!\perp\!\!\!\perp Z$
+- If the ignorability assumption doesn't hold, then $(Y(0), Y(1)) \not\!\perp\!\!\!\perp Z$
 
 $$\tau = E[Y_i(1)] - E[Y_i(0)] \neq E[Y_i| Z=1] - E[Y_i| Z=0]$$
 
@@ -554,10 +587,10 @@ $$=E[Y_i(1) - Y_i(0)|Z=1]Pr(Z=1) + E[Y_i(1) - Y_i(0)|Z=0](1-Pr(Z=1))$$
 
 - Now, let's assume $(Y(0), Y(1)) \not\!\perp\!\!\!\perp Z$
 
-$$\tau = E[Y_i(1) - Y_i(0)] = $$
+$$\tau = E[Y_i(1) - Y_i(0)] = ATE =$$
 
 $$=\color{#900DA4}{\underbrace{E[Y_i(1) - Y_i(0)|Z=1]}_\text{ATT}}Pr(Z=1) + \color{#F89441}{\overbrace{E[Y_i(1) - Y_i(0)|Z=0]}^\text{ATC}}(1-Pr(Z=1))$$
-- Weighted average of the ATT and ATC.
+- Weighted average of the Average Treatment on the treated (ATT) and the average treatment on the control (ATC).
 
 ---
 # What happens if the ignorability assumption doesn't hold?
@@ -746,18 +779,22 @@ ggplot(data = d, aes(x = t, y = y0_0)) +
 
 You want to know whether is more convenient to **.darkorange[e-mail]** or **.darkorange[physically mail]** potential customers to increase your subscribers.
 
+- FD sends flyers to potential customers that started the subscription process but never finished.
+
+- FD sends emails to a list of contacts they purchased.
+
 .pull-left[.center[
-![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week6/2_ObsStudies/images/freshdirect_mail.png)]
+![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/freshdirect_mail.png)]
 ]
 
 .pull-right[
 .center[
-![:scale 55%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week6/2_ObsStudies/images/freshdirect_email.jpg)]
+![:scale 55%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/freshdirect_email.jpg)]
 ]
 
 --
 
-- Can we compare take-up between both groups and establish a causal effect?
+- Can we compare subscriptions between both groups and establish a causal effect?
 
 ---
 # Example: Going to Office Hours
@@ -794,18 +831,27 @@ An important question could be: **.darkorange[Does going to office hours increas
 .center[
 <iframe width="560" height="315" src="https://www.youtube.com/embed/qGJMsnGszjs?playlist=qGJMsnGszjs&loop=1&rel=0&showinfo=0&color=white&iv_load_policy=3" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 ]
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Controlling by Confounders
+]
+---
+# Controlling by Confounders
+
+- We can control by a confounder by **.darkorange[including it in our regression]**:
+
+  - After we control for it, we are doing a fair comparison (e.g. *"holding X constant"*)
+  
+--
+
+- But is there another way to control for confounders?
+
+--
+
+.box-6Trans[Matching]
 
 ---
-# Next class
+# Matching
 
-.pull-left[
-- Continue talking about **.darkorange[Observational Studies]**
-
-- Can we use **.darkorange[matching]** for causal effects?
-
-- Introduce **.darkorange[difference-in-differences]**
-]
-
-.pull-right[
-![](https://media.giphy.com/media/jUzczP42fMgE8NxSZ0/giphy.gif)
-]
