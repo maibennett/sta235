@@ -15,6 +15,9 @@ cat("\014")
 library(tidyverse)
 library(estimatr)
 library(modelsummary)
+#install.packages(MatchIt)
+library(MatchIt)
+library(optmatch)
 
 ## Get Out the Vote study
 
@@ -57,9 +60,6 @@ d_sample <- d_s1 %>% filter(state == 1 & competiv == 1)
 
 # Let's do some matching now. We will be using the MatchIt package (it's very complete)
 
-#install.packages(MatchIt)
-library(MatchIt)
-library(optmatch)
 
 # The formula inside matchit() is the treatment (contact, which is different to the treatment assignment) as a function of the covariates. 
 # If we had different strata, you would need to add that, too.
@@ -131,7 +131,7 @@ head(profs)
 # eval: student's evaluation (average score, from 1 to 5)
 
 # We will transform factor variables into binary (numeric) variables. Remember to always check what the base category is!!
-profs <- profs %>% mutate(treat = ifelse(beauty > 0, 1, 0), # create a treatment variable if beauty > 0 and 0 in another case.
+profs <- profs %>% mutate(treat = ifelse(beauty > 0, 1, 0), # create a treatment variable if beauty > 0 and 0 in another case, meaning being "above the mean" beautiful vs below the mean.
                           female = 2 - as.numeric(gender), # Notice that gender has two levels: (1) female and (2) male. First, we transform it to numeric, and then subtract it from 2 (notice that now we will get a binary variable with 1 for female and 0 for male)
                           single_credit = as.numeric(credits)-1,
                           upper_div = as.numeric(division)-1,
