@@ -105,7 +105,9 @@ summary(lm_robust(vote02 ~ contact + persons + vote00 + vote98 + newreg + age + 
 #### EXERCISE #############################################################
 ###########################################################################
 
-# Data for student's evaluations (at the professor level) for UT Austin
+# Data for student's evaluations (at the professor level) for UT Austin.
+
+# Causal question: Do looks have an effect on student's evaluations?
 
 profs <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/data/profs.csv",
                   stringsAsFactors = TRUE)
@@ -117,8 +119,6 @@ head(profs)
 # age: age in years
 # gender: professor's gender
 # credits: single credits or more
-# beauty: beauty rating (normalized to mean 0 SD 1)
-# eval: student's evaluation (average score, from 1 to 5)
 # division: upper or lower division course
 # native: Is the professor a native English speaker?
 # tenure: Does the professor have tenure?
@@ -126,10 +126,13 @@ head(profs)
 # allstudents: Total number of students
 # prof: professor's ID.
 
+# beauty: beauty rating (normalized to mean 0 SD 1)
+
+# eval: student's evaluation (average score, from 1 to 5)
 
 # We will transform factor variables into binary (numeric) variables. Remember to always check what the base category is!!
-profs <- profs %>% mutate(treat = as.numeric(beauty > 0),
-                          female = 2 - as.numeric(gender), # Notice that gender has two levels: (1) female and (2) male. First, we transform it to numeric, and then substract it from 2 (notice that now we will get a binary variable with 1 for female and 0 for male)
+profs <- profs %>% mutate(treat = ifelse(beauty > 0, 1, 0), # create a treatment variable if beauty > 0 and 0 in another case.
+                          female = 2 - as.numeric(gender), # Notice that gender has two levels: (1) female and (2) male. First, we transform it to numeric, and then subtract it from 2 (notice that now we will get a binary variable with 1 for female and 0 for male)
                           single_credit = as.numeric(credits)-1,
                           upper_div = as.numeric(division)-1,
                           native = as.numeric(native)-1,
