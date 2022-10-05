@@ -58,3 +58,10 @@ Why is multicollinearity a problem in regressions?
 What is this strange word and can we see it in data? What are the implications in terms of inference? Let's see!
 
 {{< youtube src="https://www.youtube.com/embed/XCuqj2NvIg0" >}}
+
+
+### Matching Example
+
+Let's go through the code for the GOTV matching example!
+
+{{< youtube src="https://www.youtube.com/embed/luE1igeBXLY" >}}

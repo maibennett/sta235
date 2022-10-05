@@ -72,7 +72,8 @@ d_sample <- d_s1 %>% filter(state == 1 & competiv == 1)
 # This is optional, but I'm asking the function to match exactly on state (meaning, I can only find a treated unit for a control unit within the same state)
 # Finally, I'm also setting a caliper of 0.2. This means that, at most, treated and control matched units can be 0.2 units apart (this will reduce our sample size, but improve the matching)
 
-m1 <- matchit(contact ~ persons + vote00 + vote98 + newreg + age + female2, data = d_sample,
+m1 <- matchit(contact ~ persons + vote00 + vote98 + newreg + 
+                age + female2, data = d_sample,
               method = "nearest", exact = ~ state, caliper = 0.2)
 
 # Let's check balance before and after matching (focus on the first three columns)
