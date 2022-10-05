@@ -60,7 +60,6 @@ What is this strange word and can we see it in data? What are the implications i
 {{< youtube src="https://www.youtube.com/embed/XCuqj2NvIg0" >}}
 
 
-
 ### Matching Example
 
 Let's go through the code for the GOTV matching example!
