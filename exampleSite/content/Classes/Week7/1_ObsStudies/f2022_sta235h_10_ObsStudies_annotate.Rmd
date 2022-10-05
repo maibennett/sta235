@@ -350,6 +350,12 @@ font.add.google("Fira Sans", "Fira Sans")
 - Check out the schedule for **.darkorange[final presentations]**:
 
   - Syllabus > Grading > Project (at the end)
+  
+--
+
+- **.darkorange[49 students]** responded to the survey about HW schedule
+
+  - 60% opted to keep schedule Fri-Fri; 40% opted to change to Mon-Mon.
 
 ---
 # Last week
