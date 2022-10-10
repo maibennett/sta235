@@ -1121,15 +1121,13 @@ ggplot(filter(trends, month <= 4),
 .box-4Trans[Your turn]
 
 ---
-# Group Activity
+# In-Class Activity
 
-- Each group will have a different example
-
-- Go to **.darkorange[stah235.rocks/groupX]** (e.g. group1, group2, ...)
+- Go to **.darkorange[[sta235h.rocks/week8](https://sta235.netlify.app/InClassExercises/STA235H_Week8.html)]**
 
 - Read the brief and answer the questions.
 
-- Write down your answers and **.darkorange[be ready to present to the class]**.
+- Write down your answers and **.darkorange[be ready to particiapte and share with the class]**.
 
 
 ---

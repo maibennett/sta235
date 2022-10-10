@@ -31,7 +31,9 @@ In this fictional scenario, imagine that Netflix is rolling out a policy to rest
 
 They implemented a pilot for this policy in California and New York at the end of May of 2022, and you have a panel of individuals that you surveyed both before (April 2022) and after the rollout (July 2022):
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+
 netflix <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_DiffInDiff/data/netflix.csv")
 ```
 
@@ -49,9 +51,27 @@ Here's the list of variables in your dataset:
 
 1) Create a binary variable `treat` for the states that were part of the pilot (1) and those that were not (0)
 
-2) Compare the characteristics between your treatment and your control group (e.g. income, gender, employment). Do they look balanced?
+2) Create a binary variable `post` that takes the value of 1 if the information was collected after the pilot rollout (May 2022), and 0 in another case.
 
-3) Create a binary variable `post` that takes the value of 1 if the information was collected after the pilot rollout (May 2022), and 0 in another case.
+3) Calculate 4 averages for the outcome of interest: 
 
-4) Fit an appropriate regression for a Diff-in-Diff estimation ($y = \beta_0 + \beta_1Treat + \beta_2Post + \beta_3 Treat \times Post + \varepsilon$). What is the result you get? Interpret the relevant coefficient.
+  - Average for the treatment group before the pilot
+  - Average for the treatment group after the pilot
+  - Average for the control group before the pilot
+  - Average for the control group after the pilot
+  
+You can use the following code as a starting point:
+
+```{r, eval = FALSE}
+netflix %>% filter(treat == 1 & post == 0) %>% summarize(mean_TB = mean(subscribed))
+```
+
+- What was the change in subscriptions before and after the pilot for CA and NY?
+
+- What is the difference in subscriptions between the treatment and the control group in July 2022?
+
+
+4) (If there is time) Compare the characteristics between your treatment and your control group (e.g. income, gender, employment). Do they look balanced?
+
+5) Fit an appropriate regression for a Diff-in-Diff estimation ($y = \beta_0 + \beta_1Treat + \beta_2Post + \beta_3 Treat \times Post + \varepsilon$). What is the result you get? Interpret the relevant coefficient.
 

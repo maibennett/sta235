@@ -29,9 +29,9 @@ income[treat==0 & city =="Other"] <- rtruncnorm(length(income[treat==0 & city ==
 
 employed <- rep(NA,n)
 
-employed[treat==1 & city =="NY"] <- sample(c(0,1), n = length(employed[treat==1 & city =="NY"]), replace = TRUE, prob = c(0.07,0.93))
-employed[treat==1 & city =="CA"] <- sample(c(0,1), n = length(employed[treat==1 & city =="CA"]), replace = TRUE, prob = c(0.05,0.95))
-employed[treat==0 & city =="Other"] <- sample(c(0,1), n = length(employed[treat==0]), replace = TRUE, prob = c(0.1,0.9))
+employed[treat==1 & city =="NY"] <- sample(c(0,1), size = length(employed[treat==1 & city =="NY"]), replace = TRUE, prob = c(0.07,0.93))
+employed[treat==1 & city =="CA"] <- sample(c(0,1), size = length(employed[treat==1 & city =="CA"]), replace = TRUE, prob = c(0.05,0.95))
+employed[treat==0 & city =="Other"] <- sample(c(0,1), size = length(employed[treat==0]), replace = TRUE, prob = c(0.1,0.9))
 
 female <- sample(c(0,1), n, replace = TRUE)
 
