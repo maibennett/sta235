@@ -319,21 +319,21 @@ Two wrongs make a right
 # Problems
 
 .pull-left[
-.box-7[Before vs After]
+.box-7Trans[Before vs After]
 
-.box-6t[Only looking at the treatment group]
+.box-6trans[Only looking at the treatment group]
 
-.box-6t[Impossible to separate changes because of treatment or time]
+.box-6trans[Impossible to separate changes because of treatment or time]
 ]
 
 --
 
 .pull-right[
-.box-7[Treatment vs Control]
+.box-7Trans[Treatment vs Control]
 
-.box-6t[Only looking at post-treatment values]
+.box-6trans[Only looking at post-treatment values]
 
-.box-6t[Impossible to separate changes because of treatment or differences in growth]
+.box-6trans[Impossible to separate changes because of treatment or differences in growth]
 ]
 
 ---
@@ -539,7 +539,7 @@ The idea of a **.darkorange[DD]** analysis is to take the **.darkorange[within-u
 
 --
 
-.box-3[We can use regressions!]
+.box-3trans[We can use regressions!]
 
 --
 
@@ -550,7 +550,7 @@ where `\(Treat = 1\)` for the treatment group, and `\(Post=1\)` for the after pe
 
 --
 
-.box-7[Can you identify the different coefficients?]
+.box-7trans[Can you identify the different coefficients?]
 
 ---
 # Difference-in-Differences in practice
@@ -558,7 +558,7 @@ where `\(Treat = 1\)` for the treatment group, and `\(Post=1\)` for the after pe
 - There's no need to manually estimate all group means..
 
 
-.box-3[We can use regressions!]
+.box-3trans[We can use regressions!]
 
 
 - If the **.darkorange[two dimensions]** for our DD are *time* and *treatment*:
@@ -567,7 +567,54 @@ where `\(Treat = 1\)` for the treatment group, and `\(Post=1\)` for the after pe
 where `\(Treat = 1\)` for the treatment group, and `\(Post=1\)` for the after period.
 
 
-.box-7[&amp;beta;&lt;sub&gt;3&lt;/sub&gt; is the causal effect!]
+.box-7trans[&amp;beta;&lt;sub&gt;3&lt;/sub&gt; is the causal effect!]
+
+---
+# Let's see it with data
+
+
+```
+##   mset    grp   fte    date CHAIN HRSOPEN SHEET treat post
+## 1    1     PA 34.00 feb1992     4    12.0    56     0    0
+## 2    1  NJlow 32.25 feb1992     4    11.5    35     1    0
+## 3    1 NJhigh 17.00 feb1992     4    11.5   291     1    0
+## 4    2     PA 28.50 feb1992     1    18.0   470     0    0
+## 5    2  NJlow 18.25 feb1992     1    17.5   204     1    0
+## 6    2 NJhigh 20.50 feb1992     1    17.0    71     1    0
+```
+
+---
+# Let's see it with data
+
+
+```
+## 
+## Call:
+## lm(formula = fte ~ treat * post, data = minwage)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -16.205  -6.235  -1.086   4.205  46.795 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   23.705      1.112  21.316  &lt; 2e-16 ***
+## treat         -3.647      1.362  -2.678  0.00772 ** 
+## post          -1.879      1.573  -1.195  0.23294    
+## treat:post     2.937      1.926   1.525  0.12809    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 9.034 on 392 degrees of freedom
+## Multiple R-squared:  0.01865,	Adjusted R-squared:  0.01114 
+## F-statistic: 2.484 on 3 and 392 DF,  p-value: 0.06043
+```
+
+- Can you interpret the treatment effect?
+
+--
+
+*"Increasing the minimum wage has an average effect &lt;u&gt;in New Jersey&lt;/u&gt; of 2.9 additional jobs per fast food restaurant (though the effect is not statistically significant at conventional levels)"*
 
 ---
 background-position: 50% 50%
@@ -613,6 +660,12 @@ Diff-in-Diff Assumptions
 &lt;br&gt;
 
 
+&lt;img src="f2022_sta235h_11_DiffInDiff_annotate_files/figure-html/plot-trends-1-back-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;br&gt;
+
+
 &lt;img src="f2022_sta235h_11_DiffInDiff_annotate_files/figure-html/plot-trends-2-back-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
@@ -622,10 +675,18 @@ Diff-in-Diff Assumptions
 &lt;img src="f2022_sta235h_11_DiffInDiff_annotate_files/figure-html/plot-trends-3-back-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
+
 &lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.box-4Trans[Your turn]
 
+---
 
-&lt;img src="f2022_sta235h_11_DiffInDiff_annotate_files/figure-html/plot-trends-1-back-1.svg" style="display: block; margin: auto;" /&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

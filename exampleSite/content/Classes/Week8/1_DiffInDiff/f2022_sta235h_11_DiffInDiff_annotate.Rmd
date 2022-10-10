@@ -820,6 +820,32 @@ where $Treat = 1$ for the treatment group, and $Post=1$ for the after period.
 .box-7trans[&beta;<sub>3</sub> is the causal effect!]
 
 ---
+# Let's see it with data
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
+minwage <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_DiffInDiff/data/min_wage.csv")
+
+minwage <- minwage %>% mutate(treat = ifelse(grp=="PA", 0, 1), # treat group: the treated state
+                              post = ifelse(date=="nov1992", 1, 0)) # post: time after treatment was set in place
+
+head(minwage)
+```
+
+---
+# Let's see it with data
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
+summary(lm(fte ~ treat*post, data = minwage))
+
+```
+
+- Can you interpret the treatment effect?
+
+--
+
+*"Increasing the minimum wage has an average effect <u>in New Jersey</u> of 2.9 additional jobs per fast food restaurant (though the effect is not statistically significant at conventional levels)"*
+
+---
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
@@ -838,7 +864,7 @@ Diff-in-Diff Assumptions
 <br>
 
 ```{r plot-trends-1, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-trends <- expand_grid(state = c("A", "B"), month = 1:6) %>% 
+trends <- expand_grid(state = c("A", "B"), month = 1:4) %>% 
   mutate(income_parallel = case_when(
     state == "A" ~ 100 + 125 * month,
     state == "B" & month <= 3 ~ 100 + 125 * month + 200,
@@ -857,9 +883,9 @@ trends <- expand_grid(state = c("A", "B"), month = 1:6) %>%
   mutate(state = paste0("State ", state))
 hypothetical_end <- lm(income_parallel ~ month, 
                        data = filter(trends, state == "State B", month <= 3)) %>% 
-  broom::augment(newdata = tibble(month = 6)) %>% 
+  broom::augment(newdata = tibble(month = 4)) %>% 
   pull(.fitted)
-actual_end <- filter(trends, state == "State B", month == 6) %>% 
+actual_end <- filter(trends, state == "State B", month == 4) %>% 
   pull(income_parallel)
 dd_trends_1 <- ggplot(trends, aes(x = as.factor(month), y = income_parallel, color = state, group = state)) +
   geom_smooth(data = filter(trends, state == "State B", month <= 3), 
@@ -867,7 +893,7 @@ dd_trends_1 <- ggplot(trends, aes(x = as.factor(month), y = income_parallel, col
               color = "#0074D9", size = 1, linetype = "22") +
   geom_vline(xintercept = 3.5, size = 1) +
   geom_line(size = 3) +
-  geom_segment(aes(x = 6, xend = 6, 
+  geom_segment(aes(x = 4, xend = 4, 
                    y = actual_end, yend = hypothetical_end),
                color = "#FF4136", size = 2) +
   scale_color_manual(values = c("#900DA4", "#FCCE25"), name = NULL) +
@@ -893,9 +919,9 @@ dd_trends_1
 ```{r plot-trends-2, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 hypothetical_end <- lm(income_flat ~ month, 
                        data = filter(trends, state == "State B", month <= 3)) %>% 
-  broom::augment(newdata = tibble(month = 6)) %>% 
+  broom::augment(newdata = tibble(month = 4)) %>% 
   pull(.fitted)
-actual_end <- filter(trends, state == "State B", month == 6) %>% 
+actual_end <- filter(trends, state == "State B", month == 4) %>% 
   pull(income_flat)
 dd_trends_2 <- ggplot(trends, aes(x = as.factor(month), y = income_flat, color = state, group = state)) +
   geom_smooth(data = filter(trends, state == "State B", month <= 3), 
@@ -903,7 +929,7 @@ dd_trends_2 <- ggplot(trends, aes(x = as.factor(month), y = income_flat, color =
               color = "#0074D9", size = 1, linetype = "22") +
   geom_vline(xintercept = 3.5, size = 1) +
   geom_line(size = 3) +
-  geom_segment(aes(x = 6, xend = 6, 
+  geom_segment(aes(x = 4, xend = 4, 
                    y = actual_end, yend = hypothetical_end),
                color = "#FF4136", size = 2) +
   scale_color_manual(values = c("#900DA4", "#FCCE25"), name = NULL) +
@@ -930,9 +956,9 @@ dd_trends_2
 ```{r plot-trends-3, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 hypothetical_end <- lm(income_down ~ month, 
                        data = filter(trends, state == "State B", month <= 3)) %>% 
-  broom::augment(newdata = tibble(month = 6)) %>% 
+  broom::augment(newdata = tibble(month = 4)) %>% 
   pull(.fitted)
-actual_end <- filter(trends, state == "State B", month == 6) %>% 
+actual_end <- filter(trends, state == "State B", month == 4) %>% 
   pull(income_down)
 dd_trends_3 <- ggplot(trends, aes(x = as.factor(month), y = income_down, color = state, group = state)) +
   geom_smooth(data = filter(trends, state == "State B", month <= 3), 
@@ -940,7 +966,7 @@ dd_trends_3 <- ggplot(trends, aes(x = as.factor(month), y = income_down, color =
               color = "#0074D9", size = 1, linetype = "22") +
   geom_vline(xintercept = 3.5, size = 1) +
   geom_line(size = 3) +
-  geom_segment(aes(x = 6, xend = 6, 
+  geom_segment(aes(x = 4, xend = 4, 
                    y = actual_end, yend = hypothetical_end),
                color = "#FF4136", size = 2) +
   scale_color_manual(values = c("#900DA4", "#FCCE25"), name = NULL) +
@@ -973,13 +999,47 @@ dd_trends_3
 <br>
 
 
+```{r plot-trends-1-back, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+hypothetical_start <- filter(trends, state == "State B", month == 2)$income_parallel
+hypothetical_end <- filter(trends, state == "State B", month == 3)$income_parallel
+ggplot(filter(trends, month <= 4),
+       aes(x = month, y = income_parallel, color = state, group = state)) +
+  geom_ribbon(data = filter(trends, state == "State B", month <= 3),
+              aes(x = month, ymin = -Inf, ymax = Inf, color = NULL), 
+              fill = "dark grey", alpha = 0.2) +
+  geom_vline(xintercept = 2, size = 1) +
+  geom_line(size = 3) +
+  ggplot2::annotate(geom = "segment", x = 2, xend = 3,
+                   y = hypothetical_start, yend = hypothetical_end,
+               color = "#0074D9", size = 1, linetype = "22") +
+  scale_color_manual(values = c("#900DA4", "#FCCE25"), name = NULL) +
+  scale_x_continuous(breaks = 1:4) +
+  scale_y_continuous(labels = dollar) +
+  labs(x = "Month", y = "Income") +
+  theme_bw(base_size = 21, base_family = "Fira Sans Condensed")+
+        theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) +
+  
+    theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=18),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+<br>
+
+
 ```{r plot-trends-2-back, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 state_a_start <- filter(trends, state == "State A", month == 1)$income_flat
 state_b_end <- filter(trends, state == "State B", month == 3)$income_flat
 hypothetical_start <- filter(trends, state == "State B", month == 2)$income_flat
 diff_states <-  filter(trends, state == "State B", month == 1)$income_flat - state_a_start
 hypothetical_end <- filter(trends, state == "State A", month == 2)$income_flat + diff_states
-ggplot(filter(trends, month <= 6),
+ggplot(filter(trends, month <= 4),
        aes(x = month, y = income_flat, color = state, group = state)) +
   geom_ribbon(data = filter(trends, state == "State B", month <= 3),
               aes(x = month, ymin = -Inf, ymax = Inf, color = NULL), 
@@ -993,7 +1053,7 @@ ggplot(filter(trends, month <= 6),
                    y = state_b_end, yend = hypothetical_end),
                color = "#FF4136", size = 2, inherit.aes = FALSE) +
   scale_color_manual(values = c("#900DA4", "#FCCE25"), name = NULL) +
-  scale_x_continuous(breaks = 1:6) +
+  scale_x_continuous(breaks = 1:4) +
   scale_y_continuous(labels = dollar) +
   labs(x = "Month", y = "Income") +
   theme_bw(base_size = 21, base_family = "Fira Sans Condensed")+
@@ -1019,7 +1079,7 @@ state_b_end <- filter(trends, state == "State B", month == 3)$income_down
 hypothetical_start <- filter(trends, state == "State B", month == 2)$income_down
 diff_states <-  filter(trends, state == "State B", month == 1)$income_down - state_a_start
 hypothetical_end <- filter(trends, state == "State A", month == 1)$income_down + diff_states
-ggplot(filter(trends, month <= 6),
+ggplot(filter(trends, month <= 4),
        aes(x = month, y = income_down, color = state, group = state)) +
   geom_ribbon(data = filter(trends, state == "State B", month <= 3),
               aes(x = month, ymin = -Inf, ymax = Inf, color = NULL), 
@@ -1033,7 +1093,7 @@ ggplot(filter(trends, month <= 6),
                    y = state_b_end, yend = hypothetical_end),
                color = "#FF4136", size = 2, inherit.aes = FALSE) +
   scale_color_manual(values = c("#900DA4", "#FCCE25"), name = NULL) +
-  scale_x_continuous(breaks = 1:6) +
+  scale_x_continuous(breaks = 1:4) +
   scale_y_continuous(labels = dollar) +
   labs(x = "Month", y = "Income") +
   theme_bw(base_size = 21, base_family = "Fira Sans Condensed")+
@@ -1050,35 +1110,33 @@ ggplot(filter(trends, month <= 6),
 ```
 
 ---
+
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+.box-4Trans[Your turn]
+
+---
+# Group Activity
+
+- Each group will have a different example
+
+- Go to **.darkorange[stah235.rocks/groupX]** (e.g. group1, group2, ...)
+
+- Read the brief and answer the questions.
+
+- Write down your answers and **.darkorange[be ready to present to the class]**.
 
 
-```{r plot-trends-1-back, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-hypothetical_start <- filter(trends, state == "State B", month == 2)$income_parallel
-hypothetical_end <- filter(trends, state == "State B", month == 3)$income_parallel
-ggplot(filter(trends, month <= 6),
-       aes(x = month, y = income_parallel, color = state, group = state)) +
-  geom_ribbon(data = filter(trends, state == "State B", month <= 3),
-              aes(x = month, ymin = -Inf, ymax = Inf, color = NULL), 
-              fill = "dark grey", alpha = 0.2) +
-  geom_vline(xintercept = 2, size = 1) +
-  geom_line(size = 3) +
-  ggplot2::annotate(geom = "segment", x = 2, xend = 3,
-                   y = hypothetical_start, yend = hypothetical_end,
-               color = "#0074D9", size = 1, linetype = "22") +
-  scale_color_manual(values = c("#900DA4", "#FCCE25"), name = NULL) +
-  scale_x_continuous(breaks = 1:6) +
-  scale_y_continuous(labels = dollar) +
-  labs(x = "Month", y = "Income") +
-  theme_bw(base_size = 21, base_family = "Fira Sans Condensed")+
-        theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) +
-  
-    theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=18),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
+---
+# References
+
+- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 2*.
+
+- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 5*.
+
+- Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 8-9: Diff-in-diff I and II, Course at BYU*. 
