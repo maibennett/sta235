@@ -823,9 +823,9 @@ where $Treat = 1$ for the treatment group, and $Post=1$ for the after period.
 # Let's see it with data
 
 ```{r, warning=FALSE, message=FALSE, echo=FALSE}
-minwage <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_DiffInDiff/data/min_wage.csv")
+minwage <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_DiffInDiff/data/minwage.csv")
 
-minwage <- minwage %>% mutate(treat = ifelse(grp=="PA", 0, 1), # treat group: the treated state
+minwage <- minwage %>% mutate(treat = ifelse(location=="PA", 0, 1), # treat group: the treated state
                               post = ifelse(date=="nov1992", 1, 0)) # post: time after treatment was set in place
 
 head(minwage)
@@ -843,7 +843,7 @@ summary(lm(fte ~ treat*post, data = minwage))
 
 --
 
-*"Increasing the minimum wage has an average effect <u>in New Jersey</u> of 2.9 additional jobs per fast food restaurant (though the effect is not statistically significant at conventional levels)"*
+*"Increasing the minimum wage has an average effect <u>in New Jersey</u> of 2.9 additional jobs per fast food restaurant"*
 
 ---
 background-position: 50% 50%

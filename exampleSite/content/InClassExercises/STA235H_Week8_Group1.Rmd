@@ -1,0 +1,39 @@
+---
+title: "Week 8 - In-Class Exercise"
+author: "STA 235H - Fall 2022"
+date: ""
+output: 
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: true
+    css: style.css
+    df_print: "kable"
+---
+<style type="text/css">
+div.main-container {
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media only screen and (max-width: 600px) {
+   body {
+      margin: 0;
+      padding: 0;
+   }
+   .sample {
+      width: 100%;
+   }
+}
+</style>
+
+# Setup
+
+In this fictitional scenario, imagine that Netflix is rolling out a policy to restrict access from multiple devices that are not from a verified subscriber. Their objective is to increase subscriptions by making it more difficult for people to share accounts. 
+
+They implemented a pilot for this policy in California and New York at the end of May of 2022, and you have a panel of individuals that you surveyed both before (April 2022) and after the rollout (July 2022):
+
+```{r}
+netflix <- read.csv()
+```
