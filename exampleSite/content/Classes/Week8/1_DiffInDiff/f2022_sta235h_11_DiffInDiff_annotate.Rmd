@@ -315,6 +315,21 @@ library(knitr)
 library(showtext)
 library(xaringanExtra)
 library(embedr)
+library(knitr)
+library(showtext)
+library(xaringanExtra)
+library(htmltools)
+library(paletteer)
+library(reactable)
+library(htmlwidgets)
+library(webshot2)
+library(tidyverse)
+library(extrafont)
+library(hrbrthemes)
+library(firasans)
+library(kableExtra)
+library(scales)
+library(patchwork)
 
 xaringanExtra::use_scribble()
 
@@ -335,45 +350,44 @@ font.add.google("Fira Sans", "Fira Sans")
 
 #Announcements
 
+.small[
 - **.darkorange[Grades for Homework 3]** will be posted this week.
 
   - Review the Answer Key on the course website.
-
+]
 --
-
+.small[
 - **.darkorange[Midterm will be posted on Friday (12.00pm)]**:
 
   - Take it as an in-class exam (try to finish it in two hours) --> You have 24 hrs.
-  
   - Only clarification questions for the midterm (<u>no questions on Chatter</u>).
-
+]
 --
-
+.small[
 - Reminder that **.darkorange[collaboration on assignments is not permitted]**.
   
   - Every student is responsible for their own work, <u>especially in the Midterm</u>.
-
+]
 --
-
+.small[
 - **.darkorange[Review session this Friday 10am (UTC 3.102)]**.
 
   - Slides will be posted with answers on the course website.
-  
+]
 --
-
+.small[
 - **.darkorange[As a reminder]**:
 
   - Announcements are official communications.
-  
   - Office hours go from 3.30pm - 5.30pm Tue and Thur.
-
+]
 ---
 # Last week
 
 .pull-left[
 
 .center[
-![:scale 100%](https://media.giphy.com/media/8FNlmNPDTo2wE/giphy.gif)]
+![:scale 100%](https://media.giphy.com/media/IPbS5R4fSUl5S/giphy.gif)]
 ]
 
 .pull-right[
@@ -403,7 +417,7 @@ font.add.google("Fira Sans", "Fira Sans")
 ]
 
 .pull-right[
-![](https://media.giphy.com/media/8FNlmNPDTo2wE/giphy.gif)
+![:scale 100%](https://media.giphy.com/media/8FNlmNPDTo2wE/giphy.gif)
 ]
 
 ---
@@ -425,7 +439,7 @@ Recap from last week
   
 --
 
-- Introduced **Observational Studies**:
+- Introduced **.darkorange[Observational Studies]**:
 
   - Matching
   
@@ -452,9 +466,9 @@ Recap from last week
 
 - Treatment assignment is <u>not randomized</u>
 
-- Ignorability assumption holds <u>if we can control/adjust for all confounders</u> (Conditional Independence Assumption, CIA), meaning all confounders are observed,
-  
-  - *After adjusting for covariates*, assignment to treatment is as good as random (*Is this a credible assumption?*).
+- Ignorability assumption holds <u>if we can control for all confounders</u> (assumes all confounders are observed)
+  .small[
+  - *After adjusting for covariates*, assignment to treatment is as good as random (*Is this a credible assumption?*).]
 
 --
 
@@ -546,7 +560,7 @@ Two wrongs make a right
 # The setup
 
 .center[
-![:scale 55%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_DD/images/min_wage_map.png)]
+![:scale 55%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_DiffInDiff/images/min_wage_map.png)]
 
 
 ---
@@ -595,21 +609,21 @@ Two wrongs make a right
 # Problems
 
 .pull-left[
-.box-7[Before vs After]
+.box-7Trans[Before vs After]
 
-.box-6t[Only looking at the treatment group]
+.box-6trans[Only looking at the treatment group]
 
-.box-6t[Impossible to separate changes because of treatment or time]
+.box-6trans[Impossible to separate changes because of treatment or time]
 ]
 
 --
 
 .pull-right[
-.box-7[Treatment vs Control]
+.box-7Trans[Treatment vs Control]
 
-.box-6t[Only looking at post-treatment values]
+.box-6trans[Only looking at post-treatment values]
 
-.box-6t[Impossible to separate changes because of treatment or differences in growth]
+.box-6trans[Impossible to separate changes because of treatment or differences in growth]
 ]
 
 ---
@@ -765,7 +779,7 @@ ggplot(dd_data, aes(x = Time, y = avg, color = Group, group = Group)) +
 # ... And the real plot!
 
 .center[
-![:scale 55%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/2_DD/images/min_wage_plot.png)]
+![:scale 55%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_DiffInDiff/images/min_wage_plot.png)]
 
 
 ---
@@ -775,7 +789,7 @@ ggplot(dd_data, aes(x = Time, y = avg, color = Group, group = Group)) +
 
 --
 
-.box-3[We can use regressions!]
+.box-3trans[We can use regressions!]
 
 --
 
@@ -786,7 +800,7 @@ where $Treat = 1$ for the treatment group, and $Post=1$ for the after period.
 
 --
 
-.box-7[Can you identify the different coefficients?]
+.box-7trans[Can you identify the different coefficients?]
 
 ---
 # Difference-in-Differences in practice
@@ -794,7 +808,7 @@ where $Treat = 1$ for the treatment group, and $Post=1$ for the after period.
 - There's no need to manually estimate all group means..
 
 
-.box-3[We can use regressions!]
+.box-3trans[We can use regressions!]
 
 
 - If the **.darkorange[two dimensions]** for our DD are *time* and *treatment*:
@@ -803,7 +817,7 @@ $$Y_i = \beta_0 + \beta_1Treat_i + \beta_2Post_i + \beta_3Treat_i \times Post_i 
 where $Treat = 1$ for the treatment group, and $Post=1$ for the after period.
 
 
-.box-7[&beta;<sub>3</sub> is the causal effect!]
+.box-7trans[&beta;<sub>3</sub> is the causal effect!]
 
 ---
 background-position: 50% 50%
