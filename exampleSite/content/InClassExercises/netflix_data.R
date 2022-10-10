@@ -48,6 +48,8 @@ netflix <- data.frame(id = c(seq(1:n), seq(1:n)),
                       subscribed = c(subscribed0, subscribed1),
                       survey = c(rep("April2022", n),rep("July2022", n)))
 
+write.csv(netflix, file = "netflix.csv", row.names = FALSE)
+
 netflix <- netflix %>% mutate(treat = ifelse(state=="Other", 0, 1),
                              post = ifelse(survey=="April2022", 0, 1))
 
