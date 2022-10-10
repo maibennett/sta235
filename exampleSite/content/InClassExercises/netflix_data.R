@@ -26,6 +26,15 @@ income[treat==1 & city =="NY"] <- rtruncnorm(length(income[treat==1 & city =="NY
 income[treat==1 & city =="CA"] <- rtruncnorm(length(income[treat==1 & city =="CA"]), a = 10000, b = 400000, mean = 86000, sd = 15000)
 income[treat==0 & city =="Other"] <- rtruncnorm(length(income[treat==0 & city =="Other"]), a = 10000, b = 280000, mean = 63000, sd = 14000)
 
+
+employed <- rep(NA,n)
+
+employed[treat==1 & city =="NY"] <- sample(c(0,1), n = length(employed[treat==1 & city =="NY"]), replace = TRUE, prob = c(0.07,0.93))
+employed[treat==1 & city =="CA"] <- sample(c(0,1), n = length(employed[treat==1 & city =="CA"]), replace = TRUE, prob = c(0.05,0.95))
+employed[treat==0 & city =="Other"] <- sample(c(0,1), n = length(employed[treat==0]), replace = TRUE, prob = c(0.1,0.9))
+
+female <- sample(c(0,1), n, replace = TRUE)
+
 subscribed0 <- rep(NA,n)
 
 subscribed0[treat==0] <- sample(c(0,1), n_control, replace = TRUE, prob = c(0.51,0.49))
@@ -45,6 +54,8 @@ subscribed1[treat==1 & subscribed0==0] <- sample(c(0,1), length(subscribed1[trea
 netflix <- data.frame(id = c(seq(1:n), seq(1:n)),
                       state = c(city, city),
                       income = c(income, income),
+                      employed = c(employed, employed),
+                      female = c(female, female),
                       subscribed = c(subscribed0, subscribed1),
                       survey = c(rep("April2022", n),rep("July2022", n)))
 
