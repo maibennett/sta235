@@ -331,7 +331,7 @@ library(kableExtra)
 library(scales)
 library(patchwork)
 
-xaringanExtra::use_scribble()
+#xaringanExtra::use_scribble()
 
 htmltools::tagList(
   xaringanExtra::use_clipboard(
@@ -1105,25 +1105,6 @@ ggplot(filter(trends, month <= 4),
         title = element_text(size=14))
 ```
 
----
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-.box-4Trans[Your turn]
-
----
-# In-Class Activity
-
-- Go to **.darkorange[[sta235h.rocks/Week8](https://sta235h.rocks/Week8)]**
-
-- Read the brief and answer the questions.
-
-- Write down your answers and **.darkorange[be ready to participate and share with the class]**.
 
 ---
 # Wrapping up

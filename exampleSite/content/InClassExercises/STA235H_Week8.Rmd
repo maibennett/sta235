@@ -45,7 +45,7 @@ Here's the list of variables in your dataset:
 - `employed`: Whether the person is employed (1) or not (0)
 - `female`: Female (1) or male (0)
 - `subscribed`: Whether the person is subscribed to Netflix (1) or not (0)
-- `survey`: Month and year of the survey.
+- `survey`: Month and year of the survey (April2022 or July2022)
 
 ## Tasks
 
