@@ -51,7 +51,15 @@ Here's the list of variables in your dataset:
 
 1) Create a binary variable `treat` for the states that were part of the pilot (1) and those that were not (0)
 
+```{r}
+netflix <- netflix %>% mutate(treat = ifelse(state=="Other", 0, 1))
+```
+
 2) Create a binary variable `post` that takes the value of 1 if the information was collected after the pilot rollout (May 2022), and 0 in another case.
+
+```{r}
+netflix <- netflix %>% mutate(post = ifelse(survey=="April2022", 0, 1))
+```
 
 3) Calculate 4 averages for the outcome of interest: 
 
@@ -63,12 +71,27 @@ Here's the list of variables in your dataset:
 You can use the following code as a starting point:
 
 ```{r, eval = FALSE}
-netflix %>% filter(treat == 1 & post == 0) %>% summarize(mean_TB = mean(subscribed))
+# Treat - Before
+mean_TB = netflix %>% filter(treat == 1 & post == 0) %>% summarize(mean_TB = mean(subscribed)) %>% pull() #pull() transforms a dataframe into a vector or scalar
+
+# Treat - After
+mean_TA = netflix %>% filter(treat == 1 & post == 1) %>% summarize(mean_TA = mean(subscribed)) %>% pull()
+
+# Control - Before
+mean_CB = netflix %>% filter(treat == 0 & post == 0) %>% summarize(mean_CB = mean(subscribed)) %>% pull()
+
+# Control - After
+mean_CA = netflix %>% filter(treat == 0 & post == 1) %>% summarize(mean_CA = mean(subscribed)) %>% pull()
+
 ```
 
 - What was the change in subscriptions before and after the pilot for CA and NY?
 
+`r round(mean_TA-mean_TB,2)` change in the proportion of subscriptors
+
 - What is the difference in subscriptions between the treatment and the control group in July 2022?
+
+`r round(mean_TA-mean_CA,2)` change in the proportion of subscriptors
 
 
 4) (If there is time) Compare the characteristics between your treatment and your control group (e.g. income, gender, employment). Do they look balanced?
