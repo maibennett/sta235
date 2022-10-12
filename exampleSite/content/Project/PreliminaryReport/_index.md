@@ -18,7 +18,7 @@ At this stage, you should have a solid research question, as well as the data to
 
 Most groups will have to clean their data first. Please submit the code you use to clean your data and create the appropriate plots. Make sure your code is in order and runs.
 
-**This is a report, so looks <u>do</u> matter**. Make sure your plots are legible and nice-looking (I suggest picking a color palette and sticking with that throughout your report). Include captions and number all your tables and figures so you can reference them. Use an appropriate number of decimals (depending on what you measure, 1 might not be enough, but 4 or more is usually an overkill!). 
+**This is a report, so looks <u>do</u> matter**. Make sure your plots are legible and nice-looking (I suggest picking a color palette and sticking with that throughout your report). Save your plots or tables from R directly as png or other similar format instead of screenhots. Include captions and number all your tables and figures so you can reference them. Use an appropriate number of decimals (depending on what you measure, 1 might not be enough, but 4 or more is usually an overkill!). 
 
 You must include at least one table and one plot (minimum) in your report. <u>The report cannot exceed 4 pages</u>.
 
