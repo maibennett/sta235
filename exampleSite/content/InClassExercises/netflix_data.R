@@ -42,7 +42,7 @@ subscribed0[treat==0] <- sample(c(0,1), n_control, replace = TRUE, prob = c(0.51
 subscribed0[treat==1] <- sample(c(0,1), n_treat, replace = TRUE, prob = c(0.45,0.55))
 
 
-subscribed1 <- rep(NA,n)
+subscribed1 <- subscribed0
 
 subscribed1[treat==0 & subscribed0==0] <- sample(c(0,1), length(subscribed1[treat==0 & subscribed0==0]), 
                                                                   replace = TRUE, prob = c(0.94,0.05))
