@@ -315,7 +315,7 @@ library(knitr)
 library(showtext)
 library(xaringanExtra)
 
-xaringanExtra::use_scribble()
+#xaringanExtra::use_scribble()
 
 htmltools::tagList(
   xaringanExtra::use_clipboard(
@@ -547,3 +547,6 @@ summary(lm(water_bill ~ treat*post, data = barrels_dd))
 ]
 
 - Interpret the relevant coefficient. 
+
+---
+
