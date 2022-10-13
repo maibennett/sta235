@@ -439,10 +439,20 @@ Your RCT dataset contains the following variables:
 
 These are your results from the RCT:
 
+.small[
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
 
+barrels_rct <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/2_ReviewSession/data/barrels_rct.csv")
+
+barrels_rct$barrel <- factor(barrels_rct$barrel, levels = c("Barrel","No barrel"), labels = c("Yes", "No"))
+
+summary(lm(water_bill ~ barrel, data = barrels_rct))
 
 ```
+]
+
+- Interpret the relevant coefficient.
 
 ---
 # Exercise: Rain Barrels
@@ -478,4 +488,62 @@ These are your results from the RCT:
 
 2) What else could you be missing?
 
+---
+# Exercise: Rain Barrels
 
+These are your results from matching:
+
+.small[
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+library(MatchIt)
+
+barrels_obs <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/2_ReviewSession/data/barrels_observational.csv")
+
+matched <- matchit(barrel_num ~ yard_size + home_garden + attitude_env + temperature, data = barrels_obs)
+
+barrels_matched <- match.data(matched)
+
+summary(lm(water_bill ~ barrel, data = barrels_matched))
+
+```
+]
+
+- Interpret the relevant coefficient.
+
+---
+# Exercise: Rain Barrels
+
+**.darkorange[Context]**
+
+You now realize that there was another neighboring county, Bexar, that implemented this program in 2019, and you have data for all these counties for the period 2018-2019.
+
+You think this would be a great setup for a Diff-in-Diff analysis!
+
+--
+
+1) What would your treatment group be? And your control group?
+
+--
+
+2) What two variables would you need to create and how would you do it?
+
+---
+# Exercise: Rain Barrels
+
+These are your results from diff-in-diff:
+
+.small[
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+library(MatchIt)
+
+barrels_dd <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/2_ReviewSession/data/barrels_dd.csv")
+
+barrels_dd <- barrels_dd %>% mutate(post = ifelse(year == 2019, 1, 0),
+                                    treat = ifelse(county=="Bexar", 1, 0))
+
+summary(lm(water_bill ~ treat*post, data = barrels_matched))
+
+```
+]
+
+- Interpret the relevant coefficient. 
