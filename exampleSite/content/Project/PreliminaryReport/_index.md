@@ -20,7 +20,7 @@ Most groups will have to clean their data first. Please submit the code you use 
 
 **This is a report, so looks <u>do</u> matter**. Make sure your plots are legible and nice-looking (I suggest picking a color palette and sticking with that throughout your report). Save your plots or tables from R directly as png or other similar format instead of screenhots. Include captions and number all your tables and figures so you can reference them. Use an appropriate number of decimals (depending on what you measure, 1 might not be enough, but 4 or more is usually an overkill!). 
 
-You must include at least one table and one plot (minimum) in your report, and no more than 5 figures + tables. <u>The report cannot exceed 2 pages of written text</u> (not counting tables and figures), using 11pt font and 1.5 spacing.
+You must include at least one table and one plot (minimum) in your report, and no more than 5 figures + tables. <u>The report cannot exceed 2 pages of written text</u> (not counting tables and figures), using 11pt font and 1.15 spacing (min).
 
 {{% notice grading %}}
 **Research question:** The question at hand tackles one of the areas covered in this class, it is presented in a clear way, and it is motivated appropriately.<br>
