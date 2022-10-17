@@ -350,806 +350,140 @@ font.add.google("Fira Sans", "Fira Sans")
 
 #Announcements
 
-.small[
-- **.darkorange[Grades for Homework 3]** will be posted this week.
+- Feedback for the **.darkorange[project's idea pitch]** was posted!
 
-  - Review the Answer Key on the course website.
-]
---
-.small[
-- **.darkorange[Midterm will be posted on Friday (12.00pm)]**:
-
-  - Take it as an in-class exam (try to finish it in two hours) --> You have 24 hrs.
-  - Only clarification questions for the midterm (<u>no questions on Chatter</u>).
-]
---
-.small[
-- Reminder that **.darkorange[collaboration on assignments is not permitted]**.
+  - Review the comments and incorporate them moving forward (e.g. switch from causal inference to prediction).
+  - If you have questions, <u>reach out</u>!
+  - Next submission is on Nov 10th (check the website for details)/
   
-  - Every student is responsible for their own work, <u>especially in the Midterm</u>.
-]
 --
-.small[
-- **.darkorange[Review session this Friday 10am (UTC 3.102)]**.
 
-  - Slides will be posted with answers on the course website.
-]
+- Remember that you can **.darkorange[drop an assignment]**:
+
+  - That is meant to be used in any situation you can't submit on time.
+  
 --
-.small[
-- **.darkorange[As a reminder]**:
 
-  - Announcements are official communications.
-  - Office hours go from 3.30pm - 5.30pm Tue and Thur.
-]
+- Office hours on Thursday will start at **.darkorange[4.00pm]**
+
+
 ---
-# Last week
+# Last class
 
 .pull-left[
-
-.center[
-![:scale 100%](https://media.giphy.com/media/IPbS5R4fSUl5S/giphy.gif)]
+- **.darkorange[Natural Experiments]**
+  
+  - How to identify them and how to think about potential confounding.
+  
+- **.darkorange[Difference-in-Differences (DD)]**:
+  
+  - How we can use two wrong estimates to get a right one.
+  
+  - Assumptions behind DD.
+  
+  - Staggered DD: <u>See video for R code review</u>.
 ]
 
 .pull-right[
-- Finished with **.darkorange[randomized controlled trials]**.
-
-  - Limitations in Generalizability and Interference.
-  
-- Introduced **.darkorange[observational studies]**: 
-
-  - Controlling for observable confounders (e.g. matching)
+.center[
+![](https://media.giphy.com/media/1kenyYNFG9wTUyHMjk/giphy-downsized-large.gif)]
 ]
 
 ---
 # Today
 
 .pull-left[
-
-- Talk about other **.darkorange[Observational Studies]**:
-
-  - Natural Experiments
-  
-  - Difference-in-Differences
-  
-- **.darkorange[First half]**: Material
-
-- **.darkorange[Second half]**: You will tackle an exercise.
+.center[
+![](https://media.giphy.com/media/l2Je3qSgOVvFPdaNi/giphy.gif)]
 ]
-
 .pull-right[
-![:scale 100%](https://media.giphy.com/media/8FNlmNPDTo2wE/giphy.gif)
+- **.darkorange[Regression Discontinuity Design (RDD)]**:
+  
+  - How can we use discontinuities to recover causal effects?
+  
+  - Assumptions behind RD designs.
+  
 ]
 
 ---
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
-Recap from last week
-]
----
-# What did we see last week?
-
-- **.darkorange[Limitations in RCTs]**:
-
---
-
-  - Generalizability
-
-  - Breaking SUTVA: Spillover effects and General Equilibrium Effects.
-  
---
-
-- Introduced **.darkorange[Observational Studies]**:
-
-  - Matching
-  
----
-# Identification strategies (designs) we have seen so far...
-
-**.darkorange[Randomized Controlled trials (RCTs)]**
-
---
-
-- Treatment assignment is <u>randomized</u>
-  
-- Ignorability assumption holds by design: Groups are comparable in obs. and unobs. characteristics.
-
---
-
-- Analysis? (i) Check balance and (ii) difference in means.
-
---
-
-**.darkorange[Selection on Observables (Matching, Regressions with covariates)]**:
-
---
-
-- Treatment assignment is <u>not randomized</u>
-
-- Ignorability assumption holds <u>if we can control for all confounders</u> (assumes all confounders are observed)
-  .small[
-  - *After adjusting for covariates*, assignment to treatment is as good as random (*Is this a credible assumption?*).]
-
---
-
-- Analysis? (i) Compare balance before matching, (ii) compare balance after matching, and (iii) difference in means for the matched sample.
-
----
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Is there randomness out there?
+Mind the gap
 ]
 
+---
+# Another identification strategy
+
+- We have seen:
+
+.box-2trans[RCTs]
+
+.box-3trans[Selection on observables]
+
+.box-4trans[Natural experiments]
+
+.box-6trans[Differences-in-Differences]
+
+--
+
+.box-7Trans[Regression Discontinuity Designs]
+
 
 ---
-# Finding "RCTs" in the wild
+# Introduction to Regression Discontinuity Designs
 
-- Given that we can't run RCTs for everything, the next best thing is finding a source of random variation that, for all practical purposes, **.darkorange[would work as an RCT]**
+
+<br>
+<br>
+<br>
+.box-2LA[Regression Discontinuity (RD) Designs]
+--
+<br>
+<br>
+.box-2tL[Arbitrary rules determine treatment assignment]
 
 --
 <br>
 <br>
+.box-3t[E.g.: If you are above a threshold, you are assigned to treatment, and if your below, you are not (or vice versa)]
 
-.box-5LA[Natural Experiments]
-
-.box-5t[You, as a researcher, did not assign units to treatment levels]
---
-
-1. **.darkorange[Random]**: Assignment to an intervention is random (e.g. lottery)
-
-2. **.darkorange[As if random]**: Assignment to an intervention is not random, but it's not correlated with potential outcomes.
-
---
-
-.box-6[Context matters!]
 
 ---
-# Examples of natural experiments
-
-
-- **.darkorange[Oregon Health experiment]**: Lotteries for Medicaid expansion.
-
---
-
-- **.darkorange[Vietnam Draft]**: Impact of military service/education (GI Bill) on earnings.
-  
---
-
-- **.darkorange[Lottery winners]**: Impact of unearned income on labor earnings.
-  
---
-
-- **.darkorange[GreatSchool ranking availability]**: Roll-out between states.
-
---
-
-<br>
-
-.box-7trans[What do we do if we have something like a natural experiment but <u>both our groups are not necessarily balanced</u>?]
-
----
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Two wrongs make a right
-]
-
----
-# Raising the minimum wage
-
-.box-5LA[What happens if we raise the minimum wage]
-
---
-
-.box-5tL[Economic theory says there should be fewer jobs]
-
---
-
-.box-5[New Jersey in 1992]
-
-.box-5[$4.25 → $5.05]
-
----
-# The setup
+# Geographic discontinuities
 
 .center[
-![:scale 55%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_DiffInDiff/images/min_wage_map.png)]
-
-
----
-# Before vs After
-
-.box-2[Avg. # of jobs per fast food restaurant in NJ]
-
---
-
-.box-2tL[New Jersey<sub>before</sub> = 20.44]
-
---
-
-.box-2tL[New Jersey<sub>after</sub> = 21.03]
-
---
-
-.box-2[∆ = 0.59]
-
---
-
-.box-2[Is this a causal effect?]
-
----
-# Treatment vs Control
-
-.box-3[Avg. # of jobs per fast food restaurant]
-
---
-
-.box-3tL[Pennsylvania<sub>after</sub> = 21.17]
-
---
-
-.box-3tL[New Jersey<sub>after</sub> = 21.03]
-
---
-
-.box-3[∆ = -0.14]
-
---
-
-.box-3[Is this a causal effect?]
-
----
-# Problems
-
-.pull-left[
-.box-7Trans[Before vs After]
-
-.box-6trans[Only looking at the treatment group]
-
-.box-6trans[Impossible to separate changes because of treatment or time]
+![](https://raw.githubusercontent.com/andrewheiss/evalf20.classes.andrewheiss.com/master/static/slides/img/10/timezones-1.png)
 ]
 
---
+---
+# Time discontinuities
 
-.pull-right[
-.box-7Trans[Treatment vs Control]
-
-.box-6trans[Only looking at post-treatment values]
-
-.box-6trans[Impossible to separate changes because of treatment or differences in growth]
+.center[
+![:scale 60%](https://raw.githubusercontent.com/andrewheiss/evalf20.classes.andrewheiss.com/master/static/slides/img/10/hospitals-1.png)
 ]
+
+---
+# Voting discontinuities
+
+.center[
+![:scale 55%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week9/1_RDD/images/voting_share.png)]
 
 ---
 
 .center2[
-![:scale 110%](https://media.giphy.com/media/3o85xIO33l7RlmLR4I/giphy.gif)]
-
----
-# Difference-in-Differences
-
-The idea of a **.darkorange[DD]** analysis is to take the **.darkorange[within-unit growth]**...
-
-
-```{r dd-table-growth, echo=FALSE}
-dd <- tribble(
-  ~` `, ~`Pre mean`, ~`Post mean`, ~`∆ <span class='small'>(post − pre)</span>`,
-  "Control", "<b>A</b><br><span class='small'>(never treated)</small>", "<b>B</b><br><span class='small'>(never treated)</small>", "<b>B − A</b>",
-  "Treatment", "<b>C</b><br><span class='small'>(not yet treated)</small>", "<b>D</b><br><span class='small'>(treated)</small>", "<b>D − C</b>",
-  "∆<br><span class='smaller'>(treatment − control)</span>", "<b>A − C</b>", "<b>B − D</b>", "<span class=''><b>(B − A) − (D − C)</b></span> <i>or</i><br><span class=''><b>(B − D) − (A − C)</b></span>"
-)
-dd %>% 
-  kbl(escape = FALSE, align = "cccc") %>% 
-  kable_styling(bootstrap_options = "none") %>% 
-  row_spec(1:2, background = "#FFFFFF") %>% 
-  column_spec(4, background = "#DDDDDD") %>% 
-  row_spec(0, bold = TRUE, background = "#FFC6C6", color = "#CF4446") %>% 
-  column_spec(1, bold = TRUE, background = "#FFC6C6", color = "#CF4446") %>% 
-  row_spec(3, background = "#FFFFFF", color = "#FFFFFF")
-```
-
-.box-5[∆ (post − pre) = <b>within-unit growth</b>]
-
----
-# Difference-in-Differences
-
-... and the **.darkorange[across-group growth]**...
-
-
-```{r dd-table-within, echo=FALSE}
-dd <- tribble(
-  ~` `, ~`Pre mean`, ~`Post mean`, ~`<span class='color-light-5'>∆ <span class='smaller'>(post − pre)</span></span>`,
-  "Control", "<b>A</b><br><span class='small'>(never treated)</small>", "<b>B</b><br><span class='small'>(never treated)</small>", "<b>B − A</b>",
-  "Treatment", "<b>C</b><br><span class='small'>(not yet treated)</small>", "<b>D</b><br><span class='small'>(treated)</small>", "<b>D − C</b>",
-  "∆<br><span class='smaller'>(treatment − control)</span>", "<b>C − A</b>", "<b>D − B</b>", "<span class=''><b>(B − A) − (D − C)</b></span> <i>or</i><br><span class=''><b>(B − D) − (A − C)</b></span>"
-)
-dd %>% 
-  kbl(escape = FALSE, align = "cccc") %>% 
-  kable_styling(bootstrap_options = "none") %>% 
-  row_spec(1:2, background = "#FFFFFF") %>% 
-  row_spec(3, background = "#DDDDDD") %>% 
-  row_spec(0, bold = TRUE, background = "#FFC6C6", color = "#CF4446") %>% 
-  column_spec(1, bold = TRUE, background = "#FFC6C6", color = "#CF4446") %>% 
-  column_spec(4, background = "#FFFFFF", color = "#FFFFFF")
-```
-
-.box-5[∆ (treatment − control) = <b>across-group growth</b>]
-
----
-# Difference-in-Differences
-
-... and **.darkorange[combine them!]**
-
-```{r dd-table-full, echo=FALSE}
-dd <- tribble(
-  ~` `, ~`Pre mean`, ~`Post mean`, ~`∆ <span class='smaller'>(post − pre)</span>`,
-  "Control", "<b>A</b><br><span class='small'>(never treated)</small>", "<b>B</b><br><span class='small'>(never treated)</small>", "<b>B − A</b>",
-  "Treatment", "<b>C</b><br><span class='small'>(not yet treated)</small>", "<b>D</b><br><span class='small'>(treated)</small>", "<b>D − C</b>",
-  "∆<br><span class='smaller'>(treatment − control)</span>", "<b>C − A</b>", "<b>D − B</b>", "<span class='color-5'><b>(D − C) − (B − A)</b></span> <i>or</i><br><span class='color-5'><b>(D − B) − (C − A)</b></span>"
-)
-dd %>% 
-  kbl(escape = FALSE, align = "cccc") %>% 
-  kable_styling(bootstrap_options = "none") %>% 
-  row_spec(1:2, background = "#FFFFFF") %>% 
-  row_spec(3, background = "#DDDDDD") %>% 
-  column_spec(4, background = "#DDDDDD") %>% 
-  row_spec(0, bold = TRUE, background = "#FFC6C6", color = "#CF4446") %>% 
-  column_spec(1, bold = TRUE, background = "#FFC6C6", color = "#CF4446")
-```
-
-.box-5[∆<sub>within units</sub> − ∆<sub>across groups</sub> =<br>Difference-in-differences =<br>causal effect!]
-
----
-# Coming back to New Jersey
-
-<br>
-
-```{r dd-table-numbers, echo=FALSE}
-dd <- tribble(
-  ~` `, ~`Pre mean`, ~`Post mean`, ~`∆ <span class='smaller'>(post − pre)</span>`,
-  "Pennsylvania", "<b>23.33</b><br><span class='small'>A</small>", "<b>21.17</b><br><span class='small'>B</small>", "<b>-2.16</b><br><span class='small'>B − A</small>",
-  "New Jersey", "<b>20.44</b><br><span class='small'>C</small>", "<b>21.03</b><br><span class='small'>D</small>", "<b>0.59</b><br><span class='small'>D − C</small>",
-  "∆<br><span class='smaller'>(NJ − PA)</span>", "<b>-2.89</b><br><span class='small'>C − A</small>", "<b>-0.14</b><br><span class='small'>D − B</small>", "<b>(0.59) − (−2.16) = <br><span class='color-5'>2.76</span></b>"
-)
-dd %>% 
-  kbl(escape = FALSE, align = "cccc") %>% 
-  kable_styling(bootstrap_options = "none") %>% 
-  row_spec(1:2, background = "#FFFFFF") %>% 
-  row_spec(3, background = "#DDDDDD") %>% 
-  column_spec(4, background = "#DDDDDD") %>% 
-  row_spec(0, bold = TRUE, background = "#FFC6C6", color = "#CF4446") %>% 
-  column_spec(1, bold = TRUE, background = "#FFC6C6", color = "#CF4446")
-```
-
----
-# How does it look in a plot?
-
-```{r dd-graph, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-dd_labels <- tribble(
-  ~Group, ~Time, ~label,
-  "Treatment", "Before", "A",
-  "Treatment", "After", "B",
-  "Control", "Before", "C",
-  "Control", "After", "D"
-)
-dd_data <- tribble(
-  ~Group, ~Before, ~Intervention, ~After,
-  "Treatment", 30, 35, 50,
-  "Control",   20, 25, 30
-) %>% 
-  pivot_longer(cols = !Group, names_to = "Time", values_to = "avg") %>% 
-  left_join(dd_labels, by = c("Group", "Time")) %>% 
-  mutate(across(c(Group, Time), ~fct_inorder(.)))
-ggplot(dd_data, aes(x = Time, y = avg, color = Group, group = Group)) +
-  geom_vline(xintercept = "Intervention") +
-  geom_line(size = 3,
-            key_glyph = draw_key_point) +
-  ggplot2::annotate(geom = "segment", x = "Intervention", xend = "After",
-           y = 35, yend = 40, color = "#900DA4", size = 2, linetype = "22") +
-  ggplot2::annotate(geom = "segment", x = "After", xend = "After",
-           y = 40, yend = 50, color = "#FF4136", size = 2) +
-  ggplot2::annotate(geom = "label", x = "After", y = 44, label = "Causal\neffect",
-           family = "Fira Sans Condensed", fontface = "bold", 
-           size = 4, fill = "#FF4136", color = "white") +
-  geom_point(data = filter(dd_data, !is.na(label)), size = 15) +
-  geom_text(aes(label = label), family = "Fira Sans Condensed", 
-            fontface = "bold", size = 9, color = "white") +
-  scale_color_manual(values = c("#900DA4", "#F89441")) +
-  labs(x = NULL, y = "Outcome") +
-  coord_cartesian(ylim = c(15, 55)) +
-    theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) +
-  
-    theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=18),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-# ... And the real plot!
-
-.center[
-![:scale 55%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_DiffInDiff/images/min_wage_plot.png)]
-
-
----
-# Difference-in-Differences in practice
-
-- There's no need to manually estimate all group means..
-
---
-
-.box-3trans[We can use regressions!]
-
---
-
-- If the **.darkorange[two dimensions]** for our DD are *time* and *treatment*:
-
-$$Y_i = \beta_0 + \beta_1Treat_i + \beta_2Post_i + \beta_3Treat_i \times Post_i + \varepsilon_i$$
-where $Treat = 1$ for the treatment group, and $Post=1$ for the after period.
-
---
-
-.box-7trans[Can you identify the different coefficients?]
-
----
-# Difference-in-Differences in practice
-
-- There's no need to manually estimate all group means..
-
-
-.box-3trans[We can use regressions!]
-
-
-- If the **.darkorange[two dimensions]** for our DD are *time* and *treatment*:
-
-$$Y_i = \beta_0 + \beta_1Treat_i + \beta_2Post_i + \beta_3Treat_i \times Post_i + \varepsilon_i$$
-where $Treat = 1$ for the treatment group, and $Post=1$ for the after period.
-
-
-.box-7trans[&beta;<sub>3</sub> is the causal effect!]
-
----
-# Let's see it with data
-
-```{r, warning=FALSE, message=FALSE, echo=TRUE}
-minwage <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_DiffInDiff/data/minwage.csv")
-
-minwage <- minwage %>% mutate(treat = ifelse(location=="PA", 0, 1), # treat group: the treated state
-                              post = ifelse(date=="nov1992", 1, 0)) # post: time after treatment was set in place
-
-head(minwage)
-```
-
----
-# Let's see it with data
-
-.small[
-```{r, warning=FALSE, message=FALSE, echo=TRUE}
-summary(lm(full ~ treat*post, data = minwage))
-
-```
-]
-
-- Can you interpret the treatment effect?
-
---
-.small[
-*"Increasing the minimum wage from $4.25 to $5.05 had an average effect <u>in New Jersey</u> of 2.9 additional jobs per fast food restaurant"*]
-
----
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Diff-in-Diff Assumptions
-]
----
-# Assumptions
-
-.box-3LA[Parallel Trends]
-
---
-
-.box-3tL[In the absence of the intervention, treatment and control group would have changed in the same way]
-
----
-<br>
-
-```{r plot-trends-1, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-trends <- expand_grid(state = c("A", "B"), month = 1:4) %>% 
-  mutate(income_parallel = case_when(
-    state == "A" ~ 100 + 125 * month,
-    state == "B" & month <= 3 ~ 100 + 125 * month + 200,
-    state == "B" & month > 3 ~ 100 + 125 * month + 400
-  )) %>% 
-  mutate(income_flat = case_when(
-    state == "A" ~ 100 + 125 * month,
-    state == "B" & month <= 3 ~ 675,
-    state == "B" & month > 3 ~ 100 + 125 * month + 400
-  )) %>% 
-  mutate(income_down = case_when(
-    state == "A" ~ 100 + 125 * month,
-    state == "B" & month <= 3 ~ 800 - 100 * month + 200,
-    state == "B" & month > 3 ~ 100 + 125 * month + 400
-  )) %>% 
-  mutate(state = paste0("State ", state))
-hypothetical_end <- lm(income_parallel ~ month, 
-                       data = filter(trends, state == "State B", month <= 3)) %>% 
-  broom::augment(newdata = tibble(month = 4)) %>% 
-  pull(.fitted)
-actual_end <- filter(trends, state == "State B", month == 4) %>% 
-  pull(income_parallel)
-dd_trends_1 <- ggplot(trends, aes(x = as.factor(month), y = income_parallel, color = state, group = state)) +
-  geom_smooth(data = filter(trends, state == "State B", month <= 3), 
-              method = "lm", fullrange = TRUE, 
-              color = "#0074D9", size = 1, linetype = "22") +
-  geom_vline(xintercept = 3.5, size = 1) +
-  geom_line(size = 3) +
-  geom_segment(aes(x = 4, xend = 4, 
-                   y = actual_end, yend = hypothetical_end),
-               color = "#FF4136", size = 2) +
-  scale_color_manual(values = c("#900DA4", "#FCCE25"), name = NULL) +
-  scale_y_continuous(labels = dollar) +
-  labs(x = "Month", y = "Income") +
-  theme_bw(base_size = 21, base_family = "Fira Sans Condensed")+
-      theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) +
-  
-    theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=18),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-dd_trends_1
-```
-
----
-<br>
-
-```{r plot-trends-2, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-hypothetical_end <- lm(income_flat ~ month, 
-                       data = filter(trends, state == "State B", month <= 3)) %>% 
-  broom::augment(newdata = tibble(month = 4)) %>% 
-  pull(.fitted)
-actual_end <- filter(trends, state == "State B", month == 4) %>% 
-  pull(income_flat)
-dd_trends_2 <- ggplot(trends, aes(x = as.factor(month), y = income_flat, color = state, group = state)) +
-  geom_smooth(data = filter(trends, state == "State B", month <= 3), 
-              method = "lm", fullrange = TRUE, 
-              color = "#0074D9", size = 1, linetype = "22") +
-  geom_vline(xintercept = 3.5, size = 1) +
-  geom_line(size = 3) +
-  geom_segment(aes(x = 4, xend = 4, 
-                   y = actual_end, yend = hypothetical_end),
-               color = "#FF4136", size = 2) +
-  scale_color_manual(values = c("#900DA4", "#FCCE25"), name = NULL) +
-  scale_y_continuous(labels = dollar) +
-  labs(x = "Month", y = "Income") +
-  theme_bw(base_size = 21, base_family = "Fira Sans Condensed")+
-      theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) +
-  
-    theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=18),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-dd_trends_2
-```
-
----
-<br>
-
-
-```{r plot-trends-3, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-hypothetical_end <- lm(income_down ~ month, 
-                       data = filter(trends, state == "State B", month <= 3)) %>% 
-  broom::augment(newdata = tibble(month = 4)) %>% 
-  pull(.fitted)
-actual_end <- filter(trends, state == "State B", month == 4) %>% 
-  pull(income_down)
-dd_trends_3 <- ggplot(trends, aes(x = as.factor(month), y = income_down, color = state, group = state)) +
-  geom_smooth(data = filter(trends, state == "State B", month <= 3), 
-              method = "lm", fullrange = TRUE, 
-              color = "#0074D9", size = 1, linetype = "22") +
-  geom_vline(xintercept = 3.5, size = 1) +
-  geom_line(size = 3) +
-  geom_segment(aes(x = 4, xend = 4, 
-                   y = actual_end, yend = hypothetical_end),
-               color = "#FF4136", size = 2) +
-  scale_color_manual(values = c("#900DA4", "#FCCE25"), name = NULL) +
-  scale_y_continuous(labels = dollar) +
-  labs(x = "Month", y = "Income") +
-  theme_bw(base_size = 21, base_family = "Fira Sans Condensed")+
-      theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) +
-  
-    theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=18),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-dd_trends_3
-```
-
----
-# Robustness Check
-
-.box-3LA[Parallel Trends]
-
---
-
-.box-3tL[Check by pretending the treatment happened earlier; if there's an effect, there's likely an underlying trend]
-
----
-<br>
-
-
-```{r plot-trends-1-back, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-hypothetical_start <- filter(trends, state == "State B", month == 2)$income_parallel
-hypothetical_end <- filter(trends, state == "State B", month == 3)$income_parallel
-ggplot(filter(trends, month <= 4),
-       aes(x = month, y = income_parallel, color = state, group = state)) +
-  geom_ribbon(data = filter(trends, state == "State B", month <= 3),
-              aes(x = month, ymin = -Inf, ymax = Inf, color = NULL), 
-              fill = "dark grey", alpha = 0.2) +
-  geom_vline(xintercept = 2, size = 1) +
-  geom_line(size = 3) +
-  ggplot2::annotate(geom = "segment", x = 2, xend = 3,
-                   y = hypothetical_start, yend = hypothetical_end,
-               color = "#0074D9", size = 1, linetype = "22") +
-  scale_color_manual(values = c("#900DA4", "#FCCE25"), name = NULL) +
-  scale_x_continuous(breaks = 1:4) +
-  scale_y_continuous(labels = dollar) +
-  labs(x = "Month", y = "Income") +
-  theme_bw(base_size = 21, base_family = "Fira Sans Condensed")+
-        theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) +
-  
-    theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=18),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-<br>
-
-
-```{r plot-trends-2-back, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-state_a_start <- filter(trends, state == "State A", month == 1)$income_flat
-state_b_end <- filter(trends, state == "State B", month == 3)$income_flat
-hypothetical_start <- filter(trends, state == "State B", month == 2)$income_flat
-diff_states <-  filter(trends, state == "State B", month == 1)$income_flat - state_a_start
-hypothetical_end <- filter(trends, state == "State A", month == 2)$income_flat + diff_states
-ggplot(filter(trends, month <= 4),
-       aes(x = month, y = income_flat, color = state, group = state)) +
-  geom_ribbon(data = filter(trends, state == "State B", month <= 3),
-              aes(x = month, ymin = -Inf, ymax = Inf, color = NULL), 
-              fill = "dark grey", alpha = 0.2) +
-  ggplot2::annotate(geom = "segment", x = 2, xend = 3,
-                   y = hypothetical_start, yend = hypothetical_end,
-               color = "#0074D9", size = 1, linetype = "22") +
-  geom_vline(xintercept = 2, size = 1) +
-  geom_line(size = 3) +
-  geom_segment(aes(x = 3, xend = 3,
-                   y = state_b_end, yend = hypothetical_end),
-               color = "#FF4136", size = 2, inherit.aes = FALSE) +
-  scale_color_manual(values = c("#900DA4", "#FCCE25"), name = NULL) +
-  scale_x_continuous(breaks = 1:4) +
-  scale_y_continuous(labels = dollar) +
-  labs(x = "Month", y = "Income") +
-  theme_bw(base_size = 21, base_family = "Fira Sans Condensed")+
-        theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) +
-  
-    theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=18),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-<br>
-
-
-```{r plot-trends-3-back, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-state_a_start <- filter(trends, state == "State A", month == 1)$income_down
-state_b_end <- filter(trends, state == "State B", month == 3)$income_down
-hypothetical_start <- filter(trends, state == "State B", month == 2)$income_down
-diff_states <-  filter(trends, state == "State B", month == 1)$income_down - state_a_start
-hypothetical_end <- filter(trends, state == "State A", month == 1)$income_down + diff_states
-ggplot(filter(trends, month <= 4),
-       aes(x = month, y = income_down, color = state, group = state)) +
-  geom_ribbon(data = filter(trends, state == "State B", month <= 3),
-              aes(x = month, ymin = -Inf, ymax = Inf, color = NULL), 
-              fill = "dark grey", alpha = 0.2) +
-  ggplot2::annotate(geom = "segment", x = 2, xend = 3,
-                   y = hypothetical_start, yend = hypothetical_end,
-               color = "#0074D9", size = 1, linetype = "22") +
-  geom_vline(xintercept = 2, size = 1) +
-  geom_line(size = 3) +
-  geom_segment(aes(x = 3, xend = 3,
-                   y = state_b_end, yend = hypothetical_end),
-               color = "#FF4136", size = 2, inherit.aes = FALSE) +
-  scale_color_manual(values = c("#900DA4", "#FCCE25"), name = NULL) +
-  scale_x_continuous(breaks = 1:4) +
-  scale_y_continuous(labels = dollar) +
-  labs(x = "Month", y = "Income") +
-  theme_bw(base_size = 21, base_family = "Fira Sans Condensed")+
-        theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) +
-  
-    theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=18),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-.box-4Trans[Your turn]
-
----
-# In-Class Activity
-
-- Go to **.darkorange[[sta235h.rocks/Week8](https://sta235h.rocks/Week8)]**
-
-- Read the brief and answer the questions.
-
-- Write down your answers and **.darkorange[be ready to participate and share with the class]**.
-
----
-# Wrapping up
-
-.pull-left[
-- We don't always need **.darkorange[randomization]** to make causal inference
-
-- If we think the **.darkorange[parallel trend assumption holds]**, we can find an Average Treatment Effect for the treated group (ATT)
-
-  - Remember that we can't say anything about the treatment effect for the control group!
-  
-- Next week we will see **.darkorange[more identification strategies.]**
-]
-
-.pull-right[
-.center[
-![](https://media.giphy.com/media/l0HlBenJSVV0Y66aI/giphy.gif)
-]
-
+.box-5LA[You can find discontinuities everywhere!]
 ]
 
 ---
-# References
+# Key Terms
 
-- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 2*.
+.box-4LA[Running/ forcing variable]
 
-- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 5*.
+.box-4t[Index or measure that determines eligibility]
 
-- Heiss, A. (2020). "Program Evaluation for Public Policy". *Class 8-9: Diff-in-diff I and II, Course at BYU*. 
+--
+
+.box-7LA[Cutoff/ cutpoint/ threshold]
+
+.box-7t[Number that formally assigns you to a program or treatment]
