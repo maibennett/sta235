@@ -1,0 +1,52 @@
+---
+title: "Week 9 - In-Class Exercise"
+author: "STA 235H - Fall 2022"
+date: ""
+output: 
+  html_document:
+    css: style.css
+    df_print: "kable"
+---
+<style type="text/css">
+div.main-container {
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media only screen and (max-width: 600px) {
+   body {
+      margin: 0;
+      padding: 0;
+   }
+   .sample {
+      width: 100%;
+   }
+}
+</style>
+
+# Setup
+
+In this fictional scenario, imagine that Netflix is rolling out a policy to restrict access from multiple devices that are not from a verified subscriber. Their objective is to increase subscriptions by making it more difficult for people to share accounts. 
+
+They implemented a pilot for this policy in California and New York at the end of May of 2022, and you have a panel of individuals that you surveyed both before (April 2022) and after the rollout (July 2022):
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+
+netflix <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_DiffInDiff/data/netflix.csv")
+```
+
+Here's the list of variables in your dataset:
+
+- `id`: ID of the individual
+- `state`: State
+- `income`: Yearly income (in US$)
+- `employed`: Whether the person is employed (1) or not (0)
+- `female`: Female (1) or male (0)
+- `subscribed`: Whether the person is subscribed to Netflix (1) or not (0)
+- `survey`: Month and year of the survey (April2022 or July2022)
+
+## Tasks
+
+1) In RDD designs we always have t

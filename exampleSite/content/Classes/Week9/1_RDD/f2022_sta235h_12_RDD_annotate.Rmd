@@ -815,15 +815,15 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 ---
 
 .center2[
-.box-2LA[For what population within my sample am I comparing?]
- 
- or
- 
-.box-2LA[What is the estimand we are estimating?]
+.box-2LA[What population within my sample am I comparing?]
 ]
 
 ---
 .center2[
+.box-2LA[What is the estimand we are estimating?]
+
+--
+
 .box-2LA[Local Average Treatment Effect (LATE) for units at R=c]
 ]
 
@@ -851,9 +851,13 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 
 - Threshold rule **.darkorange[exists]** and cutoff point is **.darkorange[known]**
 
+  - How do we check that? Check that **.darkorange[there is a discontinuity in treatment assignment at the cutoff]**
+
 --
 
 - The running variable $R_i$ is **.darkorange[continuous]** near $c$.
+
+  - How do we check that? Check that **.darkorange[the density of the running variable is smooth across the cutoff]**
 
 --
 
@@ -866,132 +870,6 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 .box-5t[That's the math-y way to say that the only thing that changes right at the cutoff is the treatment assignment!]
 
 ---
-# Potential outcomes need to be smooth across the threshold
-
-```{r po-smooth, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-# Fake program data
-set.seed(1234)
-num_students <- 1000
-tutoring <- tibble(
-  id = 1:num_students,
-  entrance_exam = rbeta(num_students, shape1 = 7, shape2 = 2),
-  exit_exam = rbeta(num_students, shape1 = 5, shape2 = 3)
-) %>% 
-  mutate(entrance_exam = entrance_exam * 100,
-         tutoring = entrance_exam <= 70) %>% 
-  mutate(po = exit_exam * 40 + entrance_exam / 2,
-    exit_exam = exit_exam * 40 + 10 * tutoring + entrance_exam / 2) %>% 
-  mutate(tutoring_fuzzy = ifelse(entrance_exam > 60 & entrance_exam < 80,
-                                 sample(c(TRUE, FALSE), n(), replace = TRUE),
-                                 tutoring)) %>% 
-  mutate(tutoring_text = factor(tutoring, levels = c(FALSE, TRUE),
-                                labels = c("No tutor", "Tutor")),
-         tutoring_fuzzy_text = factor(tutoring_fuzzy, levels = c(FALSE, TRUE),
-                                      labels = c("No tutor", "Tutor"))) %>% 
-  mutate(entrance_centered = entrance_exam - 70)
-
-tutoring$exit_exam[tutoring$entrance_exam>70] = tutoring$exit_exam[tutoring$entrance_exam>70] + 25
-#tutoring$po = tutoring$po + 25
-
-ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
-  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
-  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
-  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
-              method = "loess", size = 2, show.legend = FALSE) +
-  geom_smooth(data = filter(tutoring, entrance_exam > 70),
-              method = "loess", size = 2, show.legend = FALSE) +
-  
-  geom_smooth(data = filter(tutoring, entrance_exam <= 70), aes(x = entrance_exam, y = po + 25),
-              method = "loess", se = FALSE, lty = 2,size = 2, show.legend = FALSE, color = "#900DA4") +
-  geom_smooth(data = filter(tutoring, entrance_exam > 70),aes(x = entrance_exam, y = po + 10),
-              method = "loess", size = 2, se = FALSE, lty = 2, show.legend = FALSE, color = "#F89441") +
-  
-  labs(x = "Running Variable", y = "Outcome") + 
-  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
-  scale_color_manual(values = c("#900DA4", "#F89441")) +
-  theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
-  theme_ipsum_fsc() +
-  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
-        #axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_blank(),
-        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-# Potential outcomes need to be smooth across the threshold
-
-```{r po-not-smooth2, fig.height=5.25, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-# Fake program data
-set.seed(1234)
-num_students <- 1000
-tutoring <- tibble(
-  id = 1:num_students,
-  entrance_exam = rbeta(num_students, shape1 = 7, shape2 = 2),
-  exit_exam = rbeta(num_students, shape1 = 5, shape2 = 3)
-) %>% 
-  mutate(entrance_exam = entrance_exam * 100,
-         tutoring = entrance_exam <= 70) %>% 
-  mutate(po = exit_exam * 40 + entrance_exam / 2,
-    exit_exam = exit_exam * 40 + 10 * tutoring + entrance_exam / 2) %>% 
-  mutate(tutoring_fuzzy = ifelse(entrance_exam > 60 & entrance_exam < 80,
-                                 sample(c(TRUE, FALSE), n(), replace = TRUE),
-                                 tutoring)) %>% 
-  mutate(tutoring_text = factor(tutoring, levels = c(FALSE, TRUE),
-                                labels = c("No tutor", "Tutor")),
-         tutoring_fuzzy_text = factor(tutoring_fuzzy, levels = c(FALSE, TRUE),
-                                      labels = c("No tutor", "Tutor"))) %>% 
-  mutate(entrance_centered = entrance_exam - 70)
-
-tutoring$exit_exam[tutoring$entrance_exam>70] = tutoring$exit_exam[tutoring$entrance_exam>70] + 25
-#tutoring$po = tutoring$po + 25
-
-ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, color = tutoring_text)) +
-  geom_point(size = 4, pch = 21, color = "white", alpha = 0.25) + 
-  geom_vline(xintercept = 70, size = 2, color = "#FFDC00") + 
-  geom_smooth(data = filter(tutoring, entrance_exam <= 70),
-              method = "loess", size = 2, show.legend = FALSE) +
-  geom_smooth(data = filter(tutoring, entrance_exam > 70),
-              method = "loess", size = 2, show.legend = FALSE) +
-  
-  geom_smooth(data = filter(tutoring, entrance_exam <= 70), aes(x = entrance_exam, y = po + 15),
-              method = "loess", se = FALSE, lty = 2,size = 2, show.legend = FALSE, color = "#900DA4") +
-  geom_smooth(data = filter(tutoring, entrance_exam > 70),aes(x = entrance_exam, y = po + 10),
-              method = "loess", size = 2, se = FALSE, lty = 2, show.legend = FALSE, color = "#F89441") +
-  
-  labs(x = "Running Variable", y = "Outcome") + 
-  scale_fill_manual(values = c("#900DA4", "#F89441"), name = NULL) +
-  scale_color_manual(values = c("#900DA4", "#F89441")) +
-  theme_bw(base_size = 28, base_family = "Fira Sans Condensed") +
-  theme_ipsum_fsc() +
-  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
-        #axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_blank(),
-        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-
-.center2[
-.box-2LA[Can you think situations where that could happen?]
-]
-
---
-
-.box-2trans[(e.g. other policy also changes right at that cutoff, people with certain characteristics can manipulate their running variable)]
-
----
 <br>
 <br>
 .box-4LA[How can I check if this assumption holds?]
@@ -1002,12 +880,7 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 
 --
 <br>
-<br>
-**.darkorange[Robustness checks:]**
-
-  - Check density across the cutoff
-  
-  - Check RD for covariates
+.box-4t[... but there are robustness checks (e.g. check covariates at the threshold)]
 
 ---
 background-position: 50% 50%
@@ -1019,25 +892,114 @@ Estimation in practice
 ---
 # How do we actually estimate an RD?
 
-- The simplest way to do this is to fit a regression using **.darkorange[interactions of the treatment variable and the running variable]**:
+- The simplest way to do this is to fit a regression using **.darkorange[an interaction of the treatment variable and the running variable]**:
 
-$$Y_i = \beta_0 + \beta_1(R_i-c) + \beta_2\mathrm{I}[R_i>c] + \beta_3(R_i-c)\mathrm{I}[R_i> c]$$
+$$Y = \beta_0 + \beta_1(R-c) + \beta_2\mathrm{I}[R>c] + \beta_3(R-c)\mathrm{I}[R> c] + \varepsilon$$
 
 ---
 # How do we actually estimate an RD?
 
-- The simplest way to do this is to fit a regression using **.darkorange[interactions of the treatment variable and the running variable]**:
+- The simplest way to do this is to fit a regression using **.darkorange[an interaction of the treatment variable and the running variable]**:
 
-$$Y_i = \beta_0 + \beta_1\color{#900DA4}{\underbrace{(R_i-c)}_\text{Distance to the cutoff}} + \beta_2\mathrm{I}[R_i>c] + \beta_3\color{#900DA4}{\overbrace{(R_i-c)}^\text{Distance to the cutoff}}\mathrm{I}[R_i> c]$$
+$$Y = \beta_0 + \beta_1\color{#900DA4}{\underbrace{(R-c)}_\text{Distance to the cutoff}} + \beta_2\mathrm{I}[R>c] + \beta_3\color{#900DA4}{\overbrace{(R-c)}^\text{Distance to the cutoff}}\mathrm{I}[R> c] + \varepsilon$$
+--
+
+- We can simplify this with new notation:
+
+$$Y_i = \beta_0 + \beta_1R' + \beta_2Z + \beta_3R'\times Z$$
+
+where $Z$ is a binary treatment variable and $R'$ is the running variable centered around the cutoff
 
 .box-2LA[Can you identify these parameters in a plot?]
 
 ---
-# Let's see some examples: Sales using a linear model
+# Let's identify coefficients
+
+```{r rd_coeffs, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+library(truncnorm)
+
+set.seed(100)
+
+n = 200
+
+r = rnorm(n, 0, 40)
+
+y0 = 100 + 0.1*r + rnorm(n, 0, 5)
+
+y1 = y0 + 0.1*r + 10 + rnorm(n, 0 , 2)
+
+z = as.numeric(r>=0)
+
+d = data.frame(r = r[r<0],
+               y = y0[r<0],
+               z = z[r<0]) %>% add_row(data.frame(r = r[r>=0],
+                                                  y = y1[r>=0],
+                                                  z = z[r>=0]))
+
+d <- d %>% mutate(z = factor(z, labels = c("Not Treated", "Treated")))
+
+ggplot(data = d, aes(x = r, y = y, color = z, fill = z)) +
+  geom_point(size = 3, pch = 21) +
+  geom_smooth(method = "lm", se = FALSE, lwd = 1.2) +
+  geom_vline(aes(xintercept = 0), color = "dark grey", lwd = 1.2, lty = 2) +
+  scale_color_manual("Z", values = c("#900DA4", "#F89441")) +
+  scale_fill_manual("Z", values = c(alpha("#900DA4",0.5), alpha("#F89441", 0.5))) +
+  xlab("Running variable centered (R - c)") + ylab("Outcome (Y)") +  
+    theme_ipsum_fsc() +
+      theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=18),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_blank(),
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        legend.position = c(0.1,0.9),
+        title = element_text(size=14))
+```
+
+---
+
+.center2[
+.box-7Trans[Let's see an example]
+]
+
+---
+# Discount and sales
+
+.pull-left[
+
+- You are managing a retail store and notice that sales are low in the mornings, so you want to improve those numbers.
+
+- You decide to give the first 1,000 customers that show up **.darkorange[10% off]**
+
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/CC12bXfpwxyz5kRkmn/giphy.gif)]
+]
+
+---
+# Discounts and sales
+
+1) Can you compare sales for the first 1,000 customers with sales for 1,001-2,001 to get a causal effect?
+
+--
+
+2) Can you compare sales for the first 1,000 customers today vs 1,000 customers yesterday to get a causal effect?
+
+--
+
+3) What could you do to get a causal effect?
+
+
+---
+# RDD on sales using linear models
+
 ```{r, echo = TRUE, eval = FALSE}
 sales <- sales %>% mutate(dist = c-time)
 
-lm(sales ~ dist + treat + dist*treat, data = sales)
+lm(sales ~ dist*treat, data = sales)
 ```
 
 ```{r rd_linear, fig.height=4, fig.width=8, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
@@ -1046,7 +1008,7 @@ sales <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exam
 c = max(sales$time[sales$treat==1])
 sales <- sales %>% mutate(dist = c-time)
 
-lm1 <- lm(sales ~ dist + treat + dist*treat, data = sales)
+lm1 <- lm(sales ~ dist*treat, data = sales)
 
 sales_aug <- broom::augment(lm1, data = sales)
 
@@ -1068,10 +1030,10 @@ ggplot(data = sales_aug, aes(x = time, y = sales)) +
 ```
 
 ---
-# Let's see some examples: Sales using a linear model
+# RDD on sales using linear models
 .small[
 ```{r, echo = TRUE}
-summary(lm(sales ~ dist + treat + dist*treat, data = sales))
+summary(lm(sales ~ dist*treat, data = sales))
 ```
 ]
 
@@ -1081,19 +1043,19 @@ summary(lm(sales ~ dist + treat + dist*treat, data = sales))
 - The previous example just included linear terms, but you can also be more flexible:
 
 
-$$Y_i = \beta_0 + \beta_1f(R_i-c) + \beta_2\mathrm{I}[R_i>c] + \beta_3f(R_i-c)\mathrm{I}[R_i> c]$$
+$$Y = \beta_0 + \beta_1f(R') + \beta_2Z + \beta_3f(R')\times Z + \varepsilon$$
 
    - Where $f$ is any function you want.
    
 ---
 # What happens if we fit a quadratic model?
 ```{r, echo = TRUE, eval = FALSE}
-lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales)
+lm(sales ~ dist*treat + treat*I(dist^2), data = sales)
 ```
 
 ```{r rd_quad, fig.height=4, fig.width=8, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 
-lm2 <- lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales)
+lm2 <- lm(sales ~ dist*treat + treat*I(dist^2), data = sales)
 options(scipen = 0)
 sales_aug <- broom::augment(lm2, data = sales)
 
@@ -1118,7 +1080,7 @@ ggplot(data = sales_aug, aes(x = time, y = sales)) +
 # What happens if we fit a quadratic model?
 .small[
 ```{r, warning=FALSE, message=FALSE}
-summary(lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales))
+summary(lm(sales ~ dist*treat + treat*I(dist^2), data = sales))
 ```
 ]
 
@@ -1127,15 +1089,14 @@ summary(lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data
 ```{r, echo = TRUE, eval = FALSE}
 sales_close <- sales %>% filter(dist>-100 & dist<100)
 
-lm(sales ~ dist + treat + dist*treat + treat, data = sales_close)
-lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales_close)
+lm(sales ~ dist*treat, data = sales_close)
 ```
 
 ```{r rd_close, fig.height=3.5, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 sales_close <- sales %>% filter(dist>-100 & dist<100)
 
-lm1 <- lm(sales ~ dist + treat + dist*treat , data = sales_close)
-lm2 <- lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales_close)
+lm1 <- lm(sales ~ dist*treat , data = sales_close)
+lm2 <- lm(sales ~ dist*treat + treat*I(dist^2), data = sales_close)
 
 options(scipen = 0)
 
@@ -1178,7 +1139,7 @@ g2 <- ggplot(data = sales_aug, aes(x = time, y = sales)) +
         legend.background = element_rect(fill="white",colour ="white"),
         title = element_text(size=14))
 
-g1 + g2
+g1
 ```
 
 ---
@@ -1186,17 +1147,7 @@ g1 + g2
 
 .small[
 ```{r, warning=FALSE, message=FALSE}
-summary(lm(sales ~ dist + treat + dist*treat + treat, data = sales_close))
-```
-]
-
-
----
-# How do they compare?
-
-.small[
-```{r, warning=FALSE, message=FALSE}
-summary(lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data = sales_close))
+summary(lm(sales ~ dist*treat, data = sales_close))
 ```
 ]
 
@@ -1210,17 +1161,12 @@ summary(lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data
   - What bandwidth should we choose? Whole sample? [-100,100]?
   
 .center[
-![:scale 20%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RDD/images/confusion.svg)
+![:scale 20%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week9/1_RDD/images/confusion.svg)
 ]
 --
 
 - There are some ways to address these concerns.
-<br>
-<br>
-.bottom[
-.source[
-.tiny[
-<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>]]]
+
 ---
 # Package `rdrobust`
 
@@ -1235,6 +1181,8 @@ summary(lm(sales ~ dist + I(dist^2) + treat + dist*treat + treat*I(dist^2), data
 - `rdrobust`: Estimation of LATE and opt. bandwidth
 
 - `rdplot`: Plotting RD with nonparametric local polynomial.
+
+- `rddensity`: Check density across the cutoff (from the `rddensity` package)
 
 ---
 # Let's compare with previous parametric results
@@ -1305,65 +1253,19 @@ summary(rdrobust(y = sales$sales, x = sales$time, c = c))
 ]
 
 ---
-# How do we weight observations?
 
-- `rdrobust` uses `rdbwselect()` function (by default) to estimate a data-driven bandwidth (i.e. what observations we are going to use for estimation).
+.center2[
+.box-3Trans[Your turn!]
+]
 
-  - If we use a bandwidth, does this mean that the RD is estimating an effect for that population within the bandwidth?
-  
---
-
-- **.darkorange[Kernels]** are also important in this context:
-
-  - How do I weight observations within the bandwidth (e.g. uniform, triangle)
-  
 ---
-# Observing kernels
+# In-Class Activity
 
-```{r kernels, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+- Go to **.darkorange[[sta235h.rocks/Week9](https://sta235h.rocks/Week9)]**
 
-data <- data.frame(u = c(0,0,1,1,1,1,1,0,0),
-                   t = c(0,0,0,0.5,1,0.5,0,0,0),
-                   r = c(-3,-2,-2,-1,0,1,2,2,3))
+- Read the brief and answer the questions.
 
-g1 <- ggplot(data = data, aes(x = r, y = u)) +
-  geom_line(color = "#F89441", lwd = 2) +
-  geom_vline(aes(xintercept = -2.05), lwd = 1.5, color = "#E16462", lty = 2) +
-  geom_vline(aes(xintercept = 2.05), lwd = 1.5, color = "#E16462", lty = 2) +
-  geom_vline(aes(xintercept = 0), lwd = 1.2, color = "dark grey", lty = 2) +
-  theme_ipsum_fsc() +
-  xlab("Running variable") + ylab("Weights") + ggtitle("Uniform Kernel") + 
-  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
-        #axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size = 10),
-        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size = 10),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-g2 <- ggplot(data = data, aes(x = r, y = t)) +
-  geom_line(color = "#F89441", lwd = 2) +
-  geom_vline(aes(xintercept = -2), lwd = 1.5, color = "#E16462", lty = 2) +
-  geom_vline(aes(xintercept = 2), lwd = 1.5, color = "#E16462", lty = 2) +
-  geom_vline(aes(xintercept = 0), lwd = 1.2, color = "dark grey", lty = 2) +
-  theme_ipsum_fsc() +
-  xlab("Running variable") + ylab("Weights") + ggtitle("Triangle Kernel") + 
-  #guides(fill = guide_legend(reverse = TRUE, override.aes = list(alpha = 1)), color = FALSE) +
-        #axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size = 10),
-        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size = 10),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-g1 + g2
-```
+- Write down your answers and **.darkorange[be ready to participate and share with the class]**.
 
 
 ---
@@ -1385,6 +1287,11 @@ g1 + g2
 ]
 
 .pull-right[
-![](https://media.giphy.com/media/yQF1MwG7u9OvgVAjmr/giphy.gif)
+![](https://media.giphy.com/media/yQF1MwG7u9OvgVAjmr/giphy.gif)]
 
+---
+# References
 
+- Angrist, J. and S. Pischke. (2015). "Mastering Metrics". *Chapter 4*.
+
+- Social Science Research Institute at Duke University. (2015). “Regression Discontinuity: Looking at People on the Edge: Causal Inference Bootcamp”

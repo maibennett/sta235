@@ -330,12 +330,17 @@ Let's get [a bit] math-y...
 &lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/tutoring-limit3-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
+
 .center2[
-.box-2LA[What is the estimand we are estimating?]
+.box-2LA[What population within my sample am I comparing?]
 ]
 
 ---
 .center2[
+.box-2LA[What is the estimand we are estimating?]
+
+--
+
 .box-2LA[Local Average Treatment Effect (LATE) for units at R=c]
 ]
 
@@ -345,17 +350,17 @@ Let's get [a bit] math-y...
 &lt;br&gt;
 &lt;br&gt;
 
-.box-3[Is that what we want?]
+.box-3trans[Is that what we want?]
 
 --
 &lt;br&gt;
 &lt;br&gt;
-.box-5[Probably not ideal, there may not be *any* units with R=c]
+.box-5trans[Probably not ideal, there may not be *any* units with R=c]
 
 --
 &lt;br&gt;
 &lt;br&gt;
-.box-7[... but better LATE than nothing!]
+.box-7trans[... but better LATE than nothing!]
 
 ---
 # Conditions required for identification
@@ -375,23 +380,7 @@ Let's get [a bit] math-y...
 
 --
 
-.box-5t[That's the math-y way to say what most of you answered on the JITT!]
-
----
-# Potential outcomes need to be smooth across the threshold
-
-&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/po-smooth-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-# Potential outcomes need to be smooth across the threshold
-
-&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/po-not-smooth2-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-
-.center2[
-.box-2LA[Can you think situations where that could happen?]
-]
+.box-5t[That's the math-y way to say that the only thing that changes right at the cutoff is the treatment assignment!]
 
 ---
 &lt;br&gt;
@@ -404,12 +393,7 @@ Let's get [a bit] math-y...
 
 --
 &lt;br&gt;
-&lt;br&gt;
-**.darkorange[Robustness checks:]**
-
-  - Check density across the cutoff
-  
-  - Check RD for covariates
+.box-4t[... but there are robustness checks]
 
 ---
 background-position: 50% 50%
@@ -421,29 +405,382 @@ Estimation in practice
 ---
 # How do we actually estimate an RD?
 
-- The simplest way to do this is to fit a regression:
+- The simplest way to do this is to fit a regression using **.darkorange[an interaction of the treatment variable and the running variable]**:
 
-`$$Y_i = \beta_0 + \beta_1(R_i-c) + \beta_2\mathrm{I}[R_i&gt;c] + \beta_3(R_i-c)\mathrm{I}[R_i&gt; c]$$`
+`$$Y = \beta_0 + \beta_1(R-c) + \beta_2\mathrm{I}[R&gt;c] + \beta_3(R-c)\mathrm{I}[R&gt; c] + \varepsilon$$`
 
 ---
 # How do we actually estimate an RD?
 
-- The simplest way to do this is to fit a regression:
+- The simplest way to do this is to fit a regression using **.darkorange[an interaction of the treatment variable and the running variable]**:
 
-`$$Y_i = \beta_0 + \beta_1\color{#900DA4}{\underbrace{(R_i-c)}_\text{Distance to the cutoff}} + \beta_2\mathrm{I}[R_i&gt;c] + \beta_3\color{#900DA4}{\overbrace{(R_i-c)}^\text{Distance to the cutoff}}\mathrm{I}[R_i&gt; c]$$`
----
-# How do we actually estimate an RD?
-
-- The simplest way to do this is to fit a regression:
-
-`$$Y_i = \beta_0 + \beta_1(R_i-c) + \beta_2\color{#F89441}{\underbrace{\mathrm{I}[R_i&gt;c]}_\text{Treatment}} + \beta_3(R_i-c)\color{#F89441}{\overbrace{\mathrm{I}[R_i&gt; c]}^\text{Treatment}}$$`
+`$$Y = \beta_0 + \beta_1\color{#900DA4}{\underbrace{(R-c)}_\text{Distance to the cutoff}} + \beta_2\mathrm{I}[R&gt;c] + \beta_3\color{#900DA4}{\overbrace{(R-c)}^\text{Distance to the cutoff}}\mathrm{I}[R&gt; c] + \varepsilon$$`
 --
 
-- You want to add **.darkorange[flexibility]** for each side of the cutoff.
+- We can simplify this with new notation:
 
---
+`$$Y_i = \beta_0 + \beta_1R' + \beta_2Z + \beta_3R'\times Z$$`
+
+where `\(Z\)` is a binary treatment variable and `\(R'\)` is the running variable centered around the cutoff
 
 .box-2LA[Can you identify these parameters in a plot?]
+
+---
+# Let's identify coefficients
+
+&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/rd_coeffs-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+.center2[
+.box-7Trans[Let's see an example]
+]
+
+---
+# Discount and sales
+
+.pull-left[
+
+- You are managing a retail store and notice that sales are low in the mornings, so you want to improve those numbers.
+
+- You decide to give the first 1,000 customers that show up **.darkorange[10% off]**
+
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/CC12bXfpwxyz5kRkmn/giphy.gif)]
+]
+
+---
+# Discounts and sales
+
+1) Can you compare sales for the first 1,000 customers with sales for 1,001-2,001 to get a causal effect?
+
+--
+
+2) Can you compare sales for the first 1,000 customers today vs 1,000 customers yesterday to get a causal effect?
+
+--
+
+3) What could you do to get a causal effect?
+
+
+---
+# RDD on sales using linear models
+
+
+```r
+sales &lt;- sales %&gt;% mutate(dist = c-time)
+
+lm(sales ~ dist*treat, data = sales)
+```
+
+&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/rd_linear-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# RDD on sales using linear models
+.small[
+
+```r
+summary(lm(sales ~ dist*treat, data = sales))
+```
+
+```
+## 
+## Call:
+## lm(formula = sales ~ dist * treat, data = sales)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -65.738 -13.940   0.051  13.538  76.515 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 178.640954   1.300314  137.38   &lt;2e-16 ***
+## dist          0.205355   0.008882   23.12   &lt;2e-16 ***
+## treat        31.333952   1.842338   17.01   &lt;2e-16 ***
+## dist:treat   -0.200845   0.012438  -16.15   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 20.52 on 1996 degrees of freedom
+## Multiple R-squared:  0.6939,	Adjusted R-squared:  0.6934 
+## F-statistic:  1508 on 3 and 1996 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+---
+# We can be more flexible
+
+- The previous example just included linear terms, but you can also be more flexible:
+
+
+`$$Y = \beta_0 + \beta_1f(R') + \beta_2Z + \beta_3f(R')\times Z + \varepsilon$$`
+
+   - Where `\(f\)` is any function you want.
+   
+---
+# What happens if we fit a quadratic model?
+
+```r
+lm(sales ~ dist*treat + treat*I(dist^2), data = sales)
+```
+
+&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/rd_quad-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# What happens if we fit a quadratic model?
+.small[
+
+```r
+summary(lm(sales ~ dist*treat + treat*I(dist^2), data = sales))
+```
+
+```
+## 
+## Call:
+## lm(formula = sales ~ dist * treat + treat * I(dist^2), data = sales)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -66.090 -13.979   0.239  13.154  76.656 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)      1.698e+02  1.937e+00  87.665  &lt; 2e-16 ***
+## dist            -4.302e-03  3.556e-02  -0.121 0.903725    
+## treat            3.308e+01  2.747e+00  12.041  &lt; 2e-16 ***
+## I(dist^2)       -8.288e-04  1.363e-04  -6.083 1.41e-09 ***
+## dist:treat       1.713e-01  4.964e-02   3.452 0.000569 ***
+## treat:I(dist^2)  2.034e-04  1.877e-04   1.084 0.278554    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 20.23 on 1994 degrees of freedom
+## Multiple R-squared:  0.7029,	Adjusted R-squared:  0.7021 
+## F-statistic: 943.5 on 5 and 1994 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+---
+# What happens if we only look at observations close to c?
+
+```r
+sales_close &lt;- sales %&gt;% filter(dist&gt;-100 &amp; dist&lt;100)
+
+lm(sales ~ dist*treat, data = sales_close)
+lm(sales ~ dist*treat + treat*I(dist^2), data = sales_close)
+```
+
+&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/rd_close-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# How do they compare?
+
+.small[
+
+```r
+summary(lm(sales ~ dist*treat, data = sales_close))
+```
+
+```
+## 
+## Call:
+## lm(formula = sales ~ dist * treat, data = sales_close)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -53.241 -14.764   0.268  12.938  57.811 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 170.84457    2.05528  83.125   &lt;2e-16 ***
+## dist          0.06345    0.03542   1.791   0.0736 .  
+## treat        32.21243    2.93614  10.971   &lt;2e-16 ***
+## dist:treat    0.06909    0.05047   1.369   0.1714    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 20.25 on 782 degrees of freedom
+## Multiple R-squared:  0.5261,	Adjusted R-squared:  0.5243 
+## F-statistic: 289.4 on 3 and 782 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+
+---
+# How do they compare?
+
+.small[
+
+```r
+summary(lm(sales ~ dist*treat + treat*I(dist^2), data = sales_close))
+```
+
+```
+## 
+## Call:
+## lm(formula = sales ~ dist * treat + treat * I(dist^2), data = sales_close)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -50.080 -14.238  -0.463  12.740  54.231 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     163.550012   3.001833  54.483  &lt; 2e-16 ***
+## dist             -0.375526   0.136936  -2.742 0.006240 ** 
+## treat            38.757140   4.316684   8.978  &lt; 2e-16 ***
+## I(dist^2)        -0.004415   0.001331  -3.317 0.000951 ***
+## dist:treat        0.552254   0.195847   2.820 0.004927 ** 
+## treat:I(dist^2)   0.003975   0.001894   2.099 0.036121 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 20.13 on 780 degrees of freedom
+## Multiple R-squared:  0.5328,	Adjusted R-squared:  0.5298 
+## F-statistic: 177.9 on 5 and 780 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+---
+# Potential problems
+
+- There are **.darkorange[many potential problems]** with the previous examples:
+
+  - Which polynomial function should we choose? Linear, quadratic, other?
+  
+  - What bandwidth should we choose? Whole sample? [-100,100]?
+  
+.center[
+![:scale 20%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week9/1_RDD/images/confusion.svg)
+]
+--
+
+- There are some ways to address these concerns.
+&lt;br&gt;
+&lt;br&gt;
+.bottom[
+.source[
+.tiny[
+&lt;div&gt;Icons made by &lt;a href="https://www.freepik.com" title="Freepik"&gt;Freepik&lt;/a&gt; from &lt;a href="https://www.flaticon.com/" title="Flaticon"&gt;www.flaticon.com&lt;/a&gt;&lt;/div&gt;]]]
+---
+# Package `rdrobust`
+
+- Robust Regression Discontinuity introduced by Cattaneo, Calonico, Farrell &amp; Titiunik (2014).
+
+- Use of **.darkorange[local polynomial]** for fit.
+
+- **.darkorange[Data-driven optimal bandwidth]** (bias vs variance).
+
+--
+
+- `rdrobust`: Estimation of LATE and opt. bandwidth
+
+- `rdplot`: Plotting RD with nonparametric local polynomial.
+
+---
+# Let's compare with previous parametric results
+
+
+```r
+rdplot(y = sales$sales, x = sales$time, c = c, 
+       title = "RD plot", x.label = "time", y.label = "sales")
+```
+
+&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/rdplot-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Let's compare with previous parametric results
+
+
+```r
+rdplot(y = sales$sales, x = sales$time, c = c, 
+       title = "RD plot", x.label = "time", y.label = "sales")
+```
+
+.pull-left[
+&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/rdplot2a-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/rdplot2b-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Let's compare with previous parametric results
+
+.small[
+
+```r
+summary(rdrobust(y = sales$sales, x = sales$time, c = c))
+```
+
+```
+## Sharp RD estimates using local polynomial regression.
+## 
+## Number of Obs.                 2000
+## BW type                       mserd
+## Kernel                   Triangular
+## VCE method                       NN
+## 
+## Number of Obs.                 1000         1000
+## Eff. Number of Obs.             202          213
+## Order est. (p)                    1            1
+## Order bias  (q)                   2            2
+## BW est. (h)                  54.304       54.304
+## BW bias (b)                  87.787       87.787
+## rho (h/b)                     0.619        0.619
+## Unique Obs.                    1000         1000
+## 
+## =============================================================================
+##         Method     Coef. Std. Err.         z     P&gt;|z|      [ 95% C.I. ]       
+## =============================================================================
+##   Conventional   -37.434     4.344    -8.618     0.000   [-45.948 , -28.921]   
+##         Robust         -         -    -7.610     0.000   [-48.596 , -28.691]   
+## =============================================================================
+```
+]
+
+---
+
+.center2[
+.box-3Trans[Your turn!]
+]
+
+---
+# In-Class Activity
+
+- Go to **.darkorange[[sta235h.rocks/Week9](https://sta235h.rocks/Week9)]**
+
+- Read the brief and answer the questions.
+
+- Write down your answers and **.darkorange[be ready to participate and share with the class]**.
+
+
+---
+# Takeaway points
+
+.pull-left[
+- RD designs are **.darkorange[great]** for causal inference!
+
+  - Strong internal validity
+  - Number of robustness checks
+  
+- **.darkorange[Limited]** external validity.
+
+- Make sure to check your data:
+
+  - Discontinuity in treatment assignment
+  - Density across the cutoff
+  - Smoothness of covariates
+]
+
+.pull-right[
+![](https://media.giphy.com/media/yQF1MwG7u9OvgVAjmr/giphy.gif)
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
