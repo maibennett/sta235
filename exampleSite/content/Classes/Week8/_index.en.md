@@ -40,6 +40,6 @@ In this class we will continue our talk on observational studies. We will cover 
 
 
 ## Code
-<!--
-Here is the R code we will review in class, with many additional questions! Remember to review it in detail after class <a onclick="ga('send', 'event', 'External-Link','click','code5','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/code/f2021_sta235h_8_RCT.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
--->
+
+Check out the in-class activity we did for this week <a onclick="ga('send', 'event', 'External-Link','click','code8','0','Link');" href="https://sta235h.rocks/Week8" target="_blank" class="btn btn-default">Open<i class="fas  fa-external-link-alt"></i></a>
+
