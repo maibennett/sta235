@@ -27,9 +27,9 @@ div.main-container {
 
 # Setup
 
-Most (if not all) countries have a minimum legal drinking age (MLDA), and people often ask if this makes sense or not. Should the MLDA be higher or lower or even exist at all? One way to think about this is to look at the external benefits of this law, for example in health outcomes or crime.
+Most (if not all) countries have a minimum legal drinking age (MLDA), and people often ask if this makes sense or not. Should the MLDA be higher or lower or even exist at all? One way to think about this is to look at the external benefits of this, for example in health outcomes or crime.
 
-In this exercise, we will be working with real arrest data from the California Department of Justice's Monthly Arrest and Citation register (MACR) between 1979 and 2006 to tackle this question (data is from a paper by Carpenter & Dobkin (2014)).
+In this exercise, we will be working with real arrest data from the California Department of Justice's Monthly Arrest and Citation register (MACR) between 1979 and 2006 (data is from paper by Carpenter & Dobkin (2014)) to tackle this question.
 
 
 ```{r, message=FALSE, warning=FALSE}
@@ -50,21 +50,53 @@ Here's the list of some variables in your dataset:
 - `dump_or_litter`: : Total number of dump or litter arrests
 - `female`: Proportion of female arrests (sim)
 
-*Note: The syntax for `rdrobust()` is the following: `rdd <- rdrobust(data$y, data$r, c = c)`, where `y` is your outcome variable, `r` is your running variable, and `c` is the cutoff value. To see the results, just use `summary(rdd)`*.
-
 ## Tasks
 
-1) Let's start creating the variables we will need! Create a running variable `r` centered around the 21st birthday (*Hint: You will need to use age and subtract the cuoff*), and a treatment variable `treat` that takes the value of 1 if the person can legally drink and 0 in another case.
+1) Let's start creating the variables we will need! Create a running variable `r` centered around the 21st birthday (*Hint: You will need to use age and subtract the cuoff*), and a treatment variable `treat` that takes the value of (1) if the person can legally drink and 0 in another case.
 
+```{r}
+mlda <- mlda %>% mutate(r = age_days - 7670,
+                        treat = ifelse(r>=0, 1, 0))
+```
 
 2) Let's do some robustness checks first to make sure we can fit a RDD. Using `rdplot()`, show a plot for a RDD with `treat` as your outcome and `r` as your running variable. Do you see a discontinuity?
 
+```{r}
+rdplot(mlda$treat, mlda$r, c = 0)
+```
 
 3) Let's do another robustness check, by checking the smoothness of covariates across the threshold. Using `rdplot()` and `rdrobust()`, fit a RDD with `female` as your outcome and `r` as your running variable. Should you see a discontinuity?
+
+```{r}
+rdplot(mlda$female, mlda$r, c = 0)
+```
+
+```{r}
+summary(rdrobust(mlda$female, mlda$r, c = 0))
+```
 
 
 4) Finally, let's calculate an effect! Use a linear model (`lm()`) to estimate the RDD, using `alcohol` as your outcome, and compare it to the results of `rdrobust()`. Include a plot using `rdplot()`. Which one do you think is a better estimate? Interpret your  effect.
 
+```{r}
+lm_rd <- lm(alcohol ~ treat*r, data = mlda)
+
+summary(lm_rd)
+
+summary(rdrobust(mlda$alcohol, mlda$r, c = 0))
+
+rdplot(mlda$alcohol, mlda$r, c = 0)
+```
+
 
 5) Let's check also a crime rate that we don't think would necessarily change discontinuisly at the cutoff: Murder. Conduct the same analysis as before using now `murder` as your outcome. Do you find an effect?
 
+```{r}
+lm_rd <- lm(murder ~ treat*r, data = mlda)
+
+summary(lm_rd)
+
+summary(rdrobust(mlda$murder, mlda$r, c = 0))
+
+rdplot(mlda$murder, mlda$r, c = 0)
+```
