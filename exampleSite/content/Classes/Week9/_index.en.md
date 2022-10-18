@@ -20,11 +20,11 @@ In this class we will finish with our causal inference chapter and tackle our la
 
 
 ## Slides
-<!--
-{{% button href="https://sta235.netlify.app/Classes/Week6/2_ObsStudies/f2022_sta235h_10_ObsStudies.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week6/2_ObsStudies/f2022_sta235h_10_ObsStudies.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week6/2_ObsStudies/f2022_sta235h_10_ObsStudies.html" >}}
--->
+{{% button href="https://sta235.netlify.app/Classes/Week9/1_RDD/f2022_sta235h_12_RDD.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week9/1_RDD/f2022_sta235h_12_RDD.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+
+{{< slides src="https://sta235.netlify.app/Classes/Week9/1_RDD/f2022_sta235h_12_RDD.html" >}}
+
 
 ## Code
 <!--

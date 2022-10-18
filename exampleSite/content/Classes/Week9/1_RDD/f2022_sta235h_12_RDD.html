@@ -5,10 +5,6 @@
     <meta charset="utf-8" />
     <meta name="author" content="McCombs School of Business, UT Austin" />
     <script src="libs/header-attrs/header-attrs.js"></script>
-    <script src="libs/fabric/fabric.min.js"></script>
-    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
     <script src="libs/clipboard/clipboard.min.js"></script>
     <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
@@ -69,12 +65,6 @@ class: center, middle, inverse, title-slide
 - Remember that you can **.darkorange[drop an assignment]**:
 
   - That is meant to be used in any situation you can't submit on time.
-  
---
-
-- In Canvas, all open attempts are submitted by the assignment deadline **.darkorange[for closure.]**
-
-  - If you stop working on your assignment before the submission deadline, penalty doesn't count.
   
 --
 
@@ -248,17 +238,17 @@ Mind the gap
 ---
 # Assignment based on entrance score
 
-&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/tutoring-running-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2022_sta235h_12_RDD_files/figure-html/tutoring-running-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Let's look at the area close to the cutoff
 
-&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/tutoring-running-threshold-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2022_sta235h_12_RDD_files/figure-html/tutoring-running-threshold-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Let's get closer
 
-&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/tutoring-running-threshold-zoomed-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2022_sta235h_12_RDD_files/figure-html/tutoring-running-threshold-zoomed-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 # Causal inference intuition
 
@@ -275,17 +265,17 @@ Mind the gap
 ---
 # Exit exam results according to running variable
 
-&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/tutoring-outcome-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2022_sta235h_12_RDD_files/figure-html/tutoring-outcome-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Fit a regression at the right and left side of the cutoff
 
-&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/tutoring-outcome-lines-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2022_sta235h_12_RDD_files/figure-html/tutoring-outcome-lines-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Fit a regression at the right and left side of the cutoff
 
-&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/tutoring-outcome-edlta-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2022_sta235h_12_RDD_files/figure-html/tutoring-outcome-edlta-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -382,7 +372,7 @@ where `\(Z\)` is a binary treatment variable and `\(R'\)` is the running variabl
 ---
 # Let's identify coefficients
 
-&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/rd_coeffs-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2022_sta235h_12_RDD_files/figure-html/rd_coeffs-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -431,7 +421,7 @@ sales &lt;- sales %&gt;% mutate(dist = c-time)
 lm(income ~ dist*treat, data = sales)
 ```
 
-&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/rd_check-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2022_sta235h_12_RDD_files/figure-html/rd_check-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # RDD on sales using linear models
@@ -441,7 +431,7 @@ lm(income ~ dist*treat, data = sales)
 lm(sales ~ dist*treat, data = sales)
 ```
 
-&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/rd_linear-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2022_sta235h_12_RDD_files/figure-html/rd_linear-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # RDD on sales using linear models
@@ -492,7 +482,7 @@ summary(lm(sales ~ dist*treat, data = sales))
 lm(sales ~ dist*treat + treat*I(dist^2), data = sales)
 ```
 
-&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/rd_quad-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2022_sta235h_12_RDD_files/figure-html/rd_quad-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # What happens if we fit a quadratic model?
@@ -537,7 +527,7 @@ sales_close &lt;- sales %&gt;% filter(dist&gt;-100 &amp; dist&lt;100)
 lm(sales ~ dist*treat, data = sales_close)
 ```
 
-&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/rd_close-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2022_sta235h_12_RDD_files/figure-html/rd_close-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # How do they compare?
@@ -614,7 +604,7 @@ rdplot(y = sales$sales, x = sales$time, c = c,
        title = "RD plot", x.label = "time", y.label = "sales")
 ```
 
-&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/rdplot-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2022_sta235h_12_RDD_files/figure-html/rdplot-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Let's compare with previous parametric results
@@ -626,11 +616,11 @@ rdplot(y = sales$sales, x = sales$time, c = c,
 ```
 
 .pull-left[
-&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/rdplot2a-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2022_sta235h_12_RDD_files/figure-html/rdplot2a-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-&lt;img src="f2022_sta235h_12_RDD_annotate_files/figure-html/rdplot2b-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2022_sta235h_12_RDD_files/figure-html/rdplot2b-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -667,21 +657,6 @@ summary(rdrobust(y = sales$sales, x = sales$time, c = c))
 ## =============================================================================
 ```
 ]
-
----
-
-.center2[
-.box-3Trans[Your turn!]
-]
-
----
-# In-Class Activity
-
-- Go to **.darkorange[[sta235h.rocks/Week9](https://sta235h.rocks/Week9)]**
-
-- Read the brief and answer the questions.
-
-- Write down your answers and **.darkorange[be ready to participate and share with the class]**.
 
 ---
 # Summary
