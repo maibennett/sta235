@@ -381,8 +381,8 @@ look at the external benefits of this law, for example in health
 outcomes or crime.</p>
 <p>In this exercise, we will be working with real arrest data from the
 California Department of Justice’s Monthly Arrest and Citation register
-(MACR) between 1979 and 2006 (data is from paper by Carpenter &amp;
-Dobkin (2014)) to tackle this question.</p>
+(MACR) between 1979 and 2006 to tackle this question (data is from a
+paper by Carpenter &amp; Dobkin (2014)).</p>
 <pre class="r"><code>library(tidyverse)
 library(rdrobust)
 
@@ -427,7 +427,8 @@ discontinuity?</p></li>
 (<code>lm()</code>) to estimate the RDD, using <code>alcohol</code> as
 your outcome, and compare it to the results of <code>rdrobust()</code>.
 Include a plot using <code>rdplot()</code>. Which one do you think is a
-better estimate? Interpret your effect.</p></li>
+better estimate? Interpret your effect. (<em>Note:
+<code>rdrobust() assumes people above the cutoff are treated and people below the cutoff are not, so take this into account when interpreting the sign of your effect</code></em>)</p></li>
 <li><p>Let’s check also a crime rate that we don’t think would
 necessarily change discontinuisly at the cutoff: Murder. Conduct the
 same analysis as before using now <code>murder</code> as your outcome.

@@ -63,7 +63,7 @@ Here's the list of some variables in your dataset:
 3) Let's do another robustness check, by checking the smoothness of covariates across the threshold. Using `rdplot()` and `rdrobust()`, fit a RDD with `female` as your outcome and `r` as your running variable. Should you see a discontinuity?
 
 
-4) Finally, let's calculate an effect! Use a linear model (`lm()`) to estimate the RDD, using `alcohol` as your outcome, and compare it to the results of `rdrobust()`. Include a plot using `rdplot()`. Which one do you think is a better estimate? Interpret your  effect.
+4) Finally, let's calculate an effect! Use a linear model (`lm()`) to estimate the RDD, using `alcohol` as your outcome, and compare it to the results of `rdrobust()`. Include a plot using `rdplot()`. Which one do you think is a better estimate? Interpret your  effect. (*Note: `rdrobust() assumes people above the cutoff are treated and people below the cutoff are not, so take this into account when interpreting the sign of your effect`*)
 
 
 5) Let's check also a crime rate that we don't think would necessarily change discontinuisly at the cutoff: Murder. Conduct the same analysis as before using now `murder` as your outcome. Do you find an effect?
