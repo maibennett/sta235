@@ -27,26 +27,36 @@ div.main-container {
 
 # Setup
 
-In this fictional scenario, imagine that Netflix is rolling out a policy to restrict access from multiple devices that are not from a verified subscriber. Their objective is to increase subscriptions by making it more difficult for people to share accounts. 
+Most (if not all) countries have a minimum legal drinking age (MLDA), and people often ask if this makes sense or not. Should the MLDA be higher or lower or even exist at all? One way to think about this is to look at the external benefits of this, for example in health outcomes or crime.
 
-They implemented a pilot for this policy in California and New York at the end of May of 2022, and you have a panel of individuals that you surveyed both before (April 2022) and after the rollout (July 2022):
+In this exercise, we will be working with real arrest data from the California Department of Justice's Monthly Arrest and Citation register (MACR) between 1979 and 2006 (data is from paper by Carpenter & Dobkin (2014)) to tackle this question.
+
 
 ```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
+library(rdrobust)
+library(rddensity)
 
-netflix <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_DiffInDiff/data/netflix.csv")
+mlda <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/InClassExercises/data/mlda.csv")
 ```
 
-Here's the list of variables in your dataset:
+Here's the list of some variables in your dataset:
 
-- `id`: ID of the individual
-- `state`: State
-- `income`: Yearly income (in US$)
-- `employed`: Whether the person is employed (1) or not (0)
-- `female`: Female (1) or male (0)
-- `subscribed`: Whether the person is subscribed to Netflix (1) or not (0)
-- `survey`: Month and year of the survey (April2022 or July2022)
+- `age_days`: Age of the people arrested, in days (we will assume 7670 days = 21 years)
+- `all`: Total number of arrests
+- `felony`: Total number of felonies arrests
+- `murder`: Total number of murder arrests
+- `ill_drugs`: Total number of illegal drugs arrests
+- `alcohol`: Total number of arrests related to alcohol
+- `dump_or_litter`: : Total number of dump or litter arrests
+- `female`: Total number of female arrests (sim)
 
 ## Tasks
 
-1) In RDD designs we always have t
+1) Let's start creating the variables we will need! Create a running variable `r` centered around the 21st birthday (*Hint: You will need to use age and subtract the cuoff*), and a treatment variable `treat` that takes the value of (1) if the person can legaly drink and 0 in another case.
+
+```{r}
+mlda <- mlda %>% mutate(r = age_days - 7670,
+                        treat = ifelse(r>=0, 1, 0))
+```
+
