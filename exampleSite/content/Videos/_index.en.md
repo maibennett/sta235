@@ -65,3 +65,10 @@ What is this strange word and can we see it in data? What are the implications i
 Let's go through the code for the GOTV matching example!
 
 {{< youtube src="https://www.youtube.com/embed/luE1igeBXLY" >}}
+
+
+### RDD Example
+
+Let's go through the code for the RDD example for minimum legal drinking age and arrests.
+
+{{< youtube src="https://www.youtube.com/embed/O8zM5OCFlhI" >}}
