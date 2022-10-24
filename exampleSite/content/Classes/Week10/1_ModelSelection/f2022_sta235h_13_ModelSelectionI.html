@@ -5,10 +5,6 @@
     <meta charset="utf-8" />
     <meta name="author" content="McCombs School of Business, UT Austin" />
     <script src="libs/header-attrs/header-attrs.js"></script>
-    <script src="libs/fabric/fabric.min.js"></script>
-    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
     <script src="libs/clipboard/clipboard.min.js"></script>
     <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
@@ -74,27 +70,6 @@ class: center, middle, inverse, title-slide
   - Importance of **.darkorange[doing the coding exercises]**
 
 ]
-
----
-# JITT 9: Regression discontinuity design
-
-- **.darkorange[RDD]** allows us to compare people &lt;u&gt;exactly at the cutoff&lt;/u&gt; if they were treated vs not treated, and estimate a **.darkorange[Local Average Treatment Effect]** (LATE) for those units.
-
---
-
-- In the example for the JITT, the treatment is **.darkorange[being legally able to drink]** (and the control is *not* being legally able to drink).
-
---
-
-- The code you had to run is: `summary(rdrobust(mlda$all, mlda$r, c = 0))`
-
-  - In this case, remember that `all` is our outcome (total number of arrests), `r` is our *centered* running variable (age minus the cutoff), and `c = 0` is our cutoff (remember that `r` is centered around 0, so the cutoff is 0 and not 7670).
-  
-  - You have to look at the coefficient in the table (`Conventional`)... and remember to also look at the p-value!
-  
---
-
-- *"On average, for individuals with exactly 21 years of age, being legally able to drink decreases the total number of arrests by 287, compared to not being legally able to drink"*
 
 ---
 # Introduction to prediction
@@ -265,22 +240,22 @@ Different measures:
 ---
 # Is flexibility always better?
 
-&lt;img src="f2022_sta235h_13_ModelSelectionI_annotate_files/figure-html/bias_variance-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2022_sta235h_13_ModelSelectionI_files/figure-html/bias_variance-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Is flexibility always better?
 
-&lt;img src="f2022_sta235h_13_ModelSelectionI_annotate_files/figure-html/bias_variance2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2022_sta235h_13_ModelSelectionI_files/figure-html/bias_variance2-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Is flexibility always better?
 
-&lt;img src="f2022_sta235h_13_ModelSelectionI_annotate_files/figure-html/bias_variance3-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2022_sta235h_13_ModelSelectionI_files/figure-html/bias_variance3-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Is flexibility always better?
 
-&lt;img src="f2022_sta235h_13_ModelSelectionI_annotate_files/figure-html/bias_variance4-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2022_sta235h_13_ModelSelectionI_files/figure-html/bias_variance4-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Example: Let's predict pre-churn!
@@ -606,20 +581,6 @@ coef(lm.fwd$finalModel, lm.fwd$bestTune$nvmax)
 ```
 ]
 
----
-
-.center2[
-.box-7Trans[Your Turn]
-]
-
----
-# In-class Activity
-
-- Go to **.darkorange[https://sta235h.rocks/Week10]** and read the exercise.
-
-- Answer the questions in the activity and write them in your sheet.
-
-- Submit your sheet at the end of the class.
 
 ---
 # Takeaway points
