@@ -60,9 +60,15 @@ Here's the list of some variables in your dataset:
 **Q3: How many observations with Response = 1 do you have? And with Response = 0?**
 
 
+```{r}
+marketing <- marketing %>% select(-Customer) %>% mutate(Response = ifelse(Response=="No", 0, 1))
+
+marketing %>% select(Response) %>% table()
+```
+
 2) We will also need to transform our predictors into factor variables, when needed (prediction models tend not to like character variables). Use the following code and look at your data. What happened here?
 
-```{r, eval = FALSE}
+```{r}
 #head(marketing)
 
 marketing <- marketing %>% mutate_if(is.character, as.factor)
@@ -72,12 +78,12 @@ marketing <- marketing %>% mutate_if(is.character, as.factor)
 
 **Q4: How many observations does your testing dataset have?**
 
-```{r, eval = FALSE}
+```{r}
 set.seed(100)
 
-n <- #COMPLETE
+n <- nrow(marketing)
 
-train <- sample() #COMPLETE
+train <- sample(1:n, nrow(marketing)*0.8)
 
 train.data <- marketing %>% slice(train)
 test.data <- marketing %>% slice(-train)
@@ -87,22 +93,22 @@ test.data <- marketing %>% slice(-train)
 
 **Q5: What is the RMSE of the model on the testing dataset?**
 
-```{r, eval = FALSE}
-lm_clv <- lm() #COMPLETE THE MODEL. NOTE: Pay special attention to what data you should be using
+```{r}
+lm_clv <- lm(Customer.Lifetime.Value ~ . - Response, data = train.data)
 
-rmse() #COMPLETE
+rmse(lm_clv, test.data)
 ```
 
 5) Run the same model, but now use a cross-validation approach with 5-folds. In this case, you can use the entire dataset for this.
 
 **Q6: Is your RMSE better with this approach or the last one?**
 
-```{r, eval = FALSE}
+```{r}
 set.seed(100)
 
-train.control <- trainControl() #COMPLETE
+train.control <- trainControl(method = "cv", number = 5)
 
-lm_clv_cv <- train(   , data = marketing, method="lm", trControl = train.control) #COMPLETE THE FORMULA
+lm_clv_cv <- train(Customer.Lifetime.Value ~ . - Response, data = marketing, method="lm", trControl = train.control)
 
 lm_clv_cv
 
@@ -114,14 +120,14 @@ coef(lm_clv_cv$finalModel)
 
 6) Finally, let's do a (forward) Stepwise selection model (using again a 5-fold CV). Remember that you need to identify how many predictors we have in this case (and factor variables count for more than 1 depending on the number of levels!):
 
-```{r, eval = FALSE}
+```{r}
 set.seed(100)
 
-nvars <- length(lm_clv_cv$coefnames) #This could be one way of doing it... Q: How many variables do we have (max)?
+nvars <- length(lm_clv_cv$coefnames)
   
-train.control <- trainControl() #COMPLETE
+train.control <- trainControl(method = "cv", number = 5) #set up a 10-fold cv
 
-lm.fwd <- train( , data = marketing, method = "leapForward",
+lm.fwd <- train(Customer.Lifetime.Value ~ . - Response, data = marketing, method = "leapForward",
                 tuneGrid = data.frame(nvmax = 1:nvars), trControl = train.control)
 
 lm.fwd$bestTune #This is the number of variables we will be using
