@@ -966,7 +966,7 @@ pred_complex_test <- lm_complex %>% predict(test.data, type="response")
 ```
 
 ```{r, echo=TRUE}
-hbo <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week9/1_ModelSelection/data/hbomax.csv")
+hbo <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/data/hbomax.csv")
 
 head(hbo)
 ```
@@ -976,14 +976,14 @@ head(hbo)
 
 - **.darkorange[Simple Model]**:
 
-  $$logins = \beta_0 + \beta_1\times GoT + \beta_2 \times city + \varepsilon_i$$
+  $$logins = \beta_0 + \beta_1\times GoT + \beta_2 \times city + \varepsilon$$
   
 - **.darkorange[Complex Model]**:
 
 $$
 \begin{aligned}
 logins =& \beta_0 + \beta_1\times GoT + \beta_2\times age + \beta_3\times age^2 +\\
-&\beta_4\times city + \beta_5\times female + \varepsilon_i
+&\beta_4\times city + \beta_5\times female + \varepsilon
 \end{aligned}
 $$
 
@@ -1131,7 +1131,7 @@ set.seed(100)#<<
 
 train.control <- trainControl(method = "cv", number = 10)
 
-lm_simple <- train(logins ~ got + city, data = disney, method="lm", trControl = train.control) #<<
+lm_simple <- train(logins ~ got + city, data = hbo, method="lm", trControl = train.control) #<<
 
 lm_simple
 ```
@@ -1171,7 +1171,7 @@ set.seed(100)
 
 train.control <- trainControl(method = "cv", number = 10) #set up a 10-fold cv
 
-lm.fwd <- train(logins ~ . - unsubscribe, data = disney, method = "leapForward",#<< 
+lm.fwd <- train(logins ~ . - unsubscribe, data = hbo, method = "leapForward",#<< 
                 tuneGrid = data.frame(nvmax = 1:5), trControl = train.control)#<<
 lm.fwd$results
 ```
