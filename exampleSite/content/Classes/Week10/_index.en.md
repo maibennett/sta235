@@ -28,16 +28,16 @@ In this class, we wil swith gears and start with our prediction chapter. We’ll
 
 
 ## Slides
-<!--
-{{% button href="https://sta235.netlify.app/Classes/Week6/2_ObsStudies/f2022_sta235h_10_ObsStudies.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week6/2_ObsStudies/f2022_sta235h_10_ObsStudies.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week6/2_ObsStudies/f2022_sta235h_10_ObsStudies.html" >}}
--->
+{{% button href="https://sta235.netlify.app/Classes/Week10/1_ModelSelection/f2022_sta235h_13_ModelSelectionI.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week10/1_ModelSelection/f2022_sta235h_13_ModelSelectionI.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+
+{{< slides src="https://sta235.netlify.app/Classes/Week10/1_ModelSelection/f2022_sta235h_13_ModelSelectionI.html" >}}
+
 
 ## Code
-<!--
-Here is the R code we will review in class, with many additional questions! Remember to review it in detail after class <a onclick="ga('send', 'event', 'External-Link','click','code5','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/code/f2021_sta235h_8_RCT.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
--->
+
+Here is the R code we will review in class, with many additional questions! Remember to review it in detail after class <a onclick="ga('send', 'event', 'External-Link','click','code5','0','Link');" href="https://sta235.netlify.app/Classes/Week10/1_ModelSelection/code/f2022_sta235h_8_prediction1.html" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+
 
 
 ## Additional Materials
