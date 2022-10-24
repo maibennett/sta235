@@ -22,6 +22,9 @@ Most groups will have to clean their data first. Please submit the code you use 
 
 You must include at least one table and one plot (minimum) in your report, and no more than 5 figures + tables. <u>The report cannot exceed 2 pages of written text</u> (not counting tables and figures), using 11pt font and 1.15 spacing (min).
 
+Check out the [Useful R Code](https://sta235.netlify.app/usefulrcode/sta235h_useful_r_code) material posted on the course website, to see how you can make good tables. Remember that your tables and plots always need to convay the message you want, so pay special attention to the labels, variable names, units, etc.
+
+
 {{% notice grading %}}
 **Research question:** The question at hand tackles one of the areas covered in this class, it is presented in a clear way, and it is motivated appropriately.<br>
 **Data description:** Appropriate plots and tables showing the relevant data.<br>

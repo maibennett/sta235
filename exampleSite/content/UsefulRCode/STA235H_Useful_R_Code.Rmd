@@ -228,6 +228,7 @@ d %>% group_by(mfr) %>% summarize(n_cereals = n(),
 <br>
 From the previous code, you can see that now we are creating two new variables: `n_cereals`, which is the number of different cereals in our dataset *by manufacturer*, and `mean_calories`, which captures the average calories of cereals made by that manufacturer.
 
+
 ## Cleaning data
 
 One important task (and usually the one that takes the most time) is cleaning your data. In this section, we will review some of the main functions you will need to remove observations, create new variables, change existing ones, etc.
@@ -317,6 +318,21 @@ sumtable(cereal, digits = 2, title = "Summary statistics for Cereal Data")
 cereal <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/data/cereal.csv")
 
 tab <- sumtable(cereal, digits = 2, 
+                title = "Summary statistics for Cereal Data", 
+                out = "return")
+
+tab %>% kbl() %>%
+  kable_paper("hover", full_width = F)
+```
+
+You might also want to have nice looking tables for a report, so renaming your variables might be a good idea (for the table). For example, you can do it as following:
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE, align = 'center'}
+cereal_select <- cereal %>% select(name, type, calories, protein, fat, sodium, sugars)
+
+names(cereal_select) <- c("Cereal Name", "Type of Cereal", "Calories (Kca)", "Protein (grs)", "Fat (grs)", "Sodium (mgrs)", "Sugars (grs)")
+
+tab <- sumtable(cereal_select, digits = 2, 
                 title = "Summary statistics for Cereal Data", 
                 out = "return")
 
