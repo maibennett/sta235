@@ -1,5 +1,5 @@
 ---
-title: Week 11 - 10/30
+title: Week 11 - 10/31
 weight: 55
 disableToc: true
 ---

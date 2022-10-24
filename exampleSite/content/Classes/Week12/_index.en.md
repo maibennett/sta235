@@ -1,26 +1,26 @@
 ---
-title: Week 11 - 10/30
+title: Week 12 - 11/07
 weight: 55
 disableToc: true
 ---
 
-## Date: Nov 1st - Nov 3rd
+## Date: Nov 8th - Nov 10th
 
 ## What we will cover
 
-This week we will be talking about model selection and regularization. In particular, lasso and ridge regression.
+This week we will be diving into the amazing world of regression and clasification trees (CART). 
 
 ## Recommended readings/videos
 
-- James, G. et al. (2021). "An Introduction to Statistical Learning with Applications in R" (ISLR). *Chapter 6.2 (pg. 237-242)*. *Note: For ISLR readings, don't get caught up in the math.*
+- James, G. et al. (2021). "An Introduction to Statistical Learning with Applications in R" (ISLR). *Chapter 8: 8.1 (pg. 327-339)*. 
 
-- Josh Starmer. (2018). "Regularization Part 1: Ridge (L2) Regression". *Video materials from StatQuest. Note: I usually watch his videos at x1.5 speed*.
+- Josh Starmer. (2021). "Decision and Classification Trees, Clearly Explained!!!". *Video materials from StatQuest. Note: I usually watch his videos at x1.5 speed*.
 
-{{< youtube src="https://www.youtube.com/embed/Q81RR3yKn30" >}}
+{{< youtube src="https://www.youtube.com/embed/_L39rN6gz7Y?controls=0" >}}
 
-- Josh Starmer. (2018). "Regularization Part 2: Lasso (L1) Regression". *Video materials from StatQuest. Note: I usually watch his videos at x1.5 speed*.
+- Josh Starmer. (2019). "Regression Trees, Clearly Explained!!!". *Video materials from StatQuest. Note: Feel free to watch until the 15min mark*.
 
-{{< youtube src="https://www.youtube.com/embed/NGf0voTMlcs" >}}
+{{< youtube src="https://www.youtube.com/embed/g9c66TUylZ4?controls=0" >}}
 
 
 
