@@ -40,7 +40,7 @@ This document is meant to show you some useful code that we will be using in thi
 
 ## Check your version
 
-For this class, make sure you have the most updated version of R (you can check your R version by typing `version` on the console). If your version is older than `R 4.2.1`, please [download]() and install the latest R version.
+For this class, make sure you have the most updated version of R (you can check your R version by typing `version` on the console). If your version is older than `R 4.2.1`, please [download](https://cran.r-project.org/bin/windows/base/) and install the latest R version.
 
 ## Start with a clean space
 
