@@ -83,10 +83,12 @@ set.seed(100)
 
 n <- nrow(marketing)
 
-train <- sample(1:n, nrow(marketing)*0.8)
+train <- sample(1:n, nrow(marketing)*0.75)
 
 train.data <- marketing %>% slice(train)
 test.data <- marketing %>% slice(-train)
+
+nrow(test.data)
 ```
 
 4) Run a linear regression using all your covariates as predictors and `Customer.Lifetime.Value` as the outcome (make sure you exlcude `Response` as well, because that will also be an outcome that we will use next class). Fit your model on your training dataset, and get the RMSE on the testing dataset:

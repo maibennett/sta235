@@ -438,10 +438,13 @@ have?</strong></p>
 
 n &lt;- nrow(marketing)
 
-train &lt;- sample(1:n, nrow(marketing)*0.8)
+train &lt;- sample(1:n, nrow(marketing)*0.75)
 
 train.data &lt;- marketing %&gt;% slice(train)
-test.data &lt;- marketing %&gt;% slice(-train)</code></pre>
+test.data &lt;- marketing %&gt;% slice(-train)
+
+nrow(test.data)</code></pre>
+<pre><code>## [1] 2284</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Run a linear regression using all your covariates as predictors and
 <code>Customer.Lifetime.Value</code> as the outcome (make sure you
@@ -454,7 +457,7 @@ dataset?</strong></p>
 <pre class="r"><code>lm_clv &lt;- lm(Customer.Lifetime.Value ~ . - Response, data = train.data)
 
 rmse(lm_clv, test.data)</code></pre>
-<pre><code>## [1] 6462.652</code></pre>
+<pre><code>## [1] 6241.471</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Run the same model, but now use a cross-validation approach with
 5-folds. In this case, you can use the entire dataset for this.</li>
@@ -486,35 +489,35 @@ lm_clv_cv</code></pre>
 
 coef(lm_clv)</code></pre>
 <pre><code>##                   (Intercept)              CoverageExtended 
-##                  5.516885e+02                  1.003289e+02 
+##                  5.563839e+02                  1.125011e+02 
 ##               CoveragePremium              EducationCollege 
-##                 -4.319874e+02                 -7.022955e+01 
+##                 -4.197659e+02                 -7.035173e+01 
 ##               EducationDoctor EducationHigh School or Below 
-##                 -3.409409e+01                  3.572662e+02 
+##                  8.440669e-01                  3.631211e+02 
 ##               EducationMaster      EmploymentStatusEmployed 
-##                  6.417603e+01                  8.539610e+02 
+##                  8.317718e+01                  8.904048e+02 
 ## EmploymentStatusMedical Leave       EmploymentStatusRetired 
-##                  4.423168e+02                 -9.741111e+01 
+##                  4.497748e+02                  2.576407e+01 
 ##    EmploymentStatusUnemployed                       GenderM 
-##                  3.362189e+00                 -9.630171e+01 
+##                  1.742548e+02                 -6.720527e+01 
 ##                        Income         Location.CodeSuburban 
-##                 -4.328862e-03                 -2.855528e+02 
+##                 -3.334881e-03                 -2.631436e+02 
 ##            Location.CodeUrban         Marital.StatusMarried 
-##                 -6.493973e+01                 -1.134409e+02 
+##                  6.302850e-02                 -7.923525e+01 
 ##          Marital.StatusSingle          Monthly.Premium.Auto 
-##                 -5.014292e+02                  7.624153e+01 
+##                 -5.680876e+02                  7.536741e+01 
 ##       Months.Since.Last.Claim            Number.of.Policies 
-##                  4.196598e+00                  6.110462e+01 
+##                  2.784146e+00                  5.460676e+01 
 ##      Policy.TypePersonal Auto       Policy.TypeSpecial Auto 
-##                  2.385345e+02                  1.239083e+03 
+##                  2.750734e+02                  1.219659e+03 
 ##           Sales.ChannelBranch      Sales.ChannelCall Center 
-##                  3.696700e+02                  3.207884e+02 
+##                  3.443799e+02                  2.386439e+02 
 ##              Sales.ChannelWeb            Total.Claim.Amount 
-##                  1.491801e+02                  2.244434e-01 
+##                  7.503031e+01                  2.597424e-01 
 ##        Renew.Offer.TypeOffer2        Renew.Offer.TypeOffer3 
-##                 -8.732604e+02                 -4.721531e+02 
+##                 -9.343796e+02                 -4.924184e+02 
 ##        Renew.Offer.TypeOffer4 
-##                 -1.070692e+03</code></pre>
+##                 -1.114287e+03</code></pre>
 <pre class="r"><code>coef(lm_clv_cv$finalModel)</code></pre>
 <pre><code>##                     (Intercept)                CoverageExtended 
 ##                    3.452243e+02                   -1.288558e+02 
