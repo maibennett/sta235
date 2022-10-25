@@ -1824,7 +1824,7 @@ increase from $400/week to $401/week is associated to an average
 increase of 0.58 hrs more of free time a week.</li>
 </ol>
 <p>Answer:</p>
-<p>B and C</p>
+<p>A, B and C</p>
 <p><strong>4) Assess the following statement: “We always need to
 randomize the treatment in order to find a causal effect”</strong></p>
 <ol style="list-style-type: lower-alpha">
@@ -2048,7 +2048,7 @@ entry_level
 -0.171
 </td>
 <td style="text-align:right;">
-0.000
+&lt;0.001
 </td>
 </tr>
 <tr>
@@ -2071,7 +2071,7 @@ manager_level
 0.171
 </td>
 <td style="text-align:right;">
-0.000
+&lt;0.001
 </td>
 </tr>
 <tr>
@@ -2117,7 +2117,7 @@ haskids
 0.363
 </td>
 <td style="text-align:right;">
-0.000
+&lt;0.001
 </td>
 </tr>
 <tr>
@@ -2140,7 +2140,7 @@ salary
 11638.109
 </td>
 <td style="text-align:right;">
-0.000
+&lt;0.001
 </td>
 </tr>
 <tr>
@@ -2163,7 +2163,7 @@ tenure
 1.001
 </td>
 <td style="text-align:right;">
-0.000
+&lt;0.001
 </td>
 </tr>
 </tbody>
@@ -2190,7 +2190,7 @@ groups?</strong> (2 points)</p>
 entry level job between the two groups?</strong> (2 points)</p>
 <p>Answer:</p>
 <p>The p-value for the difference in means for an entry level job is
-0.000</p>
+&lt;0.001</p>
 <p><strong>5) Run a simple regression between your outcome and your
 treatment variable (flex). What is the coefficient in this
 case?</strong> <em>Round your answer to 2 decimal places.</em> (2
@@ -2222,9 +2222,9 @@ summary(lm_obs)</code></pre>
 available <u>original</u> covariates (do not include id and do not use
 variables you created), and ran a simple regression like in 2.5. Use
 nearest neighbor matching with a 0.1 caliper.</strong></p>
-<pre class="r"><code>library(MatchIt)</code></pre>
-<pre><code>## Warning: package &#39;MatchIt&#39; was built under R version 4.1.3</code></pre>
-<pre class="r"><code>m1 &lt;- matchit(flex ~ level + female + haskids + salary + tenure, data = wfh_obs,
+<pre class="r"><code>library(MatchIt)
+
+m1 &lt;- matchit(flex ~ level + female + haskids + salary + tenure, data = wfh_obs,
               method = &quot;nearest&quot;, caliper = 0.1)</code></pre>
 <pre><code>## Warning: Fewer control units than treated units; not all treated units will get
 ## a match.</code></pre>
