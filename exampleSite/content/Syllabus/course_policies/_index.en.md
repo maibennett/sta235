@@ -30,7 +30,7 @@ I also decided to put an Easter egg in this syllabus, to see whether students ac
 
 In addition to the general UT policies regarding academic integrity that are described in the syllabus (and in the UT Course Catalogue), this course has a few other specific policies:
 
--	You are encouraged to form study groups. Collaboration is key for learning! However, you are not allowed to collaborate with other students or let someone else copy from you.
+-	You are encouraged to form study groups. Collaboration is key for learning! However, you are not allowed to collaborate in assignments with other students or let someone else copy from you.
 
 -	These same rules apply to R code. You are encouraged to discuss potential problems, but you need to write your own R code. In any case where we suspect cheating, we will compare both R scripts and homework write-ups, and all students involved will receive a penalty in this course and be referred to the Dean’s office for further disciplinary proceedings (and further potential academic consequences).
 
