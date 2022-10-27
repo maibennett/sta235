@@ -427,6 +427,10 @@ Use the following code and look at your data. What happened here?</li>
 <pre class="r"><code>#head(marketing)
 
 marketing &lt;- marketing %&gt;% mutate_if(is.character, as.factor)</code></pre>
+<p>What we can see here is that all character variables are now
+transformed to categorical variables (factor variables). This will allow
+us to avoid problems if one of the methods we use has issues with
+character variables.</p>
 <ol start="3" style="list-style-type: decimal">
 <li>Now we are ready to roll. Using <code>set.seed(100)</code>, create a
 training dataset that is 75% of your data, and a testing dataset that is
@@ -434,16 +438,16 @@ training dataset that is 75% of your data, and a testing dataset that is
 </ol>
 <p><strong>Q4: How many observations does your testing dataset
 have?</strong></p>
-<pre class="r"><code>set.seed(100)
+<pre class="r"><code>set.seed(100) #Remember always to set seed before something random (in this case, sample())
 
-n &lt;- nrow(marketing)
+n &lt;- nrow(marketing) #Number of obs in our marketing dataset
 
-train &lt;- sample(1:n, nrow(marketing)*0.75)
+train &lt;- sample(1:n, nrow(marketing)*0.75) #Row numbers for 75% of our data (randomly selected)
 
 train.data &lt;- marketing %&gt;% slice(train)
 test.data &lt;- marketing %&gt;% slice(-train)
 
-nrow(test.data)</code></pre>
+nrow(test.data) #Number of rows (observations) in our training dataset</code></pre>
 <pre><code>## [1] 2284</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Run a linear regression using all your covariates as predictors and
@@ -454,7 +458,9 @@ dataset, and get the RMSE on the testing dataset:</li>
 </ol>
 <p><strong>Q5: What is the RMSE of the model on the testing
 dataset?</strong></p>
-<pre class="r"><code>lm_clv &lt;- lm(Customer.Lifetime.Value ~ . - Response, data = train.data)
+<pre class="r"><code># When we use y ~ ., we are basically telling the model to use all the covariates in our dataset (without having to type it)
+
+lm_clv &lt;- lm(Customer.Lifetime.Value ~ . - Response, data = train.data)
 
 rmse(lm_clv, test.data)</code></pre>
 <pre><code>## [1] 6241.471</code></pre>
@@ -470,6 +476,7 @@ train.control &lt;- trainControl(method = &quot;cv&quot;, number = 5)
 
 lm_clv_cv &lt;- train(Customer.Lifetime.Value ~ . - Response, data = marketing, method=&quot;lm&quot;, trControl = train.control)
 
+# Look at the RMSE here!
 lm_clv_cv</code></pre>
 <pre><code>## Linear Regression 
 ## 
@@ -485,8 +492,14 @@ lm_clv_cv</code></pre>
 ##   6294.8  0.1611777  3893.931
 ## 
 ## Tuning parameter &#39;intercept&#39; was held constant at a value of TRUE</code></pre>
-<pre class="r"><code># Compare models:
+<p>We can see that the RMSE here is actually a bit higher than before
+(that’s ok!). Still remember that this one uses the entire datset for
+training and testing, so it’s probably more accurate.</p>
+<p>If we want to look at the models selected by each method, we can also
+see it here:</p>
+<pre class="r"><code># If we want to compare both models, we can do it like this:
 
+# These are the coefficients (beta&#39;s) for our linear model without cross validation
 coef(lm_clv)</code></pre>
 <pre><code>##                   (Intercept)              CoverageExtended 
 ##                  5.563839e+02                  1.125011e+02 
@@ -518,7 +531,8 @@ coef(lm_clv)</code></pre>
 ##                 -9.343796e+02                 -4.924184e+02 
 ##        Renew.Offer.TypeOffer4 
 ##                 -1.114287e+03</code></pre>
-<pre class="r"><code>coef(lm_clv_cv$finalModel)</code></pre>
+<pre class="r"><code># These are the coefficients (beta&#39;s) for our linear model with cross-validation!
+coef(lm_clv_cv$finalModel)</code></pre>
 <pre><code>##                     (Intercept)                CoverageExtended 
 ##                    3.452243e+02                   -1.288558e+02 
 ##                 CoveragePremium                EducationCollege 
@@ -549,99 +563,6 @@ coef(lm_clv)</code></pre>
 ##                   -9.596142e+02                   -4.927708e+02 
 ##          Renew.Offer.TypeOffer4 
 ##                   -1.160661e+03</code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li>Finally, let’s do a (forward) Stepwise selection model (using again
-a 5-fold CV). Remember that you need to identify how many predictors we
-have in this case (and factor variables count for more than 1 depending
-on the number of levels!):</li>
-</ol>
-<pre class="r"><code>set.seed(100)
-
-nvars &lt;- length(lm_clv_cv$coefnames)
-  
-train.control &lt;- trainControl(method = &quot;cv&quot;, number = 5) #set up a 10-fold cv
-
-lm.fwd &lt;- train(Customer.Lifetime.Value ~ . - Response, data = marketing, method = &quot;leapForward&quot;,
-                tuneGrid = data.frame(nvmax = 1:nvars), trControl = train.control)
-
-lm.fwd$bestTune #This is the number of variables we will be using</code></pre>
-<div class="kable-table">
-<table>
-<thead>
-<tr class="header">
-<th align="left"></th>
-<th align="right">nvmax</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">14</td>
-<td align="right">14</td>
-</tr>
-</tbody>
-</table>
-</div>
-<pre class="r"><code>lm.fwd</code></pre>
-<pre><code>## Linear Regression with Forward Selection 
-## 
-## 9134 samples
-##   15 predictor
-## 
-## No pre-processing
-## Resampling: Cross-Validated (5 fold) 
-## Summary of sample sizes: 7309, 7307, 7307, 7306, 7307 
-## Resampling results across tuning parameters:
-## 
-##   nvmax  RMSE      Rsquared   MAE     
-##    1     6308.533  0.1575789  3876.619
-##    2     6307.126  0.1580220  3881.090
-##    3     6302.997  0.1590271  3876.063
-##    4     6294.533  0.1615036  3865.480
-##    5     6299.681  0.1600894  3867.931
-##    6     6298.845  0.1602732  3866.385
-##    7     6299.902  0.1600091  3866.942
-##    8     6296.432  0.1608461  3874.727
-##    9     6295.403  0.1610884  3878.164
-##   10     6295.308  0.1611310  3883.257
-##   11     6295.346  0.1611210  3889.028
-##   12     6294.790  0.1612763  3890.767
-##   13     6293.799  0.1614921  3891.278
-##   14     6293.056  0.1616869  3891.811
-##   15     6293.157  0.1616338  3892.547
-##   16     6294.403  0.1612908  3892.879
-##   17     6294.812  0.1611904  3893.291
-##   18     6295.038  0.1611206  3893.648
-##   19     6294.837  0.1611850  3893.644
-##   20     6295.263  0.1610619  3893.955
-##   21     6294.730  0.1611955  3893.694
-##   22     6294.373  0.1612906  3893.650
-##   23     6294.353  0.1613015  3893.119
-##   24     6294.220  0.1613390  3893.185
-##   25     6294.257  0.1613258  3893.479
-##   26     6294.702  0.1612038  3894.005
-##   27     6294.671  0.1612134  3893.795
-##   28     6294.800  0.1611777  3893.931
-## 
-## RMSE was used to select the optimal model using the smallest value.
-## The final value used for the model was nvmax = 14.</code></pre>
-<pre class="r"><code># If we want to recover the coefficient names, we can use the coef() function:
-coef(lm.fwd$finalModel, lm.fwd$bestTune$nvmax)</code></pre>
-<pre><code>##                   (Intercept)               CoveragePremium 
-##                     425.81892                    -429.93603 
-## EducationHigh School or Below      EmploymentStatusEmployed 
-##                     398.51990                     593.92319 
-##         Location.CodeSuburban          Marital.StatusSingle 
-##                    -214.82377                    -376.03514 
-##          Monthly.Premium.Auto            Number.of.Policies 
-##                      79.39014                      55.72235 
-##      Policy.TypePersonal Auto       Policy.TypeSpecial Auto 
-##                     229.46820                     850.76570 
-##           Sales.ChannelBranch      Sales.ChannelCall Center 
-##                     220.02556                     344.78596 
-##        Renew.Offer.TypeOffer2        Renew.Offer.TypeOffer3 
-##                    -984.91336                    -511.64395 
-##        Renew.Offer.TypeOffer4 
-##                   -1194.95920</code></pre>
 </div>
 </div>
 

@@ -74,21 +74,24 @@ marketing %>% select(Response) %>% table()
 marketing <- marketing %>% mutate_if(is.character, as.factor)
 ```
 
+What we can see here is that all character variables are now transformed to categorical variables (factor variables). This will allow us to avoid problems if one of the methods we use has issues with character variables.
+
+
 3) Now we are ready to roll. Using `set.seed(100)`, create a training dataset that is 75% of your data, and a testing dataset that is 25% of your data. I'm giving you the start of your code...
 
 **Q4: How many observations does your testing dataset have?**
 
 ```{r}
-set.seed(100)
+set.seed(100) #Remember always to set seed before something random (in this case, sample())
 
-n <- nrow(marketing)
+n <- nrow(marketing) #Number of obs in our marketing dataset
 
-train <- sample(1:n, nrow(marketing)*0.75)
+train <- sample(1:n, nrow(marketing)*0.75) #Row numbers for 75% of our data (randomly selected)
 
 train.data <- marketing %>% slice(train)
 test.data <- marketing %>% slice(-train)
 
-nrow(test.data)
+nrow(test.data) #Number of rows (observations) in our training dataset
 ```
 
 4) Run a linear regression using all your covariates as predictors and `Customer.Lifetime.Value` as the outcome (make sure you exlcude `Response` as well, because that will also be an outcome that we will use next class). Fit your model on your training dataset, and get the RMSE on the testing dataset:
@@ -96,6 +99,8 @@ nrow(test.data)
 **Q5: What is the RMSE of the model on the testing dataset?**
 
 ```{r}
+# When we use y ~ ., we are basically telling the model to use all the covariates in our dataset (without having to type it)
+
 lm_clv <- lm(Customer.Lifetime.Value ~ . - Response, data = train.data)
 
 rmse(lm_clv, test.data)
@@ -112,31 +117,20 @@ train.control <- trainControl(method = "cv", number = 5)
 
 lm_clv_cv <- train(Customer.Lifetime.Value ~ . - Response, data = marketing, method="lm", trControl = train.control)
 
+# Look at the RMSE here!
 lm_clv_cv
-
-# Compare models:
-
-coef(lm_clv)
-coef(lm_clv_cv$finalModel)
 ```
 
-6) Finally, let's do a (forward) Stepwise selection model (using again a 5-fold CV). Remember that you need to identify how many predictors we have in this case (and factor variables count for more than 1 depending on the number of levels!):
+We can see that the RMSE here is actually a bit higher than before (that's ok!). Still remember that this one uses the entire datset for training and testing, so it's probably more accurate.
+
+
+If we want to look at the models selected by each method, we can also see it here:
 
 ```{r}
-set.seed(100)
+# If we want to compare both models, we can do it like this:
 
-nvars <- length(lm_clv_cv$coefnames)
-  
-train.control <- trainControl(method = "cv", number = 5) #set up a 10-fold cv
-
-lm.fwd <- train(Customer.Lifetime.Value ~ . - Response, data = marketing, method = "leapForward",
-                tuneGrid = data.frame(nvmax = 1:nvars), trControl = train.control)
-
-lm.fwd$bestTune #This is the number of variables we will be using
-
-lm.fwd
-
-# If we want to recover the coefficient names, we can use the coef() function:
-coef(lm.fwd$finalModel, lm.fwd$bestTune$nvmax)
-
+# These are the coefficients (beta's) for our linear model without cross validation
+coef(lm_clv)
+# These are the coefficients (beta's) for our linear model with cross-validation!
+coef(lm_clv_cv$finalModel)
 ```
