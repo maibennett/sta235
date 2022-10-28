@@ -14,9 +14,13 @@ At this stage, you should have a solid research question, as well as the data to
 
 3) Analysis plan: Create a clear roadmap of next steps in the analysis (e.g. how are you going to analyze your data? what are the main models you are going to use? are you going to conduct robustness tests? identify limitations?). You don't need any results for this section, you just need to map out your next steps and how your final report will look like.
 
+Remember that the objective of this report is to clearly present your idea and to show the most important aspects of your data to someone that has never seen this before. Part of the process is identifying *what is important* in your data. Do not show <u>everything</u>, because that might actually harm the information you do want someone to retain.
+
+After reading this report, someone should have a clear idea of what the objective of this project is, why this idea is important/relevant, how are you going to tackle it, and how does the data that you have look like.
+
 ### Instructions
 
-Most groups will have to clean their data first. Please submit the code you use to clean your data and create the appropriate plots. Make sure your code is in order and runs.
+Most groups will have to clean their data first. Please submit the code you use to clean your data and create the appropriate tables and plots. Make sure your code is in order and runs.
 
 **This is a report, so looks <u>do</u> matter**. Make sure your plots are legible and nice-looking (I suggest picking a color palette and sticking with that throughout your report). Save your plots or tables from R directly as png or other similar format instead of screenhots. Include captions and number all your tables and figures so you can reference them. Use an appropriate number of decimals (depending on what you measure, 1 might not be enough, but 4 or more is usually an overkill!). 
 
