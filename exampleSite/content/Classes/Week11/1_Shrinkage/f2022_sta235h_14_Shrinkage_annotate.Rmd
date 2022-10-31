@@ -441,7 +441,7 @@ hbo <- data.frame(id = 1:n,
                      got = got,
                      unsubscribe = unsubscribe)
 
-hbo <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_ModelSelection/data/hbomax.csv")
+hbo <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
 
 # Divide data: 80% vs 20% split
 
@@ -514,6 +514,8 @@ Algorithm for forward stepwise selection:
 # How do we do stepwise selection in R?
 .small[
 ```{r}
+library(caret)
+
 set.seed(100)
 
 train.control <- trainControl(method = "cv", number = 10) #set up a 10-fold cv
@@ -575,7 +577,7 @@ Let's build a ridge.
 ---
 # Ridge Regression: An example
 
-- Window-shoppers vs. High rollers
+- Predict spending based on frequency of visits to a website
 
 ```{r ridge_intro, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
 
@@ -596,7 +598,7 @@ data <- data.frame(freq = freq,
                    spend = spend)
 
 #previous code was how the data was generated
-data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/week11/1_Shrinkage/data/purchases.csv")
+data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
 
 train <- data.frame(freq = c(2,6),
                     female = c(1,1),
@@ -630,7 +632,7 @@ ggplot(data = train, aes(x = freq, y = spend)) +
 ---
 # Ordinary Least Squares
 
-- In an **.darkorange[OLS]**: Minimize sum of squared-errors, i.e. $\min_\beta \sum_{i=1}^n(\text{spend}_i - \beta\text{freq}_i)^2$
+- In an **.darkorange[OLS]**: Minimize sum of squared-errors, i.e. $\min_\beta \sum_{i=1}^n(\text{spend}_i - (\beta_0 + \beta_1\text{freq}_i))^2$
 
 
 ```{r ridge_ols, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
@@ -761,169 +763,25 @@ $$\min_\beta \sum_{i=1}^n\underbrace{(y_i - \beta_0 - x_i\beta_1)^2}_{OLS}$$
 
 - In a simple regression (i.e. one regressor/covariate):
 
-$$\min_\beta \sum_{i=1}^n\underbrace{(y_i - \beta_0 - x_i\beta)^2}_{OLS} + \color{#F89441}{\underbrace{\lambda\cdot \beta_1^2}_{Ridge Penalty}}$$
+$$\min_\beta \sum_{i=1}^n\underbrace{(y_i - \beta_0 - x_i\beta_1)^2}_{OLS} + \color{#F89441}{\underbrace{\lambda\cdot \beta_1^2}_{Ridge Penalty}}$$
 --
 
 - $\lambda$ is the **.darkorange[penalty factor]** $\rightarrow$ indicates how much we want to shrink the coefficients.
 
 ---
-# Back to the plots...
 
-- Let's solve the minimization problem for ridge regression. **.darkorange[What line do we choose?]**
+.center2[
+.box-5Trans[Q2: In general, which model will have **smaller** $\beta$ coefficients?]
 
-```{r ridge_ols2_a, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+.box-5trans[a) A model with a larger $\lambda$]
 
-lm1 <- lm(spend ~ freq, data = train)
-
-test$fitted <- predict(lm1, newdata = test)
-
-ggplot(data = train, aes(x = freq, y = spend)) + 
-  geom_smooth(method = "lm", color = "dark grey", lwd = 2, lty = 2, fullrange = TRUE) +
-#  geom_segment(data = test, aes(xend = freq, yend = fitted), lwd = 1.5, color = "#FCCE25") +
-  geom_point(aes(fill = "#BF3984"), pch = 21, color = "#BF3984", size = 5) +
-  geom_smooth(data = ridge, color = "#F89441", method = "lm", lwd = 2, lty = 2, fullrange = TRUE) +
-  geom_point(data = test, aes(fill = "#5601A4"), pch = 21, color = "#5601A4", size = 5) +
-  scale_fill_manual(values=c("#5601A4","#BF3984"),labels = c("#BF3984" = "Training","#5601A4" = "Testing"), name = "Data") +
-  annotate("text",x=0.5, y = 150, color = "dark grey", label = "y = 132.5 - 16.25xfreq", size = 5, hjust = 0)+
-  annotate("text",x=7, y = 60, color = "#F89441", label = "y = 119.5 - 11.25xfreq", size = 5, hjust = 0)+
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("Frequency") + ylab("Spending ($)")+
-  ylim(-20,200) + xlim(0,10) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.9),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-
-```
-
----
-# For the OLS line
-
-$$0 + \lambda \cdot (-16.25)^2 = 264.1\lambda$$
-
-```{r ridge_ols2_b, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-
-rs = test$spend - test$fitted
-
-ggplot(data = train, aes(x = freq, y = spend)) + 
-  geom_smooth(method = "lm", color = "dark grey", lwd = 2, lty = 2, fullrange = TRUE) +
-  #geom_segment(data = test, aes(xend = freq, yend = fitted), lwd = 1.5, color = "#FCCE25") +
-  geom_point(aes(fill = "#BF3984"), pch = 21, color = "#BF3984", size = 5) +
- # geom_smooth(data = ridge, color = "#F89441", method = "lm", lwd = 2, lty = 2, fullrange = TRUE) +
-  geom_point(data = test, aes(fill = "#5601A4"), pch = 21, color = "#5601A4", size = 5) +
-  scale_fill_manual(values=c("#5601A4","#BF3984"),labels = c("#BF3984" = "Training","#5601A4" = "Testing"), name = "Data") +
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("Frequency") + ylab("Spending ($)")+
-  ylim(-20,200) + xlim(0,10) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.9),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-
-```
-
----
-# For the OLS line
-
-$$0 + \lambda \cdot (-16.25)^2 = 264.1\times 3 = 792.3$$
-
-```{r ridge_ols2_c, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-
-rs = test$spend - test$fitted
-
-ggplot(data = train, aes(x = freq, y = spend)) + 
-  geom_smooth(method = "lm", color = "dark grey", lwd = 2, lty = 2, fullrange = TRUE) +
-  #geom_segment(data = test, aes(xend = freq, yend = fitted), lwd = 1.5, color = "#FCCE25") +
-  geom_point(aes(fill = "#BF3984"), pch = 21, color = "#BF3984", size = 5) +
- # geom_smooth(data = ridge, color = "#F89441", method = "lm", lwd = 2, lty = 2, fullrange = TRUE) +
-  geom_point(data = test, aes(fill = "#5601A4"), pch = 21, color = "#5601A4", size = 5) +
-  scale_fill_manual(values=c("#5601A4","#BF3984"),labels = c("#BF3984" = "Training","#5601A4" = "Testing"), name = "Data") +
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("Frequency") + ylab("Spending ($)")+
-  ylim(-20,200) + xlim(0,10) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.9),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-
-```
-
----
-# Now, for the ridge regression line
-
-$$(3^2 + (-17)^2) + \lambda \cdot (-11.25)^2 = 298 + 126.6\times 3 = 677.8$$
-
-```{r ridge_2, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-
-lm1 <- lm(spend ~ freq, data = ridge)
-rs = train$spend - predict(lm1, newdata = train)
-train$fitted <- predict(lm1, newdata = train)
-
-ggplot(data = train, aes(x = freq, y = spend)) + 
-  #geom_smooth(method = "lm", color = "dark grey", lwd = 2, lty = 2, fullrange = TRUE) +
-  geom_segment(data = train, aes(xend = freq, yend = fitted), lwd = 1.5, color = "#FCCE25") +
-  geom_point(aes(fill = "#BF3984"), pch = 21, color = "#BF3984", size = 5) +
-  geom_smooth(data = ridge, color = "#F89441", method = "lm", lwd = 2, lty = 2, fullrange = TRUE) +
-  geom_point(data = test, aes(fill = "#5601A4"), pch = 21, color = "#5601A4", size = 5) +
-  scale_fill_manual(values=c("#5601A4","#BF3984"),labels = c("#BF3984" = "Training","#5601A4" = "Testing"), name = "Data") +
-  theme_bw()+
-  theme_ipsum_fsc() + #plain 
-  xlab("Frequency") + ylab("Spending ($)")+
-  ylim(-20,200) + xlim(0,10) +
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position=c(0.9,0.9),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="dark grey"),
-        title = element_text(size=14))
-
-```
+.box-5trans[b) A model with a smaller $\lambda$]
+]
 
 ---
 
 .center2[
-.box-3LA[But remember... we care about accuracy in the testing dataset!]
+.box-3LA[Remember... we care about accuracy in the testing dataset!]
 ]
 
 ---
