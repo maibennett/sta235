@@ -89,7 +89,7 @@ nvars <- length(lm_num$coefficients)-1
   
 train.control <- trainControl(method = "cv", number = 5) #COMPLETE
 
-lm.fwd <- train(Customer.Lifetime.Value ~ . - Response, data = marketing, method = "leapForward",
+lm.fwd <- train(Customer.Lifetime.Value ~ . - Response, data = train.data, method = "leapForward",
                 tuneGrid = data.frame(nvmax = 1:nvars), trControl = train.control)
 
 lm.fwd$bestTune
@@ -131,7 +131,7 @@ mean(pred.values == test.data$Response)
 3) Do the same exercise as 2) but now with lasso instead of ridge:
 
 **Q6: What is your percentage of accuracy?**
-**Q8: How many variables do you drop from your model (coefficients set to 0)?**
+**Q7: How many variables does your model have?**
 
 
 ```{r}

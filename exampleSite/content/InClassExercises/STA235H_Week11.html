@@ -440,10 +440,10 @@ nvars &lt;- length(lm_num$coefficients)-1
   
 train.control &lt;- trainControl() #COMPLETE
 
-lm.fwd &lt;- train(Customer.Lifetime.Value ~ . - Response, data = marketing, method = &quot;leapForward&quot;,
-                tuneGrid = data.frame(nvmax = 1:nvars), trControl = train.control)
-
-lm.fwd$bestTune</code></pre>
+lm.fwd &lt;- train(Customer.Lifetime.Value ~ . - Response, data = train.data, 
+                method = &quot;leapForward&quot;,
+                tuneGrid = , # COMPLETE 
+                trControl = train.control)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Now, let’s try to predict <strong>response</strong> using Ridge
 regression. Note that this is a <u>binary outcome</u>, so we will be
@@ -478,9 +478,8 @@ mean(pred.values == test.data$Response)</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Do the same exercise as 2) but now with lasso instead of ridge:</li>
 </ol>
-<p><strong>Q6: What is your percentage of accuracy?</strong> <strong>Q8:
-How many variables do you drop from your model (coefficients set to
-0)?</strong></p>
+<p><strong>Q6: What is your percentage of accuracy?</strong> <strong>Q7:
+How many variables does your model have?</strong></p>
 <pre class="r"><code>lambda_seq &lt;- #COMPLETE
 
 set.seed(100)

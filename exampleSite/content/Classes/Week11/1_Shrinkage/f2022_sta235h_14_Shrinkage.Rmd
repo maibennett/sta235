@@ -523,7 +523,7 @@ set.seed(100)
 
 train.control <- trainControl(method = "cv", number = 10) #set up a 10-fold cv
 
-lm.fwd <- train(logins ~ . - unsubscribe, data = hbo, method = "leapForward",#<< 
+lm.fwd <- train(logins ~ . - unsubscribe, data = train.data, method = "leapForward",#<< 
                 tuneGrid = data.frame(nvmax = 1:5), trControl = train.control)#<<
 lm.fwd$results
 ```
@@ -873,7 +873,7 @@ $$\min_\beta \sum_{i=1}^n(\text{spend}_i - \beta_0 - \beta_1\text{female}_i - \b
 
 - Because the ridge penalty includes the $\beta$'s coefficients, **.darkorange[scale matters]**:
 
-  - Standardize coefficients (*you will do that as an option in your code*)
+  - Standardize variables (*you will do that as an option in your code*)
   
 ---
 # How do we choose &lambda;?
@@ -1144,7 +1144,8 @@ hbo <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampl
 
 lambda_seq <- c(0,10^seq(-3, 1, length = 100))
 
-ridge <- train(logins ~ . - unsubscribe - id, data = train.data, 
+ridge <- train(logins ~ . - unsubscribe - id, 
+            data = train.data, 
             method = "glmnet",
             preProcess = "scale",
             trControl = trainControl("cv", number = 10),
@@ -1199,12 +1200,6 @@ coef(ridge$finalModel, ridge$bestTune$lambda)
 
 rmse(ridge, test.data)
 ```
-]
-
----
-
-.center2[
-.box-5LA[Let's look at this in R!]
 ]
 
 ---
@@ -1323,6 +1318,10 @@ rmse(lasso, test.data)
 - Answer the questions in the activity and write them in your sheet.
 
 - Submit your sheet at the end of the class.
+
+- **.darkorange[Important note]**: We will be doing a classification task (binary outcome). In this case, we <u>do not</u> use RMSE as a measure to compare outcomes, but **.darkorange[accuracy]**.
+
+  - Accuracy: How many observations (%) can I classify correctly?
 
 ---
 # Main takeway points

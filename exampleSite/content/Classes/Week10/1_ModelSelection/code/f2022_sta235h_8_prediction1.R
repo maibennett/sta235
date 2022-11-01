@@ -90,30 +90,3 @@ lm_complex_cv
 
 
 # Exercise: use the function `trainControl(method = "LOOCV")` to do a Leave One Out (LOO) cross validation. Do your results change? How? What are the advantages and disadvantages of using LOO?
-
-###############################################################################
-##### Stepwise selection
-###############################################################################
-
-### Adding cross-validation
-set.seed(100)
-
-train.control <- trainControl(method = "cv", number = 10) #set up a 10-fold cv
-
-lm.fwd <- train(logins ~ . - unsubscribe, data = hbo,
-                    method = "leapForward", 
-                    tuneGrid = data.frame(nvmax = 1:5), #We are saying that we will use max 5 covariates (this depends on your data and you need to change it accordingly)
-                    trControl = train.control)
-lm.fwd$results
-# Question: Which model do you choose?
-
-# We can see the number of covariates that is optimal to choose:
-lm.fwd$bestTune
-
-# And how does that model looks like:
-summary(lm.fwd$finalModel)
-
-# If we want to recover the coefficient names, we can use the coef() function:
-coef(lm.fwd$finalModel, lm.fwd$bestTune$nvmax)
-
-# Excercise: Do the same CV procedure, but with backwards stepwise. Which model do you choose in that case? (method = "leapBackward")

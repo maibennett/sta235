@@ -50,12 +50,14 @@ set.seed(100)
 
 train.control <- trainControl(method = "cv", number = 10) #set up a 10-fold cv
 
-lm.fwd <- train(logins ~ . - unsubscribe, data = hbo,
+lm.fwd <- train(logins ~ . - unsubscribe, data = train.data,
                     method = "leapForward", 
                     tuneGrid = data.frame(nvmax = 1:5), #We are saying that we will use max 5 covariates (this depends on your data and you need to change it accordingly)
                     trControl = train.control)
 lm.fwd$results
 # Question: Which model do you choose?
+
+rmse(lm.fwd, test.data)
 
 # We can see the number of covariates that is optimal to choose:
 lm.fwd$bestTune
