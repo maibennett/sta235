@@ -25,14 +25,17 @@ This week we will be talking about model selection and regularization. In partic
 
 
 ## Slides
-<!--
-{{% button href="https://sta235.netlify.app/Classes/Week6/2_ObsStudies/f2022_sta235h_10_ObsStudies.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week6/2_ObsStudies/f2022_sta235h_10_ObsStudies.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week6/2_ObsStudies/f2022_sta235h_10_ObsStudies.html" >}}
--->
+{{% button href="https://sta235.netlify.app/Classes/Week11/1_Shrinkage/f2022_sta235h_14_Shrinkage.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week11/1_Shrinkage/f2022_sta235h_14_Shrinkage.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+
+{{< slides src="https://sta235.netlify.app/Classes/Week11/1_Shrinkage/f2022_sta235h_14_Shrinkage.html" >}}
+
 
 ## Code
-<!--
-Here is the R code we will review in class, with many additional questions! Remember to review it in detail after class <a onclick="ga('send', 'event', 'External-Link','click','code5','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/code/f2021_sta235h_8_RCT.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
--->
+
+Here is the R code we will review in class, with many additional questions! Remember to review it in detail after class <a onclick="ga('send', 'event', 'External-Link','click','code9','0','Link');" href="https://sta235.netlify.app/Classes/Week11/1_Shrinkage/code/f2022_sta235h_9_prediction2.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+
+<!--Check out the in-class activity we did for this week <a onclick="ga('send', 'event', 'External-Link','click','code11','0','Link');" href="https://sta235h.rocks/Week10" target="_blank" class="btn btn-default">Open<i class="fas  fa-external-link-alt"></i></a>
+
+(The answers for this are here: <a onclick="ga('send', 'event', 'External-Link','click','code10Answers','0','Link');" href="https://sta235h.rocks/Week10Answers" target="_blank" class="btn btn-default">Open<i class="fas  fa-external-link-alt"></i></a>)-->
 
