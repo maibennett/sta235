@@ -54,6 +54,7 @@ Here's the list of some variables in your dataset:
 - `Coverage`: Type of insurance coverage
 - `Education`, `Gender`, `Income`, `Location.Code`, `Marital.Status`: Client's characteristics.
 - `Renew.Offer.Type`: Offer made to the client (out of four different options)
+- `Response`: Whether a customer responds to an offer or not.
 
 Continuing with the task we were doing last week, run the following code and start from there:
 
