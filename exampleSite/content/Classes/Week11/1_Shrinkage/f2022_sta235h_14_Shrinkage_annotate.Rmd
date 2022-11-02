@@ -318,7 +318,7 @@ library(htmltools)
 library(paletteer)
 library(reactable)
 library(htmlwidgets)
-library(webshot2)
+#library(webshot2)
 library(tidyverse)
 library(extrafont)
 library(hrbrthemes)
@@ -1347,4 +1347,5 @@ rmse(lasso, test.data)
 
 - STDHA. (2018). ["Penalized Regression Essentials: Ridge, Lasso & Elastic Net"](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/153-penalized-regression-essentials-ridge-lasso-elastic-net)
 
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/week11/1_Shrinkage/f2021_sta235h_15_Shrinkage.html') -->
+<!-- rmarkdown::render("f2022_sta235h_14_Shrinkage_annotate.rmd")-->
+<!-- knit("C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week11/1_Shrinkage/f2022_sta235h_14_Shrinkage_annotate.rmd")
