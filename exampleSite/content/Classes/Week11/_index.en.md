@@ -35,7 +35,7 @@ This week we will be talking about model selection and regularization. In partic
 
 Here is the R code we will review in class, with many additional questions! Remember to review it in detail after class <a onclick="ga('send', 'event', 'External-Link','click','code9','0','Link');" href="https://sta235.netlify.app/Classes/Week11/1_Shrinkage/code/f2022_sta235h_9_prediction2.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
-<!--Check out the in-class activity we did for this week <a onclick="ga('send', 'event', 'External-Link','click','code11','0','Link');" href="https://sta235h.rocks/Week10" target="_blank" class="btn btn-default">Open<i class="fas  fa-external-link-alt"></i></a>
+Check out the in-class activity we did for this week <a onclick="ga('send', 'event', 'External-Link','click','code12','0','Link');" href="https://sta235h.rocks/Week11" target="_blank" class="btn btn-default">Open<i class="fas  fa-external-link-alt"></i></a>
 
-(The answers for this are here: <a onclick="ga('send', 'event', 'External-Link','click','code10Answers','0','Link');" href="https://sta235h.rocks/Week10Answers" target="_blank" class="btn btn-default">Open<i class="fas  fa-external-link-alt"></i></a>)-->
+(The answers for this are here: <a onclick="ga('send', 'event', 'External-Link','click','code11Answers','0','Link');" href="https://sta235h.rocks/Week11Answers" target="_blank" class="btn btn-default">Open<i class="fas  fa-external-link-alt"></i></a>)
 
