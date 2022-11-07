@@ -36,3 +36,14 @@ Check out the [Useful R Code](https://sta235.netlify.app/usefulrcode/sta235h_use
 **R code**: Is the R code complete and consistent with what is shown in the report? <br>
 **Peer assessment:** Students will be evaluated by their peers in terms of their contributions and responsiblity.
 {{% /notice %}}
+
+
+### Note on the analysis plan
+
+- Remember that for this delivery, **you do not need to run any analysis**, but you will need to describe what you are going to do in the next report.
+
+- For all projects, be specific on what your outcome variable is and what variables you will be using for adjusting for confounding/as predictors.
+
+- **For causal inference projects**: Be specific about your identification strategy (e.g. are you just running a regression and adjusting for confounders? Are you using an RCT, Diff-in-Diff, RDD?), and any robustness checks you will conduct. Remember to include a discussion in your analysis plan about limitations.
+
+- **For prediction projects**: You will need to compare two different methods that we have seen in class (you do not need to mention specifically which ones you will use in this case, because we have not covered everything). You will need to include, though, some information about your analysis: (i) Is this a regression task (continuous outcome) or classification task? (ii) How are you going to assess how good your models are and how are you going to choose which one is your preferred one?. 
