@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235H - Classification and Regression Trees (CART)</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# STA 235H - Classification and Regression Trees (CART)
+]
+.subtitle[
+## Fall 2022
+]
+.author[
+### McCombs School of Business, UT Austin
+]
+
+---
+
+
+&lt;!-- &lt;script type="text/javascript"&gt; --&gt;
+&lt;!-- MathJax.Hub.Config({ --&gt;
+&lt;!--   "HTML-CSS": { --&gt;
+&lt;!--     preferredFont: null, --&gt;
+&lt;!--     webFont:  "Neo-Euler" --&gt;
+&lt;!--   } --&gt;
+&lt;!-- }); --&gt;
+&lt;!-- &lt;/script&gt; --&gt;
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+&lt;/style&gt;
+
+
+
+
+
+# Announcements
+
+&lt;br&gt;
+.center[
+.box-4LA[Preliminary report due Friday]
+]
+
+&lt;br&gt;
+--
+
+- **.darkorange[Homework 6]** will be posted on Friday as well
+
+- **.darkorange[Homework 7]** will be posted on 11/18 (&lt;u&gt;not due until Dec. 1st&lt;/u&gt;).
+
+  - Assignment &lt;u&gt;will close on Thursday 12/01&lt;/u&gt;, so the Answer Key can be posted on 12/02.
+
+---
+# Where we've been...
+
+.pull-left[
+- Talking about **.darkorange[bias vs variance]** trade-off.
+
+- **.darkorange[Model selection and regularization]**: 
+
+  - Stepwise selection
+  - Ridge and Lasso regression.
+
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/xld5ngDPQm1piFSYUe/source.gif)
+]
+]
+
+---
+# ... and where we're going.
+
+.pull-left[
+.center[
+![](https://media.giphy.com/media/xT5LMAsVINr1Zwsjmw/giphy.gif)
+]
+]
+
+.pull-right[
+- Continue on our **.darkorange[prediction]** journey:
+
+  - **.darkorange[Decision Trees]**: Classification and Regression Trees (CART)
+
+  - **.darkorange[Activity in R]**: Remember to try to complete it before the end of the class!
+
+]
+---
+# Before we start... knowledge check!
+
+- Ridge and lasso regression **.darkorange[add bias to a linear model to reduce variance]**:
+
+  - Remember that when we fit a ridge or lasso regression, we use all the predictors we have in our data!
+  
+--
+
+- `\(\lambda\)` represents the **.darkorange[ridge/lasso penalty]**: The larger the `\(\lambda\)` the smaller the (sum of) coefficients, e.g. `\(\sum_k\beta_k^2\)` or `\(\sum_k|\beta_k|\)`.
+
+  - We "mute" or decrease the relation between predictors and outcome.
+
+--
+&lt;br&gt;
+&lt;br&gt;
+
+.box-7Trans[Q1: What is the main difference (in terms of the final model) between Ridge and Lasso regression?]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Trees, trees everywhere!
+]
+
+---
+
+.center2[
+.box-5Trans[From the videos/readings, how would you explain to someone what a decision tree is?]
+]
+
+---
+# Idea behind Decision Trees
+
+- Create a **.darkorange[flow chart]** for making decisions
+
+  - *How do we classify an individual or what value do we assign to an observation?*
+  
+--
+
+- ... But there are **.darkorange[many]** decisions!
+
+--
+  
+  - How many variables do we use?
+  
+--
+
+  - How do we sort them? In what order do we place them?
+  
+--
+
+  - How do we split them?
+  
+--
+
+  - How deep do we go?
+
+---
+
+.center2[
+.box-6Trans[Q2: What is the main disadvantage of a shallower tree (compared to a deeper tree)?]
+
+.box-6trans[a) Higher variance&lt;br&gt;&lt;br&gt;
+b) Higher bias&lt;br&gt;&lt;br&gt;
+c) Lower variance&lt;br&gt;&lt;br&gt;
+d) Lower bias]
+]
+
+---
+# Structure of Decision Trees
+
+.pull-left[
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/tree_example.png)]
+]
+
+.pull-right[
+**.darkorange[Structure:]**
+
+  - Root node
+  - Internal nodes
+  - Leaves
+]
+
+---
+# Why do we like/not like Decision Trees?
+
+.pull-left[
+.box-4[Main advantages]
+&lt;br&gt;
+.box-4t[Simple interpretation]
+&lt;br&gt;
+.box-4t[Mirror human decision-making]
+&lt;br&gt;
+.box-4t[Graphic displays!]
+&lt;br&gt;
+.box-4t[Handle categorical variables]
+]
+
+.pull-left[
+.box-6[Main disadvantages]
+&lt;br&gt;
+.box-6t[Overfitting]
+&lt;br&gt;
+.box-6t[Not very accurate/not very robust]
+]
+
+---
+# Let's start with a simple example
+
+.box-3[Remember our Hbo Max example?]
+
+--
+
+.box-3t[Predict who will cancel their subscription]
+
+--
+
+We have some **.darkorange[information:]**
+
+- `city`: Whether the customer lives in a big city or not
+- `female`: Whether the customer is female or not
+- `age`: Customer's age (in years)
+- `logins`: Number of logins to the platform in the past week.
+- `got`: Whether the person has watched the Game of Thrones or not.
+- `unsubscribe`: Whether they canceled their subscription or not.
+
+
+---
+# The prediction task: Classification
+
+- Our outcome is **.darkorange[binary]**, so this is a **.darkorange[classification task]**.
+
+--
+
+- Let's start looking at **.darkorange[two variables]**:
+
+.box-4[City &amp; GOT]
+
+--
+
+- Which one do you think should be at the top of the tree?
+
+
+
+---
+# How do we decide?
+
+- **.darkorange[Recursive Binary Splitting]**:
+
+  - Divide regions of covariates in two (recursively).
+  
+  - This works both for continuous and categorical/binary variables
+  
+--
+
+- We test out every covariate and see **.darkorange[which one reduces the error the most]** in our predictions
+
+  - In **.darkorange[regression tasks]**, we can use RMSE (or MSE).
+  
+  - In **.darkorange[classification tasks]**, we can use accuracy/classification error rate, &lt;u&gt;Gini Index&lt;/u&gt;, or entropy
+  
+--
+
+`$$G = \sum_{k=0}^1\hat{p}_{mk}(1-\hat{p}_{mk})$$`
+where `\(\hat{p}_{mk}\)` is the proportion of obs. in the `\(m\)` region for class `\(k\)`.
+---
+# How do we decide?
+
+In our HBO Max example:
+
+- `\(k\)` represents the **.darkorange[different values that the outcome]** can take (e.g. `\(Unsubscribe \in \{0,1\}\)`), and 
+- `\(m\)` represents the **.darkorange[values that the predictor takes]** (e.g. `\(GoT = 0\)`).
+
+E.g.:
+
+  - `\(p_{mk} = p_{00}\)`: The proportion of people who are &lt;u&gt;subscribed&lt;/u&gt; (Unsubscribed = 0) and that &lt;u&gt;have not&lt;/u&gt; watched GoT (GoT = 0)
+  - `\(p_{mk} = p_{01}\)`: The proportion of people who are &lt;u&gt;unsubscribed&lt;/u&gt; (Unsubscribed = 1) and that &lt;u&gt;have not&lt;/u&gt; watched GoT (GoT = 0)
+  
+  
+- Usually, you want the Gini index to be **.darkorange[small]**!
+
+---
+
+.center2[
+.box-6Trans[Q3: According to the Gini Index, is it better or worse to have a high p&lt;sub&gt;mk&lt;/sub&gt; (i.e. closer to 1)?]
+&lt;br&gt;
+&lt;br&gt;
+`$$G = \sum_{k=1}^K\hat{p}_{mk}(1-\hat{p}_{mk})$$`
+]
+
+
+---
+# Choosing predictors
+
+- From the previous exercise, we can see that **.darkorange[using `got` yields a lower Gini compared to `city`]** (0.428 vs. 0.482)
+
+--
+&lt;br&gt;
+&lt;br&gt;
+.box-2[But we have more variables]
+
+--
+
+.box-3[How do we choose?]
+
+
+---
+# Basic Algorithm
+
+.box-2s[1) Start at the root node]
+&lt;br&gt;
+&lt;br&gt;
+--
+.box-4s[2) Split the parent node at covariate x&lt;sub&gt;i&lt;/sub&gt; to minimize the sum of child node impurities]
+&lt;br&gt;
+&lt;br&gt;
+--
+.box-5s[3) Stop if leaves are pure or early stopping criteria is satisfied, else repeat step (1) and (2) for each new child nodes]
+&lt;br&gt;
+&lt;br&gt;
+--
+.box-6s[4) Prune your tree according to a complexity parameter (cp)]
+&lt;br&gt;
+&lt;br&gt;
+--
+.box-7s[5) Assign the average outcome (regression) or the majority (classification) in each leaf.]
+
+&lt;br&gt;
+.source[Adapted from "Machine Learning FAQs" (Raschka, 2021)]
+
+---
+# Hyper-parameter: Complexity parameter
+
+- Measure of how much a split should **.darkorange[improve prediction]** for it to be worth it.
+
+--
+
+`$$\sum_{m=1}^{|T|} \sum_{i: i \in R_m} (y_i - \hat{y}_i)^2 + \alpha|T|$$`
+
+- `\(|T|\)`: Number of terminal nodes or leaves (e.g. size of the tree)
+- `\(R_m\)`: Predictor space of the `\(m\)`th leaf
+- `\(\alpha\)`: Tuning parameter
+
+--
+
+What happens if `\(\alpha=0\)`?
+
+
+---
+# Let's see how to do it in R!
+
+
+
+
+```r
+*library(caret)
+*library(rpart)
+
+set.seed(100)
+
+ct &lt;- train(
+  factor(unsubscribe) ~ . - id, data = hbo.train, #remember your outcome needs to be a factor!
+  method = "rpart", # The method is called rpart
+  trControl = trainControl("cv", number = 10),
+  tuneLength = 15
+)
+```
+---
+# Let's see how to do it in R!
+
+
+```r
+library(caret)
+library(rpart)
+
+set.seed(100)
+
+ct &lt;- train(
+  factor(unsubscribe) ~ . - id, data = hbo.train, #remember your outcome needs to be a factor!
+* method = "rpart",
+  trControl = trainControl("cv", number = 10),
+  tuneLength = 15
+)
+```
+
+
+---
+# Let's see how to do it in R!
+
+
+```r
+library(caret)
+library(rpart)
+
+set.seed(100)
+
+ct &lt;- train(
+  factor(unsubscribe) ~ . - id, data = hbo.train, #remember your outcome needs to be a factor!
+  method = "rpart",
+  trControl = trainControl("cv", number = 10),
+* tuneLength = 15
+)
+```
+
+- `tuneLength` is useful when you don't want to pass a specific grid (usually it might not be enough though!)
+
+---
+# We could also provide a grid of complexity parameters
+
+
+```r
+set.seed(100)
+
+ct &lt;- train(
+  factor(unsubscribe) ~ ., data = hbo.train,
+  method = "rpart",
+  trControl = trainControl("cv", number = 10),
+* tuneGrid = expand.grid(cp = seq(0,1, by = 0.01)),
+  control = rpart.control(minsplit = 20)
+)
+```
+- `cp`: Complexity parameter
+
+  - Split must decrease the overall lack of fit by a factor of `cp`, or is not attempted.
+  
+  - Parameter for **.darkorange[pruning the tree]**.
+  
+  - Higher `cp`, smaller the tree!
+
+- `minsplit`: Min. number of obs in a node to attempt a split.
+
+---
+# This works similarly to the penalty term in regularization...
+
+&lt;img src="f2022_sta235h_15_DecisionTrees_files/figure-html/rmse-1.svg" style="display: block; margin: auto;" /&gt;
+
+```
+##     cp
+## 4 0.03
+```
+
+---
+# ... And we can also plot the tree!
+
+&lt;img src="f2022_sta235h_15_DecisionTrees_files/figure-html/full_tree-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;br&gt;
+.box-4Trans[What do you think the percentages in the leaves represent?]
+
+&lt;img src="f2022_sta235h_15_DecisionTrees_files/figure-html/full_tree2-1.svg" style="display: block; margin: auto;" /&gt;
+  
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Regression Trees
+]
+---
+# Regression Trees
+
+- Outcome is **.darkorange[continuous]**
+
+--
+
+- Very similar to what we have seen with **.darkorange[classification trees]**:
+
+  - Predicted outcome is the **.darkorange[mean outcome for the leaf/region]**.
+
+---
+# In R is basically the same
+
+.pull-left[
+
+```r
+set.seed(100)
+
+rt &lt;- train(
+  logins ~. - unsubscribe, data = hbo.train, 
+  method = "rpart",
+  trControl = trainControl("cv", number = 10),
+  tuneLength = 20
+  )
+
+plot(rt)
+```
+]
+
+.pull-right[
+&lt;img src="f2022_sta235h_15_DecisionTrees_files/figure-html/plot_cv-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Providing a specific grid for cp
+
+.pull-left[
+
+```r
+set.seed(100)
+
+*tuneGrid &lt;- expand.grid(cp = seq(0, 0.1, 0.005))
+
+rt &lt;- train(
+  logins ~. - unsubscribe, data = hbo.train, 
+  method = "rpart",
+  trControl = trainControl("cv", number = 10),
+* tuneGrid = tuneGrid
+  )
+
+plot(rt)
+```
+]
+
+.pull-right[
+&lt;img src="f2022_sta235h_15_DecisionTrees_files/figure-html/plot_cv2-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Plot the tree
+
+.pull-left[
+&lt;img src="f2022_sta235h_15_DecisionTrees_files/figure-html/plot_tree_reg-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+
+```r
+rt$finalModel
+```
+
+```
+## n= 5000 
+## 
+## node), split, n, deviance, yval
+##       * denotes terminal node
+## 
+## 1) root 5000 66387.3700 4.806800  
+##   2) got&gt;=0.5 3535 24633.5000 2.973409  
+##     4) city&lt; 0.5 500   517.1580 0.322000 *
+##     5) city&gt;=0.5 3035 20022.2800 3.410214 *
+##   3) got&lt; 0.5 1465  1200.0180 9.230717  
+##     6) city&lt; 0.5 212   132.2028 8.061321 *
+##     7) city&gt;=0.5 1253   728.8571 9.428571 *
+```
+]
+
+
+---
+.box-6Trans[Q4: What would the predicted value be for a customer who hasn't watched GOT and lives in a city?]
+
+.pull-left[
+&lt;img src="f2022_sta235h_15_DecisionTrees_files/figure-html/plot_tree_reg2-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+
+```r
+rt$finalModel
+```
+
+```
+## n= 5000 
+## 
+## node), split, n, deviance, yval
+##       * denotes terminal node
+## 
+## 1) root 5000 66387.3700 4.806800  
+##   2) got&gt;=0.5 3535 24633.5000 2.973409  
+##     4) city&lt; 0.5 500   517.1580 0.322000 *
+##     5) city&gt;=0.5 3035 20022.2800 3.410214 *
+##   3) got&lt; 0.5 1465  1200.0180 9.230717  
+##     6) city&lt; 0.5 212   132.2028 8.061321 *
+##     7) city&gt;=0.5 1253   728.8571 9.428571 *
+```
+]
+
+---
+.center2[
+.box-3Trans[Now it's your turn!]
+]
+
+---
+# In-class Activity
+
+- Go to **.darkorange[https://sta235h.rocks/Week12]** and read the exercise.
+
+- Answer the questions in the activity and write them down on your sheet.
+
+- Submit your sheet at the end of the class.
+
+- **.darkorange[Remember to ask questions or ask for help if you get stuck!]**
+  
+---
+# Main takeaways of decision trees
+
+.pull-left[
+.center[
+![](https://media.giphy.com/media/1xOyKwXRD0a96CcCfT/giphy.gif)
+]
+]
+
+.pull-right[
+**.darkorange[Main advantages:]**
+
+- Easy to interpret and explain (you can plot them!)
+  
+- Mirrors human decision-making.
+  
+- Can handle qualitative predictors (without need for dummies).
+  
+**.darkorange[Main disadvantages:]**
+
+  - Accuracy not as high as other methods
+  
+  - Very sensitive to training data (e.g. overfitting)
+]
+
+---
+# Next class
+
+.pull-left[
+Use of decision trees as building blocks for **.darkorange[more powerful prediction methods!]**
+
+- Bagging
+  
+- Random Forests
+  
+- Boosting]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/cRH5deQTgTMR2/giphy.gif)
+]
+]
+
+---
+# References
+
+- James, G. et al. (2021). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 8*
+
+- Starmer, J.. (2018). "Decision Trees". *Video materials from StatQuest (YouTube)*.
+
+- STDHA. (2018). ["CART Model: Decision Tree Essentials"](http://www.sthda.com/english/articles/35-statistical-machine-learning-essentials/141-cart-model-decision-tree-essentials)
+
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week12/1_DecisionTrees/f2021_sta235h_17_DecisionTrees.html') --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
