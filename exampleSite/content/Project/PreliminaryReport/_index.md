@@ -33,7 +33,7 @@ Check out the [Useful R Code](https://sta235.netlify.app/usefulrcode/sta235h_use
 **Research question:** The question at hand tackles one of the areas covered in this class, it is presented in a clear way, and it is motivated appropriately.<br>
 **Data description:** Appropriate plots and tables showing the relevant data.<br>
 **Analysis plan:** Clear roadmap on how the question will be tackled in terms of analysis.<br>
-**R code**: Is the R code complete and consistent with what is shown in the report? <br>
+**R code**: Is the R code complete and consistent with what is shown in the report? Include a link to the raw data as well that can be ran on this R code. <br>
 **Peer assessment:** Students will be evaluated by their peers in terms of their contributions and responsiblity.
 {{% /notice %}}
 
