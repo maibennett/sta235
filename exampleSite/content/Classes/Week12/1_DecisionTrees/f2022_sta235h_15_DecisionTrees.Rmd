@@ -642,6 +642,14 @@ $$G = \sum_{k=1}^K\hat{p}_{mk}(1-\hat{p}_{mk})$$
 .source[Adapted from "Machine Learning FAQs" (Raschka, 2021)]
 
 ---
+# Grow full tree and prune it
+
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/full_tree.png)
+]
+
+
+---
 # Hyper-parameter: Complexity parameter
 
 - Measure of how much a split should **.darkorange[improve prediction]** for it to be worth it.
@@ -658,7 +666,12 @@ $$\sum_{m=1}^{|T|} \sum_{i: i \in R_m} (y_i - \hat{y}_i)^2 + \alpha|T|$$
 
 What happens if $\alpha=0$?
 
+---
+# Only attempt a split if it's worth it
 
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/images/not_full_tree.png)
+]
 ---
 # Let's see how to do it in R!
 
