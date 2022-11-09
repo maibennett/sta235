@@ -72,3 +72,10 @@ Let's go through the code for the GOTV matching example!
 Let's go through the code for the RDD example for minimum legal drinking age and arrests.
 
 {{< youtube src="https://www.youtube.com/embed/O8zM5OCFlhI" >}}
+
+
+### Lasso Regression
+
+Here, I go through the code for the in-class activity for Week 11, particularly, the code for Lasso regression.
+
+{{< youtube src="https://www.youtube.com/embed/p9CYtk38lmQ" >}}
