@@ -1,0 +1,41 @@
+deny
+Factor. Was the mortgage denied?
+
+pirat
+Payments to income ratio.
+
+hirat
+Housing expense to income ratio.
+
+lvrat
+Loan to value ratio.
+
+chist
+Factor. Credit history: consumer payments. (1: no "slow pay" account; 2: One or two "slow pay" accounts; 3: More than two "slow pay" accounts, 4: Insufficient credit history for determination; 5: delinquent credit history with 60 days past due; 6: serious delinquencies with 90 days past due)
+
+mhist
+Factor. Credit history: mortgage payments (1: No late payments; 2: No payment history; 3: One or two late payments; 4: More than two late payments).
+
+phist
+Factor. Public bad credit record?
+
+unemp
+1989 Massachusetts unemployment rate in applicant's industry.
+
+selfemp
+Factor. Is the individual self-employed?
+
+insurance
+Factor. Was the individual denied mortgage insurance?
+
+condomin
+Factor. Is the unit a condominium?
+
+afam
+Factor. Is the individual African-American?
+
+single
+Factor. Is the individual single?
+
+hschool
+Factor. Does the individual have a high-school diploma?
