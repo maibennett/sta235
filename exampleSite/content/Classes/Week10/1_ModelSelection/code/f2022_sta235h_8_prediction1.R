@@ -81,7 +81,6 @@ lm_simple_cv <- train(logins ~ got + city, data = hbo, method="lm",
 
 lm_simple_cv
 
-rmse(lm_simple_cv, test.data)
 
 lm_complex_cv <- train(logins ~ female + city + age + I(age^2) + got, data = hbo, method="lm",
                        trControl = train.control) #See that here (in the train function), we just pass all the data. The function will divide it in folds and do all that!
