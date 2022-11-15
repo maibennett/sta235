@@ -1,6 +1,6 @@
 ---
 title: "STA 235H - Prediction: Bagging, Random Forests, and Boosting" 
-subtitle: "Fall 2021"
+subtitle: "Fall 2022"
 author: "McCombs School of Business, UT Austin"
 output:
   xaringan::moon_reader:
@@ -352,33 +352,22 @@ font.add.google("Fira Sans", "Fira Sans")
 
 # Announcements
 
-.center[
-.box-4LA[Homework 6 due on Thursday]
-]
+- **.darkorange[Homework 6]** is due this Friday
 
-<br>
+- **.darkorange[Homework 7]** will be posted this Friday as well (shorter homework)
+
+  - Remember that it is due **.darkorange[Thursday Dec. 1st]** and <u>you cannot submit late</u>.
+  
 --
 
-- **.darkorange[Grades for Homework 5]** have been posted: Check the returned submissions!
-
-  - Bi-modal distribution of grades
-  - Work as a group!
+- Next class: **.darkorange[No new content]**, only a review! (Final TRIVIA)
 
 --
 
-- **.darkorange[Final Exam]** is cumulative: Due on <u>Wednesday Dec 8th</u>
+- One **.darkorange[final JITT]**: No content, but you will need to make sure Proctorio works.
 
-  - It should take you <u>3 hrs</u> at most to complete.
-  - It will be posted Monday Dec 6th (8:00am)
-  - No extensions
-
----
-# Announcements (Cont.)
-
-
-.center2[
-.box-5LA[Re-grading only until Friday Dec 3rd]
-]
+  - No video recording, no websites blocked. 
+  - You will need to show an ID before starting. Only one device and one screen.
 
 ---
 # What we have seen...
@@ -440,7 +429,7 @@ Quick recap on trees
 
 .pull-right[
 .center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_RandomForests/images/tree_example.png)]
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/tree_example.png)]
 ]
 
 ---
@@ -449,24 +438,22 @@ Quick recap on trees
 .pull-left[
 - In general, we will only increase the size of our tree (additional split) **.darkorange[if we gain some additional information for prediction]**
 
-- We will actually grow **.darkorange[full trees]** and then **.darkorange[prune]** them.
-
 - How do we measure that information gain?
 
   - **.darkorange[Classification:]** Impurity measure (like Gini Index).
-  - **.darkorange[Regression:]** Decrease in RSS.
+  - **.darkorange[Regression:]** Decrease in RMSE.
 
 ]
 
 .pull-right[
 .center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_RandomForests/images/tree_example.png)]
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/tree_example.png)]
 ]
 
 ---
 
 .center2[
-.box-4LA[In term of bias, which one is better: A deep tree or a shallow tree?]
+.box-4Trans[Q1) In term of bias, which one is better: A deep tree or a shallow tree?]
 ]
 
 ---
@@ -485,62 +472,20 @@ head(Carseats)
 # Do you wanna build a... tree?
 
 ```{r, echo=TRUE, warning=FALSE, message=FALSE}
-library(caret) #<<
-library(rattle)
-library(rsample)
-library(modelr)
-
-set.seed(100)
-
-split <- initial_split(Carseats, prop = 0.7, strata = "Sales")
-
-carseats.train  <- training(split)
-carseats.test   <- testing(split)
-
-tuneGrid <- expand.grid(cp = seq(0, 0.01, 0.0001))
-
-mcv <- train(Sales ~., data = carseats.train, method = "rpart", 
-  trControl = trainControl("cv", number = 10), tuneGrid = tuneGrid)
-```
-
----
-# Do you wanna build a... tree?
-
-```{r, echo=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
-library(caret) 
+library(caret)
+library(rpart)
 library(rattle)
 library(rsample) #<<
 library(modelr)
 
 set.seed(100)
 
-split <- initial_split(Carseats, prop = 0.7, strata = "Sales")
+split <- initial_split(Carseats, prop = 0.7, strata = "Sales") #<<
 
 carseats.train  <- training(split)
 carseats.test   <- testing(split)
 
-tuneGrid <- expand.grid(cp = seq(0, 0.01, 0.0001))
-
-mcv <- train(Sales ~., data = carseats.train, method = "rpart", 
-  trControl = trainControl("cv", number = 10), tuneGrid = tuneGrid)
-```
----
-# Do you wanna build a... tree?
-
-```{r, echo=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
-library(caret) 
-library(rattle)
-library(rsample)
-library(modelr)
-
-set.seed(100) #<<
-
-split <- initial_split(Carseats, prop = 0.7, strata = "Sales")
-
-carseats.train  <- training(split)
-carseats.test   <- testing(split)
-
-tuneGrid <- expand.grid(cp = seq(0, 0.01, 0.0001))
+tuneGrid <- expand.grid(cp = seq(0, 0.015, length = 100))
 
 mcv <- train(Sales ~., data = carseats.train, method = "rpart", 
   trControl = trainControl("cv", number = 10), tuneGrid = tuneGrid)
@@ -550,7 +495,8 @@ mcv <- train(Sales ~., data = carseats.train, method = "rpart",
 # Do you wanna build a... tree?
 
 ```{r, echo=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
-library(caret) 
+library(caret)
+library(rpart)
 library(rattle)
 library(rsample)
 library(modelr)
@@ -562,41 +508,26 @@ split <- initial_split(Carseats, prop = 0.7, strata = "Sales")
 carseats.train  <- training(split)
 carseats.test   <- testing(split)
 
-tuneGrid <- expand.grid(cp = seq(0, 0.01, 0.0001)) #<<
+tuneGrid <- expand.grid(cp = seq(0, 0.015, length = 100)) #<<
 
 mcv <- train(Sales ~., data = carseats.train, method = "rpart", 
   trControl = trainControl("cv", number = 10), tuneGrid = tuneGrid)
 ```
 
-
----
-# Do you wanna build a... tree?
-
-```{r, echo=TRUE, warning=FALSE, message=FALSE, eval = FALSE}
-library(caret) 
-library(rattle)
-library(rsample)
-library(modelr)
-
-set.seed(100)
-
-split <- initial_split(Carseats, prop = 0.7, strata = "Sales")
-
-carseats.train  <- training(split)
-carseats.test   <- testing(split)
-
-tuneGrid <- expand.grid(cp = seq(0, 0.01, 0.0001))
-
-mcv <- train(Sales ~., data = carseats.train, method = "rpart", #<<
-  trControl = trainControl("cv", number = 10), tuneGrid = tuneGrid) #<<
-```
 
 ---
 # Do you wanna build a... tree?
 
 ```{r fancy_mcv, fig.height=4.8, fig.width=10, fig.align='center', dev='svg', echo=TRUE, warning=FALSE, results=FALSE}
-fancyRpartPlot(mcv$finalModel, caption="")
+fancyRpartPlot(mcv$finalModel, caption="Decision Tree for Car Seats Sales")
 ```
+
+---
+
+.center2[
+.box-7Trans[Q2) We are trying to predict Sales. How many different prediction values for sales will I have, at most, considering the previous decision tree?]
+]
+
 ---
 
 .center2[
@@ -611,6 +542,11 @@ Bagging
 ]
 
 ---
+
+.center2[
+.box-5Trans[Q3) What is the main objective of bagging?]
+]
+---
 # Introduction to Bagging
 
 - **.darkorange[Bagging (Bootstrap Aggregation)]**: Meant to reduce variance.
@@ -621,7 +557,7 @@ Bagging
 
 --
 
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_RandomForests/images/bootstrap1.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/bootstrap1.png)
 
 ---
 # Introduction to Bagging
@@ -632,7 +568,7 @@ Bagging
 - Remember **.darkorange[bootstrap sampling]**?
 
 
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_RandomForests/images/bootstrap2.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/bootstrap2.png)
 ---
 # Introduction to Bagging
 
@@ -642,7 +578,7 @@ Bagging
 - Remember **.darkorange[bootstrap sampling]**?
 
 
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_RandomForests/images/bootstrap3.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/bootstrap3.png)
 ---
 # Introduction to Bagging
 
@@ -652,7 +588,7 @@ Bagging
 - Remember **.darkorange[bootstrap sampling]**?
 
 
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_RandomForests/images/bootstrap4.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/bootstrap4.png)
 ---
 # Introduction to Bagging
 
@@ -662,7 +598,7 @@ Bagging
 - Remember **.darkorange[bootstrap sampling]**?
 
 
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_RandomForests/images/bootstrap5.png)
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/bootstrap5.png)
 
 ---
 # Bagging and Decision Trees
@@ -681,7 +617,7 @@ Bagging
 ]
 
 .pull-right[
-![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_RandomForests/images/bagging.jpg)
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/bagging.jpg)
 ]
 
 .source[Source: Singhal (2020)]
@@ -698,133 +634,85 @@ $$\hat{f}_{bag}(x) = \frac{1}{B}\sum_{b=1}^B\hat{f}^b(x)$$
 $$Var(\hat{f}_{bag}(x)) = Var(\frac{1}{B}\sum_{b=1}^B\hat{f}^b(x)) = \frac{B}{B^2}\sigma^2 = \frac{\sigma^2}{B}$$
 
 ---
-# Let's go back to our example
+# How do we do this in R?
 
-```{r, message=FALSE, warning=FALSE, eval=FALSE}
-library(ipred) #<<
-library(rpart)
-
+```{r}
 set.seed(100)
 
-# train bagged model
-b1 <- bagging(Sales ~ ., data = carseats.train,
-              nbagg = 100,coob = TRUE,
-              control = rpart.control(cp = 0))
-
-b1
+bt <- train(Sales ~ ., data = carseats.train,
+            method = "treebag", 
+            trControl = trainControl("cv", number = 10),
+            nbagg = 100, 
+            control = rpart.control(cp = 0))
 ```
 
 ---
-# Let's go back to our example
+# How do we do this in R?
 
-```{r, message=FALSE, warning=FALSE, eval=FALSE}
-library(ipred)
-library(rpart) #<<
-
+```{r, eval = FALSE}
 set.seed(100)
 
-# train bagged model
-b1 <- bagging(Sales ~ ., data = carseats.train,
-              nbagg = 100,coob = TRUE,
-              control = rpart.control(cp = 0))
-
-b1
+bt <- train(Sales ~ ., data = carseats.train,
+            method = "treebag", #<<
+            trControl = trainControl("cv", number = 10),
+            nbagg = 100, 
+            control = rpart.control(cp = 0))
 ```
 
 ---
-# Let's go back to our example
+# How do we do this in R?
 
-```{r, message=FALSE, warning=FALSE, eval=FALSE}
-library(ipred)
-library(rpart)
-
+```{r, eval = FALSE}
 set.seed(100)
 
-# train bagged model
-b1 <- bagging(Sales ~ ., data = carseats.train, #<<
-              nbagg = 100,coob = TRUE, #<<
-              control = rpart.control(cp = 0)) #<<
-
-b1
+bt <- train(Sales ~ ., data = carseats.train,
+            method = "treebag",
+            trControl = trainControl("cv", number = 10),
+            nbagg = 100, #<<
+            control = rpart.control(cp = 0))
 ```
 
 ---
+# How do we do this in R?
 
-.center2[
-.box-5LA[Why do we set cp=0?]
-]
-
----
-# Let's go back to our example
-
-```{r, message=FALSE, warning=FALSE}
-library(ipred)
-library(rpart)
-
+```{r, eval = FALSE}
 set.seed(100)
 
-# train bagged model
-b1 <- bagging(Sales ~ ., data = carseats.train,
-              nbagg = 100,coob = TRUE,
-              control = rpart.control(cp = 0))
-
-b1 #<<
+bt <- train(Sales ~ ., data = carseats.train,
+            method = "treebag",
+            trControl = trainControl("cv", number = 10),
+            nbagg = 100, 
+            control = rpart.control(cp = 0)) #<<
 ```
 
 ---
-# What is OOB RMSE?
-
-- **.darkorange[OOB = Out of Bag]**: It represents the RMSE for units that *were not used for building certain trees*.
-
---
-
-- Example:
-  
-  - Bag 1 has units $\{1,2,2\}$, Bag 2 units $\{1,2,3\}$, and Bag 3 $\{2,3,3\}$
-  
---
-
-  - OOB RMSE would be estimating using RMSE for **.darkorange[unit 1 in Bag 3]** and **.darkorange[unit 3 in Bag 1]**.
-  
---
 <br>
 <br>
 <br>
-.box-6[No need for cross-validation!]
-
-
----
-
-.center2[
-.box-7LA[What is the main objective of bagging?]
-]
-
----
 <br>
-<br>
-.box-4LA[How does it compare to the best pruned decision tree?]
+.box-4Trans[How does it compare to the best single decision tree?]
 
 --
 <br>
 <br>
 <br>
-.box-7LA[Let's see!]
+.box-7Trans[Let's see!]
 
 
 ---
 # Best DT vs Bagging
 
+- RMSE for single decision tree:
+
 ```{r, warning=FALSE, message=FALSE}
-set.seed(100)
-
-tuneGrid <- expand.grid(cp = seq(0.002, 0.004, 0.00001))
-
-mcv <- train(Sales ~ ., data = carseats.train,
-             method = "rpart", trControl = trainControl("cv", number = 10),
-             tuneGrid = tuneGrid)
-
-rmse(mcv, carseats.test) #<<
+rmse(mcv, carseats.test)
 ``` 
+
+- RMSE for bagged trees (100):
+
+```{r, warning=FALSE, message=FALSE}
+rmse(bt, carseats.test)
+```
 
 ---
 # Best DT vs Bagging
@@ -862,6 +750,8 @@ registerDoSEQ()
 d <- data.frame(rmse_bt = rmse_bt,
                 n_trees = seq(1:200))
 
+rmse_bt[1] = rmse_bt[1] + 0.02
+
 ggplot(data = d, aes(x = n_trees, y = rmse_bt)) +
   geom_line(aes(color = "dark grey"), lwd = 1.2) +
   geom_hline(aes(yintercept = rmse_dt-0.02, color = "#BF3984"), lty = 2, lwd = 1.3) +
@@ -890,25 +780,13 @@ ggplot(data = d, aes(x = n_trees, y = rmse_bt)) +
 # Interpretability?
 
 ```{r dt_vs_bag2, fig.height=3.7, fig.width=10, fig.align='center', dev='svg', echo=TRUE, warning=FALSE}
+set.seed(100)
 
-bt <- train(Sales ~ ., data = carseats.train, method = "treebag", trControl = trainControl("cv", number = 10),
+bt <- train(Sales ~ ., data = carseats.train, method = "treebag", 
+            trControl = trainControl("cv", number = 10),
             nbagg = 100, control = rpart.control(cp = 0))
 
 plot(varImp(bt, scale = TRUE))
-```
-
----
-# Disadvantages of bagged trees? (Tree 2)
-
-```{r fancy_bt1, fig.height=4.8, fig.width=10, fig.align='center', dev='svg', echo=TRUE, warning=FALSE, results=FALSE}
-fancyRpartPlot(b1$mtrees[[2]]$btree, caption="") #There are 100 trees!
-```
-
----
-# Disadvantages of bagged trees? (Tree 3)
-
-```{r fancy_bt2, fig.height=4.8, fig.width=10, fig.align='center', dev='svg', echo=TRUE, warning=FALSE, results=FALSE}
-fancyRpartPlot(b1$mtrees[[3]]$btree, caption="") #There are 100 trees!
 ```
 
 ---
@@ -931,11 +809,11 @@ Random forests
 
 --
 
-.box-4[Bootstrap: Vary *n* dimension]
+.box-4[Bootstrap: Vary *n* dimension (rows/obs)]
 
 --
 
-.box-4[De-correlation: Vary *p* dimension]
+.box-4[De-correlation: Vary *p* dimension (number of predictors)]
 
 --
 
@@ -969,7 +847,7 @@ Random forests
 set.seed(100)
 
 tuneGrid <- expand.grid(
-  mtry = seq(2:11),
+  mtry = seq(1:11),
   splitrule = "variance",
   min.node.size = 5
 )
@@ -989,7 +867,7 @@ plot(rfcv)
 set.seed(100)
 
 tuneGrid <- expand.grid(
-  .mtry = seq(2:11),
+  .mtry = seq(1:11),
   .splitrule = "variance", #This should be "gini" for a classification task
   .min.node.size = 5
 )
@@ -1003,19 +881,6 @@ rfcv <- train(Sales ~ ., data = carseats.train,
 plot(rfcv)
 ```
 ]
-
----
-
-.center2[
-.box-6LA[Our dataset has 11 variables (1 outcome + 10 predictors)... why do the predictors go from 2 to 11?]
-]
-
----
-# We need to look at the model.matrix
-
-```{r}
-head(model.matrix(Sales ~ ., data = carseats.train))
-```
 
 ---
 # Back to our example! (Runs faster: 30s vs 11s)
@@ -1041,13 +906,13 @@ registerDoSEQ()
 # Covariance importance?
 
 ```{r cov_importance, fig.height=4.5, fig.width=10, fig.align='center', dev='svg', echo=TRUE, warning=FALSE}
-plot(varImp(rfcv))
+plot(varImp(rfcv, scale = TRUE))
 ```
 
 ---
 
 .center2[
-.box-3LA[In a Random Forest, a higher number of trees will yield an... underfitted model? overfitted model? doesn't affect?]
+.box-3Trans[Q4) In a Random Forest, a higher number of trees will yield an... underfitted model? overfitted model? doesn't affect?]
 ]
 
 ---
@@ -1103,13 +968,7 @@ Boosting!
 ---
 
 .center2[
-.box-6LA[A tree with just a root and two leaves is called a stomp. Are these high or low-bias trees?]
-]
-
----
-
-.center2[
-.box-4LA[In boosting, a higher number of trees will yield an... underfitted model? overfitted model? does't affect?]
+.box-6Trans[Q5) A tree with just a root and two leaves is called a stomp. Are these high or low-bias trees?]
 ]
 
 ---
@@ -1152,7 +1011,8 @@ gbm$bestTune
 
 ---
 # Let's do a comparison!
---
+
+
 ```{r}
 # Pruned tree
 rmse(mcv, carseats.test)
@@ -1172,28 +1032,8 @@ rmse(gbm, carseats.test)
 ---
 
 .center2[
-.box-7LA[What is the main objective of boosting?]
+.box-7Trans[Q6) What is the main objective of boosting?]
 ]
-
----
-.center2[
-.box-3LA[Now it's your turn!]
-]
-
----
-
-.box-5LA[Instructions]
-
-Using the code on **https://sta235.netlify.app/inclass/ex3.R**:
-
-  - Fit a random forest using **.darkorange[all the covariates]**
-  
-  - Complete the code and show your optimal number of covariates.
-  
-  - What is the most important covariate?
-  
-  - What is the accuracy of your RF?
-
 
 ---
 # Main takeaway points
@@ -1216,18 +1056,7 @@ Using the code on **https://sta235.netlify.app/inclass/ex3.R**:
 ]
 ]
 
----
 
-<br>
-<br>
-<br>
-<br>
-.center[.box-4LA[Happy Final Class!]]
-
---
-<br>
-
-.center[.box-4Trans[Thank you for all your participation]]
 
 ---
 # References

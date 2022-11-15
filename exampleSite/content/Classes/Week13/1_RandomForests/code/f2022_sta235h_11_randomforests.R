@@ -1,7 +1,7 @@
 ################################################################################
-### Title: "Week 14 - Bagging, Random Forests, and Boosting"
+### Title: "Week 13 - Bagging, Random Forests, and Boosting"
 ### Course: STA 235H
-### Semester: Fall 2021
+### Semester: Fall 2022
 ### Professor: Magdalena Bennett
 ################################################################################
 
@@ -17,9 +17,10 @@ library(tidyverse)
 library(ggplot2)
 library(caret)
 library(rpart)
-library(ranger) # You will need this to run random forests
 library(rattle)
-library(rsample) #This helps us divide our data by strata 
+library(rsample) #This helps us divide our data by strata
+library(ipred) # You will need this to do bagged trees
+library(ranger) # You will need this to run random forests
 
 # You will need to install xgboost. For that, you need to have RTools installed on your computer first if you use Windows. Check this out if you have Windows: https://www.rdocumentation.org/packages/installr/versions/0.22.0/topics/install.Rtools
 # After that, install xgboost to R
@@ -42,7 +43,7 @@ split <- initial_split(Carseats, prop = 0.7, strata = "Sales")
 carseats.train  <- training(split)
 carseats.test   <- testing(split)
 
-tuneGrid <- expand.grid(cp = seq(0, 0.01, 0.0001)) # we set this tuneGrid after looking at the plot
+tuneGrid <- expand.grid(cp = seq(0, 0.015, length = 100)) # we set this tuneGrid after looking at the plot
 
 # Excercise: With which tuneGrid would you begin?
 
@@ -57,6 +58,8 @@ varImp(mcv, scale = TRUE)
 plot(varImp(mcv, scale = TRUE))
 
 # Question: Why isn't necessarily the most important covariate the one at the top of the tree in this plot?
+# The variable at the top of the tree is the *single* variable that reduces the RMSE the most, but
+# there are additional splits where variables also play a role. varImp() consider all these different splits. 
 
 
 #### Bagging
@@ -74,23 +77,12 @@ bt <- train(Sales ~ ., data = carseats.train,
 
 plot(varImp(bt, scale = TRUE)) #Importance of the covariates!
 
+# We can get the RMSE the same as always:
+rmse(bt, carseats.test)
 
-# Cross-validation can be very slow, so let's do OOTB validation:
+# And we can also get the predicted sales!
 
-library(ipred)
-
-set.seed(100)
-
-# train bagged model
-b1 <- bagging(Sales ~ ., data = carseats.train,
-              nbagg = 100, coob = TRUE,
-              control = rpart.control(cp = 0))
-
-b1
-
-#Question: How do we get RMSE?
-
-pred <- b1 %>% predict(carseats.test) # predictions
+pred.sales <- bt %>% predict(test.data)
 
 ###### Random forests
 
@@ -99,7 +91,7 @@ set.seed(100)
 # We have a lot of parameters! (we can also use tuneLength as an overall default parameter)
 
 tuneGrid <- expand.grid(
-  mtry = 2:11, # Number of random covariates that will test
+  mtry = 1:11, # Number of random covariates that will test
   splitrule = "variance", # Split rule (for regressions use "variance", for classification use "gini")
   min.node.size = 5
 )
@@ -170,13 +162,15 @@ gbm$finalModel
 gbm$bestTune
 
 # You can also try extreme gradient boosting, which is more efficient
+
+# If you don't want to run it in a parallel way, just comment out lines 167-168 and 176-177, and remove the option "allowParallel"
 cl <- makePSOCKcluster(detectCores()-1)
 registerDoParallel(cl)
 
 set.seed(100)
 
 xgbm <- train(Sales ~ ., data = carseats.train,
-             method = 'xgbTree',                          # We are using extreme gradient boosting
+             method = 'xgbTree',  # We are using extreme gradient boosting
              trControl = trainControl("cv", number = 10, allowParallel = TRUE))
 
 stopCluster(cl)
@@ -196,39 +190,28 @@ xgbm$bestTune
 
 ## Exercise: repeat the same models as before, but now use `HighSales` as your outcome. What do you get?
 
-Carseats$HighSales=ifelse(Carseats$Sales<=8, 0, 1) # Build a binary outcome
+Carseats <- Carseats %>% mutate(HighSales = ifelse(Carseats$Sales<=8, 0, 1)) # Build a binary outcome
 
 set.seed(100)
 
-split <- initial_split(Carseats, prop = 0.7, strata = "HighSales") #Create a new training and testing datasete
+split <- initial_split(Carseats, prop = 0.7, strata = "HighSales") #Create a new training and testing dataset
 
 carseats.train  <- training(split)
 carseats.test   <- testing(split)
 
 
-# Exercise: 1) Find the best pruned decision tree, 2) Run some bagged trees, 3) Run a random forest
+# Exercise: 1) Find the best pruned decision tree, 2) Run some bagged trees, 3) Run a random forest, and 4) run a boosted model.
 # You can do all that adapting the code above!
 
 
-# I will help you with some boosting code: (this one can take a while)
+# I will help you with some boosting code:
 set.seed(100)
 
-ada <- train(factor(HighSales) ~ ., data = carseats.train,
-             method = "ada",                                      #I'm using now adaptative boosting
+gbm <- train(factor(HighSales) ~ . - Sales, data = carseats.train,
+             method = "gbm",     #run gradient boosting
              trControl = trainControl("cv", number = 10),
-             tuneLength = 10)
-
-
-
-gbm <- train(factor(HighSales) ~ ., data = carseats.train,
-             method = "gbm",                                      #I'll also run gradient boosting
-             trControl = trainControl("cv", number = 10),
-             tuneLength = 10)
-
-#Let's compare the results for these two boosting methods:
-
-# Ada boosting
-rmse(ada, carseats.test)
+             tuneLength = 10) #You can play around with this. For example, change it to 15 or 20. What do you get?
 
 # Gradient boosting
-rmse(gbm, carseats.test)
+pred.values.boost <- gbm %>% predict(carseats.test)
+mean(pred.values.boost == carseats.test$HighSales)
