@@ -22,9 +22,9 @@ library(rsample) #This helps us divide our data by strata
 library(ipred) # You will need this to do bagged trees
 library(ranger) # You will need this to run random forests
 
+#install.packages("xgboost")
 # You will need to install xgboost. For that, you need to have RTools installed on your computer first if you use Windows. Check this out if you have Windows: https://www.rdocumentation.org/packages/installr/versions/0.22.0/topics/install.Rtools
 # After that, install xgboost to R
-#install.packages("xgboost")
 # If installing it from CRAN fails, you can also install it by downloading the file and going to "Tools --> Install Packages" using the file downloaded from here: https://cran.r-project.org/src/contrib/Archive/xgboost/
 
 ####################

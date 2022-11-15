@@ -216,7 +216,7 @@ set.seed(100)
 carseats.train  &lt;- training(split)
 carseats.test   &lt;- testing(split)
 
-tuneGrid &lt;- expand.grid(cp = seq(0, 0.01, length = 100))
+tuneGrid &lt;- expand.grid(cp = seq(0, 0.015, length = 100))
 
 mcv &lt;- train(Sales ~., data = carseats.train, method = "rpart", 
   trControl = trainControl("cv", number = 10), tuneGrid = tuneGrid)
@@ -240,7 +240,7 @@ split &lt;- initial_split(Carseats, prop = 0.7, strata = "Sales")
 carseats.train  &lt;- training(split)
 carseats.test   &lt;- testing(split)
 
-*tuneGrid &lt;- expand.grid(cp = seq(0, 0.01, length = 100))
+*tuneGrid &lt;- expand.grid(cp = seq(0, 0.015, length = 100))
 
 mcv &lt;- train(Sales ~., data = carseats.train, method = "rpart", 
   trControl = trainControl("cv", number = 10), tuneGrid = tuneGrid)
@@ -652,7 +652,7 @@ Boosting!
 - More effective on models with **.darkorange[high bias]** and **.darkorange[low variance]**
 
 .center[
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week14/1_RandomForests/images/boosting2.png)]
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/boosting2.png)]
 
 ---
 # Tuning parameters for boosting
