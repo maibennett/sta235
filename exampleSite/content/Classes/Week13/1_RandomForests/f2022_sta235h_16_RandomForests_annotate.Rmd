@@ -847,8 +847,8 @@ Random forests
 set.seed(100)
 
 tuneGrid <- expand.grid(
-  mtry = seq(1:11),
-  splitrule = "variance",
+  mtry = seq(1:11), #<<
+  splitrule = "variance", #<<
   min.node.size = 5
 )
 

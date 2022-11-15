@@ -104,6 +104,9 @@ rfcv <- train(Sales ~ ., data = carseats.train,
 
 # Question: Change tuneGrid to tuneLength = 10, what do you get?
 
+rfcv # Here you can see the main results!
+
+# We can plot the tuning parameter we were testing (mtry only in this case) here:
 plot(rfcv)
 
 # Question: How many trees is this RF running? You can see it here:
