@@ -82,7 +82,7 @@ rmse(bt, carseats.test)
 
 # And we can also get the predicted sales!
 
-pred.sales <- bt %>% predict(test.data)
+pred.sales <- bt %>% predict(carseats.test)
 
 ###### Random forests
 
