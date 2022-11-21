@@ -47,3 +47,19 @@ Check out the [Useful R Code](https://sta235.netlify.app/usefulrcode/sta235h_use
 - **For causal inference projects**: Be specific about your identification strategy (e.g. are you just running a regression and adjusting for confounders? Are you using an RCT, Diff-in-Diff, RDD?), and any robustness checks you will conduct. Remember to include a discussion in your analysis plan about limitations.
 
 - **For prediction projects**: You will need to compare two different methods that we have seen in class (you do not need to mention specifically which ones you will use in this case, because we have not covered everything). You will need to include, though, some information about your analysis: (i) Is this a regression task (continuous outcome) or classification task? (ii) How are you going to assess how good your models are and how are you going to choose which one is your preferred one?. 
+
+
+### Grading Rubric
+
+The Preliminary Report was graded according to the following criteria:
+
+|Metric| Description| Max Points| Discounts|
+|:---|:---|:---:|:---|
+|Format | Complies with format? | 10 | D: -5 if length exceeds two pges, -2 if font size is not appropriate, -2 if spacing is not appropriate|
+|Research Question: Clarity| Clearly describes the research question and it's either (i) prediction or (ii) causal| 15| D: -5 if the question is not clear (or not grounded on the data), -5 if it's not clearly prediction or causal|
+|Reserch Question: Motivation| Describes why the question is relevant and uses appropriate sources to support it| 15 | D: -7 doesn't use references, -5 motivation is not clear|
+|Data description: Requirements| Has at least one plot and one table | 5| D: -5 Doesn't have one table and one plot|
+|Data description: plots and tables|Plots and tables are clear and can be understood by the reader. This includes formatting, labels, captions, etc.| 15| D: -5 if reference number, -2 if referenced without caption, -2 no legend, -2 not appropriate labels, -5 screenshots of R output, -2 no rounding/inappropriate number of decimal places|
+|Data description: Explanation|The plots/tables and explanation allows the reader to clearly understand the main features of the dataset|15| D: -5 No description of the outcome, -5 missing some key characteristics of comparison (e.g. in classification/causal inference comparison between treat/control), -3 Some analysis but missing basic stats (number of obs, where the data is from, some summary statistics, etc.), -2 some, but limited data description based on plots/tables|
+|Analysis Plan: Description|It is clear from the analysis plan the way the analysis is going to be conducted|10||
+|R script|The script runs without errors with the data provided and replicates tables/plots|15| D: -7 code doesn't run, -5 code runs but doesn't replicate the results, -10 code doesn't run and has other issues that don't replicate the results (e.g. missing functions, missing code, or other mistakes), -15 Code is not provided|
