@@ -403,46 +403,46 @@ website</a> for specifics about the rubric.</p></li>
 <tbody>
 <tr class="odd">
 <td align="left">Format</td>
-<td align="center"></td>
+<td align="center">10</td>
 </tr>
 <tr class="even">
 <td align="left">Research Q: Clarity</td>
-<td align="center"></td>
+<td align="center">10</td>
 </tr>
 <tr class="odd">
 <td align="left">Research Q: Motivation</td>
-<td align="center"></td>
+<td align="center">15</td>
 </tr>
 <tr class="even">
 <td align="left">Data description: Requirements</td>
-<td align="center"></td>
+<td align="center">5</td>
 </tr>
 <tr class="odd">
 <td align="left">Data description: Plots and tables</td>
-<td align="center"></td>
+<td align="center">13</td>
 </tr>
 <tr class="even">
 <td align="left">Data description: Explanation</td>
-<td align="center"></td>
+<td align="center">15</td>
 </tr>
 <tr class="odd">
 <td align="left">Analysis Plan</td>
-<td align="center"></td>
+<td align="center">10</td>
 </tr>
 <tr class="even">
 <td align="left">R Script</td>
-<td align="center"></td>
+<td align="center">5</td>
 </tr>
 <tr class="odd">
 <td align="left"><b>Total</b></td>
-<td align="center"><b></b></td>
+<td align="center"><b>83</b></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>Final Grade: &lt;<grade>&gt;</p>
-<div id="comments" class="section level1">
-<h1>Comments</h1>
+<p>Final Grade: 83</p>
+<div id="comments-submission" class="section level1">
+<h1>Comments (Submission)</h1>
 <p>Remember that the question needs to be causal, so you need to present
 it in a causal way. The data description section is good, and the plots
 and tables you present are appropriate for showing your data. One thing,
@@ -451,6 +451,17 @@ the reader can understand the tables (e.g. what is sex_of_driver? Is it
 1 for male 2 for female? It’d be much clearer to present Female Driver
 and the proportion).Data analysis is appropriate, but remember to
 include a limitations subsection in your final project.</p>
+</div>
+<div id="comments-r-script" class="section level1">
+<h1>Comments (R Script)</h1>
+<p>Please reach out about your code, because I’m not sure how you are
+running it (on a pretty powerful desktop, I am not able to merge your
+datasets with your code). Even without merging it, some of your lines of
+code don’t run as expected. For example, this line:
+filter(substring(accidents$Date, 7, 10) &gt;= 2013) doesn’t work because
+the substring you are creating is a character, and can’t be compared
+with a numeric variable. Please stop by office hours to see about this
+if you want to re-check your code.</p>
 </div>
 
 

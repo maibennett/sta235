@@ -403,50 +403,58 @@ website</a> for specifics about the rubric.</p></li>
 <tbody>
 <tr class="odd">
 <td align="left">Format</td>
-<td align="center"></td>
+<td align="center">10</td>
 </tr>
 <tr class="even">
 <td align="left">Research Q: Clarity</td>
-<td align="center"></td>
+<td align="center">15</td>
 </tr>
 <tr class="odd">
 <td align="left">Research Q: Motivation</td>
-<td align="center"></td>
+<td align="center">15</td>
 </tr>
 <tr class="even">
 <td align="left">Data description: Requirements</td>
-<td align="center"></td>
+<td align="center">5</td>
 </tr>
 <tr class="odd">
 <td align="left">Data description: Plots and tables</td>
-<td align="center"></td>
+<td align="center">15</td>
 </tr>
 <tr class="even">
 <td align="left">Data description: Explanation</td>
-<td align="center"></td>
+<td align="center">15</td>
 </tr>
 <tr class="odd">
 <td align="left">Analysis Plan</td>
-<td align="center"></td>
+<td align="center">10</td>
 </tr>
 <tr class="even">
 <td align="left">R Script</td>
-<td align="center"></td>
+<td align="center">13</td>
 </tr>
 <tr class="odd">
 <td align="left"><b>Total</b></td>
-<td align="center"><b></b></td>
+<td align="center"><b>98</b></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>Final Grade: &lt;<grade>&gt;</p>
-<div id="comments" class="section level1">
-<h1>Comments</h1>
+<p>Final Grade: 98</p>
+<div id="comments-submission" class="section level1">
+<h1>Comments (Submission)</h1>
 <p>Very good report. The research question is clear, and you do a good
 job motivating it. The data description section is also very good: You
 do a great job presenting the pertinent data. Very small details about
 some labels, so make sure you fix that for the final report.</p>
+</div>
+<div id="comments-r-script" class="section level1">
+<h1>Comments (R Script)</h1>
+<p>There’s an error in your code where you are not creating the factor
+variable correctly: mutate(Medal = ifelse(Medal==“NA”, 0, 1)) it’s not
+the correct way to identify missing values (NA is not a
+string/character). You need to use is.na() or similar to identify
+missing values.</p>
 </div>
 
 

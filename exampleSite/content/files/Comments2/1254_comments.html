@@ -403,52 +403,59 @@ website</a> for specifics about the rubric.</p></li>
 <tbody>
 <tr class="odd">
 <td align="left">Format</td>
-<td align="center"></td>
+<td align="center">10</td>
 </tr>
 <tr class="even">
 <td align="left">Research Q: Clarity</td>
-<td align="center"></td>
+<td align="center">15</td>
 </tr>
 <tr class="odd">
 <td align="left">Research Q: Motivation</td>
-<td align="center"></td>
+<td align="center">15</td>
 </tr>
 <tr class="even">
 <td align="left">Data description: Requirements</td>
-<td align="center"></td>
+<td align="center">5</td>
 </tr>
 <tr class="odd">
 <td align="left">Data description: Plots and tables</td>
-<td align="center"></td>
+<td align="center">10</td>
 </tr>
 <tr class="even">
 <td align="left">Data description: Explanation</td>
-<td align="center"></td>
+<td align="center">15</td>
 </tr>
 <tr class="odd">
 <td align="left">Analysis Plan</td>
-<td align="center"></td>
+<td align="center">10</td>
 </tr>
 <tr class="even">
 <td align="left">R Script</td>
-<td align="center"></td>
+<td align="center">13</td>
 </tr>
 <tr class="odd">
 <td align="left"><b>Total</b></td>
-<td align="center"><b></b></td>
+<td align="center"><b>93</b></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>Final Grade: &lt;<grade>&gt;</p>
-<div id="comments" class="section level1">
-<h1>Comments</h1>
+<p>Final Grade: 93</p>
+<div id="comments-submission" class="section level1">
+<h1>Comments (Submission)</h1>
 <p>Very clear motivation, and good depiction of your data. Be careful
 though with descriptions, and add a more appropriate output for a
 summary table (see the code provided on resources for this, so you don’t
 use a screenshot of console output). The analysis plan also looks good,
 but remember you need two models (see the details on the course
 website).</p>
+</div>
+<div id="comments-r-script" class="section level1">
+<h1>Comments (R Script)</h1>
+<p>I don’t think write.to_csv() is a R function (or it is in a package
+that is not loaded). You might be confusing pandas_df.to_csv (Python)
+with write.csv() (R ). In line 65 you already eliminated the row id (X)
+from the dataset, so you can’t exclude it from the model.</p>
 </div>
 
 
