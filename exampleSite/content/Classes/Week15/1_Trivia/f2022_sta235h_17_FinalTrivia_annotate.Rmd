@@ -1,0 +1,718 @@
+---
+title: "STA 235H - Review Session & Final Trivia" 
+subtitle: "Fall 2022"
+author: "McCombs School of Business, UT Austin"
+output:
+  xaringan::moon_reader:
+    css: [xaringan-themer.css]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: ["macros.js"]
+    includes:
+      in_header: ["header.html"]
+---
+
+<!-- <script type="text/javascript"> -->
+<!-- MathJax.Hub.Config({ -->
+<!--   "HTML-CSS": { -->
+<!--     preferredFont: null, -->
+<!--     webFont:  "Neo-Euler" -->
+<!--   } -->
+<!-- }); -->
+<!-- </script> -->
+
+```{r setup, include=FALSE, warning=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.showtext = TRUE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE, message=FALSE}
+library(xaringanthemer)
+
+theme_xaringan(
+  text_color = "#333f48",
+  background_color = "#FFFFFF",
+  accent_color = "#900DA4",
+  text_font = "Fira Mono",
+  text_font_use_google = TRUE,
+  title_font = "Yanone Kaffeesatz",
+  title_font_use_google = TRUE
+)
+
+style_mono_accent(
+  #base_color = "#bf5700",
+  extra_fonts = list(google_font("Fira Sans","200","300","400","500","600"),
+                     google_font("Fira Sans Condensed","200","300","400","500","600")),
+  base_color = "#333f48",
+  header_font_google = google_font("Yanone Kaffeesatz","200","300","400","500","600","700"),
+  text_font_google   = google_font("Jost"),
+  code_font_google   = google_font("Fira Mono"),
+  text_bold_color = "#333f48",
+  text_font_size = "115%",
+  colors = c(
+    lightgrey = "#C0C0C0",
+    red = "#f34213",
+    purple = "#900DA4",
+    darkpurple = "#61077a",
+    darkorange = "#db5f12",
+    orange = "#ff8811",
+    green = "#136f63",
+    white = "#FFFFFF"),
+  extra_css = list(
+    ".remark-slide table" = list("display" = "table",
+                   "width" = "80%",
+                   "text-align" = "left"),
+    ".remark-slide-number" = list("display" = "none"),
+    ".strong" = list("font-weight" = "400"),
+    ".big" = list("font-size" = "350%",
+                     "font-family" = "Yanone Kaffeesatz",
+                     "font-weight"="400"),
+    ".small" = list("font-size" = "80%"),
+    ".tiny" = list("font-size" = "70%"),
+    ".large" = list("font-size" = "150%"),
+    ".source" = list("color" = "#8c8c8c",
+                     "font-size" = "80%"),
+    ".remark-slide table td#highlight" = list("background-color" = "#eee1f0",
+                                  "color" = "#900DA4",
+                                  "font-weight" = "500"),
+   # ".remark-slide table thead th" = list(),
+    ".title-slide h1" = list("font-weight" = "500"),
+    ".title-slide h2" = list("font-weight" = "400",
+                             "font-size" =  "170%"),
+    ".title-slide h3" = list("font-family" = "Jost",
+                             "font-size" = "100%",
+                             "font-weight" = "200"),
+    ".center2" = list("margin" = "0",
+                      "position" = "absolute",
+                      "top" = "50%",
+                      "left" = "50%",
+                      "-ms-transform" = "translate(-50%, -50%)",
+                      "transform" = "translate(-50%, -50%)"),
+   ".bottom2" = list("margin" = "0",
+                      "position" = "absolute",
+                      "top" = "90%",
+                      "left" = "10%",
+                      "-ms-transform" = "translate(-10%, -90%)",
+                      "transform" = "translate(-10%, -90%)"),
+    ".section-title h1" = list("color" = "#FFFFFF",
+                               "font-size" = "2.3em",
+                               "line-height" = "1.3"),
+    ".sp-after-half" = list("margin-bottom" = "0.7em !important"),
+    ".box-1,.box-1a,.box-1s,.box-1b,.box-1l,.box-1LA,.section-title-1" = list("background-color" = "#0D0887"),
+    ".box-2,.box-2a,.box-2s,.box-2b,.box-2l,.box-2LA,.section-title-2" = list("background-color" = "#5601A4"),
+    ".box-3,.box-3a,.box-3s,.box-3b,.box-3l,.box-3LA,.section-title-3" = list("background-color" = "#900DA4"),
+    ".box-4,.box-4a,.box-4s,.box-4b,.box-4l,.box-4LA,.section-title-4" = list("background-color" = "#BF3984"),
+    ".box-5,.box-5a,.box-5s,.box-5b,.box-5l,.box-5LA,.section-title-5" = list("background-color" = "#E16462"),
+    ".box-6,.box-6a,.box-6s,.box-6b,.box-6l,.box-6LA,.section-title-6" = list("background-color" = "#F89441"),
+    ".box-7,.box-7a,.box-7s,.box-7b,.box-7l,.box-7LA,.section-title-7" = list("background-color" = "#FCCE25"),
+   
+    ".box-1trans,.box-2trans,.box-3trans,.box-4trans,.box-5trans,.box-6trans,.box-7trans" = list("background-color" = "#FFFFFF",
+                                                                                                 "font-family" = "Yanone Kaffeesatz",
+                                                                                                 "border-radius" = "15px",
+                                                                                                 "margin" = "0em auto",
+                                                                                                 "overflow" = "hidden",
+                                                                                                 "padding" = "0.4em 0.4em",
+                                                                                                 "font-weight" = "600",
+                                                                                                 "font-size" = "31px",
+                                                                                                 "display" = "table",
+                                                                                                 "text-align" = "center",
+                                                                                                 "border-width" = "thick",
+                                                                                                 "color" = "#333f48"),
+   
+       ".box-1Trans,.box-2Trans,.box-3Trans,.box-4Trans,.box-5Trans,.box-6Trans,.box-7Trans" = list("background-color" = "#FFFFFF",
+                                                                                                 "font-family" = "Yanone Kaffeesatz",
+                                                                                                 "border-radius" = "15px",
+                                                                                                 "margin" = "0em auto",
+                                                                                                 "overflow" = "hidden",
+                                                                                                 "padding" = "0.4em 0.4em",
+                                                                                                 "font-weight" = "600",
+                                                                                                 "font-size" = "51px",
+                                                                                                 "display" = "table",
+                                                                                                 "text-align" = "center",
+                                                                                                 "border-width" = "thick",
+                                                                                                 "color" = "#333f48"),
+   
+       ".box-1transl,.box-2transl,.box-3transl,.box-4transl,.box-5transl,.box-6transl,.box-7transl" = list("background-color" = "#FFFFFF",
+                                                                                                           "font-family" = "Yanone Kaffeesatz",
+                                                                                                           "border-radius" = "15px",
+                                                                                                           "left" = "0px",
+                                                                                                           "overflow" = "hidden",
+                                                                                                           "padding" = "0.4em 0.4em",
+                                                                                                           "font-weight" = "600",
+                                                                                                           "font-size" = "31px",
+                                                                                                           "display" = "table",
+                                                                                                           "text-align" = "left",
+                                                                                                           "border-width" = "thick",
+                                                                                                           "color" = "#333f48"),
+   
+   
+    ".box-1trans,.box-1transl,.box-1Trans" = list("border"="5px solid rgba(13, 8, 135,1)"),
+    ".box-2trans,.box-2transl,.box-2Trans" = list("border"="5px solid rgba(86, 1, 164,1)"),
+    ".box-3trans,.box-3transl,.box-3Trans" = list("border"="5px solid rgba(144, 13, 164,1)"),
+    ".box-4trans,.box-4transl,.box-4Trans" = list("border"="5px solid rgba(191, 57, 132,1)"),
+    ".box-5trans,.box-5transl,.box-5Trans" = list("border"="5px solid rgba(225, 100, 98,1)"),
+    ".box-6trans,.box-6transl,.box-6Trans" = list("border"="5px solid rgba(248, 148, 65,1)"),
+    ".box-7trans,.box-7transl,.box-7Trans" = list("border"="5px solid rgba(252, 206, 37,1)"),
+
+   
+   ".box-1t,.box-1tL,.section-title-1t" = list("background-color" = "rgba(13, 8, 135,0.3)",
+                                      "color"="rgba(13, 8, 135,1)",
+                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-2t,.box-2tL,.section-title-2t" = list("background-color" = "rgba(86, 1, 164,0.3)",
+                                       "color" = "rgba(86, 1, 164,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-3t,.box-3tL,.section-title-3t" = list("background-color" = "rgba(144, 13, 164,0.3)",
+                                       "color" = "rgba(144, 13, 164,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-4t,.box-4tL,.section-title-4t" = list("background-color" = "rgba(191, 57, 132,0.3)",
+                                       "color" = "rgba(191, 57, 132,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-5t,.box-5tL,.section-title-5t" = list("background-color" = "rgba(225, 100, 98,0.3)",
+                                       "color" = "rgba(225, 100, 98,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-6t,.box-6tL,.section-title-6t" = list("background-color" = "rgba(248, 148, 65,0.3)",
+                                       "color" = "rgba(248, 148, 65,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-7t,.box-7tL,.section-title-7t" = list("background-color" = "rgba(252, 206, 37,0.3)",
+                                       "color" = "rgba(252, 206, 37,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   
+   ".box-7t, .box-6t, .box-5t, .box-4t, .box-3t, .box-2t, .box-1t" = list("margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "31px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "border-radius" = "15px"),
+   
+   ".box-7tL, .box-6tL, .box-5tL, .box-4tL, .box-3tL, .box-2tL, .box-1tL" = list("margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "50px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "border-radius" = "15px"),
+   
+    ".box-7, .box-6, .box-5, .box-4, .box-3, .box-2, .box-1" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "31px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+    ".box-7a, .box-6a, .box-5a, .box-4a, .box-3a, .box-2a, .box-1a" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.4em 0.4em",
+                                                                      "font-weight" = "600",
+                                                                      "font-size" = "25px",
+                                                                      "display" = "table",
+                                                                      "text-align" = "center",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+   ".box-7s, .box-6s, .box-5s, .box-4s, .box-3s, .box-2s, .box-1s" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.2em 0.2em",
+                                                                      "font-weight" = "400",
+                                                                      "font-size" = "100%",
+                                                                      "display" = "inline",
+                                                                      "text-align" = "center",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+       ".box-7b, .box-6b, .box-5b, .box-4b, .box-3b, .box-2b, .box-1b" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.4em 0.4em",
+                                                                      "font-weight" = "600",
+                                                                      "font-size" = "25px",
+                                                                      "display" = "table",
+                                                                      "text-align" = "left",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+   ".box-7l, .box-6l, .box-5l, .box-4l, .box-3l, .box-2l, .box-1l" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "45px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   ".box-7LA, .box-6LA, .box-5LA, .box-4LA, .box-3LA, .box-2LA, .box-1LA" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "55px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   ".medium" = list("font-size" = "35px"),
+   
+   ".medium30" = list("font-size" = "30px"),
+   
+   ".jost-normal" = list("font-family" = "Jost",
+                         "font-size" = "31px"),
+   
+   ".image-80 img" = list("scale" = "80%"),
+   ".pull-left-little_l" = list("float" = "left",
+                                "width" = "67%"),
+   ".pull-right-little_l" = list("float" = "right",
+                                "width" = "27%"),
+   ".pull-left-little_r" = list("float" = "left",
+                                "width" = "27%"),
+   ".pull-right-little_r" = list("float" = "right",
+                                "width" = "67%")
+
+
+  )
+)
+
+#,"li" = list("font-size" = "150%")
+#    "li" = list("font-size" = "110%"),
+#    "ul" = list("font-size" = "110%"),
+#color palette
+#5601A4
+#900DA4
+#F89441
+#FCCE25
+
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+
+```
+```{css, echo = FALSE}
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+```
+
+```{r setup2, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(showtext)
+library(xaringanExtra)
+library(htmltools)
+library(paletteer)
+library(reactable)
+library(htmlwidgets)
+library(webshot2)
+library(tidyverse)
+library(extrafont)
+library(hrbrthemes)
+library(firasans)
+library(kableExtra)
+library(scales)
+library(patchwork)
+library(caret)
+library(tidyverse)
+library(estimatr)
+
+# for windows
+windowsFonts(sans = "Fira")
+loadfonts(device="win")
+loadfonts(device="postscript")
+
+xaringanExtra::use_scribble()
+
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r fonts, message=FALSE, echo=FALSE, warning=FALSE}
+font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
+font.add.google("Fira Sans", "Fira Sans")
+```
+
+# Announcements
+
+- **.darkorange[Homework 7]** is due this Thursday (you **have to** submit it by 11:59PM on Thursday)
+  
+  - Please make sure to not start a new attempt after you have submitted!
+
+--
+
+- **.darkorange[Final Exam]** will be posted this Friday at 10am.
+
+  - Exam is made for 2hrs $\rightarrow$ you will have **2hrs and 20min** (20 minutes to check answers, upload code, etc.)
+  
+  - You can start at any point between then and 11:59PM Monday Dec 5th (actually, 9:40PM if you want the full time).
+  
+--
+
+- **.darkorange[Course evaluations are open]**: Small extra-credit (1/2 point) for completing the survey (just upload a screenshot of the completed status -- not the survey!).
+
+  - Submit until Friday 11:59PM.
+  
+---
+# Rules of Final Trivia
+
+1) **.darkorange[Form groups]**: 2 or 3 students (no more, no less).
+
+--
+
+2) **.darkorange[Choose a name for your group]**: You can be funny or classic.
+
+--
+
+3) **.darkorange[You need to complete all the questions]**: It doesn't matter if you don't know the answer! Make your best guess.
+
+--
+
+4) **.darkorange[Ask questions]**: I will give you time for your team to complete each questions; after the time is up, you will submit your questions and we will check answers.
+
+  - If something isn't clear, **now is the time to ask**.
+
+--
+
+5) **.darkorange[There are prizes]**: At the end of the session, we will crown the three teams that perform the best. If there is a tie in scores, the team that submits their answers the fastest moves up.
+
+--
+
+
+.center[**.darkorange[Note:]** All slides and answers will be posted on Thursday at 2pm. Make sure to take notes!]
+
+---
+
+.center2[
+![](https://media.giphy.com/media/Olr6bYzpBx2JG/giphy.gif)
+]
+
+---
+.center2[
+.box-3trans[Go to the following link and sign up<br>
+https://sta235h.rocks/SignUp
+]
+<br>
+<br>
+.box-4trans[You can follow the some of the output of the slides here:<br>
+https://sta235h.rocks/FinalTrivia
+]
+
+]
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Regressions
+]
+---
+# Insurance costs
+
+In this question, we are looking at insurance costs. We have data on insurance premiums in addition to individual data from the customers:
+
+```{r, message=FALSE, warning=FALSE}
+insurance <- read.csv("https://raw.githubusercontent.com/maibennett/website_github/master/exampleSite/content/files/data/insurance.csv")
+
+head(insurance)
+```
+
+We want to find the relation between these covariates and the outcome (`charges`).
+
+---
+# Question 1
+
+Looking at the following output, **what is the difference in charges between a smoker and a non-smoker with a BMI of 22?**. Write down the appropriate number. *Approximate your answer to 2 decimal places.*
+
+.small[
+```{r}
+lm1 <- lm(charges ~ smoker*bmi, data = insurance)
+
+summary(lm1)
+```
+]
+
+
+---
+# Question 1: Answer
+
+--
+
+**.darkorange[Answer:]** 11508.72 (i.e. $-19.066.00 + 1389.76\times22$ )
+
+---
+# Question 2
+
+Looking at the following output, **what is the association between charges and BMI for smokers?**. Write down the appropriate number. *Approximate your answer to 2 decimal places.*
+
+.small[
+```{r}
+lm1 <- lm(charges ~ smoker*bmi, data = insurance)
+
+summary(lm1)
+```
+]
+
+---
+# Question 2: Answer
+
+--
+
+**.darkorange[Answer:]** 1473.11 (i.e $83.35+1389.76$ )
+
+---
+# Question 3
+
+Looking at the following output, **what is the association between charges and BMI for smokers?**. Write down the <u>interpretation</u>.
+
+.small[
+```{r}
+lm1 <- lm(charges ~ smoker*bmi, data = insurance)
+
+summary(lm1)
+```
+]
+
+---
+# Question 3: Answer
+
+--
+
+**.darkorange[Answer:]** For one additional unit increase in BMI, the average increase in insurance charges for smokers is $1473.11.
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Causal Inference
+]
+---
+# Does Academic Probation Work?
+
+Academic probation is a widely used tool by most universities to make sure students maintain minimum academic standards. In this section, we will analyze data from a large Canadian university regarding the effects of academic probation, originally used in Lindo, Sanders, and Oreopoulos’ (2010) paper, “Ability, Gender, and Performance Standards: Evidence from Academic Probation”
+
+.tiny[
+```{r, message=FALSE, warning=FALSE}
+probation <- read.csv("https://raw.githubusercontent.com/maibennett/website_github/master/exampleSite/content/files/data/probation.csv")
+```
+]
+.pull-left[
+.small[
+- `creditsY`: Credits attempted in year Y = 1,2.
+- `credits_earnedY`: Credits earned in year Y = 1,2.
+- `GPA_yearY`: GPA at the end of year Y = 1,2.
+- `CGPA_yearY`: Cumulative GPA at the end of year Y = 1,2.
+- `sex`: Gender of the student (M: Male, F: Female).
+- `age_at_entry`: Age of the student when they first enrolled.]]
+
+.pull-right[
+.small[
+- `gradinY`: Student graduated in Y years, Y = 4, 5, or 6.
+- `left_school`: Whether the student left school or not after the first assessment.
+- `hsgrade_pct`: Percentile of graduation in their high school.
+- `probation_year1`: Whether the student was in academic probation by the end of year 1.
+- `suspended_year1`: Whether the student was suspended by the end of year 1.]]
+
+---
+# Question 4
+
+First, we would like to analyze whether students that are on academic probation in their first year are more likely to drop out. For this, we run the following regression:
+
+.small[
+```{r}
+summary(lm_robust(left_school ~ probation_year1, data = probation))
+```
+]
+.small[
+**a-b) What is the percentage of students that drop out of school according to their academic status?** (Use two decimal places)
+
+**c) Is the difference in drop-out rates statistically significant?**
+
+**d) Interpret the coefficient for `probation_year1`**]
+
+---
+# Question 4: Answer
+
+--
+
+**.darkorange[Answer:]** On average, 3.8% of students not on academic probation drop out of this college, while that percentage is 10.92% for students in academic probation.The difference is statistically significant.
+
+In terms of interpretation, being on probation is associated to an average increase of dropping out of 7.2 percentage points compared to not being on probation.
+
+---
+# Assessing the effect of academic probation
+
+To assess the effect of probation on academic performance, we decide to run the following regression <u>on students that have not dropped out</u>.
+
+.tiny[
+```{r}
+probation <- probation %>% filter(left_school==0)
+
+summary(lm(GPA_year2 ~ probation_year1 + credits1 + credits_earned1 + GPA_year1 + 
+     factor(sex) + age_at_entry + hsgrade_pct, data = probation))
+
+```
+]
+
+---
+# Question 5
+
+Interpret the coefficient of interest in the previous model.
+
+---
+# Question 5: Answer
+
+--
+
+**.darkorange[Answer:]** On average, if students are in academic probation the first year vs not in academic probation, their GPA increases by 0.28 points in their second year, holding other variables constant.
+
+---
+# Question 6
+
+Do you think the previous estimate is a causal effect? Why or why not? Give a specific example.
+
+---
+# Question 6: Answer
+
+--
+
+**.darkorange[Answer:]**  In order for the previous coefficient to be a causal effect, we need to have controlled for all confounders. However, there are most likely unobserved confounders we are not capturing. For example, more vulnerable students might be more likely to be on academic probation (e.g. they have more responsibilities outside college) and that might also affect directly their GPA the second year.
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Prediction
+]
+---
+# Candy, candy, candy
+
+In this section, we will be predicting win percentage for candy bars! We have the following dataset for this:
+
+.tiny[
+```{r, message=FALSE, warning=FALSE}
+candy <- read.csv("https://raw.githubusercontent.com/maibennett/website_github/master/exampleSite/content/files/data/candy.csv")
+```
+]
+
+.pull-left[
+.small[
+- `competitorname`:	Name of the candy
+- `chocolate`: Is it chocolate?
+- `fruity`: Is it fruit flavored?
+- `caramel`: Is there caramel in the candy?
+- `peanutalmondy`: Does it contain peanuts, peanut butter or almonds?
+- `nougat`:	Does it contain nougat?
+- `crispedricewafer`:	Does it contain crisped rice, wafers, or a cookie component?
+]]
+
+.pull-right[
+.small[
+- `hard`: Is it a hard candy?
+- `bar`:	Is it a bar?
+- `pluribus`: Is it one of many candies in a bag/box? 
+- `sugarpercent`:	The percentile of sugar it falls under within the data set.
+- `pricepercent`:	The unit price percentile compared to the rest of the set.
+- `winpercent`:	The overall win percentage according to 269,000 matchups.]]
+
+---
+# Question 7
+
+We ran a simple regression tree for this. Looking at the following tree, what is the predicted outcome for a fruity candy, that has a sugar percent of 60%, doesn't have chocolate, nougat, or peanuts, comes in a bar, and has a price percentile of 0.51?
+
+```{r rd_linear, fig.height=5, fig.width=8, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+library(rsample)
+library(rpart)
+library(rattle)
+library(modelr)
+
+set.seed(100)
+
+candy <- candy %>% select(-competitorname)
+
+split <- initial_split(candy, prop = 0.9, strata = "winpercent")
+train.data <- training(split)
+test.data <- testing(split)
+
+set.seed(100)
+
+dt <- train(winpercent ~ ., data = train.data,
+            method = "rpart",
+            tuneGrid = expand.grid(cp = seq(0,0.1,length = 100)),
+            trControl = trainControl(method = "cv", number = 10))
+
+fancyRpartPlot(dt$finalModel, caption = "Decision Tree for Candy")
+```
+
+---
+# Question 7: Answer
+
+--
+
+**.darkorange[Answer:]** The predicted win percentage is 44.
+
+---
+# Question 8
+
+Using the code provided [here](https://www.magdalenabennett.com/files/data/Trivia/f2022_sta235h_14_FinalTrivia.R), how does your previous model perform? Write down the number (use two decimal places).
+
+---
+# Question 8: Answer
+
+--
+
+**.darkorange[Answer:]** 
+
+```{r}
+round(rmse(dt, test.data),2)
+```
+
+
+---
+# Question 9
+
+Your turn. Fit a random forest to predict the outcome of interest. Tune only the number of randomly selected predictors, and use the code provided as a starting point.
+
+- Provide your code, the optimal number of `mtry`, and the performance of your model.
+
+---
+# Question 9: Answer
+
+--
+
+```{r}
+tuneGrid <- expand.grid(
+  mtry = 1:11,
+  splitrule = "variance",
+  min.node.size = 5
+)
+
+set.seed(100)
+
+rf <- train(winpercent ~ ., data = train.data,
+            method = "ranger",
+            tuneGrid = tuneGrid,
+            trControl = trainControl(method = "cv", number = 10))
+
+rf$bestTune
+
+rmse(rf, test.data)
+```
