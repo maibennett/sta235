@@ -20,10 +20,3 @@ This are the slides for the review session this week.
 {{< slides src="https://sta235.netlify.app/Classes/Week15/1_trivia/f2022_sta235h_17_FinalTrivia_annotate.html" >}}
 
 
-## Code
-
-Here is the R code we will review in class, with many additional questions! Remember to review it in detail after class <a onclick="ga('send', 'event', 'External-Link','click','code13','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/code/f2022_sta235h_11_randomforests.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
-
-- After class, please complete the exercise proposed in line 206, and reach out if you have any questions!
-
-
