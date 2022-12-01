@@ -1,39 +1,23 @@
 ---
-title: Week 13 - 11/14
+title: Week 15 - 11/28
 weight: 60
 disableToc: true
 ---
 
-## Date: Nov 15th - Nov 17th
+## Date: Nov 29th - Dec 1st
 
-## What we will cover
+## Trivia
 
-This will be the final week that we cover new material, and we will be talking about random forests and other ensemble methods.
+This are the slides for the review session this week.
 
-## Recommended readings/videos
-
-- James, G. et al. (2021). "An Introduction to Statistical Learning with Applications in R" (ISLR). *Chapter 8: 8.2 (pg. 340-348)*. 
-
-- Udacity. (2016). "Bootstrap aggregating bagging".
-
-{{< youtube src="https://www.youtube.com/embed/2Mg8QD0F1dQ?controls=0" >}}
-
-- Ritvik Kharkar. (2019). "Random Forests". *Video materials from ritvikmath*.
-
-{{< youtube src="https://www.youtube.com/embed/w-eWTxbRQcU?controls=0" >}}
-
-- Udacity. (2016). "Boosting".
-
-{{< youtube src="https://www.youtube.com/embed/GM3CDQfQ4sw?controls=0" >}}
-
-
+*Note: If you are a Mac user, you might get different results in Random Forests, because of the way `ranger` uses the RNG. Do not worry about it, because that will be considered in your submissions (Canvas shows who is running a Mac or Windows machine).*
 
 
 ## Slides
 
-{{% button href="https://sta235.netlify.app/Classes/Week13/1_RandomForests/f2022_sta235h_16_RandomForests.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week13/1_RandomForests/f2022_sta235h_16_RandomForests.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.netlify.app/Classes/Week15/1_trivia/f2022_sta235h_17_FinalTrivia_annotate.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}}
 
-{{< slides src="https://sta235.netlify.app/Classes/Week13/1_RandomForests/f2022_sta235h_16_RandomForests.html" >}}
+{{< slides src="https://sta235.netlify.app/Classes/Week15/1_trivia/f2022_sta235h_17_FinalTrivia_annotate.html" >}}
 
 
 ## Code
