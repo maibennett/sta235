@@ -64,3 +64,5 @@ Homework assignments are posted **one week before they are due**. Check the [syl
 <a onclick="ga('send', 'event', 'External-Link','click','hw5_answerkey','0','Link');" href="https://sta235.netlify.app/Assignments/Homework/HW5/STA235H_Fall22_Homework5_AnswerKey.html" target="_blank" class="btn btn-default">HW5 Answer Key <i class="fas fa-external-link-alt"></i></a>
 
 <a onclick="ga('send', 'event', 'External-Link','click','hw6_answerkey','0','Link');" href="https://sta235.netlify.app/Assignments/Homework/HW6/STA235H_Fall22_Homework6_AnswerKey.html" target="_blank" class="btn btn-default">HW6 Answer Key <i class="fas fa-external-link-alt"></i></a>
+
+<a onclick="ga('send', 'event', 'External-Link','click','hw7_answerkey','0','Link');" href="https://sta235.netlify.app/Assignments/Homework/HW7/STA235H_Fall22_Homework7_AnswerKey.html" target="_blank" class="btn btn-default">HW7 Answer Key <i class="fas fa-external-link-alt"></i></a>
