@@ -6,7 +6,7 @@ chapter: true
 
 ## Final report
 
-The final report should include everything that is included in the preliminary report (including the instructor's feedback), in addition to the finalyzed analysis. If you did not receive any feedback in the preliminary report, you do not need to change anything, and can just resubmit those sections as it is.
+The final report should include everything that is included in the preliminary report (including the instructor's feedback), in addition to the finalyzed analysis. If you did not receive any feedback in the preliminary report, you do not need to change anything, and can just resubmit those sections as it is. **Do not include your analysis plan in this submission**. That section should be replaced with the actual analysis.
 
 For projects tackling a causal question, the analysis portion should present your identification strategy (i.e. how are we identifying a causal effect here?), the main model you are running, assumptions for causality, and any robustness checks that are appropriate (e.g. balance tables, pre-parallel trends, discontinuity plots, etc.). Additionally, you will need a short section on potential limitations of your analysis (e.g. what are the threats to causality) and potential solutions you might have. For example, if you had access to additional data or are able to design an RCT, etc.
 
