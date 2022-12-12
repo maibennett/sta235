@@ -25,3 +25,19 @@ In terms of formatting, same guidelines apply as in the preliminary report: 11pt
 **Peer assessment:** Students will be evaluated by their peers in terms of their contributions and responsiblity.
 
 {{% /notice %}}
+
+### Rubric
+
+- Introduction and Data Description (15 points): Takes into account the incorporation of the preliminary report feedback.
+
+- Analysis - Models (10 points): Models are pertinent for the task at hand.
+
+- Analysis - Explanation (20 points): Explanation is sound and describes the models and analysis appropriately.
+
+- Analysis - Plots and tables (15 points): Tables and plots are appropriate in formatting. Includes relevant plots/tables.
+
+- Limitations/Robustness checks (15 points): Describes limitations accordingly. In causal inference, potential threats (e.g. confounders), and run appropriate robustness checks and/or describes how these can be overcome. In prediction, includes details about performance of the models beyond RMSE and accuracy (e.g. plots for predictions vs observed values, 2x2 tables for classification, etc.).
+
+- Conclusions (10 points): Appropriate conclusions.
+
+- R Script (15 points): R script is complete and reproduces the results. Provides sound code.
