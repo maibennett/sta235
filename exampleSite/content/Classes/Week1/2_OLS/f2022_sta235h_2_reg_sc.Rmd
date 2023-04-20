@@ -1,0 +1,870 @@
+---
+title: "STA 235H - Multiple Regression: Overview and Statistical Adjustment"
+subtitle: "Fall 2022"
+author: "McCombs School of Business, UT Austin"
+output:
+  xaringan::moon_reader:
+    css: [xaringan-themer.css]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: ["macros.js"]
+    includes:
+      in_header: ["header.html"]
+---
+
+<!-- <script type="text/javascript"> -->
+<!-- MathJax.Hub.Config({ -->
+<!--   "HTML-CSS": { -->
+<!--     preferredFont: null, -->
+<!--     webFont:  "Neo-Euler" -->
+<!--   } -->
+<!-- }); -->
+<!-- </script> -->
+
+```{r setup, include=FALSE, warning=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.showtext = TRUE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE, message=FALSE}
+library(xaringanthemer)
+
+theme_xaringan(
+  text_color = "#333f48",
+  background_color = "#FFFFFF",
+  accent_color = "#900DA4",
+  text_font = "Fira Mono",
+  text_font_use_google = TRUE,
+  title_font = "Yanone Kaffeesatz",
+  title_font_use_google = TRUE
+)
+
+style_mono_accent(
+  #base_color = "#bf5700",
+  extra_fonts = list(google_font("Fira Sans","200","300","400","500","600"),
+                     google_font("Fira Sans Condensed","200","300","400","500","600")),
+  base_color = "#333f48",
+  header_font_google = google_font("Yanone Kaffeesatz","200","300","400","500","600","700"),
+  text_font_google   = google_font("Jost"),
+  code_font_google   = google_font("Fira Mono"),
+  text_bold_color = "#333f48",
+  text_font_size = "115%",
+  colors = c(
+    lightgrey = "#C0C0C0",
+    red = "#f34213",
+    purple = "#900DA4",
+    darkpurple = "#61077a",
+    darkorange = "#db5f12",
+    orange = "#ff8811",
+    green = "#136f63",
+    white = "#FFFFFF"),
+  extra_css = list(
+    ".remark-slide table" = list("display" = "table",
+                   "width" = "80%",
+                   "text-align" = "left"),
+    ".remark-slide-number" = list("display" = "none"),
+    ".strong" = list("font-weight" = "400"),
+    ".big" = list("font-size" = "350%",
+                     "font-family" = "Yanone Kaffeesatz",
+                     "font-weight"="400"),
+    ".small" = list("font-size" = "80%"),
+    ".tiny" = list("font-size" = "50%"),
+    ".large" = list("font-size" = "150%"),
+    ".source" = list("color" = "#8c8c8c",
+                     "font-size" = "80%"),
+    ".remark-slide table td#highlight" = list("background-color" = "#eee1f0",
+                                  "color" = "#900DA4",
+                                  "font-weight" = "500"),
+   # ".remark-slide table thead th" = list(),
+    ".title-slide h1" = list("font-weight" = "500"),
+    ".title-slide h2" = list("font-weight" = "400",
+                             "font-size" =  "170%"),
+    ".title-slide h3" = list("font-family" = "Jost",
+                             "font-size" = "100%",
+                             "font-weight" = "200"),
+    ".center2" = list("margin" = "0",
+                      "position" = "absolute",
+                      "top" = "50%",
+                      "left" = "50%",
+                      "-ms-transform" = "translate(-50%, -50%)",
+                      "transform" = "translate(-50%, -50%)"),
+   ".bottom2" = list("margin" = "0",
+                      "position" = "absolute",
+                      "top" = "90%",
+                      "left" = "10%",
+                      "-ms-transform" = "translate(-10%, -90%)",
+                      "transform" = "translate(-10%, -90%)"),
+    ".section-title h1" = list("color" = "#FFFFFF",
+                               "font-size" = "2.3em",
+                               "line-height" = "1.3"),
+    ".sp-after-half" = list("margin-bottom" = "0.7em !important"),
+    ".box-1,.box-1a,.box-1s,.box-1b,.box-1l,.box-1LA,.section-title-1" = list("background-color" = "#0D0887"),
+    ".box-2,.box-2a,.box-2s,.box-2b,.box-2l,.box-2LA,.section-title-2" = list("background-color" = "#5601A4"),
+    ".box-3,.box-3a,.box-3s,.box-3b,.box-3l,.box-3LA,.section-title-3" = list("background-color" = "#900DA4"),
+    ".box-4,.box-4a,.box-4s,.box-4b,.box-4l,.box-4LA,.section-title-4" = list("background-color" = "#BF3984"),
+    ".box-5,.box-5a,.box-5s,.box-5b,.box-5l,.box-5LA,.section-title-5" = list("background-color" = "#E16462"),
+    ".box-6,.box-6a,.box-6s,.box-6b,.box-6l,.box-6LA,.section-title-6" = list("background-color" = "#F89441"),
+    ".box-7,.box-7a,.box-7s,.box-7b,.box-7l,.box-7LA,.section-title-7" = list("background-color" = "#FCCE25"),
+   
+    ".box-1trans,.box-2trans,.box-3trans,.box-4trans,.box-5trans,.box-6trans,.box-7trans" = list("background-color" = "#FFFFFF",
+                                                                                                 "font-family" = "Yanone Kaffeesatz",
+                                                                                                 "border-radius" = "15px",
+                                                                                                 "margin" = "0em auto",
+                                                                                                 "overflow" = "hidden",
+                                                                                                 "padding" = "0.4em 0.4em",
+                                                                                                 "font-weight" = "600",
+                                                                                                 "font-size" = "31px",
+                                                                                                 "display" = "table",
+                                                                                                 "text-align" = "center",
+                                                                                                 "border-width" = "thick",
+                                                                                                 "color" = "#333f48"),
+   
+       ".box-1Trans,.box-2Trans,.box-3Trans,.box-4Trans,.box-5Trans,.box-6Trans,.box-7Trans" = list("background-color" = "#FFFFFF",
+                                                                                                 "font-family" = "Yanone Kaffeesatz",
+                                                                                                 "border-radius" = "15px",
+                                                                                                 "margin" = "0em auto",
+                                                                                                 "overflow" = "hidden",
+                                                                                                 "padding" = "0.4em 0.4em",
+                                                                                                 "font-weight" = "600",
+                                                                                                 "font-size" = "51px",
+                                                                                                 "display" = "table",
+                                                                                                 "text-align" = "center",
+                                                                                                 "border-width" = "thick",
+                                                                                                 "color" = "#333f48"),
+   
+       ".box-1transl,.box-2transl,.box-3transl,.box-4transl,.box-5transl,.box-6transl,.box-7transl" = list("background-color" = "#FFFFFF",
+                                                                                                           "font-family" = "Yanone Kaffeesatz",
+                                                                                                           "border-radius" = "15px",
+                                                                                                           "left" = "0px",
+                                                                                                           "overflow" = "hidden",
+                                                                                                           "padding" = "0.4em 0.4em",
+                                                                                                           "font-weight" = "600",
+                                                                                                           "font-size" = "31px",
+                                                                                                           "display" = "table",
+                                                                                                           "text-align" = "left",
+                                                                                                           "border-width" = "thick",
+                                                                                                           "color" = "#333f48"),
+   
+   
+    ".box-1trans,.box-1transl,.box-1Trans" = list("border"="5px solid rgba(13, 8, 135,1)"),
+    ".box-2trans,.box-2transl,.box-2Trans" = list("border"="5px solid rgba(86, 1, 164,1)"),
+    ".box-3trans,.box-3transl,.box-3Trans" = list("border"="5px solid rgba(144, 13, 164,1)"),
+    ".box-4trans,.box-4transl,.box-4Trans" = list("border"="5px solid rgba(191, 57, 132,1)"),
+    ".box-5trans,.box-5transl,.box-5Trans" = list("border"="5px solid rgba(225, 100, 98,1)"),
+    ".box-6trans,.box-6transl,.box-6Trans" = list("border"="5px solid rgba(248, 148, 65,1)"),
+    ".box-7trans,.box-7transl,.box-7Trans" = list("border"="5px solid rgba(252, 206, 37,1)"),
+
+   
+   ".box-1t,.box-1tL,.section-title-1t" = list("background-color" = "rgba(13, 8, 135,0.3)",
+                                      "color"="rgba(13, 8, 135,1)",
+                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-2t,.box-2tL,.section-title-2t" = list("background-color" = "rgba(86, 1, 164,0.3)",
+                                       "color" = "rgba(86, 1, 164,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-3t,.box-3tL,.section-title-3t" = list("background-color" = "rgba(144, 13, 164,0.3)",
+                                       "color" = "rgba(144, 13, 164,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-4t,.box-4tL,.section-title-4t" = list("background-color" = "rgba(191, 57, 132,0.3)",
+                                       "color" = "rgba(191, 57, 132,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-5t,.box-5tL,.section-title-5t" = list("background-color" = "rgba(225, 100, 98,0.3)",
+                                       "color" = "rgba(225, 100, 98,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-6t,.box-6tL,.section-title-6t" = list("background-color" = "rgba(248, 148, 65,0.3)",
+                                       "color" = "rgba(248, 148, 65,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-7t,.box-7tL,.section-title-7t" = list("background-color" = "rgba(252, 206, 37,0.3)",
+                                       "color" = "rgba(252, 206, 37,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   
+   ".box-7t, .box-6t, .box-5t, .box-4t, .box-3t, .box-2t, .box-1t" = list("margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "31px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "border-radius" = "15px"),
+   
+   ".box-7tL, .box-6tL, .box-5tL, .box-4tL, .box-3tL, .box-2tL, .box-1tL" = list("margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "50px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "border-radius" = "15px"),
+   
+    ".box-7, .box-6, .box-5, .box-4, .box-3, .box-2, .box-1" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "31px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+    ".box-7a, .box-6a, .box-5a, .box-4a, .box-3a, .box-2a, .box-1a" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.4em 0.4em",
+                                                                      "font-weight" = "600",
+                                                                      "font-size" = "25px",
+                                                                      "display" = "table",
+                                                                      "text-align" = "center",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+   ".box-7s, .box-6s, .box-5s, .box-4s, .box-3s, .box-2s, .box-1s" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.2em 0.2em",
+                                                                      "font-weight" = "400",
+                                                                      "font-size" = "100%",
+                                                                      "display" = "inline",
+                                                                      "text-align" = "center",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+       ".box-7b, .box-6b, .box-5b, .box-4b, .box-3b, .box-2b, .box-1b" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.4em 0.4em",
+                                                                      "font-weight" = "600",
+                                                                      "font-size" = "25px",
+                                                                      "display" = "table",
+                                                                      "text-align" = "left",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+   ".box-7l, .box-6l, .box-5l, .box-4l, .box-3l, .box-2l, .box-1l" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "45px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   ".box-7LA, .box-6LA, .box-5LA, .box-4LA, .box-3LA, .box-2LA, .box-1LA" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "55px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   ".medium" = list("font-size" = "35px"),
+   
+   ".medium30" = list("font-size" = "30px"),
+   
+   ".jost-normal" = list("font-family" = "Jost",
+                         "font-size" = "31px"),
+   
+   ".image-80 img" = list("scale" = "80%"),
+   ".pull-left-little_l" = list("float" = "left",
+                                "width" = "67%"),
+   ".pull-right-little_l" = list("float" = "right",
+                                "width" = "27%"),
+   ".pull-left-little_r" = list("float" = "left",
+                                "width" = "27%"),
+   ".pull-right-little_r" = list("float" = "right",
+                                "width" = "67%")
+
+
+  )
+)
+
+#,"li" = list("font-size" = "150%")
+#    "li" = list("font-size" = "110%"),
+#    "ul" = list("font-size" = "110%"),
+#color palette
+#5601A4
+#900DA4
+#F89441
+#FCCE25
+
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+
+```
+```{css, echo = FALSE}
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+```
+
+```{r setup2, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(showtext)
+library(xaringanExtra)
+
+xaringanExtra::use_scribble()
+
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r fonts, message=FALSE, echo=FALSE, warning=FALSE}
+font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
+font.add.google("Fira Sans", "Fira Sans")
+```
+
+# Today
+
+.pull-left[
+- Quick **.darkorange[multiple regression]** review
+  - How does OLS work?
+
+- **.darkorange[What can we say]** using regressions?
+  - Interpreting coefficients
+
+]
+
+.pull-right[
+![](https://media.giphy.com/media/3o752flP8nVxQjXhO8/source.gif)
+]
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+
+.big[
+Nothing "Ordinary" about OLS
+]
+---
+background-position: 50% 50%
+class: center, middle
+
+.box-3Trans[What do **you** understand about regressions?]
+
+---
+# Remembering Regressions
+
+- Linear Regression is a **.darkorange[very useful tool]**.
+
+  - Simple supervised learning approach.
+  - Many fancy methods are generalizations or extensions of linear regression!
+  
+- It's a way to (partially) describe a **.darkorange[data generating process (DGP)]**.
+
+.box-3Trans.medium[$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \varepsilon$$]
+
+---
+# Essential Parts of a Regression
+
+.pull-left[
+.box-2tL[Y]
+
+.box-2[Outcome Variable]
+
+.box-2[Response Variable]
+
+.box-2[Dependent Variable]
+
+.box-2t[*Thing you want to explain or predict*]
+  
+]
+
+
+---
+# Essential Parts of a Regression
+
+.pull-left[
+.box-2tL[Y]
+
+.box-2[Outcome Variable]
+
+.box-2[Response Variable]
+
+.box-2[Dependent Variable]
+
+.box-2t[*Thing you want to explain or predict*]
+  
+]
+
+.pull-right[
+.box-2tL[X]
+
+.box-2[Explanatory Variable]
+
+.box-2[Predictor Variable]
+
+.box-2[Independent Variable]
+
+.box-2t[*Thing you use to explain or predict Y*]
+]
+
+---
+# Identify the variables
+
+.pull-left[
+.box-2transl.jost-normal[A study examines the effect of smoking on lung cancer]
+<br>
+]
+
+---
+# Identify the variables
+
+.pull-left[
+.box-2transl.jost-normal[A study examines the effect of smoking on lung cancer]
+<br>
+.box-4transl.jost-normal[Fantasy football fanatics predict the performance of a player based on past performance, health status, and characteristics of the opposite team]
+]
+
+---
+# Identify the variables
+
+.pull-left[
+.box-2transl.jost-normal[A study examines the effect of smoking on lung cancer]
+<br>
+.box-4transl.jost-normal[Fantasy football fanatics predict the performance of a player based on past performance, health status, and characteristics of the opposite team]
+]
+.pull-right[
+.box-5transl.jost-normal[You want to see if taking more AP classes in high school improves college grades]
+<br>
+]
+
+---
+# Identify the variables
+
+.pull-left[
+.box-2transl.jost-normal[A study examines the effect of smoking on lung cancer]
+<br>
+.box-4transl.jost-normal[Fantasy football fanatics predict the performance of a player based on past performance, health status, and characteristics of the opposite team]
+]
+.pull-right[
+.box-5transl.jost-normal[You want to see if taking more AP classes in high school improves college grades]
+<br>
+.box-7transl.jost-normal[Netflix uses your past viewing history, the day of the week, and the time of the day to guess which show you want to watch next]
+]
+
+---
+# Two Purposes of Regression
+
+.pull-left[
+.box-3tL[Prediction]
+
+.box-3[Forecast the future]
+
+.box-3[Focus is on <b>Y</b>]
+
+.box-3tL[Netflix trying to guess your next show]
+]
+--
+.pull-right[
+.box-6tL[Explanation]
+
+.box-6[Explain the effect of <b>X</b> on <b>Y</b>]
+
+.box-6[Focus is on <b>X</b>]
+
+.box-6tL[Netflix looking at the effect of time of the day on show selection]
+]
+---
+# What do we want to estimate in a regression?
+
+- When we run a regression we have an outcome $Y$ and explanatory variables or covariates $X$.
+
+- **We want to estimate the $\beta$'s**
+
+--
+
+- One important distinction:
+
+  - $\beta$'s are the **.darkorange[population parameters]** we want to estimate.
+  - $\hat\beta$ are the **.darkorange[estimates]** of those parameters.
+
+---
+# How do we estimate the coefficients in a regression ?
+.pull-left[
+- **.darkorange[Ordinary Least Squares]** is the most popular way.
+
+$$\min_{\beta} \sum[Y_i - (\sum_{j=1}^p\beta_jX_{ij})]^2$$
+]
+--
+.pull-right[
+```{r make-cookies, include=FALSE}
+library(generics)
+library(ggplot2)
+library(firasans)
+library(hrbrthemes)
+library(extrafont)
+library("RColorBrewer")
+library(viridis)
+library("tm")
+library("SnowballC")
+library("wordcloud")
+library("RColorBrewer")
+library("firasans")
+library(hrbrthemes)
+library(extrafont)
+library(tidyverse)
+
+cookies <- tibble(happiness = c(0.5, 2, 1, 2.5, 3, 1.5, 2, 2.5, 2, 3),
+                  stomach_ache = c(0,0,0.2,0.05,0.05,0.7,0.6,0.5,0.8,0.5),
+                  cookies = 1:10)
+cookies_data <- cookies
+cookies_model <- lm(happiness ~ cookies, data = cookies)
+cookies_fitted <- augment(cookies_model)
+cookies_base <- ggplot(cookies_fitted, aes(x = cookies, y = happiness)) +
+  geom_point(size = 4, color="#333f48", pch=21, fill=alpha("#333f48",0.4)) +
+  scale_x_continuous(breaks = 0:10) +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold") + #plain 
+  xlab("cookies") + ylab("happiness")+ggtitle("Simple regression")+
+  #xlim(-1,2) + ylim(0,5)+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=10),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+```
+
+```{r cookies1, fig.height=5, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message=FALSE}
+cookies_with_residual <- cookies_base +
+  geom_smooth(method = "lm", color = "#E16462", se = FALSE) +
+  geom_segment(aes(xend = cookies, yend = .fitted), color = "#F89441", size = 1)
+cookies_with_residual
+```
+]
+
+---
+# How do we estimate the coefficients in a regression ? (cont.)
+
+```{r make-cookies2, include=FALSE}
+library(plotly)
+
+fit <- lm(happiness ~  cookies + stomach_ache,    
+          data = cookies_data)
+
+x_grid <- seq(from = min(cookies_data$cookies), to = max(cookies_data$cookies), length = 50)
+y_grid <- seq(from = min(cookies_data$stomach_ache), to = max(cookies_data$stomach_ache), length = 50)
+
+beta_hat <- cookies_data %>% 
+  lm(happiness ~ cookies + stomach_ache, data=.) %>% 
+  coef()
+fitted_values <- crossing(y_grid, x_grid) %>% 
+  mutate(z_grid = beta_hat[1] + beta_hat[2]*x_grid + beta_hat[3]*y_grid)
+z_grid <- fitted_values %>% 
+  pull(z_grid) %>%
+  matrix(nrow = length(x_grid)) %>%
+  t()
+
+
+group2NA <- function(data, groupNames = "group", nested = NULL, ordered = NULL,
+                     retrace.first = inherits(data, "GeomPolygon")) {
+  
+  if (NROW(data) == 0) return(data)
+  
+  # for restoring class information on exit
+  datClass <- oldClass(data)
+  
+  # data.table doesn't play nice with list-columns
+  if (inherits(data, "sf")) data <- fortify_sf(data)
+  
+  # evaluate this lazy argument now (in case we change class of data)
+  retrace <- force(retrace.first)
+  
+  # sanitize variable names (TODO: throw warnings if non-existing vars are referenced?)
+  groupNames <- groupNames[groupNames %in% names(data)]
+  nested <- nested[nested %in% names(data)]
+  ordered <- ordered[ordered %in% names(data)]
+  
+  dt <- data.table::as.data.table(data)
+  
+  # if group doesn't exist, just order the rows and exit
+  if (!length(groupNames)) {
+    keyVars <- c(nested, ordered)
+    if (length(keyVars)) data.table::setorderv(dt, cols = keyVars)
+    return(structure(dt, class = datClass))
+  }
+  
+  # order the rows
+  data.table::setorderv(dt, cols = c(nested, groupNames, ordered))
+  
+  # when connectgaps=FALSE, inserting NAs ensures each "group" 
+  # will be visually distinct https://plotly.com/r/reference/#scatter-connectgaps
+  # also, retracing is useful for creating polygon(s) via scatter trace(s)
+  keyVars <- c(nested, groupNames)
+  keyNum <- length(keyVars) + 1
+  idx <- if (retrace) {
+    dt[, c(.I, .I[1], NA), by = keyVars][[keyNum]]
+  } else {
+    dt[, c(.I, NA), by = keyVars][[keyNum]]
+  }
+  dt <- dt[idx]
+  
+  # remove NAs that unnecessarily seperate nested groups
+  # (at least internally, nested really tracks trace index, meaning we don't need 
+  # to seperate them)
+  NAidx <- which(is.na(idx))
+  for (i in seq_along(keyVars)) {
+    dt[[keyVars[[i]]]][NAidx] <- dt[[keyVars[[i]]]][NAidx - 1]
+  }
+  if (length(nested)) {
+    dt <- dt[ dt[, .I[-.N], by = nested][[length(nested) + 1]] ]
+  } else {
+    dt <- dt[-.N]
+  }
+
+  structure(dt, class = datClass)
+}
+
+utils::globalVariables(c(".I", ".N"))
+
+
+cookies_data$id <- seq_len(nrow(cookies_data))
+cookies_data_rep <- replicate(2, cookies_data, simplify = F)
+cookies_data_rep[[2]]$happiness <- fit$coef[1] + 
+    fit$coef[2]*cookies_data_rep[[2]]$cookies + fit$coef[3]*cookies_data_rep[[2]]$stomach_ache
+m <- group2NA(dplyr::bind_rows(cookies_data_rep), "id")
+
+```
+
+```{r cookies2, echo=FALSE, warning=FALSE, message=FALSE, include = FALSE}
+plot_ly(data = cookies_data, z = ~happiness, x = ~cookies, y = ~stomach_ache, opacity = 1,
+        showlegend = FALSE) %>%
+  add_markers() %>%
+  add_surface(x = x_grid, y = y_grid, z = z_grid, showscale = FALSE, opacity = 0.5) %>%
+  add_paths(data = m, x = ~cookies, y = ~stomach_ache, z = ~happiness, color=I("#333f48")) %>%
+  layout(
+    scene = list(
+      xaxis = list(title = "Cookies"),
+      yaxis = list(title = "Stomach Ache"),
+      zaxis = list(title = "Happiness")
+    ))
+```
+
+.pull-left[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/3dplot1.png)
+]
+.pull-right[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/3dplot2.png)
+]
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+
+.big[
+Let's get into some data
+]
+
+---
+# Let's introduce an example: The Bechdel Test
+
+--
+
+.pull-left[
+- **.darkorange[Three criteria:]**
+
+  1. At least two named women
+  2. Who talk to each other
+  3. About something besides a man
+]
+
+.pull-right[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/bechdel.png)
+]
+
+---
+# Do movies pass the test?
+
+.center[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/hickey-bechdel-11.png)]
+
+
+---
+# Is it convenient for my movie to pass the Bechdel test?
+
+- I'm a profit-maximizing investor and want to know whether it's in my best interest to switch a male for a female character.
+
+  - What is the **.darkorange[simplest model]** you could fit?
+--
+
+
+.box-6trans.medium[$$Revenue = \alpha + \beta Bechdel + \varepsilon$$]
+
+---
+# Let's analyze some models
+
+- We have some data and code on the **<u>.darkorange[[course website](https://sta235.netlify.app/classes/week1/)]</u>**
+
+- Dataset from **<u>.darkorange[[fivethirtyeight.com](https://github.com/fivethirtyeight/data/tree/master/bechdel)]</u>**:
+
+  - Focus on 1990 onward
+
+```{r, message=FALSE,echo=FALSE, warning=FALSE, results='asis'}
+library(tidyverse)
+library(vtable)
+library(kableExtra)
+
+rawData <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/data/bechdel.csv")
+
+# Select movies post 1990
+bechdel <- rawData %>% filter(Year>1989)
+
+# Passes Bechdel test:
+bechdel <- bechdel %>% mutate(bechdel_test = ifelse(rating==3, 1, 0),
+                              Adj_Revenue = Adj_Revenue/10^6,
+                              Adj_Budget = Adj_Budget/10^6)
+
+bechdel %>% select(Year, Adj_Revenue, Adj_Budget, Metascore, imdbRating, bechdel_test) %>%
+  sumtable(., out = 'kable') %>% kable_paper()
+```
+
+---
+# Let's analyze some models
+
+```{r bechdel1, results = FALSE}
+summary(lm(Adj_Revenue ~ bechdel_test, data = bechdel))
+```
+```{r bechdel1r,echo=FALSE}
+round(summary(lm(Adj_Revenue ~ bechdel_test, data = bechdel))$coeff, 4)
+
+```
+
+- How do you interpret these results?
+
+---
+# Let's analyze some models
+
+```{r bechdel12, results = FALSE}
+summary(lm(Adj_Revenue ~ bechdel_test, data = bechdel))
+
+```
+```{r bechdel1r2,echo=FALSE}
+round(summary(lm(Adj_Revenue ~ bechdel_test, data = bechdel))$coeff, 4)
+
+```
+
+- $\hat{\beta}_0$ is the average adjusted revenue (in millions of dollars) for movies that do not pass the Bechdel test.
+
+- <u>On average</u>, movies that pass the Bechdel test have an adjusted revenue that is $|\hat{\beta}_1|$ millions less than a movie that doesn't pass the Bechdel test.
+
+<br>
+<br>
+.box-3LA[Negative effect of including more women?]
+
+---
+# What gives?
+.center[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/538_bechdel.png)]
+
+---
+# More variables
+
+.pull-left[
+.center[
+![:scale 80%](https://media.giphy.com/media/1ZlrrYTN7gAxdGE8nM/source.gif)
+]]
+.pull-right[
+- **.darkorange[Bechdel test]** could be capturing the effect of other variables:
+
+  - What **.darkorange[type]** of movies are the ones that pass the test?
+  
+  - What is their **.darkorange[budget]**?
+]  
+---
+# More variables
+
+```{r bechdel2, results = FALSE}
+lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechdel)
+
+```
+```{r bechdel2r, echo=FALSE}
+round(summary(lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechdel))$coeff, 4)
+
+```
+<br>
+.box-3LA[Positive and significant!]
+
+--
+
+- How do we interpret the relevant coefficient now?
+
+--
+
+- <u>On average</u>, movies that pass the Bechdel test have 11 millions more in adjusted revenue compared to a movie that doesn't pass the Bechdel test, <u>holding other variables constant</u>.
+
+---
+# Main takeaway points
+
+.pull-left[
+
+.center[
+![](https://media.giphy.com/media/PLHdpauwfN2MvHcHxL/giphy.gif)
+]
+
+]
+.pull-right[
+- Regressions are super useful... 
+
+  - But you need to know **.darkorange[how]** to interpret them.
+
+- Be sure not to overstate your claims!
+
+- Remember the magic words for interpretation
+
+]
+
+
+---
+# Next class
+
+.pull-left[
+- Continue with **.darkorange[multiple regression models]**:
+
+  - Interactions and how to interpret them
+
+- **.darkorange["Nonlinear" models]**
+
+]
+
+.pull-right[
+
+![](https://media.giphy.com/media/1Q9AekyhJ2U5bdTzdr/giphy.gif?cid=ecf05e47lcna24lgv5gbpkiciso4ykvxq9urjrc5d50bfq8b&rid=giphy.gif&ct=g)
+]
+
+---
+# References
+
+- Heiss, A. (2020). "Course: Program Evaluation for Public Service". *Slides for Regression and Inference*.
+
+- Ismay, C. & A. Kim. (2021). “Statistical Inference via Data Science”. Chapter 10.
+
+- Keegan, B. (2018). "The Need for Openess in Data Journalism". *[Github Repository](https://github.com/brianckeegan/Bechdel/blob/master/Bechdel_test.ipynb)*
+
+
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week1/2_OLS/f2021_sta235h_2_reg.html') -->

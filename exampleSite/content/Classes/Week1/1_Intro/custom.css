@@ -1,0 +1,47 @@
+@import url(https://fonts.googleapis.com/css?family=Jost&display=swap);
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+
+@page { margin: 0; }
+
+@page {
+   size: 101.6mm 76mm;
+   padding: 0;
+   margin:0mm;
+   border: none;
+   border-collapse: collapse;
+}
+
+@media print {
+  .remark-slide-scaler {
+    width: 100% !important;
+    height: 100% !important;
+    transform: scale(1) !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+}
+
+.reportTable {
+    width: 99mm; /* was 97mm */
+    height: 74mm; /* was 72mm */
+    padding: 0;
+    margin: 0;
+    border: 1mm solid;
+    border-collapse: collapse;
+    background-color:red;
+}
+
+.right-column {
+  width: 75%;
+  float: right;
+  padding-top: 0em;
+}
+
+.remark-slide-content.header_background {
+  padding-top: 0rem;
+}
+
+.MJXc-TeX-math-I{
+	font-family: Computer Modern, sans-serif;
+	font-size: 100%;
+}

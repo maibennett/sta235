@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235H - Model Selection I: Bias vs Variance, Cross-Validation, and Stepwise</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# STA 235H - Model Selection I:<br/>Bias vs Variance, Cross-Validation, and Stepwise
+]
+.subtitle[
+## Fall 2022
+]
+.author[
+### McCombs School of Business, UT Austin
+]
+
+---
+
+
+&lt;!-- &lt;script type="text/javascript"&gt; --&gt;
+&lt;!-- MathJax.Hub.Config({ --&gt;
+&lt;!--   "HTML-CSS": { --&gt;
+&lt;!--     preferredFont: null, --&gt;
+&lt;!--     webFont:  "Neo-Euler" --&gt;
+&lt;!--   } --&gt;
+&lt;!-- }); --&gt;
+&lt;!-- &lt;/script&gt; --&gt;
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+&lt;/style&gt;
+
+
+
+
+
+# Last class
+
+.pull-left[
+.center[
+![](https://media.giphy.com/media/k9HCTV5kwOa9pWVISy/giphy.gif)
+]
+]
+
+.pull-right[
+- Finished with causal inference, discussing **.darkorange[regression discontinuity designs]**
+
+  - We will review the **.darkorange[JITT]** (slides will be posted tomorrow)
+  
+  - Importance of **.darkorange[doing the coding exercises]**
+
+]
+
+---
+# Introduction to prediction
+
+.pull-left[
+- So far, we had been focusing on **.darkorange[causal inference]**:
+
+  - Estimating an effect and "predicting" a counterfactual (what if?)
+  
+- Now, we will focus on **.darkorange[prediction]**:
+
+  - Estimate/predict outcomes under specific conditions.
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/3orieSdZDhn7I6gViw/giphy.gif)
+]
+]
+
+---
+# Differences between inference and prediction
+
+- Inference `\(\rightarrow\)` focus on **.darkorange[covariate]**
+  
+  - **.darkorange[Interpretability]** of model.
+  
+- Prediction `\(\rightarrow\)` focus on **.darkorange[outcome variable]**
+
+  - **.darkorange[Accuracy]** of model.
+  
+.box-2[Both can be complementary!]
+
+---
+# Example: What is churn?
+
+.pull-left[
+- **.darkorange[Churn:]** Measure of how many customers stop using your product (e.g. cancel a subscription).
+
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/images/churn1.png)]
+]
+
+---
+# Example: What is churn?
+
+.pull-left[
+- **.darkorange[Churn:]** Measure of how many customers stop using your product (e.g. cancel a subscription).
+
+.box-2trans[Less costly to keep a customer than bring a new one]
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/images/churn1.png)]
+]
+
+
+---
+# Example: What is churn?
+
+.pull-left[
+- **.darkorange[Churn:]** Measure of how many customers stop using your product (e.g. cancel a subscription).
+
+.box-2trans[Less costly to keep a customer than bring a new one]
+
+.box-4trans[Prevent churn]
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/images/churn1.png)]
+]
+
+---
+# Example: What is churn?
+
+.pull-left[
+- **.darkorange[Churn:]** Measure of how many customers stop using your product (e.g. cancel a subscription).
+
+.box-2trans[Less costly to keep a customer than bring a new one]
+
+.box-4trans[Prevent churn]
+
+.box-7trans[Identify customer that are likely to cancel/quit/fail to renew]
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/images/churn1.png)]
+]
+
+---
+# Bias vs Variance
+
+.box-4["There are no free lunches in statistics"]
+
+--
+
+- Not one method dominates others: Context/dataset dependent.
+
+- Remember that the goal of prediction is to have a method that is accurate in predicting outcomes on **.darkorange[previously unseen data]**.
+
+  - **.darkorange[Validation set approach:]** Training and testing data
+
+--
+
+.box-2[Balance between flexibility and accuracy]
+
+
+---
+# Bias vs Variance
+
+.box-2[Variance]
+
+.box-2t["[T]he amount by which the function *f*  would change if we estimated it using a different training dataset"]
+
+--
+
+.box-6[Bias]
+
+.box-6t["[E]rror introduced by approximating a real-life problem with a model"]
+
+
+---
+
+.center2[
+.box-5Trans[Q1:Which models do you think are higher variance?]
+
+.box-5trans[a) More flexible models]
+
+.box-5trans[b) Less flexible models]
+]
+
+---
+# Bias vs. Variance: The  ultimate battle
+
+- In inference, **.darkorange[bias &gt;&gt; variance]**
+
+- In prediction, we care about **.darkorange[both]**:
+
+  - Measures of accuracy will have both bias and variance.
+  
+  .box-4[Trade-off at different rates]
+
+---
+# How do we measure accuracy?
+
+Different measures:
+
+- Remember `\(Adj-R^2\)`?
+
+--
+
+  - `\(R^2\)` (proportion of the variation in `\(Y\)` explained by `\(X\)`s) adjusted by the number of predictors!
+
+--
+
+- **.darkorange[Mean Squared Error (MSE)]**: *Can be decomposed into variance and bias terms*
+`$$MSE = \frac{1}{n}\sum_{i=1}^n(y_i-\hat{f}(x_i))^2$$`
+
+- Other measures: Bayesian Information Criterion (BIC) and Akaike Information Criterion (AIC)
+
+
+---
+# Is flexibility always better?
+
+&lt;img src="f2022_sta235h_13_ModelSelectionI_files/figure-html/bias_variance-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Is flexibility always better?
+
+&lt;img src="f2022_sta235h_13_ModelSelectionI_files/figure-html/bias_variance2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Is flexibility always better?
+
+&lt;img src="f2022_sta235h_13_ModelSelectionI_files/figure-html/bias_variance3-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Is flexibility always better?
+
+&lt;img src="f2022_sta235h_13_ModelSelectionI_files/figure-html/bias_variance4-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Example: Let's predict pre-churn!
+
+- You work at HBO Max and you know that a good measure for someone at risk of unsubscribing is the **.darkorange[times they've logged in the past week]**:
+
+
+
+
+```r
+hbo &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/data/hbomax.csv")
+
+head(hbo)
+```
+
+```
+##   id female city age logins got unsubscribe
+## 1  1      1    1  53     10   0           1
+## 2  2      1    1  48      7   1           0
+## 3  3      0    1  45      7   1           0
+## 4  4      1    1  51      5   1           0
+## 5  5      1    1  45     10   0           0
+## 6  6      1    0  40      0   1           0
+```
+
+---
+# Two candidates: Simple vs Complex
+
+- **.darkorange[Simple Model]**:
+
+  `$$logins = \beta_0 + \beta_1\times GoT + \beta_2 \times city + \varepsilon$$`
+  
+- **.darkorange[Complex Model]**:
+
+$$
+`\begin{aligned}
+logins =&amp; \beta_0 + \beta_1\times GoT + \beta_2\times age + \beta_3\times age^2 +\\
+&amp;\beta_4\times city + \beta_5\times female + \varepsilon
+\end{aligned}`
+$$
+
+---
+# Create Validation Sets
+
+
+```r
+set.seed(100) #Always set seed for replication!
+
+*n &lt;- nrow(hbo)
+
+train &lt;- sample(1:n, n*0.8) #randomly select 80% of the rows for our training sample
+
+train.data &lt;- hbo %&gt;% slice(train)
+test.data &lt;- hbo %&gt;% slice(-train)
+```
+
+---
+# Create Validation Sets
+
+
+```r
+set.seed(100) #Always set seed for replication!
+
+n &lt;- nrow(hbo)
+
+*train &lt;- sample(1:n, n*0.8)
+
+train.data &lt;- hbo %&gt;% slice(train)
+test.data &lt;- hbo %&gt;% slice(-train)
+```
+
+---
+# Create Validation Sets
+
+
+```r
+set.seed(100) #Always set seed for replication!
+
+n &lt;- nrow(hbo)
+
+train &lt;- sample(1:n, n*0.8) #randomly select 80% of the rows for our training sample
+
+*train.data &lt;- hbo %&gt;% slice(train)
+*test.data &lt;- hbo %&gt;% slice(-train)
+```
+---
+# Estimate Accuracy Measure
+
+
+```r
+library(modelr)
+
+lm_simple &lt;- lm(logins ~ got + city, data = train.data)
+
+lm_complex &lt;- lm(logins ~ female + city + age + I(age^2) + got, data = train.data)
+
+# For simple model:
+rmse(lm_simple, test.data)
+```
+
+```
+## [1] 2.089868
+```
+
+```r
+# For complex model:
+rmse(lm_complex, test.data)
+```
+
+```
+## [1] 2.093429
+```
+
+- **.darkorange[Q2: Which one would you prefer?]**
+
+
+---
+# Cross-Validation
+
+- To avoid using only **.darkorange[one training and testing dataset]**, we can iterate over *k-fold* division of our data:
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/images/cv.png)]
+
+---
+# Cross-Validation
+
+**.darkorange[Procedure for *k-fold* cross-validation]**:
+
+  1. Divide your data in *k-folds* (usually, `\(K=5\)` or `\(K=10\)`).
+  
+  2. Use `\(k=1\)` as the testing data and `\(k=2,..,K\)` as the training data.
+  
+  3. Calculate the accuracy measure `\(A_k\)` on the testing data.
+  
+  4. Repeat for each `\(k\)`.
+  
+  5. Average `\(A_k\)` for all `\(k \in K\)`.
+
+--
+
+Main advantage: Use the entire dataset for training **.darkorange[AND]** testing.
+
+---
+# How do we do CV in R?
+
+
+```r
+*library(caret)
+
+set.seed(100)
+
+train.control &lt;- trainControl(method = "cv", number = 10)
+
+lm_simple &lt;- train(logins ~ got + city, data = disney, method="lm", trControl = train.control)
+
+lm_simple
+```
+
+---
+# How do we do CV in R?
+
+
+```r
+library(caret) 
+
+*set.seed(100)
+
+train.control &lt;- trainControl(method = "cv", number = 10)
+
+lm_simple &lt;- train(logins ~ got + city, data = disney, method="lm", trControl = train.control)
+
+lm_simple
+```
+
+---
+# How do we do CV in R?
+
+
+```r
+library(caret) 
+
+set.seed(100)
+
+*train.control &lt;- trainControl(method = "cv", number = 10)
+
+lm_simple &lt;- train(logins ~ got + city, data = disney, method="lm", trControl = train.control)
+
+lm_simple
+```
+
+---
+# How do we do CV in R?
+.small[
+
+```r
+library(caret) 
+
+*set.seed(100)
+
+train.control &lt;- trainControl(method = "cv", number = 10)
+
+*lm_simple &lt;- train(logins ~ got + city, data = hbo, method="lm", trControl = train.control)
+
+lm_simple
+```
+
+```
+## Linear Regression 
+## 
+## 5000 samples
+##    2 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold) 
+## Summary of sample sizes: 4500, 4501, 4499, 4500, 4500, 4501, ... 
+## Resampling results:
+## 
+##   RMSE      Rsquared   MAE     
+##   2.087314  0.6724741  1.639618
+## 
+## Tuning parameter 'intercept' was held constant at a value of TRUE
+```
+]
+---
+# Stepwise selection
+
+- We have seen how to choose between some given models. **.darkorange[But what if we want to test all possible models?]**
+
+- **.darkorange[Stepwise selection]**: Computationally-efficient algorithm to select a model based on the data we have (subset selection).
+
+--
+
+Algorithm for forward stepwise selection:
+
+1. Start with the *null model*, `\(M_0\)` (no predictors)
+
+2. For `\(k=0, ..., p-1\)`:
+  (a) Consider all `\(p-k\)` models that augment `\(M_k\)` with one additional predictor.
+  (b) Choose the *best* among these `\(p-k\)` models and call it `\(M_{k+1}\)`.
+  
+3. Select the single best model from `\(M_{0},...,M_p\)` using CV.
+
+.source[Backwards stepwise follows the same procedure, but starts with the full model.]
+
+---
+
+.center2[
+.box-2LA[Will forward stepwise subsetting yield the same results as backwards stepwise selection?]
+]
+
+---
+# How do we do stepwise selection in R?
+.small[
+
+```r
+set.seed(100)
+
+train.control &lt;- trainControl(method = "cv", number = 10) #set up a 10-fold cv
+
+*lm.fwd &lt;- train(logins ~ . - unsubscribe, data = hbo, method = "leapForward",
+*               tuneGrid = data.frame(nvmax = 1:5), trControl = train.control)
+lm.fwd$results
+```
+
+```
+##   nvmax     RMSE  Rsquared      MAE     RMSESD RsquaredSD      MAESD
+## 1     1 2.273269 0.6113410 1.847755 0.04250683 0.01688996 0.04353289
+## 2     2 2.087314 0.6724741 1.639618 0.04920703 0.01434646 0.04889721
+## 3     3 2.087994 0.6722625 1.640315 0.04919353 0.01436182 0.04904907
+## 4     4 2.088156 0.6722088 1.640489 0.04919301 0.01435653 0.04904416
+## 5     5 2.088235 0.6721845 1.640525 0.04925197 0.01438207 0.04908729
+```
+]
+
+--
+
+- Which one would you choose out of the 5 models? Why?
+
+---
+# How do we do stepwise selection in R?
+.tiny[
+
+```r
+# We can see the number of covariates that is optimal to choose:
+lm.fwd$bestTune
+```
+
+```
+##   nvmax
+## 2     2
+```
+
+```r
+# And how does that model looks like:
+summary(lm.fwd$finalModel)
+```
+
+```
+## Subset selection object
+## 5 Variables  (and intercept)
+##        Forced in Forced out
+## id         FALSE      FALSE
+## female     FALSE      FALSE
+## city       FALSE      FALSE
+## age        FALSE      FALSE
+## got        FALSE      FALSE
+## 1 subsets of each size up to 2
+## Selection Algorithm: forward
+##          id  female city age got
+## 1  ( 1 ) " " " "    " "  " " "*"
+## 2  ( 1 ) " " " "    "*"  " " "*"
+```
+
+```r
+# If we want to recover the coefficient names, we can use the coef() function:
+coef(lm.fwd$finalModel, lm.fwd$bestTune$nvmax)
+```
+
+```
+## (Intercept)        city         got 
+##    7.026494    2.577163   -6.265728
+```
+]
+
+---
+
+.center2[
+.box-7Trans[Your Turn]
+]
+
+---
+# In-class Activity
+
+- Go to **.darkorange[https://sta235h.rocks/Week10]** and read the exercise.
+
+- Answer the questions in the activity and write them in your sheet.
+
+- Submit your sheet at the end of the class.
+
+
+---
+# Takeaway points
+
+.pull-left[
+
+- In prediction, everything is going to be about **.darkorange[bias vs variance]**.
+
+- Importance of **.darkorange[validation sets]**.
+
+- We now have methods to **.darkorange[select models]**.
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/PnfsGtSGXJjgcDo9cc/giphy.gif)]
+]
+
+---
+# Next class
+
+.pull-left[
+
+- Continue with prediction and model selection
+
+- **.darkorange[Shrinkage/Regularization methods]**: 
+
+  - Ridge regression and Lasso.
+
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/oYtVHSxngR3lC/giphy.gif)
+]
+]
+---
+# References
+
+- James, G. et al. (2021). "Introduction to Statistical Learning with Applications in R". *Springer*. *Chapter 2, 5, and 6*.
+
+- STDHA. (2018). ["Stepwise Regression Essentials in R."](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/154-stepwise-regression-essentials-in-r/)
+
+- STDHA. (2018). ["Cross-Validation Essentials in R."](http://www.sthda.com/english/articles/38-regression-model-validation/157-cross-validation-essentials-in-r/)
+
+
+
+
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week9/2_ModelSelection/f2021_sta235h_14_ModelSelectionI.html') --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

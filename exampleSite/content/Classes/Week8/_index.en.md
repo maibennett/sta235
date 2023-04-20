@@ -1,0 +1,45 @@
+---
+title: Week 8 - 10/10
+weight: 45
+disableToc: true
+---
+
+## Date: Oct 11th - Oct 13th
+
+## What we will cover
+
+In this class we will continue our talk on observational studies. We will cover natural experiments and differences-in-differences.  
+
+## Recommended readings/videos
+
+- Social Science Research Institute at Duke University. (2015). "The Two Kinds of Natural Experiments: Causal Inference Bootcamp". *Video materials from Mod-U: Powerful Concepts in Social Science*.
+
+{{< youtube src="https://www.youtube.com/embed/xdRyjhGVj_Q?controls=0" >}}
+
+- Social Science Research Institute at Duke University. (2015). "Resistance to Policy Manipulation in Natural Experiments: Causal Inference Bootcamp". *Video materials from Mod-U: Powerful Concepts in Social Science*.
+
+{{< youtube src="https://www.youtube.com/embed/u1pOXq7THj8?controls=0" >}}
+
+- Angrist & Pischke. (2015). "Mastering Metrics". *Chapter 5: Differences-in-Differences*. Pg. 178-191. 
+
+- Social Science Research Institute at Duke University. (2015). "Introduction to Panel Data: Does the Death Penalty Reduce Homicides?: Causal Inference Bootcamp". *Video materials from Mod-U: Powerful Concepts in Social Science*.
+
+{{< youtube src="https://www.youtube.com/embed/tO99T1GQ6SY?controls=0" >}}
+
+- Social Science Research Institute at Duke University. (2015). "The Common Trends Assumption: Causal Inference Bootcamp". *Video materials from Mod-U: Powerful Concepts in Social Science*.
+
+{{< youtube src="https://www.youtube.com/embed/6d64Vy2-peY?controls=0" >}}
+
+
+
+## Slides
+
+{{% button href="https://sta235.netlify.app/Classes/Week8/1_DiffInDiff/f2022_sta235h_11_DiffInDiff.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week8/1_DiffInDiff/f2022_sta235h_11_DiffInDiff.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+
+{{< slides src="https://sta235.netlify.app/Classes/Week8/1_DiffInDiff/f2022_sta235h_11_DiffInDiff.html" >}}
+
+
+## Code
+
+Check out the in-class activity we did for this week <a onclick="ga('send', 'event', 'External-Link','click','code8','0','Link');" href="https://sta235h.rocks/Week8" target="_blank" class="btn btn-default">Open<i class="fas  fa-external-link-alt"></i></a>
+

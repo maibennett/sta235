@@ -1,0 +1,1237 @@
+---
+title: "STA 235H - Model Selection I:<br/>Bias vs Variance, Cross-Validation, and Stepwise" 
+subtitle: "Fall 2022"
+author: "McCombs School of Business, UT Austin"
+output:
+  xaringan::moon_reader:
+    css: [xaringan-themer.css]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: ["macros.js"]
+    includes:
+      in_header: ["header.html"]
+---
+
+<!-- <script type="text/javascript"> -->
+<!-- MathJax.Hub.Config({ -->
+<!--   "HTML-CSS": { -->
+<!--     preferredFont: null, -->
+<!--     webFont:  "Neo-Euler" -->
+<!--   } -->
+<!-- }); -->
+<!-- </script> -->
+
+```{r setup, include=FALSE, warning=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.showtext = TRUE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE, message=FALSE}
+library(xaringanthemer)
+
+theme_xaringan(
+  text_color = "#333f48",
+  background_color = "#FFFFFF",
+  accent_color = "#900DA4",
+  text_font = "Fira Mono",
+  text_font_use_google = TRUE,
+  title_font = "Yanone Kaffeesatz",
+  title_font_use_google = TRUE
+)
+
+style_mono_accent(
+  #base_color = "#bf5700",
+  extra_fonts = list(google_font("Fira Sans","200","300","400","500","600"),
+                     google_font("Fira Sans Condensed","200","300","400","500","600")),
+  base_color = "#333f48",
+  header_font_google = google_font("Yanone Kaffeesatz","200","300","400","500","600","700"),
+  text_font_google   = google_font("Jost"),
+  code_font_google   = google_font("Fira Mono"),
+  text_bold_color = "#333f48",
+  text_font_size = "115%",
+  colors = c(
+    lightgrey = "#C0C0C0",
+    red = "#f34213",
+    purple = "#900DA4",
+    darkpurple = "#61077a",
+    darkorange = "#db5f12",
+    orange = "#ff8811",
+    green = "#136f63",
+    white = "#FFFFFF"),
+  extra_css = list(
+    ".remark-slide table" = list("display" = "table",
+                   "width" = "80%",
+                   "text-align" = "left"),
+    ".remark-slide-number" = list("display" = "none"),
+    ".strong" = list("font-weight" = "400"),
+    ".big" = list("font-size" = "350%",
+                     "font-family" = "Yanone Kaffeesatz",
+                     "font-weight"="400"),
+    ".small" = list("font-size" = "80%"),
+    ".tiny" = list("font-size" = "70%"),
+    ".large" = list("font-size" = "150%"),
+    ".source" = list("color" = "#8c8c8c",
+                     "font-size" = "80%"),
+    ".remark-slide table td#highlight" = list("background-color" = "#eee1f0",
+                                  "color" = "#900DA4",
+                                  "font-weight" = "500"),
+   # ".remark-slide table thead th" = list(),
+    ".title-slide h1" = list("font-weight" = "500"),
+    ".title-slide h2" = list("font-weight" = "400",
+                             "font-size" =  "170%"),
+    ".title-slide h3" = list("font-family" = "Jost",
+                             "font-size" = "100%",
+                             "font-weight" = "200"),
+    ".center2" = list("margin" = "0",
+                      "position" = "absolute",
+                      "top" = "50%",
+                      "left" = "50%",
+                      "-ms-transform" = "translate(-50%, -50%)",
+                      "transform" = "translate(-50%, -50%)"),
+   ".bottom2" = list("margin" = "0",
+                      "position" = "absolute",
+                      "top" = "90%",
+                      "left" = "10%",
+                      "-ms-transform" = "translate(-10%, -90%)",
+                      "transform" = "translate(-10%, -90%)"),
+    ".section-title h1" = list("color" = "#FFFFFF",
+                               "font-size" = "2.3em",
+                               "line-height" = "1.3"),
+    ".sp-after-half" = list("margin-bottom" = "0.7em !important"),
+    ".box-1,.box-1a,.box-1s,.box-1b,.box-1l,.box-1LA,.section-title-1" = list("background-color" = "#0D0887"),
+    ".box-2,.box-2a,.box-2s,.box-2b,.box-2l,.box-2LA,.section-title-2" = list("background-color" = "#5601A4"),
+    ".box-3,.box-3a,.box-3s,.box-3b,.box-3l,.box-3LA,.section-title-3" = list("background-color" = "#900DA4"),
+    ".box-4,.box-4a,.box-4s,.box-4b,.box-4l,.box-4LA,.section-title-4" = list("background-color" = "#BF3984"),
+    ".box-5,.box-5a,.box-5s,.box-5b,.box-5l,.box-5LA,.section-title-5" = list("background-color" = "#E16462"),
+    ".box-6,.box-6a,.box-6s,.box-6b,.box-6l,.box-6LA,.section-title-6" = list("background-color" = "#F89441"),
+    ".box-7,.box-7a,.box-7s,.box-7b,.box-7l,.box-7LA,.section-title-7" = list("background-color" = "#FCCE25"),
+   
+    ".box-1trans,.box-2trans,.box-3trans,.box-4trans,.box-5trans,.box-6trans,.box-7trans" = list("background-color" = "#FFFFFF",
+                                                                                                 "font-family" = "Yanone Kaffeesatz",
+                                                                                                 "border-radius" = "15px",
+                                                                                                 "margin" = "0em auto",
+                                                                                                 "overflow" = "hidden",
+                                                                                                 "padding" = "0.4em 0.4em",
+                                                                                                 "font-weight" = "600",
+                                                                                                 "font-size" = "31px",
+                                                                                                 "display" = "table",
+                                                                                                 "text-align" = "center",
+                                                                                                 "border-width" = "thick",
+                                                                                                 "color" = "#333f48"),
+   
+       ".box-1Trans,.box-2Trans,.box-3Trans,.box-4Trans,.box-5Trans,.box-6Trans,.box-7Trans" = list("background-color" = "#FFFFFF",
+                                                                                                 "font-family" = "Yanone Kaffeesatz",
+                                                                                                 "border-radius" = "15px",
+                                                                                                 "margin" = "0em auto",
+                                                                                                 "overflow" = "hidden",
+                                                                                                 "padding" = "0.4em 0.4em",
+                                                                                                 "font-weight" = "600",
+                                                                                                 "font-size" = "51px",
+                                                                                                 "display" = "table",
+                                                                                                 "text-align" = "center",
+                                                                                                 "border-width" = "thick",
+                                                                                                 "color" = "#333f48"),
+   
+       ".box-1transl,.box-2transl,.box-3transl,.box-4transl,.box-5transl,.box-6transl,.box-7transl" = list("background-color" = "#FFFFFF",
+                                                                                                           "font-family" = "Yanone Kaffeesatz",
+                                                                                                           "border-radius" = "15px",
+                                                                                                           "left" = "0px",
+                                                                                                           "overflow" = "hidden",
+                                                                                                           "padding" = "0.4em 0.4em",
+                                                                                                           "font-weight" = "600",
+                                                                                                           "font-size" = "31px",
+                                                                                                           "display" = "table",
+                                                                                                           "text-align" = "left",
+                                                                                                           "border-width" = "thick",
+                                                                                                           "color" = "#333f48"),
+   
+   
+    ".box-1trans,.box-1transl,.box-1Trans" = list("border"="5px solid rgba(13, 8, 135,1)"),
+    ".box-2trans,.box-2transl,.box-2Trans" = list("border"="5px solid rgba(86, 1, 164,1)"),
+    ".box-3trans,.box-3transl,.box-3Trans" = list("border"="5px solid rgba(144, 13, 164,1)"),
+    ".box-4trans,.box-4transl,.box-4Trans" = list("border"="5px solid rgba(191, 57, 132,1)"),
+    ".box-5trans,.box-5transl,.box-5Trans" = list("border"="5px solid rgba(225, 100, 98,1)"),
+    ".box-6trans,.box-6transl,.box-6Trans" = list("border"="5px solid rgba(248, 148, 65,1)"),
+    ".box-7trans,.box-7transl,.box-7Trans" = list("border"="5px solid rgba(252, 206, 37,1)"),
+
+   
+   ".box-1t,.box-1tL,.section-title-1t" = list("background-color" = "rgba(13, 8, 135,0.3)",
+                                      "color"="rgba(13, 8, 135,1)",
+                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-2t,.box-2tL,.section-title-2t" = list("background-color" = "rgba(86, 1, 164,0.3)",
+                                       "color" = "rgba(86, 1, 164,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-3t,.box-3tL,.section-title-3t" = list("background-color" = "rgba(144, 13, 164,0.3)",
+                                       "color" = "rgba(144, 13, 164,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-4t,.box-4tL,.section-title-4t" = list("background-color" = "rgba(191, 57, 132,0.3)",
+                                       "color" = "rgba(191, 57, 132,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-5t,.box-5tL,.section-title-5t" = list("background-color" = "rgba(225, 100, 98,0.3)",
+                                       "color" = "rgba(225, 100, 98,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-6t,.box-6tL,.section-title-6t" = list("background-color" = "rgba(248, 148, 65,0.3)",
+                                       "color" = "rgba(248, 148, 65,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-7t,.box-7tL,.section-title-7t" = list("background-color" = "rgba(252, 206, 37,0.3)",
+                                       "color" = "rgba(252, 206, 37,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   
+   ".box-7t, .box-6t, .box-5t, .box-4t, .box-3t, .box-2t, .box-1t" = list("margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "31px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "border-radius" = "15px"),
+   
+   ".box-7tL, .box-6tL, .box-5tL, .box-4tL, .box-3tL, .box-2tL, .box-1tL" = list("margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "50px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "border-radius" = "15px"),
+   
+    ".box-7, .box-6, .box-5, .box-4, .box-3, .box-2, .box-1" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "31px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+    ".box-7a, .box-6a, .box-5a, .box-4a, .box-3a, .box-2a, .box-1a" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.4em 0.4em",
+                                                                      "font-weight" = "600",
+                                                                      "font-size" = "25px",
+                                                                      "display" = "table",
+                                                                      "text-align" = "center",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+   ".box-7s, .box-6s, .box-5s, .box-4s, .box-3s, .box-2s, .box-1s" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.2em 0.2em",
+                                                                      "font-weight" = "400",
+                                                                      "font-size" = "100%",
+                                                                      "display" = "inline",
+                                                                      "text-align" = "center",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+       ".box-7b, .box-6b, .box-5b, .box-4b, .box-3b, .box-2b, .box-1b" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.4em 0.4em",
+                                                                      "font-weight" = "600",
+                                                                      "font-size" = "25px",
+                                                                      "display" = "table",
+                                                                      "text-align" = "left",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+   ".box-7l, .box-6l, .box-5l, .box-4l, .box-3l, .box-2l, .box-1l" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "45px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   ".box-7LA, .box-6LA, .box-5LA, .box-4LA, .box-3LA, .box-2LA, .box-1LA" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "55px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   ".medium" = list("font-size" = "35px"),
+   
+   ".medium30" = list("font-size" = "30px"),
+   
+   ".jost-normal" = list("font-family" = "Jost",
+                         "font-size" = "31px"),
+   
+   ".image-80 img" = list("scale" = "80%"),
+   ".pull-left-little_l" = list("float" = "left",
+                                "width" = "67%"),
+   ".pull-right-little_l" = list("float" = "right",
+                                "width" = "27%"),
+   ".pull-left-little_r" = list("float" = "left",
+                                "width" = "27%"),
+   ".pull-right-little_r" = list("float" = "right",
+                                "width" = "67%")
+
+
+  )
+)
+
+#,"li" = list("font-size" = "150%")
+#    "li" = list("font-size" = "110%"),
+#    "ul" = list("font-size" = "110%"),
+#color palette
+#5601A4
+#900DA4
+#F89441
+#FCCE25
+
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+
+```
+```{css, echo = FALSE}
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+```
+
+```{r setup2, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(showtext)
+library(xaringanExtra)
+library(htmltools)
+library(paletteer)
+library(reactable)
+library(htmlwidgets)
+library(webshot2)
+library(tidyverse)
+library(extrafont)
+library(hrbrthemes)
+library(firasans)
+library(kableExtra)
+library(scales)
+library(patchwork)
+
+# for windows
+windowsFonts(sans = "Fira")
+loadfonts(device="win")
+loadfonts(device="postscript")
+
+#xaringanExtra::use_scribble()
+
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r fonts, message=FALSE, echo=FALSE, warning=FALSE}
+font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
+font.add.google("Fira Sans", "Fira Sans")
+```
+
+# Last class
+
+.pull-left[
+.center[
+![](https://media.giphy.com/media/k9HCTV5kwOa9pWVISy/giphy.gif)
+]
+]
+
+.pull-right[
+- Finished with causal inference, discussing **.darkorange[regression discontinuity designs]**
+
+  - We will review the **.darkorange[JITT]** (slides will be posted tomorrow)
+  
+  - Importance of **.darkorange[doing the coding exercises]**
+
+]
+
+---
+# Introduction to prediction
+
+.pull-left[
+- So far, we had been focusing on **.darkorange[causal inference]**:
+
+  - Estimating an effect and "predicting" a counterfactual (what if?)
+  
+- Now, we will focus on **.darkorange[prediction]**:
+
+  - Estimate/predict outcomes under specific conditions.
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/3orieSdZDhn7I6gViw/giphy.gif)
+]
+]
+
+---
+# Differences between inference and prediction
+
+- Inference $\rightarrow$ focus on **.darkorange[covariate]**
+  
+  - **.darkorange[Interpretability]** of model.
+  
+- Prediction $\rightarrow$ focus on **.darkorange[outcome variable]**
+
+  - **.darkorange[Accuracy]** of model.
+  
+.box-2[Both can be complementary!]
+
+---
+# Example: What is churn?
+
+.pull-left[
+- **.darkorange[Churn:]** Measure of how many customers stop using your product (e.g. cancel a subscription).
+
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/images/churn1.png)]
+]
+
+---
+# Example: What is churn?
+
+.pull-left[
+- **.darkorange[Churn:]** Measure of how many customers stop using your product (e.g. cancel a subscription).
+
+.box-2trans[Less costly to keep a customer than bring a new one]
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/images/churn1.png)]
+]
+
+
+---
+# Example: What is churn?
+
+.pull-left[
+- **.darkorange[Churn:]** Measure of how many customers stop using your product (e.g. cancel a subscription).
+
+.box-2trans[Less costly to keep a customer than bring a new one]
+
+.box-4trans[Prevent churn]
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/images/churn1.png)]
+]
+
+---
+# Example: What is churn?
+
+.pull-left[
+- **.darkorange[Churn:]** Measure of how many customers stop using your product (e.g. cancel a subscription).
+
+.box-2trans[Less costly to keep a customer than bring a new one]
+
+.box-4trans[Prevent churn]
+
+.box-7trans[Identify customer that are likely to cancel/quit/fail to renew]
+]
+
+.pull-right[
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/images/churn1.png)]
+]
+
+---
+# Bias vs Variance
+
+.box-4["There are no free lunches in statistics"]
+
+--
+
+- Not one method dominates others: Context/dataset dependent.
+
+- Remember that the goal of prediction is to have a method that is accurate in predicting outcomes on **.darkorange[previously unseen data]**.
+
+  - **.darkorange[Validation set approach:]** Training and testing data
+
+--
+
+.box-2[Balance between flexibility and accuracy]
+
+
+---
+# Bias vs Variance
+
+.box-2[Variance]
+
+.box-2t["[T]he amount by which the function *f*  would change if we estimated it using a different training dataset"]
+
+--
+
+.box-6[Bias]
+
+.box-6t["[E]rror introduced by approximating a real-life problem with a model"]
+
+
+---
+
+.center2[
+.box-5Trans[Q1:Which models do you think are higher variance?]
+
+.box-5trans[a) More flexible models]
+
+.box-5trans[b) Less flexible models]
+]
+
+---
+# Bias vs. Variance: The  ultimate battle
+
+- In inference, **.darkorange[bias >> variance]**
+
+- In prediction, we care about **.darkorange[both]**:
+
+  - Measures of accuracy will have both bias and variance.
+  
+  .box-4[Trade-off at different rates]
+
+---
+# How do we measure accuracy?
+
+Different measures:
+
+- Remember $Adj-R^2$?
+
+--
+
+  - $R^2$ (proportion of the variation in $Y$ explained by $X$s) adjusted by the number of predictors!
+
+--
+
+- **.darkorange[Mean Squared Error (MSE)]**: *Can be decomposed into variance and bias terms*
+$$MSE = \frac{1}{n}\sum_{i=1}^n(y_i-\hat{f}(x_i))^2$$
+
+- Other measures: Bayesian Information Criterion (BIC) and Akaike Information Criterion (AIC)
+
+
+---
+# Is flexibility always better?
+
+```{r bias_variance, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+set.seed(100)
+
+n <- 100
+x <- rnorm(n, 0, 1)
+y <- x^3 - x^2 + x + 1 + rnorm(n, 0, 5)
+
+d <- data.frame(id = 1:100, x = x, y = y)
+
+id_train <- sample(d$id, nrow(d)*0.8)
+id_test <- d$id[-id_train]
+
+d_train <- d[id_train,]
+d_test <- d[id_test,]
+
+lm1 <- lm(y ~ x, data = d_train)
+lm2 <- lm(y ~ I(x^3)+I(x^2) + x, data = d_train)
+
+library(splines)
+
+knots <- quantile(d_train$x, p = seq(0.05,0.95, 0.05))
+
+s1 <- lm (y ~ bs(x, df=20), data = d_train)
+
+pred_lm1 <- lm1 %>% predict(d_test)
+pred_lm2 <- lm2 %>% predict(d_test)
+pred_s1 <- s1 %>% predict(d_test)
+
+RMSE = function(m, o){
+  sqrt(mean((m - o)^2))
+}
+
+
+pred_lm1_t <- lm1 %>% predict(d_train)
+pred_lm2_t <- lm2 %>% predict(d_train)
+pred_s1_t <- s1 %>% predict(d_train)
+
+acc <- data.frame(RMSE_lm1 = RMSE(pred_lm1, d_test$y),
+                  RMSE_lm2 = RMSE(pred_lm2, d_test$y),
+                  RMSE_s1 = RMSE(pred_s1, d_test$y),
+                  RMSE_lm1_t = RMSE(pred_lm1_t, d_train$y),
+                  RMSE_lm2_t = RMSE(pred_lm2_t, d_train$y),
+                  RMSE_s1_t = RMSE(pred_s1_t, d_train$y),
+                  flex = 2)
+
+g1 <- ggplot(data = d_train, aes(x = x, y = y)) +
+  geom_point(pch=21,color="dark grey", fill="white", size = 4) +
+  geom_line(aes(y = pred_lm1_t, x=x, color = "#5601A4"), lwd=1.2)+
+  geom_line(aes(y = pred_lm2_t, x=x, color = "#BF3984"), lwd=1.2)+
+  geom_line(aes(y = pred_s1_t, x=x, color = "#FCCE25"), lwd=1.2)+
+  scale_color_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Cubic","Spline")) +
+  theme_bw()+
+  theme_ipsum_fsc()+
+  xlab("X") + ylab("Y") + ggtitle("Fit on training dataset") + 
+    theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        #panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_blank())+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position=c(0.9,0.2),
+        legend.title = element_text(size=14),
+        legend.text = element_text(size=14),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+
+g2 <- ggplot(data = data.frame(x = c(2,4,20), y = c(acc$RMSE_lm1,acc$RMSE_lm2,acc$RMSE_s1)),
+              aes(x = x, y = y)) +
+  geom_smooth(aes(color = "#E16462"),fill="white",method = "loess")+
+  geom_smooth(data = data.frame(x = c(2,4,20), y = c(acc$RMSE_lm1_t,acc$RMSE_lm2_t,acc$RMSE_s1_t)),
+              aes(x = x, y = y,color = "dark grey"), method = "loess")+
+  geom_point(data = acc, aes(x = flex, y = RMSE_lm1_t, fill="#5601A4"), color="white", pch=21, size = 4) +
+  geom_point(data = acc, aes(x = flex, y = RMSE_lm1, fill="#5601A4"), color="white", pch=22, size = 4) +
+  geom_point(data = acc, aes(x = 4, y = RMSE_lm2_t, fill="#BF3984"),color="white", pch=21,size = 4) +
+  geom_point(data = acc, aes(x = 4, y = RMSE_lm2, fill="#BF3984"),color="white", pch=22, size = 4) +
+  geom_point(data = acc, aes(x = 20, y = RMSE_s1, fill="#FCCE25"),color="white", pch=21,size = 4) +
+  geom_point(data = acc, aes(x = 20, y = RMSE_s1_t, fill="#FCCE25"),color="white", pch=22, size = 4) +
+  theme_bw()+
+  scale_fill_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Cubic","Spline")) +
+  scale_color_manual(values = c("#E16462", "dark grey"), name = "Dataset", label=c("Testing","Training")) +
+  theme_ipsum_fsc()+xlim(0,20)+
+  xlab("Flexibility") + ylab("RMSE") + ggtitle("RMSE for training and testing dataset") + 
+    theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        #panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_blank())+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position=c(0.9,0.5),
+        legend.title = element_text(size=14),
+        legend.text = element_text(size=14),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+  
+g1 + g2
+
+```
+
+---
+# Is flexibility always better?
+
+```{r bias_variance2, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+g1 <- ggplot(data = d_train, aes(x = x, y = y)) +
+  geom_point(pch=21,color="dark grey", fill="white", size = 4) +
+  geom_line(aes(y = pred_lm1_t, x=x, color = "#5601A4"), lwd=1.2)+
+  geom_line(aes(y = pred_lm2_t, x=x, color = "#BF3984"), lwd=1.2)+
+  geom_line(aes(y = pred_s1_t, x=x, color = "#FCCE25"), lwd=1.2)+
+  scale_color_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Cubic","Spline")) +
+  theme_bw()+
+  theme_ipsum_fsc()+
+  xlab("X") + ylab("Y") + ggtitle("Fit on training dataset") + 
+    theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        #panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_blank())+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position=c(0.9,0.2),
+        legend.title = element_text(size=14),
+        legend.text = element_text(size=14),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+
+g2 <- ggplot(data = data.frame(x = c(2,4,20), y = c(acc$RMSE_lm1,acc$RMSE_lm2,acc$RMSE_s1)),
+              aes(x = x, y = y)) +
+  geom_smooth(aes(color = "#E16462"),fill="white",method = "loess")+
+  geom_smooth(data = data.frame(x = c(2,4,20), y = c(acc$RMSE_lm1_t,acc$RMSE_lm2_t,acc$RMSE_s1_t)),
+              aes(x = x, y = y,color = "dark grey"), method = "loess")+
+  geom_point(data = acc, aes(x = flex, y = RMSE_lm1_t, fill="#5601A4"), color="white", pch=21, size = 4) +
+  geom_point(data = acc, aes(x = flex, y = RMSE_lm1, fill="#5601A4"), color="white", pch=22, size = 4) +
+  geom_point(data = acc, aes(x = 4, y = RMSE_lm2_t, fill="#BF3984"),color="white", pch=21,size = 4) +
+  geom_point(data = acc, aes(x = 4, y = RMSE_lm2, fill="#BF3984"),color="white", pch=22, size = 4) +
+  geom_point(data = acc, aes(x = 20, y = RMSE_s1, fill="#FCCE25"),color="white", pch=21,size = 4) +
+  geom_point(data = acc, aes(x = 20, y = RMSE_s1_t, fill="#FCCE25"),color="white", pch=22, size = 4) +
+  
+  ggplot2::annotate("rect",xmin = 0, xmax = 10, ymin = 16, ymax=19, color = "#F89441", fill="#F89441")+
+  ggplot2::annotate("text",x = 5, y = 17.5, hjust = 0.5, label="RMSE decreases with \nflexibility for training data", family = "Fira Sans Condensed", size = 4.5, color = "white")+
+  
+  theme_bw()+
+  scale_fill_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Cubic","Spline")) +
+  scale_color_manual(values = c("#E16462", "dark grey"), name = "Dataset", label=c("Testing","Training")) +
+  theme_ipsum_fsc()+
+  xlab("Flexibility") + ylab("RMSE") + ggtitle("RMSE for training and testing dataset") + 
+    theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        #panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_blank())+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position=c(0.9,0.5),
+        legend.title = element_text(size=14),
+        legend.text = element_text(size=14),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+  
+g1 + g2
+
+```
+
+---
+# Is flexibility always better?
+
+```{r bias_variance3, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+g1 <- ggplot(data = d_train, aes(x = x, y = y)) +
+  geom_point(pch=21,color="dark grey", fill="white", size = 4) +
+  geom_line(aes(y = pred_lm1_t, x=x, color = "#5601A4"), lwd=1.2)+
+  geom_line(aes(y = pred_lm2_t, x=x, color = "#BF3984"), lwd=1.2)+
+  geom_line(aes(y = pred_s1_t, x=x, color = "#FCCE25"), lwd=1.2)+
+  scale_color_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Cubic","Spline")) +
+  theme_bw()+
+  theme_ipsum_fsc()+
+  xlab("X") + ylab("Y") + ggtitle("Fit on training dataset") + 
+    theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        #panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_blank())+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position=c(0.9,0.2),
+        legend.title = element_text(size=14),
+        legend.text = element_text(size=14),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+
+g2 <- ggplot(data = data.frame(x = c(2,4,20), y = c(acc$RMSE_lm1,acc$RMSE_lm2,acc$RMSE_s1)),
+              aes(x = x, y = y)) +
+  geom_smooth(aes(color = "#E16462"),fill="white",method = "loess")+
+  geom_smooth(data = data.frame(x = c(2,4,20), y = c(acc$RMSE_lm1_t,acc$RMSE_lm2_t,acc$RMSE_s1_t)),
+              aes(x = x, y = y,color = "dark grey"), method = "loess")+
+  geom_point(data = acc, aes(x = flex, y = RMSE_lm1_t, fill="#5601A4"), color="white", pch=21, size = 4) +
+  geom_point(data = acc, aes(x = flex, y = RMSE_lm1, fill="#5601A4"), color="white", pch=22, size = 4) +
+  geom_point(data = acc, aes(x = 4, y = RMSE_lm2_t, fill="#BF3984"),color="white", pch=21,size = 4) +
+  geom_point(data = acc, aes(x = 4, y = RMSE_lm2, fill="#BF3984"),color="white", pch=22, size = 4) +
+  geom_point(data = acc, aes(x = 20, y = RMSE_s1, fill="#FCCE25"),color="white", pch=21,size = 4) +
+  geom_point(data = acc, aes(x = 20, y = RMSE_s1_t, fill="#FCCE25"),color="white", pch=22, size = 4) +
+  
+  ggplot2::annotate("rect",xmin = 0, xmax = 10, ymin = 16, ymax=19, color = "#F89441", fill="#F89441")+
+  ggplot2::annotate("text",x = 5, y = 17.5, hjust = 0.5, label="U-shape on flexibility\nfor testing data", family = "Fira Sans Condensed", size = 5, color = "white")+
+  
+  theme_bw()+
+  scale_fill_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Cubic","Spline")) +
+  scale_color_manual(values = c("#E16462", "dark grey"), name = "Dataset", label=c("Testing","Training")) +
+  theme_ipsum_fsc()+
+  xlab("Flexibility") + ylab("RMSE") + ggtitle("RMSE for training and testing dataset") + 
+    theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        #panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_blank())+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position=c(0.9,0.5),
+        legend.title = element_text(size=14),
+        legend.text = element_text(size=14),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+  
+g1 + g2
+
+```
+
+---
+# Is flexibility always better?
+
+```{r bias_variance4, fig.height=6, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+g1 <- ggplot(data = d_train, aes(x = x, y = y)) +
+  geom_point(pch=21,color="dark grey", fill="white", size = 4) +
+  geom_line(aes(y = pred_lm1_t, x=x, color = "#5601A4"), lwd=1.2)+
+  geom_line(aes(y = pred_lm2_t, x=x, color = "#BF3984"), lwd=1.2)+
+  geom_line(aes(y = pred_s1_t, x=x, color = "#FCCE25"), lwd=1.2)+
+  scale_color_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Cubic","Spline")) +
+  theme_bw()+
+  theme_ipsum_fsc()+
+  xlab("X") + ylab("Y") + ggtitle("Fit on training dataset") + 
+    theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        #panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_blank())+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position=c(0.9,0.2),
+        legend.title = element_text(size=14),
+        legend.text = element_text(size=14),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+
+g2 <- ggplot(data = data.frame(x = c(2,4,20), y = c(acc$RMSE_lm1,acc$RMSE_lm2,acc$RMSE_s1)),
+              aes(x = x, y = y)) +
+  geom_ribbon(aes(xmin=6.5,xmax=20), fill=alpha("light grey",0.5))+
+  geom_smooth(aes(color = "#E16462"),fill="white",method = "loess")+
+  geom_smooth(data = data.frame(x = c(2,4,20), y = c(acc$RMSE_lm1_t,acc$RMSE_lm2_t,acc$RMSE_s1_t)),
+              aes(x = x, y = y,color = "dark grey"), method = "loess")+
+  geom_point(data = acc, aes(x = flex, y = RMSE_lm1_t, fill="#5601A4"), color="white", pch=21, size = 4) +
+  geom_point(data = acc, aes(x = flex, y = RMSE_lm1, fill="#5601A4"), color="white", pch=22, size = 4) +
+  geom_point(data = acc, aes(x = 4, y = RMSE_lm2_t, fill="#BF3984"),color="white", pch=21,size = 4) +
+  geom_point(data = acc, aes(x = 4, y = RMSE_lm2, fill="#BF3984"),color="white", pch=22, size = 4) +
+  geom_point(data = acc, aes(x = 20, y = RMSE_s1, fill="#FCCE25"),color="white", pch=21,size = 4) +
+  geom_point(data = acc, aes(x = 20, y = RMSE_s1_t, fill="#FCCE25"),color="white", pch=22, size = 4) +
+  
+  ggplot2::annotate("rect",xmin = 14, xmax = 19, ymin = 10.5, ymax=13, color = "#E16462", fill="#E16462")+
+  ggplot2::annotate("text",x = 16.5, y = 11.75, hjust = 0.5, label="Overfitting", family = "Fira Sans Condensed", size = 6, color = "white")+
+  
+  theme_bw()+xlim(0,20)+
+  scale_fill_manual(values = c("#5601A4", "#BF3984", "#FCCE25"), name = "Models", label=c("Linear","Cubic","Spline")) +
+  scale_color_manual(values = c("#E16462", "dark grey"), name = "Dataset", label=c("Testing","Training")) +
+  theme_ipsum_fsc()+
+  xlab("Flexibility") + ylab("RMSE") + ggtitle("RMSE for training and testing dataset") + 
+    theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        #panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())+
+        #axis.line = element_blank())+
+  theme(axis.title.x = element_text(size=16),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(size=16),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size = 10),legend.position="none",
+        legend.title = element_text(size=14),
+        legend.text = element_text(size=14),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+  
+g1 + g2
+
+```
+
+---
+# Example: Let's predict pre-churn!
+
+- You work at HBO Max and you know that a good measure for someone at risk of unsubscribing is the **.darkorange[times they've logged in the past week]**:
+
+```{r, echo=FALSE}
+library(scales)
+
+set.seed(100)
+
+n <- 5000
+
+female <- sample(c(0,1),n,replace=TRUE, prob=c(0.5,0.5))
+got <- sample(c(0,1),n,replace=TRUE, prob=c(0.3,0.7))
+city <- sample(c(0,1),n,replace=TRUE, prob=c(0.15,0.85))
+
+age <- rnorm(n,45,15)
+
+age <- round(rescale(age, to=c(18,73)),0)
+
+#logins <- sample(seq(0,10),n,replace=TRUE, prob=c(0.19,0.09,0.09,0.08,0.07,0.07,0.06,0.05,0.04,0.03,0.23))
+
+xb_l <- 2.5 - 5*got + city*2 + rnorm(n, 0, 1)
+
+q <- quantile(xb_l, prob = seq(0,1,0.1))
+
+logins <- ifelse(xb_l < q[2]+1,0,ifelse(xb_l< q[3]+0.05, 1, ifelse(xb_l < q[4], 2,
+                                                            ifelse(xb_l < q[5], 3, ifelse(xb_l < q[6]-0.2, 4,
+                                                                                          ifelse(xb_l < q[7], 5, ifelse(xb_l < -90,
+                                                                                                                        6, ifelse(xb_l < q[8]-0.2, 7, ifelse(xb_l < q[9]-0.2, 8, ifelse(xb_l < q[10]-0.5, 9, 10))))))))))
+
+xb <- 0.15 - 0.01*city + got*0.2 + (logins==0)*0.1 + rnorm(n, 0, 0.05)
+
+prob <- rescale(xb, to = c(0.01,0.52))
+
+unsubscribe <- rep(NA, n)
+
+for(i in 1:n){
+  
+  unsubscribe[i] <- sample(c(0,1), 1, replace = TRUE, prob = c(1-prob[i],prob[i]))
+
+}
+
+hbo <- data.frame(id = 1:n,
+                     female = female,
+                     city = city,
+                     age = age,
+                     logins = logins,
+                     got = got,
+                     unsubscribe = unsubscribe)
+
+hbo <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/data/hbomax.csv")
+
+# Divide data: 80% vs 20% split
+
+set.seed(100) #Always set seed for replication!
+
+n <- nrow(hbo)
+
+train <- sample(1:n, n*0.8) #randomly select 80% of the rows
+
+train.data <- hbo[train,] #use only the rows that were selected for training
+
+test.data <- hbo[-train,] #the rest are used for testing
+
+### Simple model
+lm_simple <- lm(logins ~ got + city, data = train.data) #Train the model on the TRAINING DATASET
+
+### Complex model
+lm_complex <- lm(logins ~ female + city + age + I(age^2) + got, data = train.data) #Train the model on the TRAINING DATASET
+
+
+# Estimate RMSE for these models on the TRAINING dataset:
+# For simple model:
+pred_simple_train <- lm_simple %>% predict(train.data, type="response")
+#RMSE(pred_simple_train, train.data$unsubscribe)
+
+# For complex model:
+pred_complex_train <- lm_complex %>% predict(train.data, type="response")
+#RMSE(pred_complex_train, train.data$unsubscribe)
+
+## Question: Which model is better?
+
+# Estimate RMSE for these models on the TESTING dataset:
+# For simple model:
+pred_simple_test <- lm_simple %>% predict(test.data, type="response")
+#RMSE(pred_simple_test, test.data$unsubscribe)
+
+# For complex model:
+pred_complex_test <- lm_complex %>% predict(test.data, type="response")
+#RMSE(pred_complex_test, test.data$unsubscribe)
+```
+
+```{r, echo=TRUE}
+hbo <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/data/hbomax.csv")
+
+head(hbo)
+```
+
+---
+# Two candidates: Simple vs Complex
+
+- **.darkorange[Simple Model]**:
+
+  $$logins = \beta_0 + \beta_1\times GoT + \beta_2 \times city + \varepsilon$$
+  
+- **.darkorange[Complex Model]**:
+
+$$
+\begin{aligned}
+logins =& \beta_0 + \beta_1\times GoT + \beta_2\times age + \beta_3\times age^2 +\\
+&\beta_4\times city + \beta_5\times female + \varepsilon
+\end{aligned}
+$$
+
+---
+# Create Validation Sets
+
+```{r}
+set.seed(100) #Always set seed for replication!
+
+n <- nrow(hbo) #<<
+
+train <- sample(1:n, n*0.8) #randomly select 80% of the rows for our training sample
+
+train.data <- hbo %>% slice(train)
+test.data <- hbo %>% slice(-train)
+```
+
+---
+# Create Validation Sets
+
+```{r}
+set.seed(100) #Always set seed for replication!
+
+n <- nrow(hbo)
+
+train <- sample(1:n, n*0.8) #<<
+
+train.data <- hbo %>% slice(train)
+test.data <- hbo %>% slice(-train)
+```
+
+---
+# Create Validation Sets
+
+```{r}
+set.seed(100) #Always set seed for replication!
+
+n <- nrow(hbo)
+
+train <- sample(1:n, n*0.8) #randomly select 80% of the rows for our training sample
+
+train.data <- hbo %>% slice(train) #<<
+test.data <- hbo %>% slice(-train) #<<
+```
+---
+# Estimate Accuracy Measure
+
+```{r}
+library(modelr)
+
+lm_simple <- lm(logins ~ got + city, data = train.data)
+
+lm_complex <- lm(logins ~ female + city + age + I(age^2) + got, data = train.data)
+
+# For simple model:
+rmse(lm_simple, test.data)
+
+# For complex model:
+rmse(lm_complex, test.data)
+```
+
+- **.darkorange[Q2: Which one would you prefer?]**
+
+
+---
+# Cross-Validation
+
+- To avoid using only **.darkorange[one training and testing dataset]**, we can iterate over *k-fold* division of our data:
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/images/cv.png)]
+
+---
+# Cross-Validation
+
+**.darkorange[Procedure for *k-fold* cross-validation]**:
+
+  1. Divide your data in *k-folds* (usually, $K=5$ or $K=10$).
+  
+  2. Use $k=1$ as the testing data and $k=2,..,K$ as the training data.
+  
+  3. Calculate the accuracy measure $A_k$ on the testing data.
+  
+  4. Repeat for each $k$.
+  
+  5. Average $A_k$ for all $k \in K$.
+
+--
+
+Main advantage: Use the entire dataset for training **.darkorange[AND]** testing.
+
+---
+# How do we do CV in R?
+
+```{r, eval = FALSE}
+library(caret) #<<
+
+set.seed(100)
+
+train.control <- trainControl(method = "cv", number = 10)
+
+lm_simple <- train(logins ~ got + city, data = disney, method="lm", trControl = train.control)
+
+lm_simple
+```
+
+---
+# How do we do CV in R?
+
+```{r, eval = FALSE}
+library(caret) 
+
+set.seed(100)#<<
+
+train.control <- trainControl(method = "cv", number = 10)
+
+lm_simple <- train(logins ~ got + city, data = disney, method="lm", trControl = train.control)
+
+lm_simple
+```
+
+---
+# How do we do CV in R?
+
+```{r, eval = FALSE}
+library(caret) 
+
+set.seed(100)
+
+train.control <- trainControl(method = "cv", number = 10)#<<
+
+lm_simple <- train(logins ~ got + city, data = disney, method="lm", trControl = train.control)
+
+lm_simple
+```
+
+---
+# How do we do CV in R?
+.small[
+```{r}
+library(caret) 
+
+set.seed(100)#<<
+
+train.control <- trainControl(method = "cv", number = 10)
+
+lm_simple <- train(logins ~ got + city, data = hbo, method="lm", trControl = train.control) #<<
+
+lm_simple
+```
+]
+---
+# Stepwise selection
+
+- We have seen how to choose between some given models. **.darkorange[But what if we want to test all possible models?]**
+
+- **.darkorange[Stepwise selection]**: Computationally-efficient algorithm to select a model based on the data we have (subset selection).
+
+--
+
+Algorithm for forward stepwise selection:
+
+1. Start with the *null model*, $M_0$ (no predictors)
+
+2. For $k=0, ..., p-1$:
+  (a) Consider all $p-k$ models that augment $M_k$ with one additional predictor.
+  (b) Choose the *best* among these $p-k$ models and call it $M_{k+1}$.
+  
+3. Select the single best model from $M_{0},...,M_p$ using CV.
+
+.source[Backwards stepwise follows the same procedure, but starts with the full model.]
+
+---
+
+.center2[
+.box-2LA[Will forward stepwise subsetting yield the same results as backwards stepwise selection?]
+]
+
+---
+# How do we do stepwise selection in R?
+.small[
+```{r}
+set.seed(100)
+
+train.control <- trainControl(method = "cv", number = 10) #set up a 10-fold cv
+
+lm.fwd <- train(logins ~ . - unsubscribe, data = hbo, method = "leapForward",#<< 
+                tuneGrid = data.frame(nvmax = 1:5), trControl = train.control)#<<
+lm.fwd$results
+```
+]
+
+--
+
+- Which one would you choose out of the 5 models? Why?
+
+---
+# How do we do stepwise selection in R?
+.tiny[
+```{r}
+# We can see the number of covariates that is optimal to choose:
+lm.fwd$bestTune
+
+# And how does that model looks like:
+summary(lm.fwd$finalModel)
+
+# If we want to recover the coefficient names, we can use the coef() function:
+coef(lm.fwd$finalModel, lm.fwd$bestTune$nvmax)
+```
+]
+
+---
+
+.center2[
+.box-7Trans[Your Turn]
+]
+
+---
+# In-class Activity
+
+- Go to **.darkorange[https://sta235h.rocks/Week10]** and read the exercise.
+
+- Answer the questions in the activity and write them in your sheet.
+
+- Submit your sheet at the end of the class.
+
+
+---
+# Takeaway points
+
+.pull-left[
+
+- In prediction, everything is going to be about **.darkorange[bias vs variance]**.
+
+- Importance of **.darkorange[validation sets]**.
+
+- We now have methods to **.darkorange[select models]**.
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/PnfsGtSGXJjgcDo9cc/giphy.gif)]
+]
+
+---
+# Next class
+
+.pull-left[
+
+- Continue with prediction and model selection
+
+- **.darkorange[Shrinkage/Regularization methods]**: 
+
+  - Ridge regression and Lasso.
+
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/oYtVHSxngR3lC/giphy.gif)
+]
+]
+---
+# References
+
+- James, G. et al. (2021). "Introduction to Statistical Learning with Applications in R". *Springer*. *Chapter 2, 5, and 6*.
+
+- STDHA. (2018). ["Stepwise Regression Essentials in R."](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/154-stepwise-regression-essentials-in-r/)
+
+- STDHA. (2018). ["Cross-Validation Essentials in R."](http://www.sthda.com/english/articles/38-regression-model-validation/157-cross-validation-essentials-in-r/)
+
+
+
+
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week9/2_ModelSelection/f2021_sta235h_14_ModelSelectionI.html') -->
