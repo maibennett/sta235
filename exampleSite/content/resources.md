@@ -14,13 +14,6 @@ I will be uploading short videos in this section, mainly focused on R coding, bu
 
 {{% button href="https://sta235.netlify.app/videos" icon="fas fa-external-link-alt" icon-position="right" %}}Go to Videos{{% /button %}}  
 
-### Review Session
-
-- You can check the slides for the Review Session I here: {{% button href="https://sta235.netlify.app/Classes/Week6/2_ReviewSession/f2022_sta235h_9a_ReviewSession.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week6/2_ReviewSession/f2022_sta235h_9a_ReviewSession.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
-
-- You can check the slides for the Review Session II here: {{% button href="https://sta235.netlify.app/Classes/Week8/2_ReviewSession/f2022_sta235h_11a_ReviewSession_answers.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week8/2_ReviewSession/f2022_sta235h_11a_ReviewSession.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
-
-
 ### R resources
 
 [**Some Useful R Code**](https://sta235.netlify.app/UsefulRCode/STA235H_Useful_R_Code.html): I put together this short document showing some useful packages and functions that might come in handy during this course!
@@ -51,36 +44,6 @@ Cheatsheets for R are amazing! Here are two of my favorite so you can look up fu
 - Check out the starting tutorial [here](https://sta235.netlify.app/rmarkdown_tutorial/) (see all the references in this document!)
 
 - [Rmarkdown: Cheatsheet](https://sta235.netlify.com/images/rmarkdown.pdf)
-
-### Multiple Regression
-
-- [Regression Models with Multiple Regressors](https://www.econometrics-with-r.org/6-rmwmr.html) by C. Hanck et al. (2020), from their book *Introduction to Econometrics with R*
-	- It also includes some R resources!
-
-### Causal Inference
-
-- [Introduction to the Potential Outcomes Framework](https://www.causalconversations.com/post/po-introduction/) by G. Basse & I. Bojinov (2021), from their blog *Causal Conversations*.
-
-- [A Leader's Guide to Interference (*also known as spillover effects*)](https://www.causalconversations.com/post/interference/) by G. Basse & I. Bojinov (2021), from their blog *Causal Conversations*.
-
-- [Correlation and Causation](https://www.causalconversations.com/post/correlation-causation/) by G. Basse & I. Bojinov (2021), from their blog *Causal Conversations*.
-
-
-### Machine Learning
-
-- ["Caret Package – A Practical Guide to Machine Learning in R"](https://www.machinelearningplus.com/machine-learning/caret-package) by S. Prabhakaran (2018). *Great resource for the prediciton project if you want to pick up some new tricks!*
-
-- ["Hands-On Machine Learning"](https://bradleyboehmke.github.io/HOML/) by B. Boehmke & B. Greenwell (2020). *Note: Great resource to see different packages for bagging, random forests, and boosting, beyond what we have seen in class!*
-
-### Interesting readings
-
-Here are a list of interesting readings if you want to explore more about the topics we cover in class and how they relate to the real world:
-
--  Press release: The Price in Economics Science (2021). ["Natural experiments help answer important questions for society"](https://www.nobelprize.org/prizes/economic-sciences/2021/press-release/).
-
-- The Conversation (2021). ["How Netflix affects what we watch and who we are – and it’s not just the algorithm"](https://theconversation.com/how-netflix-affects-what-we-watch-and-who-we-are-and-its-not-just-the-algorithm-169897)
-
-- Twitter (2021). [Thread about how the Nobel Prize winners helped improve Twitter](https://twitter.com/TwitterEng/status/1450179475426066433)
 
 
 # FAQ
