@@ -16,9 +16,11 @@ All lecture slides, supplemental readings, course videos, and additional materia
 
 ### ATTENDANCE EXPECTATIONS
 
-I expect all students will attend each class, *if they are feeling well*. Attendance is the easiest way to learn the different topics that will be covered in class and ask questions. Even though I will not take attendance every class, there will be some classes that attendance will be registered, and it will count towards your participation grade.
+I expect all students will attend each class, if they are feeling well. Attendance is the easiest way to learn the different topics that will be covered in class and ask questions. Even though I will not take attendance for every class, there will be some classes where attendance will be registered, and it will count towards your participation grade. 
 
-If you need to justify an absence due to sickness, please do it through the appropriate channels by contacting Student Emergency Services (SES). 
+The attendance policy is designed in a lenient way to provide students with flexibility in case of any unexpected issue (including, but not limited to, sickness). All students can skip one class (with registered attendance) without excuses, and can make up for an additional absence through participation. Please read the grading section for more details on the specific policy.
+Recording of each class will be made available at the end of each week, but they are not a replacement for in-person attendance.
+
 
 ### BEHAVIOR EXPECTATIONS
 
@@ -31,14 +33,13 @@ I have a zero-tolerance policy for racist, sexist, xenophobic, homophobic, or an
 
 ### GRADING AND ASSIGNMENTS
 
-There will be one individual midterm, one final exam, and one final group project in this course. Additionally, there will be seven homework assignments during the semester (only six will be counted), and Just in Time Teaching assignments (JITT) that should be completed before each class:
+There will be one individual midterm and one final exam in this course. Additionally, there will be six homework assignments during the semester (only five will be counted), and Just in Time Teaching assignments (JITT) that should be completed before each class:
 
-1.	Homework assignments: 30% (5% each, and you can drop one)
+1.	Homework assignments: 35% (7% each, and you can drop one except for Homework 6)
 2.	JITT assignments: 10%
-3.  Participation: 5%
-3.	Midterm: 15%
-4.	Final: 20%
-5.	Final project: 20%
+3.  Attendance/Participation: 5%
+3.	Midterm: 25%
+4.	Final: 25%
 
 I will use the cutoffs below to translate your overall course average into a final letter grade. **These cutoffs are firm; we do not round course averages**. So, for example, an overall course average of 89.99 is a B+, not an A-. I sometimes (but not always) curve grades for each assignment, but **not** for the final grade. <u>There will be no extra credit</u>, except for a small bonus for completing the course evaluation at the end of the semester.
 
@@ -48,34 +49,35 @@ I will use the cutoffs below to translate your overall course average into a fin
 |Cutoff|94%|90%|87%|84%|80%|77%|70%|65%|60%|<60%|
 
 {{% notice warning %}}
-All assignments and exams are “take-home” in this class, and even though there are no extensions set in place for these, you will be given ample time to complete your assignments even if some unforeseeable, but common, situation comes up. However, if you have an extraordinary situation, please reach out to the instruction team. 
+**A note on copying and plagiarism**
+
+There is a zero tolerance in this course for any academic misconduct, including copying or plagiarizing work from other sources (such us other students, internet sources, chatGPT, etc.). Students are allowed to use online resources for take-home assignments and are allowed to discuss the general approach of a homework questions. However, <u>copying code and/or answers that do not belong to the student is strictly prohibited</u>u>. If there is evidence of misconduct, all students involved will be reported to the corresponding office and receive an according academic penalty in the class.
 {{% /notice %}}
 
 I now explain each of these grading components in more detail. 
 
-1.	**Homework assignments (30%)**
+1.	**Homework assignments (35%)**
 
--	There will be seven homework assignments in this course, with the following (suggested) submission deadlines:
+-	There will be six homework assignments in this course, with the following (suggested) submission deadlines:
 
-	- HW1: September 9th, 11:59 PM
-	- HW2: September 23rd, 11:59 PM
-	- HW3: September 30th, 11:59 PM
-	- HW4: October 14th, 11:59 PM
-	- HW5: November 4th, 11:59 PM
-	- HW6: November 18th, 11:59 PM
-	- HW7: November 30th, 11:59 PM
+	- HW1: September 8th, 11:59 PM
+	- HW2: September 22nd, 11:59 PM
+	- HW3: October 6th, 11:59 PM
+	- HW4: November 3rd, 11:59 PM
+	- HW5: November 17th, 11:59 PM
+	- HW6: December 3rd, 11:59 PM **This assignment cannot be dropped.**
+
 
  
--	Homework assignments have to be completed individually. All students are expected to do their own work, and any sign of plagiarism or copying with another student will be penalized. If there is evidence of misconduct, all students involved will be reported to the corresponding office.
+- Students are allowed to discuss homework assignments, but students are responsible for their own work and must be <u>completed individually</u>. Do not copy another student’s code or copy code from other internet sources. If any sign of impropriety is detected, the student will be asked to explain their answers/code in detail. 
 
 -	Homework assignments will be posted online and submitted through Canvas.  
 
 -	You must submit your homework write-up as a PDF, when required, as well as your R Script (or Rmarkdown file). Failure to submit your script will be considered as an incomplete homework. The code you submit with your homework should be fully reproducible (i.e. another person running it on their machine should be able to get the same results as you). See guidelines in our course website for R scripts.
 
--	**Only six homework assignments will be considered for your grade, dropping the assignment with the lowest grade**. However, you can only drop an assignment for which you haven’t been penalized for misconduct.  
+-	**Only five homework assignments will be considered for your grade, dropping the assignment with the lowest grade, with the exeption of Homework 6**. However, you can only drop an assignment for which you haven’t been penalized for misconduct.  
 
--	There is a 10-point penalty for each day your assignment is late. This penalty is to give everyone the same amount of time to submit their work. If for any reason you have an issue submitting a homework that goes beyond the extension, please reach out to the instruction team as soon as possible (ideally, before the deadline).
-
+-	There is a 10% penalty for each day your assignment is late. This penalty is to give everyone the same amount of time to submit their work. I recommend students plan ahead for the deadlines, so you don’t run out of time for on-time submission. If for any reason you cannot complete the homework in time, remember that you can always drop an assignment.
 
 
 2.	**Just in Time Teaching Assignments (10%)**
@@ -94,51 +96,31 @@ I now explain each of these grading components in more detail.
 
 -	All students will get **one (1) JITT submission that can be dropped**. If for any reason you are not able to complete one of the JITTs, you can still get full credit for your submissions as long as you submit all other JITTs.
 
-3. **Participation (5%)**
+3. **Attendance/Participation (5%)**
 
 -	In order to incentivize students to show up and ask questions, attendance and in-class participation will count towards your final grade.
 
--	During the semester, **I will record attendance for at least 5 classes**. Students can be absent from one of those classes, without penalty. Any further absences need to be justified through the appropriate channels (i.e. Student Emergency Services).
+-	During the semester, **I will record attendance for at least 5 classes** (and no more than 7). Students can be absent from one of those classes, without penalty. This includes excused (through SES) and unexcused absences.
 
 -	If a student misses more than one class where attendance is recorded, they can make up for it by **participating in at least 2 classes of recorded participation**. Classes where participation is recorded will be chosen randomly throughout the semester.
 
--	In order for in-class participation to count, students must either ask a specific question or voluntarily answer a question asked by the instructor. 
+-	In order for in-class participation to count, students must either ask a specific question or voluntarily answer a question asked by the instructor.
+
+-	If a student has a health issue or other extraordinary circumstances that prevents them for attending class consistently, please reach out to the instructor as soon as possible.
 
 
-4.	**Midterm Exam (15%)**
+4.	**Midterm Exam (25%)**
 
--	The midterm exam will be an individual evaluation. It is intended to be completed in an “open-book” setting (including “open-internet”), but without outside help from other students/people in general. 
+-	The midterm exam will be an individual evaluation, in-person, during regular class time. Students will be able to use any offline resource (e.g. notes from class, slides, R scripts provided), but no online resources.
 
--	It will have a take-home format (similar to homework assignments), and students should submit both a write-up and code (see homework submission instructions).
+-	Just as with homework assignments, students will have to submit their midterm in addition to their R script to be evaluated.
 
 
-5.	**Final Exam (20%)**
+5.	**Final Exam (25%)**
 
--	The final exam will be an individual evaluation, and it is cumulative. It is intended to be completed in an “open-book” setting (including “open-internet”), but without outside help from other students/people in general. 
+-	The final exam will be an individual in-person evaluation, and it will be cumulative. Students will be able to use any offline resource (e.g. notes from class, slides, R scripts provided), but no online resources.
 
--	It will have a take-home format (similar to homework assignments), and students should submit both a write-up and code (see homework submission instructions).
-
- 
-6.	**Final Project (20%)**
-
--	The final project for this course is intended to tackle a data analysis problem using some of the tools we have seen in this class (either causal inference or prediction, or both). Students must show a pertinent analysis of a question of their choice, collecting data (see resources on available data on the course website), showing descriptive statistics, and conducting sound analysis to tackle the problem at hand.
-
--	The final project will be completed in groups of 3 or 4 students. There will be different milestones throughout the semester to make sure you are set up to succeed in terms of the project:
-
-	- Friday Sept 9th: Choose a group of 3 or 4 students (0%)
-	- Friday Oct 7th: Pitch your idea for the final project, including data ideas (2%)
-	- Friday Nov 11th: Preliminary report (5%)
-	- Thursday Dec 8th: Final report (8%)
-	- Thursday Dec 8th and Friday Dec 9th: Presentations (5%)
-	
--	Please refer to the guidelines on the course website to see what is expected for each of these milestones.
-
--	Final presentations will be conducted during a “uniform exam schedule”, so please check the dates for your section and let me know in advance if you have a time conflict. All students must attend the final presentations.
-
-	- Section 1 (Tue 10:00-12:00): Thursday Dec 8th 3.30pm – 6.30pm
-	- Section 2 (Tue 12:00-2:00): Thursday Dec 8th 7.00pm – 10.00pm
-	- Section 3 (Thu 10:00-12:00): Friday Dec 9th 3.30pm – 6:30pm
-	- Section 4 (Thu 12:00-2:00): Friday Dec 9th 7:00pm – 10.00pm 
+-	Just as with homework assignments, students will have to submit their midterm in addition to their R script to be evaluated.
 
 
 {{% notice warning %}}

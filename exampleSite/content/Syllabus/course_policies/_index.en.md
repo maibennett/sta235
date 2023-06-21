@@ -12,25 +12,23 @@ disableToc: true
 
 	I will usually respond within one business day, but sometimes it might take me two. If you haven’t heard back from me, please send me another email (and include the course number in the subject line!).
 
-	If you send general questions about course content or assignments to a TA or me, we will likely respond to suggest that you post the question on Chatter.
+	If you send general questions about course content or assignments to a TA or me, we will likely respond to suggest that you post the question on Canvas Discussion Board.
 
 {{% notice info %}}
 Please check out the FAQs on how to e-mail professors <b><a href="https://sta235.netlify.app/resources/" style="color: #f0b37e">here</a></b>
 {{% /notice %}}
 
 
-2. **Chatter**, accessible on the left menu link on our Canvas home page. 
+2. **Canvas Discussion Board**, accessible on the left menu link on our Canvas home page. 
 
-	If you have a question about content covered in a class session or assigned reading, about instructions for a homework assignment, about the intuition behind a knowledge check question, about R, or something similar: post your question on the Chatter app available through Canvas. If you have a question, it is likely that other students are wondering the same thing. Chatter is monitored regularly by the TAs and instructors and will often be the fastest way to get help. Students are also able to post responses to peers’ questions and we encourage you to do so.
+	If you have a question about content covered in a class session or assigned reading, about instructions for a homework assignment, about the intuition behind a knowledge check question, about R, or something similar: post your question on the Discussion Board. If you have a question, it is likely that other students are wondering the same thing. The Canvas Discussion Board is monitored regularly by the TAs and instructors and will often be the fastest way to get help. Students are also able to post responses to peers’ questions and we encourage you to do so.
 
-
-I also decided to put an Easter egg in this syllabus, to see whether students actually read it or not! So, if you have read this far, please post a link to your favorite dog GIF [here](https://forms.gle/Rtk3cDWXyns9UyXQ7).
 
 #### COLLABORATION, STUDY PARTNERS/GROUPS, AND ACADEMIC INTEGRITY
 
 In addition to the general UT policies regarding academic integrity that are described in the syllabus (and in the UT Course Catalogue), this course has a few other specific policies:
 
--	You are encouraged to form study groups. Collaboration is key for learning! However, you are not allowed to collaborate in assignments with other students or let someone else copy from you.
+-	-	You are encouraged to form study groups. Collaboration is key for learning! However, you are not allowed to copy other students’ answers for individual assignments or let someone else copy from you. This also applies to other available tools, such as online resources or ChatGPT.
 
 -	These same rules apply to R code. You are encouraged to discuss potential problems, but you need to write your own R code. In any case where we suspect cheating, we will compare both R scripts and homework write-ups, and all students involved will receive a penalty in this course and be referred to the Dean’s office for further disciplinary proceedings (and further potential academic consequences).
 
