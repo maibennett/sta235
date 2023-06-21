@@ -23,11 +23,11 @@ Homework assignments are posted **one week before they are due**. Check the [syl
 
 - Homework assignments are posted on **Canvas**, so make sure you check the instructions and deadlines in the platform.
 
-- For homework assignments, most questions will be answered directly on Canvas, but you will have to submit a **PDF write-up for others questions** (e.g. plots, regression output).
+- For homework assignments, most questions will be answered directly on Canvas, but you will have to submit a **PDF write-up for others questions** if needed (e.g. plots, regression output).
 
 - In some questions, we will also ask for you to submit a **specific line of code**. All these instructions will be included in the individual assignments, so make sure you review them carefully.
 
-- In addition to your PDF write-up, you will need to **submit your R script** (.R extension). This script has to contain all the code you used to complete the homework assignment in a coherent way. Review the tips below to make sure your code complies with the requirements.
+- You will also need to **submit your R script** (.R extension). This script has to contain all the code you used to complete the homework assignment in a coherent way. Review the tips below to make sure your code complies with the requirements.
 
 
 ## What should my R Script look like?
@@ -53,16 +53,4 @@ Homework assignments are posted **one week before they are due**. Check the [syl
 
 ## Answer Keys
 
-<a onclick="ga('send', 'event', 'External-Link','click','hw1_answerkey','0','Link');" href="https://sta235.netlify.app/Assignments/Homework/HW1/STA235H_Fall22_Homework1_AnswerKey.html" target="_blank" class="btn btn-default">HW1 Answer Key <i class="fas fa-external-link-alt"></i></a>
-
-<a onclick="ga('send', 'event', 'External-Link','click','hw2_answerkey','0','Link');" href="https://sta235.netlify.app/Assignments/Homework/HW2/STA235H_Fall22_Homework2_AnswerKey.html" target="_blank" class="btn btn-default">HW2 Answer Key <i class="fas fa-external-link-alt"></i></a>
-
-<a onclick="ga('send', 'event', 'External-Link','click','hw3_answerkey','0','Link');" href="https://sta235.netlify.app/Assignments/Homework/HW3/STA235H_Fall22_Homework3_AnswerKey.html" target="_blank" class="btn btn-default">HW3 Answer Key <i class="fas fa-external-link-alt"></i></a>
-
-<a onclick="ga('send', 'event', 'External-Link','click','hw4_answerkey','0','Link');" href="https://sta235.netlify.app/Assignments/Homework/HW4/STA235H_Fall22_Homework4_AnswerKey.html" target="_blank" class="btn btn-default">HW4 Answer Key <i class="fas fa-external-link-alt"></i></a>
-
-<a onclick="ga('send', 'event', 'External-Link','click','hw5_answerkey','0','Link');" href="https://sta235.netlify.app/Assignments/Homework/HW5/STA235H_Fall22_Homework5_AnswerKey.html" target="_blank" class="btn btn-default">HW5 Answer Key <i class="fas fa-external-link-alt"></i></a>
-
-<a onclick="ga('send', 'event', 'External-Link','click','hw6_answerkey','0','Link');" href="https://sta235.netlify.app/Assignments/Homework/HW6/STA235H_Fall22_Homework6_AnswerKey.html" target="_blank" class="btn btn-default">HW6 Answer Key <i class="fas fa-external-link-alt"></i></a>
-
-<a onclick="ga('send', 'event', 'External-Link','click','hw7_answerkey','0','Link');" href="https://sta235.netlify.app/Assignments/Homework/HW7/STA235H_Fall22_Homework7_AnswerKey.html" target="_blank" class="btn btn-default">HW7 Answer Key <i class="fas fa-external-link-alt"></i></a>
+<!-- <a onclick="ga('send', 'event', 'External-Link','click','hw1_answerkey','0','Link');" href="https://sta235.netlify.app/Assignments/Homework/HW1/STA235H_Fall22_Homework1_AnswerKey.html" target="_blank" class="btn btn-default">HW1 Answer Key <i class="fas fa-external-link-alt"></i></a> -->
