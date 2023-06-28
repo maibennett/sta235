@@ -17,88 +17,83 @@ Below you will find a general outline of the topics we’ll cover in this course
 <tbody>
 <tr>
 <td>1</td>
-<td>Aug 23 - Aug 25</td>
+<td>Aug 21 - Aug 23</td>
 <td>Syllabus overview and course motivation; Multiple regression models: Quick review, statistical adjustment.</td>
 </tr>
 <tr>
 <td>2</td>
-<td>Aug 30 – Sep 1</td>
+<td>Aug 28 – Aug 30</td>
 <td>Multiple regression models (cont.): Interactions in regressions; Nonlinear models.</td>
 </tr>
 <tr>
 <td>3</td>
-<td>Sep 6 – Sep 8</td>
-<td>Potential issues with regressions: Outliers, collinearity. Regression models with discrete outcomes: logistic regression. <br><i>Homework 1 due</i> <br><i>Submit your group for the FINAL PROJECT</i></td>
+<td>Sep 4 – Sep 6</td>
+<td>Potential issues with regressions: Outliers, heteroskedasticity.<br><i>Homework 1 due</i>></td>
 </tr>
 <tr>
 <td>4</td>
-<td>Sep 13 – Sep 15</td>
+<td>Sep 11 – Sep 13</td>
 <td>Introduction to Causal Inference: Potential outcomes framework, the fundamental problem of causal inference, causal estimands, and study design.</td>
 </tr>
 <tr>
 <td>5</td>
-<td>Sep 20 – Sep 22</td>
-<td>Introduction to Randomized-Controlled trials: The gold standard? How can we use RCTs to answer causal questions?. <br><i>Homework 2 due</i></td>
+<td>Sep 18 – Sep 20</td>
+<td>Randomized-Controlled trials: The gold standard? How can we use RCTs to answer causal questions? Limitations of RCTs. Internal and external validity. A/B testing. <br><i>Homework 2 due</i></td>
 </tr>
 <tr>
 <td>6</td>
-<td>Sep 27 – Sep 29</td>
-<td> Continuation of Randomized Controlled Trials: Design and Limitations.<br><i>Homework 3 due</i></td>
+<td>Sep 25 – Sep 27</td>
+<td>Introduction to Observational Studies: Can we use data outside experiments to make causal claims? Matching and its comparison to RCTs. Overt and hidden biases. </td>
 </tr>
 <tr>
 <td>7</td>
-<td>Oct 4 – Oct 6</td>
-<td>Introduction to Observational Studies: Can we use data outside experiments to make causal claims? Selection on observables. Matching and its comparison to RCTs. Overt and hidden biases. Propensity score matching. How does matching compare to regression adjustment? <br><i>Submit your idea for the FINAL PROJECT (including data ideas)</i></td>
+<td>Oct 2 – Oct 4</td>
+<td>Observational studies: Using real-world variation to estimate causal effects. Natural experiments, Diff-in-Diff. <br><i>Homework 3 is due</i></td>
 </tr>
 <tr>
 <td>8</td>
-<td>Oct 11 – Oct 13</td>
-<td>Observational studies: Using real-world variation to estimate causal effects. Natural experiments, Diff-in-Diff.<br><i>Homework 4 due</i></td>
+<td>Oct 9 – Oct 11</td>
+<td>Observational studies (cont.): Regression discontinuity design (RDD).</td>
 </tr>
 <tr>
 <td>9</td>
-<td>Oct 18 – Oct 20</td>
-<td>Observational studies (cont.): Regression discontinuity design (RDD).<br><i>Midterm exam due</i></td>
+<td>Oct 16 – Oct 18</td>
+<td><b>Midterm exam</b></td>
 </tr>
 <tr>
 <td>10</td>
-<td>Oct 25 – Oct 27</td>
-<td>Building models: Bias-variance tradeoff; out-of-sample validation and cross-validation; Variable selection (e.g. stepwise selection).</td>
+<td>Oct 23 – Oct 25</td>
+<td>Introduction to prediction; Building models: Bias-variance tradeoff; out-of-sample validation and cross-validation.</td>
 </tr>
 <tr>
 <td>11</td>
-<td>Nov 1 – Nov 3</td>
-<td>Model selection and regularization: Lasso and Ridge regression.<br><i>Homework 5 due</i></td>
+<td>Oct 30 – Nov 1</td>
+<td>Model selection and regularization: Lasso and Ridge regression.<br><i>Homework 4 due</i></td>
 </tr>
 <tr>
 <td>12</td>
-<td>Nov 8 – Nov 10</td>
-<td>Prediction models: Classification and regression trees (CART).<br><i>Submit preliminary report for FINAL PROJECT</i></td>
+<td>Nov 6 – Nov 8</td>
+<td>Introduction to prediction models: K-nearest neighbors’ regression and classification.</td>
 </tr>
 <tr>
 <td>13</td>
-<td>Nov 15 – Nov 17</td>
-<td>Prediction models (cont.): Random forests, boosting, and ensemble methods.<br><i>Homework 6 due</i></td>
+<td>Nov 13 – Nov 15</td>
+<td>Prediction models (cont.): Classification and regression trees (CART).<br><i>Homework 5 due</i></td>
 </tr>
 <tr>
 <td>14</td>
-<td>Nov 22 – Nov 24</td>
+<td>Nov 20 – Nov 22</td>
 <td>THANKSGIVING BREAK</td>
 </tr>
 <tr>
 <td>15</td>
-<td>Nov 29 – Dec 1</td>
-<td>Bringing everything together<br><i>Homework 7 due</i></td>
+<td>Nov 27 – Nov 29</td>
+<td>Prediction models (cont.): Random forests, boosting, and ensemble methods.<br><i>Homework 6 due</i></td>
 </tr>
 <tr>
 <td>16</td>
-<td>December 5</td>
-<td><i>Final Exam due</i></td>
-</tr>
-<tr>
-<td>16</td>
-<td>December 8 & 9</td>
-<td><i>Final Project due & Final Project presentations</i></td>
+<td>December 7 *(TBD)*</td>
+<td><b>Final Exam</b></td>
 </tr>
 </tbody>
 </table>

@@ -14,12 +14,12 @@ Please read the syllabus. It has important information about the course, includi
 
 ## Welcome to STA 235H!
 
-Our class meets on one of these four schedules (depending on your section) in **UTC 1.102**: 
+Our class meets on one of these four schedules (depending on your section): 
 
-- Section 1 - 05340: Tue 10:00 AM – 12:00 PM
-- Section 2 - 05350: Tue 12:00 PM – 2:00 PM
-- Section 3 - 05345: Thu 10:00 AM – 12:00 PM
-- Section 4 - 05355: Thu 12:00 PM – 2:00 PM
+- Section 1 - 05430: Mon 10:00 AM – 12:00 PM, **SZB - 3.508**
+- Section 2 - 05435: Mon 12:00 PM – 2:00 PM, **SZB - 2.802**
+- Section 3 - 05440: Wed 2:00 PM – 4:00 PM, **PAR 1**
+- Section 4 - 05445: Mon 4:00 PM – 6:00 PM, **PAR 105**
 
 The objective of this course is for you to **gain the tools you need to tackle real-world problems from a quantitative perspective**. We will be covering topics on regression modelling, causal inference, and predictive modelling. You will have the opportunity to be exposed to an array of different real-world examples, get hands-on experience in working with data, and improve your R coding skills for data science. 
 

@@ -67,9 +67,9 @@ I now explain each of these grading components in more detail.
 	- HW5: November 17th, 11:59 PM
 	- HW6: December 3rd, 11:59 PM **This assignment cannot be dropped.**
 
-
+- Homework assignments will be posted on Thursday, the week before they are due, so students will have over a week to complete the assignments.
  
-- Students are allowed to discuss homework assignments, but students are responsible for their own work and must be <u>completed individually</u>. Do not copy another student’s code or copy code from other internet sources. If any sign of impropriety is detected, the student will be asked to explain their answers/code in detail. 
+- Students are allowed to discuss homework assignments, but students are responsible for their own work and must be <u>completed individually</u>. Do not copy another student’s code or copy code from other internet sources without references. If any sign of impropriety is detected, the student will be asked to explain their answers/code in detail. 
 
 -	Homework assignments will be posted online and submitted through Canvas.  
 
@@ -113,14 +113,14 @@ I now explain each of these grading components in more detail.
 
 -	The midterm exam will be an individual evaluation, in-person, during regular class time. Students will be able to use any offline resource (e.g. notes from class, slides, R scripts provided), but no online resources.
 
--	Just as with homework assignments, students will have to submit their midterm in addition to their R script to be evaluated.
+-	Just as with homework assignments, students will have to submit their R script in addition to their midterm in order to be evaluated.
 
 
 5.	**Final Exam (25%)**
 
 -	The final exam will be an individual in-person evaluation, and it will be cumulative. Students will be able to use any offline resource (e.g. notes from class, slides, R scripts provided), but no online resources.
 
--	Just as with homework assignments, students will have to submit their midterm in addition to their R script to be evaluated.
+-	Just as with homework assignments, students will have to submit their R script in addition to their final exam in order to be evaluated.
 
 
 {{% notice warning %}}
