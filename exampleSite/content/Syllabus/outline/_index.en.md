@@ -28,7 +28,7 @@ Below you will find a general outline of the topics we’ll cover in this course
 <tr>
 <td>3</td>
 <td>Sep 4 – Sep 6</td>
-<td>Potential issues with regressions: Outliers, heteroskedasticity. (RECORDED CLASS).<br><i>For students in Monday’s sections, this will substitute the class on December 4th</i><br><i>Homework 1 due</i></td>
+<td>Potential issues with regressions: Outliers, heteroskedasticity. (RECORDED CLASS).<br><i>For students in Monday’s sections, this will substitute the class on Dec. 4th</i><br><i>Homework 1 due</i></td>
 </tr>
 <tr>
 <td>4</td>
