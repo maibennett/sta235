@@ -24,7 +24,7 @@ Recording of each class will be made available at the end of each week, but they
 
 ### BEHAVIOR EXPECTATIONS
 
-It is very important for students and all the instruction team to behave courteous and professional. During class time, avoid outside distractions, and keep your focus on the lecture (texting/chatting or viewing other websites that are not related to the class is not permitted).
+It is very important for students and all the instruction team to behave courteously and professionally. During class time, avoid outside distractions, and keep your focus on the lecture (texting/chatting or viewing other websites that are not related to the class is not permitted).
 
 My main goal is to get students to be comfortable actively participating in class. Pairs/group discussions will be encouraged, and cold-calling will also be used to get students engaged.
 
@@ -51,7 +51,7 @@ I will use the cutoffs below to translate your overall course average into a fin
 {{% notice warning %}}
 **A note on copying and plagiarism**
 
-There is a zero tolerance in this course for any academic misconduct, including copying or plagiarizing work from other sources (such us other students, internet sources, chatGPT, etc.). Students are allowed to use online resources for take-home assignments and are allowed to discuss the general approach of a homework questions. However, <u>copying code and/or answers that do not belong to the student is strictly prohibited</u>u>. If there is evidence of misconduct, all students involved will be reported to the corresponding office and receive an according academic penalty in the class.
+There is zero tolerance in this course for any academic misconduct, including copying or plagiarizing work from other sources (such as other students, internet sources, chatGPT, etc.). Students are allowed to use online resources for take-home assignments and are allowed to discuss the general approach to homework questions. However, <u>copying code and/or answers that do not belong to the student is strictly prohibited</u>u>. If there is evidence of misconduct, all students involved will be reported to the corresponding office and receive an according academic penalty in the class.
 {{% /notice %}}
 
 I now explain each of these grading components in more detail. 
@@ -73,7 +73,7 @@ I now explain each of these grading components in more detail.
 
 -	Homework assignments will be posted online and submitted through Canvas.  
 
--	You must submit your homework write-up as a PDF, when required, as well as your R Script (or Rmarkdown file). Failure to submit your script will be considered as an incomplete homework. The code you submit with your homework should be fully reproducible (i.e. another person running it on their machine should be able to get the same results as you). See guidelines in our course website for R scripts.
+-	You must submit your homework write-up as a PDF, when required, as well as your R Script (or Rmarkdown file). Failure to submit your script will be considered as an incomplete homework. The code you submit with your homework should be fully reproducible (i.e. another person running it on their machine should be able to get the same results as you). See the guidelines on our course website for R scripts.
 
 -	**Only five homework assignments will be considered for your grade, dropping the assignment with the lowest grade, with the exeption of Homework 6**. However, you can only drop an assignment for which you haven’t been penalized for misconduct.  
 
@@ -106,7 +106,7 @@ I now explain each of these grading components in more detail.
 
 -	In order for in-class participation to count, students must either ask a specific question or voluntarily answer a question asked by the instructor.
 
--	If a student has a health issue or other extraordinary circumstances that prevents them for attending class consistently, please reach out to the instructor as soon as possible.
+-	If a student has a health issue or other extraordinary circumstances that prevent them from attending class consistently, please reach out to the instructor as soon as possible.
 
 
 4.	**Midterm Exam (25%)**

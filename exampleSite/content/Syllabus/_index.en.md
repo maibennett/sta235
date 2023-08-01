@@ -47,15 +47,15 @@ If you feel you are falling behind or that there are any aspects of this class t
 
 ### **TL;DR**
 
-The Syllabus has important information, so please check out the different sections. To help you out retain the most important points of this document, here's the summarized version of the main highlights:
+The Syllabus has important information, so please check out the different sections. To help you to retain the most important points of this document, here's the summarized version of the main highlights:
 
 - Be nice :smile:
 - Focus on understanding concepts and <u>not</u> on memorizing :bulb:
-- Ask questions! (in class and in office hours) :raising_hand:
+- Ask questions! (in class and during office hours) :raising_hand:
 - If you fall behind, reach out :confounded:
 
-There are different assignments to be completed in this class, including **homework** assignments, **Just In Time Teaching** assignments, a **midterm**, and a **final exam**. Additionnally, part of your grade will depend on **attendance and participation**.
+There are different assignments to be completed in this class, including **homework** assignments, **Just In Time Teaching** assignments, a **midterm**, and a **final exam**. Additionally, part of your grade will depend on **attendance and participation**.
 
-You will be able to drop some assignments, to accommodate students that have unforeseeable issues, so check out the specifics in the [Grading](https://sta235.netlify.app/syllabus/grading) section.
+You will be able to drop some assignments to accommodate students that have unforeseeable issues, so check out the specifics in the [Grading](https://sta235.netlify.app/syllabus/grading) section.
 
 Finally, make sure you **check the Canvas announcements** periodically (turn on your notifications!).
