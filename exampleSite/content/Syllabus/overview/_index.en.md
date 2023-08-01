@@ -20,10 +20,6 @@ Statistics 301 or Statistics 301H, Mathematics 408Q or credit registration for 4
 
 This class meets in person once a week for two hours (see schedule according to your section in the first page). Attendance is highly encouraged and will count towards your grade (see the Grading section for details). You will also be required to bring a laptop to class, because we will be doing in-class coding exercises. If you do not have a laptop that you can bring to class, please contact the instructor so we can find an alternative solution.
 
-{{% notice warning %}}
-Even though attendance is important, given the current worldwide context, I would encourage you to stay home if you are not feeling well. Attendance monitoring is setup to allow students to miss some classes without penalty, but you can also reach out if you have any questions. 
-{{% /notice %}}
-
 #### COMPUTER HARDWARE & SOFTWARE REQUIREMENTS
 
 -	Laptop computer
@@ -39,7 +35,7 @@ For the optimal in-class experience, I suggest that you:
 
 #### HOW TO SUCCEED IN THIS COURSE:
 
-1)	Attend class each week (unless you are not feeling well) and be an active learner. If something is unclear, don’t be afraid to ask a question. Active participation in class enhances the learning experience for everyone!
+1)	Attend class each week and be an active learner. If something is unclear, don’t be afraid to ask a question. Active participation in class enhances the learning experience for everyone! (and you can also get additional points on participation).
 
 2)	Slides will be available before each class, so you can use them to follow along. These slides, however, are **not self-contained**, so I recommend taking notes of the main concepts to complement your understanding.
 
