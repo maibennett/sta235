@@ -14,7 +14,7 @@ Meeting time:
 
 Pre-requisites: STA 301 or STA 301H, Mathematics 408Q or credit registration for 408D, 408L, or 408S.
 
-Format: In-person (Room UTC 1.102)
+Format: In-person (see specific rooms in the syllabus)
 
 ### Instructor
 
