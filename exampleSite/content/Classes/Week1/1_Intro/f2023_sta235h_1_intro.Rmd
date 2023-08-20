@@ -389,179 +389,9 @@ class: left, bottom, inverse
 Let's review the syllabus
 ]
 ---
-# Please, read the syllabus!
-
-How did you do in the survey?
-
-```{r, echo =FALSE, message=FALSE, warning=FALSE}
-library(tidyverse)
-library(hrbrthemes)
-library(firasans)
-library(patchwork)
-
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/1_Intro/data/intro_survey.csv")
-
-cols = c("#BF3984","#E16462","#F89441","#FCCE25")
-
-g_off <- d %>% filter(!is.na(points_off)) %>% rename(office = X28697441..Where.is.Professor.Bennett.s.office.) %>%
-  mutate(office = as.factor(office)) %>%
-  group_by(office) %>% summarize(value = n()) %>%
-  ggplot(data = ., aes(x="", y = value, fill = factor(office))) +
-  geom_bar(lwd=1.2, stat="identity", color="white") +
-  coord_polar("y",start = 0)+
-  scale_fill_manual(values=c(cols[1], cols[3])) +
-  ggtitle("Where is Prof. Bennett's office?") +
-  theme_void()+
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 14) +
-  theme(plot.margin=unit(c(0,0,0,0),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_blank())+
-  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_blank(),
-        axis.title.y = element_blank(),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),legend.position="right",
-        legend.title = element_blank(),
-        legend.text = element_text(size=12),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-g_att <- d %>% filter(!is.na(points_att)) %>% rename(attendance = X28697443..Does.attendance.count.towards.your.grade.) %>%
-  mutate(attendance = as.factor(attendance)) %>%
-  group_by(attendance) %>% summarize(value = n()) %>%
-  ggplot(data = ., aes(x="", y = value, fill = factor(attendance))) +
-  geom_bar(lwd=1.2, stat="identity", color="white") +
-  coord_polar("y",start = 0)+
-  scale_fill_manual(values=c(cols[3],cols[1])) +
-  ggtitle("Does attendance count\ntowards your grade?") +
-  theme_void()+
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 14) +
-  theme(plot.margin=unit(c(0,0,0,0),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_blank())+
-  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_blank(),
-        axis.title.y = element_blank(),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),legend.position="right",
-        legend.title = element_blank(),
-        legend.text = element_text(size=12),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-g_jitt <- d %>% filter(!is.na(points_jitt)) %>% rename(jitt = X28697446..True.or.False...JITTs.are.due.every.week.) %>%
-  mutate(jitt = as.factor(jitt)) %>%
-  group_by(jitt) %>% summarize(value = n()) %>%
-  ggplot(data = ., aes(x="", y = value, fill = factor(jitt))) +
-  geom_bar(lwd=1.2, stat="identity", color="white") +
-  coord_polar("y",start = 0)+
-  scale_fill_manual(values=c(cols[3],cols[1])) +
-  ggtitle("JITTs are due every\nweek") +
-  theme_void()+
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 14) +
-  theme(plot.margin=unit(c(0,0,0,0),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_blank())+
-  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_blank(),
-        axis.title.y = element_blank(),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),legend.position="right",
-        legend.title = element_blank(),
-        legend.text = element_text(size=12),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-g_hw <- d %>% filter(!is.na(points_hw)) %>% rename(hw = X28697442..How.many.homework.assignments.can.you.drop.) %>%
-  mutate(hw = as.factor(hw)) %>%
-  group_by(hw) %>% summarize(value = n()) %>%
-  ggplot(data = ., aes(x="", y = value, fill = factor(hw))) +
-  geom_bar(lwd=1.2, stat="identity", color="white") +
-  coord_polar("y",start = 0)+
-  scale_fill_manual(values=cols[1]) +
-  ggtitle("How many homework assignments\ncan you drop?") +
-  theme_void()+
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 14) +
-  theme(plot.margin=unit(c(0,0,0,0),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_blank())+
-  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_blank(),
-        axis.title.y = element_blank(),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),legend.position="right",
-        legend.title = element_blank(),
-        legend.text = element_text(size=12),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-
-g_ext <- d %>% filter(!is.na(points_ext)) %>% rename(ext = X28697445..True.or.False...It.s.ok.if.I.submit.a.late.assignment.because.there.are.extensions.) %>%
-  mutate(ext = as.factor(ext)) %>%
-  group_by(ext) %>% summarize(value = n()) %>%
-  ggplot(data = ., aes(x="", y = value, fill = factor(ext))) +
-  geom_bar(lwd=1.2, stat="identity", color="white") +
-  coord_polar("y",start = 0)+
-  scale_fill_manual(values=c(cols[1],cols[3])) +
-  ggtitle("It's ok to submit late\nassignments because there\nare extensions") +
-  theme_void()+
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 14) +
-  theme(plot.margin=unit(c(0,0,0,0),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_blank())+
-  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_blank(),
-        axis.title.y = element_blank(),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),legend.position="right",
-        legend.title = element_blank(),
-        legend.text = element_text(size=12),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-g_ppt <- d %>% filter(!is.na(points_ppt)) %>% rename(ppt = X28697444..Do.you.have.to.be.present.for.the.final.project.presentations.) %>%
-  mutate(ppt = as.factor(ppt)) %>%
-  group_by(ppt) %>% summarize(value = n()) %>%
-  ggplot(data = ., aes(x="", y = value, fill = factor(ppt))) +
-  geom_bar(lwd=1.2, stat="identity", color="white") +
-  coord_polar("y",start = 0)+
-  scale_fill_manual(values=c(cols[1])) +
-  ggtitle("Do you have to be present\nfor the final project presentations?") +
-  theme_void()+
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 14) +
-  theme(plot.margin=unit(c(0,0,0,0),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_blank())+
-  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_blank(),
-        axis.title.y = element_blank(),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),legend.position="right",
-        legend.title = element_blank(),
-        legend.text = element_text(size=12),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
---
-
-```{r syllabus, fig.height=4.5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-g_off + g_att + g_jitt + g_hw + g_ext + g_ppt + plot_layout(nrow = 2)
-#plot_grid(g_off,g_att,g_jitt,g_hw,g_ext,g_ppt, nrow = 2, align = 'hv')
-
-```
+background-position: 50% 50%
+class: center, middle
+.box-7Trans[Please, read the syllabus!]
 
 ---
 # About this course
@@ -637,15 +467,15 @@ Weekly + HW weeks <i>(TBD)</i>]
 ---
 # How to succeed in this course?
 
-- **.darkorange[Attend class]**
+- **.darkorange[Attend class]**.
   
 - Slides are uploaded before class (*not self-contained*). Take notes but focus on **.darkorange[understanding]**.
 
 - **.darkorange[Ask questions]** during class!
 
-- Complete all **.darkorange[readings]** and **.darkorange[assignments]** by the assigned date
+- Complete all **.darkorange[readings]** and **.darkorange[assignments]** by the assigned date.
   
-- Get an **.darkorange[early]** start on assignments and **.darkorange[follow the submission guidelines]**
+- Get an **.darkorange[early]** start on assignments and **.darkorange[follow the submission guidelines]**.
 
 
 ---
@@ -653,7 +483,7 @@ Weekly + HW weeks <i>(TBD)</i>]
 
 - **.darkorange[Just in Time Teaching (JITT) assignments (10%):]**
 
-  - Short online questionnaires about readings and/or material.
+  - Short online quizzes about readings and/or material.
   - Submit by 11:59 PM on Saturday (for Mon class) or Monday (for Wed class) before that week's class.
   - Graded for completion (new material) and correctness (for material already seen). You can re-take it as many times as you want!
 
@@ -711,14 +541,14 @@ Weekly + HW weeks <i>(TBD)</i>]
 - General questions should be posted on Canvas (Discussion Board)
 - **.darkorange[Please, do not send messages through Canvas.]**
   
---
+<!-- -- -->
 
 
-- Note: This is Ms. Bennett
+<!-- - Note: This is Ms. Bennett -->
 
-.center[
-![:scale 30%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/ms_bennett.jpeg)]
-  
+<!-- .center[ -->
+<!-- ![:scale 30%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/1_Intro/images/ms_bennett.jpeg)] -->
+
 ---
 # Collaborations and Academic Integrity
 
@@ -802,6 +632,10 @@ class: center, middle
 
 ---
 # Some notes before the break
+
+- **.darkorange[Bootcamp]** session on Tuesday 22nd (MEZ 1.306): Focus on R.
+
+--
 
 - "Disability & Access (D&A) is seeking the assistance of students to serve as **.darkorange[volunteer notetakers]**."
 
