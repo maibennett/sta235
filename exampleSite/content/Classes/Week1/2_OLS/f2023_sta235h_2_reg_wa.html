@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235H - Multiple Regression: Overview and Statistical Adjustment</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/plotly-binding/plotly.js"></script>
+    <script src="libs/typedarray/typedarray.min.js"></script>
+    <script src="libs/jquery/jquery.min.js"></script>
+    <link href="libs/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
+    <link href="libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+    <script src="libs/plotly-main/plotly-latest.min.js"></script>
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# STA 235H - Multiple Regression: Overview and Statistical Adjustment
+]
+.subtitle[
+## Fall 2023
+]
+.author[
+### McCombs School of Business, UT Austin
+]
+
+---
+
+
+&lt;!-- &lt;script type="text/javascript"&gt; --&gt;
+&lt;!-- MathJax.Hub.Config({ --&gt;
+&lt;!--   "HTML-CSS": { --&gt;
+&lt;!--     preferredFont: null, --&gt;
+&lt;!--     webFont:  "Neo-Euler" --&gt;
+&lt;!--   } --&gt;
+&lt;!-- }); --&gt;
+&lt;!-- &lt;/script&gt; --&gt;
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+&lt;/style&gt;
+
+
+
+
+
+# Today
+
+.pull-left[
+- Quick **.darkorange[multiple regression]** review
+  - How does OLS work?
+
+- **.darkorange[What can we say]** using regressions?
+  - Interpreting coefficients
+
+]
+
+.pull-right[
+![](https://media.giphy.com/media/3o752flP8nVxQjXhO8/source.gif)
+]
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+
+.big[
+Nothing "Ordinary" about OLS
+]
+---
+background-position: 50% 50%
+class: center, middle
+
+.box-3Trans[What do **you** understand about regressions?]
+
+---
+# Remembering Regressions
+
+- Linear Regression is a **.darkorange[very useful tool]**.
+
+  - Simple supervised learning approach.
+  - Many fancy methods are generalizations or extensions of linear regression!
+  
+- It's a way to (partially) describe a **.darkorange[data generating process (DGP)]**.
+
+.box-3Trans.medium[$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \varepsilon$$]
+
+---
+# Essential Parts of a Regression
+
+.pull-left[
+.box-2tL[Y]
+
+.box-2[Outcome Variable]
+
+.box-2[Response Variable]
+
+.box-2[Dependent Variable]
+
+.box-2t[*Thing you want to explain or predict*]
+  
+]
+
+
+---
+# Essential Parts of a Regression
+
+.pull-left[
+.box-2tL[Y]
+
+.box-2[Outcome Variable]
+
+.box-2[Response Variable]
+
+.box-2[Dependent Variable]
+
+.box-2t[*Thing you want to explain or predict*]
+  
+]
+
+.pull-right[
+.box-2tL[X]
+
+.box-2[Explanatory Variable]
+
+.box-2[Predictor Variable]
+
+.box-2[Independent Variable]
+
+.box-2t[*Thing you use to explain or predict Y*]
+]
+
+---
+# Identify the variables
+
+.pull-left[
+.box-2transl.jost-normal[A study examines the effect of smoking on lung cancer]
+&lt;br&gt;
+]
+
+---
+# Identify the variables
+
+.pull-left[
+.box-2transl.jost-normal[A study examines the effect of smoking on lung cancer]
+&lt;br&gt;
+.box-4transl.jost-normal[Fantasy football fanatics predict the performance of a player based on past performance, health status, and characteristics of the opposite team]
+]
+
+---
+# Identify the variables
+
+.pull-left[
+.box-2transl.jost-normal[A study examines the effect of smoking on lung cancer]
+&lt;br&gt;
+.box-4transl.jost-normal[Fantasy football fanatics predict the performance of a player based on past performance, health status, and characteristics of the opposite team]
+]
+.pull-right[
+.box-5transl.jost-normal[You want to see if taking more AP classes in high school improves college grades]
+&lt;br&gt;
+]
+
+---
+# Identify the variables
+
+.pull-left[
+.box-2transl.jost-normal[A study examines the effect of smoking on lung cancer]
+&lt;br&gt;
+.box-4transl.jost-normal[Fantasy football fanatics predict the performance of a player based on past performance, health status, and characteristics of the opposite team]
+]
+.pull-right[
+.box-5transl.jost-normal[You want to see if taking more AP classes in high school improves college grades]
+&lt;br&gt;
+.box-7transl.jost-normal[Netflix uses your past viewing history, the day of the week, and the time of the day to guess which show you want to watch next]
+]
+
+---
+# Two Purposes of Regression
+
+.pull-left[
+.box-3tL[Prediction]
+
+.box-3[Forecast the future]
+
+.box-3[Focus is on &lt;b&gt;Y&lt;/b&gt;]
+
+.box-3tL[Netflix trying to guess your next show]
+]
+--
+.pull-right[
+.box-6tL[Explanation]
+
+.box-6[Explain the effect of &lt;b&gt;X&lt;/b&gt; on &lt;b&gt;Y&lt;/b&gt;]
+
+.box-6[Focus is on &lt;b&gt;X&lt;/b&gt;]
+
+.box-6tL[Netflix looking at the effect of time of the day on show selection]
+]
+---
+# What do we want to estimate in a regression?
+
+- When we run a regression we have an outcome `\(Y\)` and explanatory variables or covariates `\(X\)`.
+
+- **We want to estimate the `\(\beta\)`'s**
+
+--
+
+- One important distinction:
+
+  - `\(\beta\)`'s are the **.darkorange[population parameters]** we want to estimate.
+  - `\(\hat\beta\)` are the **.darkorange[estimates]** of those parameters.
+
+---
+# How do we estimate the coefficients in a regression ?
+.pull-left[
+- **.darkorange[Ordinary Least Squares]** is the most popular way.
+
+`$$\min_{\beta} \sum[Y_i - (\sum_{j=1}^p\beta_jX_{ij})]^2$$`
+]
+--
+.pull-right[
+
+
+&lt;img src="f2023_sta235h_2_reg_wa_files/figure-html/cookies1-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# How do we estimate the coefficients in a regression ? (cont.)
+
+
+
+
+
+.pull-left[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/3dplot1.png)
+]
+.pull-right[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/3dplot2.png)
+]
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+
+.big[
+Let's get into some data
+]
+
+---
+# Let's introduce an example: The Bechdel Test
+
+--
+
+.pull-left[
+- **.darkorange[Three criteria:]**
+
+  1. At least two named women
+  2. Who talk to each other
+  3. About something besides a man
+]
+
+.pull-right[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/bechdel.png)
+]
+
+---
+# Do movies pass the test?
+
+.center[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/hickey-bechdel-11.png)]
+
+
+---
+# Is it convenient for my movie to pass the Bechdel test?
+
+- I'm a profit-maximizing investor and want to know whether it's in my best interest to switch a male for a female character.
+
+  - What is the **.darkorange[simplest model]** you could fit?
+--
+
+
+.box-6trans.medium[$$Revenue = \alpha + \beta Bechdel + \varepsilon$$]
+
+---
+# Let's analyze some models
+
+- We have some data and code on the **&lt;u&gt;.darkorange[[course website](https://sta235.netlify.app/classes/week1/)]&lt;/u&gt;**
+
+- Dataset from **&lt;u&gt;.darkorange[[fivethirtyeight.com](https://github.com/fivethirtyeight/data/tree/master/bechdel)]&lt;/u&gt;**:
+
+  - Focus on 1990 onward
+
+&lt;table class=" lightable-paper" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;'&gt;
+&lt;caption&gt;Summary Statistics&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Variable &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; N &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Mean &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Std. Dev. &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Min &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Pctl. 25 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Pctl. 75 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Max &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Year &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2087 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2004.963 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6.755 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1990 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1999 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2011 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2014 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adj_Revenue &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2087 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 66.254 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 92.07 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4.36 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 86.936 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 968.41 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adj_Budget &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1369 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 61.498 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 57.784 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.02 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 19.3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 88.47 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 470.839 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Metascore &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1755 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5.663 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1.66 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1.1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4.5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6.8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 9.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; imdbRating &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2085 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6.546 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.979 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1.5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7.2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 9.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; bechdel_test &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2087 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.571 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.495 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+# Let's analyze some models
+
+
+```r
+summary(lm(Adj_Revenue ~ bechdel_test, data = bechdel))
+```
+
+```
+##              Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)   76.4553     3.0641 24.9521        0
+## bechdel_test -17.8616     4.0544 -4.4055        0
+```
+
+- How do you interpret these results?
+
+---
+# Let's analyze some models
+
+
+```r
+summary(lm(Adj_Revenue ~ bechdel_test, data = bechdel))
+```
+
+```
+##              Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)   76.4553     3.0641 24.9521        0
+## bechdel_test -17.8616     4.0544 -4.4055        0
+```
+
+- `\(\hat{\beta}_0\)` is the average adjusted revenue (in millions of dollars) for movies that do not pass the Bechdel test.
+
+- &lt;u&gt;On average&lt;/u&gt;, movies that pass the Bechdel test have an adjusted revenue that is `\(|\hat{\beta}_1|\)` million dollars less than a movie that doesn't pass the Bechdel test.
+
+&lt;br&gt;
+&lt;br&gt;
+.box-3LA[Negative effect of including more women?]
+
+---
+# What gives?
+.center[
+![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/538_bechdel.png)]
+
+---
+# More variables
+
+.pull-left[
+.center[
+![:scale 80%](https://media.giphy.com/media/1ZlrrYTN7gAxdGE8nM/source.gif)
+]]
+.pull-right[
+- **.darkorange[Bechdel test]** could be capturing the effect of other variables:
+
+  - What **.darkorange[type]** of movies are the ones that pass the test?
+  
+  - What is their **.darkorange[budget]**?
+]  
+---
+# More variables
+
+
+```r
+lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechdel)
+```
+
+```
+##               Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)  -127.0710    17.0563 -7.4501   0.0000
+## bechdel_test   11.0009     4.3786  2.5124   0.0121
+## Adj_Budget      1.1192     0.0367 30.4866   0.0000
+## Metascore       7.0254     1.9058  3.6864   0.0002
+## imdbRating     15.4631     3.3914  4.5595   0.0000
+```
+&lt;br&gt;
+.box-3LA[Positive and significant!]
+
+--
+
+- How do we interpret the relevant coefficient now?
+
+--
+
+- &lt;u&gt;On average&lt;/u&gt;, movies that pass the Bechdel test have 11 million dollars more in adjusted revenue compared to a movie that doesn't pass the Bechdel test, &lt;u&gt;holding other variables constant&lt;/u&gt;.
+
+---
+# Main takeaway points
+
+.pull-left[
+
+.center[
+![](https://media.giphy.com/media/PLHdpauwfN2MvHcHxL/giphy.gif)
+]
+
+]
+.pull-right[
+- Regressions are super useful... 
+
+  - But you need to know **.darkorange[how]** to interpret them.
+
+- Be sure not to overstate your claims!
+
+- Remember the magic words for interpretation
+
+]
+
+
+---
+# Next class
+
+.pull-left[
+- Continue with **.darkorange[multiple regression models]**:
+
+  - Interactions and how to interpret them
+
+- **.darkorange["Nonlinear" models]**
+
+]
+
+.pull-right[
+
+![](https://media.giphy.com/media/1Q9AekyhJ2U5bdTzdr/giphy.gif?cid=ecf05e47lcna24lgv5gbpkiciso4ykvxq9urjrc5d50bfq8b&amp;rid=giphy.gif&amp;ct=g)
+]
+
+---
+# References
+
+- Heiss, A. (2020). "Course: Program Evaluation for Public Service". *Slides for Regression and Inference*.
+
+- Ismay, C. &amp; A. Kim. (2021). “Statistical Inference via Data Science”. Chapter 10.
+
+- Keegan, B. (2018). "The Need for Openess in Data Journalism". *[Github Repository](https://github.com/brianckeegan/Bechdel/blob/master/Bechdel_test.ipynb)*
+
+
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week1/2_OLS/f2021_sta235h_2_reg.html') --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
