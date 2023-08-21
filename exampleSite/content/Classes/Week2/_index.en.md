@@ -14,7 +14,7 @@ In this class, we will go deepper into statistical adjustment, specifically when
 
 - [Ismay, C. & A. Kim. (2021). "Statistical Inference via Data Science". Chapter 6 (section 6.1 and 6.2)](https://moderndive.com/6-multiple-regression.html)
 
-<!-- - [Ismay, C. & A. Kim. (2021). "Statistical Inference via Data Science". Chapter 10 (sections 10.3)](https://moderndive.com/10-inference-for-regression.html) -->
+- [Ismay, C. & A. Kim. (2021). "Statistical Inference via Data Science". Chapter 10 (sections 10.3)](https://moderndive.com/10-inference-for-regression.html)
 
 - [Healy, K. (2018). "Data Visualization: A Practical Introduction". Chapter 1 (section 1.1). *Princeton University Press*.](https://socviz.co/lookatdata.html)
 
