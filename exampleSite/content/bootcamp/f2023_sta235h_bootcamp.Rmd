@@ -605,6 +605,18 @@ g1
 
 - For convenience, we can store the regression in a separate object (e.g. `lm1 = lm(y ~ x1 + x2, data = d)`), so we can later manipulate it:
 
-  - `summary(lm1)`: Provides a summary table of the results (including estimates, standard errors, and p-values)/
+  - `summary(lm1)`: Provides a summary table of the results (including estimates, standard errors, and p-values).
   - `lm1$coefficients`: Recovers the exact estimated coefficients (e.g. useful if you want to use them later).
   - `summary(lm1)$coefficients`: Matrix of results. Includes columns for the estimates betas, standard errors, t-stats, and p-values.
+  
+---
+background-position: 50% 50%
+class: center, middle
+
+.box-6Trans[Let's go to R]
+
+---
+# R is useful and fun!
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/know_r.png)]

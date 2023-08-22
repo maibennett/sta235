@@ -23,15 +23,63 @@ library(tidyverse) #includes dplyr and ggplot2!
 # Load data (this is loading data directly from Github)
 sales = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/bootcamp/data/US_Regional_Sales_Data.csv")
 
+
+
 ## Inspecting your data
 
 # Exercise 1: Let's explore the data. How many variables and observations do we have? What type of variables do we have?
 
-# Exercise 2: Install the package vtable and run the code vtable(sales). What do you get? Use the ?vtable to see the options for this function.
+# Exercise 2: Install the package vtable, load it, and run the code vtable(sales). What do you get? Use the ?vtable to see the options for this function.
+
 
 
 ## Data wrangling
 
-# Exercise 1: Unit cost and unit price should be numeric. Let's change this! (hint: you can use the function as.numeric() to transform a variable!)
+# Exercise 1: Unit cost and unit price should be numeric. Let's change this! (hint: you can use the function as.numeric() to transform a variable!).
+## Keep the same names for the variables and the dataset.
 
+
+# Exercise 2: What are the different values for the sales channel in this dataset? Use the function table() to see!
+## Create a new dataset for in-store and online sales. Call it "sales_min". How many variables do we have?
+
+
+# Exercise 3: Use the original dataset "sales", and create a new variable called "minority", 
+## which takes the value of 1 if the sales channel is in-store or online, and 0 in another case.
+
+
+# Exercise 4: What is the average price for sales made through a minority channel vs a non-minority channel?
+
+
+
+
+## Plotting data!
+
+# Exercise 1: Create a scatter plot between unit cost (x axis) and unit price (y axis)
+
+
+# Exercise 2: Now, let's make that plot pretty. Use theme_minimal() to get rid of the grey background. Color the points with the color "deepskyblue3",
+## and change the axis titles to something more informative (e.g. Unit price ($)). This can be done with xlab() and ylab().
+
+
+# Exercise 3: Using the same code as before, now we want to color observations from the minority sales channel in one color, and the non-minority in another color.
+## Write some code that does that (e.g. you will need to change your aesthetics!)
+
+
+# Exercise 4: Finally, using the same code as in exercise 2, include a regression line in this plot using geom_smooth().
+
+
+
+## Regressions
+
+# Let's load a new dataset: The Gapminder
+
+gapminder = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/bootcamp/data/gapminder.csv")
+
+# Exercise 1: What type of data do we have?
+
+
+# Exercise 2: Transform population into millions (divide pop by 10^6), and then regress life expectancy on gdp per capita and population. What do you obtain?
+
+
+# Exercise 3: Include now continent in the previous regression. Do your results change? How does it look when you include a factor variable in a regression?
 

@@ -103,3 +103,17 @@ gapminder = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/e
 
 ## You can see there is numeric data, but also factor (also referred to as categorical variables). 
 ## Factors are useful because they enter a regression as individual dummies
+
+# Exercise 2: Transform population into millions (divide pop by 10^6), and then regress life expectancy on gdp per capita and population. What do you obtain?
+
+gapminder = gapminder %>% mutate(pop = pop/10^6)
+
+lm1 = lm(lifeExp ~ gdpPercap + pop, data = gapminder)
+
+summary(lm1)
+
+# Exercise 3: Include now continent in the previous regression. Do your results change? How does it look when you include a factor variable in a regression?
+
+lm2 = lm(lifeExp ~ gdpPercap + pop + continent, data = gapminder)
+
+summary(lm2)

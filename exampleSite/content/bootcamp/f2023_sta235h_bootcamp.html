@@ -230,9 +230,11 @@ class: center, middle
 # Plotting in R
 
 .pull-left[
-- Plotting your data is a very intuitive way to see what's going on.
+- Plotting your data is a **.darkorange[very intuitive way]** to see what's going on.
 
-- It's also useful to convey complex analysis!
+- It's also useful to convey **.darkorange[complex analysis]**!
+
+- Make sure your plots are always **.darkorange[informative]** and they **.darkorange[tell the story]** you want to highlight.
 
 ]
 
@@ -281,6 +283,45 @@ background-position: 50% 50%
 class: center, middle
 
 .box-2Trans[Let's go to R]
+
+---
+# Regression Analysis
+
+
+.pull-left[
+- Regressions help us **.darkorange[quantify the relationship]** between different variables.
+
+- In R, we can get **.darkorange[many important insights]** from regression analysis!
+]
+
+.pull-right[
+&lt;img src="f2023_sta235h_bootcamp_files/figure-html/plot_study-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Regressions in R
+
+- The main command to do regressions is `lm(y ~ x1 + x2, data = d)`, where `y` is our outcome of interest and `x1` and `x2` are regressors.
+
+--
+
+- For convenience, we can store the regression in a separate object (e.g. `lm1 = lm(y ~ x1 + x2, data = d)`), so we can later manipulate it:
+
+  - `summary(lm1)`: Provides a summary table of the results (including estimates, standard errors, and p-values).
+  - `lm1$coefficients`: Recovers the exact estimated coefficients (e.g. useful if you want to use them later).
+  - `summary(lm1)$coefficients`: Matrix of results. Includes columns for the estimates betas, standard errors, t-stats, and p-values.
+  
+---
+background-position: 50% 50%
+class: center, middle
+
+.box-6Trans[Let's go to R]
+
+---
+# R is useful and fun!
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/know_r.png)]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
