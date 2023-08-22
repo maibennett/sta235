@@ -95,3 +95,11 @@ ggplot(data = sales, aes(x = unit_cost, y = unit_price)) + geom_point(color = "d
 
 ## Regressions
 
+# Let's load a new dataset: The Gapminder
+
+gapminder = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/bootcamp/data/gapminder.csv")
+
+# Exercise 1: What type of data do we have?
+
+## You can see there is numeric data, but also factor (also referred to as categorical variables). 
+## Factors are useful because they enter a regression as individual dummies
