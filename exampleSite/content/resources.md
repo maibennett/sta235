@@ -8,8 +8,9 @@
 
 <style>
 .resp-container {
-    position: absolute;
+    position: relative;
     overflow: hidden;
+    width: 50%;
     padding-top: 56.25%;
 }
 
@@ -17,8 +18,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 50%;
-    height: 50%;
+    width: 100%;
+    height: 100%;
     border: 0;
 }
 </style>
