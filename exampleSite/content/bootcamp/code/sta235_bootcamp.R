@@ -23,7 +23,6 @@ library(tidyverse) #includes dplyr and ggplot2!
 # Load data (this is loading data directly from Github)
 sales = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/bootcamp/data/US_Regional_Sales_Data.csv")
 
-sales = sales %>% clean_names() %>% rename(sales_team_id = x_sales_team_id,
-                                           customer_id = x_customer_id,
-                                           store_id = x_store_id,
-                                           product_id = x_store_id)
+
+
+
