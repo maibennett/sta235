@@ -332,9 +332,22 @@ font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
 font.add.google("Fira Sans", "Fira Sans")
 ```
 
-# Bootcamp
+# Bootcamp Agenda
 
+.pull-left[
+- What do we need?
+  - Quick look into **.darkorange[R]** and **.darkorange[RStudio]**
+  - RScript format
+  
+- Refresher from the **.darkorange[tidyverse]**:
+  - Data wrangling
+  - Plots and figures
+]
 
+.pull-right[
+.center[
+![:scale 150%](https://media.giphy.com/media/jCL5JbYPYQz96/giphy.gif)]
+]
 
 ---
 # Today
