@@ -35,7 +35,7 @@ sales = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/examp
 
 ## Data wrangling
 
-# Exercise 1: Unit cost and unit price should be numeric. Let's change this! (hint: you can use the function as.numeric() to transform a variable!).
+# Exercise 1: Unit cost and unit price should be numeric. Let's change this! (hint: you can use the function gsub() to replace "," for "", and as.numeric() to transform a variable!).
 ## Keep the same names for the variables and the dataset.
 
 

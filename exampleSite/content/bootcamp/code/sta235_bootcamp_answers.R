@@ -44,8 +44,11 @@ sumtable(sales)
 
 ## Data wrangling
 
-# Exercise 1: Unit cost and unit price should be numeric. Let's change this! (hint: you can use the function as.numeric() to transform a variable!).
+# Exercise 1: Unit cost and unit price should be numeric. Let's change this! (hint: you can use the function gsub() to replace "," for "", and as.numeric() to transform a variable!).
 ## Keep the same names for the variables and the dataset.
+
+sales = sales %>% mutate(unit_cost = gsub(",", "", unit_cost),
+                         unit_price = gsub(",","", unit_price))
 
 sales = sales %>% mutate(unit_cost = as.numeric(unit_cost),
                          unit_price = as.numeric(unit_price))
