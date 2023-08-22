@@ -373,7 +373,31 @@ RStudio is the IDE (Integrated Development Environment) we will use **.darkorang
 # Let's look at RStudio
 
 .center[
-![:scale 90%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/rstudio_window.png)]
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/rstudio_window.png)]
+
+---
+# Let's look at RStudio - Script
+
+.center[
+![:scale 110%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/rstudio_window_script.png)]
+
+---
+# Let's look at RStudio - Environment
+
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/rstudio_window_environment.png)]
+
+---
+# Let's look at RStudio - Console
+
+.center[
+![:scale 120%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/rstudio_window_console.png)]
+
+---
+# Let's look at RStudio - Help and others
+
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/rstudio_window_help.png)]
 
 ---
 # Useful basic commands
