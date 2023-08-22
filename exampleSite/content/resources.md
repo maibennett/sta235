@@ -10,7 +10,7 @@
 .resp-container {
     position: relative;
     overflow: hidden;
-    width: 50%;
+    width: 100%;
     padding-top: 56.25%;
 }
 
