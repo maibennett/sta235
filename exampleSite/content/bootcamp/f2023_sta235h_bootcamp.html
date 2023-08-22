@@ -197,6 +197,10 @@ class: center, middle
 
 --
 
+- `select(var1, var2)`: Select specific variables from the dataset (drop the others). In case you want to drop instead of keeping variables, you can use `select(-var1, -var2)`
+
+--
+
 - `rename(var_new = var_old)`: The name says it all. Used to rename variables.
 
 ---
@@ -211,6 +215,72 @@ class: center, middle
 --
 
 - `!(logic_statement)`: The exclamation point acts as a negation. If you want to invert a logic statement, use this (e.g. `!is.na(var)` will return TRUE if the obs of `var` is NOT missing and FALSE if it's missing).
+
+--
+
+- `table(var)`: Tabulates the different values of a variable
+
+---
+background-position: 50% 50%
+class: center, middle
+
+.box-5Trans[Let's go to R]
+
+---
+# Plotting in R
+
+.pull-left[
+- Plotting your data is a very intuitive way to see what's going on.
+
+- It's also useful to convey complex analysis!
+
+]
+
+.pull-right[
+.center[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/ggplot.png)]
+]
+
+---
+# General structure of ggplot
+
+- `ggplot()` works in **.darkorange["layers"]**:
+
+  - You can provide different geometries and "add" them to your plot (same with themes!)
+  
+--
+
+- You always start with `ggplot(data = d, aes(x = var1, y = var2, color = var3))`, depending on what you want to do:
+
+  - `aes()` stands for aesthetics, and it tells which variables you want to use and how. Sometimes you need one variable (e.g. histogram), sometimes you need two (e.g. scatter plot), or even three or more! (e.g. scatter plot for different groups)
+  
+--
+
+- You can provide `aes()` in the `ggplot()` function (as seen above), or also in each geometric layer:
+.center[e.g. `ggplot(data = d) + geom_point(aes(x = var1, y = var2))`]
+  
+---
+# General structure of ggplot
+
+- Some common geometries that are useful:
+
+  - `geom_point()`: Creates a scatter plot
+  - `geom_line()`: Creates a line plot
+  - `geom_histogram()` or `geom_density()`: Creates a histogram or a density plot for your data!
+  - `geom_smooth()`: Creates a smooth function that goes through your data. By default, it uses a loess or gam function, depending on the size of the data. Use `method = "lm"`as an argument if you want to fit a regression line!
+
+--
+
+- Finally, looks are also important!
+
+  - `theme()` allows you to play around with every aspect of your plot (e.g. font size, grid lines, etc.)
+  - Using a pre-packages theme can be useful, too. I personally like `theme_minimal()` or the `theme_ipsum_rc()` from the `hrbrthemes` package.
+
+---
+background-position: 50% 50%
+class: center, middle
+
+.box-2Trans[Let's go to R]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
