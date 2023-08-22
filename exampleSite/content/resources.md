@@ -11,6 +11,7 @@
     position: relative;
     overflow: hidden;
     width: 50%;
+    height: 50%;
     padding-top: 56.25%;
 }
 
