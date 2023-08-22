@@ -1,0 +1,665 @@
+---
+title: "STA 235H - Bootcamp"
+subtitle: "Fall 2023"
+author: "McCombs School of Business, UT Austin"
+output:
+  xaringan::moon_reader:
+    css: [xaringan-themer.css]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: ["macros.js"]
+    includes:
+      in_header: ["header.html"]
+---
+
+<!-- <script type="text/javascript"> -->
+<!-- MathJax.Hub.Config({ -->
+<!--   "HTML-CSS": { -->
+<!--     preferredFont: null, -->
+<!--     webFont:  "Neo-Euler" -->
+<!--   } -->
+<!-- }); -->
+<!-- </script> -->
+
+```{r setup, include=FALSE, warning=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.showtext = TRUE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE, message=FALSE}
+library(xaringanthemer)
+
+theme_xaringan(
+  text_color = "#333f48",
+  background_color = "#FFFFFF",
+  accent_color = "#900DA4",
+  text_font = "Fira Mono",
+  text_font_use_google = TRUE,
+  title_font = "Yanone Kaffeesatz",
+  title_font_use_google = TRUE
+)
+
+style_mono_accent(
+  #base_color = "#bf5700",
+  extra_fonts = list(google_font("Fira Sans","200","300","400","500","600"),
+                     google_font("Fira Sans Condensed","200","300","400","500","600")),
+  base_color = "#333f48",
+  header_font_google = google_font("Yanone Kaffeesatz","200","300","400","500","600","700"),
+  text_font_google   = google_font("Jost"),
+  code_font_google   = google_font("Fira Mono"),
+  text_bold_color = "#333f48",
+  text_font_size = "115%",
+  colors = c(
+    lightgrey = "#C0C0C0",
+    red = "#f34213",
+    purple = "#900DA4",
+    darkpurple = "#61077a",
+    darkorange = "#db5f12",
+    orange = "#ff8811",
+    green = "#136f63",
+    white = "#FFFFFF"),
+  extra_css = list(
+    ".remark-slide table" = list("display" = "table",
+                   "width" = "80%",
+                   "text-align" = "left"),
+    ".remark-slide-number" = list("display" = "none"),
+    ".strong" = list("font-weight" = "400"),
+    ".big" = list("font-size" = "350%",
+                     "font-family" = "Yanone Kaffeesatz",
+                     "font-weight"="400"),
+    ".small" = list("font-size" = "80%"),
+    ".tiny" = list("font-size" = "50%"),
+    ".large" = list("font-size" = "150%"),
+    ".source" = list("color" = "#8c8c8c",
+                     "font-size" = "80%"),
+    ".remark-slide table td#highlight" = list("background-color" = "#eee1f0",
+                                  "color" = "#900DA4",
+                                  "font-weight" = "500"),
+   # ".remark-slide table thead th" = list(),
+    ".title-slide h1" = list("font-weight" = "500"),
+    ".title-slide h2" = list("font-weight" = "400",
+                             "font-size" =  "170%"),
+    ".title-slide h3" = list("font-family" = "Jost",
+                             "font-size" = "100%",
+                             "font-weight" = "200"),
+    ".center2" = list("margin" = "0",
+                      "position" = "absolute",
+                      "top" = "50%",
+                      "left" = "50%",
+                      "-ms-transform" = "translate(-50%, -50%)",
+                      "transform" = "translate(-50%, -50%)"),
+   ".bottom2" = list("margin" = "0",
+                      "position" = "absolute",
+                      "top" = "90%",
+                      "left" = "10%",
+                      "-ms-transform" = "translate(-10%, -90%)",
+                      "transform" = "translate(-10%, -90%)"),
+    ".section-title h1" = list("color" = "#FFFFFF",
+                               "font-size" = "2.3em",
+                               "line-height" = "1.3"),
+    ".sp-after-half" = list("margin-bottom" = "0.7em !important"),
+    ".box-1,.box-1a,.box-1s,.box-1b,.box-1l,.box-1LA,.section-title-1" = list("background-color" = "#0D0887"),
+    ".box-2,.box-2a,.box-2s,.box-2b,.box-2l,.box-2LA,.section-title-2" = list("background-color" = "#5601A4"),
+    ".box-3,.box-3a,.box-3s,.box-3b,.box-3l,.box-3LA,.section-title-3" = list("background-color" = "#900DA4"),
+    ".box-4,.box-4a,.box-4s,.box-4b,.box-4l,.box-4LA,.section-title-4" = list("background-color" = "#BF3984"),
+    ".box-5,.box-5a,.box-5s,.box-5b,.box-5l,.box-5LA,.section-title-5" = list("background-color" = "#E16462"),
+    ".box-6,.box-6a,.box-6s,.box-6b,.box-6l,.box-6LA,.section-title-6" = list("background-color" = "#F89441"),
+    ".box-7,.box-7a,.box-7s,.box-7b,.box-7l,.box-7LA,.section-title-7" = list("background-color" = "#FCCE25"),
+   
+    ".box-1trans,.box-2trans,.box-3trans,.box-4trans,.box-5trans,.box-6trans,.box-7trans" = list("background-color" = "#FFFFFF",
+                                                                                                 "font-family" = "Yanone Kaffeesatz",
+                                                                                                 "border-radius" = "15px",
+                                                                                                 "margin" = "0em auto",
+                                                                                                 "overflow" = "hidden",
+                                                                                                 "padding" = "0.4em 0.4em",
+                                                                                                 "font-weight" = "600",
+                                                                                                 "font-size" = "31px",
+                                                                                                 "display" = "table",
+                                                                                                 "text-align" = "center",
+                                                                                                 "border-width" = "thick",
+                                                                                                 "color" = "#333f48"),
+   
+       ".box-1Trans,.box-2Trans,.box-3Trans,.box-4Trans,.box-5Trans,.box-6Trans,.box-7Trans" = list("background-color" = "#FFFFFF",
+                                                                                                 "font-family" = "Yanone Kaffeesatz",
+                                                                                                 "border-radius" = "15px",
+                                                                                                 "margin" = "0em auto",
+                                                                                                 "overflow" = "hidden",
+                                                                                                 "padding" = "0.4em 0.4em",
+                                                                                                 "font-weight" = "600",
+                                                                                                 "font-size" = "51px",
+                                                                                                 "display" = "table",
+                                                                                                 "text-align" = "center",
+                                                                                                 "border-width" = "thick",
+                                                                                                 "color" = "#333f48"),
+   
+       ".box-1transl,.box-2transl,.box-3transl,.box-4transl,.box-5transl,.box-6transl,.box-7transl" = list("background-color" = "#FFFFFF",
+                                                                                                           "font-family" = "Yanone Kaffeesatz",
+                                                                                                           "border-radius" = "15px",
+                                                                                                           "left" = "0px",
+                                                                                                           "overflow" = "hidden",
+                                                                                                           "padding" = "0.4em 0.4em",
+                                                                                                           "font-weight" = "600",
+                                                                                                           "font-size" = "31px",
+                                                                                                           "display" = "table",
+                                                                                                           "text-align" = "left",
+                                                                                                           "border-width" = "thick",
+                                                                                                           "color" = "#333f48"),
+   
+   
+    ".box-1trans,.box-1transl,.box-1Trans" = list("border"="5px solid rgba(13, 8, 135,1)"),
+    ".box-2trans,.box-2transl,.box-2Trans" = list("border"="5px solid rgba(86, 1, 164,1)"),
+    ".box-3trans,.box-3transl,.box-3Trans" = list("border"="5px solid rgba(144, 13, 164,1)"),
+    ".box-4trans,.box-4transl,.box-4Trans" = list("border"="5px solid rgba(191, 57, 132,1)"),
+    ".box-5trans,.box-5transl,.box-5Trans" = list("border"="5px solid rgba(225, 100, 98,1)"),
+    ".box-6trans,.box-6transl,.box-6Trans" = list("border"="5px solid rgba(248, 148, 65,1)"),
+    ".box-7trans,.box-7transl,.box-7Trans" = list("border"="5px solid rgba(252, 206, 37,1)"),
+
+   
+   ".box-1t,.box-1tL,.section-title-1t" = list("background-color" = "rgba(13, 8, 135,0.3)",
+                                      "color"="rgba(13, 8, 135,1)",
+                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-2t,.box-2tL,.section-title-2t" = list("background-color" = "rgba(86, 1, 164,0.3)",
+                                       "color" = "rgba(86, 1, 164,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-3t,.box-3tL,.section-title-3t" = list("background-color" = "rgba(144, 13, 164,0.3)",
+                                       "color" = "rgba(144, 13, 164,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-4t,.box-4tL,.section-title-4t" = list("background-color" = "rgba(191, 57, 132,0.3)",
+                                       "color" = "rgba(191, 57, 132,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-5t,.box-5tL,.section-title-5t" = list("background-color" = "rgba(225, 100, 98,0.3)",
+                                       "color" = "rgba(225, 100, 98,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-6t,.box-6tL,.section-title-6t" = list("background-color" = "rgba(248, 148, 65,0.3)",
+                                       "color" = "rgba(248, 148, 65,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-7t,.box-7tL,.section-title-7t" = list("background-color" = "rgba(252, 206, 37,0.3)",
+                                       "color" = "rgba(252, 206, 37,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   
+   ".box-7t, .box-6t, .box-5t, .box-4t, .box-3t, .box-2t, .box-1t" = list("margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "31px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "border-radius" = "15px"),
+   
+   ".box-7tL, .box-6tL, .box-5tL, .box-4tL, .box-3tL, .box-2tL, .box-1tL" = list("margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "50px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "border-radius" = "15px"),
+   
+    ".box-7, .box-6, .box-5, .box-4, .box-3, .box-2, .box-1" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "31px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+    ".box-7a, .box-6a, .box-5a, .box-4a, .box-3a, .box-2a, .box-1a" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.4em 0.4em",
+                                                                      "font-weight" = "600",
+                                                                      "font-size" = "25px",
+                                                                      "display" = "table",
+                                                                      "text-align" = "center",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+   ".box-7s, .box-6s, .box-5s, .box-4s, .box-3s, .box-2s, .box-1s" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.2em 0.2em",
+                                                                      "font-weight" = "400",
+                                                                      "font-size" = "100%",
+                                                                      "display" = "inline",
+                                                                      "text-align" = "center",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+       ".box-7b, .box-6b, .box-5b, .box-4b, .box-3b, .box-2b, .box-1b" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.4em 0.4em",
+                                                                      "font-weight" = "600",
+                                                                      "font-size" = "25px",
+                                                                      "display" = "table",
+                                                                      "text-align" = "left",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+   ".box-7l, .box-6l, .box-5l, .box-4l, .box-3l, .box-2l, .box-1l" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "45px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   ".box-7LA, .box-6LA, .box-5LA, .box-4LA, .box-3LA, .box-2LA, .box-1LA" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "55px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   ".medium" = list("font-size" = "35px"),
+   
+   ".medium30" = list("font-size" = "30px"),
+   
+   ".jost-normal" = list("font-family" = "Jost",
+                         "font-size" = "31px"),
+   
+   ".image-80 img" = list("scale" = "80%"),
+   ".pull-left-little_l" = list("float" = "left",
+                                "width" = "67%"),
+   ".pull-right-little_l" = list("float" = "right",
+                                "width" = "27%"),
+   ".pull-left-little_r" = list("float" = "left",
+                                "width" = "27%"),
+   ".pull-right-little_r" = list("float" = "right",
+                                "width" = "67%")
+
+
+  )
+)
+
+#,"li" = list("font-size" = "150%")
+#    "li" = list("font-size" = "110%"),
+#    "ul" = list("font-size" = "110%"),
+#color palette
+#5601A4
+#900DA4
+#F89441
+#FCCE25
+
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+
+```
+```{css, echo = FALSE}
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+```
+
+```{r setup2, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(showtext)
+library(xaringanExtra)
+
+xaringanExtra::use_scribble()
+
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r fonts, message=FALSE, echo=FALSE, warning=FALSE}
+font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
+font.add.google("Fira Sans", "Fira Sans")
+```
+
+# Bootcamp Agenda
+
+.pull-left[
+- What do we need?
+  - Quick look into **.darkorange[R]** and **.darkorange[RStudio]**
+  - RScript format
+  
+- Refresher from the **.darkorange[tidyverse]**:
+  - Data wrangling
+  - Plots and figures
+  - Regressions
+]
+
+.pull-right[
+.center[
+![:scale 150%](https://media.giphy.com/media/jCL5JbYPYQz96/giphy.gif)]
+]
+
+---
+# How comfortable are you with R?
+
+```{r hist1, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+library(tidyverse)
+library(hrbrthemes)
+library(firasans)
+
+d = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/bootcamp/data/introsurvey_r.csv")
+
+d = d %>% filter(!is.na(How.comfortable.are.you.with.coding.in.R.))
+
+d <- d %>% rename(comfortable_r = How.comfortable.are.you.with.coding.in.R.)
+
+ggplot(data = d, aes(x = factor(comfortable_r,
+                                levels = seq(1,10,1)))) + 
+  geom_bar(color="#900DA4", fill = alpha("#900DA4",0.5), lwd=1.5) +
+  scale_x_discrete(labels = c("1" = "1\nVery\nuncomfortable","2" = "2","3" = "3","4" = "4","5" = "5","6" = "6",
+                              "7" = "7","8" = "8","9" = "9","10" = "10\nSuper\ncomfortable"), drop = FALSE) +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  xlab("") + ylab("Count")+#ggtitle("How comfortable are you with R?")+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+```
+
+---
+# R for coding
+
+.pull-left[
+R is the programming language we will use for **.darkorange[statistical analysis]**
+
+.center[
+![:scale 40%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/R_logo.png)]
+]
+
+--
+
+.pull-right[
+RStudio is the IDE (Integrated Development Environment) we will use **.darkorange[to run R on our computers]**.
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/RStudio-Logo-Flat.png)]
+]
+
+---
+# Let's look at RStudio
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/rstudio_window.png)]
+
+---
+# Let's look at RStudio - Script
+
+.center[
+![:scale 110%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/rstudio_window_script.png)]
+
+---
+# Let's look at RStudio - Environment
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/rstudio_window_environment.png)]
+
+---
+# Let's look at RStudio - Console
+
+.center[
+![:scale 120%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/rstudio_window_console.png)]
+
+---
+# Let's look at RStudio - Help and others
+
+.center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/rstudio_window_help.png)]
+
+---
+# Useful basic commands
+
+- `install.packages("name")`: Installs the package "name" on your computer. You only need to run this once!
+
+--
+
+- `library(name)`: Loads the package "name" on your current session. You should do this at the top of every script and only include packages you will use (to avoid confusion)
+
+--
+
+- `?function`: Opens the help file for `function` (if there is more than one `function` -- e.g. different libraries -- you can choose which one you open).
+
+---
+# Also... don't restore RData into a new session!
+
+.center[
+<video width="640" height="480" controls>
+  <source src="https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/unclick_save_rdata.mp4" type="video/mp4">
+</video>
+]
+---
+background-position: 50% 50%
+class: center, middle
+
+.box-7Trans[Let's go to R]
+
+---
+# Data Wrangling
+
+.pull-left[
+- Most times we need to **.darkorange[transform]**, **.darkorange[clean]**, and **.darkorange[structure]** data for analysis.
+
+- Examples of data wrangling would be dropping missing observations, merging different datasets, identifying outliers, etc.
+
+- **.darkorange[R can help us do that!]
+]
+
+.pull-right[
+.center[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/ah_wrangling.jpg)]
+]
+
+---
+# Into the tidyverse
+
+.pull-left[
+.center[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/pipe.png)]
+]
+
+.pull-right[
+- For data wrangling, we will use the **.darkorange[tidyverse]**: Collection of packages that follow a similar design structure (e.g. dplyr, ggplot2)
+
+- It works through **.darkorange[pipes]**: %>%
+  
+  - Concatenates functions!
+]
+
+---
+# Useful functions for wrangling
+
+--
+
+- `mutate(var = var1 + var2)`: Creates a new variable or replaces an existing one. It takes as an argument the name of the variable and what you want that variable to be.
+
+--
+
+- `filter(var == 1)`: Subsets your data according to a logic statement. Remember that logic statements use "==" instead of "="!
+
+--
+
+- `group_by(var1, var2)`: Used to group observations by values of different variables. You can use it either to create a variable with values at the group level, or to summarize your dataset by group.
+
+--
+
+- `select(var1, var2)`: Select specific variables from the dataset (drop the others). In case you want to drop instead of keeping variables, you can use `select(-var1, -var2)`
+
+--
+
+- `rename(var_new = var_old)`: The name says it all. Used to rename variables.
+
+---
+# Other useful functions
+
+- `is.na(var)`: logic function that returns TRUE if the observation is a missing value (NA) or FALSE in another case.
+
+--
+
+- `ifelse(logic_statement, val1, val2)`: Very useful function to create conditional values.
+
+--
+
+- `!(logic_statement)`: The exclamation point acts as a negation. If you want to invert a logic statement, use this (e.g. `!is.na(var)` will return TRUE if the obs of `var` is NOT missing and FALSE if it's missing).
+
+--
+
+- `table(var)`: Tabulates the different values of a variable
+
+---
+background-position: 50% 50%
+class: center, middle
+
+.box-5Trans[Let's go to R]
+
+---
+# Plotting in R
+
+.pull-left[
+- Plotting your data is a **.darkorange[very intuitive way]** to see what's going on.
+
+- It's also useful to convey **.darkorange[complex analysis]**!
+
+- Make sure your plots are always **.darkorange[informative]** and they **.darkorange[tell the story]** you want to highlight.
+
+]
+
+.pull-right[
+.center[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/ggplot.png)]
+]
+
+---
+# General structure of ggplot
+
+- `ggplot()` works in **.darkorange["layers"]**:
+
+  - You can provide different geometries and "add" them to your plot (same with themes!)
+  
+--
+
+- You always start with `ggplot(data = d, aes(x = var1, y = var2, color = var3))`, depending on what you want to do:
+
+  - `aes()` stands for aesthetics, and it tells which variables you want to use and how. Sometimes you need one variable (e.g. histogram), sometimes you need two (e.g. scatter plot), or even three or more! (e.g. scatter plot for different groups)
+  
+--
+
+- You can provide `aes()` in the `ggplot()` function (as seen above), or also in each geometric layer:
+.center[e.g. `ggplot(data = d) + geom_point(aes(x = var1, y = var2))`]
+  
+---
+# General structure of ggplot
+
+- Some common geometries that are useful:
+
+  - `geom_point()`: Creates a scatter plot
+  - `geom_line()`: Creates a line plot
+  - `geom_histogram()` or `geom_density()`: Creates a histogram or a density plot for your data!
+  - `geom_smooth()`: Creates a smooth function that goes through your data. By default, it uses a loess or gam function, depending on the size of the data. Use `method = "lm"`as an argument if you want to fit a regression line!
+
+--
+
+- Finally, looks are also important!
+
+  - `theme()` allows you to play around with every aspect of your plot (e.g. font size, grid lines, etc.)
+  - Using a pre-packages theme can be useful, too. I personally like `theme_minimal()` or the `theme_ipsum_rc()` from the `hrbrthemes` package.
+
+---
+background-position: 50% 50%
+class: center, middle
+
+.box-2Trans[Let's go to R]
+
+---
+# Regression Analysis
+
+```{r sim, echo = FALSE, warning=FALSE, message = FALSE}
+library(truncnorm)
+library(hrbrthemes)
+library(firasans)
+
+set.seed(100)
+
+n = 100
+
+study = truncnorm::rtruncnorm(n, a = 0, b = 20, mean = 4, sd = 2)
+grade = 80 + study*2.5 + rnorm(n, mean = 0, sd = 4)
+
+df = data.frame(study_hrs_wk = study,
+                grade = grade)
+
+g1 = ggplot(data = df, aes(x = study_hrs_wk, y = grade)) +
+  geom_point(pch = 21, color = "#BF3984", fill = alpha("#BF3984", 0.3), size = 3) +
+  theme_minimal() + theme_ipsum_fsc() + xlab("Study (Hrs/week)") + ylab("Grade (%)") +
+  theme(axis.title.x = element_text(size=18),
+        axis.title.y = element_text(size=18))
+```
+.pull-left[
+- Regressions help us **.darkorange[quantify the relationship]** between different variables.
+
+- In R, we can get **.darkorange[many important insights]** from regression analysis!
+]
+
+.pull-right[
+```{r plot_study, fig.height=5, fig.width=5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+
+g1
+
+```
+]
+
+---
+# Regressions in R
+
+- The main command to do regressions is `lm(y ~ x1 + x2, data = d)`, where `y` is our outcome of interest and `x1` and `x2` are regressors.
+
+--
+
+- For convenience, we can store the regression in a separate object (e.g. `lm1 = lm(y ~ x1 + x2, data = d)`), so we can later manipulate it:
+
+  - `summary(lm1)`: Provides a summary table of the results (including estimates, standard errors, and p-values).
+  - `lm1$coefficients`: Recovers the exact estimated coefficients (e.g. useful if you want to use them later).
+  - `summary(lm1)$coefficients`: Matrix of results. Includes columns for the estimates betas, standard errors, t-stats, and p-values.
+  
+---
+background-position: 50% 50%
+class: center, middle
+
+.box-6Trans[Let's go to R]
+
+---
+# R is useful and fun!
+
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/know_r.png)]
