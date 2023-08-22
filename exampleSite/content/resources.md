@@ -10,8 +10,9 @@
 .resp-container {
     position: relative;
     overflow: hidden;
-    width: 100%;
-    padding-top: 56.25%;
+    width: 50%;
+    heigth: 28.125%;
+/*    padding-top: 56.25%;*/
 }
 
 .testiframe {
