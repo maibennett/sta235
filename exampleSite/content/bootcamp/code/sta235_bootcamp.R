@@ -29,7 +29,7 @@ sales = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/examp
 
 # Exercise 1: Let's explore the data. How many variables and observations do we have? What type of variables do we have?
 
-# Exercise 2: Install the package vtable, load it, and run the code vtable(sales). What do you get? Use the ?vtable to see the options for this function.
+# Exercise 2: Install the package vtable, load it, and run the code sumtable(sales). What do you get? Use the ?sumtable to see the options for this function.
 
 
 
