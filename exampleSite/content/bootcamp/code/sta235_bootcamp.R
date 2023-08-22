@@ -23,6 +23,10 @@ library(tidyverse) #includes dplyr and ggplot2!
 # Load data (this is loading data directly from Github)
 sales = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/bootcamp/data/US_Regional_Sales_Data.csv")
 
+## Inspecting your data
 
+# Exercise 1: Let's explore the data. How many variables and observations do we have? What type of variables do we have?
+
+# Exercise 2: Install the package vtable and run the code vtable(sales). What do you get? Use the ?vtable to see the options for this function.
 
 
