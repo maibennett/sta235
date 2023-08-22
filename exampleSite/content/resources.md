@@ -4,34 +4,11 @@
 
 ### STA 235H Bootcamp
 
-{{% button href="https://sta235.com/bootcamp/f2023_sta235h_bootcamp.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.com/bootcamp/f2023_sta235h_bootcamp.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
-
-<style>
-.resp-container {
-    position: relative;
-    overflow: hidden;
-    width: 50%;
-    heigth: 28.125%;
-/*    padding-top: 56.25%;*/
-}
-
-.testiframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-}
-</style>
-
-<div class="resp-container">
-    <iframe class="testiframe" src="https://sta235.com/bootcamp/f2023_sta235h_bootcamp.html">
-      Oops! Your browser doesn't support this.
-    </iframe>
-</div>
+{{% button href="https://sta235.com/bootcamp/f2023_sta235h_bootcamp.html" icon="fas fa-external-link-alt" icon-position="right" %}}HTML slides{{% /button %}} {{% button href="https://sta235.com/bootcamp/f2023_sta235h_bootcamp.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
 Here is the R code we will review in the bootcamp <a onclick="ga('send', 'event', 'External-Link','click','bootcamp','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/bootcamp/code/sta235_bootcamp.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+
+<!-- Answers: <a onclick="ga('send', 'event', 'External-Link','click','bootcamp_answers','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/bootcamp/code/sta235_bootcamp_answers.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> -->
 
 ### Refresher from STA 301
 
