@@ -17,8 +17,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 50%;
+    height: 50%;
     border: 0;
 }
 </style>
@@ -28,6 +28,8 @@
       Oops! Your browser doesn't support this.
     </iframe>
 </div>
+
+Here is the R code we will review in the bootcamp <a onclick="ga('send', 'event', 'External-Link','click','bootcamp','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/bootcamp/code/sta235_bootcamp.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
 ### Refresher from STA 301
 
