@@ -83,3 +83,20 @@ gapminder = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/e
 
 # Exercise 3: Include now continent in the previous regression. Do your results change? How does it look when you include a factor variable in a regression?
 
+
+
+## Bringing everything together
+
+# Exercise 1: Create a new variable called gdpPercap_log, which is the logarithm of the GDP per capita. Now plot life expectancy against the log(GDP per capita),
+## and describe the relationship.
+
+
+# Exercise 2: Using the same plot as before, now color the points by continent and make the size proportional by population (in millions).
+
+
+# Exercise 3: Do the same thing as before (exercise 2), but only for Europe!
+
+
+# Exercise 4: Finally, run a regression that helps you estimate the association between life expectancy and GDP per capita, conditional on population, 
+## for the year 2007 and then, another regression for the year 1982.
+

@@ -120,3 +120,37 @@ summary(lm1)
 lm2 = lm(lifeExp ~ gdpPercap + pop + continent, data = gapminder)
 
 summary(lm2)
+
+
+
+## Bringing everything together
+
+# Exercise 1: Create a new variable called gdpPercap_log, which is the logarithm of the GDP per capita. Now plot life expectancy against the log(GDP per capita),
+## and describe the relationship.
+
+gapminder = gapminder %>% mutate(gdpPercap_log = log(gdpPercap))
+
+ggplot(data = gapminder, aes(x = gdpPercap_log, y = lifeExp)) +
+  geom_point() + theme_minimal()
+
+# Exercise 2: Using the same plot as before, now color the points by continent and make the size proportional by population (in millions).
+
+ggplot(data = gapminder, aes(x = gdpPercap_log, y = lifeExp, size = pop, color = continent)) +
+  geom_point() + theme_minimal()
+
+# Exercise 3: Do the same thing as before (exercise 2), but only for Europe!
+
+gapminder %>% filter(continent == "Europe") %>% 
+  ggplot(data = ., aes(x = gdpPercap_log, y = lifeExp, size = pop)) +
+  geom_point() + theme_minimal()
+
+# Exercise 4: Finally, run a regression that helps you estimate the association between life expectancy and GDP per capita, conditional on population, 
+## for the year 2007 and then, another regression for the year 1982.
+
+lm3 = gapminder %>% filter(year == 2007) %>% lm(lifeExp ~ gdpPercap + pop, data = .)
+
+summary(lm3)
+
+lm4 = gapminder %>% filter(year == 1982) %>% lm(lifeExp ~ gdpPercap + pop, data = .)
+
+summary(lm4)

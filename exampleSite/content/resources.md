@@ -2,6 +2,33 @@
 ---
 # Resources
 
+### STA 235H Bootcamp
+
+{{% button href="https://sta235.com/bootcamp/f2023_sta235h_bootcamp.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.com/bootcamp/f2023_sta235h_bootcamp.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+
+<style>
+.resp-container {
+    position: relative;
+    overflow: hidden;
+    padding-top: 56.25%;
+}
+
+.testiframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+</style>
+
+<div class="resp-container">
+    <iframe class="testiframe" src="https://sta235.com/bootcamp/f2023_sta235h_bootcamp.html">
+      Oops! Your browser doesn't support this.
+    </iframe>
+</div>
+
 ### Refresher from STA 301
 
 In these notes, you can get a refresher from the material covered in STA 301:
