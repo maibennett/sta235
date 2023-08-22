@@ -353,6 +353,41 @@ font.add.google("Fira Sans", "Fira Sans")
 ---
 # How comfortable are you with R?
 
+```{r hist1, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+library(tidyverse)
+library(hrbrthemes)
+library(firasans)
+
+d = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/bootcamp/data/introsurvey_r.csv")
+
+d = d %>% filter(!is.na(How.comfortable.are.you.with.coding.in.R.))
+
+d <- d %>% rename(comfortable_r = How.comfortable.are.you.with.coding.in.R.)
+
+ggplot(data = d, aes(x = factor(comfortable_r,
+                                levels = seq(1,10,1)))) + 
+  geom_bar(color="#900DA4", fill = alpha("#900DA4",0.5), lwd=1.5) +
+  scale_x_discrete(labels = c("1" = "1\nVery\nuncomfortable","2" = "2","3" = "3","4" = "4","5" = "5","6" = "6",
+                              "7" = "7","8" = "8","9" = "9","10" = "10\nSuper\ncomfortable"), drop = FALSE) +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  xlab("") + ylab("Count")+#ggtitle("How comfortable are you with R?")+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_blank(),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+```
 
 ---
 # R for coding
