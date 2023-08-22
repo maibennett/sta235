@@ -351,6 +351,10 @@ font.add.google("Fira Sans", "Fira Sans")
 ]
 
 ---
+# How comfortable are you with R?
+
+
+---
 # R for coding
 
 .pull-left[
