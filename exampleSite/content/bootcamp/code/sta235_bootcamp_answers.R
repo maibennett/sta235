@@ -27,7 +27,17 @@ sales = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/examp
 
 # Exercise 1: Let's explore the data. How many variables and observations do we have? What type of variables do we have?
 
-# Exercise 2: Install the package vtable and run the code vtable(sales). What do you get? Use the ?vtable to see the options for this function.
+## We can see in the environment pane that we have 7991 obs and 16 variables. Most of them are character variables (chr), but some are numeric (int and num).
+
+# Exercise 2: Install the package vtable, load it, and run the code vtable(sales). What do you get? Use the ?vtable to see the options for this function.
+
+#install.packages(vtable)
+library(vtable)
+
+?vtable
+
+vtable(sales)
+
 
 
 ## Data wrangling

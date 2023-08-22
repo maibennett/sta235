@@ -439,3 +439,55 @@ class: center, middle
 .center[
 ![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/ah_wrangling.jpg)]
 ]
+
+---
+# Into the tidyverse
+
+.pull-left[
+.center[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/pipe.png)]
+]
+
+.pull-right[
+- For data wrangling, we will use the **.darkorange[tidyverse]**: Collection of packages that follow a similar design structure (e.g. dplyr, ggplot2)
+
+- It works through **.darkorange[pipes]**: %>%
+  
+  - Concatenates functions!
+]
+
+---
+# Useful functions for wrangling
+
+- `mutate(var = var1 + var2)`: Creates a new variable or replaces an existing one. It takes as an argument the name of the variable and what you want that variable to be.
+
+--
+
+- `filter(var == 1)`: Subsets your data according to a logic statement. Remember that logic statements use "==" instead of "="!
+
+--
+
+- `group_by(var1, var2)`: Used to group observations by values of different variables. You can use it either to create a variable with values at the group level, or to summarize your dataset by group.
+
+--
+
+- `rename(var_new = var_old)`: The name says it all. Used to rename variables.
+
+---
+# Other useful functions
+
+- `is.na(var)`: logic function that returns TRUE if the observation is a missing value (NA) or FALSE in another case.
+
+--
+
+- `ifelse(logic_statement, val1, val2)`: Very useful function to create conditional values.
+
+--
+
+- `!(logic_statement)`: The exclamation point acts as a negation. If you want to invert a logic statement, use this (e.g. `!is.na(var)` will return TRUE if the obs of `var` is NOT missing and FALSE if it's missing).
+
+---
+background-position: 50% 50%
+class: center, middle
+
+.box-5Trans[Let's go to R]
