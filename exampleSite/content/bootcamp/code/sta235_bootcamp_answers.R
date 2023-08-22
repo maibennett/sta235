@@ -31,14 +31,14 @@ sales = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/examp
 
 ## We can see in the environment pane that we have 7991 obs and 16 variables. Most of them are character variables (chr), but some are numeric (int and num).
 
-# Exercise 2: Install the package vtable, load it, and run the code vtable(sales). What do you get? Use the ?vtable to see the options for this function.
+# Exercise 2: Install the package vtable, load it, and run the code sumtable(sales). What do you get? Use the ?vtable to see the options for this function.
 
 #install.packages(vtable)
 library(vtable)
 
-?vtable
+?sumtable
 
-vtable(sales)
+sumtable(sales)
 
 
 
