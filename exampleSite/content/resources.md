@@ -8,7 +8,7 @@
 
 Here is the R code we will review in the bootcamp <a onclick="ga('send', 'event', 'External-Link','click','bootcamp','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/bootcamp/code/sta235_bootcamp.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
-<!-- Answers: <a onclick="ga('send', 'event', 'External-Link','click','bootcamp_answers','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/bootcamp/code/sta235_bootcamp_answers.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> -->
+Answers: <a onclick="ga('send', 'event', 'External-Link','click','bootcamp_answers','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/bootcamp/code/sta235_bootcamp_answers.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
 ### Refresher from STA 301
 
