@@ -385,7 +385,7 @@ RStudio is the IDE (Integrated Development Environment) we will use **.darkorang
 # Let's look at RStudio - Environment
 
 .center[
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/rstudio_window_environment.png)]
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/rstudio_window_environment.png)]
 
 ---
 # Let's look at RStudio - Console
@@ -397,7 +397,7 @@ RStudio is the IDE (Integrated Development Environment) we will use **.darkorang
 # Let's look at RStudio - Help and others
 
 .center[
-![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/rstudio_window_help.png)]
+![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/rstudio_window_help.png)]
 
 ---
 # Useful basic commands
@@ -411,3 +411,31 @@ RStudio is the IDE (Integrated Development Environment) we will use **.darkorang
 --
 
 - `?function`: Opens the help file for `function` (if there is more than one `function` -- e.g. different libraries -- you can choose which one you open).
+
+---
+# Also... don't restore RData into a new session!
+
+.center[
+<video width="640" height="480" controls>
+  <source src="https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/unclick_save_rdata.mp4" type="video/mp4">
+</video>
+]
+---
+background-position: 50% 50%
+class: center, middle
+
+.box-7Trans[Let's go to R]
+
+---
+# Data Wrangling
+
+.pull-left[
+- Most times we need to **.darkorange[transform]** and **.darkorange[structure]** data for analysis.
+
+- R can help us do that!
+]
+
+.pull-right[
+.center[
+![](https://github.com/maibennett/sta235/raw/main/exampleSite/content/bootcamp/images/ah_wrangling.jpg)]
+]
