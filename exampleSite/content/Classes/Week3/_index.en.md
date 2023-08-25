@@ -18,7 +18,12 @@ In this session, we will discuss potential issues with regressions, such as outl
 
 - Frost, J. (2019). ["5 Ways to Find Outliers in Your Data"](https://statisticsbyjim.com/basics/outliers/) *Note: You can skip the "Finding outliers with hypothesis tests" section*
 
+- StatQuest. (2018). "Logistic Regression". *Note: Start at the 3:09 mark* (**Important: A logistic regression is NOT the same as a regression with a log(Y) outcome, as seen on the previous class**)
+
+{{< youtube src="https://www.youtube.com/embed/yIYKR4sgzI8?si=u7xZPElh8OqSa0mg&amp;start=189" >}}
+
 - Grace-Martin, K. (2018). [“Why logistic regression for binary responses?"](https://www.theanalysisfactor.com/why-logistic-regression-for-binary-response/)
+
 
 - Bellemare, M. (2013) [“A Rant on Estimation with Binary Dependent Variables (Technical)"](http://marcfbellemare.com/wordpress/8951)
 

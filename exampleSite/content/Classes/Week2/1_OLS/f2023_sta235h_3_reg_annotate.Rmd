@@ -343,7 +343,7 @@ font.add.google("Fira Sans", "Fira Sans")
   
 --
 
-- If you are struggling with material covered in STA 301H: **.darkorange[Check the course website for resources and come to Office Hours]**
+- If you are struggling with material covered in STA 301H: **.darkorange[Check the course website for resources and come to Office Hours]**.
 
 --
 
@@ -388,22 +388,6 @@ font.add.google("Fira Sans", "Fira Sans")
 ---
 # Is it convenient for my movie to pass the Bechdel test?
 
-- I'm a profit-maximizing investor and want to know whether it's in my best interest to switch a male for a female character.
-
---
-
-$$AdjRevenue = \beta_0 + \beta_1 Bechdel + \beta_3AdjBudget + \beta_4IMDB + \beta_5 MetaScore + \varepsilon$$
-
---
-
-.box-6.Trans[How did we interpret the relevant coefficient?]
-
---
-
-.box-6[Remember the key words!]
----
-# Let's also do a quick review of R output
-
 ```{r results='hide', message=FALSE,echo=FALSE, warning=FALSE}
 library(tidyverse)
 
@@ -425,11 +409,44 @@ round(summary(lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRatin
 
 ```
 
+.box-7trans[What does each column represent?]
+
+
+---
+# Is it convenient for my movie to pass the Bechdel test?
+
+```{r results='hide', message=FALSE,echo=FALSE, warning=FALSE}
+library(tidyverse)
+
+rawData <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/data/bechdel.csv")
+
+# Select movies post 1990
+bechdel <- rawData %>% filter(Year>1989)
+
+# Passes Bechdel test:
+bechdel <- bechdel %>% mutate(bechdel_test = ifelse(rating==3, 1, 0),
+                              Adj_Revenue = Adj_Revenue/10^6,
+                              Adj_Budget = Adj_Budget/10^6)
+```
+```{r bechdel1ab, results = FALSE}
+lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechdel)
+```
+```{r bechdel1rab,echo=FALSE}
+round(summary(lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechdel))$coeff, 4)
+
+```
+
 - **.darkorange["Estimate"]**: Point estimates of our paramters $\beta$. We call them $\hat{\beta}$.
+
+--
 
 - **.darkorange["Standard Error"]** (SE): You can think about it as the variability of $\hat{\beta}$. The smaller, the more precise $\hat{\beta}$ is!
 
+--
+
 - **.darkorange["t-value"]**: A value of the Student distribution that measures how many SE away $\hat{\beta}$ is from 0. You can calculate it as $tval = \frac{\hat{\beta}}{SE}$. It relates to our null-hypothesis $H_0: \beta=0$.
+
+--
 
 - **.darkorange["p-value"]**: Probability of rejecting the null hypothesis and being *wrong* (Type I error). You want this to be a small as possible (statistically significant).
 
@@ -455,7 +472,7 @@ We are testing $H_0: \beta = 0$ vs $H_1: \beta \neq 0$
 ---
 # Reminder: Null-Hypothesis
 
-Reject the null if the estimate falls **outside** the dashed lines.
+Reject the null if the t-value falls **outside** the dashed lines.
 
 
 .center[
@@ -569,32 +586,6 @@ names(cars)
 ]
 
 .source[Data source: "Modern Business Analytics" (Taddy, Hendrix, & Harding, 2018)]
-
----
-# Let's run a model
-
---
-.small[
-```{r, echo = FALSE, warning = FALSE, message= FALSE}
-luxury_brands <- c("Audi", "BMW", "Cadillac", "Ferrari", "Jaguar", "Lamborghini", "Land Rover", "Lexus",
-                   "Maserati", "Mercedes-Benz", "Porsche", "Rolls-Royce", "Tesla", "Volvo")
-
-cars <- cars %>% filter(type != "new" & mileage >= 10000 & mileage <= 150000 & price < 100000 & year >= 1970) %>%
-  mutate(luxury = ifelse(make %in% luxury_brands, 1, 0),
-         price = price/1000,
-         mileage = mileage/1000,
-         year = year - 1970)
-
-```
-```{r}
-lm1 <- lm(price ~ year + mileage + rating, data = cars)
-summary(lm1)
-```
-]
-
---
-
-- What does the **.darkorange[intercept]** tell us in this case? Is it meaningful?
 
 ---
 # Luxury vs. non-luxury cars?
@@ -801,27 +792,31 @@ We want to compare the outcome for a regression with $X = x$ and $X = x+1$
 
 --
 
-.medium30[$$\log(y_0) = \hat{\beta}_0 + \hat{\beta}_1 x$$]
+.medium30[$$\log(y_0) = \hat{\beta}_0 + \hat{\beta}_1 x \ \ \ \ \ \ (1)$$]
 
 and
 
-.medium30[$$\log(y_1) = \hat{\beta}_0 + \hat{\beta}_1 (x+1)$$]
+.medium30[$$\log(y_1) = \hat{\beta}_0 + \hat{\beta}_1 (x+1) \ \ \ \ \ \ (2)$$]
+
+--
+
+- Let's subtract (2) - (1)!
 
 ---
 # A side note on log-transformed variables...
 
-.medium30[$$\log(Y) = \hat{\beta}_0 + \hat{\beta}_1 X$$]
-
 .medium30[$$\log(y_{1}) - \log(y_0) = \hat{\beta}_0 + \hat{\beta}_1(x+1) - (\hat{\beta}_0 + \hat{\beta}_1 x)$$]
 
+--
+
 .medium30[$$\log(\frac{y_{1}}{y_0}) = \hat{\beta}_1$$]
+
+--
 
 .medium30[$$\log(1+\frac{y_1-y_0}{y_0}) = \hat{\beta}_1$$]
 
 ---
 # A side note on log-transformed variables...
-
-.medium30[$$\log(Y) = \hat{\beta}_0 + \hat{\beta}_1 X$$]
 
 .medium30[$$\log(y_{1}) - \log(y_0) = \hat{\beta}_0 + \hat{\beta}_1(x+1) - (\hat{\beta}_0 + \hat{\beta}_1 x)$$]
 
@@ -844,22 +839,6 @@ $$\log(Price) = \beta_0 + \beta_1 Rating + \beta_2 Miles + \beta_3 Luxury + \bet
 --
 
 - For an additional 1,000 miles, the price increases/decreases, on average, by $(e^{\hat{\beta}}-1)\cdot 100$%, holding other variables constant.
-
----
-# How would we interpret coefficients now?
-
-- There are also approximations that can be useful!
-
-|**Model**|**Interpretation of $\beta$**|
-|:-----:|:-----:|
-|Level-Level regression<br> $y = \alpha + \beta x$ | $\Delta y = \beta\Delta x$ |
-|Log-Level regression<br> $\log(y) = \alpha + \beta x$ | $\%\Delta y = 100\cdot\beta\Delta x$ |
-|Level-Log regression<br> $y = \alpha + \beta \log(x)$ | $\Delta y = \frac{\beta}{100}\% \Delta x$ |
-|Log-Log regression<br> $\log(y) = \alpha + \beta \log(x)$ | $\%\Delta y = \beta\%\Delta x$ |
-
---
-
-- What would be the interpretation for the Mileage coefficient using these approximations?
 
 ---
 # Adding polynomial terms
@@ -1215,9 +1194,8 @@ What is the association between experience and wages?
 ]
 
 .pull-right[
-<br>
 .center[
-![](https://media.giphy.com/media/l0MYBJzJ7elsmG1K8/giphy.gif)]
+![:scale 120%](https://media.giphy.com/media/l0MYBJzJ7elsmG1K8/giphy.gif)]
 
 ]
 
@@ -1225,23 +1203,22 @@ What is the association between experience and wages?
 # Next week
 
 .pull-left[
+
+.center[
+![](https://media.giphy.com/media/5eeeE80SrmPeEE43tJ/giphy.gif)]
+]
+
+.pull-right[
 - Issues with regressions and our data:
 
   - Outliers?
   
-  - Multicollinearity & Heteroskedasticity
+  - Heteroskedasticity
 
 - Regression models with discrete outcomes:
 
   - Probability linear models
-  
-  - Logistic regression
-]
 
-.pull-right[
-<br>
-.center[
-![](https://media.giphy.com/media/jCL5JbYPYQz96/giphy.gif)]
 ]
 
 ---

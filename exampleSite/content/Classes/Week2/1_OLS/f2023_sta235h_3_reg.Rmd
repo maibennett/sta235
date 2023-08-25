@@ -1,0 +1,1228 @@
+---
+title: "STA 235H - Multiple Regression: Interactions & Nonlinearity"
+subtitle: "Fall 2023"
+author: "McCombs School of Business, UT Austin"
+output:
+  xaringan::moon_reader:
+    css: [xaringan-themer.css]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: ["macros.js"]
+    includes:
+      in_header: ["header.html"]
+---
+
+<!-- <script type="text/javascript"> -->
+<!-- MathJax.Hub.Config({ -->
+<!--   "HTML-CSS": { -->
+<!--     preferredFont: null, -->
+<!--     webFont:  "Neo-Euler" -->
+<!--   } -->
+<!-- }); -->
+<!-- </script> -->
+
+```{r setup, include=FALSE, warning=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.showtext = TRUE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE, message=FALSE}
+library(xaringanthemer)
+
+theme_xaringan(
+  text_color = "#333f48",
+  background_color = "#FFFFFF",
+  accent_color = "#900DA4",
+  text_font = "Fira Mono",
+  text_font_use_google = TRUE,
+  title_font = "Yanone Kaffeesatz",
+  title_font_use_google = TRUE
+)
+
+style_mono_accent(
+  #base_color = "#bf5700",
+  extra_fonts = list(google_font("Fira Sans","200","300","400","500","600"),
+                     google_font("Fira Sans Condensed","200","300","400","500","600")),
+  base_color = "#333f48",
+  header_font_google = google_font("Yanone Kaffeesatz","200","300","400","500","600","700"),
+  text_font_google   = google_font("Jost"),
+  code_font_google   = google_font("Fira Mono"),
+  text_bold_color = "#333f48",
+  text_font_size = "115%",
+  colors = c(
+    lightgrey = "#C0C0C0",
+    red = "#f34213",
+    purple = "#900DA4",
+    darkpurple = "#61077a",
+    darkorange = "#db5f12",
+    orange = "#ff8811",
+    green = "#136f63",
+    white = "#FFFFFF"),
+  extra_css = list(
+    ".remark-slide table" = list("display" = "table",
+                   "width" = "80%",
+                   "text-align" = "left"),
+    ".remark-slide-number" = list("display" = "none"),
+    ".strong" = list("font-weight" = "400"),
+    ".big" = list("font-size" = "350%",
+                     "font-family" = "Yanone Kaffeesatz",
+                     "font-weight"="400"),
+    ".small" = list("font-size" = "80%"),
+    ".tiny" = list("font-size" = "50%"),
+    ".large" = list("font-size" = "150%"),
+    ".source" = list("color" = "#8c8c8c",
+                     "font-size" = "80%"),
+    ".remark-slide table td#highlight" = list("background-color" = "#eee1f0",
+                                  "color" = "#900DA4",
+                                  "font-weight" = "500"),
+   # ".remark-slide table thead th" = list(),
+    ".title-slide h1" = list("font-weight" = "500"),
+    ".title-slide h2" = list("font-weight" = "400",
+                             "font-size" =  "170%"),
+    ".title-slide h3" = list("font-family" = "Jost",
+                             "font-size" = "100%",
+                             "font-weight" = "200"),
+    ".center2" = list("margin" = "0",
+                      "position" = "absolute",
+                      "top" = "50%",
+                      "left" = "50%",
+                      "-ms-transform" = "translate(-50%, -50%)",
+                      "transform" = "translate(-50%, -50%)"),
+   ".bottom2" = list("margin" = "0",
+                      "position" = "absolute",
+                      "top" = "90%",
+                      "left" = "10%",
+                      "-ms-transform" = "translate(-10%, -90%)",
+                      "transform" = "translate(-10%, -90%)"),
+    ".section-title h1" = list("color" = "#FFFFFF",
+                               "font-size" = "2.3em",
+                               "line-height" = "1.3"),
+    ".sp-after-half" = list("margin-bottom" = "0.7em !important"),
+    ".box-1,.box-1a,.box-1s,.box-1b,.box-1l,.box-1LA,.section-title-1" = list("background-color" = "#0D0887"),
+    ".box-2,.box-2a,.box-2s,.box-2b,.box-2l,.box-2LA,.section-title-2" = list("background-color" = "#5601A4"),
+    ".box-3,.box-3a,.box-3s,.box-3b,.box-3l,.box-3LA,.section-title-3" = list("background-color" = "#900DA4"),
+    ".box-4,.box-4a,.box-4s,.box-4b,.box-4l,.box-4LA,.section-title-4" = list("background-color" = "#BF3984"),
+    ".box-5,.box-5a,.box-5s,.box-5b,.box-5l,.box-5LA,.section-title-5" = list("background-color" = "#E16462"),
+    ".box-6,.box-6a,.box-6s,.box-6b,.box-6l,.box-6LA,.section-title-6" = list("background-color" = "#F89441"),
+    ".box-7,.box-7a,.box-7s,.box-7b,.box-7l,.box-7LA,.section-title-7" = list("background-color" = "#FCCE25"),
+   
+    ".box-1trans,.box-2trans,.box-3trans,.box-4trans,.box-5trans,.box-6trans,.box-7trans" = list("background-color" = "#FFFFFF",
+                                                                                                 "font-family" = "Yanone Kaffeesatz",
+                                                                                                 "border-radius" = "15px",
+                                                                                                 "margin" = "0em auto",
+                                                                                                 "overflow" = "hidden",
+                                                                                                 "padding" = "0.4em 0.4em",
+                                                                                                 "font-weight" = "600",
+                                                                                                 "font-size" = "31px",
+                                                                                                 "display" = "table",
+                                                                                                 "text-align" = "center",
+                                                                                                 "border-width" = "thick",
+                                                                                                 "color" = "#333f48"),
+   
+       ".box-1Trans,.box-2Trans,.box-3Trans,.box-4Trans,.box-5Trans,.box-6Trans,.box-7Trans" = list("background-color" = "#FFFFFF",
+                                                                                                 "font-family" = "Yanone Kaffeesatz",
+                                                                                                 "border-radius" = "15px",
+                                                                                                 "margin" = "0em auto",
+                                                                                                 "overflow" = "hidden",
+                                                                                                 "padding" = "0.4em 0.4em",
+                                                                                                 "font-weight" = "600",
+                                                                                                 "font-size" = "51px",
+                                                                                                 "display" = "table",
+                                                                                                 "text-align" = "center",
+                                                                                                 "border-width" = "thick",
+                                                                                                 "color" = "#333f48"),
+   
+       ".box-1transl,.box-2transl,.box-3transl,.box-4transl,.box-5transl,.box-6transl,.box-7transl" = list("background-color" = "#FFFFFF",
+                                                                                                           "font-family" = "Yanone Kaffeesatz",
+                                                                                                           "border-radius" = "15px",
+                                                                                                           "left" = "0px",
+                                                                                                           "overflow" = "hidden",
+                                                                                                           "padding" = "0.4em 0.4em",
+                                                                                                           "font-weight" = "600",
+                                                                                                           "font-size" = "31px",
+                                                                                                           "display" = "table",
+                                                                                                           "text-align" = "left",
+                                                                                                           "border-width" = "thick",
+                                                                                                           "color" = "#333f48"),
+   
+   
+    ".box-1trans,.box-1transl,.box-1Trans" = list("border"="5px solid rgba(13, 8, 135,1)"),
+    ".box-2trans,.box-2transl,.box-2Trans" = list("border"="5px solid rgba(86, 1, 164,1)"),
+    ".box-3trans,.box-3transl,.box-3Trans" = list("border"="5px solid rgba(144, 13, 164,1)"),
+    ".box-4trans,.box-4transl,.box-4Trans" = list("border"="5px solid rgba(191, 57, 132,1)"),
+    ".box-5trans,.box-5transl,.box-5Trans" = list("border"="5px solid rgba(225, 100, 98,1)"),
+    ".box-6trans,.box-6transl,.box-6Trans" = list("border"="5px solid rgba(248, 148, 65,1)"),
+    ".box-7trans,.box-7transl,.box-7Trans" = list("border"="5px solid rgba(252, 206, 37,1)"),
+
+   
+   ".box-1t,.box-1tL,.section-title-1t" = list("background-color" = "rgba(13, 8, 135,0.3)",
+                                      "color"="rgba(13, 8, 135,1)",
+                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-2t,.box-2tL,.section-title-2t" = list("background-color" = "rgba(86, 1, 164,0.3)",
+                                       "color" = "rgba(86, 1, 164,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-3t,.box-3tL,.section-title-3t" = list("background-color" = "rgba(144, 13, 164,0.3)",
+                                       "color" = "rgba(144, 13, 164,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-4t,.box-4tL,.section-title-4t" = list("background-color" = "rgba(191, 57, 132,0.3)",
+                                       "color" = "rgba(191, 57, 132,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-5t,.box-5tL,.section-title-5t" = list("background-color" = "rgba(225, 100, 98,0.3)",
+                                       "color" = "rgba(225, 100, 98,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-6t,.box-6tL,.section-title-6t" = list("background-color" = "rgba(248, 148, 65,0.3)",
+                                       "color" = "rgba(248, 148, 65,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-7t,.box-7tL,.section-title-7t" = list("background-color" = "rgba(252, 206, 37,0.3)",
+                                       "color" = "rgba(252, 206, 37,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   
+   ".box-7t, .box-6t, .box-5t, .box-4t, .box-3t, .box-2t, .box-1t" = list("margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "31px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "border-radius" = "15px"),
+   
+   ".box-7tL, .box-6tL, .box-5tL, .box-4tL, .box-3tL, .box-2tL, .box-1tL" = list("margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "50px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "border-radius" = "15px"),
+   
+    ".box-7, .box-6, .box-5, .box-4, .box-3, .box-2, .box-1" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "31px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+    ".box-7a, .box-6a, .box-5a, .box-4a, .box-3a, .box-2a, .box-1a" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.4em 0.4em",
+                                                                      "font-weight" = "600",
+                                                                      "font-size" = "25px",
+                                                                      "display" = "table",
+                                                                      "text-align" = "center",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+   ".box-7s, .box-6s, .box-5s, .box-4s, .box-3s, .box-2s, .box-1s" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.2em 0.2em",
+                                                                      "font-weight" = "400",
+                                                                      "font-size" = "100%",
+                                                                      "display" = "inline",
+                                                                      "text-align" = "center",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+       ".box-7b, .box-6b, .box-5b, .box-4b, .box-3b, .box-2b, .box-1b" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.4em 0.4em",
+                                                                      "font-weight" = "600",
+                                                                      "font-size" = "25px",
+                                                                      "display" = "table",
+                                                                      "text-align" = "left",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+   ".box-7l, .box-6l, .box-5l, .box-4l, .box-3l, .box-2l, .box-1l" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "45px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   ".box-7LA, .box-6LA, .box-5LA, .box-4LA, .box-3LA, .box-2LA, .box-1LA" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "55px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   ".medium" = list("font-size" = "35px"),
+   
+   ".medium30" = list("font-size" = "30px"),
+   
+   ".jost-normal" = list("font-family" = "Jost",
+                         "font-size" = "31px"),
+   
+   ".image-80 img" = list("scale" = "80%"),
+   ".pull-left-little_l" = list("float" = "left",
+                                "width" = "67%"),
+   ".pull-right-little_l" = list("float" = "right",
+                                "width" = "27%"),
+   ".pull-left-little_r" = list("float" = "left",
+                                "width" = "27%"),
+   ".pull-right-little_r" = list("float" = "right",
+                                "width" = "67%")
+
+
+  )
+)
+
+#,"li" = list("font-size" = "150%")
+#    "li" = list("font-size" = "110%"),
+#    "ul" = list("font-size" = "110%"),
+#color palette
+#5601A4
+#900DA4
+#F89441
+#FCCE25
+
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+
+```
+```{css, echo = FALSE}
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+```
+
+```{r setup2, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(showtext)
+library(xaringanExtra)
+
+#xaringanExtra::use_scribble()
+
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r fonts, message=FALSE, echo=FALSE, warning=FALSE}
+font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
+font.add.google("Fira Sans", "Fira Sans")
+```
+
+
+# Before we start...
+
+- Use the **.darkorange[knowledge check]** portion of the JITT to assess your own understanding:
+
+  - Be sure to answer the question correctly (look at the feedback provided)
+  
+  - Feedback are **.darkorange[guidelines]**; Try to use your *own words*.
+  
+--
+
+- If you are struggling with material covered in STA 301H: **.darkorange[Check the course website for resources and come to Office Hours]**.
+
+--
+
+.box-4trans[No in-person class next week -- Recorded class]
+
+---
+# Today
+
+.pull-left[
+- Quick **.darkorange[multiple regression]** review:
+  - Interpreting coefficients
+  - Interaction models
+  
+- **.darkorange[Looking at your data:]**
+  - Distributions
+  
+- **.darkorange[Nonlinear models:]**
+  - Logarithmic outcomes
+  - Polynomial terms
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/htpqWaJTwL8nkW7sV5/giphy.gif?cid=ecf05e473yn7ils7vegujkfd3syebu5k2ongn1mbbve9y59b&rid=giphy.gif&ct=g)]
+]
+
+---
+# Remember last week's example? The Bechdel Test
+
+.pull-left[
+- **.darkorange[Three criteria:]**
+
+  1. At least two named women
+  2. Who talk to each other
+  3. About something besides a man
+]
+.pull-right[
+.center[
+![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/bechdel.png)]
+]
+
+---
+# Is it convenient for my movie to pass the Bechdel test?
+
+```{r results='hide', message=FALSE,echo=FALSE, warning=FALSE}
+library(tidyverse)
+
+rawData <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/data/bechdel.csv")
+
+# Select movies post 1990
+bechdel <- rawData %>% filter(Year>1989)
+
+# Passes Bechdel test:
+bechdel <- bechdel %>% mutate(bechdel_test = ifelse(rating==3, 1, 0),
+                              Adj_Revenue = Adj_Revenue/10^6,
+                              Adj_Budget = Adj_Budget/10^6)
+```
+```{r bechdel1a, results = FALSE}
+lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechdel)
+```
+```{r bechdel1ra,echo=FALSE}
+round(summary(lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechdel))$coeff, 4)
+
+```
+
+.box-7trans[What does each column represent?]
+
+
+---
+# Is it convenient for my movie to pass the Bechdel test?
+
+```{r results='hide', message=FALSE,echo=FALSE, warning=FALSE}
+library(tidyverse)
+
+rawData <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/data/bechdel.csv")
+
+# Select movies post 1990
+bechdel <- rawData %>% filter(Year>1989)
+
+# Passes Bechdel test:
+bechdel <- bechdel %>% mutate(bechdel_test = ifelse(rating==3, 1, 0),
+                              Adj_Revenue = Adj_Revenue/10^6,
+                              Adj_Budget = Adj_Budget/10^6)
+```
+```{r bechdel1ab, results = FALSE}
+lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechdel)
+```
+```{r bechdel1rab,echo=FALSE}
+round(summary(lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechdel))$coeff, 4)
+
+```
+
+- **.darkorange["Estimate"]**: Point estimates of our paramters $\beta$. We call them $\hat{\beta}$.
+
+--
+
+- **.darkorange["Standard Error"]** (SE): You can think about it as the variability of $\hat{\beta}$. The smaller, the more precise $\hat{\beta}$ is!
+
+--
+
+- **.darkorange["t-value"]**: A value of the Student distribution that measures how many SE away $\hat{\beta}$ is from 0. You can calculate it as $tval = \frac{\hat{\beta}}{SE}$. It relates to our null-hypothesis $H_0: \beta=0$.
+
+--
+
+- **.darkorange["p-value"]**: Probability of rejecting the null hypothesis and being *wrong* (Type I error). You want this to be a small as possible (statistically significant).
+
+---
+# Reminder: Null-Hypothesis
+
+We are testing $H_0: \beta = 0$ vs $H_1: \beta \neq 0$
+
+.pull-left[
+- "Reject the null hypothesis"
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/images/ttest_null.png)]
+]
+
+.pull-right[
+- "Not reject the null hypothesis"
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/images/ttest_not_null.png)
+]
+]
+
+.source[Note: Figures adapted from @AllisonHorst's art]
+---
+# Reminder: Null-Hypothesis
+
+Reject the null if the t-value falls **outside** the dashed lines.
+
+
+.center[
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/images/reject.png)
+]
+
+
+.source[Note: Figures adapted from @AllisonHorst's art]
+---
+# One extra dollar in our budget
+
+- Imagine now that you have an hypothesis that Bechdel movies also get more bang for their buck, e.g. they get more revenue for an additional dollar in their budget.
+
+.box-7Trans[How would you test that in an equation?]
+
+--
+
+.box-4[Interactions!]
+
+---
+#One extra dollar in our budget
+
+Interaction model:
+
+$$Revenue = \beta_0 + \beta_1 Bechdel + \beta_3Budget + \color{#db5f12}{\beta_6(Budget \times Bechdel)} + \beta_4IMDB + \beta_5 MetaScore + \varepsilon$$
+--
+
+How should we think about this?
+
+- Write the equation for a movie that **.darkorange[does not pass the Bechdel test]**. How does it look like?
+  
+--
+
+- Now do the same for a movie that **.darkorange[passes the Bechdel test]**. How does it look like?
+
+
+---
+# One extra dollar in our budget
+
+Now, let's interpret some coefficients:
+
+- If $Bechdel = 0$, then:
+  
+  $$Revenue = \beta_0 + \beta_3Budget + \beta_4IMDB + \beta_5 MetaScore + \varepsilon$$
+--
+
+- If $Bechdel = 1$, then:
+
+$$Revenue = (\beta_0 + \beta_1) + (\beta_3 + \beta_6)Budget + \beta_4IMDB + \beta_5 MetaScore + \varepsilon$$
+
+--
+
+- What is the **.darkorange[difference]** in the association between budget and revenue for movies that pass the Bechdel test vs. those that don't?
+
+
+---
+# Let's put some data into it
+
+```{r results='hide', message=FALSE,echo=FALSE, warning=FALSE}
+library(tidyverse)
+
+rawData <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/data/bechdel.csv")
+
+# Select movies post 1990
+bechdel <- rawData %>% filter(Year>1989)
+
+# Passes Bechdel test:
+bechdel <- bechdel %>% mutate(bechdel_test = ifelse(rating==3, 1, 0),
+                              Adj_Revenue = Adj_Revenue/10^6,
+                              Adj_Budget = Adj_Budget/10^6)
+```
+```{r bechdel1, results = FALSE}
+lm(Adj_Revenue ~ bechdel_test*Adj_Budget + Metascore + imdbRating, data=bechdel)
+```
+```{r bechdel1r,echo=FALSE}
+round(summary(lm(Adj_Revenue ~ bechdel_test*Adj_Budget + Metascore + imdbRating, data=bechdel))$coeff, 4)
+
+```
+
+--
+
+- What is the association between budget and revenue for movies that **.darkorange[pass the Bechdel test]**?
+
+- What is the difference in the association between budget and revenue for **.darkorange[movies that pass vs movies that don't pass the Bechdel test]**?
+
+--
+
+- Is that difference **.darkorange[statistically significant]** (at conventional levels)?
+
+---
+background-position: 50% 50%
+class: center, middle
+
+.box-5Trans[Let's look at another example]
+
+---
+# Cars, cars, cars
+
+- Used cars in South California (from this week's JITT)
+
+.small[
+```{r}
+cars <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/SoCalCars.csv", stringsAsFactors = FALSE)
+
+names(cars)
+```
+]
+
+.source[Data source: "Modern Business Analytics" (Taddy, Hendrix, & Harding, 2018)]
+
+---
+# Luxury vs. non-luxury cars?
+
+<br>
+<br>
+<br>
+.box-7trans[Do you think there's a difference between how price changes over time for luxury vs non-luxury cars?]
+
+--
+
+.box-4trans[How would you test this?]
+
+---
+background-position: 50% 50%
+class: center, middle
+.big[
+.box-5LA[Let's go to R]
+
+]
+
+---
+# Models with interactions
+
+- You include the interaction between two (or more) covariates:
+
+$$\widehat{Price} = \beta_0 + \hat{\beta}_1 Rating + \hat{\beta}_2 Miles + \hat{\beta}_3 Luxury + \hat{\beta}_4 Year + \hat{\beta}_5 Luxury \times Year$$
+--
+
+  - $\hat{\beta}_3$ and $\hat{\beta}_4$ are considered the **.darkorange[main effects]** (no interaction)
+
+--
+
+- The coefficient you are interested in is $\hat{\beta}_5$:
+
+  - Difference in the **.darkorange[price change]** for one additional year between **.darkorange[luxury vs non-luxury cars]**, holding other variables constant.
+  
+---
+# Now it's your turn
+
+- Looking at this equation:
+
+$$\widehat{Price} = \beta_0 + \hat{\beta}_1 Rating + \hat{\beta}_2 Miles + \hat{\beta}_3 Luxury + \hat{\beta}_4 Year + \hat{\beta}_5 Luxury \times Year$$
+1) What is the association between price and year for non-luxury cars?
+
+--
+
+2) What is the association between price and year for luxury cars?
+
+---
+# Looking at our data
+
+- We have dived into running models head on. **.darkorange[Is that a good idea?]**
+
+--
+.center[
+![:scale 30%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/images/stop.png)]
+
+---
+class: center, middle
+
+.box-5Trans[What should we do before we ran any model?]
+
+---
+class: center, middle
+
+.box-3Trans[Inspect your data!]
+
+---
+# Some ideas:
+
+- Use `vtable`:
+
+```{r results='hide', message=FALSE,echo=TRUE, warning=FALSE}
+library(vtable)
+
+vtable(cars)
+```
+
+--
+
+- Use `summary` to see the min, max, mean, and quartile:
+
+```{r results='hide', message=FALSE,echo=TRUE, warning=FALSE}
+cars %>% select(price, mileage, year) %>% summary(.)
+```
+.small[
+
+```{r, message=FALSE,echo=FALSE, warning=FALSE}
+cars %>% select(price, mileage, year) %>% summary(.)
+```
+]
+
+--
+
+- Plot your data!
+
+---
+# Look at the data
+
+<br>
+
+```{r cars_inspect, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+library(firasans)
+library(hrbrthemes)
+
+ggplot(data = cars, aes(x = price)) +
+  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5, bins = 40) + 
+  theme_bw()+
+  xlab("Price (M $)") + ylab("Count") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# Look at the data
+
+What can you say about this variable?
+
+```{r cars_inspect2, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+ggplot(data = cars, aes(x = price)) +
+  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5, bins = 40) + 
+  theme_bw()+
+  xlab("Price (M $)") + ylab("Count") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# Logarithms to the rescue?
+
+<br>
+--
+
+```{r cars_inspect_log, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+ggplot(data = cars, aes(x = log(price))) +
+  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5, bins = 40) + 
+  theme_bw()+
+  xlab("log(Price)") + ylab("Count") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# How would we interpret coefficients now?
+
+- Let's interpret the coefficient for $Miles$ in the following equation:
+
+$$\log(Price) = \beta_0 + \beta_1 Rating + \beta_2 Miles + \beta_3 Luxury + \beta_4 Year + \varepsilon$$
+--
+
+- Remember: $\beta_2$ represents the average change in the outcome variable, $\log(Price)$, for a one-unit increase in the independent variable $Miles$.
+
+  - *Think about the units of the dependent and independent variables!*
+
+---
+# A side note on log-transformed variables...
+
+.medium30[$$\log(Y) = \hat{\beta}_0 + \hat{\beta}_1 X$$]
+
+We want to compare the outcome for a regression with $X = x$ and $X = x+1$
+
+--
+
+.medium30[$$\log(y_0) = \hat{\beta}_0 + \hat{\beta}_1 x \ \ \ \ \ \ (1)$$]
+
+and
+
+.medium30[$$\log(y_1) = \hat{\beta}_0 + \hat{\beta}_1 (x+1) \ \ \ \ \ \ (2)$$]
+
+--
+
+- Let's subtract (2) - (1)!
+
+---
+# A side note on log-transformed variables...
+
+.medium30[$$\log(y_{1}) - \log(y_0) = \hat{\beta}_0 + \hat{\beta}_1(x+1) - (\hat{\beta}_0 + \hat{\beta}_1 x)$$]
+
+--
+
+.medium30[$$\log(\frac{y_{1}}{y_0}) = \hat{\beta}_1$$]
+
+--
+
+.medium30[$$\log(1+\frac{y_1-y_0}{y_0}) = \hat{\beta}_1$$]
+
+---
+# A side note on log-transformed variables...
+
+.medium30[$$\log(y_{1}) - \log(y_0) = \hat{\beta}_0 + \hat{\beta}_1(x+1) - (\hat{\beta}_0 + \hat{\beta}_1 x)$$]
+
+.medium30[$$\log(\frac{y_{1}}{y_0}) = \hat{\beta}_1$$]
+
+.medium30[$$\log(1+\frac{y_1-y_0}{y_0}) = \hat{\beta}_1$$]
+
+.box-7Trans.medium30[$$\rightarrow \frac{\Delta y}{y} = \exp(\hat{\hat{\beta}}_1)-1$$]
+
+---
+# How would we interpret coefficients now?
+
+- Let's interpret the coefficient for $Miles$ in the following equation:
+
+$$\log(Price) = \beta_0 + \beta_1 Rating + \beta_2 Miles + \beta_3 Luxury + \beta_4 Year + \varepsilon$$
+--
+
+- For an additional 1,000 miles (*Note: Remember Miles is measured in thousands of miles*), the logarithm of the price increases/decreases, on average, by $\hat{\beta}_2$, holding other variables constant.
+
+--
+
+- For an additional 1,000 miles, the price increases/decreases, on average, by $(e^{\hat{\beta}}-1)\cdot 100$%, holding other variables constant.
+
+---
+# Adding polynomial terms
+
+- Another way to capture **.darkorange[nonlinear associations]** between the outcome (Y) and covariates (X) is to include **.darkorange[polynomial terms]**:
+  
+  - e.g. $Y = \beta_0 + \beta_1X + \beta_2X^2 + \varepsilon$
+  
+--
+
+- Let's look at an example!
+
+---
+# Determinants of wages: CPS 1985
+
+```{r wages_inspect, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+library(AER)
+data("CPS1985")
+
+CPS1985 %>%
+ggplot(data = ., aes(x = wage)) +
+  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5, bins = 40) + 
+  theme_bw()+
+  xlab("Wages (USD$/hr)") + ylab("Count") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# Determinants of wages: CPS 1985
+
+```{r wages_inspect2, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+CPS1985 %>%
+ggplot(data = ., aes(x = log(wage))) +
+  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5, bins = 40) + 
+  theme_bw()+
+  xlab("log(Wage)") + ylab("Count") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# Experience vs wages: CPS 1985
+
+<br>
+
+```{r exp_wages, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message=FALSE}
+
+CPS1985 %>% mutate(log_wage = log(wage)) %>%
+ggplot(data = ., aes(y = log_wage, x = experience)) +
+  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
+  theme_bw()+
+  xlab("Experience (Years)") + ylab("log(Wage)") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# Experience vs wages: CPS 1985
+
+$$\log(Wage) = \beta_0 + \beta_1 Educ + \beta_2Exp + \varepsilon$$
+
+```{r exp_wages2, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message=FALSE}
+
+lm_wages <- lm(log(wage) ~ education + experience, data = CPS1985)
+
+CPS1985_fit <- CPS1985 %>% mutate(education = mean(education)) %>%
+  mutate(log_wage_fit = predict(lm_wages, newdata = .))
+
+
+CPS1985_fit %>% mutate(log_wage = log(wage)) %>%
+ggplot(data = ., aes(y = log_wage, x = experience)) +
+  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
+  geom_line(aes(y = log_wage_fit, x = experience), color = "#E16462", lwd =1.2) + 
+  theme_bw()+
+  xlab("Experience (Years)") + ylab("log(Wage)") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# Experience vs wages: CPS 1985
+
+$$\log(Wage) = \beta_0 + \beta_1 Educ + \beta_2 Exp + \beta_3 Exp^2 + \varepsilon$$
+```{r exp_wages3, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message=FALSE}
+
+lm_mincer <- lm(log(wage) ~ education + experience + I(experience^2), data = CPS1985)
+
+CPS1985_fit <- CPS1985 %>% mutate(education = mean(education)) %>%
+  mutate(log_wage_fit = predict(lm_mincer, newdata = .))
+
+
+CPS1985_fit %>% mutate(log_wage = log(wage)) %>%
+ggplot(data = ., aes(y = log_wage, x = experience)) +
+  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
+  geom_line(aes(y = log_wage_fit, x = experience), color = "#E16462", lwd =1.2) + 
+  theme_bw()+
+  xlab("Experience (Years)") + ylab("log(Wage)") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# Mincer equation
+
+$$\log(Wage) = \beta_0 + \beta_1 Educ + \beta_2 Exp + \beta_3 Exp^2 + \varepsilon$$
+
+- Interpret the coefficient for **.darkorange[education]**
+
+--
+
+.center[
+*One additional year of education is associated, on average, to $\hat{\beta}_1\times100$% increase in hourly wages, holding experience constant*]
+
+--
+
+- What is the association between experience and wages?
+
+---
+# Interpreting coefficients in quadratic equation
+
+```{r exp_wages4, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message=FALSE}
+
+x0 = 20
+
+l1 = (lm_mincer$coefficients["experience"] + 
+  2*lm_mincer$coefficients["I(experience^2)"]*x0)*(CPS1985_fit$experience - x0) + lm_mincer$coefficients["(Intercept)"] + lm_mincer$coefficients["education"]*CPS1985_fit$education +
+lm_mincer$coefficients["experience"]*x0 + lm_mincer$coefficients["I(experience^2)"]*x0^2
+  
+y0 = lm_mincer$coefficients["(Intercept)"] + lm_mincer$coefficients["education"]*CPS1985_fit$education +
+lm_mincer$coefficients["experience"]*x0 + lm_mincer$coefficients["I(experience^2)"]*x0^2
+
+CPS1985_fit <- CPS1985_fit %>% mutate(lm_20 = l1)
+
+CPS1985_fit %>% mutate(log_wage = log(wage)) %>%
+ggplot(data = ., aes(y = log_wage, x = experience)) +
+  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
+  geom_line(aes(y = log_wage_fit, x = experience), color = "#E16462", lwd =1.2) + 
+  geom_line(aes(y = lm_20, x = experience), color = "#BF3984", lwd =1.2, lty = 2) + 
+  geom_segment(aes(x = x0, xend = x0, y = 0, yend = y0),
+               lty = 2, color = "dark grey") +
+  theme_bw()+
+  xlab("Experience (Years)") + ylab("log(Wage)") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+---
+# Interpreting coefficients in quadratic equation
+
+```{r exp_wages5, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message=FALSE}
+
+x1 = 40
+
+l1 = (lm_mincer$coefficients["experience"] + 
+  2*lm_mincer$coefficients["I(experience^2)"]*x1)*(CPS1985_fit$experience - x1) + lm_mincer$coefficients["(Intercept)"] + lm_mincer$coefficients["education"]*CPS1985_fit$education +
+lm_mincer$coefficients["experience"]*x1 + lm_mincer$coefficients["I(experience^2)"]*x1^2
+  
+y1 = lm_mincer$coefficients["(Intercept)"] + lm_mincer$coefficients["education"]*CPS1985_fit$education +
+lm_mincer$coefficients["experience"]*x1 + lm_mincer$coefficients["I(experience^2)"]*x1^2
+
+CPS1985_fit <- CPS1985_fit %>% mutate(lm_40 = l1)
+
+CPS1985_fit %>% mutate(log_wage = log(wage)) %>%
+ggplot(data = ., aes(y = log_wage, x = experience)) +
+  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
+  geom_line(aes(y = log_wage_fit, x = experience), color = "#E16462", lwd =1.2) + 
+  geom_line(aes(y = lm_20, x = experience), color = "#BF3984", lwd =1.2, lty = 2) + 
+  geom_segment(aes(x = x0, xend = x0, y = 0, yend = y0),
+               lty = 2, color = "dark grey") +
+  geom_line(aes(y = lm_40, x = experience), color = "#5601A4", lwd =1.2, lty = 2) + 
+  geom_segment(aes(x = x1, xend = x1, y = 0, yend = y0),
+               lty = 2, color = "dark grey") +
+  theme_bw()+
+  xlab("Experience (Years)") + ylab("log(Wage)") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+
+---
+# Interpreting coefficients in quadratic equation
+
+```{r exp_wages6, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message=FALSE}
+library(latex2exp)
+x1 = 40
+
+l1 = (lm_mincer$coefficients["experience"] + 
+  2*lm_mincer$coefficients["I(experience^2)"]*x1)*(CPS1985_fit$experience - x1) + lm_mincer$coefficients["(Intercept)"] + lm_mincer$coefficients["education"]*CPS1985_fit$education +
+lm_mincer$coefficients["experience"]*x1 + lm_mincer$coefficients["I(experience^2)"]*x1^2
+  
+y1 = lm_mincer$coefficients["(Intercept)"] + lm_mincer$coefficients["education"]*CPS1985_fit$education +
+lm_mincer$coefficients["experience"]*x1 + lm_mincer$coefficients["I(experience^2)"]*x1^2
+
+CPS1985_fit <- CPS1985_fit %>% mutate(lm_40 = l1)
+
+CPS1985_fit %>% mutate(log_wage = log(wage)) %>%
+ggplot(data = ., aes(y = log_wage, x = experience)) +
+  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
+  geom_line(aes(y = log_wage_fit, x = experience), color = "#E16462", lwd =1.2) + 
+  geom_line(aes(y = lm_20, x = experience), color = "#BF3984", lwd =1.2, lty = 2) + 
+  geom_segment(aes(x = x0, xend = x0, y = 0, yend = y0),
+               lty = 2, color = "dark grey") +
+  geom_line(aes(y = lm_40, x = experience), color = "#5601A4", lwd =1.2, lty = 2) + 
+  geom_segment(aes(x = x1, xend = x1, y = 0, yend = y0),
+               lty = 2, color = "dark grey") +
+  annotate("text", x=10,y=2.7, label = TeX("$m = \\beta_2 + 2\\beta_3 Exp$"), color = "#5601A4", size = 4) +
+  
+  theme_bw()+
+  xlab("Experience (Years)") + ylab("log(Wage)") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+  
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+```
+
+
+---
+# Interpreting coefficients in quadratic equation
+
+$$\log(Wage) = \beta_0 + \beta_1 Educ + \beta_2 Exp + \beta_3 Exp^2 + \varepsilon$$
+What is the association between experience and wages?
+
+--
+
+- Pick a value for $Exp_0$ (e.g. mean, median, one value of interest)
+
+--
+.center[
+*Increasing work experience from 20 to 21 years is associated, on average, to a $(\hat{\beta}_2 + 2\hat{\beta}_3\cdot 20)100$% increase on hourly wages, holding education constant*]
+
+
+---
+# Main takeaway points
+
+.pull-left[
+- The model you fit **.darkorange[depends on what you want to analyze]**.
+  
+- **.darkorange[Plot your data!]**
+
+- Make sure you capture associations that **.darkorange[make sense]**.
+  
+]
+
+.pull-right[
+.center[
+![:scale 120%](https://media.giphy.com/media/l0MYBJzJ7elsmG1K8/giphy.gif)]
+
+]
+
+---
+# Next week
+
+.pull-left[
+
+.center[
+![](https://media.giphy.com/media/5eeeE80SrmPeEE43tJ/giphy.gif)]
+]
+
+.pull-right[
+- Issues with regressions and our data:
+
+  - Outliers?
+  
+  - Heteroskedasticity
+
+- Regression models with discrete outcomes:
+
+  - Probability linear models
+
+]
+
+---
+# References
+
+- Ismay, C. & A. Kim. (2021). “Statistical Inference via Data Science”. Chapter 6 & 10.
+
+- Keegan, B. (2018). "The Need for Openess in Data Journalism". *[Github Repository](https://github.com/brianckeegan/Bechdel/blob/master/Bechdel_test.ipynb)*
+
+
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week2/1_OLS/f2021_sta235h_3_reg.html') -->

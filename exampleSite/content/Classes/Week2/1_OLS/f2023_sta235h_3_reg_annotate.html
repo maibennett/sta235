@@ -71,15 +71,13 @@ class: center, middle, inverse, title-slide
   
   - Feedback are **.darkorange[guidelines]**; Try to use your *own words*.
   
-  - I gave a **.darkorange[free-pass this time]**.
+--
+
+- If you are struggling with material covered in STA 301H: **.darkorange[Check the course website for resources and come to Office Hours]**.
 
 --
 
-.box-4trans[Check the course website for resources!]
-
---
-
-- Also, **.darkorange[remember to sign up your group (Canvas &gt; People &gt; Final Project)]**
+.box-4trans[No in-person class next week -- Recorded class]
 
 ---
 # Today
@@ -120,21 +118,26 @@ class: center, middle, inverse, title-slide
 ---
 # Is it convenient for my movie to pass the Bechdel test?
 
-- I'm a profit-maximizing investor and want to know whether it's in my best interest to switch a male for a female character.
 
---
 
-`$$AdjRevenue = \beta_0 + \beta_1 Bechdel + \beta_3AdjBudget + \beta_4IMDB + \beta_5 MetaScore + \varepsilon$$`
+```r
+lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechdel)
+```
 
---
+```
+##               Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)  -127.0710    17.0563 -7.4501   0.0000
+## bechdel_test   11.0009     4.3786  2.5124   0.0121
+## Adj_Budget      1.1192     0.0367 30.4866   0.0000
+## Metascore       7.0254     1.9058  3.6864   0.0002
+## imdbRating     15.4631     3.3914  4.5595   0.0000
+```
 
-.box-6.Trans[How did we interpret the relevant coefficient?]
+.box-7trans[What does each column represent?]
 
---
 
-.box-6[Remember the key words!]
 ---
-# Let's also do a quick review of R output
+# Is it convenient for my movie to pass the Bechdel test?
 
 
 
@@ -153,9 +156,15 @@ lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechde
 
 - **.darkorange["Estimate"]**: Point estimates of our paramters `\(\beta\)`. We call them `\(\hat{\beta}\)`.
 
+--
+
 - **.darkorange["Standard Error"]** (SE): You can think about it as the variability of `\(\hat{\beta}\)`. The smaller, the more precise `\(\hat{\beta}\)` is!
 
+--
+
 - **.darkorange["t-value"]**: A value of the Student distribution that measures how many SE away `\(\hat{\beta}\)` is from 0. You can calculate it as `\(tval = \frac{\hat{\beta}}{SE}\)`. It relates to our null-hypothesis `\(H_0: \beta=0\)`.
+
+--
 
 - **.darkorange["p-value"]**: Probability of rejecting the null hypothesis and being *wrong* (Type I error). You want this to be a small as possible (statistically significant).
 
@@ -181,7 +190,7 @@ We are testing `\(H_0: \beta = 0\)` vs `\(H_1: \beta \neq 0\)`
 ---
 # Reminder: Null-Hypothesis
 
-Reject the null if the estimate falls **outside** the dashed lines.
+Reject the null if the t-value falls **outside** the dashed lines.
 
 
 .center[
@@ -299,46 +308,6 @@ names(cars)
 .source[Data source: "Modern Business Analytics" (Taddy, Hendrix, &amp; Harding, 2018)]
 
 ---
-# Let's run a model
-
---
-.small[
-
-
-```r
-lm1 &lt;- lm(price ~ year + mileage + rating, data = cars)
-summary(lm1)
-```
-
-```
-## 
-## Call:
-## lm(formula = price ~ year + mileage + rating, data = cars)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -21.945  -7.180  -2.465   3.791  72.444 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 43.78158    4.16486  10.512  &lt; 2e-16 ***
-## year        -0.36028    0.08284  -4.349 1.43e-05 ***
-## mileage     -0.23406    0.01186 -19.738  &lt; 2e-16 ***
-## rating       1.21791    0.15886   7.666 2.69e-14 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 12.08 on 2086 degrees of freedom
-## Multiple R-squared:  0.2098,	Adjusted R-squared:  0.2086 
-## F-statistic: 184.6 on 3 and 2086 DF,  p-value: &lt; 2.2e-16
-```
-]
-
---
-
-- What does the **.darkorange[intercept]** tell us in this case? Is it meaningful?
-
----
 # Luxury vs. non-luxury cars?
 
 &lt;br&gt;
@@ -429,13 +398,13 @@ cars %&gt;% select(price, mileage, year) %&gt;% summary(.)
 
 
 ```
-##      price           mileage            year      
-##  Min.   :  1.79   Min.   : 10.07   Min.   : 0.00  
-##  1st Qu.: 10.80   1st Qu.: 27.43   1st Qu.:44.00  
-##  Median : 15.99   Median : 40.46   Median :47.00  
-##  Mean   : 19.67   Mean   : 47.51   Mean   :45.29  
-##  3rd Qu.: 24.49   3rd Qu.: 62.25   3rd Qu.:48.00  
-##  Max.   :100.00   Max.   :149.90   Max.   :50.00
+##      price            mileage            year     
+##  Min.   :   1790   Min.   :     0   Min.   :1966  
+##  1st Qu.:  16234   1st Qu.:     5   1st Qu.:2017  
+##  Median :  23981   Median :    56   Median :2019  
+##  Mean   :  32959   Mean   : 21873   Mean   :2018  
+##  3rd Qu.:  36745   3rd Qu.: 36445   3rd Qu.:2020  
+##  Max.   :1499000   Max.   :292952   Max.   :2021
 ```
 ]
 
@@ -486,27 +455,31 @@ We want to compare the outcome for a regression with `\(X = x\)` and `\(X = x+1\
 
 --
 
-.medium30[$$\log(y_0) = \hat{\beta}_0 + \hat{\beta}_1 x$$]
+.medium30[$$\log(y_0) = \hat{\beta}_0 + \hat{\beta}_1 x \ \ \ \ \ \ (1)$$]
 
 and
 
-.medium30[$$\log(y_1) = \hat{\beta}_0 + \hat{\beta}_1 (x+1)$$]
+.medium30[$$\log(y_1) = \hat{\beta}_0 + \hat{\beta}_1 (x+1) \ \ \ \ \ \ (2)$$]
+
+--
+
+- Let's subtract (2) - (1)!
 
 ---
 # A side note on log-transformed variables...
 
-.medium30[$$\log(Y) = \hat{\beta}_0 + \hat{\beta}_1 X$$]
-
 .medium30[$$\log(y_{1}) - \log(y_0) = \hat{\beta}_0 + \hat{\beta}_1(x+1) - (\hat{\beta}_0 + \hat{\beta}_1 x)$$]
 
+--
+
 .medium30[$$\log(\frac{y_{1}}{y_0}) = \hat{\beta}_1$$]
+
+--
 
 .medium30[$$\log(1+\frac{y_1-y_0}{y_0}) = \hat{\beta}_1$$]
 
 ---
 # A side note on log-transformed variables...
-
-.medium30[$$\log(Y) = \hat{\beta}_0 + \hat{\beta}_1 X$$]
 
 .medium30[$$\log(y_{1}) - \log(y_0) = \hat{\beta}_0 + \hat{\beta}_1(x+1) - (\hat{\beta}_0 + \hat{\beta}_1 x)$$]
 
@@ -529,22 +502,6 @@ and
 --
 
 - For an additional 1,000 miles, the price increases/decreases, on average, by `\((e^{\hat{\beta}}-1)\cdot 100\)`%, holding other variables constant.
-
----
-# How would we interpret coefficients now?
-
-- There are also approximations that can be useful!
-
-|**Model**|**Interpretation of `\(\beta\)`**|
-|:-----:|:-----:|
-|Level-Level regression&lt;br&gt; `\(y = \alpha + \beta x\)` | `\(\Delta y = \beta\Delta x\)` |
-|Log-Level regression&lt;br&gt; `\(\log(y) = \alpha + \beta x\)` | `\(\%\Delta y = 100\cdot\beta\Delta x\)` |
-|Level-Log regression&lt;br&gt; `\(y = \alpha + \beta \log(x)\)` | `\(\Delta y = \frac{\beta}{100}\% \Delta x\)` |
-|Log-Log regression&lt;br&gt; `\(\log(y) = \alpha + \beta \log(x)\)` | `\(\%\Delta y = \beta\%\Delta x\)` |
-
---
-
-- What would be the interpretation for the Mileage coefficient using these approximations?
 
 ---
 # Adding polynomial terms
@@ -648,9 +605,8 @@ What is the association between experience and wages?
 ]
 
 .pull-right[
-&lt;br&gt;
 .center[
-![](https://media.giphy.com/media/l0MYBJzJ7elsmG1K8/giphy.gif)]
+![:scale 120%](https://media.giphy.com/media/l0MYBJzJ7elsmG1K8/giphy.gif)]
 
 ]
 
@@ -658,23 +614,22 @@ What is the association between experience and wages?
 # Next week
 
 .pull-left[
+
+.center[
+![](https://media.giphy.com/media/5eeeE80SrmPeEE43tJ/giphy.gif)]
+]
+
+.pull-right[
 - Issues with regressions and our data:
 
   - Outliers?
   
-  - Multicollinearity &amp; Heteroskedasticity
+  - Heteroskedasticity
 
 - Regression models with discrete outcomes:
 
   - Probability linear models
-  
-  - Logistic regression
-]
 
-.pull-right[
-&lt;br&gt;
-.center[
-![](https://media.giphy.com/media/jCL5JbYPYQz96/giphy.gif)]
 ]
 
 ---

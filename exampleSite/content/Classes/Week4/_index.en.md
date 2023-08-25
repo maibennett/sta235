@@ -21,6 +21,7 @@ In this session, we will fully dive into Causal Inference: Potential outcomes fr
 - Grab N Go Info. (2022). "Average Treatment Effects ATE vs CATE vs ATT vs ATC | Causal Inference". 
 
 {{< youtube src="https://www.youtube.com/embed/pg7P-BsHQ_k?si=Mg8nmV8CtMdNA5T7" >}}
+
 <!-- - Angrist & Pischke. (2015). "Mastering Metrics". *Chapter 1: Randomized Trials*. Pg. 12-17. 
 
 - Marginal Revolution University. (2020). "Randomized Trials: The Ideal Weapon". *Video materials from Mastering Metrics*.
