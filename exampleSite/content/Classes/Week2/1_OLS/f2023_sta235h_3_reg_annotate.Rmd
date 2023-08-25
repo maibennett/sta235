@@ -315,7 +315,7 @@ library(knitr)
 library(showtext)
 library(xaringanExtra)
 
-#xaringanExtra::use_scribble()
+xaringanExtra::use_scribble()
 
 htmltools::tagList(
   xaringanExtra::use_clipboard(
@@ -332,12 +332,33 @@ font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
 font.add.google("Fira Sans", "Fira Sans")
 ```
 
+
+# Before we start...
+
+- Use the **.darkorange[knowledge check]** portion of the JITT to assess your own understanding:
+
+  - Be sure to answer the question correctly (look at the feedback provided)
+  
+  - Feedback are **.darkorange[guidelines]**; Try to use your *own words*.
+  
+--
+
+- If you are struggling with material covered in STA 301H: **.darkorange[Check the course website for resources and come to Office Hours]**
+
+--
+
+.box-4trans[No in-person class next week -- Recorded class]
+
+---
 # Today
 
 .pull-left[
 - Quick **.darkorange[multiple regression]** review:
   - Interpreting coefficients
   - Interaction models
+  
+- **.darkorange[Looking at your data:]**
+  - Distributions
   
 - **.darkorange[Nonlinear models:]**
   - Logarithmic outcomes
