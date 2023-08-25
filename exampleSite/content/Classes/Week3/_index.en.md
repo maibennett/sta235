@@ -1,5 +1,5 @@
 ---
-title: Week 3 - 09/4
+title: Week 3 - 09/04
 weight: 25
 disableToc: true
 ---
