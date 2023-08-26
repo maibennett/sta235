@@ -47,7 +47,7 @@ cars <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/examp
 
 ## Let's clean some data
 
-## Select only cars from the year 1970 onwards, that are under $100k, and have less than 150k miles (and more than 10k).
+## Select only used cars from the year 1970 onwards, that are under $100k, and have less than 150k miles (and more than 10k).
 
 ## Let's create new variables:
 
@@ -77,12 +77,12 @@ coef(lm1) # vector of coefficients
 summary(lm1)$coefficients #matrix of coefficients, SE, t-value and p-values
 
 
-## Let's plot mileage against price. What do you see?
+## Let's plot year against price. What do you see?
 
-ggplot(data = cars, aes(y = price, x = mileage)) +
+ggplot(data = cars, aes(y = price, x = year)) +
   geom_point(fill = "white", color = "orange", size = 3, pch = 21) + #pch changes the type of the marker (you can see the options here: http://www.sthda.com/english/wiki/r-plot-pch-symbols-the-different-point-shapes-available-in-r)
   theme_bw()+
-  xlab("Mileage (1,000 Miles)") + ylab("Price (1,000 USD)") +
+  xlab("Year (since 1970)") + ylab("Price (1,000 USD)") +
   # The options below (in theme) are just to show you how to make your plots look better. Adapt them as you wish.
   theme(axis.title.x = element_text(size=18),
         axis.text.x = element_text(size=14),
@@ -97,7 +97,7 @@ ggplot(data = cars, aes(y = price, x = mileage)) +
 
 ### We can also easiy include a regression line using geom_smooth:
 
-ggplot(data = cars, aes(y = price, x = mileage)) +
+ggplot(data = cars, aes(y = price, x = year)) +
   geom_point(fill = "white", color = "orange", size = 3, pch = 21) + #pch changes the type of the marker (you can see the options here: http://www.sthda.com/english/wiki/r-plot-pch-symbols-the-different-point-shapes-available-in-r)
   geom_smooth(method = "lm", color = "#900DA4", lwd = 1.5, se = FALSE) + #The method is `lm` (linear model), and we don't want to include the standard errors for the fitted line 
   theme_bw()+
@@ -112,7 +112,7 @@ ggplot(data = cars, aes(y = price, x = mileage)) +
         panel.grid = element_blank(),
         axis.line = element_line(colour = "dark grey"))
 
-## Let's run a regression of price on mileage, year, rating, and the interaction of mileage and year.
+## Let's run a regression of price on mileage, year, rating, luxury, and the interaction of luxury and year.
 lm2 <- lm(price ~ rating + mileage + year*luxury, data = cars)
 
 summary(lm2)
@@ -157,7 +157,7 @@ lm_log$coefficients
 ### This is the coefficient for mileage:
 lm_log$coefficients["mileage"]
 
-### This is the percentage change
+### This is the percentage change: Exponentiate the coefficient, substract one, and multiply by 100
 (exp(lm_log$coefficients["mileage"]) - 1)*100
 
 ##### Q: How does this compare with \beta_1*100% ?
@@ -166,7 +166,7 @@ lm_log$coefficients["mileage"]
 # Quadratic model ----
 
 ## Let's look at data from the Current Population Survey (CPS) 1985
-library(AER) #Install this package if you haven't
+library(AER) #Install this package if you haven't, using `install.packages("AER")`. Remember you only need to do this once!
 data("CPS1985")
 
 ## We can look at the variable descriptions using ?CPS1985

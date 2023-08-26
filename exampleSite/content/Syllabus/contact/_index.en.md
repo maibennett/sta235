@@ -6,7 +6,7 @@ disableToc: true
 
 | Instructor | E-mail   | Office   | Students' Office Hours |
 |------------|----------|----------|--------------|
-| Dr. Magdalena Bennett   | <a href="mailto:m.bennett@austin.utexas.edu">m.bennett@austin.utexas.edu</a>   | CBA 6.476   | Wed: 4:30-5:30 PM <br /> Thu: 4:00-5:30 PM|
+| Dr. Magdalena Bennett   | <a href="mailto:m.bennett@austin.utexas.edu">m.bennett@austin.utexas.edu</a>   | CBA 6.476   | Wed: 10:30-11:30 PM <br /> Thu: 4:00-5:30 PM|
 
 **Office hours will be held in-person on a first-come-first-serve basis**. 
 

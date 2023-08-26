@@ -299,6 +299,7 @@ style_mono_accent(
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 
 ```
+
 ```{css, echo = FALSE}
 
 .small .remark-code { /*Change made here*/
@@ -344,6 +345,10 @@ font.add.google("Fira Sans", "Fira Sans")
 --
 
 - If you are struggling with material covered in STA 301H: **.darkorange[Check the course website for resources and come to Office Hours]**.
+
+--
+
+- **.darkorange[Office Hours Prof. Bennett]**: Wed 10.30-11.30am and Thu 4.00-5.30pm
 
 --
 
@@ -835,6 +840,26 @@ $$\log(Price) = \beta_0 + \beta_1 Rating + \beta_2 Miles + \beta_3 Luxury + \bet
 --
 
 - For an additional 1,000 miles, the price increases/decreases, on average, by $(e^{\hat{\beta}}-1)\cdot 100$%, holding other variables constant.
+
+---
+# How would we interpret coefficients now?
+
+.small[
+```{r, echo = FALSE}
+luxury_brands <- c("Audi", "BMW", "Cadillac", "Ferrari", "Jaguar", "Lamborghini", "Land Rover", "Lexus",
+                   "Maserati", "Mercedes-Benz", "Porsche", "Rolls-Royce", "Tesla", "Volvo")
+
+cars <- cars %>% filter(type != "new" & mileage >= 10000 & mileage <= 150000 & price < 100000 & year >= 1970) %>%
+  mutate(luxury = ifelse(make %in% luxury_brands, 1, 0),
+         price = price/1000,
+         mileage = mileage/1000,
+         year = year - 1970)
+```
+
+```{r, echo = TRUE, warning = FALSE, message=FALSE}
+summary(lm(log(price) ~ rating + mileage + luxury + year, data = cars))
+```
+]
 
 ---
 # Adding polynomial terms
