@@ -109,6 +109,6 @@ lm_log$coefficients["mileage"]
 ## Let's look at data from the Current Population Survey (CPS) 1985
 CPS1985 = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/CPS1985_AER.csv")
 
-# Let's run a regression between log(wages), education, experience, and experience^2
+# Let's run a regression between log(wage), education, experience, and experience^2
 
 lm_mincer = lm() #COMPLETE THIS CODE

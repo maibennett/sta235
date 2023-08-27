@@ -58,7 +58,7 @@ cars <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/examp
 luxury_brands <- c("Audi", "BMW", "Cadillac", "Ferrari", "Jaguar", "Lamborghini", "Land Rover", "Lexus",
                    "Maserati", "Mercedes-Benz", "Porsche", "Rolls-Royce", "Tesla", "Volvo")
 
-cars <- cars %>% filter(type != "new" & mileage >= 10000 & mileage <= 150000 & price < 100000 & year >= 1970) %>%
+cars <- cars %>% filter(type != "New" & mileage >= 10000 & mileage <= 150000 & price < 100000 & year >= 1970) %>%
   mutate(luxury = ifelse(make %in% luxury_brands, 1, 0),
          price = price/1000,
          mileage = mileage/1000,

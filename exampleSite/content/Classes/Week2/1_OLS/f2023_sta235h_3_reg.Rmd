@@ -693,6 +693,15 @@ cars %>% select(price, mileage, year) %>% summary(.)
 library(firasans)
 library(hrbrthemes)
 
+luxury_brands <- c("Audi", "BMW", "Cadillac", "Ferrari", "Jaguar", "Lamborghini", "Land Rover", "Lexus",
+                   "Maserati", "Mercedes-Benz", "Porsche", "Rolls-Royce", "Tesla", "Volvo")
+
+cars <- cars %>% filter(type != "New" & mileage >= 10000 & mileage <= 150000 & price < 100000 & year >= 1970) %>%
+  mutate(luxury = ifelse(make %in% luxury_brands, 1, 0),
+         price = price/1000,
+         mileage = mileage/1000,
+         year = year - 1970)
+
 ggplot(data = cars, aes(x = price)) +
   geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5, bins = 40) + 
   theme_bw()+
@@ -862,17 +871,6 @@ $$\log(Price) = \beta_0 + \beta_1 Rating + \beta_2 Miles + \beta_3 Luxury + \bet
 # How would we interpret coefficients now?
 
 .small[
-```{r, echo = FALSE}
-luxury_brands <- c("Audi", "BMW", "Cadillac", "Ferrari", "Jaguar", "Lamborghini", "Land Rover", "Lexus",
-                   "Maserati", "Mercedes-Benz", "Porsche", "Rolls-Royce", "Tesla", "Volvo")
-
-cars <- cars %>% filter(type != "new" & mileage >= 10000 & mileage <= 150000 & price < 100000 & year >= 1970) %>%
-  mutate(luxury = ifelse(make %in% luxury_brands, 1, 0),
-         price = price/1000,
-         mileage = mileage/1000,
-         year = year - 1970)
-```
-
 ```{r, echo = TRUE, warning = FALSE, message=FALSE}
 summary(lm(log(price) ~ rating + mileage + luxury + year, data = cars))
 ```
