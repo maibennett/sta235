@@ -828,7 +828,24 @@ and
 
 .medium30[$$\log(1+\frac{y_1-y_0}{y_0}) = \hat{\beta}_1$$]
 
-.box-7Trans.medium30[$$\rightarrow \frac{\Delta y}{y} = \exp(\hat{\hat{\beta}}_1)-1$$]
+.box-7Trans.medium30[$$\rightarrow \frac{\Delta y}{y} = \exp(\hat{\beta}_1)-1$$]
+
+---
+# An important approximation
+
+.medium30[$$\log(y_{1}) - \log(y_0) = \hat{\beta}_0 + \hat{\beta}_1(x+1) - (\hat{\beta}_0 + \hat{\beta}_1 x)$$]
+
+.medium30[$$\log(\frac{y_{1}}{y_0}) = \hat{\beta}_1$$]
+
+.medium30[$$\log(1+\frac{y_1-y_0}{y_0}) = \hat{\beta}_1$$]
+
+--
+
+.medium30[$$\approx \frac{y_1-y_0}{y_0} = \hat{\beta}_1$$]
+
+--
+
+.box-4Trans.medium30[$$\rightarrow \% \Delta y = 100\times\hat{\beta}_1$$]
 
 ---
 # How would we interpret coefficients now?
@@ -842,7 +859,7 @@ $$\log(Price) = \beta_0 + \beta_1 Rating + \beta_2 Miles + \beta_3 Luxury + \bet
 
 --
 
-- For an additional 1,000 miles, the price increases/decreases, on average, by $(e^{\hat{\beta}}-1)\cdot 100$%, holding other variables constant.
+- For an additional 1,000 miles, the price increases/decreases, on average, by $100\times\hat{\beta}_2$%, holding other variables constant.
 
 ---
 # How would we interpret coefficients now?
@@ -1201,9 +1218,26 @@ What is the association between experience and wages?
 - Pick a value for $Exp_0$ (e.g. mean, median, one value of interest)
 
 --
-.center[
-*Increasing work experience from 20 to 21 years is associated, on average, to a $(\hat{\beta}_2 + 2\hat{\beta}_3\cdot 20)100$% increase on hourly wages, holding education constant*]
 
+.center[
+*Increasing work experience from $Exp_0$ to $Exp_0 + 1$ years is associated, on average, to a $(\hat{\beta}_2 + 2\hat{\beta}_3\times Exp_0)100$% increase on hourly wages, holding education constant*]
+
+--
+.center[
+*Increasing work experience from 20 to 21 years is associated, on average, to a $(\hat{\beta}_2 + 2\hat{\beta}_3\times 20)100$% increase on hourly wages, holding education constant*]
+
+---
+# Let's put some numbers into it
+
+.small[
+```{r, echo = TRUE, warning=FALSE, message=FALSE}
+summary(lm(log(wage) ~ education + experience + I(experience^2), data = CPS1985))
+```
+]
+
+--
+
+- Increasing experience from 20 to 21 years is associated with an average increase in wages of 1.35%, holding education constant.
 
 ---
 # Main takeaway points

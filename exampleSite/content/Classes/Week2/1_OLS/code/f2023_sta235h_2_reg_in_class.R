@@ -98,7 +98,8 @@ lm_log$coefficients
 ### This is the coefficient for mileage:
 lm_log$coefficients["mileage"]
 
-### This is the percentage change: Exponentiate the coefficient, substract one, and multiply by 100
+### This is the percentage change (exact): Exponentiate the coefficient, substract one, and multiply by 100
 (exp(lm_log$coefficients["mileage"]) - 1)*100
 
 ##### Q: How does this compare with \beta_1*100% ?
+

@@ -174,7 +174,7 @@ data("CPS1985")
 ## Let's plot our outcome variable:
 
 CPS1985 %>%
-  ggplot(data = ., aes(x = wage)) + # The "." is a stand-in for whatever is piped before (in this case, the dataset)
+  ggplot(data = ., aes(x = wage)) + # The "." is a stand-in for whatever is piped before (in this case, the dataset). You can also just include `data = CPS1985` directly!
   geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5, bins = 40) + 
   theme_minimal()+
   xlab("Wages (USD$/hr)") + ylab("Count")
