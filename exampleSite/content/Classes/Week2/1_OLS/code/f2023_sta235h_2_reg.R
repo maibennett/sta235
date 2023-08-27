@@ -166,8 +166,7 @@ lm_log$coefficients["mileage"]
 # Quadratic model ----
 
 ## Let's look at data from the Current Population Survey (CPS) 1985
-library(AER) #Install this package if you haven't, using `install.packages("AER")`. Remember you only need to do this once!
-data("CPS1985")
+CPS1985 = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/CPS1985_AER.csv")
 
 ## We can look at the variable descriptions using ?CPS1985
 
