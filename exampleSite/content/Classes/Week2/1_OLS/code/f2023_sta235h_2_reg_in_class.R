@@ -25,6 +25,8 @@ library(vtable)
 
 cars <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/SoCalCars.csv", stringsAsFactors = FALSE)
 
+sumtable(cars)
+
 ## Let's clean some data
 
 ## Select only used cars from the year 1970 onwards, that are under $100k, and have less than 150k miles (and more than 10k).
