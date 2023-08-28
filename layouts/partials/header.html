@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="{{ .Page.Language | default "en" }}" class="js csstransforms3d">
   <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PQ4CFBPH');</script>
+<!-- End Google Tag Manager -->
     {{ if .Site.Params.GoogleAnalyticsID }}
     {{ partial "analytics-gtag.html" . }}
     {{ end }}
@@ -45,6 +52,10 @@
     {{ partial "mathjax_support.html" . }}
   </head>
   <body class="" data-url="{{ .RelPermalink }}">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PQ4CFBPH"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
     {{ partial "menu.html" . }}
         <section id="body">
         <div id="overlay"></div>
