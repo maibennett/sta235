@@ -30,8 +30,8 @@ In this class, we will go deepper into statistical adjustment, specifically when
 
 Download the R Script for the in-class exercise here:
 <script>let date = Date.now();</script>
-<a onclick="ga('send', 'event', 'External-Link','click','code2_inclass','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/code/f2023_sta235h_2_reg_in_class.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
-<!-- <a onclick="gtag('event','code2_inclass', {'event_category': 'click','event_label': 'code2_inclass', 'event_action': date});" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/code/f2023_sta235h_2_reg_in_class.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> -->
+<!-- <a onclick="ga('send', 'event', 'External-Link','click','code2_inclass','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/code/f2023_sta235h_2_reg_in_class.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> -->
+<a onclick="gtag('event','code2_inclass', {'event_category': 'code','event_label': 'code2_inclass', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/code/f2023_sta235h_2_reg_in_class.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
 Here is the full R script for this class, with some additional questions: 
 
