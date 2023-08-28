@@ -35,6 +35,6 @@ Download the R Script for the in-class exercise here:
 
 Here is the full R script for this class, with some additional questions: 
 
-<a onclick="gtag('event','code2', {'event_category': 'code','event_label': 'code2', 'event_action': date});" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/code/f2023_sta235h_2_reg_in_class.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+<a onclick="gtag('event','code2', {'event_category': 'code','event_label': 'code2', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/code/f2023_sta235h_2_reg_in_class.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 <!-- <a onclick="gtag('send', 'event', 'External-Link','click','code2','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/code/f2023_sta235h_2_reg.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
  -->
