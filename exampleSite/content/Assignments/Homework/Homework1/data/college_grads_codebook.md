@@ -27,6 +27,8 @@
 }
 </style>
 
+## Codebook for college graduates
+
 Variable | Description
 ---|---------
 `Rank` | Rank by median earnings
