@@ -29,7 +29,9 @@ sumtable(cars)
 
 ## Let's clean some data
 
-## Select only used cars from the year 1970 onwards, that are under $100k, and have less than 150k miles (and more than 10k).
+## Select only used cars from the year 1970 onwards, 
+# that are under $100k, 
+# and have less (or equal) than 150k miles (and more (or equal) than 10k).
 
 ## Let's create new variables:
 
@@ -83,7 +85,7 @@ cars %>% select(price) %>% summary(.)
 cars <- cars %>% mutate(log_price = log(price)) #Be careful here! If Y=0, then log is not defined!
 
 #### Q; Now, plot the same plot as before, but using log_price. How would you describe this 
-  
+
 ggplot() # COMPLETE THIS
 
 ## Now let's run the regression:

@@ -1,0 +1,467 @@
+---
+title: "Some Useful R Code"
+author: "STA 235H - Fall 2022"
+date: ""
+output: 
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: true
+    css: style.css
+    df_print: "kable"
+---
+<style type="text/css">
+div.main-container {
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media only screen and (max-width: 600px) {
+   body {
+      margin: 0;
+      padding: 0;
+   }
+   .sample {
+      width: 100%;
+   }
+}
+</style>
+
+```{r header, fig.align = 'center', out.width = "50%", echo=FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/images/r_rollercoaster.png")
+```
+
+# Introduction
+
+This document is meant to show you some useful code that we will be using in this class. However, **it is not meant to be a comprehensive list of tips and tricks** for R users. If you want a deeper dive into R, please check the external resources that have been added on the [course website](https://sta235.netlify.app/resources/).
+
+# Starting with R
+
+## Check your version
+
+For this class, make sure you have the most updated version of R (you can check your R version by typing `version` on the console). If your version is older than `R 4.2.1`, please [download](https://cran.r-project.org/bin/windows/base/) and install the latest R version.
+
+## Start with a clean space
+
+Make sure that you are starting with a clean space when you open RStudio. This will save memory and also minimize potential problems! For this, go to `Tools -> Global Options -> General`. As you can see from the image below, make sure you are not loading your previous .RData into your space every time you open R Studio (make sure that option is **not selected**). Tip: If you want your previous R Scripts to be loaded the next time you open RStudio, you can check the two options above Workspace.
+
+<br>
+```{r clean_space, fig.align = 'center', out.width = "80%", echo=FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/images/global_options.png")
+```
+
+## Code header
+
+It's always good practice to have some annotations on your code, especially on the header, so future you remembers what past you was doing (sometimes they don't get along). This is personal preference, but for simple projects, I tend to have a descriptive header as following:
+
+```{r}
+################################################################################
+### Title: My Project
+### Author: Magdalena Bennett
+### Created on: 2022/08/04
+### Last edit: 2022/08/16
+###      Edit: [MB] - Created script
+###      Edit: [MB] - Included additional data
+################################################################################
+
+# Clears memory
+rm(list = ls())
+# Clears console
+cat("\014")
+```
+
+This is particularly helpful when you are working with collaborators, so you can keep track of the main edits.
+
+Another slightly more sofisticated but incredibly useful way of keep track of changes in R scripts is using [Github](https://www.github.com). This goes beyond the scope of this document, but I highly suggest you look into it if you plan of coding more frequently (*Tip: Look into Github Desktop if you've never used git*).
+
+Note that I also include code to clear the memory and the console, to make sure I'm starting from scratch when running code. This is very useful to make sure your code is reproducible, because others will most likely start with a clear memory as well.
+
+## Load your packages
+
+One good practice is to load all required packages for your code at the top of your script. For example, for this document I will be using the following packages:
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(patchwork)
+library(vtable)
+library(stargazer)
+library(AER)
+```
+
+Make sure your packages are installed, or the previous code will give you an error. If one or more of the packages are not installed, you need to install them only once as following:
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+install.packages("AER")
+```
+
+**Do not include this line of code on your R script**. If you do, every time you run the code, you will be re-installing the package and that is not necessary (also it may lead to errors or inconsistencies if the package is updated).
+
+For this course, we will almost always be using the `tidyverse` package, which include an array of other packages as well (e.g. `dplyr`, `ggplot2`, etc.). If you load the `tidyverse`, there's no need to include these other ones. Also, make sure you load the packages you need, and not every package you have ever used. **Keep your code clean**.
+
+## Opening your data
+
+How you load your data depends on how your data is stored (csv? json? dta?). In this course, we will usually use CSV data (Comma-Separated Values), which you can load as following:
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE}
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/data/cereal.csv")
+```
+
+In this case, we are loading the data directly from a web repository, but you can also load it with local data (e.g. changing the file to `"C:/Documents/DS/cereal.csv"`).
+
+*Note: Always make sure you look at your dataset after you load it, to make sure you are reading it correctly*.
+
+If you are using other type of data, there other packages that might be useful, such as `haven`, `readxl`, or `rjson`, among others.  
+
+---
+
+# Data Wrangling
+
+Now that we have setup our session and have our data loaded, let's start wrangling the data (e.g. setting it up for analysis). We will be using the `cereal.csv` data we previously loaded, and you can check out more information about this dataset [here](http://lib.stat.cmu.edu/datasets/1993.expo/).
+
+## Inspect data
+
+We can look at some of the data with plots. For example, a histogram:
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE, align = 'center'}
+ggplot(data = d, aes(x = rating)) +
+  geom_histogram(color = "skyblue", fill = "white", lwd = 1.1, bins = 30) +
+  xlab("Rating") + ylab("Count") +
+  ggtitle("Rating for Cereals") + 
+    theme_minimal()
+```
+
+In `ggplot`, we always load the data and pass the aesthetics (e.g. variables you want to plot). There are many options to personalize your plots! Make sure they are readable and provide the information you want to convey. For that, titles, captions, axis labels, scale, etc., are always important. In this case, **looks ARE important** (in order to convey information).
+
+Besides histograms, we can have density plots (`geom_density()`), scatter plots (`geom_point()`), and line plots (`geom_line`), among many, many others.
+
+For example, let's look at a scatter plot between `sugars` and `rating`:
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE, align = 'center'}
+ggplot(data = d, aes(y = rating, x = sugars)) +
+  geom_point(color = "skyblue") +
+  xlab("Sugars") + ylab("Ratings") +
+  ggtitle("Rating vs Sugars") + 
+    theme_minimal()
+```
+
+And now let's look at the same plot, but for cereals below and above 100 calories per portion. Notice how I create a new variable (`over100ca`), and use it to color different points (*Question: What happens if I don't use `factor(over100ca)` and use `over100ca` directly?*):
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE, align = 'center'}
+d %>% mutate(over100ca = ifelse(calories>100,1,0)) %>%
+  
+ggplot(data = ., aes(y = rating, x = sugars, color = factor(over100ca))) +
+  geom_point() +
+  xlab("Sugars") + ylab("Ratings") + 
+  # scale_X_manual() allows you to include specific colors, titles, and labels!
+  scale_color_manual("Over 100 calories?", values = c("skyblue","purple"), 
+                     label = c("No","Yes")) +
+  ggtitle("Rating vs Sugars") + 
+    theme_minimal()
+```
+
+
+We can also show two plots side-by-side using the `patchwork` package:
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE, align = 'center'}
+hist1 <- ggplot(data = d, aes(x = rating)) +
+  geom_histogram(color = "skyblue", fill = "white", lwd = 1.1, bins = 30) +
+  xlab("Rating") + ylab("Count") +
+  ggtitle("Rating for Cereals") + 
+    theme_minimal()
+
+scat1 <- d %>% mutate(over100ca = ifelse(calories>100,1,0)) %>%
+  ggplot(data = ., aes(y = rating, x = sugars, color = factor(over100ca))) +
+    geom_point() +
+    xlab("Sugars") + ylab("Ratings") + 
+    scale_color_manual("Over 100 calories?", values = c("skyblue","purple"), 
+                       label = c("No","Yes")) +
+    ggtitle("Rating vs Sugars") + 
+      theme_minimal() +
+  theme(legend.position = c(0.8,0.9))
+
+hist1 + scat1
+```
+
+Some arguments that might be useful to have in mind:
+
+- `color`: Refers to the outline color of objects. If `fill` is not defined, usually both take the same argument.
+- `fill`: Refers to what color objects are filled (e.g. bars). In a scatter plot, it only works if the marker has a different outline.
+- `pch`: In a scatter plot, defines the type of marker you are using (e.g. circles, squares, triangles). Check out the different options [here](http://www.sthda.com/english/wiki/r-plot-pch-symbols-the-different-point-shapes-available-in-r)
+- `lwd`: Line width for a line or a bar plot, for example.
+- `lty`: Line type (1: solid, 2: dashed, etc.).
+
+In terms of aesthetics, `aes()`:
+
+- `x`: X-axis variable
+- `y`: Y-axis variable
+- `color`, `fill`: Variable that will define the color of lines or markers (e.g. if you want to distinguish between two groups)
+
+Also, please **always** remember to label your axis!!
+
+<br>
+```{r convincing, fig.align = 'center', out.width = "80%", echo=FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/images/convincing.png")
+```
+
+
+<br>
+
+One thing that you might want to do when inspecting your data is to know how many observations/groups you have available. For example, how many different manufacturers do we have and do they make higher or lower calories cereal?
+
+For this, the `group_by` function could be very useful. What it does is group your dataset by whatever variable(s) you want, and then do operations at that group-level (e.g. mutate or summarize):
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
+d %>% group_by(mfr) %>% summarize(n_cereals = n(),
+                                  mean_calories = mean(calories))
+```
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE, align = 'center'}
+library(kableExtra)
+
+d %>% group_by(mfr) %>% summarize(n_cereals = n(),
+                                  mean_calories = mean(calories)) %>%
+  kbl() %>%
+  kable_paper("hover", full_width = F)
+```
+
+<br>
+From the previous code, you can see that now we are creating two new variables: `n_cereals`, which is the number of different cereals in our dataset *by manufacturer*, and `mean_calories`, which captures the average calories of cereals made by that manufacturer.
+
+
+## Cleaning data
+
+One important task (and usually the one that takes the most time) is cleaning your data. In this section, we will review some of the main functions you will need to remove observations, create new variables, change existing ones, etc.
+
+Some useful functions:
+
+- `filter(exp)`: This function helps us select a subset of observations that comply with the logical expression `exp` within.
+
+- `is.na(var)`: Applied to a variable `var`, returns a logic vector (`TRUE` or `FALSE`), depending on whether that observation is missing or not.
+
+- `mutate(var = exp)`: This is the main function we will use to create new variables or replace existing ones (if we use a variable name that is already in the datasete).
+
+- `mean(var, na.rm = TRUE)`: Returns the mean of a variable `var`, excluding missing values from the calculation (that's why we use `na.rm=TRUE`). If you don't want to exclude them, use `na.rm=FALSE` (it's a good way to double check whether you have missing values or not).
+
+- `ifelse(test, yes, no)`: Returns a value with the same dimensions as `test` (a logical expression), but filled with the `yes` elements when `test==TRUE` and `no` elements when `test==FALSE`.
+
+## Merging datasets
+
+For merging datasets, you will need at least two dataframes, and a common variable that you want to use for merging (e.g. `id`).
+
+The following figure shows the more typical functions for merging datasets, available on the `tidyverse`:
+
+```{r join, echo = FALSE,fig.align = 'center', out.width = "50%", fig.cap = "Overview of the dplyr Join Functions ([Source](Source: https://statisticsglobe.com/r-dplyr-join-inner-left-right-full-semi-anti))"}
+knitr::include_graphics("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/join_functions.png")
+```
+
+<br>
+As an example, let's load two datasets: (1) one at the zipcode level, and (2) another one at the individual level.
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
+zipcode <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/data/zipcode.csv")
+
+individual <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/data/individual.csv")
+
+head(individual)
+```
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE, align = 'center'}
+zipcode <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/data/zipcode.csv")
+
+individual <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/data/individual.csv")
+
+head(individual) %>%
+  kbl() %>%
+  kable_paper("hover", full_width = F)
+```
+  
+We will merge both datasets **by their zipcode** (*Note: make sure both variables are named the same and have the same format!*), and keep all observations in the `individual` dataset:
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
+individual <- left_join(individual, zipcode, by = "zipcode")
+
+head(individual)
+```
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE, align = 'center'}
+individual <- left_join(individual, zipcode, by = "zipcode")
+
+head(individual) %>%
+  kbl() %>%
+  kable_paper("hover", full_width = F)
+```
+
+---
+
+# Some analysis output
+
+We will not go into depth in terms of how to analyze data (check slides and code provided for each class), but one relevant tip for assignments is how to present your results in an appropriate way.
+
+For that, we will use the `stargazer` package to format tables.
+
+## Summary tables
+
+Besides what we will see in class, you can use different packages to export tables in a more "format-friendly" way. Here, I'll review just a couple of packages that can be useful for this purpose.
+
+### vtable
+
+We will mention this package in class as a way to quickly inspect your data, but you can also create summary tables with the `sumtable()` function.
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
+cereal <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/data/cereal.csv")
+
+sumtable(cereal, digits = 2, title = "Summary statistics for Cereal Data")
+```
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE, out.width="70%", align = "center"}
+cereal <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/data/cereal.csv")
+
+tab <- sumtable(cereal, digits = 2, 
+                title = "Summary statistics for Cereal Data", 
+                out = "return")
+
+tab %>% kbl() %>%
+  kable_paper("hover", full_width = F)
+```
+
+You might also want to have nice looking tables for a report, so renaming your variables might be a good idea (for the table). For example, you can do it as following:
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE, align = 'center'}
+cereal_select <- cereal %>% select(name, type, calories, protein, fat, sodium, sugars)
+
+names(cereal_select) <- c("Cereal Name", "Type of Cereal", "Calories (Kca)", "Protein (grs)", "Fat (grs)", "Sodium (mgrs)", "Sugars (grs)")
+
+tab <- sumtable(cereal_select, digits = 2, 
+                title = "Summary statistics for Cereal Data", 
+                out = "return")
+
+tab %>% kbl() %>%
+  kable_paper("hover", full_width = F)
+```
+
+<br>
+You can also export the table to a CSV file using the arguments `out = "csv"` and `file`, or an HTML file to keep the formatting.
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
+sumtable(cereal, out = "csv", file = "C:/DS/sumtable_cereal.csv", digits = 2,
+         title = "Summary statistics for Cereal Data")
+
+sumtable(cereal, out = "html", file = "C:/DS/sumtable_cereal.html", digits = 2,
+         title = "Summary statistics for Cereal Data")
+```
+
+```{r outputs, echo = FALSE, fig.align = 'center', out.width = "45%", fig.cap = "Different Outputs for sumtable()", fig.show='hold'}
+
+knitr::include_graphics(c("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/images/vtable_excel.png", 
+                          "https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/UsefulRCode/images/vtable_html.png"))
+
+```
+
+<br>
+Check out more examples [here](https://cran.r-project.org/web/packages/vtable/vignettes/sumtable.html) to customize labels, groups, etc.
+
+### stargazer
+
+You can also use the `stargazer` package to create similar tables. For example:
+
+<style type="text/css">
+  td {
+    padding: 0 15px;
+  }
+</style>
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE, results='asis', align = 'center'}
+stargazer(cereal, title = "Summary statistics for Cereal Data", header = FALSE,
+          type = "html")
+```
+
+<br>
+
+You can also use this package for regression results. For example, if we have three models:
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE, eval=FALSE}
+lm0 <- lm(rating ~ sugars, data = d)
+lm1 <- lm(rating ~ sugars + fat, data = d)
+lm2 <- lm(rating ~ sugars + fat + fiber + cups, data = d)
+
+stargazer(lm0, lm1, lm2, header = FALSE,
+          title="Regressions results for Cereal Ratings")
+```
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE, results="asis", align = 'center'}
+lm0 <- lm(rating ~ sugars, data = d)
+lm1 <- lm(rating ~ sugars + fat, data = d)
+lm2 <- lm(rating ~ sugars + fat + fiber + cups, data = d)
+
+library(htmltools)
+
+stargazer(lm0, lm1, lm2, header = FALSE,
+          title="Regressions results for Cereal Ratings", out = "tab1.html")
+
+htmltools::includeHTML("tab1.html")
+```
+
+<br>
+
+Same as before, you can also export these tables, but stargazer does have a more limited capability:
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
+stargazer(lm0, lm1, lm2,
+          title="Regressions results for Cereal Ratings", 
+          out = "C:/DS/reg_cereals.html")
+```
+
+If you want to keep the format of the table and be able to edit it in your document, one way is to export html into a .doc file, but you have to make small modifications to the p-value legends:
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
+notes ="***: p<a>&#60;</a>0.01; **: p<a>&#60;</a>0.05; *: p<a>&#60;</a>0.1"
+
+stargazer(lm0, lm1, lm2,
+          title="Regressions results for Cereal Ratings", type = "html", 
+          out = "C:/DS/reg_cereals.doc",
+          notes = notes, notes.append=F)
+```
+
+## Other packages
+
+There are other packages out there that could also be useful (e.g. `flextable` or `gtsummary`), but in my opinion, the two presented here are some of the more beginner-friendly. I encourage you, though, to explore the different arguments and options to personalize your tables appropriately! Remember that the information you present needs to convey a message, so it needs to be clear.
+
+---
+
+# How to debug my code
+
+One important thing to learn is how to find solutions when your code is not running. Here are some tips:
+<br>
+<br>
+
+1) **Start from a clean environment**: Run your entire code. Does it throw an error? Identify which line.
+
+2) **Is this an error or a warning?**: Both of them are important, but warnings allow you to run your code, while errors don't. Read warnings to make sure that is something that you shouldn't be concerned about.
+
+3) **Read your error message**: Sometimes the solution is on the error itself! If it tells you that the function can't run because there are missing values, inspect your data to see what they are.
+
+4) **Google is your friend**: If you can't identify the problem from the error message itself, google it! Most likely someone else has ran into the same issue and have posted the question on [StackOverflow](https://stackoverflow.com/), for example. Use that collective knowledge to help you find answers.
+
+5) **I still don't know what's wrong**: If you've already read, googled, tried different solutions, and still feel stuck (e.g. > 10 min), reach out to the instruction team! We are more than happy to guide you to a solution. Make sure to let us know what you have tried, but don't spend too much time stuck.
+
+With coding, you learn something new every day. New packages come out, functions sometimes change, new problems require different skills, but the idea is that *you learn how to teach yourself how to code*, regardless of the language or software. It can be frustrating, but it is an **incredible useful skill** and your hard work will certainly pay!
+
+---
+# Some final thoughts
+
+There are **a lot** of things we can do in R, and in this class we are going to dive into a lot of them. Make sure you check the weekly R scripts that are posted with each class and play around with them. Add some of these tricks, try new functions, search for errors, and be curious!
+
+The instruction team is always here to help you, so be sure to reach out if you are having any issues.
+
+<style type="text/css">
+  p {
+    margin-top: 0px !important;
+  }
+</style>
+
+<br>
+
+::: {.colorbox}
+Happy coding!
+:::
