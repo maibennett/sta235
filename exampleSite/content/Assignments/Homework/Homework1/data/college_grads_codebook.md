@@ -1,3 +1,32 @@
+---
+---
+
+<style>
+.invisible-text {
+    display: none;
+}
+
+.btn-editor {
+    font-weight: bold !important;
+    font-size: 30px !important;
+    color: rgba(132, 81, 161,1) !important;
+}
+
+.stackedit-button-wrapper {
+    text-align: center;
+    font-weight: bold;
+    font-weight: bold;
+    display: table;
+    border-width: thick;
+    border: 5px solid rgba(132, 81, 161,1);
+    font-family: "Work Sans";
+    border-radius: 15px;
+    margin: 0em auto;
+    overflow: hidden;
+    padding: 0.4em 0.4em;
+}
+</style>
+
 Variable | Description
 ---|---------
 `Rank` | Rank by median earnings
