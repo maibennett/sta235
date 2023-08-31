@@ -16,6 +16,8 @@ Homework assignments are posted **one week before they are due**. Check the [syl
 
 - We will review all the content you need to complete the assignments successfully, but you will need to **adapt** some of the material to a set of different problems.
 
+- A few of the coding questions are also meant for you to learn how to solve simple problems (e.g. data inspection/data wrangling).
+
 - All homework assignments include a substantial part of coding, though this is only used as a mean to analyze data. <u>If you are stuck in a specific code for too long, make sure to reach out to the instruction team!</u>
 
 
@@ -23,11 +25,13 @@ Homework assignments are posted **one week before they are due**. Check the [syl
 
 - Homework assignments are posted on **Canvas**, so make sure you check the instructions and deadlines in the platform.
 
-- For homework assignments, most questions will be answered directly on Canvas, but you will have to submit a **PDF write-up for others questions** if needed (e.g. plots, regression output).
+- For homework assignments, all questions will be answered directly on Canvas, but if you have problems uploading some answers (e.g. plots, regression outputs), you will have to submit a **PDF write-up**.
 
 - In some questions, we will also ask for you to submit a **specific line of code**. All these instructions will be included in the individual assignments, so make sure you review them carefully.
 
 - You will also need to **submit your R script** (.R extension). This script has to contain all the code you used to complete the homework assignment in a coherent way. Review the tips below to make sure your code complies with the requirements.
+
+- Remember to cite any external references you might use. There's no need to cite slide or content we have reviewed in class, though.
 
 
 ## What should my R Script look like?
