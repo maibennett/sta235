@@ -29,7 +29,7 @@ Magdalena Bennett, Ph.D., Assistant Professor in the Statistics Group (IROM Depa
 
 Pedro Lima, Ph.D. student in the Stats Group (IROM)
 
-- <i class="fas fa-envelope"></i> Email [plima@utexas.edu](mailto:plima@utexas.edu))
+- <i class="fas fa-envelope"></i> Email [plima@utexas.edu](mailto:plima@utexas.edu)
 
 Emma Costa, 3rd-year student Honors Program
 
