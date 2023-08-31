@@ -8,7 +8,7 @@ disableToc: true
 
 ## What we will cover
 
-In this session, we will fully dive into Causal Inference: Potential outcomes framework, the fundamental problem of causal inference, causal estimands, and study design.
+In this session, we will talk about non-linear relations between our outcome and covariates, and how we can include polynomials to create a better fitting model. We will also start diving into Causal Inference: Potential outcomes framework, the fundamental problem of causal inference, causal estimands, and study design.
 
 ## Recommended readings/videos
 

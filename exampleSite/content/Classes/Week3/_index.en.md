@@ -41,5 +41,11 @@ In this session, we will discuss potential issues with regressions, such as outl
 
 ## Code
  
-<!-- Here is the R code we will review in class, with some additional data and questions <a onclick="ga('send', 'event', 'External-Link','click','code3','0','Link');" href="https://sta235.netlify.app/Classes/Week3/2_OLS_issues/code/f2022_sta235h_3_reg.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> -->
+<!-- Download the R Script for the "in-class" exercise here:
+<script>let date = Date.now();</script>
+<a onclick="gtag('event','code3_inclass', {'event_category': 'code','event_label': 'code3_inclass', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/2_OLS_issues/code/f2023_sta235h_3_reg_in_class.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
+Here is the full R script for this class, with some additional questions: 
+
+<a onclick="gtag('event','code3', {'event_category': 'code','event_label': 'code3', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/2_OLS_issues/code/f2023_sta235h_3_reg.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+ -->
