@@ -418,11 +418,7 @@ $$\frac{y_1 - y_0}{y_0} = \frac{75-70}{70} = 0.0714$$
 
 .small[
 ```{r echo=TRUE, warning=FALSE, message = FALSE}
-library(AER)
-
-data("HMDA")
-
-hmda <- data.frame(HMDA)
+hmda = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/2_OLS_Issues/data/hmda.csv", stringsAsFactors = TRUE)
 
 head(hmda)
 
@@ -437,7 +433,7 @@ head(hmda)
 .pull-left-little_l[
 .small[
 ```{r echo=TRUE, warning=FALSE, message = FALSE}
-hmda <- hmda %>% mutate(deny = as.numeric(deny) - 1)
+hmda = hmda %>% mutate(deny = as.numeric(deny) - 1)
 
 summary(lm(deny ~ pirat + factor(afam), data = hmda))
 

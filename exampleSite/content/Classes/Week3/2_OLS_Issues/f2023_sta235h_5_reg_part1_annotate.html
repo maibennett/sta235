@@ -5,14 +5,16 @@
     <meta charset="utf-8" />
     <meta name="author" content="McCombs School of Business, UT Austin" />
     <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
     <script src="libs/clipboard/clipboard.min.js"></script>
     <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
     <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
     <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
-    <script src="libs/kePrint/kePrint.js"></script>
-    <link href="libs/lightable/lightable.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/5235085b15.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -141,7 +143,7 @@ class: center, middle, inverse, title-slide
 ---
 # Let's look at an example
 
-- Home Mortgage Disclosure Act Data (HMDA) from the `AER` package
+- Home Mortgage Disclosure Act Data (HMDA)
 
 .small[
 
@@ -219,193 +221,6 @@ summary(lm(deny ~ pirat + factor(afam), data = hmda))
 - Being AA is associated to an &lt;u&gt;average&lt;/u&gt; increase of **.darkorange[0.177 in the probability]** of getting a loan denied &lt;u&gt;compared to a non AA&lt;/u&gt;, holding payment-to-income ratio constant.
 ]
 ]
-
----
-# How does this LPM look?
-
-
-&lt;img src="f2023_sta235h_5_reg_files/figure-html/lpm1-1.svg" style="display: block; margin: auto;" /&gt;
-
-
-
----
-# Issues with a LPM?
-
-- **.darkorange[Main problems]**:
-
-  - Non-normality of the error term
-  
-  - Heteroskedasticity (i.e. variance of the error term is not constant)
-  
-  - Predictions can be outside [0,1]
-  
-  - LPM imposes linearity assumption
-  
----
-# Issues with a LPM?
-
-- **.darkorange[Main problems]**:
-
-  - Non-normality of the error term `\(\rightarrow\)` **.darkorange[Hypothesis testing]**
-  
-  - Heteroskedasticity `\(\rightarrow\)` **.darkorange[Validity of SE]**
-  
-  - Predictions can be outside [0,1] `\(\rightarrow\)` **.darkorange[Issues for prediction]**
-  
-  - LPM imposes linearity assumption `\(\rightarrow\)` **.darkorange[Too strict?]**
-  
----
-# Are there solutions?
-
-.pull-left[
-![](https://media.giphy.com/media/xT5LMHMVvWbyDAtYQ0/giphy.gif)
-]
-.pull-right[
-- **.darkorange[Don't use small samples]**: With the CLT, non-normality shouldn't matter much.
-
-- **.darkorange[Saturate your model]**: In a fully saturated model (i.e. include dummies and interactions), CEF is linear.
-
-- **.darkorange[Use robust standard errors]**: Package `estimatr` in R is great!
-
-]
-
-
----
-# Run again with robust standard errors
-
-.small[
-
-```r
-library(estimatr)
-
-model1 &lt;- lm(deny ~ pirat + factor(afam), data = hmda)
-model2 &lt;- lm_robust(deny ~ pirat + factor(afam), data = hmda)
-```
-]
-
-.small[
-&lt;table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto;" class="table"&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt;  (1) &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt;   (2) &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; (Intercept) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; −0.091*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; −0.091** &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.021) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.031) &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; pirat &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.559*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.559*** &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.060) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.095) &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; factor(afam)yes &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.177*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.177*** &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.018) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.025) &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;tfoot&gt;&lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
-&lt;sup&gt;&lt;/sup&gt; + p &amp;lt; 0.1, * p &amp;lt; 0.05, ** p &amp;lt; 0.01, *** p &amp;lt; 0.001&lt;/td&gt;&lt;/tr&gt;&lt;/tfoot&gt;
-&lt;/table&gt;
-]
-
-- Can you interpret these parameters? Do they make sense?
-
----
-
-.center2[
-.box-4[Most issues are solvable, but...]
-
-
-.box-4[What about prediction?]
-]
-
----
-# Logistic Regression
-
-- Typically used in the context of binary outcomes (*Probit is another popular one*)
-
-- **.darkorange[Nonlinear function]** to model the conditional probability function of a binary outcome.
-
-`$$Pr(Y = 1|X_1,...,X_p) = F(\beta_0 + \beta_1 X_1 + ... + \beta_p X_p)$$`
-Where in a **.darkorange[logistic regression]**: `\(F(x) = \frac{1}{1+exp(-x)}\)`
-
-- *In the LPM, `\(F(x) = x\)`*
-
---
-
-- A logistic regression doesn't look pretty:
-
-`$$Pr(Y|X_1,...,X_p) = \frac{1}{1+e^{-(\beta_0 + \beta_1X_1+...+\beta_pX_p)}}$$`
-
----
-# How does this look in a plot?
-
-
-
-&lt;img src="f2023_sta235h_5_reg_files/figure-html/logit1-1.svg" style="display: block; margin: auto;" /&gt;
----
-# When will we use logistic regression?
-
-- As you discovered in the readings, logit is great for prediction (**.darkorange[much better]** than LPM).
-
-- For explanation, however, **.darkorange[LPM simplifies interpretation]**.
-
---
-
-.box-6Trans[Use LPM for explanation and logit for prediction]
-
---
-
-.box-7Trans[(but remember robust SE!)]
-
----
-# Takeaway points
-
-.pull-left[
-
-- Always make sure to **.darkorange[check your data]**:
-
-  - What are analyzing? Does the data behave as I would expect? Should I exclude observations?
-  
-- For LPM, **.darkorange[always include robust standard errors]**!
-  
-]
-
-.pull-right[
-&lt;br&gt;
-&lt;br&gt;
-![](https://media.giphy.com/media/xT5LMNLNu7ZMpRgVgc/giphy.gif)
-
-]
-
----
-# References
-
-- Ismay, C. &amp; A. Kim. (2021). “Statistical Inference via Data Science”. Chapter 6 &amp; 10.
-
-
-&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week2/4_OLS_probs/f2021_sta235h_4_reg.html') --&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
