@@ -1,7 +1,7 @@
 ######################################################################
-### Title: "Week 3 - Outliers and Multicollinearity"
+### Title: "Week 3 - Outliers and Linear Probability Models"
 ### Course: STA 235H
-### Semester: Fall 2022
+### Semester: Fall 2023
 ### Professor: Magdalena Bennett
 #######################################################################
 
@@ -16,7 +16,6 @@ options(scipen = 0)
 # If you don't have one of these packages installed already, you will need to run install.packages() line
 library(tidyverse)
 library(vtable)
-library(AER)
 library(estimatr)
 
 ################################################################################
@@ -36,7 +35,7 @@ hmda <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/examp
 
 # Let's look at loans that were approved (action taken = 1) for home purchase (loan_purpose = 1) (hint: you will need to subset your data)
 
-hmda <- hmda %>% ... #complete this
+hmda <- hmda %>% filter(action_taken==1 & loan_purpose == 1) #complete this
 
 # Q: How could we see if we have outliers?
 
