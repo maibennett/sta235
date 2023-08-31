@@ -1,7 +1,7 @@
 ######################################################################
-### Title: "Week 3 - Outliers and Multicollinearity"
+### Title: "Week 3 - Outliers"
 ### Course: STA 235H
-### Semester: Fall 2022
+### Semester: Fall 2023
 ### Professor: Magdalena Bennett
 #######################################################################
 
@@ -16,8 +16,6 @@ options(scipen = 0)
 # If you don't have one of these packages installed already, you will need to run install.packages() line
 library(tidyverse)
 library(vtable)
-library(AER)
-library(estimatr)
 
 ################################################################################
 ### In-class exercises
@@ -30,7 +28,7 @@ library(estimatr)
 # This is the data from 2017 HMDA for Bastrop county (https://www.consumerfinance.gov/data-research/hmda/historic-data/?geo=tx&records=first-lien-owner-occupied-1-4-family-records&field_descriptions=labels)
 # (you can also find the whole dataset for Austin by changing the name of the file to hmda_2017_austin.csv)
 
-hmda <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/2_OLS_Issues/data/hmda_2017_austin_bastrop.csv", stringsAsFactors = FALSE)
+hmda <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/1_Outliers/data/hmda_2017_austin_bastrop.csv")
 
 # You can find information about the variables here: https://files.consumerfinance.gov/hmda-historic-data-dictionaries/lar_record_codes.pdf
 
