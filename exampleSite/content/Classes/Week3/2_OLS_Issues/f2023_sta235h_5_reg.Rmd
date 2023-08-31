@@ -316,7 +316,7 @@ library(showtext)
 library(xaringanExtra)
 library(tidyverse)
 
-xaringanExtra::use_scribble()
+#xaringanExtra::use_scribble()
 
 htmltools::tagList(
   xaringanExtra::use_clipboard(
@@ -594,18 +594,23 @@ Where in a **.darkorange[logistic regression]**: $F(x) = \frac{1}{1+exp(-x)}$
 
 - *In the LPM, $F(x) = x$*
 
+--
+
+- A logistic regression doesn't look pretty:
+
+$$Pr(Y|X_1,...,X_p) = \frac{1}{1+e^{-(\beta_0 + \beta_1X_1+...+\beta_pX_p)}}$$
 
 ---
 # How does this look in a plot?
 
-```{r echo=TRUE, warning=FALSE, message = FALSE}
+```{r echo=FALSE, warning=FALSE, message = FALSE}
 logit1 <- glm(deny ~ pirat, family = binomial(link = "logit"),
               data = hmda)
 
 prob <- predict(logit1, type = "response") # probabilities
 ```
 
-```{r logit1, fig.height=4, fig.width=5.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+```{r logit1, fig.height=5.5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 
 ggplot(data = hmda, aes(x = pirat, y = deny)) + 
   geom_point(color = "#5601A4", fill = alpha("#5601A4",0.4), pch=21, size = 3)+
@@ -664,11 +669,7 @@ ggplot(data = hmda, aes(x = pirat, y = deny)) +
 
   - What are analyzing? Does the data behave as I would expect? Should I exclude observations?
   
-- Is it a problem if my covariates are **.darkorange[highly correlated]**?
-  
-  - Sometimes yes, sometimes no.
-  
-- For LPM, **.darkorange[always include robust standar errors]**!
+- For LPM, **.darkorange[always include robust standard errors]**!
   
 ]
 

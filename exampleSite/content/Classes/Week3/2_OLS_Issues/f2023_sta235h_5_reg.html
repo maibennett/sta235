@@ -5,10 +5,6 @@
     <meta charset="utf-8" />
     <meta name="author" content="McCombs School of Business, UT Austin" />
     <script src="libs/header-attrs/header-attrs.js"></script>
-    <script src="libs/fabric/fabric.min.js"></script>
-    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
     <script src="libs/clipboard/clipboard.min.js"></script>
     <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
@@ -232,7 +228,7 @@ summary(lm(deny ~ pirat + factor(afam), data = hmda))
 # How does this LPM look?
 
 
-&lt;img src="f2022_sta235h_5_reg_annotate_files/figure-html/lpm1-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_5_reg_files/figure-html/lpm1-1.svg" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -360,19 +356,18 @@ Where in a **.darkorange[logistic regression]**: `\(F(x) = \frac{1}{1+exp(-x)}\)
 
 - *In the LPM, `\(F(x) = x\)`*
 
+--
+
+- A logistic regression doesn't look pretty:
+
+`$$Pr(Y|X_1,...,X_p) = \frac{1}{1+e^{-(\beta_0 + \beta_1X_1+...+\beta_pX_p)}}$$`
 
 ---
 # How does this look in a plot?
 
 
-```r
-logit1 &lt;- glm(deny ~ pirat, family = binomial(link = "logit"),
-              data = hmda)
 
-prob &lt;- predict(logit1, type = "response") # probabilities
-```
-
-&lt;img src="f2022_sta235h_5_reg_annotate_files/figure-html/logit1-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_5_reg_files/figure-html/logit1-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 # When will we use logistic regression?
 
@@ -397,11 +392,7 @@ prob &lt;- predict(logit1, type = "response") # probabilities
 
   - What are analyzing? Does the data behave as I would expect? Should I exclude observations?
   
-- Is it a problem if my covariates are **.darkorange[highly correlated]**?
-  
-  - Sometimes yes, sometimes no.
-  
-- For LPM, **.darkorange[always include robust standar errors]**!
+- For LPM, **.darkorange[always include robust standard errors]**!
   
 ]
 
