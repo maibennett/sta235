@@ -1,7 +1,7 @@
 ######################################################################
 ### Title: "Homework 1"
 ### Course: STA 235H
-### Semester: Fall 2022
+### Semester: Fall 2023
 ### Name: [INSERT YOUR NAME HERE]
 #######################################################################
 
@@ -13,28 +13,13 @@ cat("\014")
 ### Load libraries
 # [LOAD PACKAGES HERE]
 
-# Task 2 - Let's play some (collegiate) sports!
+# The Economic Guide to Picking a College Major 
 
-sports <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/HW1/data/sports.csv")
+grad = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/Homework1/data/college_grads.csv")
 
-# Q2.1
+# Task 2 - Data inspection
 
-# Q2.2
-
-
+#Q2.2
 
 
-
-# Q2.7
-sports_mw <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/HW1/data/sports_mw.csv")
-
-
-
-
-
-# Task 3 - All about that real estate bubble
-
-housing <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/HW1/data/housing.csv")
-
-# Q3.1
 
