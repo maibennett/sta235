@@ -1,5 +1,5 @@
 ---
-title: "STA 235H - Multiple Regression: Nonlinearity"
+title: "STA 235H - Multiple Regression: Outliers, Multicollinearity, and Heteroskedasticity"
 subtitle: "Fall 2022"
 author: "McCombs School of Business, UT Austin"
 output:
@@ -275,9 +275,9 @@ style_mono_accent(
    
    ".image-80 img" = list("scale" = "80%"),
    ".pull-left-little_l" = list("float" = "left",
-                                "width" = "67%"),
+                                "width" = "60%"),
    ".pull-right-little_l" = list("float" = "right",
-                                "width" = "27%"),
+                                "width" = "34%"),
    ".pull-left-little_r" = list("float" = "left",
                                 "width" = "27%"),
    ".pull-right-little_r" = list("float" = "right",
@@ -315,7 +315,7 @@ library(knitr)
 library(showtext)
 library(xaringanExtra)
 
-#xaringanExtra::use_scribble()
+xaringanExtra::use_scribble()
 
 htmltools::tagList(
   xaringanExtra::use_clipboard(
@@ -332,487 +332,541 @@ font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
 font.add.google("Fira Sans", "Fira Sans")
 ```
 
-# Last week
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-.pull-left[
-.center[
-![](https://media.giphy.com/media/7SQDv1QwEGjvEdCf5d/giphy.gif)]
-]
-
-.pull-right[
-- Reviewed more **.darkorange[multiple regression]** models:
-  
-  - Interaction models
-  
-  - Logarithmic outcomes
-
-]
+.box-5Trans[Why should we inspect our data before doing anything else?]
 
 ---
-# Today
+# Identifying outliers
 
-.pull-left[
-- **.darkorange[Continue with nonlinearity]**:
+- How do we **.darkorange[identify outliers]**?
 
-  - Review of regressions with log variables
-  - Polynomial terms in regressions
-
-- **.darkorange[Assessing issues with our data:]**
+--
   
-  - Outliers
-  - Multicollinearity
+  - Visual inspection (e.g. plots, tables)
   
-- **.darkorange[Binary response models:]**
-  - Should we do something different than traditional OLS?
-]
+  - Creating thresholds (e.g. z-scores, IQ)
+  
+--
 
-.pull-right[
-.center[
-![](https://media.giphy.com/media/3oEjHZPivwdJ0syhKE/giphy.gif)]
-]
+- There is **.darkorange[no definite way to identify outliers]**
+
+  - Like the characterization of pornography, "I know it when I see it" (P. Stewart, 1964)
 
 ---
 background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Logs, logs everywhere
-]
-
----
-# Regressions and logarithms
-
-- Every time we have a variable in a logarithm, we should think **.darkorange[percentage change]**
-
---
-
-- For a **.darkorange[log-level]** regression $\log(Y) = \beta_1 + \beta_2 X + \varepsilon$:
-
-  - **.darkorange[Exact association]**: "For a one-unit increase in X, Y changes, on average, by $(\exp(\hat{\beta}_2)-1)\times100$%"
-  
-  - **.darkorange[Approximation]**: "For a one-unit increase in X, Y changes, on average by $\hat{\beta}_2\times100$%"
-
---
-
-.box4-Trans[What about if X is also in a logarithm?]
-
----
-# How would we interpret coefficients now?
-
-- There are also approximations that can be useful!
-
-|**Model**|**Interpretation of $\beta$**|
-|:-----:|:-----:|
-|Level-Level regression<br> $y = \alpha + \beta x$ | $\Delta y = \beta\Delta x$ |
-|Log-Level regression<br> $\log(y) = \alpha + \beta x$ | $\%\Delta y = 100\cdot\beta\Delta x$ |
-|Level-Log regression<br> $y = \alpha + \beta \log(x)$ | $\Delta y = \frac{\beta}{100}\% \Delta x$ |
-|Log-Log regression<br> $\log(y) = \alpha + \beta \log(x)$ | $\%\Delta y = \beta\%\Delta x$ |
-
----
-# What steps should I follow?
-
---
-
-1. **.darkorange[Check]** your variables!
-
-  - If a variable is in a log(), think "percentage change".
-  - If a variable is *not* transformed, think "unit change".
-
---
-
-2. **.darkorange[Calculate]** your association
-
-  - Depending on the scenario, calculate $\exp(\hat{\beta})-1$ or $\hat{\beta}\times100$ or $\frac{\hat{\beta}}{100}$.
-  
---
-
-3. **.darkorange[Interpret]** away
-
-  - Remember key words (e.g. *on average*, *holding other variables constant*, what are you comparing with?)
-
----
-# Let's practice!
-
---
-
-.box-1trans[log(Revenue) = &beta;<sub>0</sub> + &beta;<sub>1</sub>Bechdel + &beta;<sub>2</sub>Rating + <u>&beta;<sub>3</sub>log(Budget)</u> + &epsilon;]
-
---
-
-<br>
-
-.box-3trans[log(Income) = &beta;<sub>0</sub> + &beta;<sub>1</sub>City + &beta;<sub>2</sub>Profession + <u>&beta;<sub>3</sub>Education</u> + &epsilon;]
-
-
---
-
-<br>
-
-.box-5trans[GPACollege = &beta;<sub>0</sub> + &beta;<sub>1</sub>SAT + <u>&beta;<sub>2</sub>log(FamilyIncome)</u> + &beta;<sub>3</sub>GPAHS + &epsilon;]
-
----
-background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-Getting squared
-]
-
----
-# Adding polynomial terms
-
-- Another way to capture **.darkorange[nonlinear associations]** between the outcome (Y) and covariates (X) is to include **.darkorange[polynomial terms]**:
-  
-  - e.g. $Y = \beta_0 + \beta_1X + \beta_2X^2 + \varepsilon$
-  
---
-
-- Let's look at an example!
-
----
-# Determinants of wages: CPS 1985
-
-```{r wages_inspect, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-library(tidyverse)
-library(firasans)
-library(hrbrthemes)
-library(AER)
-data("CPS1985")
-
-CPS1985 %>%
-ggplot(data = ., aes(x = wage)) +
-  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5, bins = 40) + 
-  theme_bw()+
-  xlab("Wages (USD$/hr)") + ylab("Count") +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-# Determinants of wages: CPS 1985
-
-```{r wages_inspect2, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-CPS1985 %>%
-ggplot(data = ., aes(x = log(wage))) +
-  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5, bins = 40) + 
-  theme_bw()+
-  xlab("log(Wage)") + ylab("Count") +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-# Experience vs wages: CPS 1985
-
-<br>
-
-```{r exp_wages, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message=FALSE}
-
-CPS1985 %>% mutate(log_wage = log(wage)) %>%
-ggplot(data = ., aes(y = log_wage, x = experience)) +
-  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
-  theme_bw()+
-  xlab("Experience (Years)") + ylab("log(Wage)") +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-# Experience vs wages: CPS 1985
-
-$$\log(Wage) = \beta_0 + \beta_1 Educ + \beta_2Exp + \varepsilon$$
-
-```{r exp_wages2, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message=FALSE}
-
-lm_wages <- lm(log(wage) ~ education + experience, data = CPS1985)
-
-CPS1985_fit <- CPS1985 %>% mutate(education = mean(education)) %>%
-  mutate(log_wage_fit = predict(lm_wages, newdata = .))
-
-
-CPS1985_fit %>% mutate(log_wage = log(wage)) %>%
-ggplot(data = ., aes(y = log_wage, x = experience)) +
-  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
-  geom_line(aes(y = log_wage_fit, x = experience), color = "#E16462", lwd =1.2) + 
-  theme_bw()+
-  xlab("Experience (Years)") + ylab("log(Wage)") +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-# Experience vs wages: CPS 1985
-
-$$\log(Wage) = \beta_0 + \beta_1 Educ + \beta_2 Exp + \beta_3 Exp^2 + \varepsilon$$
-```{r exp_wages3, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message=FALSE}
-
-lm_mincer <- lm(log(wage) ~ education + experience + I(experience^2), data = CPS1985)
-
-CPS1985_fit <- CPS1985 %>% mutate(education = mean(education)) %>%
-  mutate(log_wage_fit = predict(lm_mincer, newdata = .))
-
-
-CPS1985_fit %>% mutate(log_wage = log(wage)) %>%
-ggplot(data = ., aes(y = log_wage, x = experience)) +
-  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
-  geom_line(aes(y = log_wage_fit, x = experience), color = "#E16462", lwd =1.2) + 
-  theme_bw()+
-  xlab("Experience (Years)") + ylab("log(Wage)") +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-# Mincer equation
-
-$$\log(Wage) = \beta_0 + \beta_1 Educ + \beta_2 Exp + \beta_3 Exp^2 + \varepsilon$$
-
-- Interpret the coefficient for **.darkorange[education]**
-
---
-
-.center[
-*One additional year of education is associated, on average, to $\hat{\beta}_1\times100$% increase in hourly wages, holding experience constant*]
-
---
-
-- What is the association between experience and wages?
-
----
-# Interpreting coefficients in quadratic equation
-
-```{r exp_wages4, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message=FALSE}
-
-x0 = 20
-
-l1 = (lm_mincer$coefficients["experience"] + 
-  2*lm_mincer$coefficients["I(experience^2)"]*x0)*(CPS1985_fit$experience - x0) + lm_mincer$coefficients["(Intercept)"] + lm_mincer$coefficients["education"]*CPS1985_fit$education +
-lm_mincer$coefficients["experience"]*x0 + lm_mincer$coefficients["I(experience^2)"]*x0^2
-  
-y0 = lm_mincer$coefficients["(Intercept)"] + lm_mincer$coefficients["education"]*CPS1985_fit$education +
-lm_mincer$coefficients["experience"]*x0 + lm_mincer$coefficients["I(experience^2)"]*x0^2
-
-CPS1985_fit <- CPS1985_fit %>% mutate(lm_20 = l1)
-
-CPS1985_fit %>% mutate(log_wage = log(wage)) %>%
-ggplot(data = ., aes(y = log_wage, x = experience)) +
-  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
-  geom_line(aes(y = log_wage_fit, x = experience), color = "#E16462", lwd =1.2) + 
-  geom_line(aes(y = lm_20, x = experience), color = "#BF3984", lwd =1.2, lty = 2) + 
-  geom_segment(aes(x = x0, xend = x0, y = 0, yend = y0),
-               lty = 2, color = "dark grey") +
-  theme_bw()+
-  xlab("Experience (Years)") + ylab("log(Wage)") +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-# Interpreting coefficients in quadratic equation
-
-```{r exp_wages5, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message=FALSE}
-
-x1 = 40
-
-l1 = (lm_mincer$coefficients["experience"] + 
-  2*lm_mincer$coefficients["I(experience^2)"]*x1)*(CPS1985_fit$experience - x1) + lm_mincer$coefficients["(Intercept)"] + lm_mincer$coefficients["education"]*CPS1985_fit$education +
-lm_mincer$coefficients["experience"]*x1 + lm_mincer$coefficients["I(experience^2)"]*x1^2
-  
-y1 = lm_mincer$coefficients["(Intercept)"] + lm_mincer$coefficients["education"]*CPS1985_fit$education +
-lm_mincer$coefficients["experience"]*x1 + lm_mincer$coefficients["I(experience^2)"]*x1^2
-
-CPS1985_fit <- CPS1985_fit %>% mutate(lm_40 = l1)
-
-CPS1985_fit %>% mutate(log_wage = log(wage)) %>%
-ggplot(data = ., aes(y = log_wage, x = experience)) +
-  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
-  geom_line(aes(y = log_wage_fit, x = experience), color = "#E16462", lwd =1.2) + 
-  geom_line(aes(y = lm_20, x = experience), color = "#BF3984", lwd =1.2, lty = 2) + 
-  geom_segment(aes(x = x0, xend = x0, y = 0, yend = y0),
-               lty = 2, color = "dark grey") +
-  geom_line(aes(y = lm_40, x = experience), color = "#5601A4", lwd =1.2, lty = 2) + 
-  geom_segment(aes(x = x1, xend = x1, y = 0, yend = y0),
-               lty = 2, color = "dark grey") +
-  theme_bw()+
-  xlab("Experience (Years)") + ylab("log(Wage)") +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
-
----
-# Interpreting coefficients in quadratic equation
-
-```{r exp_wages6, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message=FALSE}
-library(latex2exp)
-x1 = 40
-
-l1 = (lm_mincer$coefficients["experience"] + 
-  2*lm_mincer$coefficients["I(experience^2)"]*x1)*(CPS1985_fit$experience - x1) + lm_mincer$coefficients["(Intercept)"] + lm_mincer$coefficients["education"]*CPS1985_fit$education +
-lm_mincer$coefficients["experience"]*x1 + lm_mincer$coefficients["I(experience^2)"]*x1^2
-  
-y1 = lm_mincer$coefficients["(Intercept)"] + lm_mincer$coefficients["education"]*CPS1985_fit$education +
-lm_mincer$coefficients["experience"]*x1 + lm_mincer$coefficients["I(experience^2)"]*x1^2
-
-CPS1985_fit <- CPS1985_fit %>% mutate(lm_40 = l1)
-
-CPS1985_fit %>% mutate(log_wage = log(wage)) %>%
-ggplot(data = ., aes(y = log_wage, x = experience)) +
-  geom_point(fill = "white", color = "orange", size = 3, pch = 21) +
-  geom_line(aes(y = log_wage_fit, x = experience), color = "#E16462", lwd =1.2) + 
-  geom_line(aes(y = lm_20, x = experience), color = "#BF3984", lwd =1.2, lty = 2) + 
-  geom_segment(aes(x = x0, xend = x0, y = 0, yend = y0),
-               lty = 2, color = "dark grey") +
-  geom_line(aes(y = lm_40, x = experience), color = "#5601A4", lwd =1.2, lty = 2) + 
-  geom_segment(aes(x = x1, xend = x1, y = 0, yend = y0),
-               lty = 2, color = "dark grey") +
-  annotate("text", x=10,y=2.7, label = TeX("$m = \\beta_2 + 2\\beta_3 Exp$"), color = "#5601A4", size = 4) +
-  
-  theme_bw()+
-  xlab("Experience (Years)") + ylab("log(Wage)") +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
-
----
-# Interpreting coefficients in quadratic equation
-
-$$\log(Wage) = \beta_0 + \beta_1 Educ + \beta_2 Exp + \beta_3 Exp^2 + \varepsilon$$
-What is the association between experience and wages?
-
---
-
-- Pick a value for $Exp_0$ (e.g. mean, median, one value of interest)
-
---
-
-.center[
-*Increasing work experience from $Exp_0$ to $Exp_0 + 1$ years is associated, on average, to a $(\hat{\beta}_2 + 2\hat{\beta}_3\cdot Exp_0)100$% increase on hourly wages, holding education constant*]
-
---
-
-E.g. If $Exp_0 = 20$:
-
-.center[
-*Increasing work experience from 20 to 21 years is associated, on average, to a $(\hat{\beta}_2 + 2\hat{\beta}_3\cdot 20)100$% increase on hourly wages, holding education constant*]
-
----
-
 class: center, middle
 
-.box-3Trans[Let's go to R!]
+.box-3LA[Let's go to R]
 
+---
+# What to do with outliers?
+
+1. **.darkorange[Check them!]**
+
+  - Make sure there's no coding error; try to understand what's happening there.
+
+--
+
+2a. **.darkorange[If they are wrongly coded]**:
+
+  - You can remove them, always adding a note of why you did so
+  - Be aware of sample selection!
+  
+--
+  
+2b. **.darkorange[If they are correctly coded]**:
+
+  - Run analysis both with and without outliers (don't just drop them!).
+  - Robust results: Do not depend exclusively on a few observations.
+
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+What about multicollinearity?
+]
+
+---
+# What's the problem with multicollinearity?
+
+- What do you think would happen if I ran this regression?
+
+$$Cancer = \beta_0 + \beta_1 Pack Cigarettes + \beta_2 NCigarettes + \varepsilon$$
+
+--
+
+- If two covariates are **.darkorange[perfectly collinear]**, we can't run the regression
+  
+  - R will drop one of them!
+  
+--
+
+- But what happens when they are highly correlated but not *perfectly collinear*?
+
+---
+# Let's look at some housing data
+
+- Housing data from Ames, Iowa:
+
+.small[
+```{r}
+library(tidyverse)
+
+housing <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/2_OLS_Issues/data/AmesHousing.csv")
+
+housing <- housing %>% filter(Bldg.Type=="1Fam")
+
+```
+]
+
+---
+# How do number of rooms and living area relate to sale price?
+
+--
+```{r rooms_area, fig.height=5, fig.width=12, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+library(ggplot2)
+library(firasans)
+library(hrbrthemes)
+library(hrbrthemes)
+library(extrafont)
+library(tidyverse)
+library(vtable)
+library(patchwork)
+
+
+
+g1 <- ggplot(data = housing, aes(x = TotRms.AbvGrd, y = SalePrice)) +
+  geom_point(color = "#F89441", fill = "white", pch=21, size = 2) + 
+  theme_bw()+
+  xlab("Total Number of Rooms") + ylab("Sale Price (US$)") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+g2 <- ggplot(data = housing, aes(x = Gr.Liv.Area, y = SalePrice)) +
+  geom_point(color = "#E16462", fill = "white", pch=21, size = 2) + 
+  theme_bw()+
+  xlab("Living Area (sq ft)") + ylab("Sale Price (US$)") +
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+g1 + g2
+```
+
+---
+# Let's run a model
+
+--
+.small[
+```{r, eval=FALSE}
+lm_full <- lm(SalePrice ~ TotRms.AbvGrd + Gr.Liv.Area + Garage.Cars + Fireplaces + Total.Bsmt.SF, data = housing)
+
+summary(lm_full)
+```
+```{r, echo = FALSE}
+lm_full <- lm(SalePrice ~ TotRms.AbvGrd + Gr.Liv.Area + Garage.Cars + Fireplaces + Total.Bsmt.SF, data = housing)
+
+round(summary(lm_full)$coefficients, 4)
+
+```
+]
+
+- What can you say about **.darkorange[total rooms]**?
+
+---
+# Multicollinearity in Regressors
+
+- If two covariates are **.darkorange[highly correlated]**, it is difficult to separate the contribution of each!
+
+  - E.g. They move together
+
+--
+
+- **.darkorange[Be careful]** with interpretations
+
+  - The same with extrapolation zones!
+  
+---
+# Can we do something about it?
+
+- **.darkorange[Exclude]** one variable
+
+  - Depends on what you are analyzing.
+  
+--
+
+- Create a **.darkorange[new variable]** that captures clean information
+
+  - E.g. Residuals 
+
+--
+
+- **.darkorange[Aggregate]** both variables into one:
+
+  - Linear combination (e.g. add them)
+  
+  - Create an index
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+What about binary responses?
+]
+
+---
+# Binary Outcomes
+
+.pull-left[
+- You have probably used **.darkorange[binary outcomes]** in regressions, but do you know the issues that they may bring to the table?
+
+.box-6[What can we do about them?]
+  
+]
+
+.pull-right[
+![](https://media.giphy.com/media/HUkOv6BNWc1HO/giphy.gif)
+]
+
+---
+# How to handle binary outcomes?
+
+.center2[
+.box-2tL[Linear Probability Model]
+
+.box-4tL[Logistic Regression]
+]
+
+---
+# How to interpret a LPM?
+
+- A Linear Probability Model is just a **.darkorange[traditional regression with a binary outcome]**
+
+--
+
+- $\hat{\beta}$'s interpreted as **.darkorange[change in probability]**
+
+$$E[Y|X_1,..., X_P] = Pr(Y = 0|X_1,...,X_p)\cdot 0 + Pr(Y = 1|X_1,...,X_p)\cdot 1$$
+$$= Pr(Y = 1|X_1,...,X_p)$$
+
+---
+# How to interpret a LPM?
+
+- $\hat{\beta}$'s interpreted as **.darkorange[change in probability]**
+
+$$E[Y|X_1,..., X_P] = Pr(Y = 0|X_1,...,X_p)\cdot 0 + Pr(Y = 1|X_1,...,X_p)\cdot 1$$
+$$= Pr(Y = 1|X_1,...,X_p)$$
+- Example:
+
+.box-2t[$$GradeA = \beta_0 + \beta_1 \cdot Study + \varepsilon$$]
+
+- $\hat{\beta}_1$ is the average change in probability of getting an A if I study one more hour.
+
+--
+
+- Studying one more hour is associated with an average increase in the probability of getting an A of $\hat{\beta}_1\times100$ **percentage points**. 
+
+---
+# Let's look at an example
+
+- Home Mortgage Disclosure Act Data (HMDA) from the `AER` package
+
+.small[
+```{r echo=TRUE, warning=FALSE, message = FALSE}
+library(AER)
+
+data("HMDA")
+
+hmda <- data.frame(HMDA)
+
+head(hmda)
+
+```
+]
+
+---
+# Probability of someone getting a mortgage loan denied?
+
+- Getting mortgage denied (1) based on race, conditional on payments to income ratio (`pirat`)
+
+.pull-left-little_l[
+.small[
+```{r echo=TRUE, warning=FALSE, message = FALSE}
+hmda <- hmda %>% mutate(deny = as.numeric(deny) - 1)
+
+summary(lm(deny ~ pirat + factor(afam), data = hmda))
+
+```
+]
+]
+
+--
+.small[
+.pull-right_little_l[
+<br>
+<br>
+<br>
+
+- Holding payment-to-income ratio constant, an AA client has a probability of getting their loan denied that is **.darkorange[18 pp higher]**, <u>on average, than a non AA client</u>.
+
+- Being AA is associated to an <u>average</u> increase of **.darkorange[0.177 in the probability]** of getting a loan denied <u>compared to a non AA</u>, holding payment-to-income ratio constant.
+]
+]
+
+---
+# How does this LPM look?
+
+
+```{r lpm1, fig.height=5.5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+library(ggplot2)
+library(hrbrthemes)
+library(firasans)
+library(modelsummary)
+
+ggplot(data = hmda, aes(x = pirat, y = deny)) + 
+  geom_point(color = "#5601A4", fill = alpha("#5601A4",0.4), pch=21, size = 3)+
+  geom_smooth(method = "lm", color = "#BF3984", se = FALSE, lty = 1, lwd = 1.3) +
+  
+  geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1)+
+  geom_hline(aes(yintercept = 1), color="dark grey", lty = 2, lwd=1)+
+  
+  ggplot2::annotate("text", x = 2.3, y = 1.1, label = "Mortgage denied", size = 4, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
+  ggplot2::annotate("text", x = 2.3, y = 0.1, label = "Mortgage approved", size = 4, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
+  
+  theme_bw()+
+  xlab("Payment/Income ratio") + ylab("Deny") +
+  #ggplot2::annotate("text", x = 10, y = 6, label = "Adj. R2 = 0.48", size = 6, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14))
+
+```
+
+
+
+---
+# Issues with a LPM?
+
+- **.darkorange[Main problems]**:
+
+  - Non-normality of the error term
+  
+  - Heteroskedasticity (i.e. variance of the error term is not constant)
+  
+  - Predictions can be outside [0,1]
+  
+  - LPM imposes linearity assumption
+  
+---
+# Issues with a LPM?
+
+- **.darkorange[Main problems]**:
+
+  - Non-normality of the error term $\rightarrow$ **.darkorange[Hypothesis testing]**
+  
+  - Heteroskedasticity $\rightarrow$ **.darkorange[Validity of SE]**
+  
+  - Predictions can be outside [0,1] $\rightarrow$ **.darkorange[Issues for prediction]**
+  
+  - LPM imposes linearity assumption $\rightarrow$ **.darkorange[Too strict?]**
+  
+---
+# Are there solutions?
+
+.pull-left[
+![](https://media.giphy.com/media/xT5LMHMVvWbyDAtYQ0/giphy.gif)
+]
+.pull-right[
+- **.darkorange[Don't use small samples]**: With the CLT, non-normality shouldn't matter much.
+
+- **.darkorange[Saturate your model]**: In a fully saturated model (i.e. include dummies and interactions), CEF is linear.
+
+- **.darkorange[Use robust standard errors]**: Package `estimatr` in R is great!
+
+]
+
+
+---
+# Run again with robust standard errors
+
+.small[
+```{r echo=TRUE, warning=FALSE, message = FALSE}
+library(estimatr)
+
+model1 <- lm(deny ~ pirat + factor(afam), data = hmda)
+model2 <- lm_robust(deny ~ pirat + factor(afam), data = hmda)
+
+```
+]
+
+.small[
+```{r echo=FALSE, warning=FALSE, message = FALSE}
+library(estimatr)
+
+lpm <- lm(deny ~ pirat + factor(afam), data = hmda)
+lpm_r <- lm_robust(deny ~ pirat + factor(afam), data = hmda)
+
+library(estimatr)
+
+modelsummary(list(lpm, lpm_r), stars = TRUE, gof_omit = 'R2|R2Adj|RMSE|DF|AIC|BIC|Log.Lik.|F|Num.Obs.')
+```
+]
+
+- Can you interpret these parameters? Do they make sense?
+
+---
+
+.center2[
+.box-4[Most issues are solvable, but...]
+
+
+.box-4[What about prediction?]
+]
+
+---
+# Logistic Regression
+
+- Typically used in the context of binary outcomes (*Probit is another popular one*)
+
+- **.darkorange[Nonlinear function]** to model the conditional probability function of a binary outcome.
+
+$$Pr(Y = 1|X_1,...,X_p) = F(\beta_0 + \beta_1 X_1 + ... + \beta_p X_p)$$
+Where in a **.darkorange[logistic regression]**: $F(x) = \frac{1}{1+exp(-x)}$
+
+- *In the LPM, $F(x) = x$*
+
+
+---
+# How does this look in a plot?
+
+```{r echo=TRUE, warning=FALSE, message = FALSE}
+logit1 <- glm(deny ~ pirat, family = binomial(link = "logit"),
+              data = hmda)
+
+prob <- predict(logit1, type = "response") # probabilities
+```
+
+```{r logit1, fig.height=4, fig.width=5.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
+
+ggplot(data = hmda, aes(x = pirat, y = deny)) + 
+  geom_point(color = "#5601A4", fill = alpha("#5601A4",0.4), pch=21, size = 3)+
+  geom_line(aes(x = hmda$pirat, y = prob), color = "#BF3984", se = FALSE, lty = 1, lwd = 1.3) +
+  
+  geom_hline(aes(yintercept = 0), color="dark grey", lty = 2, lwd=1)+
+  geom_hline(aes(yintercept = 1), color="dark grey", lty = 2, lwd=1)+
+  
+  ggplot2::annotate("text", x = 2.3, y = 1.1, label = "Mortgage denied", size = 4, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
+  ggplot2::annotate("text", x = 2.3, y = 0.1, label = "Mortgage approved", size = 4, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
+  
+  theme_bw()+
+  xlab("Payment/Income ratio") + ylab("Deny") +
+  #ggplot2::annotate("text", x = 10, y = 6, label = "Adj. R2 = 0.48", size = 6, colour = "dark grey", hjust=0,family="Fira Sans Condensed") +
+  theme_bw()+
+  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
+
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.line = element_line(colour = "dark grey"))+
+  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = element_text(size=14),
+        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.text.y = element_text(size=14),legend.position="none",
+        legend.title = element_blank(),
+        legend.text = element_text(size=15),
+        legend.background = element_rect(fill="white",colour ="white"),
+        title = element_text(size=14),
+        plot.margin = unit(c(0.1,0.1,0.1,0.1), "cm"))
+
+```
+---
+# When will we use logistic regression?
+
+- As you discovered in the readings, logit is great for prediction (**.darkorange[much better]** than LPM).
+
+- For explanation, however, **.darkorange[LPM simplifies interpretation]**.
+
+--
+
+.box-6Trans[Use LPM for explanation and logit for prediction]
+
+--
+
+.box-7Trans[(but remember robust SE!)]
+
+---
+# Takeaway points
+
+.pull-left[
+
+- Always make sure to **.darkorange[check your data]**:
+
+  - What are analyzing? Does the data behave as I would expect? Should I exclude observations?
+  
+- Is it a problem if my covariates are **.darkorange[highly correlated]**?
+  
+  - Sometimes yes, sometimes no.
+  
+- For LPM, **.darkorange[always include robust standar errors]**!
+  
+]
+
+.pull-right[
+<br>
+<br>
+![](https://media.giphy.com/media/xT5LMNLNu7ZMpRgVgc/giphy.gif)
+
+]
 
 ---
 # References
@@ -820,4 +874,4 @@ class: center, middle
 - Ismay, C. & A. Kim. (2021). “Statistical Inference via Data Science”. Chapter 6 & 10.
 
 
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week2/1_OLS/f2021_sta235h_3_reg.html') -->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week2/4_OLS_probs/f2021_sta235h_4_reg.html') -->

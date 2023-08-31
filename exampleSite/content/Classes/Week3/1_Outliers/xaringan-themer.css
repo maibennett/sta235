@@ -653,11 +653,11 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 }
 .pull-left-little_l {
   float: left;
-  width: 67%;
+  width: 60%;
 }
 .pull-right-little_l {
   float: right;
-  width: 27%;
+  width: 34%;
 }
 .pull-left-little_r {
   float: left;
