@@ -84,7 +84,7 @@ housing <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/ex
 housing <- housing %>% filter(Bldg.Type=="1Fam")
 
 # Create 1) a histogram for Lot Area and 2) a scatter plot between SalePrice (y) and lot area (x). 
-# Q) How many outliers (in terms of sale price) do you have? 
+# Q) How many outliers (in terms of lot area) do you have? 
 
 
 # Run a regression with your entire data between Sale Price, Lot Area, Year Built, and Bedrooms above ground. 
@@ -108,6 +108,6 @@ housing = housing %>% # COMPLETE
   
 lm_price = #COMPLETE
   
-# Q: Interpret the coefficient for `Year.Built`
+# Q: Interpret the coefficient for `Overall.Qual`
 # Q: Run the same regression as before, but use lm() instead of lm_robust(). Is there our change in the coefficient for Lot.Area?
 # Should we use lm() or lm_robust() then? Or it doesn't matter?
