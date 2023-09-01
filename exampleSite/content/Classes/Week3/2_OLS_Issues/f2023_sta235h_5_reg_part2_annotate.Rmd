@@ -418,9 +418,9 @@ ggplot(data = hmda, aes(x = pirat, y = deny)) +
 ![](https://media.giphy.com/media/xT5LMHMVvWbyDAtYQ0/giphy.gif)
 ]
 .pull-right[
-- **.darkorange[Don't use small samples]**: With the CLT, non-normality shouldn't matter much.
+Some solutions we will take into account:
 
-- **.darkorange[Saturate your model]**: In a fully saturated model (i.e. include dummies and interactions), CEF is linear.
+- **.darkorange[Don't use small samples]**: With the CLT, non-normality shouldn't matter much.
 
 - **.darkorange[Use robust standard errors]**: Package `estimatr` in R is great!
 
@@ -478,8 +478,9 @@ Where in a **.darkorange[logistic regression]**: $F(x) = \frac{1}{1+exp(-x)}$
 
 - A logistic regression doesn't look pretty:
 
-$$Pr(Y|X_1,...,X_p) = \frac{1}{1+e^{-(\beta_0 + \beta_1X_1+...+\beta_pX_p)}}$$
-
+$$Pr(Y=1|X_1,...,X_p) = \frac{1}{1+e^{-(\beta_0 + \beta_1X_1+...+\beta_pX_p)}}$$
+--
+.box-7trans[A regression with log(Y) is NOT a logistic regression!]
 
 ---
 # How does this look in a plot?

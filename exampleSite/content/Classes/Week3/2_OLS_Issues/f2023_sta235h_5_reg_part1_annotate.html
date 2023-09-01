@@ -101,17 +101,23 @@ class: center, middle, inverse, title-slide
 
 - `\(\hat{\beta}\)`'s interpreted as **.darkorange[change in probability]**
 
-`$$E[Y|X_1,..., X_P] = Pr(Y = 0|X_1,...,X_p)\cdot 0 + Pr(Y = 1|X_1,...,X_p)\cdot 1$$`
-`$$= Pr(Y = 1|X_1,...,X_p)$$`
+--
+
 - Example:
 
-.box-2t[$$GradeA = \beta_0 + \beta_1 \cdot Study + \varepsilon$$]
+`$$GradeA = \beta_0 + \beta_1 \cdot Study + \varepsilon$$`
 
 - `\(\hat{\beta}_1\)` is the average change in probability of getting an A if I study one more hour.
 
 --
 
-- Studying one more hour is associated with an average increase in the probability of getting an A of `\(\hat{\beta}_1\times100\)` **.darkorange[percentage points]**. 
+- *Studying one more hour is associated with an average increase in the probability of getting an A of `\(\hat{\beta}_1\times100\)` **.darkorange[percentage points]**.* 
+
+--
+
+`$$\widehat{GradeA} = 0.2 + 0.125 \cdot Study$$`
+
+- *Studying one more hour is associated with an average increase in the probability of getting an A of `\(12.5\)` **.darkorange[percentage points]**.*
 
 ---
 # Side note: Difference between percent change and change in percentage points
