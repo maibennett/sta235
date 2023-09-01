@@ -414,7 +414,7 @@ $$\frac{y_1 - y_0}{y_0} = \frac{75-70}{70} = 0.0714$$
 ---
 # Let's look at an example
 
-- Home Mortgage Disclosure Act Data (HMDA) from the `AER` package
+- Home Mortgage Disclosure Act Data (HMDA)
 
 .small[
 ```{r echo=TRUE, warning=FALSE, message = FALSE}
@@ -435,7 +435,7 @@ head(hmda)
 ```{r echo=TRUE, warning=FALSE, message = FALSE}
 hmda = hmda %>% mutate(deny = as.numeric(deny) - 1)
 
-summary(lm(deny ~ pirat + factor(afam), data = hmda))
+summary(lm(deny ~ pirat + afam, data = hmda))
 
 ```
 ]
@@ -548,8 +548,8 @@ ggplot(data = hmda, aes(x = pirat, y = deny)) +
 ```{r echo=TRUE, warning=FALSE, message = FALSE}
 library(estimatr)
 
-model1 <- lm(deny ~ pirat + factor(afam), data = hmda)
-model2 <- lm_robust(deny ~ pirat + factor(afam), data = hmda)
+model1 <- lm(deny ~ pirat + afam, data = hmda)
+model2 <- lm_robust(deny ~ pirat + afam, data = hmda)
 
 ```
 ]
@@ -558,10 +558,8 @@ model2 <- lm_robust(deny ~ pirat + factor(afam), data = hmda)
 ```{r echo=FALSE, warning=FALSE, message = FALSE}
 library(estimatr)
 
-lpm <- lm(deny ~ pirat + factor(afam), data = hmda)
-lpm_r <- lm_robust(deny ~ pirat + factor(afam), data = hmda)
-
-library(estimatr)
+lpm <- lm(deny ~ pirat + afam, data = hmda)
+lpm_r <- lm_robust(deny ~ pirat + afam, data = hmda)
 
 modelsummary(list(lpm, lpm_r), stars = TRUE, gof_omit = 'R2|R2Adj|RMSE|DF|AIC|BIC|Log.Lik.|F|Num.Obs.')
 ```
@@ -675,11 +673,6 @@ ggplot(data = hmda, aes(x = pirat, y = deny)) +
 ![](https://media.giphy.com/media/xT5LMNLNu7ZMpRgVgc/giphy.gif)
 
 ]
-
----
-# References
-
-- Ismay, C. & A. Kim. (2021). “Statistical Inference via Data Science”. Chapter 6 & 10.
 
 
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week2/4_OLS_probs/f2021_sta235h_4_reg.html') -->

@@ -182,23 +182,23 @@ head(hmda)
 ```r
 hmda = hmda %&gt;% mutate(deny = as.numeric(deny) - 1)
 
-summary(lm(deny ~ pirat + factor(afam), data = hmda))
+summary(lm(deny ~ pirat + afam, data = hmda))
 ```
 
 ```
 ## 
 ## Call:
-## lm(formula = deny ~ pirat + factor(afam), data = hmda)
+## lm(formula = deny ~ pirat + afam, data = hmda)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
 ## -0.62526 -0.11772 -0.09293 -0.05488  1.06815 
 ## 
 ## Coefficients:
-##                 Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)     -0.09051    0.02079  -4.354 1.39e-05 ***
-## pirat            0.55919    0.05987   9.340  &lt; 2e-16 ***
-## factor(afam)yes  0.17743    0.01837   9.659  &lt; 2e-16 ***
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -0.09051    0.02079  -4.354 1.39e-05 ***
+## pirat        0.55919    0.05987   9.340  &lt; 2e-16 ***
+## afamyes      0.17743    0.01837   9.659  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 

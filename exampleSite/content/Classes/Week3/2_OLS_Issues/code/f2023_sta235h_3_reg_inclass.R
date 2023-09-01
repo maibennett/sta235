@@ -1,7 +1,7 @@
 ######################################################################
-### Title: "Week 3 - Outliers and Mulyicollinearity"
+### Title: "Week 3 - Outliers and Linear Probability Models"
 ### Course: STA 235H
-### Semester: Fall 2022
+### Semester: Fall 2023
 ### Professor: Magdalena Bennett
 #######################################################################
 
@@ -10,128 +10,104 @@ rm(list = ls())
 # Clears console
 cat("\014")
 # scipen=999 removes scientific notation; scipen=0 turns it on.
-options(scipen = 0)
+options(scipen = 999)
 
 ### Load libraries
 # If you don't have one of these packages installed already, you will need to run install.packages() line
 library(tidyverse)
 library(vtable)
+library(AER) #package that includes some interesting data
+library(estimatr) #package to run linear regressions with robust SE
 
 ################################################################################
-### In-class exercises
+######################## In-Class Exercise #####################################
 ################################################################################
+
+###################### OUTLIERS ################################################
+
+### HMDA Example
 
 # This is the data from 2017 HMDA for Bastrop county (https://www.consumerfinance.gov/data-research/hmda/historic-data/?geo=tx&records=first-lien-owner-occupied-1-4-family-records&field_descriptions=labels)
 # (you can also find the whole dataset for Austin by changing the name of the file to hmda_2017_austin.csv)
 
-hmda <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/2_OLS_Issues/data/hmda_2017_austin_bastrop.csv", stringsAsFactors = FALSE)
+loans <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/2_OLS_Issues/data/hmda_2017_austin_bastrop.csv", stringsAsFactors = FALSE)
 
 # You can find information about the variables here: https://files.consumerfinance.gov/hmda-historic-data-dictionaries/lar_record_codes.pdf
 
-# Let's look at loans that were approved (action taken = 1) for home purchase (loan_purpose = 1)
+# Let's look at loans that were approved (action_taken = 1) for home purchase (loan_purpose = 1) (hint: you will need to subset your data)
 
-hmda <- hmda %>% ... #complete this
+loans <- loans %>% filter()
 
-# Q: How could we see if we have outliers?
+# Q: How could we see if we have outliers? Create a histogram
 
-ggplot(data = hmda, aes(x = loan_amount_000s)) +
-  geom_histogram(color = "skyblue3", fill = "skyblue", lwd = 1.1) +
-  xlab("Loan amount (1,000 US$)") +
-  theme_minimal()
 
 # Show a scatter plot of loan amount vs applicant's income:
 
-ggplot(data = hmda, aes(x = applicant_income_000s, y = loan_amount_000s)) +
-  geom_point(color = "skyblue") +
-  theme_minimal() +
-  xlab("Applicant's income (1,000 US$)") + ylab("Loan Amount (1,000 US$)")  
 
 # Fit a regression line to the previous plot:
 
-ggplot(data = hmda, aes(x = applicant_income_000s, y = loan_amount_000s)) +
-  geom_point(color = "skyblue") +
-  theme_minimal() +
-  xlab("Applicant's income (1,000 US$)") + ylab("Loan Amount (1,000 US$)") +
-  geom_smooth(method = "lm", se = FALSE, color = "blue", lwd = 1.1)
 
-# Fit a regression line but *excluding* the clear outliers
+# Fit a regression line but *excluding* the clear outliers for income
 
-## Exclude both income outliers 
-ggplot(data = hmda, aes(x = applicant_income_000s, y = loan_amount_000s)) +
-  geom_point(color = "skyblue") +
-  theme_minimal() +
-  xlab("Applicant's income (1,000 US$)") + ylab("Loan Amount (1,000 US$)") +
-  geom_smooth(method = "lm", se = FALSE, color = "blue", lwd = 1.1) +
-  geom_smooth(data = hmda %>% filter(applicant_income_000s<700),
-              aes(x = applicant_income_000s, y = loan_amount_000s),
-              method = "lm",
-              se = FALSE,
-              color = "purple")
-
-## Exclude only loan outlier
-ggplot(data = hmda, aes(x = applicant_income_000s, y = loan_amount_000s)) +
-  geom_point(color = "skyblue") +
-  theme_minimal() +
-  xlab("Applicant's income (1,000 US$)") + ylab("Loan Amount (1,000 US$)") +
-  geom_smooth(method = "lm", se = FALSE, color = "blue", lwd = 1.1) +
-  geom_smooth(data = hmda %>% filter(loan_amount_000s<750),
-              aes(x = applicant_income_000s, y = loan_amount_000s),
-              method = "lm",
-              se = FALSE,
-              color = "purple")
-
-
-### Tip: If you want to add labels to your smooth lines, you can add "color" as an aes() feature
-
-ggplot(data = hmda, aes(x = applicant_income_000s, y = loan_amount_000s)) +
-  geom_point(color = "skyblue") +
-  theme_minimal() +
-  xlab("Applicant's income (1,000 US$)") + ylab("Loan Amount (1,000 US$)") +
-  geom_smooth(aes(color = "linear fit"), method = "lm", se = FALSE, lwd = 1.1) +
-  geom_smooth(data = hmda %>% filter(loan_amount_000s<750),
-              aes(x = applicant_income_000s, y = loan_amount_000s,
-                  color = "linear fit w/o outliers"),
-              method = "lm",
-              se = FALSE) +
-  scale_color_manual(values = c("blue", "purple"), name = "Regression lines")
-
-
-# Q: Define outliers as you fit
-
-hmda <- hmda %>% mutate(outlier = ifelse(loan_amount_000s>750, 1, 0))
-
-hmda %>% select(outlier) %>% table(.)
 
 # Q: Run a regression with and without outliers. Do your results change qualitatively?
 
 
-###########################################
-## Collinearity
-###########################################
+###################### LINEAR PROBABILITY MODELS ###############################
 
-cars <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/SoCalCars.csv", stringsAsFactors = FALSE)
+data(HMDA) # This dataset is loaded from the AER package
 
-## Let's clean some data
+# To know what the variables are, you can type ?HMDA on the console
+head(HMDA)
 
-## Select only cars from the year 1970 onwards, that are under $100k, and have less than 150k miles.
+#1) Use ifelse to set it to 1 if deny is "yes" and 0 in another case
+HMDA = HMDA %>% mutate(deny_num = ) # COMPLETE THIS
 
-## Let's create new variables:
+## Linear Probability Model (LPM)
 
-### luxury: dummy variable for luxury brands (in `luxury_brand` vector) (source: https://luxe.digital/business/digital-luxury-ranking/best-luxury-car-brands/)
-### Transform price from dollars to thousands of dollars, and miles to thousands of miles.
-### Transform year so that it's the number of years since 1970s
+# Q: Run a LPM using deny (the numeric version) as the outcome, and pirat (payment to income ratio), chist (credit history), single, hschool (high school diploma),
+# insurance, and race as the covariates.
 
-luxury_brands <- c("Audi", "BMW", "Cadillac", "Ferrari", "Jaguar", "Lamborghini", "Land Rover", "Lexus",
-                   "Maserati", "Mercedes-Benz", "Porsche", "Rolls-Royce", "Tesla", "Volvo")
+lm_deny = #COMPLETE THIS
+  
+# Q: interpret the coefficient for pirat, hschool, and afam.
+  
+  
+#################### EXERCISE ON YOUR OWN ######################################
 
-cars <- cars %>% filter(type != "new" & mileage >= 10000 & mileage <= 150000 & price < 100000 & year >= 1970) %>%
-  mutate(luxury = ifelse(make %in% luxury_brands, 1, 0),
-         price = price/1000,
-         mileage = mileage/1000,
-         year = year - 1970)
+## Ames Housing dataset: Data for the housing market in Ames, Iowa.
+## You can check the codebook here: https://sta235.com/Classes/Week3/2_OLS_Issues/data/ames_codebook.csv
 
-summary(lm(price ~ year + mileage + rating, data = cars))
+housing <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/2_OLS_Issues/data/AmesHousing.csv")
 
-cars <- cars %>% mutate(mileage_per_year = mileage/(2021-(1970+year)))
+# Only keep single family housing: (Bldg.Type)
+housing <- housing %>% filter(Bldg.Type=="1Fam")
 
-summary(lm(price ~ mileage_per_year + year + rating, data = cars))
+# Create 1) a histogram for Lot Area and 2) a scatter plot between SalePrice (y) and lot area (x). 
+# Q) How many outliers (in terms of sale price) do you have? 
+
+
+# Run a regression with your entire data between Sale Price, Lot Area, Year Built, and Bedrooms above ground. 
+# Q: What is the association between sale price and lot area in this model?
+
+lm_all = lm() # COMPLETE
+summary(lm_all)
+
+# Run the same regression as before, but exclude the outliers (in terms of sale price)
+# Q: What is the association between sale price and lot area in this model? Is it the similar as before?
+
+lm_wo_outliers = lm() # COMPLETE
+summary(lm_wo_outliers)
+
+
+# Create a dummy variable (price500) that takes the value of 1 if the sale price is greater than $500,000 and 0 in another case
+housing = housing %>% # COMPLETE
+
+# Run a regression with price500 as the outcome, and lot area, number of bedrooms above ground, year built, 
+# overall quality of the materials, and pool area as covariates.
+  
+lm_price = #COMPLETE
+  
+# Q: Interpret the coefficient for `Year.Built`
+# Q: Run the same regression as before, but use lm() instead of lm_robust(). Is there our change in the coefficient for Lot.Area?
+# Should we use lm() or lm_robust() then? Or it doesn't matter?

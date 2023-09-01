@@ -434,8 +434,8 @@ ggplot(data = hmda, aes(x = pirat, y = deny)) +
 ```{r echo=TRUE, warning=FALSE, message = FALSE}
 library(estimatr)
 
-model1 <- lm(deny ~ pirat + factor(afam), data = hmda)
-model2 <- lm_robust(deny ~ pirat + factor(afam), data = hmda)
+model1 <- lm(deny ~ pirat + afam, data = hmda)
+model2 <- lm_robust(deny ~ pirat + afam, data = hmda)
 
 ```
 ]
@@ -444,8 +444,8 @@ model2 <- lm_robust(deny ~ pirat + factor(afam), data = hmda)
 ```{r echo=FALSE, warning=FALSE, message = FALSE}
 library(estimatr)
 
-lpm <- lm(deny ~ pirat + factor(afam), data = hmda)
-lpm_r <- lm_robust(deny ~ pirat + factor(afam), data = hmda)
+lpm <- lm(deny ~ pirat + afam, data = hmda)
+lpm_r <- lm_robust(deny ~ pirat + afam, data = hmda)
 
 library(estimatr)
 

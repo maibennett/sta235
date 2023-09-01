@@ -121,8 +121,8 @@ class: center, middle, inverse, title-slide
 ```r
 library(estimatr)
 
-model1 &lt;- lm(deny ~ pirat + factor(afam), data = hmda)
-model2 &lt;- lm_robust(deny ~ pirat + factor(afam), data = hmda)
+model1 &lt;- lm(deny ~ pirat + afam, data = hmda)
+model2 &lt;- lm_robust(deny ~ pirat + afam, data = hmda)
 ```
 ]
 
@@ -157,7 +157,7 @@ model2 &lt;- lm_robust(deny ~ pirat + factor(afam), data = hmda)
    &lt;td style="text-align:center;"&gt; (0.095) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; factor(afam)yes &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; afamyes &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 0.177*** &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 0.177*** &lt;/td&gt;
   &lt;/tr&gt;

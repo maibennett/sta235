@@ -435,7 +435,7 @@ head(hmda)
 ```{r echo=TRUE, warning=FALSE, message = FALSE}
 hmda = hmda %>% mutate(deny = as.numeric(deny) - 1)
 
-summary(lm(deny ~ pirat + factor(afam), data = hmda))
+summary(lm(deny ~ pirat + afam, data = hmda))
 
 ```
 ]
