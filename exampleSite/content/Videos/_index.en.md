@@ -34,7 +34,7 @@ It's very important to have a good grasp on some basic tidyverse functions, such
 
 ### Logarithms and Regressions: Interpretation
 
-Short explanation on how to interpret coefficients and associations when Y or X (or both!) are in logarithms
+Short explanation on how to interpret coefficients and associations when Y or X (or both!) are in logarithms. *Note: Only watch until the 3:21 mark.*
 
 {{< youtube src="https://www.youtube.com/embed/BwBmPGSj8VU" >}}
 

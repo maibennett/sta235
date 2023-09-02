@@ -18,6 +18,7 @@ In this class, we will go deepper into statistical adjustment, specifically when
 
 - [Healy, K. (2018). "Data Visualization: A Practical Introduction". Chapter 1 (section 1.1). *Princeton University Press*.](https://socviz.co/lookatdata.html)
 
+- Check out the [Video](https://sta235.netlify.app/videos/#logarithms-and-regressions-interpretation) section as well for detailed explanations about logarithms
 
 
 ## Slides
