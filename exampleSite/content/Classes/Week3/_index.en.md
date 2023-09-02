@@ -28,6 +28,20 @@ In this session, we will discuss potential issues with regressions, such as outl
 - Bellemare, M. (2013) [“A Rant on Estimation with Binary Dependent Variables (Technical)"](http://marcfbellemare.com/wordpress/8951)
 
 
+## Videos
+
+- All about outliers
+
+{{< youtube src="https://www.youtube.com/embed/nbgfHfcUl5M?si=h_5AoT-_Gp_QjYv3" >}}
+
+- Binary Outcomes: How to interpret coefficients in a LPM
+
+{{< youtube src="https://www.youtube.com/embed/Oy5XNwZV1ww?si=ZOjtguH-sWCeOakX" >}}
+
+- Binary Outcomes: Issues with LPM
+
+{{< youtube src="https://www.youtube.com/embed/8l31nhGS47U?si=QfkutdGRxDa9ITDi" >}}
+
 ## Slides
 
 {{% button href="https://sta235.netlify.app/Classes/Week3/1_Outliers/f2023_sta235h_4_outliers.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week3/1_Outliers/f2023_sta235h_4_outliers.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
@@ -41,11 +55,14 @@ In this session, we will discuss potential issues with regressions, such as outl
 
 ## Code
  
-<!-- Download the R Script for the "in-class" exercise here:
+Download the R Script for the "in-class" exercise here:
 <script>let date = Date.now();</script>
 <a onclick="gtag('event','code3_inclass', {'event_category': 'code','event_label': 'code3_inclass', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/2_OLS_issues/code/f2023_sta235h_3_reg_in_class.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
 Here is the full R script for this class, with some additional questions: 
 
 <a onclick="gtag('event','code3', {'event_category': 'code','event_label': 'code3', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/2_OLS_issues/code/f2023_sta235h_3_reg.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
- -->
+
+You can also follow along the coding video to see how we answer some of the in-class exercises! (See on YouTube for the different chapters of the exercises)
+
+{{< youtube src="https://www.youtube.com/embed/sSWYcWzQys0?si=HnDekDcdaPjszHzC" >}}
