@@ -32,7 +32,7 @@ In this session, we will discuss potential issues with regressions, such as outl
 
 - All about outliers
 
-{{< youtube src="https://www.youtube.com/embed/nbgfHfcUl5M?si=h_5AoT-_Gp_QjYv3" >}}
+{{< youtube src="https://www.youtube.com/embed/1J1PqNiMgz4?si=Fw3tcGGnKUoSPjiP" >}}
 
 - Binary Outcomes: How to interpret coefficients in a LPM
 
