@@ -36,7 +36,7 @@ In this session, we will discuss potential issues with regressions, such as outl
 
 - Binary Outcomes: How to interpret coefficients in a LPM
 
-{{< youtube src="https://www.youtube.com/embed/Oy5XNwZV1ww?si=ZOjtguH-sWCeOakX" >}}
+{{< youtube src="https://www.youtube.com/embed/ImzwyqeltZk?si=_4SUaL4BZnJvTFOl" >}}
 
 - Binary Outcomes: Issues with LPM
 
