@@ -40,7 +40,7 @@ In this session, we will discuss potential issues with regressions, such as outl
 
 - Binary Outcomes: Issues with LPM
 
-{{< youtube src="https://www.youtube.com/embed/8l31nhGS47U?si=QfkutdGRxDa9ITDi" >}}
+{{< youtube src="https://www.youtube.com/embed/MDbBdMWJ488?si=nb2BT4YXbqqFztGA" >}}
 
 ## Slides
 
