@@ -63,6 +63,6 @@ Here is the full R script for this class, with some additional questions:
 
 <a onclick="gtag('event','code3', {'event_category': 'code','event_label': 'code3', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week3/2_OLS_Issues/code/f2023_sta235h_3_reg.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
-You can also follow along the coding video to see how we answer some of the in-class exercises! (See on YouTube for the different chapters of the exercises)
+You can also follow along the coding video to see how we answer some of the in-class exercises!
 
-{{< youtube src="https://www.youtube.com/embed/sSWYcWzQys0?si=_Q0-l8yO-I2QjCI2" >}}
+{{% button href="https://www.youtube.com/watch?v=sSWYcWzQys0&t=0s" icon="fas fa-youtube" icon-position="right" %}}Watch Video{{% /button %}} 
