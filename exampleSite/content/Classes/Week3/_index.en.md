@@ -65,4 +65,5 @@ Here is the full R script for this class, with some additional questions:
 
 You can also follow along the coding video to see how we answer some of the in-class exercises!
 
-{{% button href="https://www.youtube.com/watch?v=sSWYcWzQys0&t=0s" icon="fa fa-play" icon-position="right" %}}Watch Video{{% /button %}} 
+{{% button href="https://youtu.be/uBiGpMyzmog?si=Jt4kxRv0vZZq9Ui-&t=0s" icon="fa fa-play" icon-position="right" %}}Watch Video{{% /button %}} 
+
