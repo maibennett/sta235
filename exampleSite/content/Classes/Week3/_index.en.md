@@ -28,7 +28,7 @@ In this session, we will discuss potential issues with regressions, such as outl
 - Bellemare, M. (2013) [“A Rant on Estimation with Binary Dependent Variables (Technical)"](http://marcfbellemare.com/wordpress/8951)
 
 
-## Videos
+## Class Videos
 
 - All about outliers
 
