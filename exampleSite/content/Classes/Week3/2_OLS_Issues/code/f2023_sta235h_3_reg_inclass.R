@@ -10,7 +10,7 @@ rm(list = ls())
 # Clears console
 cat("\014")
 # scipen=999 removes scientific notation; scipen=0 turns it on.
-options(scipen = 999)
+options(scipen = 0)
 
 ### Load libraries
 # If you don't have one of these packages installed already, you will need to run install.packages() line
@@ -34,11 +34,11 @@ loans <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exam
 
 # You can find information about the variables here: https://files.consumerfinance.gov/hmda-historic-data-dictionaries/lar_record_codes.pdf
 
-# Let's look at loans that were approved (action_taken = 1) for home purchase (loan_purpose = 1) (hint: you will need to subset your data)
+# Let's look at loans that were approved (action_taken = 1) 
+# for home purchase (loan_purpose = 1) (hint: you will need to subset your data)
 
-loans <- loans %>% filter()
 
-# Q: How could we see if we have outliers? Create a histogram
+# Q: How could we see if we have outliers? Create a histogram of loan_amount_000s
 
 
 # Show a scatter plot of loan amount vs applicant's income:
@@ -48,7 +48,6 @@ loans <- loans %>% filter()
 
 
 # Fit a regression line but *excluding* the clear outliers for income
-
 
 # Q: Run a regression with and without outliers. Do your results change qualitatively?
 
