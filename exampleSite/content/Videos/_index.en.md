@@ -52,6 +52,12 @@ What is this strange word and can we see it in data? What are the implications i
 
 {{< youtube src="https://www.youtube.com/embed/XCuqj2NvIg0" >}}
 
+### Difference between percentage points and percent?
+
+Let's go over the difference between a percentage point change and a percent change, and when do we use each in the context of regressions.
+
+{{< youtube src="https://www.youtube.com/embed/3Aye_zDoQ2Y?si=coDvjBXE0SHmHJXh" >}}
+
 
 <!-- ### Matching Example
 
