@@ -92,7 +92,7 @@ housing <- housing %>% filter(Bldg.Type=="1Fam")
 lm_all = lm() # COMPLETE
 summary(lm_all)
 
-# Run the same regression as before, but exclude the outliers (in terms of sale price)
+# Run the same regression as before, but exclude the outliers (in terms of lot area)
 # Q: What is the association between sale price and lot area in this model? Is it the similar as before?
 
 lm_wo_outliers = lm() # COMPLETE
