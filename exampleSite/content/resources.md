@@ -62,7 +62,7 @@ This is an important question, and not only for professors! (Disclaimer: This is
 
 **Useful tips for emailing a professor (or really anyone in a professional setting):**
 
-- *Use an informative subject*: In this case, “[STA 235] Your subject” is a good idea so I can immediately identify emails from students.
+- *Use an informative subject*: In this case, “[STA 235H] Your subject” is a good idea so I can immediately identify emails from students.
 
 - *Always include an appropriate greeting!*: Most students have this down, but “Hey” is usually not considered professional (or no greeting at all, when you are starting an email chain). When addressing professors, usually a good greeting would be “Dear Prof. Smith” or even “Hi Dr. Smith” (both work fine!). Try to avoid “Mr.” or “Ms.” (and stay far, far away from “Miss” or “Mrs.”) when referring to a professor.
 
