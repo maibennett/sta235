@@ -1,0 +1,65 @@
+---
+title: Preliminary Report
+weight: 35
+chapter: true
+---
+
+## Preliminary report
+
+At this stage, you should have a solid research question, as well as the data to tackle that question. You should complete a preliminary report with appropriate tables and plots describing your research question and your data. The structure should be the following:
+
+1) Introduction: Introduce your research question in a clear way and motivate it appropriately (*why should the reader care about this?*). Use citations to sustain your claims (e.g. reference similar research or data that supports your motivation).
+
+2) Data description: Describe the data that you will be using to answer your research question. Use tables (e.g. balance tables or summary tables) and plots to show relevant relations or describe your variables (e.g. scatter plots for association between variables/ boxplots or histograms to show distributions of variables), accompanied by the main findings in your data. Examples of this would be (but not limited to): "In Table X, we can see that the treatment group is less vulnerable than the control group"; "Figure X shows that there is a strong and positive relation between Y and Z". **If you have too many variables, you don't need to describe every variable in your dataset**. Select the ones you think are more relevant (if you have too many) or the ones that you are going to use in your analysis, and focus on those ones.
+
+3) Analysis plan: Create a clear roadmap of next steps in the analysis (e.g. how are you going to analyze your data? what are the main models you are going to use? are you going to conduct robustness tests? identify limitations?). You don't need any results for this section, you just need to map out your next steps and how your final report will look like.
+
+Remember that the objective of this report is to clearly present your idea and to show the most important aspects of your data to someone that has never seen this before. Part of the process is identifying *what is important* in your data. Do not show <u>everything</u>, because that might actually harm the information you do want someone to retain.
+
+After reading this report, someone should have a clear idea of what the objective of this project is, why this idea is important/relevant, how are you going to tackle it, and how does the data that you have look like.
+
+### Instructions
+
+Most groups will have to clean their data first. Please submit the code you use to clean your data and create the appropriate tables and plots. Make sure your code is in order and runs.
+
+**This is a report, so looks <u>do</u> matter**. Make sure your plots are legible and nice-looking (I suggest picking a color palette and sticking with that throughout your report). Save your plots or tables from R directly as png or other similar format instead of screenhots. Include captions and number all your tables and figures so you can reference them. Use an appropriate number of decimals (depending on what you measure, 1 might not be enough, but 4 or more is usually an overkill!). 
+
+You must include at least one table and one plot (minimum) in your report, and no more than 5 figures + tables. <u>The report cannot exceed 2 pages of written text</u> (not counting tables and figures), using 11pt font and 1.15 spacing (min).
+
+Check out the [Useful R Code](https://sta235.netlify.app/usefulrcode/sta235h_useful_r_code) material posted on the course website, to see how you can make good tables. Remember that your tables and plots always need to convay the message you want, so pay special attention to the labels, variable names, units, etc.
+
+
+{{% notice grading %}}
+**Research question:** The question at hand tackles one of the areas covered in this class, it is presented in a clear way, and it is motivated appropriately.<br>
+**Data description:** Appropriate plots and tables showing the relevant data.<br>
+**Analysis plan:** Clear roadmap on how the question will be tackled in terms of analysis.<br>
+**R code**: Is the R code complete and consistent with what is shown in the report? Include a link to the raw data as well that can be ran on this R code. <br>
+**Peer assessment:** Students will be evaluated by their peers in terms of their contributions and responsiblity.
+{{% /notice %}}
+
+
+### Note on the analysis plan
+
+- Remember that for this delivery, **you do not need to run any analysis**, but you will need to describe what you are going to do in the next report.
+
+- For all projects, be specific on what your outcome variable is and what variables you will be using for adjusting for confounding/as predictors.
+
+- **For causal inference projects**: Be specific about your identification strategy (e.g. are you just running a regression and adjusting for confounders? Are you using an RCT, Diff-in-Diff, RDD?), and any robustness checks you will conduct. Remember to include a discussion in your analysis plan about limitations.
+
+- **For prediction projects**: You will need to compare two different methods that we have seen in class (you do not need to mention specifically which ones you will use in this case, because we have not covered everything). You will need to include, though, some information about your analysis: (i) Is this a regression task (continuous outcome) or classification task? (ii) How are you going to assess how good your models are and how are you going to choose which one is your preferred one?. 
+
+
+### Grading Rubric
+
+The Preliminary Report was graded according to the following criteria:
+
+|Metric| Description| Max Points| Discounts|
+|:---|:---|:---:|:---|
+|Format | Complies with format? | 10 | D: -5 if length exceeds two pges, -2 if font size is not appropriate, -2 if spacing is not appropriate|
+|Research Question: Clarity| Clearly describes the research question and it's either (i) prediction or (ii) causal| 15| D: -5 if the question is not clear (or not grounded on the data), -5 if it's not clearly prediction or causal|
+|Reserch Question: Motivation| Describes why the question is relevant and uses appropriate sources to support it| 15 | D: -7 doesn't use references, -5 motivation is not clear|
+|Data description: Requirements| Has at least one plot and one table | 5| D: -5 Doesn't have one table and one plot|
+|Data description: plots and tables|Plots and tables are clear and can be understood by the reader. This includes formatting, labels, captions, etc.| 15| D: -5 if reference number, -2 if referenced without caption, -2 no legend, -2 not appropriate labels, -5 screenshots of R output, -2 no rounding/inappropriate number of decimal places|
+|Data description: Explanation|The plots/tables and explanation allows the reader to clearly understand the main features of the dataset|15| D: -5 No description of the outcome, -5 missing some key characteristics of comparison (e.g. in classification/causal inference comparison between treat/control), -3 Some analysis but missing basic stats (number of obs, where the data is from, some summary statistics, etc.), -2 some, but limited data description based on plots/tables|
+|Analysis Plan: Description|It is clear from the analysis plan the way the analysis is going to be conducted|10||
+|R script|The script runs without errors with the data provided and replicates tables/plots|15| D: -7 code doesn't run, -5 code runs but doesn't replicate the results, -10 code doesn't run and has other issues that don't replicate the results (e.g. missing functions, missing code, or other mistakes), -15 Code is not provided|
