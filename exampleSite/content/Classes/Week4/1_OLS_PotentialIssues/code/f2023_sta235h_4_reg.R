@@ -1,5 +1,5 @@
 ######################################################################
-### Title: "Week 2 - Multiple Regression: Interactions & Other Issues"
+### Title: "Week 4 - Multiple Regression: Polynomials"
 ### Course: STA 235H
 ### Semester: Fall 2023
 ### Professor: Magdalena Bennett

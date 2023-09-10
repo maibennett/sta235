@@ -390,8 +390,19 @@ The "How": Potential outcomes framework
 ]
 
 ---
+
+.center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/sleep_good.png)]
+
+---
 <br>
-.center[![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/greta_tweet.png)]
+.pull-left[
+.center[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/coffee_good.png)]
+]
+
+--
+.pull-right[
+.center[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/coffee_bad.png)]
+]
 ---
 .center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/greta_effect.png)]
 ---
