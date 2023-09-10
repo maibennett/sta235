@@ -394,27 +394,22 @@ The "How": Potential outcomes framework
 .center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/sleep_good.png)]
 
 ---
+
+.center2[.box-3LA[What do you think are the biggest issues here?]]
+
+---
 <br>
 .pull-left[
-.center[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/coffee_good.png)]
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/coffee_good.png)]
 ]
 
 --
 .pull-right[
-.center[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/coffee_bad.png)]
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/coffee_bad.png)]
 ]
----
-.center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/greta_effect.png)]
----
-<br>
-<br>
-.center[![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/greta_dag.png)]
----
-.center2[.box-3LA[What do you think are the biggest issues here?]]
----
-.center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/khoa_tweet.png)]
----
-.center2[.box-6LA[What about other topics?]]
+
 ---
 # Before we start...
 
@@ -531,7 +526,7 @@ The "How": Potential outcomes framework
 
 --
 
-.box-3trans[*Outcome if I take an aspirin/ Outcome if I don't take an aspirin*]
+.box-3trans[*Headache status if I take an aspirin/ Headache status if I don't take an aspirin*]
 
 --
 
@@ -550,13 +545,27 @@ The "How": Potential outcomes framework
 .box-7trans[*College access and completion with support/ College access and completion without support*]
 
 ---
-<br>
-<br>
-<br>
-<br>
-<br>
+# Let's see a specific example
 
-.box-6Trans[What are some causal questions you might be interested in?]
+- You work at a retail company and you are debating on whether to send out an **.darkorange[email campaign]** to boost your sales or not:
+
+--
+
+- You are interested in **.darkorange[two specific outcomes]**:
+
+.pull-left[
+.center[**.darkorange[Sales]**: Whether a customer makes a purchase or not]
+
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/sales_PO.png)]
+]
+
+.pull-right[
+.center[**.darkorange[Churn]]**: Whether a customer unsubscribes for your mailing list or not.
+
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/churn_PO.png)]
+]
+
+
 
 ---
 # Potential Outcomes Framework
@@ -565,18 +574,18 @@ Let's introduce some notation:
 
 - Let $Y_i$ be the observed outcome for unit $i$ (e.g. whether I have a headache or not in an hour).
 - Let $Z_i$ be the treatment or intervention (e.g. taking a pill).
-
-Then,
-
-$$Y_i | (Z_i = 1) \overset{\Delta}{=} Y_i(1) $$
-where $Y_i(1)$ is the **.darkorange[potential outcome under treatment]**.
+- Let $Y_i(z)$ be the potential outcome under treatment $Z = z$.
 
 --
 
-In the same fashion,
+Then, if a person is *treated* ($Z_i = 1$), then their *observed outcome* $Y_i$ will be the same as their *potential outcome under treatment*, $Y_i(1)$
+
+$$Y_i | (Z_i = 1) \overset{\Delta}{=} Y_i(1) $$
+--
+
+In the same fashion, if a person is *not treated* ($Z_i = 0$), then their *observed outcome* $Y_i$ will be the same as their *potential outcome under control*, $Y_i(0)$
 
 $$Y_i | (Z_i = 0) \overset{\Delta}{=} Y_i(0) $$
-where $Y_i(0)$ is the **.darkorange[potential outcome under control]**.
 
 ---
 # Potential Outcomes Framework

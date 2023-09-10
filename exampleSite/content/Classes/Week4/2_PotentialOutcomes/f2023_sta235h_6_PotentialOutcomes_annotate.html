@@ -131,28 +131,22 @@ The "How": Potential outcomes framework
 .center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/sleep_good.png)]
 
 ---
+
+.center2[.box-3LA[What do you think are the biggest issues here?]]
+
+---
 &lt;br&gt;
 .pull-left[
-.center[![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/coffee_good.png)]
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/coffee_good.png)]
 ]
 
 --
-
 .pull-right[
-.center[![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/coffee_bad.png)]
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/coffee_bad.png)]
 ]
----
-.center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/greta_effect.png)]
----
-&lt;br&gt;
-&lt;br&gt;
-.center[![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/greta_dag.png)]
----
-.center2[.box-3LA[What do you think are the biggest issues here?]]
----
-.center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/khoa_tweet.png)]
----
-.center2[.box-6LA[What about other topics?]]
+
 ---
 # Before we start...
 
@@ -269,7 +263,7 @@ The "How": Potential outcomes framework
 
 --
 
-.box-3trans[*Outcome if I take an aspirin/ Outcome if I don't take an aspirin*]
+.box-3trans[*Headache status if I take an aspirin/ Headache status if I don't take an aspirin*]
 
 --
 
@@ -288,13 +282,27 @@ The "How": Potential outcomes framework
 .box-7trans[*College access and completion with support/ College access and completion without support*]
 
 ---
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
+# Let's see a specific example
 
-.box-6Trans[What are some causal questions you might be interested in?]
+- You work at a retail company and you are debating on whether to send out an **.darkorange[email campaign]** to boost your sales or not:
+
+--
+
+- You are interested in **.darkorange[two specific outcomes]**:
+
+.pull-left[
+.center[**.darkorange[Sales]**: Whether a customer makes a purchase or not]
+
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/sales_PO.png)]
+]
+
+.pull-right[
+.center[**.darkorange[Churn]]**: Whether a customer unsubscribes for your mailing list or not.
+
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/churn_PO.png)]
+]
+
+
 
 ---
 # Potential Outcomes Framework
@@ -303,18 +311,18 @@ Let's introduce some notation:
 
 - Let `\(Y_i\)` be the observed outcome for unit `\(i\)` (e.g. whether I have a headache or not in an hour).
 - Let `\(Z_i\)` be the treatment or intervention (e.g. taking a pill).
-
-Then,
-
-$$Y_i | (Z_i = 1) \overset{\Delta}{=} Y_i(1) $$
-where `\(Y_i(1)\)` is the **.darkorange[potential outcome under treatment]**.
+- Let `\(Y_i(z)\)` be the potential outcome under treatment `\(Z = z\)`.
 
 --
 
-In the same fashion,
+Then, if a person is *treated* ($Z_i = 1$), then their *observed outcome* `\(Y_i\)` will be the same as their *potential outcome under treatment*, `\(Y_i(1)\)`
+
+$$Y_i | (Z_i = 1) \overset{\Delta}{=} Y_i(1) $$
+--
+
+In the same fashion, if a person is *not treated* ($Z_i = 0$), then their *observed outcome* `\(Y_i\)` will be the same as their *potential outcome under control*, `\(Y_i(0)\)`
 
 $$Y_i | (Z_i = 0) \overset{\Delta}{=} Y_i(0) $$
-where `\(Y_i(0)\)` is the **.darkorange[potential outcome under control]**.
 
 ---
 # Potential Outcomes Framework
@@ -479,8 +487,8 @@ estimate based on data&lt;/span&gt;
 - Let's go back to our original example: **.darkorange[Does a pill help reduce headaches?]**
 
 .small[
-<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-5d055a28ce780bb008eb" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-5d055a28ce780bb008eb">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"003808739e23cb1c134db788321521f8"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-1e8dfc47c081e4c60442" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1e8dfc47c081e4c60442">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"003808739e23cb1c134db788321521f8"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 ]
 
 ---
@@ -489,8 +497,8 @@ estimate based on data&lt;/span&gt;
 - We have a **.darkorange[missing data problem]**
 
 .small[
-<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-5c2cb13c32d014478af3" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-5c2cb13c32d014478af3">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center","style":[{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400}]},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center","style":[{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600}]},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center","style":[{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600}]}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"e418f0a3bd26127141fc05014bf28daf"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-28b5fd98347921ce62b1" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-28b5fd98347921ce62b1">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center","style":[{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400}]},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center","style":[{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600}]},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center","style":[{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600}]}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"e418f0a3bd26127141fc05014bf28daf"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 ]
 
 ---
@@ -499,8 +507,8 @@ estimate based on data&lt;/span&gt;
 - Compare those who **.darkorange[took the pill]** to the ones **.darkorange[did not take it.]**
 
 .small[
-<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-514e1d1bf260f73563cd" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-514e1d1bf260f73563cd">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[null,{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"},{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"},null,null,{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"}],"dataKey":"003808739e23cb1c134db788321521f8"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-df26237468b612bb285c" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-df26237468b612bb285c">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[null,{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"},{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"},null,null,{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"}],"dataKey":"003808739e23cb1c134db788321521f8"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 ]
 
 ---
@@ -509,8 +517,8 @@ estimate based on data&lt;/span&gt;
 - Compare those who **.darkorange[took the pill]** to the ones **.darkorange[did not take it.]**
 
 .small[
-<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-8fc76129296a5355c08c" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-8fc76129296a5355c08c">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},null,null,{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},null],"dataKey":"003808739e23cb1c134db788321521f8"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-716291625e43ef0bdf7f" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-716291625e43ef0bdf7f">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},null,null,{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},null],"dataKey":"003808739e23cb1c134db788321521f8"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 ]
 
 
@@ -520,8 +528,8 @@ estimate based on data&lt;/span&gt;
 - Compare those who **.darkorange[took the pill]** to the ones **.darkorange[did not take it.]**
 
 .small[
-<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-e44fabb047d4789e7b4a" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-e44fabb047d4789e7b4a">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"003808739e23cb1c134db788321521f8"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-44338f644d2a82e4c99c" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-44338f644d2a82e4c99c">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["?","1","0","?","?","0"],"Y(0)":["1","?","?","0","1","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"003808739e23cb1c134db788321521f8"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 ]
 
 `$$\hat{\tau} = \frac{1}{3}(\sum_{i \in Z=1}Y_i - \sum_{i \in Z=0}Y_i) = -0.333$$`
@@ -706,8 +714,8 @@ $$\tau = E[Y_i(1)] - E[Y_i(0)] = E[Y_i(1)| Z=1] - E[Y_i(0)| Z=0] = $$
 We can just "ignore" the missing data problem:
 
 .small[
-<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-ca3822108794cafa8c8f" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-ca3822108794cafa8c8f">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["","1","0","","","0"],"Y(0)":["1","","","0","1",""],"Y(1)-Y(0)":["","","","","",""]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"072a8bc0014840b1770e2efd8d5ccfd8"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-8a9b69dc75c50d5f951a" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8a9b69dc75c50d5f951a">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["","1","0","","","0"],"Y(0)":["1","","","0","1",""],"Y(1)-Y(0)":["","","","","",""]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"072a8bc0014840b1770e2efd8d5ccfd8"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 ]
 
 
@@ -717,8 +725,8 @@ We can just "ignore" the missing data problem:
 We can just "ignore" the missing data problem:
 
 .small[
-<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-2b2b0939df8524c1b760" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-2b2b0939df8524c1b760">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["","1","0","","","0"],"Y(0)":["1","","","0","1",""],"Y(1)-Y(0)":["","","","","",""]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center","style":[{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600}]},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center","style":[{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400}]},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"783927e0c8cbe61a3cde24380df30680"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-4b643b254b9f1eb9ec57" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-4b643b254b9f1eb9ec57">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["1","1","0","0","1","0"],"Y(1)":["","1","0","","","0"],"Y(0)":["1","","","0","1",""],"Y(1)-Y(0)":["","","","","",""]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center","style":[{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600}]},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center","style":[{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400}]},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"783927e0c8cbe61a3cde24380df30680"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 ]
 
 ---
@@ -727,8 +735,8 @@ We can just "ignore" the missing data problem:
 We can just "ignore" the missing data problem:
 
 .small[
-<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-e0db0a09178550017f21" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-e0db0a09178550017f21">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6",""],"Z":["0","1","1","0","0","1",""],"Y":["1","1","0","0","1","0",""],"Y(1)":["","1","0","","","0","1/3"],"Y(0)":["1","","","0","1","","2/3"],"Y(1)-Y(0)":["","","","","","",""]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center","style":[{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600}]},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center","style":[{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600}]},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[null,null,null,null,null,null,{"fontWeight":"bold","background":"rgba(255, 255, 255,1)","borderTop":"2px solid #333f48"}],"dataKey":"15cb4074201d5ad8e4b04f5355c08f35"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-e3ea945a57e3344c428c" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-e3ea945a57e3344c428c">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6",""],"Z":["0","1","1","0","0","1",""],"Y":["1","1","0","0","1","0",""],"Y(1)":["","1","0","","","0","1/3"],"Y(0)":["1","","","0","1","","2/3"],"Y(1)-Y(0)":["","","","","","",""]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center","style":[{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600}]},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center","style":[{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600}]},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[null,null,null,null,null,null,{"fontWeight":"bold","background":"rgba(255, 255, 255,1)","borderTop":"2px solid #333f48"}],"dataKey":"15cb4074201d5ad8e4b04f5355c08f35"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 ]
 
 ---
