@@ -22,26 +22,26 @@ In this session, we will talk about non-linear relations between our outcome and
 
 {{< youtube src="https://www.youtube.com/embed/pg7P-BsHQ_k?si=Mg8nmV8CtMdNA5T7" >}}
 
-<!-- - Angrist & Pischke. (2015). "Mastering Metrics". *Chapter 1: Randomized Trials*. Pg. 12-17. 
-
-- Marginal Revolution University. (2020). "Randomized Trials: The Ideal Weapon". *Video materials from Mastering Metrics*.
-
-{{< youtube src="https://www.youtube.com/embed/eGRd8jBdNYg?controls=0" >}} -->
-
-
 
 ## Slides
 
-<!-- {{% button href="https://sta235.netlify.app/Classes/Week4/1_OLS_PotentialIssues/f2022_sta235h_5_reg_cont.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week4/1_OLS_PotentialIssues/f2022_sta235h_5_reg_cont.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.com/Classes/Week4/1_OLS_PotentialIssues/f2023_sta235h_4_reg.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.com/Classes/Week4/1_OLS_PotentialIssues/f2023_sta235h_4_reg.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week4/1_OLS_PotentialIssues/f2022_sta235h_5_reg_cont.html" >}}
+{{< slides src="https://sta235.com/Classes/Week4/1_OLS_PotentialIssues/f2023_sta235h_4_reg.html" >}}
 
 <br>
 
-{{% button href="https://sta235.netlify.app/Classes/Week4/2_PotentialOutcomes/f2021_sta235h_6_PotentialOutcomes.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week4/2_PotentialOutcomes/f2021_sta235h_6_PotentialOutcomes.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.com/Classes/Week4/2_PotentialOutcomes/f2023_sta235h_6_PotentialOutcomes.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.com/Classes/Week4/2_PotentialOutcomes/f2023_sta235h_6_PotentialOutcomes.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week4/2_PotentialOutcomes/f2021_sta235h_6_PotentialOutcomes.html" >}} -->
+{{< slides src="https://sta235.com/Classes/Week4/2_PotentialOutcomes/f2023_sta235h_6_PotentialOutcomes.html" >}}
 
 ## Code
 
-<!-- Here is the code for Binary Outcomes <a onclick="ga('send', 'event', 'External-Link','click','code4','0','Link');" href="https://sta235.netlify.app/Classes/Week4/1_OLS_PotentialIssues/code/f2022_sta235h_4_binary.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> -->
+<!-- Download the R Script for the in-class exercise here:
+<script>let date = Date.now();</script>
+
+<a onclick="gtag('event','code4_inclass', {'event_category': 'code','event_label': 'code4_inclass', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/1_OLS_PotentialIssues/code/f2023_sta235h_4_reg_in_class.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> -->
+
+Here is the full R script for this class, with some additional questions: 
+
+<a onclick="gtag('event','code4', {'event_category': 'code','event_label': 'code4', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/1_OLS_PotentialIssues/code/f2023_sta235h_4_reg.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>

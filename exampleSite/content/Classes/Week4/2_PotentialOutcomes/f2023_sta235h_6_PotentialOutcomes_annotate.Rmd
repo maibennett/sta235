@@ -1,6 +1,6 @@
 ---
 title: "STA 235H - Potential Outcomes"
-subtitle: "Fall 2021"
+subtitle: "Fall 2023"
 author: "McCombs School of Business, UT Austin"
 output:
   xaringan::moon_reader:
@@ -315,7 +315,7 @@ library(knitr)
 library(showtext)
 library(xaringanExtra)
 
-#xaringanExtra::use_scribble()
+xaringanExtra::use_scribble()
 
 htmltools::tagList(
   xaringanExtra::use_clipboard(
@@ -1371,6 +1371,7 @@ tbl
 .box-5trans[Would you go to a physician/urgent care?]
 
 ---
+<br>
 <br>
 <br>
 
