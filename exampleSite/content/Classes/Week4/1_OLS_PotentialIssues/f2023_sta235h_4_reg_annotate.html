@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235H - Multiple Regression: Polynomials</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# STA 235H - Multiple Regression: Polynomials
+]
+.subtitle[
+## Fall 2023
+]
+.author[
+### McCombs School of Business, UT Austin
+]
+
+---
+
+
+&lt;!-- &lt;script type="text/javascript"&gt; --&gt;
+&lt;!-- MathJax.Hub.Config({ --&gt;
+&lt;!--   "HTML-CSS": { --&gt;
+&lt;!--     preferredFont: null, --&gt;
+&lt;!--     webFont:  "Neo-Euler" --&gt;
+&lt;!--   } --&gt;
+&lt;!-- }); --&gt;
+&lt;!-- &lt;/script&gt; --&gt;
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+# Some Announcements
+
+.pull-left[
+- **.darkorange[Homework answer key]** will be posted on Tuesday/Wednesday.
+
+  - Make sure you check it out!
+  
+  - Exercises: Multiple regression (e.g. Bechdel Test example), differences in associations between groups (e.g. luxury vs non-luxury cars depreciation).
+  
+- Check **.darkorange[personalized feedback]** for JITT 3, if included.
+
+  - Additional videos on material (and some R code) in Resources &gt; Videos
+
+]
+
+--
+
+.pull-right[
+.center[
+![:scale 150%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_OLS_PotentialIssues/images/diff_pp_perc.png)
+]
+]
+
+---
+# Today
+
+.pull-left[
+- **.darkorange[Roadmap]** of where we've been and where we're going.
+  
+- **.darkorange[Nonlinear models:]**
+  - Polynomial terms
+  
+- **.darkorange[Introduction to Causal Inference]**
+  - Potential Outcomes Framework
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/xTiN0CNHgoRf1Ha7CM/giphy.gif)]
+]
+
+---
+# Roadmap so far
+
+- Started the class with a review on **.darkorange[simple linear regressions]**:
+  - Association between a variable `\(X\)` and outcome `\(Y\)`
+  - e.g. `\(Revenue = \beta_0 + \beta_1 Bechdel + \varepsilon\)`
+--
+&lt;br&gt;
+&lt;br&gt;
+- Followed by **.darkorange[multiple regression]**:
+  - *Partial* association between `\(X\)` and `\(Y\)`, when holding other variables constant.
+  - e.g. `\(Revenue = \beta_0 + \beta_1 Bechdel + \beta_2Revenue + \beta_3IMDB + \varepsilon\)`
+--
+&lt;br&gt;
+&lt;br&gt;
+- What if we want to compare **.darkorange[differences in associations between groups]**?:
+  - *Compare* the association between `\(X\)` and `\(Y\)` for group `\(D=1\)` and `\(D=0\)`.
+  - e.g. `\(Price = \beta_0 + \beta_1 Year + \beta_2Luxury + \beta_3Year\times Luxury + \varepsilon\)`
+  
+---
+# Roadmap so far
+
+- What if our outcome `\(Y\)` is *weird* (e.g. not normally distributed)?
+  - *If `\(Y\)` is skewed to the right (log-normal)*: Transform to `\(log(Y)\)` to improve linearity assumption!
+  - e.g. `\(log(Price) = \beta_0 + \beta_1 Year + \beta_2Luxury + \beta_3Mileage + \varepsilon\)`
+  - Interpret coefficients as **percent change** (%)
+--
+&lt;br&gt;
+&lt;br&gt;
+- What if our outcome `\(Y\)` is *weird* (e.g. binary)?
+  - e.g. `\(Employed = \beta_0 + \beta_1 Age + \beta_2Afam + \beta_3NKids + \varepsilon\)`
+  - Interpret coefficients as **change in probability** (e.g. percentage points)
+--
+&lt;br&gt;
+&lt;br&gt;
+- What if there **.darkorange[isn't a linear relation]** between `\(X\)` and `\(Y\)`?
+  - Include **polynomial terms** for `\(X\)`
+--
+&lt;br&gt;
+&lt;br&gt;
+- What if I want to know what is **.darkorange[the effect of X on Y]**?
+  - Causal Inference!
+
+---
+# Adding polynomial terms
+
+- Another way to capture **.darkorange[nonlinear associations]** between the outcome (Y) and covariates (X) is to include **.darkorange[polynomial terms]**:
+  
+  - e.g. `\(Y = \beta_0 + \beta_1X + \beta_2X^2 + \varepsilon\)`
+  
+--
+
+- Let's look at an example!
+
+---
+# Determinants of wages: CPS 1985
+
+&lt;img src="f2023_sta235h_4_reg_annotate_files/figure-html/wages_inspect-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Determinants of wages: CPS 1985
+
+&lt;img src="f2023_sta235h_4_reg_annotate_files/figure-html/wages_inspect2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Experience vs wages: CPS 1985
+
+&lt;br&gt;
+
+&lt;img src="f2023_sta235h_4_reg_annotate_files/figure-html/exp_wages-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Experience vs wages: CPS 1985
+
+`$$\log(Wage) = \beta_0 + \beta_1 Educ + \beta_2Exp + \varepsilon$$`
+
+&lt;img src="f2023_sta235h_4_reg_annotate_files/figure-html/exp_wages2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Experience vs wages: CPS 1985
+
+`$$\log(Wage) = \beta_0 + \beta_1 Educ + \beta_2 Exp + \beta_3 Exp^2 + \varepsilon$$`
+&lt;img src="f2023_sta235h_4_reg_annotate_files/figure-html/exp_wages3-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Mincer equation
+
+`$$\log(Wage) = \beta_0 + \beta_1 Educ + \beta_2 Exp + \beta_3 Exp^2 + \varepsilon$$`
+
+--
+- Interpret the coefficient for **.darkorange[education]**
+
+`$$\log(Wage) = 0.52 + 0.09\cdot Educ + 0.034\cdot Exp - 0.0005 \cdot Exp^2$$`
+
+--
+
+.center[
+*One additional year of education is associated, on average, to a 9% increase in hourly wages, holding experience constant*]
+
+--
+
+- What is the association between **.darkorange[experience and wages]**?
+
+---
+# Interpreting coefficients in quadratic equation
+
+&lt;img src="f2023_sta235h_4_reg_annotate_files/figure-html/exp_wages4-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Interpreting coefficients in quadratic equation
+
+&lt;img src="f2023_sta235h_4_reg_annotate_files/figure-html/exp_wages5-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Interpreting coefficients in quadratic equation
+
+&lt;img src="f2023_sta235h_4_reg_annotate_files/figure-html/exp_wages6-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Interpreting coefficients in quadratic equation
+
+`$$\log(Wage) = \beta_0 + \beta_1 Educ + \beta_2 Exp + \beta_3 Exp^2 + \varepsilon$$`
+What is the association between experience and wages?
+
+--
+
+- Pick a value for `\(Exp_0\)` (e.g. mean, median, one value of interest)
+
+--
+
+.center[
+*Increasing work experience from `\(Exp_0\)` to `\(Exp_0 + 1\)` years is associated, on average, to a `\((\hat{\beta}_2 + 2\hat{\beta}_3\times Exp_0)100\)`% increase on hourly wages, holding education constant*]
+
+--
+
+Let's put some numbers into it:
+
+`$$\log(Wage) = 0.52 + 0.09\cdot Educ + 0.034\cdot Exp - 0.0005 \cdot Exp^2$$`
+
+--
+.center[
+*Increasing work experience from 20 to 21 years is associated, on average, to a `\((0.034 - 2\times 0.0005 \times 20)\times 100 = 1.34\)`% increase on hourly wages, holding education constant*]
+
+--
+
+.small[*Note that in this case we are interpreting the association between Experience and Wages as a percent change, because Wages is in a logarithm!*]
+
+---
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+.box-7Trans[Let's go to R]
+
+---
+# References
+
+- Ismay, C. &amp; A. Kim. (2021). “Statistical Inference via Data Science”. Chapter 6 &amp; 10.
+
+
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week2/1_OLS/f2021_sta235h_3_reg.html') --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

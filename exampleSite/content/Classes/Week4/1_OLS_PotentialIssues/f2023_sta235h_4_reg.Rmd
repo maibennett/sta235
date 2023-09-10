@@ -1,5 +1,5 @@
 ---
-title: "STA 235H - Multiple Regression: Interactions & Nonlinearity"
+title: "STA 235H - Multiple Regression: Polynomials"
 subtitle: "Fall 2023"
 author: "McCombs School of Business, UT Austin"
 output:
@@ -299,7 +299,6 @@ style_mono_accent(
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 
 ```
-
 ```{css, echo = FALSE}
 
 .small .remark-code { /*Change made here*/
@@ -334,547 +333,89 @@ font.add.google("Fira Sans", "Fira Sans")
 ```
 
 
-# Before we start...
+# Some Announcements
 
-- Use the **.darkorange[knowledge check]** portion of the JITT to assess your own understanding:
+.pull-left[
+- **.darkorange[Homework answer key]** will be posted on Tuesday/Wednesday.
 
-  - Be sure to answer the question correctly (look at the feedback provided)
+  - Make sure you check it out!
   
-  - Feedback are **.darkorange[guidelines]**; Try to use your *own words*.
+  - Exercises: Multiple regression (e.g. Bechdel Test example), differences in associations between groups (e.g. luxury vs non-luxury cars depreciation).
   
---
+- Check **.darkorange[personalized feedback]** for JITT 3, if included.
 
-- If you are struggling with material covered in STA 301H: **.darkorange[Check the course website for resources and come to Office Hours]**.
+  - Additional videos on material (and some R code) in Resources > Videos
 
---
-
-- **.darkorange[Office Hours Prof. Bennett]**: Wed 10.30-11.30am and Thu 4.00-5.30pm
+]
 
 --
 
-.box-4trans[No in-person class next week -- Recorded class]
+.pull-right[
+.center[
+![:scale 150%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/1_OLS_PotentialIssues/images/diff_pp_perc.png)
+]
+]
 
 ---
 # Today
 
 .pull-left[
-- Quick **.darkorange[multiple regression]** review:
-  - Interpreting coefficients
-  - Interaction models
-  
-- **.darkorange[Looking at your data:]**
-  - Distributions
+- **.darkorange[Roadmap]** of where we've been and where we're going.
   
 - **.darkorange[Nonlinear models:]**
-  - Logarithmic outcomes
   - Polynomial terms
+  
+- **.darkorange[Introduction to Causal Inference]**
+  - Potential Outcomes Framework
 ]
 
 .pull-right[
 .center[
-![](https://media.giphy.com/media/htpqWaJTwL8nkW7sV5/giphy.gif?cid=ecf05e473yn7ils7vegujkfd3syebu5k2ongn1mbbve9y59b&rid=giphy.gif&ct=g)]
+![](https://media.giphy.com/media/xTiN0CNHgoRf1Ha7CM/giphy.gif)]
 ]
 
 ---
-# Remember last week's example? The Bechdel Test
+# Roadmap so far
 
-.pull-left[
-- **.darkorange[Three criteria:]**
-
-  1. At least two named women
-  2. Who talk to each other
-  3. About something besides a man
-]
-.pull-right[
-.center[
-![:scale 80%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week1/2_OLS/images/bechdel.png)]
-]
-
----
-# Is it convenient for my movie to pass the Bechdel test?
-
-```{r results='hide', message=FALSE,echo=FALSE, warning=FALSE}
-library(tidyverse)
-
-rawData <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/data/bechdel.csv")
-
-# Select movies post 1990
-bechdel <- rawData %>% filter(Year>1989)
-
-# Passes Bechdel test:
-bechdel <- bechdel %>% mutate(bechdel_test = ifelse(rating==3, 1, 0),
-                              Adj_Revenue = Adj_Revenue/10^6,
-                              Adj_Budget = Adj_Budget/10^6)
-```
-```{r bechdel1a, results = FALSE}
-lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechdel)
-```
-```{r bechdel1ra,echo=FALSE}
-round(summary(lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechdel))$coeff, 4)
-
-```
-
-.box-7trans[What does each column represent?]
-
-
----
-# Is it convenient for my movie to pass the Bechdel test?
-
-```{r results='hide', message=FALSE,echo=FALSE, warning=FALSE}
-library(tidyverse)
-
-rawData <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/data/bechdel.csv")
-
-# Select movies post 1990
-bechdel <- rawData %>% filter(Year>1989)
-
-# Passes Bechdel test:
-bechdel <- bechdel %>% mutate(bechdel_test = ifelse(rating==3, 1, 0),
-                              Adj_Revenue = Adj_Revenue/10^6,
-                              Adj_Budget = Adj_Budget/10^6)
-```
-```{r bechdel1ab, results = FALSE}
-lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechdel)
-```
-```{r bechdel1rab,echo=FALSE}
-round(summary(lm(Adj_Revenue ~ bechdel_test + Adj_Budget + Metascore + imdbRating, data=bechdel))$coeff, 4)
-
-```
-
-- **.darkorange["Estimate"]**: Point estimates of our paramters $\beta$. We call them $\hat{\beta}$.
-
+- Started the class with a review on **.darkorange[simple linear regressions]**:
+  - Association between a variable $X$ and outcome $Y$
+  - e.g. $Revenue = \beta_0 + \beta_1 Bechdel + \varepsilon$
 --
-
-- **.darkorange["Standard Error"]** (SE): You can think about it as the variability of $\hat{\beta}$. The smaller, the more precise $\hat{\beta}$ is!
-
---
-
-- **.darkorange["t-value"]**: A value of the Student distribution that measures how many SE away $\hat{\beta}$ is from 0. You can calculate it as $tval = \frac{\hat{\beta}}{SE}$. It relates to our null-hypothesis $H_0: \beta=0$.
-
---
-
-- **.darkorange["p-value"]**: Probability of rejecting the null hypothesis and being *wrong* (Type I error). You want this to be a small as possible (statistically significant).
-
----
-# Reminder: Null-Hypothesis
-
-We are testing $H_0: \beta = 0$ vs $H_1: \beta \neq 0$
-
-.pull-left[
-- "Reject the null hypothesis"
-.center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/images/ttest_null.png)]
-]
-
-.pull-right[
-- "Not reject the null hypothesis"
-.center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/images/ttest_not_null.png)
-]
-]
-
-.source[Note: Figures adapted from @AllisonHorst's art]
----
-# Reminder: Null-Hypothesis
-
-Reject the null if the t-value falls **outside** the dashed lines.
-
-
-.center[
-![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/images/reject.png)
-]
-
-
-.source[Note: Figures adapted from @AllisonHorst's art]
----
-# One extra dollar in our budget
-
-- Imagine now that you have an hypothesis that Bechdel movies also get more bang for their buck, e.g. they get more revenue for an additional dollar in their budget.
-
-.box-7Trans[How would you test that in an equation?]
-
---
-
-.box-4[Interactions!]
-
----
-#One extra dollar in our budget
-
-Interaction model:
-
-$$Revenue = \beta_0 + \beta_1 Bechdel + \beta_3Budget + \color{#db5f12}{\beta_6(Budget \times Bechdel)} + \beta_4IMDB + \beta_5 MetaScore + \varepsilon$$
---
-
-How should we think about this?
-
-- Write the equation for a movie that **.darkorange[does not pass the Bechdel test]**. How does it look like?
-  
---
-
-- Now do the same for a movie that **.darkorange[passes the Bechdel test]**. How does it look like?
-
-
----
-# One extra dollar in our budget
-
-Now, let's interpret some coefficients:
-
-- If $Bechdel = 0$, then:
-  
-  $$Revenue = \beta_0 + \beta_3Budget + \beta_4IMDB + \beta_5 MetaScore + \varepsilon$$
---
-
-- If $Bechdel = 1$, then:
-
-$$Revenue = (\beta_0 + \beta_1) + (\beta_3 + \beta_6)Budget + \beta_4IMDB + \beta_5 MetaScore + \varepsilon$$
-
---
-
-- What is the **.darkorange[difference]** in the association between budget and revenue for movies that pass the Bechdel test vs. those that don't?
-
-
----
-# Let's put some data into it
-
-```{r results='hide', message=FALSE,echo=FALSE, warning=FALSE}
-library(tidyverse)
-
-rawData <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/data/bechdel.csv")
-
-# Select movies post 1990
-bechdel <- rawData %>% filter(Year>1989)
-
-# Passes Bechdel test:
-bechdel <- bechdel %>% mutate(bechdel_test = ifelse(rating==3, 1, 0),
-                              Adj_Revenue = Adj_Revenue/10^6,
-                              Adj_Budget = Adj_Budget/10^6)
-```
-```{r bechdel1, results = FALSE}
-lm(Adj_Revenue ~ bechdel_test*Adj_Budget + Metascore + imdbRating, data=bechdel)
-```
-```{r bechdel1r,echo=FALSE}
-round(summary(lm(Adj_Revenue ~ bechdel_test*Adj_Budget + Metascore + imdbRating, data=bechdel))$coeff, 4)
-
-```
-
---
-
-- What is the association between budget and revenue for movies that **.darkorange[pass the Bechdel test]**?
-
-- What is the difference in the association between budget and revenue for **.darkorange[movies that pass vs movies that don't pass the Bechdel test]**?
-
---
-
-- Is that difference **.darkorange[statistically significant]** (at conventional levels)?
-
----
-background-position: 50% 50%
-class: center, middle
-
-.box-5Trans[Let's look at another example]
-
----
-# Cars, cars, cars
-
-- Used cars in South California (from this week's JITT)
-
-.small[
-```{r}
-cars <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/data/SoCalCars.csv", stringsAsFactors = FALSE)
-
-names(cars)
-```
-]
-
-.source[Data source: "Modern Business Analytics" (Taddy, Hendrix, & Harding, 2018)]
-
----
-# Luxury vs. non-luxury cars?
-
 <br>
 <br>
+- Followed by **.darkorange[multiple regression]**:
+  - *Partial* association between $X$ and $Y$, when holding other variables constant.
+  - e.g. $Revenue = \beta_0 + \beta_1 Bechdel + \beta_2Revenue + \beta_3IMDB + \varepsilon$
+--
 <br>
-.box-7trans[Do you think there's a difference between how price changes over time for luxury vs non-luxury cars?]
-
---
-
-.box-4trans[How would you test this?]
-
----
-background-position: 50% 50%
-class: center, middle
-.big[
-.box-5LA[Let's go to R]
-
-]
-
----
-# Models with interactions
-
-- You include the interaction between two (or more) covariates:
-
-$$\widehat{Price} = \beta_0 + \hat{\beta}_1 Rating + \hat{\beta}_2 Miles + \hat{\beta}_3 Luxury + \hat{\beta}_4 Year + \hat{\beta}_5 Luxury \times Year$$
---
-
-  - $\hat{\beta}_3$ and $\hat{\beta}_4$ are considered the **.darkorange[main effects]** (no interaction)
-
---
-
-- The coefficient you are interested in is $\hat{\beta}_5$:
-
-  - Difference in the **.darkorange[price change]** for one additional year between **.darkorange[luxury vs non-luxury cars]**, holding other variables constant.
+<br>
+- What if we want to compare **.darkorange[differences in associations between groups]**?:
+  - *Compare* the association between $X$ and $Y$ for group $D=1$ and $D=0$.
+  - e.g. $Price = \beta_0 + \beta_1 Year + \beta_2Luxury + \beta_3Year\times Luxury + \varepsilon$
   
 ---
-# Now it's your turn
+# Roadmap so far
 
-- Looking at this equation:
-
-$$\widehat{Price} = \beta_0 + \hat{\beta}_1 Rating + \hat{\beta}_2 Miles + \hat{\beta}_3 Luxury + \hat{\beta}_4 Year + \hat{\beta}_5 Luxury \times Year$$
-1) What is the association between price and year for non-luxury cars?
-
+- What if our outcome $Y$ is *weird* (e.g. not normally distributed)?
+  - *If $Y$ is skewed to the right (log-normal)*: Transform to $log(Y)$ to improve linearity assumption!
+  - e.g. $log(Price) = \beta_0 + \beta_1 Year + \beta_2Luxury + \beta_3Mileage + \varepsilon$
+  - Interpret coefficients as **percent change** (%)
 --
-
-2) What is the association between price and year for luxury cars?
-
----
-# Looking at our data
-
-- We have dived into running models head on. **.darkorange[Is that a good idea?]**
-
---
-.center[
-![:scale 30%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week1/2_OLS/images/stop.png)]
-
----
-class: center, middle
-
-.box-5Trans[What should we do before we ran any model?]
-
----
-class: center, middle
-
-.box-3Trans[Inspect your data!]
-
----
-# Some ideas:
-
-- Use `vtable`:
-
-```{r results='hide', message=FALSE,echo=TRUE, warning=FALSE}
-library(vtable)
-
-vtable(cars)
-```
-
---
-
-- Use `summary` to see the min, max, mean, and quartile:
-
-```{r results='hide', message=FALSE,echo=TRUE, warning=FALSE}
-cars %>% select(price, mileage, year) %>% summary(.)
-```
-.small[
-
-```{r, message=FALSE,echo=FALSE, warning=FALSE}
-cars %>% select(price, mileage, year) %>% summary(.)
-```
-]
-
---
-
-- Plot your data!
-
----
-# Look at the data
-
 <br>
-
-```{r cars_inspect, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-library(firasans)
-library(hrbrthemes)
-
-luxury_brands <- c("Audi", "BMW", "Cadillac", "Ferrari", "Jaguar", "Lamborghini", "Land Rover", "Lexus",
-                   "Maserati", "Mercedes-Benz", "Porsche", "Rolls-Royce", "Tesla", "Volvo")
-
-cars <- cars %>% filter(type != "New" & mileage >= 10000 & mileage <= 150000 & price < 100000 & year >= 1970) %>%
-  mutate(luxury = ifelse(make %in% luxury_brands, 1, 0),
-         price = price/1000,
-         mileage = mileage/1000,
-         year = year - 1970)
-
-ggplot(data = cars, aes(x = price)) +
-  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5, bins = 40) + 
-  theme_bw()+
-  xlab("Price (M $)") + ylab("Count") +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-# Look at the data
-
-What can you say about this variable?
-
-```{r cars_inspect2, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-ggplot(data = cars, aes(x = price)) +
-  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5, bins = 40) + 
-  theme_bw()+
-  xlab("Price (M $)") + ylab("Count") +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-# Logarithms to the rescue?
-
 <br>
+- What if our outcome $Y$ is *weird* (e.g. binary)?
+  - e.g. $Employed = \beta_0 + \beta_1 Age + \beta_2Afam + \beta_3NKids + \varepsilon$
+  - Interpret coefficients as **change in probability** (e.g. percentage points)
 --
-
-```{r cars_inspect_log, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-ggplot(data = cars, aes(x = log(price))) +
-  geom_histogram(color = "#BF3984", fill = "white", lwd = 1.5, bins = 40) + 
-  theme_bw()+
-  xlab("log(Price)") + ylab("Count") +
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-
-  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(size=14),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_text(size=14),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-```
-
----
-# How would we interpret coefficients now?
-
-- Let's interpret the coefficient for $Miles$ in the following equation:
-
-$$\log(Price) = \beta_0 + \beta_1 Rating + \beta_2 Miles + \beta_3 Luxury + \beta_4 Year + \varepsilon$$
+<br>
+<br>
+- What if there **.darkorange[isn't a linear relation]** between $X$ and $Y$?
+  - Include **polynomial terms** for $X$
 --
-
-- Remember: $\beta_2$ represents the average change in the outcome variable, $\log(Price)$, for a one-unit increase in the independent variable $Miles$.
-
-  - *Think about the units of the dependent and independent variables!*
-
----
-# A side note on log-transformed variables...
-
-.medium30[$$\log(Y) = \hat{\beta}_0 + \hat{\beta}_1 X$$]
-
-We want to compare the outcome for a regression with $X = x$ and $X = x+1$
-
---
-
-.medium30[$$\log(y_0) = \hat{\beta}_0 + \hat{\beta}_1 x \ \ \ \ \ \ (1)$$]
-
-and
-
-.medium30[$$\log(y_1) = \hat{\beta}_0 + \hat{\beta}_1 (x+1) \ \ \ \ \ \ (2)$$]
-
---
-
-- Let's subtract (2) - (1)!
-
----
-# A side note on log-transformed variables...
-
-.medium30[$$\log(y_{1}) - \log(y_0) = \hat{\beta}_0 + \hat{\beta}_1(x+1) - (\hat{\beta}_0 + \hat{\beta}_1 x)$$]
-
---
-
-.medium30[$$\log(\frac{y_{1}}{y_0}) = \hat{\beta}_1$$]
-
---
-
-.medium30[$$\log(1+\frac{y_1-y_0}{y_0}) = \hat{\beta}_1$$]
-
----
-# A side note on log-transformed variables...
-
-.medium30[$$\log(y_{1}) - \log(y_0) = \hat{\beta}_0 + \hat{\beta}_1(x+1) - (\hat{\beta}_0 + \hat{\beta}_1 x)$$]
-
-.medium30[$$\log(\frac{y_{1}}{y_0}) = \hat{\beta}_1$$]
-
-.medium30[$$\log(1+\frac{y_1-y_0}{y_0}) = \hat{\beta}_1$$]
-
-.box-7Trans.medium30[$$\rightarrow \frac{\Delta y}{y} = \exp(\hat{\beta}_1)-1$$]
-
----
-# An important approximation
-
-.medium30[$$\log(y_{1}) - \log(y_0) = \hat{\beta}_0 + \hat{\beta}_1(x+1) - (\hat{\beta}_0 + \hat{\beta}_1 x)$$]
-
-.medium30[$$\log(\frac{y_{1}}{y_0}) = \hat{\beta}_1$$]
-
-.medium30[$$\log(1+\frac{y_1-y_0}{y_0}) = \hat{\beta}_1$$]
-
---
-
-.medium30[$$\approx \frac{y_1-y_0}{y_0} = \hat{\beta}_1$$]
-
---
-
-.box-4Trans.medium30[$$\rightarrow \% \Delta y = 100\times\hat{\beta}_1$$]
-
----
-# How would we interpret coefficients now?
-
-- Let's interpret the coefficient for $Miles$ in the following equation:
-
-$$\log(Price) = \beta_0 + \beta_1 Rating + \beta_2 Miles + \beta_3 Luxury + \beta_4 Year + \varepsilon$$
---
-
-- For an additional 1,000 miles (*Note: Remember Miles is measured in thousands of miles*), the logarithm of the price increases/decreases, on average, by $\hat{\beta}_2$, holding other variables constant.
-
---
-
-- For an additional 1,000 miles, the price increases/decreases, on average, by $100\times\hat{\beta}_2$%, holding other variables constant.
-
----
-# How would we interpret coefficients now?
-
-.small[
-```{r, echo = TRUE, warning = FALSE, message=FALSE}
-summary(lm(log(price) ~ rating + mileage + luxury + year, data = cars))
-```
-]
+<br>
+<br>
+- What if I want to know what is **.darkorange[the effect of X on Y]**?
+  - Causal Inference!
 
 ---
 # Adding polynomial terms
@@ -891,6 +432,9 @@ summary(lm(log(price) ~ rating + mileage + luxury + year, data = cars))
 # Determinants of wages: CPS 1985
 
 ```{r wages_inspect, fig.height=5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
+library(tidyverse)
+library(hrbrthemes)
+library(firasans)
 library(AER)
 data("CPS1985")
 
@@ -1052,16 +596,14 @@ ggplot(data = ., aes(y = log_wage, x = experience)) +
 
 $$\log(Wage) = \beta_0 + \beta_1 Educ + \beta_2 Exp + \beta_3 Exp^2 + \varepsilon$$
 
+--
 - Interpret the coefficient for **.darkorange[education]**
 
---
-
-.center[
-*One additional year of education is associated, on average, to $\hat{\beta}_1\times100$% increase in hourly wages, holding experience constant*]
+$$\log(Wage) = 0.52 + 0.09\cdot Educ + 0.034\cdot Exp - 0.0005 \cdot Exp^2$$
 
 --
 
-- What is the association between experience and wages?
+- What is the association between **.darkorange[experience and wages]**?
 
 ---
 # Interpreting coefficients in quadratic equation
@@ -1218,68 +760,34 @@ What is the association between experience and wages?
 *Increasing work experience from $Exp_0$ to $Exp_0 + 1$ years is associated, on average, to a $(\hat{\beta}_2 + 2\hat{\beta}_3\times Exp_0)100$% increase on hourly wages, holding education constant*]
 
 --
+
+Let's put some numbers into it:
+
+$$\log(Wage) = 0.52 + 0.09\cdot Educ + 0.034\cdot Exp - 0.0005 \cdot Exp^2$$
+
+--
 .center[
-*Increasing work experience from 20 to 21 years is associated, on average, to a $(\hat{\beta}_2 + 2\hat{\beta}_3\times 20)100$% increase on hourly wages, holding education constant*]
-
----
-# Let's put some numbers into it
-
-.small[
-```{r, echo = TRUE, warning=FALSE, message=FALSE}
-summary(lm(log(wage) ~ education + experience + I(experience^2), data = CPS1985))
-```
-]
+*Increasing work experience from 20 to 21 years is associated, on average, to a $(0.034 - 2\times 0.0005 \times 20)\times 100 = 1.34$% increase on hourly wages, holding education constant*]
 
 --
 
-- Increasing experience from 20 to 21 years is associated with an average increase in wages of 1.35%, holding education constant.
+.small[*Note that in this case we are interpreting the association between Experience and Wages as a percent change, because Wages is in a logarithm!*]
 
 ---
-# Main takeaway points
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-.pull-left[
-- The model you fit **.darkorange[depends on what you want to analyze]**.
-  
-- **.darkorange[Plot your data!]**
-
-- Make sure you capture associations that **.darkorange[make sense]**.
-  
-]
-
-.pull-right[
-.center[
-![:scale 120%](https://media.giphy.com/media/l0MYBJzJ7elsmG1K8/giphy.gif)]
-
-]
-
----
-# Next week
-
-.pull-left[
-
-.center[
-![](https://media.giphy.com/media/5eeeE80SrmPeEE43tJ/giphy.gif)]
-]
-
-.pull-right[
-- Issues with regressions and our data:
-
-  - Outliers?
-  
-  - Heteroskedasticity
-
-- Regression models with discrete outcomes:
-
-  - Probability linear models
-
-]
+.box-7Trans[Let's go to R]
 
 ---
 # References
 
 - Ismay, C. & A. Kim. (2021). “Statistical Inference via Data Science”. Chapter 6 & 10.
-
-- Keegan, B. (2018). "The Need for Openess in Data Journalism". *[Github Repository](https://github.com/brianckeegan/Bechdel/blob/master/Bechdel_test.ipynb)*
 
 
 <!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week2/1_OLS/f2021_sta235h_3_reg.html') -->
