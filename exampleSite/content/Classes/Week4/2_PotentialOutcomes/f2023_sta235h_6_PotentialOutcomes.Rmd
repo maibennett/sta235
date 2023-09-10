@@ -1,0 +1,1293 @@
+---
+title: "STA 235H - Potential Outcomes"
+subtitle: "Fall 2023"
+author: "McCombs School of Business, UT Austin"
+output:
+  xaringan::moon_reader:
+    css: [xaringan-themer.css]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: ["macros.js"]
+    includes:
+      in_header: ["header.html"]
+---
+
+<!-- <script type="text/javascript"> -->
+<!-- MathJax.Hub.Config({ -->
+<!--   "HTML-CSS": { -->
+<!--     preferredFont: null, -->
+<!--     webFont:  "Neo-Euler" -->
+<!--   } -->
+<!-- }); -->
+<!-- </script> -->
+
+```{r setup, include=FALSE, warning=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.showtext = TRUE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE, message=FALSE}
+library(xaringanthemer)
+
+theme_xaringan(
+  text_color = "#333f48",
+  background_color = "#FFFFFF",
+  accent_color = "#900DA4",
+  text_font = "Fira Mono",
+  text_font_use_google = TRUE,
+  title_font = "Yanone Kaffeesatz",
+  title_font_use_google = TRUE
+)
+
+style_mono_accent(
+  #base_color = "#bf5700",
+  extra_fonts = list(google_font("Fira Sans","200","300","400","500","600"),
+                     google_font("Fira Sans Condensed","200","300","400","500","600")),
+  base_color = "#333f48",
+  header_font_google = google_font("Yanone Kaffeesatz","200","300","400","500","600","700"),
+  text_font_google   = google_font("Jost"),
+  code_font_google   = google_font("Fira Mono"),
+  text_bold_color = "#333f48",
+  text_font_size = "115%",
+  colors = c(
+    lightgrey = "#C0C0C0",
+    red = "#f34213",
+    purple = "#900DA4",
+    darkpurple = "#61077a",
+    darkorange = "#db5f12",
+    orange = "#ff8811",
+    green = "#136f63",
+    white = "#FFFFFF"),
+  extra_css = list(
+    ".remark-slide table" = list("display" = "table",
+                   "width" = "80%",
+                   "text-align" = "left"),
+    ".remark-slide-number" = list("display" = "none"),
+    ".strong" = list("font-weight" = "400"),
+    ".big" = list("font-size" = "350%",
+                     "font-family" = "Yanone Kaffeesatz",
+                     "font-weight"="400"),
+    ".small" = list("font-size" = "80%"),
+    ".tiny" = list("font-size" = "50%"),
+    ".large" = list("font-size" = "150%"),
+    ".source" = list("color" = "#8c8c8c",
+                     "font-size" = "80%"),
+    ".remark-slide table td#highlight" = list("background-color" = "#eee1f0",
+                                  "color" = "#900DA4",
+                                  "font-weight" = "500"),
+   # ".remark-slide table thead th" = list(),
+    ".title-slide h1" = list("font-weight" = "500"),
+    ".title-slide h2" = list("font-weight" = "400",
+                             "font-size" =  "170%"),
+    ".title-slide h3" = list("font-family" = "Jost",
+                             "font-size" = "100%",
+                             "font-weight" = "200"),
+    ".center2" = list("margin" = "0",
+                      "position" = "absolute",
+                      "top" = "50%",
+                      "left" = "50%",
+                      "-ms-transform" = "translate(-50%, -50%)",
+                      "transform" = "translate(-50%, -50%)"),
+   ".bottom2" = list("margin" = "0",
+                      "position" = "absolute",
+                      "top" = "90%",
+                      "left" = "10%",
+                      "-ms-transform" = "translate(-10%, -90%)",
+                      "transform" = "translate(-10%, -90%)"),
+    ".section-title h1" = list("color" = "#FFFFFF",
+                               "font-size" = "2.3em",
+                               "line-height" = "1.3"),
+    ".sp-after-half" = list("margin-bottom" = "0.7em !important"),
+    ".box-1,.box-1a,.box-1s,.box-1b,.box-1l,.box-1LA,.section-title-1" = list("background-color" = "#0D0887"),
+    ".box-2,.box-2a,.box-2s,.box-2b,.box-2l,.box-2LA,.section-title-2" = list("background-color" = "#5601A4"),
+    ".box-3,.box-3a,.box-3s,.box-3b,.box-3l,.box-3LA,.section-title-3" = list("background-color" = "#900DA4"),
+    ".box-4,.box-4a,.box-4s,.box-4b,.box-4l,.box-4LA,.section-title-4" = list("background-color" = "#BF3984"),
+    ".box-5,.box-5a,.box-5s,.box-5b,.box-5l,.box-5LA,.section-title-5" = list("background-color" = "#E16462"),
+    ".box-6,.box-6a,.box-6s,.box-6b,.box-6l,.box-6LA,.section-title-6" = list("background-color" = "#F89441"),
+    ".box-7,.box-7a,.box-7s,.box-7b,.box-7l,.box-7LA,.section-title-7" = list("background-color" = "#FCCE25"),
+   
+    ".box-1trans,.box-2trans,.box-3trans,.box-4trans,.box-5trans,.box-6trans,.box-7trans" = list("background-color" = "#FFFFFF",
+                                                                                                 "font-family" = "Yanone Kaffeesatz",
+                                                                                                 "border-radius" = "15px",
+                                                                                                 "margin" = "0em auto",
+                                                                                                 "overflow" = "hidden",
+                                                                                                 "padding" = "0.4em 0.4em",
+                                                                                                 "font-weight" = "600",
+                                                                                                 "font-size" = "31px",
+                                                                                                 "display" = "table",
+                                                                                                 "text-align" = "center",
+                                                                                                 "border-width" = "thick",
+                                                                                                 "color" = "#333f48"),
+   
+       ".box-1Trans,.box-2Trans,.box-3Trans,.box-4Trans,.box-5Trans,.box-6Trans,.box-7Trans" = list("background-color" = "#FFFFFF",
+                                                                                                 "font-family" = "Yanone Kaffeesatz",
+                                                                                                 "border-radius" = "15px",
+                                                                                                 "margin" = "0em auto",
+                                                                                                 "overflow" = "hidden",
+                                                                                                 "padding" = "0.4em 0.4em",
+                                                                                                 "font-weight" = "600",
+                                                                                                 "font-size" = "51px",
+                                                                                                 "display" = "table",
+                                                                                                 "text-align" = "center",
+                                                                                                 "border-width" = "thick",
+                                                                                                 "color" = "#333f48"),
+   
+       ".box-1transl,.box-2transl,.box-3transl,.box-4transl,.box-5transl,.box-6transl,.box-7transl" = list("background-color" = "#FFFFFF",
+                                                                                                           "font-family" = "Yanone Kaffeesatz",
+                                                                                                           "border-radius" = "15px",
+                                                                                                           "left" = "0px",
+                                                                                                           "overflow" = "hidden",
+                                                                                                           "padding" = "0.4em 0.4em",
+                                                                                                           "font-weight" = "600",
+                                                                                                           "font-size" = "31px",
+                                                                                                           "display" = "table",
+                                                                                                           "text-align" = "left",
+                                                                                                           "border-width" = "thick",
+                                                                                                           "color" = "#333f48"),
+   
+   
+    ".box-1trans,.box-1transl,.box-1Trans" = list("border"="5px solid rgba(13, 8, 135,1)"),
+    ".box-2trans,.box-2transl,.box-2Trans" = list("border"="5px solid rgba(86, 1, 164,1)"),
+    ".box-3trans,.box-3transl,.box-3Trans" = list("border"="5px solid rgba(144, 13, 164,1)"),
+    ".box-4trans,.box-4transl,.box-4Trans" = list("border"="5px solid rgba(191, 57, 132,1)"),
+    ".box-5trans,.box-5transl,.box-5Trans" = list("border"="5px solid rgba(225, 100, 98,1)"),
+    ".box-6trans,.box-6transl,.box-6Trans" = list("border"="5px solid rgba(248, 148, 65,1)"),
+    ".box-7trans,.box-7transl,.box-7Trans" = list("border"="5px solid rgba(252, 206, 37,1)"),
+
+   
+   ".box-1t,.box-1tL,.section-title-1t" = list("background-color" = "rgba(13, 8, 135,0.3)",
+                                      "color"="rgba(13, 8, 135,1)",
+                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-2t,.box-2tL,.section-title-2t" = list("background-color" = "rgba(86, 1, 164,0.3)",
+                                       "color" = "rgba(86, 1, 164,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-3t,.box-3tL,.section-title-3t" = list("background-color" = "rgba(144, 13, 164,0.3)",
+                                       "color" = "rgba(144, 13, 164,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-4t,.box-4tL,.section-title-4t" = list("background-color" = "rgba(191, 57, 132,0.3)",
+                                       "color" = "rgba(191, 57, 132,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-5t,.box-5tL,.section-title-5t" = list("background-color" = "rgba(225, 100, 98,0.3)",
+                                       "color" = "rgba(225, 100, 98,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-6t,.box-6tL,.section-title-6t" = list("background-color" = "rgba(248, 148, 65,0.3)",
+                                       "color" = "rgba(248, 148, 65,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+    ".box-7t,.box-7tL,.section-title-7t" = list("background-color" = "rgba(252, 206, 37,0.3)",
+                                       "color" = "rgba(252, 206, 37,1)",
+                                       "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   
+   ".box-7t, .box-6t, .box-5t, .box-4t, .box-3t, .box-2t, .box-1t" = list("margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "31px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "border-radius" = "15px"),
+   
+   ".box-7tL, .box-6tL, .box-5tL, .box-4tL, .box-3tL, .box-2tL, .box-1tL" = list("margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "50px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "border-radius" = "15px"),
+   
+    ".box-7, .box-6, .box-5, .box-4, .box-3, .box-2, .box-1" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "31px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                    "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+    ".box-7a, .box-6a, .box-5a, .box-4a, .box-3a, .box-2a, .box-1a" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.4em 0.4em",
+                                                                      "font-weight" = "600",
+                                                                      "font-size" = "25px",
+                                                                      "display" = "table",
+                                                                      "text-align" = "center",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+   ".box-7s, .box-6s, .box-5s, .box-4s, .box-3s, .box-2s, .box-1s" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.2em 0.2em",
+                                                                      "font-weight" = "400",
+                                                                      "font-size" = "100%",
+                                                                      "display" = "inline",
+                                                                      "text-align" = "center",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+       ".box-7b, .box-6b, .box-5b, .box-4b, .box-3b, .box-2b, .box-1b" = list("color" = "#FFFFFF",
+                                                                          "left" = "0px",
+                                                                          "overflow" = "hidden",
+                                                                      "padding" = "0.4em 0.4em",
+                                                                      "font-weight" = "600",
+                                                                      "font-size" = "25px",
+                                                                      "display" = "table",
+                                                                      "text-align" = "left",
+                                                                      "font-family" = "Fira Sans",
+                                                                    "border-radius" = "15px"),
+   ".box-7l, .box-6l, .box-5l, .box-4l, .box-3l, .box-2l, .box-1l" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "45px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   ".box-7LA, .box-6LA, .box-5LA, .box-4LA, .box-3LA, .box-2LA, .box-1LA" = list("color" = "#FFFFFF",
+                                                                    "margin" = "0em auto",
+                                                                    "overflow" = "hidden",
+                                                                    "padding" = "0.4em 0.4em",
+                                                                    "font-weight" = "600",
+                                                                    "font-size" = "55px",
+                                                                    "display" = "table",
+                                                                    "text-align" = "center",
+                                                                      "font-family" = "Yanone Kaffeesatz",
+                                                                    "border-radius" = "15px"),
+   ".medium" = list("font-size" = "35px"),
+   
+   ".medium30" = list("font-size" = "30px"),
+   
+   ".jost-normal" = list("font-family" = "Jost",
+                         "font-size" = "31px"),
+   
+   ".image-80 img" = list("scale" = "80%"),
+   ".pull-left-little_l" = list("float" = "left",
+                                "width" = "67%"),
+   ".pull-right-little_l" = list("float" = "right",
+                                "width" = "27%"),
+   ".pull-left-little_r" = list("float" = "left",
+                                "width" = "27%"),
+   ".pull-right-little_r" = list("float" = "right",
+                                "width" = "67%")
+
+
+  )
+)
+
+#,"li" = list("font-size" = "150%")
+#    "li" = list("font-size" = "110%"),
+#    "ul" = list("font-size" = "110%"),
+#color palette
+#5601A4
+#900DA4
+#F89441
+#FCCE25
+
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+
+```
+```{css, echo = FALSE}
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+```
+
+```{r setup2, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(showtext)
+library(xaringanExtra)
+
+xaringanExtra::use_scribble()
+
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r fonts, message=FALSE, echo=FALSE, warning=FALSE}
+font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
+font.add.google("Fira Sans", "Fira Sans")
+```
+
+<br>
+<br>
+
+.box-2Trans[How? Potential Outcomes Framework]
+  
+  .box-4Trans[What? Causal Estimands]
+  
+  .box-7Trans[Why? Causal Questions and Study Design]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+The "How": Potential outcomes framework
+]
+
+---
+
+.center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/sleep_good.png)]
+
+---
+
+.center2[.box-3LA[What do you think are the biggest issues here?]]
+
+---
+<br>
+.pull-left[
+.center[
+![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/coffee_good.png)]
+]
+
+--
+.pull-right[
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/coffee_bad.png)]
+]
+
+---
+# Before we start...
+
+.center[.box-2LA[Be clear about your language]]
+---
+# Before we start...
+
+.center[.box-2LA[Be clear about your language]]
+<br>
+.center[.box-4LA[Be clear about your data]]
+
+---
+# Before we start...
+
+.center[.box-2LA[Be clear about your language]]
+<br>
+.center[.box-4LA[Be clear about your data]]
+<br>
+.center[.box-7LA[Be clear about your assumptions]]
+---
+# What is Causal Inference?
+
+.box-5LA[Inferring the effect of one thing on another thing]
+
+---
+# What is Causal Inference?
+
+.box-5LA[Inferring the effect of one thing on another thing]
+<br>
+<br>
+- "My headache went away because I took an aspirin".
+
+---
+# What is Causal Inference?
+
+.box-5LA[Inferring the effect of one thing on another thing]
+<br>
+<br>
+- "My headache went away because I took an aspirin".
+
+- "The new marketing campaign increased our sales by 20%"
+
+---
+# What is Causal Inference?
+
+.box-5LA[Inferring the effect of one thing on another thing]
+<br>
+<br>
+- "My headache went away because I took an aspirin".
+
+- "The new marketing campaign increased our sales by 20%"
+
+- "Providing students support when filling out FAFSA forms improves college access and completion."
+
+---
+# A world of potential (outcomes)
+
+- Under a binary treatment or intervention, there are **.darkorange[two potential worlds]**:
+
+---
+# A world of potential (outcomes)
+
+- Under a binary treatment or intervention, there are **.darkorange[two potential worlds]**:
+
+.pull-left[
+- **.darkorange[World 1]**: You take the pill
+  
+- **.darkorange[World 2]**: You don't take the pill
+]
+.pull-right[
+![](https://media.giphy.com/media/SCt3Miv6ugvSg/source.gif)
+]
+---
+# A world of potential (outcomes)
+
+- A **.darkorange[potential outcome]** is the outcome under each of these scenarios or "worlds".
+
+  - *There will be one for each path!*
+
+---
+# A world of potential (outcomes)
+
+- A **.darkorange[potential outcome]** is the outcome under each of these scenarios or "worlds".
+
+  - *There will be one for each path!*
+
+- A priori, each of these scenarios has a *potential outcome*
+
+- A posteriori, I can only observe **.darkorange[at most one of the potential outcomes]**
+
+
+---
+# A world of potential (outcomes)
+
+- A **.darkorange[potential outcome]** is the outcome under each of these scenarios or "worlds".
+
+  - *There will be one for each path!*
+
+- A priori, each of these scenarios has a *potential outcome*
+
+- A posteriori, I can only observe **.darkorange[at most one of the potential outcomes]**
+
+.box-3LA[Fundamental Problem of Causal Inference]
+
+---
+.center2[
+.box-6LA[What are the potential outcomes for our previous example?]
+]
+
+---
+# Potential Outcomes Examples
+
+- "My headache went away because I took an aspirin".
+
+--
+
+.box-3trans[*Headache status if I take an aspirin/ Headache status if I don't take an aspirin*]
+
+--
+
+- "The new marketing campaign increased our sales by 20%"
+
+
+--
+
+- "Providing students support when filling out FAFSA forms improves college access and completion."
+
+
+---
+# Let's see a specific example
+
+- You work at a retail company and you are debating on whether to send out an **.darkorange[email campaign]** to boost your sales:
+
+--
+
+- You are interested in **.darkorange[two specific outcomes]**:
+
+.pull-left[
+.center[**.darkorange[Sales]**: Whether a customer makes a purchase or not.]
+
+.center[
+![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/sales_po.png)]
+]
+
+.pull-right[
+.center[**.darkorange[Churn]**: Whether a customer unsubscribes for your mailing list or not.]
+
+.center[
+![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/churn_po.png)]
+]
+
+
+
+---
+# Potential Outcomes Framework
+
+Let's introduce some notation:
+
+- Let $Y_i$ be the observed outcome for unit $i$ (e.g. whether a person makes a purchase or not).
+- Let $Z_i$ be the treatment or intervention (e.g. receiving a promotional email (1) or not (0)).
+- Let $Y_i(z)$ be the potential outcome under treatment $Z = z$. (e.g. whether the person would make a purchase or not *if* they received treatment z).
+
+--
+
+Then, **.darkorange[if a person is *treated*]**, $Z_i = 1$, then their *observed outcome* $Y_i$ will be the same as their *potential outcome under treatment*, $Y_i(1)$
+
+$$Y_i | (Z_i = 1) \overset{\Delta}{=} Y_i(1) $$
+--
+
+In the same fashion, **.darkorange[if a person is not *treated*]**, $Z_i = 0$, then their *observed outcome* $Y_i$ will be the same as their *potential outcome under control*, $Y_i(0)$
+
+$$Y_i | (Z_i = 0) \overset{\Delta}{=} Y_i(0) $$
+
+---
+# Potential Outcomes Framework
+
+This means that we can write the observed outcome as a function of the *potential outcomes*:
+
+.box-5LA[$$\rightarrow Y_i = Z_i\cdot Y_i(1) + (1-Z_i)\cdot Y_i(0)$$]
+
+- This definition will be useful because we can see this as a **.darkorange[missing data problem]**.
+
+---
+# Causal Effects
+
+.box-4tL[Individual Causal Effect]
+
+$$ICE_i = Y_i(1) - Y_i(0)$$
+---
+# Causal Effects
+
+.box-4tL[Individual Causal Effect]
+
+$$ICE_i = Y_i(1) - Y_i(0)$$
+<br>
+.box-3LA[Can we ever observe individual causal effects?]
+
+---
+# Causal Effects
+
+.box-4tL[Individual Causal Effect]
+
+$$ICE_i = Y_i(1) - Y_i(0)$$
+
+<br>
+.box-3LA[Can we ever observe individual causal effects?]
+
+.box-7LA[No!*]
+
+---
+# Only one realization
+
+.pull-left[
+.box-2[Z=1]
+.center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/mail_purchase.png)]
+]
+
+.pull-right[
+.box-2[Z=0]
+.center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/nomail_nopurchase.png)]
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+The "What": Causal estimands, estimates, and estimators
+]
+---
+# Estimands vs Estimates vs Estimators
+
+.pull-left-little_r[
+.box-2[Estimand]
+
+.box-2trans[A quantity we want to estimate]
+]
+.pull-right-little_l[
+.box-7[Estimate]
+
+.box-7trans[The result of an estimation]
+]
+
+.center[
+.box-4[Estimator]
+
+<span class="box-4trans">A rule for calculating<br>an 
+estimate based on data</span>
+]
+
+---
+# Estimands vs Estimates vs Estimators
+
+.pull-left-little_r[
+.box-2[Estimand]
+
+.box-2trans[A quantity we want to estimate]
+
+.box-2trans[E.g.: Population mean]
+
+.box-2trans[$$\mu$$]
+]
+.pull-right-little_l[
+.box-7[Estimate]
+
+.box-7trans[The result of an estimation]
+
+.box-7trans[E.g.: Result of the sample mean<br>for a given sample *S*]
+
+.box-7trans[$$\hat{\mu}$$]
+]
+.center[
+.box-4[Estimator]
+
+<span class="box-4trans">A rule for calculating<br>an 
+estimate based on data</span>
+
+.box-4trans[E.g.: Sample mean]
+
+.box-4trans[$$\frac{1}{n}\sum_i Y_i$$]
+]
+
+---
+# Estimands vs Estimates vs Estimators
+
+.center[
+![:scale 35%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/estimands.jpg)
+]
+
+.source[Source: [Deng, 2022](http://onbiostatistics.blogspot.com/2022/04/estimands-estimator-estimate-and.html)]
+---
+# Estimands vs Estimates vs Estimators
+
+- Some important **.darkorange[estimands]** that we need to keep in mind:
+
+.box-3trans[Average Treatment Effect (ATE)]
+
+.box-5trans[Average Treatment Effect on the Treated (ATT)]
+
+.box-7trans[Conditional Average Treatment Effect (CATE)]
+
+---
+# Estimands vs Estimates vs Estimators
+
+- Some important **.darkorange[estimands]** that we need to keep in mind:
+
+.box-3trans[ATE: E.g. Average Treatment Effect for all customers]
+
+.box-5trans[ATT: E.g. Average Treatment Effect for customers that received the email]
+
+.box-7trans[CATE: E.g. Average Treatmenf Effect for customer under 25 years old]
+
+---
+# Estimands vs Estimates vs Estimators
+
+- Some important **.darkorange[estimands]** that we need to keep in mind:
+
+.box-3trans[$$ATE = E[Y(1)- Y(0)]$$]
+
+.box-5trans[$$ATT = E[Y(1)- Y(0)| Z=1]$$]
+
+.box-7trans[$$CATE = E[Y(1)- Y(0)| X]$$]
+
+
+---
+# Getting around the fundamental problem of causal inference
+
+- Let's go back to our original example: **.darkorange[Does an email campaign increase sales?]**
+
+.small[
+```{r echo = FALSE, message=FALSE}
+library(htmltools)
+library(paletteer)
+library(reactable)
+library(tidyverse)
+library(extrafont)
+library(hrbrthemes)
+library(firasans)
+# for windows
+windowsFonts(sans = "Fira")
+loadfonts(device="win")
+loadfonts(device="postscript")
+#import_fira_sans()
+
+#library(showtext)
+#showtext_auto()
+
+tab <- cbind(seq(1,6,1),c(0,1,1,0,0,1),c(0,0,1,1,0,1),c("?",0,1,"?","?",1),c(0,"?","?",1,0,"?"),rep("?",6))
+
+colnames(tab) <- c("i", "Z", "Y", "Y(1)", "Y(0)","Y(1)-Y(0)")
+
+tbl <- tab %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = TRUE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center"),
+    style = list(fontFamily = "Fira Sans, sans-serif")
+    )
+
+tbl
+  
+```
+]
+
+---
+# Getting around the fundamental problem of causal inference
+
+- We have a **.darkorange[missing data problem]**
+
+.small[
+```{r echo = FALSE, message=FALSE}
+tbl <- tab %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = TRUE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center"),
+    
+    columns = list(
+      "Y(1)" = colDef(
+            style = function(value) {
+              color <- if (value == "?") {
+                            "rgba(144, 13, 164,1)"
+                        } else if (value != "?") {
+                            "#333f48"
+                        }
+              bk_color <- if (value == "?") {
+                            "rgba(144, 13, 164,0.3)"
+                        } else if (value != "?") {
+                            "#ffffff"
+                        }
+              fw <- if (value == "?") {
+                            600
+                        } else if (value != "?") {
+                            400
+                        }
+      list(color = color, background = bk_color, fontWeight = fw)
+    }
+  ),
+  "Y(0)" = colDef(
+            style = function(value) {
+              color <- if (value == "?") {
+                            "rgba(144, 13, 164,1)"
+                        } else if (value != "?") {
+                            "#333f48"
+                        }
+              bk_color <- if (value == "?") {
+                            "rgba(144, 13, 164,0.3)"
+                        } else if (value != "?") {
+                            "#ffffff"
+                        }
+              fw <- if (value == "?") {
+                            600
+                        } else if (value != "?") {
+                            400
+                        }
+      list(color = color, background = bk_color, fontWeight = fw)
+    }
+  ),
+  "Y(1)-Y(0)" = colDef(
+            style = function(value) {
+              color <- if (value == "?") {
+                            "rgba(248, 148, 65,1)"
+                        } else if (value != "?") {
+                            "#333f48"
+                        }
+              bk_color <- if (value == "?") {
+                            "rgba(248, 148, 65,0.3)"
+                        } else if (value != "?") {
+                            "#ffffff"
+                        }
+      list(color = color, background = bk_color, fontWeight = 600)
+    }
+  )
+),
+    style = list(fontFamily = "Fira Sans, sans-serif")
+    )
+
+tbl
+  
+```
+]
+
+---
+# Getting around the fundamental problem of causal inference
+
+- Compare those who **.darkorange[received the email]** to the ones **.darkorange[did not received the email.]**
+
+.small[
+```{r echo = FALSE, message=FALSE}
+tbl <- tab %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = TRUE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center"),
+    
+rowStyle = function(index) {
+  if (index %in% c(2,3,6)) list(fontWeight = "bold",
+                                background = "rgba(86, 1, 164,0.3)",
+                                color = "rgba(86, 1, 164,1)")
+},
+    style = list(fontFamily = "Fira Sans, sans-serif")
+
+)
+
+tbl
+  
+```
+]
+
+---
+# Getting around the fundamental problem of causal inference
+
+- Compare those who **.darkorange[received the email]** to the ones **.darkorange[did not received the email.]**
+
+.small[
+```{r echo = FALSE, message=FALSE}
+tbl <- tab %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = TRUE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center"),
+    
+rowStyle = function(index) {
+  if (index %in% c(1,4,5)) list(fontWeight = "bold",
+                                background = "rgba(225, 100, 98,0.3)",
+                                color = "rgba(225, 100, 98,1)")
+},
+    style = list(fontFamily = "Fira Sans, sans-serif")
+
+)
+
+tbl
+  
+```
+]
+
+
+---
+# Getting around the fundamental problem of causal inference
+
+- Compare those who **.darkorange[received the email]** to the ones **.darkorange[did not received the email.]**
+
+.small[
+```{r echo = FALSE, message=FALSE}
+tbl <- tab %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = TRUE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center"),
+    style = list(fontFamily = "Fira Sans, sans-serif")
+)
+
+tbl
+  
+```
+]
+
+$$\hat{\tau} = \frac{1}{3}\sum_{i \in Z=1}Y_i - \frac{1}{3}\sum_{i \in Z=0}Y_i = 0.333$$
+---
+# Getting around the fundamental problem of causal inference
+
+I we had more data, we could do the same with a **.darkorange[simple regression]**:
+
+$$Purchase = \beta_0 + \beta_1Email + \varepsilon$$
+
+--
+
+Imagine you get the following results:
+
+$$Purchase = 0.4 + 0.33Email + \varepsilon$$
+- Interpret the coefficient for *Email*:
+
+
+
+---
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+.box-7Trans[What could be the problem with comparing the sample means?]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+The "Why": Causal questions and study designs
+]
+
+---
+# Under what assumptions is our estimate causal?
+
+We are using:
+$$\hat{\tau} = \frac{1}{3}\sum_{i \in Z=1}Y_i - \frac{1}{3}\sum_{i \in Z=0}Y_i)$$
+to estimate:
+
+$$\tau = E[Y_i(1) - Y_i(0)]$$
+
+---
+# Under what assumptions is our estimate causal?
+
+We are using:
+$$\hat{\tau} = \frac{1}{3}\sum_{i \in Z=1}Y_i - \frac{1}{3}\sum_{i \in Z=0}Y_i)$$
+
+to estimate:
+
+$$\tau = E[Y_i(1) - Y_i(0)]$$
+
+.box-7LA[Let's do some math]
+
+---
+# Under what assumptions is our estimate causal?
+
+$$\tau = E[Y_i(1) - Y_i(0)]$$
+$$= E[Y_i(1)] - E[Y_i(0)]$$
+--
+**.darkorange[Key assumption]**:
+
+.box-3[Ignorability]
+
+Ignorability means that the potential outcomes $Y(0)$ and $Y(1)$ are independent of the treatment, e.g. $(Y(0), Y(1)) \perp\!\!\!\perp Z$.
+
+$$E[Y_i(1)| Z = 0] = E[Y_i(1)| Z = 1] = E[Y_i(1)]$$
+.center[and]
+
+$$E[Y_i(0)| Z = 0] = E[Y_i(0)| Z = 1] = E[Y_i(0)]$$
+---
+# Under what assumptions is our estimate causal?
+
+$$\tau = E[Y_i(1) - Y_i(0)]$$
+$$= E[Y_i(1)] - E[Y_i(0)]$$
+- Under ignorability (see previous slide), $E[Y_i(1)] = E[Y_i(1) | Z = 1] = E[Y_i | Z = 1]$ and $E[Y_i(0)] = E[Y_i(0) | Z = 0] = E[Y_i | Z = 0]$, then:
+
+$$\tau = E[Y_i(1)] - E[Y_i(0)] = \color{#900DA4}{\underbrace{E[Y_i(1)| Z=1]}_\text{Obs. Outcome for T}} - \color{#F89441}{\overbrace{E[Y_i(0)| Z=0]}^\text{Obs. Outcome for C}}$$
+
+---
+# Ignorability Assumption
+
+We can just "ignore" the missing data problem:
+
+.small[
+```{r echo = FALSE, message=FALSE}
+tab2 <- tab
+
+for(i in 1:6){
+  tab2[i,tab[i,]=="?"] = ""
+}
+
+tbl <- tab2 %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = TRUE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center"),
+    style = list(fontFamily = "Fira Sans, sans-serif")
+)
+
+tbl
+  
+```
+]
+
+
+---
+# Ignorability Assumption
+
+We can just "ignore" the missing data problem:
+
+.small[
+```{r echo = FALSE, message=FALSE}
+tbl <- tab2 %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = TRUE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center"),
+    
+    columns = list(
+      "Y(1)" = colDef(
+            style = function(value) {
+              color <- if (value != "") {
+                            "rgba(144, 13, 164,1)"
+                        } else if (value == "") {
+                            "#333f48"
+                        }
+              bk_color <- if (value != "") {
+                            "rgba(144, 13, 164,0.3)"
+                        } else if (value == "") {
+                            "#ffffff"
+                        }
+              fw <- if (value != "") {
+                            600
+                        } else if (value == "") {
+                            400
+                        }
+      list(color = color, background = bk_color, fontWeight = fw)
+    }
+  ),
+  "Y(0)" = colDef(
+            style = function(value) {
+              color <- if (value != "") {
+                            "rgba(248, 148, 65,1)"
+                        } else if (value == "") {
+                            "#333f48"
+                        }
+              bk_color <- if (value != "") {
+                            "rgba(248, 148, 65,0.3)"
+                        } else if (value == "") {
+                            "#ffffff"
+                        }
+              fw <- if (value != "") {
+                            600
+                        } else if (value == "") {
+                            400
+                        }
+      list(color = color, background = bk_color, fontWeight = fw)
+    }
+  )
+),
+    style = list(fontFamily = "Fira Sans, sans-serif")
+    )
+
+tbl
+  
+  
+```
+]
+
+---
+# Ignorability Assumption
+
+We can just "ignore" the missing data problem:
+
+.small[
+```{r echo = FALSE, message=FALSE}
+tab2 <- rbind(tab2, c("", "", "", "2/3","1/3",""))
+
+tbl <- tab2 %>%
+  reactable(
+      # ALL one page (no scrolling or page swapping)
+    pagination = TRUE,
+    rownames = FALSE,
+    # compact for an overall smaller table width wise
+    compact = FALSE,
+    # borderless - TRUE or FALSE
+    borderless = FALSE,
+    # Stripes - TRUE or FALSE
+    striped = TRUE,
+    # fullWidth - either fit to width or not
+    fullWidth = TRUE,
+    # apply defaults
+    # 100 px and align to center of column
+    defaultColDef = colDef(
+      align = "center"),
+    
+        rowStyle = function(index) {
+  if (index==7) list(fontWeight = "bold",
+                      background = "rgba(255, 255, 255,1)",
+                      borderTop= "2px solid #333f48")
+                        },
+    
+    columns = list(
+      "Y(1)" = colDef(
+            style = function(value) {
+              color <- if (value != "") {
+                            "rgba(144, 13, 164,1)"
+                        } else if (value == "") {
+                            "#333f48"
+                        }
+              bk_color <- if (value != "") {
+                            "rgba(144, 13, 164,0.3)"
+                        } else if (value == "") {
+                            "#ffffff"
+                        }
+              fw <- if (value != "") {
+                            600
+                        } else if (value == "") {
+                            400
+                        }
+      list(color = color, background = bk_color, fontWeight = fw)
+    }
+  ),
+  "Y(0)" = colDef(
+            style = function(value) {
+              color <- if (value != "") {
+                            "rgba(248, 148, 65,1)"
+                        } else if (value == "") {
+                            "#333f48"
+                        }
+              bk_color <- if (value != "") {
+                            "rgba(248, 148, 65,0.3)"
+                        } else if (value == "") {
+                            "#ffffff"
+                        }
+              fw <- if (value != "") {
+                            600
+                        } else if (value == "") {
+                            400
+                        }
+      list(color = color, background = bk_color, fontWeight = fw)
+    }
+  )
+),
+    style = list(fontFamily = "Fira Sans, sans-serif")
+    )
+
+tbl
+  
+  
+```
+]
+
+---
+# Main takeaway points
+
+.box-3LA[Causal Inference is hard]
+<br>
+<br>
+
+---
+# Main takeaway points
+
+.box-3LA[Causal Inference is hard]
+<br>
+<br>
+- Think about the **.darkorange[causal problem]**
+
+
+---
+# Main takeaway points
+
+.box-3LA[Causal Inference is hard]
+<br>
+<br>
+- Think about the **.darkorange[causal problem]**
+
+- Check **.darkorange[validity]** of assumptions (*Is ignorability plausible? Am I controlling for the right covariates?*)
+
+---
+# Main takeaway points
+
+.box-3LA[Causal Inference is hard]
+<br>
+<br>
+- Think about the **.darkorange[causal problem]**
+
+- Check **.darkorange[validity]** of assumptions (*Is ignorability plausible? Am I controlling for the right covariates?*)
+
+- Most of this chapter will be spent on looking for **.darkorange[exogeneous variation]** to make the ignorability assumption happen.
+
+---
+# Next week
+
+.pull-left[
+- **.darkorange[Randomized Controlled Trials]**:
+
+  - Pros and Cons
+  - Concept of validity
+  - A/B Testing
+]
+
+.pull-right[
+![:scale 90%](https://media.giphy.com/media/SiGg4zSmwmbafTYwpj/giphy.gif)
+]
+
+---
+# References
+
+- Angrist, J. & S. Pischke. (2015). "Mastering Metrics". *Chapter 1*.
+
+- Cunningham, S. (2021). ["Causal Inference: The Mixtape". *Chapter 4: Potential Outcomes Causal Model*](https://mixtape.scunning.com/ch3.html).
+
+- Neil, B. (2020). "Introduction to Causal Inference". *Fall 2020 Course*
+
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week3/2_PotentialOutcomes/f2021_sta235h_5_potentialoutcomes.html') -->
+

@@ -31,9 +31,9 @@ In this session, we will talk about non-linear relations between our outcome and
 
 <br>
 
-<!-- {{% button href="https://sta235.com/Classes/Week4/2_PotentialOutcomes/f2023_sta235h_6_PotentialOutcomes.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.com/Classes/Week4/2_PotentialOutcomes/f2023_sta235h_6_PotentialOutcomes.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.com/Classes/Week4/2_PotentialOutcomes/f2023_sta235h_6_PotentialOutcomes.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.com/Classes/Week4/2_PotentialOutcomes/f2023_sta235h_6_PotentialOutcomes.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.com/Classes/Week4/2_PotentialOutcomes/f2023_sta235h_6_PotentialOutcomes.html" >}} -->
+{{< slides src="https://sta235.com/Classes/Week4/2_PotentialOutcomes/f2023_sta235h_6_PotentialOutcomes.html" >}}
 
 ## Code
 

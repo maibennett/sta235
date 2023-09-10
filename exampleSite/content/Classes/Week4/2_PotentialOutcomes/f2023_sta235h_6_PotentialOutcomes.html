@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235H - Potential Outcomes</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="libs/core-js/shim.min.js"></script>
+    <script src="libs/react/react.min.js"></script>
+    <script src="libs/react/react-dom.min.js"></script>
+    <script src="libs/reactwidget/react-tools.js"></script>
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <link href="libs/reactable/reactable.css" rel="stylesheet" />
+    <script src="libs/reactable-binding/reactable.js"></script>
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# STA 235H - Potential Outcomes
+]
+.subtitle[
+## Fall 2023
+]
+.author[
+### McCombs School of Business, UT Austin
+]
+
+---
+
+
+&lt;!-- &lt;script type="text/javascript"&gt; --&gt;
+&lt;!-- MathJax.Hub.Config({ --&gt;
+&lt;!--   "HTML-CSS": { --&gt;
+&lt;!--     preferredFont: null, --&gt;
+&lt;!--     webFont:  "Neo-Euler" --&gt;
+&lt;!--   } --&gt;
+&lt;!-- }); --&gt;
+&lt;!-- &lt;/script&gt; --&gt;
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+&lt;/style&gt;
+
+
+
+
+
+&lt;br&gt;
+&lt;br&gt;
+
+.box-2Trans[How? Potential Outcomes Framework]
+  
+  .box-4Trans[What? Causal Estimands]
+  
+  .box-7Trans[Why? Causal Questions and Study Design]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+The "How": Potential outcomes framework
+]
+
+---
+
+.center2[![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/sleep_good.png)]
+
+---
+
+.center2[.box-3LA[What do you think are the biggest issues here?]]
+
+---
+&lt;br&gt;
+.pull-left[
+.center[
+![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/coffee_good.png)]
+]
+
+--
+.pull-right[
+.center[
+![:scale 100%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/coffee_bad.png)]
+]
+
+---
+# Before we start...
+
+.center[.box-2LA[Be clear about your language]]
+---
+# Before we start...
+
+.center[.box-2LA[Be clear about your language]]
+&lt;br&gt;
+.center[.box-4LA[Be clear about your data]]
+
+---
+# Before we start...
+
+.center[.box-2LA[Be clear about your language]]
+&lt;br&gt;
+.center[.box-4LA[Be clear about your data]]
+&lt;br&gt;
+.center[.box-7LA[Be clear about your assumptions]]
+---
+# What is Causal Inference?
+
+.box-5LA[Inferring the effect of one thing on another thing]
+
+---
+# What is Causal Inference?
+
+.box-5LA[Inferring the effect of one thing on another thing]
+&lt;br&gt;
+&lt;br&gt;
+- "My headache went away because I took an aspirin".
+
+---
+# What is Causal Inference?
+
+.box-5LA[Inferring the effect of one thing on another thing]
+&lt;br&gt;
+&lt;br&gt;
+- "My headache went away because I took an aspirin".
+
+- "The new marketing campaign increased our sales by 20%"
+
+---
+# What is Causal Inference?
+
+.box-5LA[Inferring the effect of one thing on another thing]
+&lt;br&gt;
+&lt;br&gt;
+- "My headache went away because I took an aspirin".
+
+- "The new marketing campaign increased our sales by 20%"
+
+- "Providing students support when filling out FAFSA forms improves college access and completion."
+
+---
+# A world of potential (outcomes)
+
+- Under a binary treatment or intervention, there are **.darkorange[two potential worlds]**:
+
+---
+# A world of potential (outcomes)
+
+- Under a binary treatment or intervention, there are **.darkorange[two potential worlds]**:
+
+.pull-left[
+- **.darkorange[World 1]**: You take the pill
+  
+- **.darkorange[World 2]**: You don't take the pill
+]
+.pull-right[
+![](https://media.giphy.com/media/SCt3Miv6ugvSg/source.gif)
+]
+---
+# A world of potential (outcomes)
+
+- A **.darkorange[potential outcome]** is the outcome under each of these scenarios or "worlds".
+
+  - *There will be one for each path!*
+
+---
+# A world of potential (outcomes)
+
+- A **.darkorange[potential outcome]** is the outcome under each of these scenarios or "worlds".
+
+  - *There will be one for each path!*
+
+- A priori, each of these scenarios has a *potential outcome*
+
+- A posteriori, I can only observe **.darkorange[at most one of the potential outcomes]**
+
+
+---
+# A world of potential (outcomes)
+
+- A **.darkorange[potential outcome]** is the outcome under each of these scenarios or "worlds".
+
+  - *There will be one for each path!*
+
+- A priori, each of these scenarios has a *potential outcome*
+
+- A posteriori, I can only observe **.darkorange[at most one of the potential outcomes]**
+
+.box-3LA[Fundamental Problem of Causal Inference]
+
+---
+.center2[
+.box-6LA[What are the potential outcomes for our previous example?]
+]
+
+---
+# Potential Outcomes Examples
+
+- "My headache went away because I took an aspirin".
+
+--
+
+.box-3trans[*Headache status if I take an aspirin/ Headache status if I don't take an aspirin*]
+
+--
+
+- "The new marketing campaign increased our sales by 20%"
+
+
+--
+
+- "Providing students support when filling out FAFSA forms improves college access and completion."
+
+
+---
+# Let's see a specific example
+
+- You work at a retail company and you are debating on whether to send out an **.darkorange[email campaign]** to boost your sales:
+
+--
+
+- You are interested in **.darkorange[two specific outcomes]**:
+
+.pull-left[
+.center[**.darkorange[Sales]**: Whether a customer makes a purchase or not.]
+
+.center[
+![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/sales_po.png)]
+]
+
+.pull-right[
+.center[**.darkorange[Churn]**: Whether a customer unsubscribes for your mailing list or not.]
+
+.center[
+![:scale 70%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/churn_po.png)]
+]
+
+
+
+---
+# Potential Outcomes Framework
+
+Let's introduce some notation:
+
+- Let `\(Y_i\)` be the observed outcome for unit `\(i\)` (e.g. whether a person makes a purchase or not).
+- Let `\(Z_i\)` be the treatment or intervention (e.g. receiving a promotional email (1) or not (0)).
+- Let `\(Y_i(z)\)` be the potential outcome under treatment `\(Z = z\)`. (e.g. whether the person would make a purchase or not *if* they received treatment z).
+
+--
+
+Then, **.darkorange[if a person is *treated*]**, `\(Z_i = 1\)`, then their *observed outcome* `\(Y_i\)` will be the same as their *potential outcome under treatment*, `\(Y_i(1)\)`
+
+$$Y_i | (Z_i = 1) \overset{\Delta}{=} Y_i(1) $$
+--
+
+In the same fashion, **.darkorange[if a person is not *treated*]**, `\(Z_i = 0\)`, then their *observed outcome* `\(Y_i\)` will be the same as their *potential outcome under control*, `\(Y_i(0)\)`
+
+$$Y_i | (Z_i = 0) \overset{\Delta}{=} Y_i(0) $$
+
+---
+# Potential Outcomes Framework
+
+This means that we can write the observed outcome as a function of the *potential outcomes*:
+
+.box-5LA[$$\rightarrow Y_i = Z_i\cdot Y_i(1) + (1-Z_i)\cdot Y_i(0)$$]
+
+- This definition will be useful because we can see this as a **.darkorange[missing data problem]**.
+
+---
+# Causal Effects
+
+.box-4tL[Individual Causal Effect]
+
+`$$ICE_i = Y_i(1) - Y_i(0)$$`
+---
+# Causal Effects
+
+.box-4tL[Individual Causal Effect]
+
+`$$ICE_i = Y_i(1) - Y_i(0)$$`
+&lt;br&gt;
+.box-3LA[Can we ever observe individual causal effects?]
+
+---
+# Causal Effects
+
+.box-4tL[Individual Causal Effect]
+
+`$$ICE_i = Y_i(1) - Y_i(0)$$`
+
+&lt;br&gt;
+.box-3LA[Can we ever observe individual causal effects?]
+
+.box-7LA[No!*]
+
+---
+# Only one realization
+
+.pull-left[
+.box-2[Z=1]
+.center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/mail_purchase.png)]
+]
+
+.pull-right[
+.box-2[Z=0]
+.center[
+![:scale 60%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/nomail_nopurchase.png)]
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+The "What": Causal estimands, estimates, and estimators
+]
+---
+# Estimands vs Estimates vs Estimators
+
+.pull-left-little_r[
+.box-2[Estimand]
+
+.box-2trans[A quantity we want to estimate]
+]
+.pull-right-little_l[
+.box-7[Estimate]
+
+.box-7trans[The result of an estimation]
+]
+
+.center[
+.box-4[Estimator]
+
+&lt;span class="box-4trans"&gt;A rule for calculating&lt;br&gt;an 
+estimate based on data&lt;/span&gt;
+]
+
+---
+# Estimands vs Estimates vs Estimators
+
+.pull-left-little_r[
+.box-2[Estimand]
+
+.box-2trans[A quantity we want to estimate]
+
+.box-2trans[E.g.: Population mean]
+
+.box-2trans[$$\mu$$]
+]
+.pull-right-little_l[
+.box-7[Estimate]
+
+.box-7trans[The result of an estimation]
+
+.box-7trans[E.g.: Result of the sample mean&lt;br&gt;for a given sample *S*]
+
+.box-7trans[$$\hat{\mu}$$]
+]
+.center[
+.box-4[Estimator]
+
+&lt;span class="box-4trans"&gt;A rule for calculating&lt;br&gt;an 
+estimate based on data&lt;/span&gt;
+
+.box-4trans[E.g.: Sample mean]
+
+.box-4trans[$$\frac{1}{n}\sum_i Y_i$$]
+]
+
+---
+# Estimands vs Estimates vs Estimators
+
+.center[
+![:scale 35%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/estimands.jpg)
+]
+
+.source[Source: [Deng, 2022](http://onbiostatistics.blogspot.com/2022/04/estimands-estimator-estimate-and.html)]
+---
+# Estimands vs Estimates vs Estimators
+
+- Some important **.darkorange[estimands]** that we need to keep in mind:
+
+.box-3trans[Average Treatment Effect (ATE)]
+
+.box-5trans[Average Treatment Effect on the Treated (ATT)]
+
+.box-7trans[Conditional Average Treatment Effect (CATE)]
+
+---
+# Estimands vs Estimates vs Estimators
+
+- Some important **.darkorange[estimands]** that we need to keep in mind:
+
+.box-3trans[ATE: E.g. Average Treatment Effect for all customers]
+
+.box-5trans[ATT: E.g. Average Treatment Effect for customers that received the email]
+
+.box-7trans[CATE: E.g. Average Treatmenf Effect for customer under 25 years old]
+
+---
+# Estimands vs Estimates vs Estimators
+
+- Some important **.darkorange[estimands]** that we need to keep in mind:
+
+.box-3trans[$$ATE = E[Y(1)- Y(0)]$$]
+
+.box-5trans[$$ATT = E[Y(1)- Y(0)| Z=1]$$]
+
+.box-7trans[$$CATE = E[Y(1)- Y(0)| X]$$]
+
+
+---
+# Getting around the fundamental problem of causal inference
+
+- Let's go back to our original example: **.darkorange[Does an email campaign increase sales?]**
+
+.small[
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-b72b01fc40aec60e2035" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b72b01fc40aec60e2035">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["0","0","1","1","0","1"],"Y(1)":["?","0","1","?","?","1"],"Y(0)":["0","?","?","1","0","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"c3a7e4fc3fadfece38c7fff96b93b915"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+]
+
+---
+# Getting around the fundamental problem of causal inference
+
+- We have a **.darkorange[missing data problem]**
+
+.small[
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-af0112997715e94450de" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-af0112997715e94450de">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["0","0","1","1","0","1"],"Y(1)":["?","0","1","?","?","1"],"Y(0)":["0","?","?","1","0","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center","style":[{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400}]},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center","style":[{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600}]},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center","style":[{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600}]}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"02f1bf6615311006bdcfde85c057a92e"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+]
+
+---
+# Getting around the fundamental problem of causal inference
+
+- Compare those who **.darkorange[received the email]** to the ones **.darkorange[did not received the email.]**
+
+.small[
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-9e8772a7f6b14c5ffb1c" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-9e8772a7f6b14c5ffb1c">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["0","0","1","1","0","1"],"Y(1)":["?","0","1","?","?","1"],"Y(0)":["0","?","?","1","0","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[null,{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"},{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"},null,null,{"fontWeight":"bold","background":"rgba(86, 1, 164,0.3)","color":"rgba(86, 1, 164,1)"}],"dataKey":"c3a7e4fc3fadfece38c7fff96b93b915"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+]
+
+---
+# Getting around the fundamental problem of causal inference
+
+- Compare those who **.darkorange[received the email]** to the ones **.darkorange[did not received the email.]**
+
+.small[
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-140c87da6175b0247d7f" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-140c87da6175b0247d7f">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["0","0","1","1","0","1"],"Y(1)":["?","0","1","?","?","1"],"Y(0)":["0","?","?","1","0","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},null,null,{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},{"fontWeight":"bold","background":"rgba(225, 100, 98,0.3)","color":"rgba(225, 100, 98,1)"},null],"dataKey":"c3a7e4fc3fadfece38c7fff96b93b915"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+]
+
+
+---
+# Getting around the fundamental problem of causal inference
+
+- Compare those who **.darkorange[received the email]** to the ones **.darkorange[did not received the email.]**
+
+.small[
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-497571803e0cab5c57f0" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-497571803e0cab5c57f0">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["0","0","1","1","0","1"],"Y(1)":["?","0","1","?","?","1"],"Y(0)":["0","?","?","1","0","?"],"Y(1)-Y(0)":["?","?","?","?","?","?"]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"c3a7e4fc3fadfece38c7fff96b93b915"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+]
+
+`$$\hat{\tau} = \frac{1}{3}\sum_{i \in Z=1}Y_i - \frac{1}{3}\sum_{i \in Z=0}Y_i = 0.333$$`
+---
+# Getting around the fundamental problem of causal inference
+
+I we had more data, we could do the same with a **.darkorange[simple regression]**:
+
+`$$Purchase = \beta_0 + \beta_1Email + \varepsilon$$`
+
+--
+
+Imagine you get the following results:
+
+`$$Purchase = 0.4 + 0.33Email + \varepsilon$$`
+- Interpret the coefficient for *Email*:
+
+
+
+---
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+.box-7Trans[What could be the problem with comparing the sample means?]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+The "Why": Causal questions and study designs
+]
+
+---
+# Under what assumptions is our estimate causal?
+
+We are using:
+`$$\hat{\tau} = \frac{1}{3}\sum_{i \in Z=1}Y_i - \frac{1}{3}\sum_{i \in Z=0}Y_i)$$`
+to estimate:
+
+`$$\tau = E[Y_i(1) - Y_i(0)]$$`
+
+---
+# Under what assumptions is our estimate causal?
+
+We are using:
+`$$\hat{\tau} = \frac{1}{3}\sum_{i \in Z=1}Y_i - \frac{1}{3}\sum_{i \in Z=0}Y_i)$$`
+
+to estimate:
+
+`$$\tau = E[Y_i(1) - Y_i(0)]$$`
+
+.box-7LA[Let's do some math]
+
+---
+# Under what assumptions is our estimate causal?
+
+`$$\tau = E[Y_i(1) - Y_i(0)]$$`
+`$$= E[Y_i(1)] - E[Y_i(0)]$$`
+--
+**.darkorange[Key assumption]**:
+
+.box-3[Ignorability]
+
+Ignorability means that the potential outcomes `\(Y(0)\)` and `\(Y(1)\)` are independent of the treatment, e.g. `\((Y(0), Y(1)) \perp\!\!\!\perp Z\)`.
+
+`$$E[Y_i(1)| Z = 0] = E[Y_i(1)| Z = 1] = E[Y_i(1)]$$`
+.center[and]
+
+`$$E[Y_i(0)| Z = 0] = E[Y_i(0)| Z = 1] = E[Y_i(0)]$$`
+---
+# Under what assumptions is our estimate causal?
+
+`$$\tau = E[Y_i(1) - Y_i(0)]$$`
+`$$= E[Y_i(1)] - E[Y_i(0)]$$`
+- Under ignorability (see previous slide), `\(E[Y_i(1)] = E[Y_i(1) | Z = 1] = E[Y_i | Z = 1]\)` and `\(E[Y_i(0)] = E[Y_i(0) | Z = 0] = E[Y_i | Z = 0]\)`, then:
+
+`$$\tau = E[Y_i(1)] - E[Y_i(0)] = \color{#900DA4}{\underbrace{E[Y_i(1)| Z=1]}_\text{Obs. Outcome for T}} - \color{#F89441}{\overbrace{E[Y_i(0)| Z=0]}^\text{Obs. Outcome for C}}$$`
+
+---
+# Ignorability Assumption
+
+We can just "ignore" the missing data problem:
+
+.small[
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-430807933c74b7e15ccd" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-430807933c74b7e15ccd">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["0","0","1","1","0","1"],"Y(1)":["","0","1","","","1"],"Y(0)":["0","","","1","0",""],"Y(1)-Y(0)":["","","","","",""]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center"},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center"},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"3126a5ced7e3dbb4086b6a8c514ae91b"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+]
+
+
+---
+# Ignorability Assumption
+
+We can just "ignore" the missing data problem:
+
+.small[
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-84dc9da90e950d6376b9" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-84dc9da90e950d6376b9">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6"],"Z":["0","1","1","0","0","1"],"Y":["0","0","1","1","0","1"],"Y(1)":["","0","1","","","1"],"Y(0)":["0","","","1","0",""],"Y(1)-Y(0)":["","","","","",""]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center","style":[{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600}]},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center","style":[{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400}]},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"157bb0dd72abcfd6c6945f745e848c01"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+]
+
+---
+# Ignorability Assumption
+
+We can just "ignore" the missing data problem:
+
+.small[
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-b9a32eca93052b48efdb" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b9a32eca93052b48efdb">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"i":["1","2","3","4","5","6",""],"Z":["0","1","1","0","0","1",""],"Y":["0","0","1","1","0","1",""],"Y(1)":["","0","1","","","1","2/3"],"Y(0)":["0","","","1","0","","1/3"],"Y(1)-Y(0)":["","","","","","",""]},"columns":[{"id":"i","name":"i","type":"character","align":"center"},{"id":"Z","name":"Z","type":"character","align":"center"},{"id":"Y","name":"Y","type":"character","align":"center"},{"id":"Y(1)","name":"Y(1)","type":"character","align":"center","style":[{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600},{"color":"rgba(144, 13, 164,1)","background":"rgba(144, 13, 164,0.3)","fontWeight":600}]},{"id":"Y(0)","name":"Y(0)","type":"character","align":"center","style":[{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600},{"color":"#333f48","background":"#ffffff","fontWeight":400},{"color":"rgba(248, 148, 65,1)","background":"rgba(248, 148, 65,0.3)","fontWeight":600}]},{"id":"Y(1)-Y(0)","name":"Y(1)-Y(0)","type":"character","align":"center"}],"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"rowStyle":[null,null,null,null,null,null,{"fontWeight":"bold","background":"rgba(255, 255, 255,1)","borderTop":"2px solid #333f48"}],"dataKey":"46d7560bfffc8da62fd0f8e579ca3d08"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+]
+
+---
+# Main takeaway points
+
+.box-3LA[Causal Inference is hard]
+&lt;br&gt;
+&lt;br&gt;
+
+---
+# Main takeaway points
+
+.box-3LA[Causal Inference is hard]
+&lt;br&gt;
+&lt;br&gt;
+- Think about the **.darkorange[causal problem]**
+
+
+---
+# Main takeaway points
+
+.box-3LA[Causal Inference is hard]
+&lt;br&gt;
+&lt;br&gt;
+- Think about the **.darkorange[causal problem]**
+
+- Check **.darkorange[validity]** of assumptions (*Is ignorability plausible? Am I controlling for the right covariates?*)
+
+---
+# Main takeaway points
+
+.box-3LA[Causal Inference is hard]
+&lt;br&gt;
+&lt;br&gt;
+- Think about the **.darkorange[causal problem]**
+
+- Check **.darkorange[validity]** of assumptions (*Is ignorability plausible? Am I controlling for the right covariates?*)
+
+- Most of this chapter will be spent on looking for **.darkorange[exogeneous variation]** to make the ignorability assumption happen.
+
+---
+# Next week
+
+.pull-left[
+- **.darkorange[Randomized Controlled Trials]**:
+
+  - Pros and Cons
+  - Concept of validity
+  - A/B Testing
+]
+
+.pull-right[
+![:scale 90%](https://media.giphy.com/media/SiGg4zSmwmbafTYwpj/giphy.gif)
+]
+
+---
+# References
+
+- Angrist, J. &amp; S. Pischke. (2015). "Mastering Metrics". *Chapter 1*.
+
+- Cunningham, S. (2021). ["Causal Inference: The Mixtape". *Chapter 4: Potential Outcomes Causal Model*](https://mixtape.scunning.com/ch3.html).
+
+- Neil, B. (2020). "Introduction to Causal Inference". *Fall 2020 Course*
+
+&lt;!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week3/2_PotentialOutcomes/f2021_sta235h_5_potentialoutcomes.html') --&gt;
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
