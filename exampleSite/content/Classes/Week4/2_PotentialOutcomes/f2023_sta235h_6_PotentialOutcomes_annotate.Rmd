@@ -1292,6 +1292,8 @@ tbl
 [![:scale 20%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/qr_code_selection.png)](https://utexas.qualtrics.com/jfe/form/SV_cBDSevUtofbRAJo)
 ]
 
+.center[https://tinyurl.com/sta235hw4]
+
 .box-5trans[Would you go to a physician/urgent care?]
 
 ---
