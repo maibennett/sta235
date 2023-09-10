@@ -15,7 +15,7 @@
  *    - xaringan wiki: https://github.com/yihui/xaringan/wiki
  *    - remarkjs wiki: https://github.com/gnab/remark/wiki
  *
- *  Version: 0.4.1
+ *  Version: 0.4.2
  *
  * ------------------------------------------------------- */
 @import url(https://fonts.googleapis.com/css?family=Jost&display=swap);
@@ -199,7 +199,9 @@ blockquote {
 th, td {
   padding: 5px;
 }
-.remark-slide thead, .remark-slide tfoot, .remark-slide tr:nth-child(even) {
+.remark-slide table:not(.table-unshaded) thead,
+.remark-slide table:not(.table-unshaded) tfoot,
+.remark-slide table:not(.table-unshaded) tr:nth-child(even) {
   background: #D6D8DA;
 }
 table.dataTable tbody {
@@ -653,11 +655,11 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 }
 .pull-left-little_l {
   float: left;
-  width: 60%;
+  width: 67%;
 }
 .pull-right-little_l {
   float: right;
-  width: 34%;
+  width: 27%;
 }
 .pull-left-little_r {
   float: left;
