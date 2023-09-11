@@ -29,11 +29,10 @@ housing = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exa
 # Only keep single family housing: (Bldg.Type)
 housing = housing %>% filter(Bldg.Type=="1Fam")
 
-# Transform Lot.Area from sqft to 1,000 sqft, and concentrate only on
-# units that are under 20,000 sqft:
+# Concentrate only on
+# lot units that are under 20,000 sqft:
 
-housing = housing %>% filter(Lot.Area<20000) %>% 
-  mutate(Lot.Area = Lot.Area/1000)
+housing = housing %>% filter(Lot.Area<20000)
 
 # Q1: Create a scatter plot between SalePrice (Y) and Lot.Area (X) and
 # fit a linear model. Complete the following code:
@@ -56,6 +55,10 @@ ggplot() + #COMPLETE THIS LINE
 # Interpret the coefficient for Lot.Area:
 
 # Note: To include a quadratic term in a formula, you
-# wrap the variable in I(): e.g. I(Lot.Area^2)
+# wrap the variable in I(): e.g. I(Lot.Area^2).
+
+# What is the association between Price and Area
+# for an increase of 10,000 to 10,001 sqft?
 
 lm_quad = lm() #COMPLETE THIS LINE
+summary(lm_quad)
