@@ -37,10 +37,10 @@ In this session, we will talk about non-linear relations between our outcome and
 
 ## Code
 
-<!-- Download the R Script for the in-class exercise here:
+Download the R Script for the in-class exercise here:
 <script>let date = Date.now();</script>
 
-<a onclick="gtag('event','code4_inclass', {'event_category': 'code','event_label': 'code4_inclass', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/1_OLS_PotentialIssues/code/f2023_sta235h_4_reg_in_class.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> -->
+<a onclick="gtag('event','code4_inclass', {'event_category': 'code','event_label': 'code4_inclass', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week4/1_OLS_PotentialIssues/code/f2023_sta235h_4_reg_in_class.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
 Here is the full R script for this class, with some additional questions: 
 

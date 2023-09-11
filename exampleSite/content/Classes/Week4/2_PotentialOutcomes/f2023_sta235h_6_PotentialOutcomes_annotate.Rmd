@@ -364,7 +364,7 @@ font.add.google("Fira Sans", "Fira Sans")
 
 --
 
-- How many students **.darkorange[still have a headache]** (look at your **.darkorange[orange]** paper)
+- How many students **.darkorange[still have a headache]**? (look at your **.darkorange[orange]** paper)
 
 --
 
@@ -1025,6 +1025,24 @@ $$Purchase = 0.4 + 0.33Email + \varepsilon$$
 .box-7Trans[What could be the problem with comparing the sample means?]
 
 ---
+.center2[
+.box-2LA[Let's do a little exercise]
+]
+
+---
+<br>
+
+
+.box-5Trans[Look at your **.darkorange[green]** piece of paper and go to the following website]
+
+.center[
+[![:scale 20%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/qr_code_selection.png)](https://utexas.qualtrics.com/jfe/form/SV_cBDSevUtofbRAJo)
+]
+.center[https://tinyurl.com/sta235hw4]
+
+.box-5trans[Would you go to a physician/urgent care?]
+
+---
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
@@ -1275,26 +1293,6 @@ tbl
   
 ```
 ]
-
----
-.center2[
-.box-2LA[Let's do a little exercise]
-]
-
----
-<br>
-<br>
-<br>
-
-.box-5Trans[Look at your **.darkorange[green]** piece of paper and go to the following website]
-
-.center[
-[![:scale 20%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/qr_code_selection.png)](https://utexas.qualtrics.com/jfe/form/SV_cBDSevUtofbRAJo)
-]
-
-.center[https://tinyurl.com/sta235hw4]
-
-.box-5trans[Would you go to a physician/urgent care?]
 
 ---
 # Main takeaway points

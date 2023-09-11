@@ -373,17 +373,6 @@ The "How": Potential outcomes framework
 # Before we start...
 
 .center[.box-2LA[Be clear about your language]]
----
-# Before we start...
-
-.center[.box-2LA[Be clear about your language]]
-<br>
-.center[.box-4LA[Be clear about your data]]
-
----
-# Before we start...
-
-.center[.box-2LA[Be clear about your language]]
 <br>
 .center[.box-4LA[Be clear about your data]]
 <br>
@@ -393,40 +382,17 @@ The "How": Potential outcomes framework
 
 .box-5LA[Inferring the effect of one thing on another thing]
 
----
-# What is Causal Inference?
+--
 
-.box-5LA[Inferring the effect of one thing on another thing]
-<br>
-<br>
 - "My headache went away because I took an aspirin".
 
----
-# What is Causal Inference?
-
-.box-5LA[Inferring the effect of one thing on another thing]
-<br>
-<br>
-- "My headache went away because I took an aspirin".
+--
 
 - "The new marketing campaign increased our sales by 20%"
 
----
-# What is Causal Inference?
-
-.box-5LA[Inferring the effect of one thing on another thing]
-<br>
-<br>
-- "My headache went away because I took an aspirin".
-
-- "The new marketing campaign increased our sales by 20%"
+--
 
 - "Providing students support when filling out FAFSA forms improves college access and completion."
-
----
-# A world of potential (outcomes)
-
-- Under a binary treatment or intervention, there are **.darkorange[two potential worlds]**:
 
 ---
 # A world of potential (outcomes)
@@ -447,29 +413,14 @@ The "How": Potential outcomes framework
 - A **.darkorange[potential outcome]** is the outcome under each of these scenarios or "worlds".
 
   - *There will be one for each path!*
-
----
-# A world of potential (outcomes)
-
-- A **.darkorange[potential outcome]** is the outcome under each of these scenarios or "worlds".
-
-  - *There will be one for each path!*
+  
+--
 
 - A priori, each of these scenarios has a *potential outcome*
 
 - A posteriori, I can only observe **.darkorange[at most one of the potential outcomes]**
 
-
----
-# A world of potential (outcomes)
-
-- A **.darkorange[potential outcome]** is the outcome under each of these scenarios or "worlds".
-
-  - *There will be one for each path!*
-
-- A priori, each of these scenarios has a *potential outcome*
-
-- A posteriori, I can only observe **.darkorange[at most one of the potential outcomes]**
+--
 
 .box-3LA[Fundamental Problem of Causal Inference]
 
@@ -1231,37 +1182,16 @@ tbl
 # Main takeaway points
 
 .box-3LA[Causal Inference is hard]
-<br>
-<br>
 
----
-# Main takeaway points
+--
 
-.box-3LA[Causal Inference is hard]
-<br>
-<br>
 - Think about the **.darkorange[causal problem]**
 
-
----
-# Main takeaway points
-
-.box-3LA[Causal Inference is hard]
-<br>
-<br>
-- Think about the **.darkorange[causal problem]**
+--
 
 - Check **.darkorange[validity]** of assumptions (*Is ignorability plausible? Am I controlling for the right covariates?*)
 
----
-# Main takeaway points
-
-.box-3LA[Causal Inference is hard]
-<br>
-<br>
-- Think about the **.darkorange[causal problem]**
-
-- Check **.darkorange[validity]** of assumptions (*Is ignorability plausible? Am I controlling for the right covariates?*)
+--
 
 - Most of this chapter will be spent on looking for **.darkorange[exogeneous variation]** to make the ignorability assumption happen.
 
@@ -1289,5 +1219,5 @@ tbl
 
 - Neil, B. (2020). "Introduction to Causal Inference". *Fall 2020 Course*
 
-<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week3/2_PotentialOutcomes/f2021_sta235h_5_potentialoutcomes.html') -->
+<!-- pagedown::chrome_print('C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week4/2_PotentialOutcomes/f2023_sta235h_6_PotentialOutcomesv2.html') -->
 
