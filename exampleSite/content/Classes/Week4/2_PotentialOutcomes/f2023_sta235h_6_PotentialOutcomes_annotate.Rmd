@@ -360,7 +360,7 @@ font.add.google("Fira Sans", "Fira Sans")
 
 --
 
-- Everyone takes an aspirin to mitigate the headache
+- Everyone takes a pill to mitigate the headache
 
 --
 
@@ -370,7 +370,7 @@ font.add.google("Fira Sans", "Fira Sans")
 
 <br>
 
-.box-6Trans[Wow, did the aspirin work?]
+.box-6Trans[Wow, did the pill work?]
 
 ---
 <br>
@@ -1038,7 +1038,7 @@ $$Purchase = 0.4 + 0.33Email + \varepsilon$$
 .center[
 [![:scale 20%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/qr_code_selection.png)](https://utexas.qualtrics.com/jfe/form/SV_cBDSevUtofbRAJo)
 ]
-.center[https://tinyurl.com/sta235hw4]
+.center[https://sta235h.click/week4]
 
 .box-5trans[Would you go to a physician/urgent care?]
 
