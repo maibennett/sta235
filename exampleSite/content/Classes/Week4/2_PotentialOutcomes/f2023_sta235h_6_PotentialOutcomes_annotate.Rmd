@@ -1011,7 +1011,7 @@ $$Purchase = 0.4 + 0.33Email + \varepsilon$$
 
 --
 
-.center[*Receiving an email increases the probability of making a purchase by 3.3 percentage points*]
+.center[*Receiving an email increases the probability of making a purchase by 33.3 percentage points*]
 
 ---
 <br>
