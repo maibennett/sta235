@@ -14,3 +14,7 @@ Weekly assignments submitted via **Canvas**
 
 - On average, a 1-inch increase in height is associated with a 1.4% increase in salary, holding education and experience constant.
 
+### JITT 3
+
+- On average, a one-year increase in age is associated with a 1.28 percentage point increase in the probability of being employed, holding whether they have more than two kids or not and race constant.
+
