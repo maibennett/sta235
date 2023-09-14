@@ -56,7 +56,7 @@ Homework assignments are posted **one week before they are due**. Check the [syl
 <!-- <a onclick="ga('send', 'event', 'External-Link','click','code2_inclass','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week2/1_OLS/code/f2023_sta235h_2_reg_in_class.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> -->
 - Homework 1: <a onclick="gtag('event','hw1_code', {'event_category': 'HW','event_label': 'hw1_code', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/Homework1/templates/STA235H_HW1_Template.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
-<!-- - Homework 2: <a onclick="gtag('event','hw2_code', {'event_category': 'HW','event_label': 'hw2_code', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/Homework2/templates/STA235H_HW2_Template.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> -->
+- Homework 2: <a onclick="gtag('event','hw2_code', {'event_category': 'HW','event_label': 'hw2_code', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/Homework2/templates/STA235H_HW2_Template.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
 ## Answer Keys
 
