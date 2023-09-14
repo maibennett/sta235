@@ -49,7 +49,7 @@ I will use the cutoffs below to translate your overall course average into a fin
 |Cutoff|94%|90%|87%|84%|80%|77%|70%|65%|60%|<60%|
 
 {{% notice warning %}}
-**A note on copying and plagiarism**
+**A note on copying and plagiarism**<br>
 There is zero tolerance in this course for any academic misconduct, including copying or plagiarizing work from other sources (such as other students, internet sources, chatGPT, etc.). Students are allowed to use online resources for take-home assignments and are allowed to discuss the general approach to homework questions. However, <u>copying code and/or answers that do not belong to the student is strictly prohibited</u>. If there is evidence of misconduct, all students involved will be reported to the corresponding office and receive an according academic penalty in the class.
 {{% /notice %}}
 
