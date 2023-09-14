@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235H - Randomized Controlled Trials II</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="libs/core-js/shim.min.js"></script>
+    <script src="libs/react/react.min.js"></script>
+    <script src="libs/react/react-dom.min.js"></script>
+    <script src="libs/reactwidget/react-tools.js"></script>
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/reactable-binding/reactable.js"></script>
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA 235H - Randomized Controlled Trials II
+## Fall 2022
+### McCombs School of Business, UT Austin
+
+---
+
+
+&lt;!-- &lt;script type="text/javascript"&gt; --&gt;
+&lt;!-- MathJax.Hub.Config({ --&gt;
+&lt;!--   "HTML-CSS": { --&gt;
+&lt;!--     preferredFont: null, --&gt;
+&lt;!--     webFont:  "Neo-Euler" --&gt;
+&lt;!--   } --&gt;
+&lt;!-- }); --&gt;
+&lt;!-- &lt;/script&gt; --&gt;
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+&lt;/style&gt;
+
+
+
+
+
+# Some announcements
+
+- **.darkorange[Homework 3]** is due this Friday.
+
+- **.darkorange[Answer Key for Homework 2]** will be posted on Wednesday.
+  
+--
+
+- **.darkorange[Remember Idea + Data Pitch is due next week]**: Don't leave it to the last minute.
+
+  - Idea needs to be approved.
+
+--
+
+.box-5Trans[Catch-up Session this Friday]
+
+---
+# Last week
+
+.pull-left[
+
+![:scale 80%](https://media.giphy.com/media/YMwRxPhWq5SoIBPvMY/giphy.gif?cid=ecf05e47xugy72kyps7kvffoanb4duyaufr9d8um1kdplohn&amp;rid=giphy.gif&amp;ct=g)
+]
+
+.pull-right[
+- Continued discussing the **.darkorange[potential outcomes framework]**.
+  
+- Introduced the **.darkorange[ignorability assumption]**: 
+
+  - Potential outcomes `\(Y(0)\)` and `\(Y(1)\)` are independent of the treatment `\(Z\)`
+  
+- Introduced **.darkorange[Randomized Controlled Trial]**
+]
+
+---
+# Today
+
+.pull-left[
+
+- Continue with **.darkorange[Randomized Controlled Trials]**:
+
+  - Design
+  - Limitations
+
+- What about **.darkorange[selection on observables?]**:
+
+  - Types of bias
+  - Matching
+]
+
+.pull-right[
+![](https://media.giphy.com/media/l3dj09hpsfuYkijDi/giphy.gif?cid=ecf05e47u8xm2usaj4n89v5gkwypeewheumjciut4l3vw5ph&amp;rid=giphy.gif&amp;ct=g)
+]
+
+---
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.box-6Trans[Reviewing the Ignorability Assumption]
+
+---
+# Imagine we have an individual...
+
+.center[
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_PotentialOutcomes/images/woman_PO_0.png)
+]
+
+---
+# That person could choose to take the treatment...
+
+.center[
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_PotentialOutcomes/images/woman_PO_1.png)
+]
+
+---
+# ... or not take the treatment
+
+.center[
+![:scale 55%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_PotentialOutcomes/images/woman_PO_2.png)
+]
+
+--
+
+- Note that in each scenario, she still has **.darkorange[both potential outcomes]**!
+
+---
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.box-7Trans[What is the effect of going to college on future income?]
+
+---
+# Let's see the distributions of people
+
+&lt;img src="f2022_sta235h_9_RCT_annotate_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Let's see the distributions of people
+
+&lt;img src="f2022_sta235h_9_RCT_annotate_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# We can only observe one distribution per group!
+
+.pull-left[
+&lt;img src="f2022_sta235h_9_RCT_annotate_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.pull-right[
+&lt;img src="f2022_sta235h_9_RCT_annotate_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
+]
+---
+# Under Ignorability Assumption
+
+.pull-left-little_r[
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+`$$Y(0),Y(1)\perp\!\!\!\perp Z$$`
+
+`$$Income(0),Income(1)\perp\!\!\!\perp College$$`]
+
+.pull-right-little_r[
+
+&lt;img src="f2022_sta235h_9_RCT_annotate_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# What about if the ignorability assumption doesn't hold?
+
+.pull-left-little_r[
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+`$$Y(0),Y(1)\not\perp Z$$`
+
+E.g. Individuals that can take **.darkorange[more advantage from college (in terms of income) are more likely to go]**.]
+
+.pull-right-little_r[
+&lt;img src="f2022_sta235h_9_RCT_annotate_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Randomized Controlled Trials
+
+- RCTs make the **.darkorange[ignorability assumption hold by design]**
+
+--
+
+.box-4trans[How?]
+
+--
+
+.center[
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/random.png)]
+
+---
+# Examples of RCTs
+
+.pull-left[
+.center[
+![:scale 75%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/linkedin_exp.png)
+]
+]
+--
+.pull-right[
+.center[
+![:scale 75%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/nyt_exp.jpg)
+]
+]
+---
+# What does randomization buy us?
+
+--
+
+- Groups will be comparable **.darkorange[in expectation]** in terms of their observable and unobservable characteristics.
+
+--
+
+- Are **.darkorange[unbalances]** a problem?
+
+--
+
+  - Check magnitude and how many significant differences we have!
+
+--
+
+- Always conduct **.darkorange[robustness checks]**!
+
+--
+
+  - Run simple regression (e.g. Y ~ Z) and then add covariates.
+
+
+---
+# Can we ensure balance?
+
+--
+
+- In RCTs, in general, you can't ensure balance on all covariates.
+
+- But you can **.darkorange[stratify]**!
+
+--
+
+- Stratification means dividing your data into different stratas or groups *S*, based on one or more covariates.
+
+- Then, you randomize in the same way *within strata*.
+
+---
+# Randomization of treatment
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/study1.png)
+]
+
+---
+# Randomization of treatment with no strata
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/study2.png)
+]
+
+---
+# Randomization of treatment with strata
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/study3.png)
+]
+
+
+---
+# Get Out The Vote
+
+.pull-left[
+- "Get out the Vote" Large-Scale Mobilization experiment (Arceneaux, Gerber, and Green, 2006)
+  
+  - "Households containing one or two registered voters where **.darkorange[randomly assigned]** to treatment or control groups"
+  
+  - Treatment: GOTV phone calls
+  
+  - Stratified RCT: Two states divided into competitive and noncompetitive 
+]
+.pull-right[
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/vote.jpg)
+]
+
+---
+# Checking for balance
+&lt;!--
+.small[
+<div class="tab">
+<div class="title">
+<h3>Balance Table by Stratum</h3>
+</div>
+<div id="htmlwidget-2c8e477f7a1aabea9e62" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-2c8e477f7a1aabea9e62">{"x":{"tag":{"name":"Reactable","attribs":{"data":{".rownames":["female2","fem_miss","age","newreg","persons","vote98","vote00"],"V1":[0.552,0,52.157,0.117,1.496,0.231,0.564],"V2":[0.546,0,51.977,0.116,1.497,0.227,0.567],"V3":[0.541,0,50.81,0.133,1.513,0.258,0.595],"V4":[0.535,0,50.862,0.134,1.518,0.259,0.593],"V5":[0.549,0.026,55.795,0.048,1.539,0.572,0.734],"V6":[0.545,0.025,55.782,0.049,1.538,0.574,0.732],"V7":[0.543,0.022,53.481,0.048,1.529,0.599,0.781],"V8":[0.541,0.021,53.464,0.046,1.533,0.594,0.78]},"columns":[{"accessor":".rownames","name":"","type":"character","align":"center","sortable":false,"filterable":false},{"accessor":"V1","name":"Treat","type":"numeric","align":"center"},{"accessor":"V2","name":"Control","type":"numeric","align":"center","style":{"borderRight":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"V3","name":"Treat","type":"numeric","align":"center"},{"accessor":"V4","name":"Control","type":"numeric","align":"center","style":{"borderRight":"3px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"V5","name":"Treat","type":"numeric","align":"center"},{"accessor":"V6","name":"Control","type":"numeric","align":"center","style":{"borderRight":"1px solid rgba(0, 0, 0, 0.1)"}},{"accessor":"V7","name":"Treat","type":"numeric","align":"center"},{"accessor":"V8","name":"Control","type":"numeric","align":"center"}],"columnGroups":[{"name":"Non-competitive","columns":["V1","V2"]},{"name":"Competitive","columns":["V3","V4"]},{"name":"Non-competitive","columns":["V5","V6"]},{"name":"Competitive","columns":["V7","V8"]},{"name":"State 1","columns":["V1","V2","V3","V4"]}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"striped":true,"style":{"fontFamily":"Fira Sans, sans-serif"},"dataKey":"56afef48ecc2085445d004f19021e523","key":"56afef48ecc2085445d004f19021e523"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+--&gt;
+
+.center[
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/balance_table_stratum.png)
+]
+
+---
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.box-4LA[Let's go to R]
+
+---
+# Estimating the effect
+
+- Depending on the design, usually you can **.darkorange[compare group means]** or fit a **.darkorange[simple regression]**
+
+--
+
+`$$\frac{1}{N_T}\sum_{i\in T}Y_i - \frac{1}{N_C}\sum_{i\in C}Y_i$$`
+
+`$$Y_i = \beta_0 + \beta_1 Z_i + \varepsilon_i$$`
+
+--
+
+.box-4[How do we incorporate stratification here?]
+
+---
+# Estimating the effect
+
+- In stratified RCTs, we need to consider the strata!
+
+--
+
+- Run a regression with *fixed effects by strata*
+
+.box-6[$$Y_i = \beta_0 + \beta_1 Z_i + \gamma_s + \varepsilon_i$$]
+
+
+---
+# Estimating the effect
+
+
+.small[
+
+```r
+library(estimatr)
+
+d_s1 &lt;- d_s1 %&gt;% mutate(strata = interaction(state, competiv))
+
+summary(lm_robust(vote02 ~ treat_real + strata, data = d_s1))
+```
+
+```
+## 
+## Call:
+## lm_robust(formula = vote02 ~ treat_real + strata, data = d_s1)
+## 
+## Standard error type:  HC2 
+## 
+## Coefficients:
+##             Estimate Std. Error t value   Pr(&gt;|t|)  CI Lower CI Upper     DF
+## (Intercept) 0.510811   0.001036 493.086  0.000e+00  0.508780  0.51284 381057
+## treat_real  0.006854   0.004626   1.482  1.385e-01 -0.002213  0.01592 381057
+## strata1.1   0.086655   0.003658  23.690 5.666e-124  0.079485  0.09382 381057
+## strata0.2   0.048892   0.002191  22.314 3.196e-110  0.044598  0.05319 381057
+## strata1.2   0.145496   0.002192  66.382  0.000e+00  0.141200  0.14979 381057
+## 
+## Multiple R-squared:  0.01166 ,	Adjusted R-squared:  0.01165 
+## F-statistic:  1181 on 4 and 381057 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+---
+# Estimating the effect
+
+- One important thing to note in the previous analysis is that **.darkorange[assignment to treatment]** `\(\neq\)` **.darkorange[contact]**
+
+
+```r
+d_s1 %&gt;% count(treat_real, contact)
+```
+
+```
+##   treat_real contact      n
+## 1          0       0 369068
+## 2          1       0   6980
+## 3          1       1   5014
+```
+
+--
+
+.box-5[Does this break the ignorability assumption?]
+
+--
+
+- **.darkorange[Non-compliance]**: When the treatment assignment (e.g. calling the household) is not the same as the treatment (e.g. actually receiving a call/ making contact with the household)
+
+- What was **.darkorange[randomly assigned]** was calling the household.
+
+- Usually, &lt;u&gt;the effect of calling should be lower than the effect of actually receiving the call&lt;/u&gt;.
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+When we assume...
+]
+---
+# Other potential issues to have in mind
+
+--
+
+.box-3trans[Generalizability of our estimated effects]
+
+--
+
+- Where did we get our sample for our study from? Is it representative of a larger population?
+
+--
+
+.box-5trans[Spillover effects]
+
+--
+
+- Can an individual in the control group be affected by the treatment?
+
+--
+
+.box-7trans[General equilibrium effects]
+
+--
+
+- What happens if we scale up an intervention? Will the effect be the same?
+
+---
+# Generalizibility of RCTs
+
+- External Validity vs Internal Validity:
+
+  - **.darkorange[External validity]**: "The extent to which results can be generalized to other contexts or populations."
+  
+  - **.darkorange[Internal validity]**: "[T]he extent to which the observed results represent the truth in the population we are studying."
+
+---
+# External vs Internal Validity
+
+.center[
+![:scale 75%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/validity.png)]
+
+--
+
+- Many times, RCTs use **.darkorange[convenience samples]**
+
+---
+# SUTVA: No interference
+
+- Aside from **.darkorange[ignorability]**, RCTs rely on the **.darkorange[Stable Unit Treatment Value Assumption (SUTVA)]**
+
+--
+
+.box-4Trans["The treatment applied to one unit does not affect the outcome for other units"]
+
+--
+
+- No **.darkorange[spillovers]**
+
+- No **.darkorange[general equilibrium effects]**
+
+---
+# Network effects
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/networks1.png)
+]
+
+
+---
+# Network effects
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/networks2.png)
+]
+
+---
+# Network effects
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/networks3.png)
+]
+
+---
+# Network effects
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/networks4.png)
+]
+
+---
+# Network effects
+
+.center[
+![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/networks5.png)
+]
+
+---
+# Network effects
+
+&lt;br&gt;
+.box-6LA[Can we do something about this?]
+&lt;br&gt;
+&lt;br&gt;
+--
+
+1. **.darkorange[Randomize at a higher level]** (e.g. neighborhood, school, etc. instead of at the individual level)
+
+--
+
+  - Note that you will have to **.darkorange[cluster your standard errors]**
+
+--
+
+2. **.darkorange[Model the network!]**
+
+---
+# General Equilibrium Effects
+
+- Usually arise when you **.darkorange[scale up]** a program or intervention.
+
+- Imagine you want to test the effect of providing information about employment and expected income to students to see whether it affect their choice of university and/or major.
+
+--
+&lt;br&gt;
+&lt;br&gt;
+.box-7LA[What could happen if you offer it to everyone?]
+
+
+---
+# Wrapping things up
+
+- Randomized controlled trials are great... **.darkorange[but not for everything!]**
+
+--
+
+- Randomization buys us **.darkorange[no systematic selection on observables or unobservables]**
+
+  - But things can go wrong, too!
+  
+--
+
+.box-6LA[Check your assumptions and look out for potential issues!]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
