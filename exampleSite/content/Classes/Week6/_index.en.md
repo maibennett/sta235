@@ -8,7 +8,7 @@ disableToc: true
 
 ## What we will cover
 
-This week, we will finish with RCTs and talk about design and limitations.
+This week, we will finish discussing RCTs. We will also introduce observational studies, talk about selection bias, and how we can adjust for it.
 
 ## Recommended readings/videos
 
