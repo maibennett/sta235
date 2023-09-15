@@ -14,7 +14,7 @@ Teaching assistants may be emailed at their official UT email and will hold offi
 
 | Teaching Assistant | E-mail   | Office   | Office Hours |
 |------------|----------|----------|--------------|
-| Pedro Lima  | <a href="plima@utexas.edu">plima@utexas.edu</a>   |   Online | Fri: 2:30-3:30 PM |
+| Pedro Lima  | <a href="plima@utexas.edu">plima@utexas.edu</a>   |   Online | Fri: 3:30-4:30 PM |
 | Emma Costa  | <a href="emcosta@utexas.edu">emcosta@utexas.edu</a>   |   Online | Tue: 2:00-3:00 PM\* |
 | Diego Robbins  | <a href="diego.d.robbins@utexas.edu">diego.d.robbins@utexas.edu</a>   |   Online | Mon: 4:00-5:00 PM\* |
 
