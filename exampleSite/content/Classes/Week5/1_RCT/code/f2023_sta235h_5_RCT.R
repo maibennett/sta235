@@ -112,6 +112,9 @@ datasummary_balance(~ treat, data = d_bal, title = "Balance table", fmt=2, dinm_
 
 summary(lm_robust(call ~ treat, data = d)) #Question: Why do we use lm_robust() and not lm()?
 
+# Interpretation: Having an African-American sounding name reduces the probability of a callback by 3.2 percentage points
+# compared to having a white sounding name.
+
 # Q: What is the estimand we are estimating? Comment your results.
 
 # Now, let's add covariates
