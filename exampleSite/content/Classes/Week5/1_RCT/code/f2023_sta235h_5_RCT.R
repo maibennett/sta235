@@ -78,7 +78,7 @@ d_bal %>% group_by(treat) %>% summarize(across(.cols = everything(), .fns = mean
 # Q: Why does city return an NA value?
 
 
-# Let's transform education in binary variables to assess the difference (p-values)!
+# Let's transform education and city into binary variables to assess the difference (p-values)!
 
 d_bal = d %>% mutate(educ_noinfo = ifelse(education==0, 1, 0),
                      educ_hsd = ifelse(education==1, 1, 0),

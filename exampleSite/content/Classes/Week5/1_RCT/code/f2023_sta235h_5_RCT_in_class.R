@@ -54,8 +54,8 @@ d %>% #COMPLETE CODE
 # We are going to create another dataset that only contains the variables 
 # we want to compare (baseline covariates/characteristics + the treatment variable)
 
-# Create a new dataframe called d_bal that contains ONLY the treatment variable
-# education, number oj jobs, years of experience, computer skills,
+# Create a new dataframe called d_bal that contains ONLY the treatment variable,
+# education, number of jobs, years of experience, computer skills,
 # whether the CV is high quality (h) or low quality (l), and the city
 
 d_bal = d %>% select() #COMPLETE

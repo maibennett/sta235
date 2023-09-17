@@ -29,23 +29,18 @@ This week, we will talk about Randomized Controlled Trials (RCTs). Why is this s
 
 ## Slides
 
-<!-- {{% button href="https://sta235.netlify.app/Classes/Week5/1_PotentialOutcomes/f2022_sta235h_7_PotentialOutcomes.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week5/1_PotentialOutcomes/f2022_sta235h_7_PotentialOutcomes.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.com/Classes/Week5/1_RCT/f2023_sta235h_7_RCT.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.com/Classes/Week5/1_RCT/f2023_sta235h_7_RCT.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week5/1_PotentialOutcomes/f2022_sta235h_7_PotentialOutcomes.html" >}}
+{{< slides src="https://sta235.com/Classes/Week5/1_RCT/f2023_sta235h_7_RCT.html" >}}
 
-<br>
-
-{{% button href="https://sta235.netlify.app/Classes/Week5/2_RCT/f2022_sta235h_8_RCT.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week5/2_RCT/f2022_sta235h_8_RCT.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
-
-{{< slides src="https://sta235.netlify.app/Classes/Week5/2_RCT/f2022_sta235h_8_RCT.html" >}} -->
 
 ## Code
 
-<!-- Here is the code for RCTs <a onclick="ga('send', 'event', 'External-Link','click','code5','0','Link');" href="https://sta235.netlify.app/Classes/Week5/2_RCT/code/f2022_sta235h_5_RCT.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> -->
+Download the R Script for the in-class exercise here:
+<script>let date = Date.now();</script>
 
-<!--
-## Resources
+<a onclick="gtag('event','code5_inclass', {'event_category': 'code','event_label': 'code5_inclass', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/code/f2023_sta235h_5_RCT_in_class.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
-- Here is a video of the last example we see in this class (CV experiment). I go through the code more slowly, so feel free to review it if you have any questions about the code or the example in general after class!
+Here is the full R script for this class, with some additional questions: 
 
-{{< youtube src="https://www.youtube.com/embed/CLf9lQ4f56c" >}} -->
+<a onclick="gtag('event','code5', {'event_category': 'code','event_label': 'code5', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/code/f2023_sta235h_5_RCT.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
