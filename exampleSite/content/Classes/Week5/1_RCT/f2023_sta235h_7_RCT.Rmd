@@ -827,7 +827,7 @@ $$\color{#F89441}{\underbrace{E[Y_i(0)| Z = 0]}_\text{Obs. Outcome for C}} = E[Y
 $$\tau = E[Y_i(1) - Y_i(0)]= E[Y_i(1)] - E[Y_i(0)]$$
 - Under ignorability (see previous slide), $E[Y_i(1)] = E[Y_i(1) | Z = 1] = E[Y_i | Z = 1]$ and $E[Y_i(0)] = E[Y_i(0) | Z = 0] = E[Y_i | Z = 0]$, then:
 
-$$\tau = E[Y_i(1)] - E[Y_i(0)] = \color{#900DA4}{\underbrace{E[Y_i(1)| Z=1]}_\text{Obs. Outcome for T}} - \color{#F89441}{\overbrace{E[Y_i(0)| Z=0]}^\text{Obs. Outcome for C}} = E[Y_i|Z=1] - E[Y_i!Z=0]$$
+$$\tau = E[Y_i(1)] - E[Y_i(0)] = \color{#900DA4}{\underbrace{E[Y_i(1)| Z=1]}_\text{Obs. Outcome for T}} - \color{#F89441}{\overbrace{E[Y_i(0)| Z=0]}^\text{Obs. Outcome for C}} = E[Y_i|Z=1] - E[Y_i|Z=0]$$
 --
 
 - If the **.darkorange[ignorability assumption holds]**, we can use the difference in means between two groups to estimate the **.darkorange[average treatment effect]**.
