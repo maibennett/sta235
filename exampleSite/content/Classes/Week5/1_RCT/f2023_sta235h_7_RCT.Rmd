@@ -1238,7 +1238,8 @@ fig
 
 --
 
-- Estimate the effect of <u>submitting homework early vs late</u> on your <u>grade</u> $\rightarrow$ Compare people who submit early vs people who submit late.
+<br>
+- Estimate the effect of <u>attending office hours vs not attending</u> on your <u>grade</u> $\rightarrow$ Compare people who attend OH vs people who don't.
 
 ---
 # Experimental Causal Graph
