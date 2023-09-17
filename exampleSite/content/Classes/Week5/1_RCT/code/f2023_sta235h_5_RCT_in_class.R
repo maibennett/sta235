@@ -10,6 +10,8 @@ rm(list = ls())
 # Clears console
 cat("\014")
 
+options(scipen = 0)
+
 ### Load libraries
 # If you don't have one of these packages installed already, you will need to run install.packages() line
 library(tidyverse)
@@ -69,10 +71,18 @@ datasummary_balance(~ treat, data = d_bal, title = "Balance table",
 # dinm_statistic provides the statistic that is returned to assess the difference between groups. 
 # (By default it provides the standard error, but the p.value is easier to assess differences)
 
-# Let's transform education in a factor variable
+# Let's transform education in binary variables to assess the difference (p-values)!
 
-d_bal <- d %>% mutate(education = factor(education, labels = c("No Info","HSD","HSG","Some college","College +"))) %>% 
-  select(treat, education, ofjobs, yearsexp, computerskills, h, l, city)
+# COMPLETE CODE
+d_bal = d %>% mutate(educ_noinfo = ,
+                     educ_hsd = ,
+                     educ_hsg = ,
+                     educ_somecoll = ,
+                     educ_college = ,
+                     boston = ) %>% 
+  select(treat, educ_noinfo, educ_hsd, educ_hsg, educ_somecoll, educ_college, 
+         ofjobs, yearsexp, computerskills, h, l, boston)
+
 
 datasummary_balance(~ treat, data = d_bal, title = "Balance table", fmt=2, dinm_statistic = "p.value")
 

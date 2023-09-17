@@ -10,6 +10,8 @@ rm(list = ls())
 # Clears console
 cat("\014")
 
+options(scipen = 0)
+
 ### Load libraries
 # If you don't have one of these packages installed already, you will need to run install.packages() line
 library(tidyverse)
@@ -76,16 +78,34 @@ d_bal %>% group_by(treat) %>% summarize(across(.cols = everything(), .fns = mean
 # Q: Why does city return an NA value?
 
 
-# Let's transform education in a factor variable
+# Let's transform education in binary variables to assess the difference (p-values)!
 
-d_bal = d %>% mutate(education = factor(education, labels = c("No Info","HSD","HSG","Some college","College +"))) %>% 
-  select(treat, education, ofjobs, yearsexp, computerskills, h, l, city)
+d_bal = d %>% mutate(educ_noinfo = ifelse(education==0, 1, 0),
+                     educ_hsd = ifelse(education==1, 1, 0),
+                     educ_hsg = ifelse(education==2, 1, 0),
+                     educ_somecoll = ifelse(education==3, 1, 0),
+                     educ_college = ifelse(education==4, 1, 0),
+                     boston = ifelse(city=="b",1,0)) %>% 
+  select(treat, educ_noinfo, educ_hsd, educ_hsg, educ_somecoll, educ_college, 
+         ofjobs, yearsexp, computerskills, h, l, boston)
+
+# If your variables have a common root (e.g. all the dummies for education start with "educ_",
+# you can also use this to select all of them!)
+
+d_bal_alt = d %>% mutate(educ_noinfo = ifelse(education==0, 1, 0),
+                     educ_hsd = ifelse(education==1, 1, 0),
+                     educ_hsg = ifelse(education==2, 1, 0),
+                     educ_somecoll = ifelse(education==3, 1, 0),
+                     educ_college = ifelse(education==4, 1, 0),
+                     boston = ifelse(city=="b", 1, 0)) %>% 
+  select(treat, starts_with("educ_"), 
+         ofjobs, yearsexp, computerskills, h, l, boston)
+
+# Q: Check d_bal and d_bal_alt. Are they the same?
 
 datasummary_balance(~ treat, data = d_bal, title = "Balance table", fmt=2, dinm_statistic = "p.value")
 
-# Task: Build binary variables for each level of education 
-# (e.g. mutate(educ_no_info = ifelse(education == 0, 1, 0)), and include those binary variables in your balance table. 
-# Is the difference between groups statistically significant?
+# Q: Is there a statistical significant difference? Is that a problem?
 
 ############################ ESTIMATING CAUSAL EFFECT ##########################
 ## Now, let's run a simple model
