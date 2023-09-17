@@ -19,7 +19,7 @@ library(modelsummary)
 
 ## Are Emily and Greg More Employable Than Lakisha and Jamal? Example of an audit study
 
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/data/lakisha_aer.csv")
+d = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week5/1_RCT/data/lakisha_aer.csv")
 
 # Some variables of interest
 
@@ -36,7 +36,7 @@ d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleS
 
 ## Let's assume we are only interested in the "race" treatment. Create a variable treat = 1 if race = "b" and 0 if race = "w"
 
-d <- d %>% mutate(treat = ifelse(race == "b", 1, 0))
+d = d %>% mutate(treat = ifelse(race == "b", 1, 0))
 
 ## Q: How many treated observations are there? And how many control?
 
@@ -53,7 +53,7 @@ d %>% group_by(treat) %>% count() # group_by() groups your data according to the
 # we want to compare (baseline covariates/characteristics + the treatment variable)
 
 # DO NOT INCLUDE POST-TREATMENT VARIABLES
-d_bal <- d %>% select(treat, education, ofjobs, yearsexp, computerskills, h, l, city)
+d_bal = d %>% select(treat, education, ofjobs, yearsexp, computerskills, h, l, city)
 
 # We will use datasummary_balance() to get a pretty table
 datasummary_balance(~ treat, data = d_bal, title = "Balance table", 
@@ -78,7 +78,7 @@ d_bal %>% group_by(treat) %>% summarize(across(.cols = everything(), .fns = mean
 
 # Let's transform education in a factor variable
 
-d_bal <- d %>% mutate(education = factor(education, labels = c("No Info","HSD","HSG","Some college","College +"))) %>% 
+d_bal = d %>% mutate(education = factor(education, labels = c("No Info","HSD","HSG","Some college","College +"))) %>% 
   select(treat, education, ofjobs, yearsexp, computerskills, h, l, city)
 
 datasummary_balance(~ treat, data = d_bal, title = "Balance table", fmt=2, dinm_statistic = "p.value")
@@ -99,4 +99,10 @@ summary(lm_robust(call ~ treat, data = d)) #Question: Why do we use lm_robust() 
 summary(lm_robust(call ~ treat + factor(education) + ofjobs + yearsexp + computerskills + h + factor(city), data = d))
 
 # Q: Does the point estimate change? Why or why not?
+
+
+##################### EXCERCISE AT HOME ########################################
+
+# Do the same analysis (balance and estimate the causal effect), but now using
+# female vs male sounding name as the treatment variable. Is there an effect?
 
