@@ -1,0 +1,18 @@
+StartDate,EndDate,Status,IPAddress,Progress,Duration (in seconds),Finished,RecordedDate,ResponseId,RecipientLastName,RecipientFirstName,RecipientEmail,ExternalReference,LocationLatitude,LocationLongitude,DistributionChannel,UserLanguage,Q1_1,Q4,effect,null_effect,null_effect_cap,baseline,outcome
+Start Date,End Date,Response Type,IP Address,Progress,Duration (in seconds),Finished,Recorded Date,Response ID,Recipient Last Name,Recipient First Name,Recipient Email,External Data Reference,Location Latitude,Location Longitude,Distribution Channel,User Language,"What is your baseline sickness level? (1: Completely healthy - 10: Very sick)
+
+
+
+Read the green piece of paper - 1","In the random assignment, were you assigned to go to the hospital/urgent care?",effect,null_effect,null_effect_cap,baseline,outcome
+"{""ImportId"":""startDate"",""timeZone"":""America/Denver""}","{""ImportId"":""endDate"",""timeZone"":""America/Denver""}","{""ImportId"":""status""}","{""ImportId"":""ipAddress""}","{""ImportId"":""progress""}","{""ImportId"":""duration""}","{""ImportId"":""finished""}","{""ImportId"":""recordedDate"",""timeZone"":""America/Denver""}","{""ImportId"":""_recordId""}","{""ImportId"":""recipientLastName""}","{""ImportId"":""recipientFirstName""}","{""ImportId"":""recipientEmail""}","{""ImportId"":""externalDataReference""}","{""ImportId"":""locationLatitude""}","{""ImportId"":""locationLongitude""}","{""ImportId"":""distributionChannel""}","{""ImportId"":""userLanguage""}","{""ImportId"":""QID1_1""}","{""ImportId"":""QID4""}","{""ImportId"":""effect""}","{""ImportId"":""null_effect""}","{""ImportId"":""null_effect_cap""}","{""ImportId"":""baseline""}","{""ImportId"":""outcome""}"
+2022-09-13 12:38:20,2022-09-13 12:38:42,Spam,198.214.80.162,100,21,True,2022-09-13 12:38:42,R_1I5bMYezDnJWKP7,,,,,30.2887,-97.7398,qr,EN,6,No,4,0,0,6,6
+2022-09-13 12:37:12,2022-09-13 12:38:46,IP Address,198.214.81.62,100,94,True,2022-09-13 12:38:47,R_3R2f8ZhkdrPq5fo,,,,,30.2887,-97.7398,qr,EN,6,No,4,1,0,6,5
+2022-09-13 12:38:20,2022-09-13 12:38:49,IP Address,128.62.17.76,100,29,True,2022-09-13 12:38:50,R_3Pw4lWCeghgPWDp,,,,,30.2887,-97.7398,qr,EN,3,Yes,2,1,0,3,1
+2022-09-13 12:38:17,2022-09-13 12:38:50,IP Address,128.62.75.189,100,33,True,2022-09-13 12:38:51,R_2zu3OCB6v8TXxyM,,,,,30.2887,-97.7398,qr,EN,4,Yes,3,0,-1,4,2
+2022-09-13 12:38:26,2022-09-13 12:38:51,IP Address,128.62.51.195,100,24,True,2022-09-13 12:38:51,R_PTyYjAZn856Rn6p,,,,,30.2887,-97.7398,qr,EN,5,Yes,3,1,-1,5,2
+2022-09-13 12:38:24,2022-09-13 12:38:55,IP Address,128.62.16.250,100,31,True,2022-09-13 12:38:56,R_PB8PgXgatU9uOo9,,,,,30.2887,-97.7398,anonymous,EN,8,Yes,4,1,0,8,4
+2022-09-13 12:38:50,2022-09-13 12:39:01,IP Address,128.62.49.211,100,11,True,2022-09-13 12:39:01,R_3IRBguN3iM5KUbo,,,,,30.2887,-97.7398,qr,EN,10,No,2,0,-1,10,10
+2022-09-13 12:38:48,2022-09-13 12:39:02,Spam,128.62.52.148,100,13,True,2022-09-13 12:39:02,R_2drLeU6WfGADSiV,,,,,30.2887,-97.7398,qr,EN,3,No,2,-1,0,3,4
+2022-09-13 12:38:26,2022-09-13 12:39:28,IP Address,128.62.44.122,100,62,True,2022-09-13 12:39:29,R_28OP8lbAkfUUfDl,,,,,30.2887,-97.7398,qr,EN,9,No,4,-1,0,9,10
+2022-09-13 12:38:47,2022-09-13 12:40:08,IP Address,128.62.48.253,100,81,True,2022-09-13 12:40:09,R_1K91DTAfq3raxlW,,,,,30.2887,-97.7398,qr,EN,9,No,4,1,0,9,8
+2022-09-13 12:38:43,2022-09-13 12:42:14,Spam,128.62.78.174,100,210,True,2022-09-13 12:42:14,R_RQ4YSMopv1GWc5H,,,,,30.2881,-97.764,qr,EN,1,No,3,1,0,1,1
