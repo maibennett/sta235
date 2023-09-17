@@ -101,7 +101,7 @@ summary(lm_robust(call ~ treat + factor(education) + ofjobs + yearsexp + compute
 # Q: Does the point estimate change? Why or why not?
 
 
-##################### EXCERCISE AT HOME ########################################
+##################### EXERCISE AT HOME ########################################
 
 # Do the same analysis (balance and estimate the causal effect), but now using
 # female vs male sounding name as the treatment variable. Is there an effect?
