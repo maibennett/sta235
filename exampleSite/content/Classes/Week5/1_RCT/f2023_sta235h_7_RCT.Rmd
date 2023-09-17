@@ -810,11 +810,6 @@ $$E[Y_i(0)| Z = 0] = E[Y_i(0)| Z = 1] = E[Y_i(0)]$$
 
 $$\tau = E[Y_i(1) - Y_i(0)]= E[Y_i(1)] - E[Y_i(0)]$$
 
-
-
-- Can we observe $E[Y_i(1)]$? and $E[Y_i(0)]$?
-
-
 **.darkorange[Key assumption]**:
 
 .box-3[Ignorability]
