@@ -684,103 +684,6 @@ Causal Inference: Things we can "ignore"
 $$ICE_i = Y_i(1) - Y_i(0)$$
 
 ---
-# Estimands vs Estimates vs Estimators
-
-.pull-left-little_r[
-.box-2[Estimand]
-
-.box-2trans[A quantity we want to estimate]
-]
-.pull-right-little_l[
-.box-7[Estimate]
-
-.box-7trans[The result of an estimation]
-]
-
-.center[
-.box-4[Estimator]
-
-<span class="box-4trans">A rule for calculating<br>an 
-estimate based on data</span>
-]
-
----
-# Estimands vs Estimates vs Estimators
-
-.pull-left-little_r[
-.box-2[Estimand]
-
-.box-2trans[A quantity we want to estimate]
-
-.box-2trans[E.g.: Causal effect of attending<br>college on income]
-
-.large[
-$$\tau$$]
-]
-.pull-right-little_l[
-.box-7[Estimate]
-
-.box-7trans[The result of an estimation]
-
-.box-7trans[E.g.: Result of the difference in <br>means for a given sample *S*]
-
-.large[
-$$\hat{\tau}$$]
-]
-.center[
-.box-4[Estimator]
-
-<span class="box-4trans">A rule for calculating<br>an 
-estimate based on data</span>
-
-.box-4trans[E.g.: Difference in means]
-
-.large[
-$$\frac{1}{n_1}\sum_{Z=1}Y_i-\frac{1}{n_0}\sum_{Z=0}Y_i$$]
-]
-
----
-# Estimands vs Estimates vs Estimators
-
-.center[
-![:scale 35%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week4/2_PotentialOutcomes/images/estimands.jpg)
-]
-
-.source[Source: [Deng, 2022](http://onbiostatistics.blogspot.com/2022/04/estimands-estimator-estimate-and.html)]
----
-# Estimands vs Estimates vs Estimators
-
-- Some important **.darkorange[estimands]** that we need to keep in mind:
-
-.box-3trans[Average Treatment Effect (ATE)]
-
-.box-5trans[Average Treatment Effect on the Treated (ATT)]
-
-.box-7trans[Conditional Average Treatment Effect (CATE)]
-
----
-# Estimands vs Estimates vs Estimators
-
-- Some important **.darkorange[estimands]** that we need to keep in mind:
-
-.box-3trans[ATE: E.g. Average Treatment Effect for all customers]
-
-.box-5trans[ATT: E.g. Average Treatment Effect for customers that received the email]
-
-.box-7trans[CATE: E.g. Average Treatment Effect for customer under 25 years old]
-
----
-# Estimands vs Estimates vs Estimators
-
-- Some important **.darkorange[estimands]** that we need to keep in mind:
-
-.box-3trans[$$ATE = E[Y(1)- Y(0)]$$]
-
-.box-5trans[$$ATT = E[Y(1)- Y(0)| Z=1]$$]
-
-.box-7trans[$$CATE = E[Y(1)- Y(0)| X]$$]
-
----
 <br>
 <br>
 <br>
@@ -885,9 +788,13 @@ $$\tau = E[Y_i(1) - Y_i(0)]$$
 ---
 # Under what assumptions is our estimate causal?
 
-$$\tau = E[Y_i(1) - Y_i(0)]$$
-$$= E[Y_i(1)] - E[Y_i(0)]$$
+$$\tau = E[Y_i(1) - Y_i(0)] = E[Y_i(1)] - E[Y_i(0)]$$
 --
+
+- Can we observe $E[Y_i(1)]$? and $E[Y_i(0)]$?
+
+--
+
 **.darkorange[Key assumption]**:
 
 .box-3[Ignorability]
@@ -901,11 +808,35 @@ $$E[Y_i(0)| Z = 0] = E[Y_i(0)| Z = 1] = E[Y_i(0)]$$
 ---
 # Under what assumptions is our estimate causal?
 
-$$\tau = E[Y_i(1) - Y_i(0)]$$
-$$= E[Y_i(1)] - E[Y_i(0)]$$
+$$\tau = E[Y_i(1) - Y_i(0)]= E[Y_i(1)] - E[Y_i(0)]$$
+
+
+
+- Can we observe $E[Y_i(1)]$? and $E[Y_i(0)]$?
+
+
+**.darkorange[Key assumption]**:
+
+.box-3[Ignorability]
+
+Ignorability means that the potential outcomes $Y(0)$ and $Y(1)$ are independent of the treatment, e.g. $(Y(0), Y(1)) \perp\!\!\!\perp Z$.
+
+$$E[Y_i(1)| Z = 0] = \color{#900DA4}{\overbrace{E[Y_i(1)| Z = 1]}^\text{Obs. Outcome for T}} = E[Y_i(1)]$$
+.center[and]
+
+$$\color{#F89441}{\underbrace{E[Y_i(0)| Z = 0]}_\text{Obs. Outcome for C}} = E[Y_i(0)| Z = 1] = E[Y_i(0)]$$
+
+---
+# Under what assumptions is our estimate causal?
+
+$$\tau = E[Y_i(1) - Y_i(0)]= E[Y_i(1)] - E[Y_i(0)]$$
 - Under ignorability (see previous slide), $E[Y_i(1)] = E[Y_i(1) | Z = 1] = E[Y_i | Z = 1]$ and $E[Y_i(0)] = E[Y_i(0) | Z = 0] = E[Y_i | Z = 0]$, then:
 
-$$\tau = E[Y_i(1)] - E[Y_i(0)] = \color{#900DA4}{\underbrace{E[Y_i(1)| Z=1]}_\text{Obs. Outcome for T}} - \color{#F89441}{\overbrace{E[Y_i(0)| Z=0]}^\text{Obs. Outcome for C}}$$
+$$\tau = E[Y_i(1)] - E[Y_i(0)] = \color{#900DA4}{\underbrace{E[Y_i(1)| Z=1]}_\text{Obs. Outcome for T}} - \color{#F89441}{\overbrace{E[Y_i(0)| Z=0]}^\text{Obs. Outcome for C}} = E[Y_i|Z=1] - E[Y_i!Z=0]$$
+--
+
+- If the **.darkorange[ignorability assumption holds]**, we can use the difference in means between two groups to estimate the **.darkorange[average treatment effect]**.
+
 ---
 <br>
 <br>
@@ -938,8 +869,8 @@ d = data.frame(z = z,
                income1 = income1)
 
 ggplot(data = d) +
-  geom_density(aes(x = income0, color = "Y(0)"), lwd = 1.1) +
-  geom_density(aes(x = income1, color = "Y(1)"), lwd = 1.1) +
+  geom_density(aes(x = income0, color = "Y(0)"), lwd = 1.1, lty=2) +
+  geom_density(aes(x = income1, color = "Y(1)"), lwd = 1.1, lty=2) +
   scale_color_manual("Potential Outcomes", values = c("#900DA4","#F89441")) +
   theme_bw() + theme_ipsum_fsc() +
   xlab("Income ($1,000)") + ylab("Density") + ggtitle("Entire Sample") +
@@ -968,8 +899,8 @@ m0 = mean(income0)
 m1 = mean(income1)
 
 ggplot(data = d) +
-  geom_density(aes(x = income0, color = "Y(0)"), lwd = 1.1) +
-  geom_density(aes(x = income1, color = "Y(1)"), lwd = 1.1) +
+  geom_density(aes(x = income0, color = "Y(0)"), lwd = 1.1, lty = 2) +
+  geom_density(aes(x = income1, color = "Y(1)"), lwd = 1.1, lty = 2) +
   scale_color_manual("Potential Outcomes", values = c("#900DA4","#F89441")) +
   geom_vline(aes(xintercept = m0), color = "darkgrey", lty = 2, lwd = 1) +
   geom_vline(aes(xintercept = m1), color = "darkgrey", lty = 2, lwd = 1) +
