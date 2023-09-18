@@ -16,7 +16,7 @@ options(scipen = 0)
 # If you don't have one of these packages installed already, you will need to run install.packages() line
 library(tidyverse)
 library(estimatr)
-#install.packages(modelsummary)
+#install.packages("modelsummary")
 library(modelsummary)
 
 ## Are Emily and Greg More Employable Than Lakisha and Jamal? Example of an audit study
@@ -95,7 +95,13 @@ datasummary_balance(~ treat, data = d_bal, title = "Balance table", fmt=2, dinm_
 
 lm_simple = #COMPLETE CODE
 
-# Now, let's add covariates
+# Now, let's add covariates. Use the following covariates:
+# factor(education)
+# ofjobs
+# yearsexp 
+# computerskills
+# h
+# factor(city)
 
 lm_covs = #COMPLETE CODE
 
