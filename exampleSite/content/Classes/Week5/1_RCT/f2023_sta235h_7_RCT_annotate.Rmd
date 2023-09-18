@@ -598,6 +598,10 @@ fig2 <- dffull %>% plot_ly() %>%
   
 --
 
+- For emails, remember to include **.darkorange[STA 235H]** on the subject line for a faster response.
+
+--
+
 - **.darkorange[No OH next Thursday (09/28)]** (changed to Tuesday; check OH calendar).
 
 ---
