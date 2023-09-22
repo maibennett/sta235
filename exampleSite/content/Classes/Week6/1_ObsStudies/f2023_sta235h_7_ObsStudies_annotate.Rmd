@@ -281,7 +281,16 @@ style_mono_accent(
    ".pull-left-little_r" = list("float" = "left",
                                 "width" = "27%"),
    ".pull-right-little_r" = list("float" = "right",
-                                "width" = "67%")
+                                "width" = "67%"),
+   
+    ".pull-left-div3" = list("float" = "left",
+                                "width" = "27%"),
+   ".pull-right-div3" = list("float" = "right",
+                                "width" = "27%"),
+   ".pull-center-div3" = list("float" = "left",
+                              "position" = "relative",
+                              "left" = "10%",
+                              "width" = "27%")
 
 
   )
@@ -314,7 +323,7 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 library(knitr)
 library(showtext)
 library(xaringanExtra)
-library(embedr)
+#library(embedr)
 
 xaringanExtra::use_scribble()
 
@@ -333,7 +342,7 @@ font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
 font.add.google("Fira Sans", "Fira Sans")
 ```
 
-# Announcements
+# Housekeeping
 
 - **.darkorange[Let's talk about ChatGPT]**.
 
@@ -402,22 +411,60 @@ Limitations of RCTs
 ---
 # Recap
 
-- In RCTs, **.darkorange[ignorability assumption holds by design]**
+- RCTs make the **.darkorange[ignorability assumption hold by design]**
 
-  - No systematic differences in observed or unobserved characteristics.
-  
 --
 
-- Under the ignorability assumption, we can just **.darkorange[compare the means of both groups]** to obtain a causal effect
+.box-4trans[How?]
 
-  - $\bar{Y}_T - \bar{Y}_C$ or `lm(y ~ treat)`
-  
 --
 
-- If we want to ensure balance on certain characteristics, we can **.darkorange[stratify]**
+.center[
+![:scale 70%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/random.png)]
 
-  - At the design stage!
-  
+---
+# Examples of RCTs
+
+.pull-left[
+.center[
+![:scale 75%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/linkedin_exp.png)
+]
+]
+--
+.pull-right[
+.center[
+![:scale 75%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/nyt_exp.jpg)
+]
+]
+
+---
+# Steps to analyze a RCT?
+
+--
+
+.pull-left-div3[
+.box-4Trans[1) Check for balance]
+
+.box-4trans[(Remember to transform categorical variables into binary ones!)]
+]
+
+--
+
+.pull-center-div3[
+.box-6Trans[2) Estimate diff.<br>in means]
+
+.box-6trans[(Simple regression<br>between `Y` and `Z`)]
+]
+
+--
+
+.pull-right-div3[
+.box-7Trans[2)* Estimate diff. in means with covariates]
+
+.box-7trans[(Multiple regression between `Y` and `Z`, adding other baseline covariates `X`)]
+]
+
+
 ---
 # Potential issues to have in mind
 
@@ -480,49 +527,27 @@ Limitations of RCTs
 - No **.darkorange[general equilibrium effects]**
 
 ---
-# Network effects
+# Network effects (spillover) example
 
-.center[
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/networks1.png)
-]
+- RCT where students where **.darkorange[randomized]** into two groups:
 
+  - Treatment: Parents receive a text message when student misses school.
+  - Control: Parents receive a general text message.
+  
+--
 
----
-# Network effects
+- Estimate the **.darkorange[effect of the intervention on attendance]**.
 
-.center[
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/networks2.png)
-]
+  - Difference in average attendance between treated students and control students.
 
----
-# Network effects
+--
 
-.center[
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/networks3.png)
-]
+- **.darkorange[Potential problem]**: Students usually skip school with a friend.
 
----
-# Network effects
+--
 
-.center[
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/networks4.png)
-]
+.box-7trans[Why could this be a problem for causal inference?]
 
----
-# Network effects
-
-.center[
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/networks5.png)
-]
----
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-.box-7Trans[Examples where the treatment of one person can affect another one?]
 ---
 # Network effects
 
@@ -550,288 +575,111 @@ Limitations of RCTs
 <br>
 .box-7Trans[What could happen if you offer it to everyone?]
 
-
----
-# Wrapping things up
-
-- Randomized controlled trials are great... **.darkorange[but not for everything!]**
-
---
-
-- Randomization buys us **.darkorange[no systematic selection on observables or unobservables]**
-
-  - But things can go wrong, too!
-  
---
-
-.box-6LA[Check your assumptions and look out for potential issues!]
-
 ---
 background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-What if we can't randomize?
+class: middle, center
+
+.box-5Trans[Let's see another example]
+
+---
+# Get Out The Vote
+
+.pull-left[
+- "Get out the Vote" Large-Scale Mobilization experiment (Arceneaux, Gerber, and Green, 2006)
+  
+  - "Households containing one or two registered voters where **.darkorange[randomly assigned]** to treatment or control groups"
+  
+  - Treatment: GOTV phone calls
+  
+  - Stratified RCT: Two states divided into competitive and noncompetitive (randomized within state-competitiveness)
 ]
----
-# What happens when the ignorability assumption doesn't hold?
-
-- Imagine **.darkorange[we can't randomize]**
-
---
-
-.box-5Trans[Observational Study]
-
---
-
-.box-7trans[Can we compare two groups to get a causal effect?]
-
----
-# What happens when the ignorability assumption doesn't hold?
-
-- If the ignorability assumption doesn't hold, then $(Y(0), Y(1)) \not\!\perp\!\!\!\perp Z$
-
-$$\tau = E[Y_i(1)] - E[Y_i(0)] \neq E[Y_i| Z=1] - E[Y_i| Z=0]$$
-
-.box-4LA[Correlation does not imply causation]
-
----
-# What happens when the ignorability assumption doesn't hold?
-
-- Now, let's assume $(Y(0), Y(1)) \not\!\perp\!\!\!\perp Z$
-
-$$\tau = E[Y_i(1) - Y_i(0)] = $$
-$$=E[Y_i(1) - Y_i(0)|Z=1]Pr(Z=1) + E[Y_i(1) - Y_i(0)|Z=0](1-Pr(Z=1))$$
----
-# What happens if the ignorability assumption doesn't hold?
-
-- Now, let's assume $(Y(0), Y(1)) \not\!\perp\!\!\!\perp Z$
-
-$$\tau = E[Y_i(1) - Y_i(0)] = ATE =$$
-
-$$=\color{#900DA4}{\underbrace{E[Y_i(1) - Y_i(0)|Z=1]}_\text{ATT}}Pr(Z=1) + \color{#F89441}{\overbrace{E[Y_i(1) - Y_i(0)|Z=0]}^\text{ATC}}(1-Pr(Z=1))$$
-- Weighted average of the Average Treatment on the treated (ATT) and the average treatment on the control (ATC).
-
----
-# What happens if the ignorability assumption doesn't hold?
-
-- After some simple math, you can get to:
-
-$$\tau = E[Y_i(1) - Y_i(0)] = ATE$$
-
-$$\begin{aligned}
-ATE &=E[Y_i|Z=1] - E[Y_i|Z=0] \\
-\\
-& - (E[Y_i(0)|Z=1]-E[Y_i(0)|Z=0]) \\
-\\
-& - (1-Pr(Z=1))(ATT - ATC)
-\end{aligned}$$
-<br>
-<br>
-<br>
-<br>
-.source[Check out [Scott Cunningham's "Causal Inference: The Mixtape" (Ch. 4.1.3)](https://mixtape.scunning.com/04-potential_outcomes) for the decomposition]
-
----
-# What happens if the ignorability assumption doesn't hold?
-
-- After some simple math, you can get to:
-
-$$\tau = E[Y_i(1) - Y_i(0)] = ATE$$
-
-$$\begin{aligned}
-ATE &=\color{#900DA4}{\underbrace{E[Y_i|Z=1] - E[Y_i|Z=0]}_\text{Obs diff in means}} \\
-& - \color{#E16462}{\underbrace{(E[Y_i(0)|Z=1]-E[Y_i(0)|Z=0])}_\text{Selection bias}} \\
-& - \color{#FCCE25}{\underbrace{(1-Pr(Z=1))(ATT - ATC)}_\text{Heterogeneous treat. effect bias}}
-\end{aligned}$$
-- **.darkorange[Selection Bias:]** Difference between groups if they both were under control (e.g. baseline differences).
-- **.darkorange[Heterogeneous Treatment Effect Bias:]** Difference in returns to treatment for the two groups (weighted by the control population).
-<br>
-.source[Check out [Scott Cunningham's "Causal Inference: The Mixtape" (Ch. 4.1.3)](https://mixtape.scunning.com/04-potential_outcomes) for the decomposition]
-
----
-# How would bias look like?
-
-```{r PO1, fig.height=5.5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-library(tidyverse)
-library(hrbrthemes)
-library(firasans)
-
-periods = 10
-n = 100
-
-for(p in 1:periods){
-  set.seed(p)
-  
-  t_aux = rep(p,n)
-  y0_0_aux = rnorm(100, 0, 0.5)
-  y1_0_aux = 0.5 + 0.01*p + rnorm(100, 0, 0.5)
-  
-  y0_1_bias_aux = -0.3 - 0.01*p + rnorm(100, 0, 0.5)
-  
-  y1_1_hetero_aux = 1 + 0.02*p + rnorm(100, 0, 0.5)
- 
-  if(p==1){
-    t = t_aux
-    y0_0 = y0_0_aux
-    y1_0 = y1_0_aux
-    
-    y0_1_bias = y0_1_bias_aux
-    y1_1_hetero = y1_1_hetero_aux
-  } 
-  
-    if(p>1){
-    t = c(t,t_aux)
-    y0_0 = c(y0_0,y0_0_aux)
-    y1_0 = c(y1_0,y1_0_aux)
-    
-    y0_1_bias = c(y0_1_bias,y0_1_bias_aux)
-    y1_1_hetero = c(y1_1_hetero,y1_1_hetero_aux)
-  } 
-}
-
-d = data.frame("t" = t,
-               "y0_0" = y0_0,
-               "y1_0" = y1_0,
-               "y0_1_bias" = y0_1_bias,
-               "y1_1_hetero" = y1_1_hetero)
-
-ggplot(data = d, aes(x = t, y = y0_0)) +
-  geom_smooth(method = "gam", se=FALSE, lty=1, color = "#900DA4", lwd=1.4) +
-  #geom_smooth(aes(x = t, y = y1_0), method = "gam", se=FALSE, lty=2, color = "#F89441", lwd=1.4) +
-  geom_smooth(aes(x = t, y = y1_1_hetero), method = "gam", se=FALSE, lty=1, color = "#FCCE25", lwd=1.4) +
-  ylim(-0.5,1.5)+
-  #ggplot2::annotate("text", x = 9, y = 0.5, label = "Y(1)|Z=0", size = 6, colour = "#F89441", hjust=0,family="Fira Sans Condensed") +
-  ggplot2::annotate("text", x = 9, y = 1.1, label = "Y(1)|Z=1", size = 6, colour = "#FCCE25", hjust=0,family="Fira Sans Condensed") +
-  ggplot2::annotate("text", x = 9, y = 0.05, label = "Y(0)|Z=0", size = 6, colour = "#900DA4", hjust=0,family="Fira Sans Condensed") +
-  theme_bw()+
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  xlab("Time") + ylab("Potential Outcome")+#ggtitle("How comfortable are you with R?")+
-  theme(plot.margin=unit(c(0.5,1,1,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_blank(),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-```
-
----
-# How would bias look like?
-
-```{r PO2, fig.height=5.5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-
-ggplot(data = d, aes(x = t, y = y0_0)) +
-  geom_smooth(method = "gam", se=FALSE, lty=1, color = "#900DA4", lwd=1.4) +
-  #geom_smooth(aes(x = t, y = y1_0), method = "gam", se=FALSE, lty=2, color = "#F89441", lwd=1.4) +
-  geom_smooth(aes(x = t, y = y0_1_bias), method = "gam", se=FALSE, lty=2, color = "#5601A4", lwd=1.4) +
-  geom_smooth(aes(x = t, y = y1_1_hetero), method = "gam", se=FALSE, lty=1, color = "#FCCE25", lwd=1.4) +
-  ylim(-0.5,1.5)+
-  #ggplot2::annotate("text", x = 9, y = 0.5, label = "Y(1)|Z=0", size = 6, colour = "#F89441", hjust=0,family="Fira Sans Condensed") +
-  ggplot2::annotate("text", x = 9, y = 0.05, label = "Y(0)|Z=0", size = 6, colour = "#900DA4", hjust=0,family="Fira Sans Condensed") +
-  ggplot2::annotate("text", x = 9, y = 1.1, label = "Y(1)|Z=1", size = 6, colour = "#FCCE25", hjust=0,family="Fira Sans Condensed") +
-  ggplot2::annotate("text", x = 9, y = -0.15, label = "Y(0)|Z=1", size = 6, colour = "#5601A4", hjust=0,family="Fira Sans Condensed") +
-  theme_bw()+
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  xlab("Time") + ylab("Potential Outcome")+#ggtitle("How comfortable are you with R?")+
-  theme(plot.margin=unit(c(0.5,1,1,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_blank(),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-```
-
----
-# How would bias look like?
-
-```{r PO3, fig.height=5.5, fig.width=7.5, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
-
-ggplot(data = d, aes(x = t, y = y0_0)) +
-  geom_smooth(method = "gam", se=FALSE, lty=1, color = "#900DA4", lwd=1.4) +
-  geom_smooth(aes(x = t, y = y1_0), method = "gam", se=FALSE, lty=2, color = "#F89441", lwd=1.4) +
-  geom_smooth(aes(x = t, y = y0_1_bias), method = "gam", se=FALSE, lty=2, color = "#5601A4", lwd=1.4) +
-  geom_smooth(aes(x = t, y = y1_1_hetero), method = "gam", se=FALSE, lty=1, color = "#FCCE25", lwd=1.4) +
-  ylim(-0.5,1.5)+
-  ggplot2::annotate("text", x = 9, y = 0.5, label = "Y(1)|Z=0", size = 6, colour = "#F89441", hjust=0,family="Fira Sans Condensed") +
-  ggplot2::annotate("text", x = 9, y = 0.05, label = "Y(0)|Z=0", size = 6, colour = "#900DA4", hjust=0,family="Fira Sans Condensed") +
-  ggplot2::annotate("text", x = 9, y = -0.15, label = "Y(0)|Z=1", size = 6, colour = "#5601A4", hjust=0,family="Fira Sans Condensed") +
-  ggplot2::annotate("text", x = 9, y = 1.1, label = "Y(1)|Z=1", size = 6, colour = "#FCCE25", hjust=0,family="Fira Sans Condensed") +
-  theme_bw()+
-  theme_ipsum_fsc(plot_title_face = "bold",plot_title_size = 24) + #plain 
-  xlab("Time") + ylab("Potential Outcome")+#ggtitle("How comfortable are you with R?")+
-  theme(plot.margin=unit(c(0.5,1,1,1.2),"cm"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line = element_line(colour = "dark grey"))+
-  theme(axis.title.x = element_text(size=18),#margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_blank(),
-        axis.title.y = element_text(size=18),#margin = margin(t = 0, r = 10, b = 0, l = 0)),
-        axis.text.y = element_blank(),legend.position="none",
-        legend.title = element_blank(),
-        legend.text = element_text(size=15),
-        legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14))
-
-```
-
----
-# Example: Effect of types of advertising on sales
-
-You want to know whether is more convenient to **.darkorange[e-mail]** or **.darkorange[physically mail]** potential customers to increase your subscribers.
-
-- FD sends flyers to potential customers that started the subscription process but never finished.
-
-- FD sends emails to a list of contacts they purchased.
-
-.pull-left[.center[
-![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/freshdirect_mail.png)]
-]
-
 .pull-right[
-.center[
-![:scale 25%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/freshdirect_email.jpg)]
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/vote.jpg)
 ]
 
---
+---
+# Checking for balance
 
-- Can we compare subscriptions between both groups and establish a causal effect?
+.center[
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/balance_table_stratum.png)
+]
 
 ---
-# Example: Going to Office Hours
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+.box-4LA[Let's go to R]
 
-An important question could be: **.darkorange[Does going to office hours increase our GPA?]**
+---
+# Estimating the effect
+
+- Depending on the design, usually you can **.darkorange[compare group means]** or fit a **.darkorange[simple regression]**
 
 --
 
-- What could be an example of **.darkorange[selection bias]**?
+$$\frac{1}{N_T}\sum_{i\in T}Y_i - \frac{1}{N_C}\sum_{i\in C}Y_i$$
 
-  - Remember that selection bias means differences in $Y(0)$ for people that go to office hours vs those that don't.
-  
+$$Y_i = \beta_0 + \beta_1 Z_i + \varepsilon_i$$
+
 --
 
-- What could be an example of **.darkorange[heterogeneous return to treatment bias]**?
+.box-4[How do we incorporate stratification here?]
 
-  - Remember that heterogeneous return to treatment bias means that $Y(1)-Y(0)$ is different for those that go vs those that don't go to office hours.
-  
+---
+# Estimating the effect
+
+- In stratified RCTs, we need to consider the strata!
+
+--
+
+- Run a regression with *fixed effects by strata*
+
+.box-6[$$Y_i = \beta_0 + \beta_1 Z_i + \gamma_s + \varepsilon_i$$]
+
+
+---
+# Estimating the effect
+
+```{r, echo=FALSE}
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/data/sample_gotv.csv")
+
+# Drop variables with unlisted phone numbers
+d_s1 <- d %>% filter(!is.na(treat_real))
+```
+.small[
+```{r, echo = TRUE, message = FALSE}
+library(estimatr)
+
+d_s1 <- d_s1 %>% mutate(strata = interaction(state, competiv))
+
+summary(lm_robust(vote02 ~ treat_real + strata, data = d_s1))
+```
+]
+
+---
+# Estimating the effect
+
+- One important thing to note in the previous analysis is that **.darkorange[assignment to treatment]** $\neq$ **.darkorange[contact]**
+
+```{r, echo = TRUE, message = FALSE}
+d_s1 %>% count(treat_real, contact)
+```
+
+--
+
+.box-5[Does this break the ignorability assumption?]
+
+--
+
+- **.darkorange[Non-compliance]**: When the treatment assignment (e.g. calling the household) is not the same as the treatment (e.g. actually receiving a call/ making contact with the household)
+
+- What was **.darkorange[randomly assigned]** was calling the household.
+
+- Usually, <u>the effect of calling should be lower than the effect of actually receiving the call</u>.
+
 ---
 # How do confounders affect our causal estimate?
 
@@ -879,7 +727,7 @@ Controlling by Confounders
 Start with two groups: A treatment and a control group
 
 .center[
-![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching1.png)]
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/matching1.png)]
 
 ---
 # Matching
@@ -887,7 +735,7 @@ Start with two groups: A treatment and a control group
 For each unit in the treatment group, let's find a similar unit in the control group
 
 .center[
-![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching2.png)]
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/matching2.png)]
 
 ---
 # Matching
@@ -895,7 +743,7 @@ For each unit in the treatment group, let's find a similar unit in the control g
 And we do this for all units
 
 .center[
-![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching3.png)]
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/matching3.png)]
 
 ---
 # Matching
@@ -903,7 +751,7 @@ And we do this for all units
 Note that we might not be able to find similar units for everyone!
 
 .center[
-![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching4.png)]
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/matching4.png)]
 
 ---
 # Matching
@@ -911,7 +759,7 @@ Note that we might not be able to find similar units for everyone!
 The we just compare our matched groups
 
 .center[
-![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching5.png)]
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/matching5.png)]
 
 ---
 # Propensity Score Matching
