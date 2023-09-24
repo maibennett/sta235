@@ -327,7 +327,7 @@ library(tidyverse)
 library(estimatr)
 #library(embedr)
 
-xaringanExtra::use_scribble()
+#xaringanExtra::use_scribble()
 
 htmltools::tagList(
   xaringanExtra::use_clipboard(
@@ -498,7 +498,7 @@ Limitations of RCTs
 # External vs Internal Validity
 
 .center[
-![:scale 75%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/validity.png)]
+![:scale 75%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/validity.png)]
 
 --
 

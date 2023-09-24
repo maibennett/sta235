@@ -216,7 +216,7 @@ Limitations of RCTs
 # External vs Internal Validity
 
 .center[
-![:scale 75%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/images/validity.png)]
+![:scale 75%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/validity.png)]
 
 --
 
@@ -377,6 +377,10 @@ Controlling by Confounders
   - After we control for it, we are doing a fair comparison (e.g. *"holding X constant"*)
   
   .box-4trans[Conditional Independence Assumption (CIA)]
+
+--
+  
+- *"&lt;u&gt;Conditional on X&lt;/u&gt;, the ignorability assumption holds."*
   
 --
 
@@ -438,6 +442,10 @@ Then we just compare our matched groups
 - **.darkorange[Propensity score]**: Probability of being in the treatment group given the individuals characteristics.
 
 `$$p = Pr(Z = 1) = \hat{\beta}_0 + \hat{\beta}_1X_1 + \hat{\beta}_2X_2 + ... + \hat{\beta}_kX_k$$`
+- E.g. Two units have a 50% chance of being treated, but one was &lt;u&gt;actually treated (Z=1)&lt;/u&gt; and &lt;u&gt;the other one was not (Z=0).&lt;/u&gt;
+
+--
+
 - Don't need to calculate this by hand; we will use the `MatchIt` package.
 
 ---
@@ -448,6 +456,25 @@ Then we just compare our matched groups
 &lt;br&gt;
 &lt;br&gt;
 .box-7Trans[Let's go to R]
+---
+# Omitted Variable Bias
+
+
+- If we are under the presence of **.darkorange[confounders]**, then our estimates will be biased (i.e. will not recover the true causal effect) *unless we are able to control by them*.
+
+--
+
+- **.darkorange[Omitted Variable Bias]** represents the bias that stems from not being able to observe a confounding variable.
+
+--
+
+- If a potential confounder **.darkorange[is in our data]**, then it's not a problem!
+
+  - We can **.darkorange[control]** for it.
+  
+--
+
+- Our headache will come from **.darkorange[unobserved confounders]**.
 
 ---
 # Wrapping things up
