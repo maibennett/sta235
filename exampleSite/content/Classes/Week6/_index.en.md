@@ -24,10 +24,18 @@ This week, we will finish discussing RCTs. We will also introduce observational 
 
 ## Slides
 
-<!-- {{% button href="https://sta235.netlify.app/Classes/Week6/1_RCT/f2022_sta235h_9_RCT.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week6/1_RCT/f2022_sta235h_9_RCT.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.com/Classes/Week6/1_ObsStudies/f2023_sta235h_7_ObsStudies.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.com/Classes/Week6/1_ObsStudies/f2023_sta235h_7_ObsStudies.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week6/1_RCT/f2022_sta235h_9_RCT.html" >}}
- -->
+{{< slides src="https://sta235.com/Classes/Week6/1_ObsStudies/f2023_sta235h_7_ObsStudies.html" >}}
+
+
 ## Code
 
-<!-- Here is the R code we will review in class, with additional questions! Remember to review it in detail after class <a onclick="ga('send', 'event', 'External-Link','click','code5','0','Link');" href="https://sta235.netlify.app/Classes/Week6/1_RCT/code/f2022_sta235h_6_RCT.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> -->
+Download the R Script for the in-class exercise here:
+<script>let date = Date.now();</script>
+
+<a onclick="gtag('event','code6_inclass', {'event_category': 'code','event_label': 'code6_inclass', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/code/f2023_sta235h_7_ObsStudies_inclass.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+
+Here is the full R script for this class, with some additional questions: 
+
+<a onclick="gtag('event','code6', {'event_category': 'code','event_label': 'code6', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/code/f2023_sta235h_7_ObsStudies.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
