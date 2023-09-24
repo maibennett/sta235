@@ -89,7 +89,7 @@ I now explain each of these grading components in more detail.
 
 -	Questions related to next class material will not be graded for their correctness, but just for their completion. That being said, your submission should reflect that you tried to answer the questions appropriately (if not, your submission might not be counted).
 
--	JITT assignments need to be completed two days before class: **Sunday 11:59pm for sections with class on Tuesday, and Tuesday 11:59pm for sections with class on Thursday**.
+-	JITT assignments need to be completed two days before class: **Saturday 11:59pm for sections with class on Monday, and Monday 11:59pm for sections with class on Wednesday**.
 
 -	Make sure you submit your JITT by the deadline. All submissions made after the deadline will not be counted.
 

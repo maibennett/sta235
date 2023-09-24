@@ -1,7 +1,7 @@
 ################################################################################
 ### Title: "Week 6 - Randomized Controlled Trials II and Observational Studies"
 ### Course: STA 235H
-### Semester: Fall 2022
+### Semester: Fall 2023
 ### Professor: Magdalena Bennett
 ################################################################################
 
@@ -17,20 +17,11 @@ library(estimatr)
 library(modelsummary)
 #install.packages(MatchIt)
 library(MatchIt)
-library(optmatch)
 
 ## Get Out the Vote study
 
-# If you are loading this in class, you might be better loading the second file (it's just a smaller version of the same dataset)
-
-# If you're running this at home, load this (complete data):
-#d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/data/voters_covariates.csv")
-
-# If you're running this live in class, load this dataset:
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_RCT/data/sample_gotv.csv")
-
-# Drop this first variable (row names)
-d <- d %>% select(-X)
+# If you're running this live in class, load this dataset (smaller dataset from the entire study):
+d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/data/sample_gotv.csv")
 
 # Some variables of interest
 
@@ -47,19 +38,52 @@ d <- d %>% select(-X)
 # Drop variables with unlisted phone numbers
 d_s1 <- d %>% filter(!is.na(treat_real))
 
-#############################################
-
 # Just for performance purposes, we will use a smaller sample of the original data (just looking at one stratum):
-d_sample <- d_s1 %>% filter(state == 1 & competiv == 1)
+d_s1 <- d_s1 %>% filter(state == 1 & competiv == 1)
 
+####### 1. Check for balance
+
+# Create a dataset to check for balance. 
+d_s1_bal <- d_s1 %>% select(treat_real, persons, vote00, vote98, newreg, age, female2, fem_miss)
+
+datasummary_balance(~ treat_real, data = d_s1_bal, dinm_statistic = "p.value", fmt = 3)
+# Q: Is this study balanced? How can you know?
+
+
+
+####### 2. Estimate the causal effect
+
+summary(lm_robust(vote02 ~ treat_real, data = d_s1)) # We are using lm_robust() because we have a binary variable as an outcome.
+
+# Q: What can you say about this evidence? Interpret the coefficient of interest.
+
+# Q: What do you think will happen if we add covariates?
+
+summary(lm_robust(vote02 ~ treat_real + vote00 + vote98 + age + female2, data = d_s1))
+
+
+################################################################################
+##### OBSERVATIONAL STUDY ######################################################
 ## In this section, we are going to be working with observational data, meaning that there is no random assignment.
-## In this case, then, the treatment variable will be "contact", and not treat_real. Imagine a firm that is just calling a bunch of numbers
+## In this case, then, the treatment variable will be "contact", and not treat_real. 
+## Imagine a firm that is just calling a bunch of numbers
 ## and can reach some of them and not others.
+################################################################################
 
-#############################################
+# Let's first get the simple difference in means between these two groups
+# (Remember that contact is not randomized!)
+
+summary(lm_robust(vote02 ~ contact, data = d_s1))
+
+# Q: Interpret this coefficient. Is this a causal effect?
+
+# Let's add some covariates now:
+summary(lm_robust(vote02 ~ contact + persons + vote00 + vote98 + newreg + age + female2, data = d_s1))
+
+# Q: What happened here? Why did the estimate change?
+
 
 # Let's do some matching now. We will be using the MatchIt package (it's very complete)
-
 
 # The formula inside matchit() is the treatment (contact, which is different to the treatment assignment) as a function of the covariates. 
 # If we had different strata, you would need to add that, too.
@@ -73,7 +97,7 @@ d_sample <- d_s1 %>% filter(state == 1 & competiv == 1)
 # Finally, I'm also setting a caliper of 0.2. This means that, at most, treated and control matched units can be 0.2 units apart (this will reduce our sample size, but improve the matching)
 
 m1 <- matchit(contact ~ persons + vote00 + vote98 + newreg + 
-                age + female2, data = d_sample,
+                age + female2, data = d_s1,
               method = "nearest", exact = ~ state, caliper = 0.2)
 
 # Let's check balance before and after matching (focus on the first three columns)
@@ -95,12 +119,12 @@ datasummary_balance(~ contact, data = d_m1_bal, fmt = 3, dinm_statistic = "p.val
 # Let's now run the simple regression of our outcome on our treatment variable:
 summary(lm_robust(vote02 ~ contact, data = d_m1))
 
+#Q: Why are we running a simple regression and not including covariates?
 #Q: Interpret the results. What do we find here?
 
-
-# Finally, let's compare the previous results with simple OLS.
+# Finally, let's compare the previous results with OLS (line 81).
 # Q: Should we get the same results? Why or why not? (look both at the point estimate and the significance)
-summary(lm_robust(vote02 ~ contact + persons + vote00 + vote98 + newreg + age + female2, data = d_sample))
+
 
 ###########################################################################
 #### EXERCISE #############################################################
@@ -116,13 +140,13 @@ profs <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exam
 head(profs)
 
 # Variables:
-# minority: Is the professor from a minority?
+# minority: Is the professor from a minority? (no = 1, yes = 2)
 # age: age in years
-# gender: professor's gender
+# gender: professor's gender (1: female, 2: male)
 # credits: single credits or more
-# division: upper or lower division course
-# native: Is the professor a native English speaker?
-# tenure: Does the professor have tenure?
+# division: upper or lower division course (lower = 1, upper = 2)
+# native: Is the professor a native English speaker? (no = 1, yes = 2)
+# tenure: Does the professor have tenure? (no = 1, yes = 2)
 # students: Number of students that respond the survey
 # allstudents: Total number of students
 # prof: professor's ID.
@@ -131,14 +155,17 @@ head(profs)
 
 # eval: student's evaluation (average score, from 1 to 5)
 
-# We will transform factor variables into binary (numeric) variables. Remember to always check what the base category is!!
-profs <- profs %>% mutate(treat = ifelse(beauty > 0, 1, 0), # create a treatment variable if beauty > 0 and 0 in another case, meaning being "above the mean" beautiful vs below the mean.
-                          female = 2 - as.numeric(gender), # Notice that gender has two levels: (1) female and (2) male. First, we transform it to numeric, and then subtract it from 2 (notice that now we will get a binary variable with 1 for female and 0 for male)
-                          single_credit = as.numeric(credits)-1,
-                          upper_div = as.numeric(division)-1,
-                          native = as.numeric(native)-1,
-                          tenure = as.numeric(tenure)-1,
-                          minority = as.numeric(minority)-1) 
+# We will transform factor variables into binary (numeric) variables.
+# create a treatment variable if beauty > 0 and 0 in another case, meaning being "above the mean" beautiful vs below the mean.
+
+# COMPLETE THE FOLLOWING CODE TO MAKE BINARY VARIABLES
+profs <- profs %>% mutate(treat = , 
+                          female = ,
+                          single_credit = ,
+                          upper_div = ,
+                          native = ,
+                          tenure = ,
+                          minority = ) 
 
 # Question 1: 
 # Run a simple regression between eval (outcome) and treat (beauty above the mean). 

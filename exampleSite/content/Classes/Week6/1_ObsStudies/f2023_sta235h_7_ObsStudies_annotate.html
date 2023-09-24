@@ -26,7 +26,7 @@ class: center, middle, inverse, title-slide
 # STA 235H - RCTs and Observational Studies
 ]
 .subtitle[
-## Fall 2022
+## Fall 2023
 ]
 .author[
 ### McCombs School of Business, UT Austin
@@ -190,7 +190,7 @@ Limitations of RCTs
 
 --
 
-.box-3trans[Generalizability of our estimated effects]
+.box-3trans[Generalizability of our estimated effects (External Validity)]
 
 --
 
@@ -211,15 +211,6 @@ Limitations of RCTs
 --
 
 - What happens if we scale up an intervention? Will the effect be the same?
-
----
-# Generalizibility of RCTs
-
-- External Validity vs Internal Validity:
-
-  - **.darkorange[External validity]**: "The extent to which results can be generalized to other contexts or populations."
-  
-  - **.darkorange[Internal validity]**: "[T]he extent to which the observed results represent the truth in the population we are studying."
 
 ---
 # External vs Internal Validity
@@ -295,164 +286,83 @@ Limitations of RCTs
 &lt;br&gt;
 .box-7Trans[What could happen if you offer it to everyone?]
 
-
----
-
-
 ---
 background-position: 50% 50%
-class: left, bottom, inverse
-.big[
-What if we can't randomize?
+class: middle, center
+
+.box-5Trans[Let's see another example]
+
+---
+# Get Out The Vote
+
+.pull-left[
+- "Get out the Vote" Large-Scale Mobilization experiment (Arceneaux, Gerber, and Green, 2006)
+  
+  - "Households containing one or two registered voters where **.darkorange[randomly assigned]** to treatment or control groups"
+  
+  - Treatment: GOTV phone calls
+  
+  - Stratified RCT: Two states divided into competitive and noncompetitive (randomized within state-competitiveness)
 ]
----
-# What happens when the ignorability assumption doesn't hold?
-
-- Imagine **.darkorange[we can't randomize]**
-
---
-
-.box-5Trans[Observational Study]
-
---
-
-.box-7trans[Can we compare two groups to get a causal effect?]
-
----
-# What happens when the ignorability assumption doesn't hold?
-
-- If the ignorability assumption doesn't hold, then `\((Y(0), Y(1)) \not\!\perp\!\!\!\perp Z\)`
-
-`$$\tau = E[Y_i(1)] - E[Y_i(0)] \neq E[Y_i| Z=1] - E[Y_i| Z=0]$$`
-
-.box-4LA[Correlation does not imply causation]
-
----
-# What happens when the ignorability assumption doesn't hold?
-
-- Now, let's assume `\((Y(0), Y(1)) \not\!\perp\!\!\!\perp Z\)`
-
-$$\tau = E[Y_i(1) - Y_i(0)] = $$
-`$$=E[Y_i(1) - Y_i(0)|Z=1]Pr(Z=1) + E[Y_i(1) - Y_i(0)|Z=0](1-Pr(Z=1))$$`
----
-# What happens if the ignorability assumption doesn't hold?
-
-- Now, let's assume `\((Y(0), Y(1)) \not\!\perp\!\!\!\perp Z\)`
-
-`$$\tau = E[Y_i(1) - Y_i(0)] = ATE =$$`
-
-`$$=\color{#900DA4}{\underbrace{E[Y_i(1) - Y_i(0)|Z=1]}_\text{ATT}}Pr(Z=1) + \color{#F89441}{\overbrace{E[Y_i(1) - Y_i(0)|Z=0]}^\text{ATC}}(1-Pr(Z=1))$$`
-- Weighted average of the Average Treatment on the treated (ATT) and the average treatment on the control (ATC).
-
----
-# What happens if the ignorability assumption doesn't hold?
-
-- After some simple math, you can get to:
-
-`$$\tau = E[Y_i(1) - Y_i(0)] = ATE$$`
-
-`$$\begin{aligned}
-ATE &amp;=E[Y_i|Z=1] - E[Y_i|Z=0] \\
-\\
-&amp; - (E[Y_i(0)|Z=1]-E[Y_i(0)|Z=0]) \\
-\\
-&amp; - (1-Pr(Z=1))(ATT - ATC)
-\end{aligned}$$`
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-.source[Check out [Scott Cunningham's "Causal Inference: The Mixtape" (Ch. 4.1.3)](https://mixtape.scunning.com/04-potential_outcomes) for the decomposition]
-
----
-# What happens if the ignorability assumption doesn't hold?
-
-- After some simple math, you can get to:
-
-`$$\tau = E[Y_i(1) - Y_i(0)] = ATE$$`
-
-`$$\begin{aligned}
-ATE &amp;=\color{#900DA4}{\underbrace{E[Y_i|Z=1] - E[Y_i|Z=0]}_\text{Obs diff in means}} \\
-&amp; - \color{#E16462}{\underbrace{(E[Y_i(0)|Z=1]-E[Y_i(0)|Z=0])}_\text{Selection bias}} \\
-&amp; - \color{#FCCE25}{\underbrace{(1-Pr(Z=1))(ATT - ATC)}_\text{Heterogeneous treat. effect bias}}
-\end{aligned}$$`
-- **.darkorange[Selection Bias:]** Difference between groups if they both were under control (e.g. baseline differences).
-- **.darkorange[Heterogeneous Treatment Effect Bias:]** Difference in returns to treatment for the two groups (weighted by the control population).
-&lt;br&gt;
-.source[Check out [Scott Cunningham's "Causal Inference: The Mixtape" (Ch. 4.1.3)](https://mixtape.scunning.com/04-potential_outcomes) for the decomposition]
-
----
-# How would bias look like?
-
-&lt;img src="f2023_sta235h_7_ObsStudies_annotate_files/figure-html/PO1-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-# How would bias look like?
-
-&lt;img src="f2023_sta235h_7_ObsStudies_annotate_files/figure-html/PO2-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-# How would bias look like?
-
-&lt;img src="f2023_sta235h_7_ObsStudies_annotate_files/figure-html/PO3-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-# Example: Effect of types of advertising on sales
-
-You want to know whether is more convenient to **.darkorange[e-mail]** or **.darkorange[physically mail]** potential customers to increase your subscribers.
-
-- FD sends flyers to potential customers that started the subscription process but never finished.
-
-- FD sends emails to a list of contacts they purchased.
-
-.pull-left[.center[
-![:scale 50%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/freshdirect_mail.png)]
-]
-
 .pull-right[
-.center[
-![:scale 25%](https://github.com/maibennett/sta235/raw/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/freshdirect_email.jpg)]
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/vote.jpg)
 ]
+
+---
+# Checking for balance
+
+.center[
+![:scale 100%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/balance_table_stratum.png)
+]
+
+---
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.box-4LA[Let's go to R]
+
+---
+# Estimating the effect
+
+- One important thing to note in the previous analysis is that **.darkorange[assignment to treatment]** `\(\neq\)` **.darkorange[contact]**
+
+
+
+
+```r
+d_s1 %&gt;% count(treat_real, contact)
+```
+
+```
+##   treat_real contact     n
+## 1          0       0 17186
+## 2          1       0  1626
+## 3          1       1  1374
+```
 
 --
 
-- Can we compare subscriptions between both groups and establish a causal effect?
-
----
-# Example: Going to Office Hours
-
-An important question could be: **.darkorange[Does going to office hours increase our GPA?]**
+.box-5[Does this break the ignorability assumption?]
 
 --
 
-- What could be an example of **.darkorange[selection bias]**?
+- **.darkorange[Non-compliance]**: When the treatment assignment (e.g. calling the household) is not the same as the treatment (e.g. actually receiving a call/ making contact with the household)
 
-  - Remember that selection bias means differences in `\(Y(0)\)` for people that go to office hours vs those that don't.
-  
---
+- What was **.darkorange[randomly assigned]** was calling the household.
 
-- What could be an example of **.darkorange[heterogeneous return to treatment bias]**?
-
-  - Remember that heterogeneous return to treatment bias means that `\(Y(1)-Y(0)\)` is different for those that go vs those that don't go to office hours.
-  
----
-# How do confounders affect our causal estimate?
-
-&lt;br&gt;
-&lt;br&gt;
-.center[
-&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/TmkESn_LpJg?playlist=TmkESn_LpJg&amp;loop=1&amp;rel=0&amp;showinfo=0&amp;color=white&amp;iv_load_policy=3" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
-]
-
+- Usually, &lt;u&gt;the effect of calling should be lower than the effect of actually receiving the call&lt;/u&gt;.
 
 ---
-# What happens if we control by our confounders?
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 
-&lt;br&gt;
-&lt;br&gt;
-.center[
-&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/qGJMsnGszjs?playlist=qGJMsnGszjs&amp;loop=1&amp;rel=0&amp;showinfo=0&amp;color=white&amp;iv_load_policy=3" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
-]
+.box-4[Can we do something if we can't randomize??]
 ---
 background-position: 50% 50%
 class: left, bottom, inverse
@@ -482,7 +392,7 @@ Controlling by Confounders
 Start with two groups: A treatment and a control group
 
 .center[
-![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching1.png)]
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/matching1.png)]
 
 ---
 # Matching
@@ -490,7 +400,7 @@ Start with two groups: A treatment and a control group
 For each unit in the treatment group, let's find a similar unit in the control group
 
 .center[
-![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching2.png)]
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/matching2.png)]
 
 ---
 # Matching
@@ -498,7 +408,7 @@ For each unit in the treatment group, let's find a similar unit in the control g
 And we do this for all units
 
 .center[
-![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching3.png)]
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/matching3.png)]
 
 ---
 # Matching
@@ -506,15 +416,15 @@ And we do this for all units
 Note that we might not be able to find similar units for everyone!
 
 .center[
-![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching4.png)]
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/matching4.png)]
 
 ---
 # Matching
 
-The we just compare our matched groups
+Then we just compare our matched groups
 
 .center[
-![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/images/matching5.png)]
+![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/matching5.png)]
 
 ---
 # Propensity Score Matching

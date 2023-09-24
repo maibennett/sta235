@@ -1,6 +1,6 @@
 ---
 title: "STA 235H - RCTs and Observational Studies"
-subtitle: "Fall 2022"
+subtitle: "Fall 2023"
 author: "McCombs School of Business, UT Austin"
 output:
   xaringan::moon_reader:
@@ -323,6 +323,8 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 library(knitr)
 library(showtext)
 library(xaringanExtra)
+library(tidyverse)
+library(estimatr)
 #library(embedr)
 
 xaringanExtra::use_scribble()
@@ -470,7 +472,7 @@ Limitations of RCTs
 
 --
 
-.box-3trans[Generalizability of our estimated effects]
+.box-3trans[Generalizability of our estimated effects (External Validity)]
 
 --
 
@@ -491,15 +493,6 @@ Limitations of RCTs
 --
 
 - What happens if we scale up an intervention? Will the effect be the same?
-
----
-# Generalizibility of RCTs
-
-- External Validity vs Internal Validity:
-
-  - **.darkorange[External validity]**: "The extent to which results can be generalized to other contexts or populations."
-  
-  - **.darkorange[Internal validity]**: "[T]he extent to which the observed results represent the truth in the population we are studying."
 
 ---
 # External vs Internal Validity
@@ -616,53 +609,13 @@ class: middle, center
 ---
 # Estimating the effect
 
-- Depending on the design, usually you can **.darkorange[compare group means]** or fit a **.darkorange[simple regression]**
-
---
-
-$$\frac{1}{N_T}\sum_{i\in T}Y_i - \frac{1}{N_C}\sum_{i\in C}Y_i$$
-
-$$Y_i = \beta_0 + \beta_1 Z_i + \varepsilon_i$$
-
---
-
-.box-4[How do we incorporate stratification here?]
-
----
-# Estimating the effect
-
-- In stratified RCTs, we need to consider the strata!
-
---
-
-- Run a regression with *fixed effects by strata*
-
-.box-6[$$Y_i = \beta_0 + \beta_1 Z_i + \gamma_s + \varepsilon_i$$]
-
-
----
-# Estimating the effect
-
-```{r, echo=FALSE}
-d <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/data/sample_gotv.csv")
-
-# Drop variables with unlisted phone numbers
-d_s1 <- d %>% filter(!is.na(treat_real))
-```
-.small[
-```{r, echo = TRUE, message = FALSE}
-library(estimatr)
-
-d_s1 <- d_s1 %>% mutate(strata = interaction(state, competiv))
-
-summary(lm_robust(vote02 ~ treat_real + strata, data = d_s1))
-```
-]
-
----
-# Estimating the effect
-
 - One important thing to note in the previous analysis is that **.darkorange[assignment to treatment]** $\neq$ **.darkorange[contact]**
+
+```{r, echo = FALSE}
+d = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/data/sample_gotv.csv")
+d_s1 = d %>% filter(!is.na(treat_real)) %>% select(-treat_pseudo)
+d_s1 = d_s1 %>% filter(state == 1 & competiv == 1)
+```
 
 ```{r, echo = TRUE, message = FALSE}
 d_s1 %>% count(treat_real, contact)
@@ -681,23 +634,13 @@ d_s1 %>% count(treat_real, contact)
 - Usually, <u>the effect of calling should be lower than the effect of actually receiving the call</u>.
 
 ---
-# How do confounders affect our causal estimate?
-
 <br>
 <br>
-.center[
-<iframe width="560" height="315" src="https://www.youtube.com/embed/TmkESn_LpJg?playlist=TmkESn_LpJg&loop=1&rel=0&showinfo=0&color=white&iv_load_policy=3" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-]
-
-
----
-# What happens if we control by our confounders?
-
 <br>
 <br>
-.center[
-<iframe width="560" height="315" src="https://www.youtube.com/embed/qGJMsnGszjs?playlist=qGJMsnGszjs&loop=1&rel=0&showinfo=0&color=white&iv_load_policy=3" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-]
+<br>
+
+.box-4[Can we do something if we can't randomize??]
 ---
 background-position: 50% 50%
 class: left, bottom, inverse
@@ -756,7 +699,7 @@ Note that we might not be able to find similar units for everyone!
 ---
 # Matching
 
-The we just compare our matched groups
+Then we just compare our matched groups
 
 .center[
 ![:scale 50%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/images/matching5.png)]
