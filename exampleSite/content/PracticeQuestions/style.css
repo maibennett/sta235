@@ -1,0 +1,25 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Fira+Code:700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap");
+
+body{
+	font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 400;
+}
+/* Headers */
+h1,h2,h3,h4,h5,h6{
+  font-family: 'Yanone Kaffeesatz';
+}
+
+.main-container {
+  max-width: 1280px;
+}
+
+.book .book-body .page-wrapper .page-inner {
+  max-width: 95%;
+}

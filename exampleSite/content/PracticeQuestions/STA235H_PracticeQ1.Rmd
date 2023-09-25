@@ -1,0 +1,441 @@
+---
+title: "Practice Questions"
+author: "STA 235H"
+date: "2023"
+output: 
+  html_document:
+    css: style.css 
+    toc: no
+  pdf_document: 
+    latex_engine: xelatex
+    css: style.css
+    toc: no
+---
+<style type="text/css">
+.main-container {
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media only screen and (max-width: 700px) {
+   body {
+      margin: 0;
+      padding: 0;
+   }
+   .sample {
+      width: 100%;
+   }
+}
+</style>
+
+```{r init, echo=FALSE, message=FALSE}
+library(knitr)
+library(showtext)
+```
+
+```{r fonts, message=FALSE, echo=FALSE}
+font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
+font.add.google("Fira Sans", "Fira Sans")
+font.add.google("Roboto Condensed", "Roboto Condensed")
+font.add.google("Yanone Kaffeesatz", "Yanone Kaffeesatz")
+```
+
+## Instructions
+
+- These set of questions are meant to serve as practice. 
+
+- While answers will not be posted, students can contact the instruction team with their own work to check
+
+# Task 1: How much should insurance cost?
+
+```{r setup, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(broom)
+library(modelsummary)
+
+# Load insurance data
+insurance <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework1/data/insurance.csv")
+```
+
+We have a dataset of over 1,300 people with their insurance charges and socio-demographic characteristics.
+
+- `age`: The insurer's age.
+- `sex`: Whether the insurer is male or female.
+- `bmi`: A measure of Body Mass Index, which is constructed by dividing the person's weight (in kg.) over their squared height (in cm.)
+- `children`: Number of children. 
+- `smoker`: Whether the person is a smoker or not.
+- `region`: Region in the US in which they reside.
+- `charges`: Insurance charges.
+
+## Exploratory analysis
+
+What is the relationship between charges and age? This plot shows some initial trends:
+
+```{r plot-age-charges}
+ggplot(data = insurance, 
+       aes(x = age, y = charges)) +
+  geom_point(color = "dark orange", fill = alpha("dark orange", 0.5), size = 3, pch = 21) +
+  theme_bw()
+  
+```
+
+**Question 1.1: Describe the relationship between age and charges based on the previous plot.**
+
+*Answer: According to the previous plot, there is a positive association between age and insurance charges. This means that, without controlling for any other variables, one more year of age is associated with an increase in insurance charges. There also seems to be roughly three teers of insurance charges, where the two highest tiers have more variance or dispersion than the lowest tier.*
+
+
+**Question 1.2: Make a new plot that colors these points by whether a person is a smoker or not. What can you tell about the relationship between age and charges?**
+
+```{r plot-age-charges-by-smoker}
+ggplot(data = insurance, 
+       aes(x = age, y = charges, fill = factor(smoker), color = factor(smoker))) +
+  geom_point(size = 3, pch = 21) +
+  theme_bw()
+```
+
+*Answer: From the previous plot we can observe that there is a positive association between age and insurance charges, for both smokers and non smokers. However, for non-smokers there appears to be a lower baseline of insurance charges compared to smokers (e.g. in a regression, the intercept would be lower for non-smokers than for smokers")*
+
+
+**Question 1.3: Now, show a new plot with the relationship between BMI and charges. What can you say about that relationship? Does the relationship look linear?**
+
+```{r plot-bmi-charges}
+ggplot(data = insurance, 
+       aes(x = bmi, y = charges)) +
+  geom_point(color = "purple", fill = alpha("purple", 0.5), size = 3, pch = 21) +
+  theme_bw()
+```
+
+*Answer: There appears to be a positive relationship between BMI and insurance charges (a larger BMI is associated with higher charges), but the relationship doesn't appear to be linear. It's more likely to be quadratic.*
+
+
+## Let's build some models
+
+**Question 1.4: Using the previous information, build a regression using age, body mass index, smoker category, and sex as covariates, and charges as the dependent variable. Interpret the coefficients for this model.**
+
+*Answer: I fit a model with the previous covariates, but include BMI as a quadratic variable, following the information obtained in the last plot. The coefficients would be interepreted as following:*
+
+*- An additional year of age is associated with $258 increase in insurance charges, holding the other variables constant. This increase is statistically significant at a 1% level.*
+
+*- There's a significant quadratic association between BMI and insurance charges, holding other variables constant. This means that increasing one point in the BMI scale for the lower part of the sample distribution (from 16 to 17) is associated with a $544 increase in insurance charges, holding other variables constant, while it's associated with a $16 increase in charges for changes at the top of the BMI distribution (from 52 to 53), holding other variables constant.*
+
+*- There's an expected $23,856 increase in charges for smokers compared to non-smokers, holding other variables constant.*
+
+*- Males have, on average, lower insurance charges by $110 compared to females, holding other variables constant, but the difference is not statistically significant at conventional levels.*
+
+```{r, echo=FALSE}
+lm1.1 <- lm(charges ~ age + bmi + I(bmi^2) + factor(smoker) + factor(sex), data = insurance)
+
+modelsummary(list(lm1.1), stars = TRUE)
+```
+
+
+Finally, let's add region to the previous regression. 
+
+**Question 1.5: If we wanted to predict an individual's charges, which model do you think would be better and why?** 
+
+```{r, echo=FALSE}
+lm1.2 <- lm(charges ~ age + bmi + I(bmi^2) + factor(smoker) + factor(sex) + factor(region), data = insurance)
+
+modelsummary(list(lm1.1, lm1.2),
+             coef_omit = "factor(region)", stars = TRUE)
+```
+
+*Answer: Both models are very similar, though incorporating the regions variable slightly increases the adjusted R2 and decreases the RSE, so I would chose the second model, though both give extremely similar results.*
+
+---
+
+# Task 2: Models with binary outcomes
+
+```{r setup2, warning=FALSE, message=FALSE}
+library(estimatr)
+
+nba <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework1/data/nba.csv")
+```
+
+In this section, we will work with NBA data analyzing.
+
+- `name`: Player's name.
+- `GP`: Games played.
+- `MIN`: Minutes played.
+- `PTS`: Points per game. 
+- `FGM`: Field goals made.
+- `FGA`: Field goals attempts.
+- `FGP`: Field goals percentage.
+- `X3PM`: 3 points made.
+- `X3PA`: 3 points attempts.
+- `X3PP`: 3 points percentage.
+- `FTM`: Free throw made.
+- `FTA`: Free throw attempts.
+- `FTP`: Free throw percentage.
+- `OREB`: Offensive rebounds.
+- `DREB`: Defensive rebounds.
+- `REB`: Rebounds.
+- `AST`: Assists.
+- `STL`: Steals.
+- `BLK`: Blocks.
+- `TOV`: Turnovers.
+- `TARGET_5Yrs`: Career length in NBA $\geq$ 5 years (1) or $<$ 5 years (0).
+
+
+## Fitting some models
+The following linear probability model regresses some rookie stats (games played, average points per game, 3-point percentage, rebounds, and assists) on whether a player is still on the NBA five years later.   
+
+**Question 2.1: Interpret the coefficient for games played and 3-point percentage in this setting**
+
+```{r, echo=FALSE}
+lm2.1 <- estimatr::lm_robust(TARGET_5Yrs ~ GP + PTS + X3PP + REB + AST, data = nba)
+
+modelsummary(list(lm2.1), stars = TRUE)
+```
+
+*Answer: One more game played in the rookie season is associated with a .8% increase in probability of still being in the NBA 5 years later, holding other variables constant. That association is statistically significant at conventional levels. To interpret the coefficient for 3-point percentage, I re-run the model without rounding the coefficient:*
+```{r, echo=TRUE}
+lm2.1 <- estimatr::lm_robust(TARGET_5Yrs ~ GP + PTS + X3PP + REB + AST, data = nba)
+
+summary(lm2.1)
+```
+
+*Then, a 1% increase in 3-point shoots decreases the odds to still be in the NBA 5 years later by .02% holding other variables constant, but the result is not statistically significant so we cannot reject the fact that is different from 0.*
+
+
+Now, fit the same model using a logistic regression.
+
+**Question 2.2: Interpret the same coefficients for this model (games played and 3-point percentage). How do they compare?**
+
+```{r, echo=FALSE}
+lm2.2 <- glm(TARGET_5Yrs ~ GP + PTS + X3PP + REB + AST, data = nba, family = binomial)
+
+modelsummary(list(lm2.1, lm2.2), stars = TRUE)
+```
+
+*Answer: The odds of still being in the NBA 5 years later increase by a factor of 1.03 (`=exp(0.037)`) for every additional game played, holding other variables constant, and the result is statistically significant at 1% level. The odds of still being in the NBA 5 years later remain basically unchanged with an additional percentage of 3 pointer, controlling by other variables.*
+
+*In terms of probabilities, we fit everything at the mean:*
+
+```{r, echo=TRUE}
+nba_mean <- data.frame(rbind(colMeans(nba[,c("GP","PTS","X3PP","REB","AST")], na.rm = TRUE), # We need to consider missing values!
+                             colMeans(nba[,c("GP","PTS","X3PP","REB","AST")], na.rm = TRUE)))
+
+
+nba_gp <- nba_mean
+nba_gp$GP[2] = nba_gp$GP[2] + 1
+
+pred_gp <- predict(lm2.2, newdata = nba_gp,
+                   type = "response")
+
+print("Difference Probabilities by GP")
+diff(pred_gp)
+
+nba_x3 <- nba_mean
+nba_x3$x3[2] = nba_x3$X3PP[2] + 1
+
+pred_x3 <- predict(lm2.2, newdata = nba_x3,
+                   type = "response")
+
+print("Difference Probabilities by X3PP")
+diff(pred_x3)
+
+```
+*One more game during the rookie season is associated with an increase of .8% in probability of still being in the NBA 5 years later, for a player with average statistics. In terms of the difference associated with one additional percentage of 3-pointers, there is not a siginificant change in probability for a player with average statistics in the other variables in the model.*
+
+## Predictions
+
+Now imagine you want to make a prediction for two rookies in particular: Smith Roberts and Tyler Stevens. Their stats are given here:
+
+```{r warning=FALSE, message=FALSE}
+
+rookies <- data.frame(Name = c("Smith Roberts","Tyler Stevens"),
+                      GP = c(91,15),
+                      PTS = c(28,42),
+                      X3PP = c(66.1,75.5),
+                      REB = c(2,5.1),
+                      AST = c(1.5,2))
+
+```
+
+**Question 2.3: Compare the predictions given by the Linear Probability Model and the Logistic Regression. Which model would you use and why?**
+```{r, echo=TRUE}
+lm2.1.pred <- predict(lm2.1, newdata = rookies)
+lm2.2.pred <- predict(lm2.2, newdata = rookies, type = "response")
+
+lm2.1.pred
+lm2.2.pred
+```
+
+*Answer: Given that we are attempting to predict the probability of a player still being in the NBA 5 years later, I would use the logistic regression model because unlike the LPM, the predicted probabilities are bounded between 0 and 1. LPM prediction goes above 1.*
+
+---
+
+# Task 3: Introduction to Causal Inference
+
+Let's go back to the insurance data. Imagine that you now have also data for people that are uninsured:
+
+```{r, echo=FALSE}
+# set.seed(100)
+# 
+# n = 1000
+# 
+# uninsured <- data.frame(age = round(rnorm(n, mean = 35, sd = 10),0),
+#                         sex = sample(c("female","male"),n, replace = TRUE, prob = c(0.5,0.5)),
+#                         bmi = round(rnorm(n, mean = 27, sd = 6),0),
+#                         children = sample(c(0,1,2),n, replace = TRUE, prob = c(0.5,0.4,0.1)),
+#                         smoker = sample(c("yes","no"), n, replace = TRUE, prob = c(0.1,0.9)),
+#                         region = sample(c("northeast","northwest","southeast","southwest"), n, replace = TRUE),
+#                         charges = 0,
+#                         insured = 0)
+# 
+# insurance$insured <- 1
+# 
+# insurance_all <- data.frame(rbind(uninsured, insurance))
+
+# Load all insurance data
+insurance_all <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework1/data/insurance_all.csv")
+
+```
+
+**Question 3.1: What is the relationship between being insured and BMI? and what about smoking? Draw some figures! Comment on your results**
+
+```{r plot-insured-BMI}
+
+lm3.1<- glm(insured ~ bmi, data = insurance_all, family = binomial)
+
+y.hat1 <- predict(lm3.1, type = "response")
+
+ggplot(data = insurance_all, 
+       aes(x = bmi, y = insured)) +
+  geom_point(color = "dark orange", fill = alpha("dark orange", 0.5), size = 3, pch = 21) +
+  geom_line(aes(y = y.hat1, x = bmi), color = "purple", lwd = 2) +
+  theme_bw()
+  
+```
+
+```{r plot-insured-smoker}
+
+lm3.2<- glm(insured ~ factor(smoker), data = insurance_all, family = binomial)
+
+y.hat2 <- predict(lm3.2, type = "response")
+
+ggplot(data = insurance_all, 
+       aes(x = factor(smoker), y = insured)) +
+  geom_point(color = "dark orange", fill = alpha("dark orange", 0.5), size = 3, pch = 21) +
+  geom_line(aes(y = y.hat2, x = factor(smoker)), color = "purple", lwd = 2) +
+  theme_bw()
+  
+  
+```
+
+
+*Answer: We can see there's a positive relationship between being insured and BMI, as the slope for the probability is positive. However, because smoker is a binary variable, we can't see much with the same plot for the second model, so I plot the average probabilities for being insured for smokers and nonsmokers, finding that the probability that a person who smokes is larger than the probability for a person who doesn't smoke*
+
+
+```{r plot-insured-smoker2}
+ggplot(data = insurance_all, 
+       aes(smoker, y.hat2)) +
+  geom_point(color = "dark orange", fill = alpha("dark orange", 0.5), size = 4, pch=21)+
+  theme_bw()
+  
+  
+```
+
+
+
+We are interested in a problem called "Moral Hazard", which refers to the idea that people tend to take more risks after they get insurance compared to those that are uninsured or even compared to their previous behavior (e.g. drive faster, take worse care of their health, etc.). A colleague says that they know how to identify it, and shows you the following results:
+
+```{r, echo=FALSE}
+lm3.1 <- lm(bmi ~ insured + factor(smoker) + age + factor(sex) + factor(region), data = insurance_all)
+
+modelsummary(list(lm3.1), stars = TRUE)
+```
+
+**Question 3.2: Why is the coefficient on `insured` different in the simple regression model than in your colleagues model? Explain.**
+
+```{r, echo=FALSE}
+lm3.3 <- lm(bmi ~ insured + factor(smoker) + age + factor(sex) + factor(region), data = insurance_all)
+lm3.4 <- lm(bmi ~ insured, data = insurance_all)
+
+modelsummary(list(BMI = lm3.3, BMI = lm3.4), stars = TRUE, gof_omit = 'DF|AIC|BIC|Log.Lik.|F')
+```
+
+*Answer: The coefficient is different because when we add covariates that are correkated with being insured, it explains away some of the association between being insured and BMI. While in the simple model the coefficient represents the correlation between BMI and being insured, in the multiple regression model is a partial association, holding other variables constant, so we are measuring different things.*
+
+
+**Question 3.3: Can we identify the effect of being insured on BMI with this model? Why or why not? Can you see a collider problem?**
+
+*Answer: We can't identify the effect of being insured in this model, because we are missing some key confounders. For example, income is an important confounder because it's both associated with the probability of having heallth insurance (more disposable income to pay for it), and also probably associated with BMI, in the sense that higher income usually allows you to have a healthier diet. There could also be a collider problem, depending on when the variable "smoker" was measured. Smoking could be used as a hunger suppressor (so BMI could affect the decision whether to smoke or not), but also it could be related with insurance take up, in the sense that people who are insured might be prone to take up less healthy behaviors because they are insured (another moral hazard risk).*
+
+## Design your own study:
+
+**Question 3.4: If you wanted to identify the causal effect of being insured on BMI, how would you do it? Would you need additional data?**
+
+*Answer: You could randomize health insurance to avoid systematic confounding, and then compare the group for which you provided health insurance against the one for which you did not.*
+
+
+
+# Task 4: Let's bring everything together
+
+[Banerjee, Chandrasekhar, Duflo, and Jackson (2013)](https://web.stanford.edu/~jacksonm/Banerjee-Chandrasekhar-Duflo-Jackson-DiffusionOfMicrofinance-Science-2013.pdf) wanted to measure how centrality within a network (e.g. how "well-connected" people are) affected the diffusion of information related to a micro-finance intervention (a loan) in India. The idea of this study was to inform influential people in each village about the availability of a loan, and analyze the diffusion of that information relative to network connections. The authors collected data in several villages in India related to connectivity of each household in the following *simplified* dataset:
+
+```{r setup4, warning=FALSE, message=FALSE}
+## data on 8622 households
+hh <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework1/data/microfi_edit.csv")
+```
+
+Where we have the following variables:
+
+- `loan`: Whether the household took out the loan or not.
+- `village`: Village ID (38 in total).
+- `religion`: Religion within the household.
+- `roof`: Roof material.
+- `rooms`: Number of rooms in the house.
+- `beds`: Number of beds in the house.
+- `electricity`: Whether the house has electricity or not.
+- `ownership`: Ownership status of the house the residents live in.
+- `leader`: Whether an identified village leader belong to the household or not.
+- `degree_z`: Measure of centrality or connectiveness of the household.
+
+### Question 4.1:
+**Write down the potential outcome model for estimating the effect of connectiveness on whether a household took out a loan or not.**. *Note: You don't need data for this!*
+
+
+*Answer: If we assume that $Z$ is the variable for connectiveness, where $Z=0$ is the group for those that are less connected, and $Y$ is a binary variable of whether a family took out a loan or not, then the average treatment effect in a potential outcomes model would be:*
+
+$$ATE = E[Y(Z)|Z=z] - E[Y(0)|Z=0]$$
+
+*We could also assume that $Z$ is binary, with $Z=1$ being well connected and $Z=0$ being less connected, and write down our model as following:*
+
+$$ATE = E[Y(1)|Z=1] - E[Y(0)|Z=0]$$
+*In words, the potential outcome model would give us the difference in loan take-up if households had a higher degree of connectivity compared to the loan take those same households would have if they had a lower degree of connectivity*
+
+
+### Question 4.2: 
+**What model would you fit to estimate the effect of centrality on whether a household took out a loan or not using this data? Estimate it!**
+
+
+*Answer: There are many models that could be fit, but I chose this one. Included variables as factors to give them more flexibility, and excluded beds because it captures something very similar to room. Different models can be fitter, but there should be some discussion on why the model was chosen. If the model fitted is a LPM, robust standard errors should be used!*
+
+```{r, echo=FALSE}
+lm4.1 <- estimatr::lm_robust(loan ~ degree_z + factor(village) + factor(religion) + factor(roof) + factor(rooms) + electricity + factor(ownership) + leader, data = hh)
+
+modelsummary(list(lm4.1), stars = TRUE)
+```
+
+### Question 4.3: 
+**Interpret the coefficient of `degree_z` on `loan`**
+
+*Answer: In the previous model, one additional point in degree of centrality is associated with an increase in the probability of taking up a loan of 1.1%, holding other variables constant. That association is statistically significant at conventional levels.*
+
+### Question 4.4: 
+**Is the previous effect causal? Why or why not? Write down your assumptions.**
+
+*Answer: In this case, the effect is not necessarily causal, because the treatment wasn't randomized (village leaders where provided the information). If, for instance, village leaders have higher income or status among their peers, and tend to be more connected with other high income households, then the treatment would be associated with income, as well as the outcome (probability of taking up a loan).*
+
+*This effect would be causal if we could assume that the intervention (degree of centrality) is independent of the outcome of interest, the probability of taking up a loan.*
+
+### Questions 4.5:
+**Write down at least two potential threats to causality in this context.**
+
+*Answer: As mentioned before, one important threat to causality in this context could be confounding due to income, because it could be both correlated with proximity to village leaders and the outcome. Another potential confounder could be family size or household size. Larger households might be more likely to be better connected (if there are more people to make connections), and thus have a higher degree of centrality, and additionally might have a different probability of taking up a loan (e.g. they are more pressed financially).*
+
+*Other potential explanations will be also considered correct, as long as there is an explanation on how the confounder affects both the treatment (degree of centrality) and the outcome.*
+
