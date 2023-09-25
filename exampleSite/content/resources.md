@@ -10,6 +10,13 @@ Here is the R code we will review in the bootcamp <a onclick="ga('send', 'event'
 
 Answers: <a onclick="ga('send', 'event', 'External-Link','click','bootcamp_answers','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/bootcamp/code/sta235_bootcamp_answers.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
+### Practice questions
+
+<script>let date = Date.now();</script>
+
+- Practice set 1: <a onclick="gtag('event','practice1', {'event_category': 'HW','event_label': 'practice1', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/PracticeQuestions/STA235H_PracticeQ1.html" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+
+
 ### Refresher from STA 301
 
 In these notes, you can get a refresher from the material covered in STA 301:
