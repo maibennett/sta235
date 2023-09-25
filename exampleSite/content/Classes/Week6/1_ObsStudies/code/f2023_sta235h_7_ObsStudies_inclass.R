@@ -50,20 +50,14 @@ d_s1 = d_s1 %>% filter(state == 1 & competiv == 1)
 ####### 1. Check for balance
 
 # Create a dataset to check for balance. 
-d_s1_bal = d_s1 %>% select(-vote02, -contact)
-  
-  #COMPLETE
+d_s1_bal = #COMPLETE
 
-datasummary_balance(~ treat_real, data = d_s1_bal, 
-                    dinm_statistic = "p.value", fmt = 3) #COMPLETE
+datasummary_balance(~ , data = , dinm_statistic = "p.value", fmt = 3) #COMPLETE
 # Q: Is this study balanced? How can you know?
 
 
 
 ####### 2. Estimate the causal effect
-
-lm1 = lm_robust(vote02 ~ treat_real, data = d_s1)
-summary(lm1)
 
 # COMPLETE CODE
 
