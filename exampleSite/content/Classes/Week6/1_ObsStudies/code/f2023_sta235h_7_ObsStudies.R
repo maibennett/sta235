@@ -140,7 +140,7 @@ summary(lm_robust(vote02 ~ contact, data = d_m1))
 
 # Causal question: Do looks have an effect on student's evaluations?
 
-profs = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_ObsStudies/data/profs.csv",
+profs = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week6/1_ObsStudies/data/profs.csv",
                   stringsAsFactors = TRUE)
 
 head(profs)
