@@ -13,7 +13,7 @@ cat("\014")
 ### Load libraries
 # [LOAD PACKAGES HERE]
 
-# Task 2 - 
+# Task 2 - With a little information from my friends
 
 social = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/Homework3/data/social_insure_adap.csv")
 
