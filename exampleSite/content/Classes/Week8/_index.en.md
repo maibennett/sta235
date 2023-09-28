@@ -4,7 +4,7 @@ weight: 50
 disableToc: true
 ---
 
-## Date: Oct 8th - Oct 10th
+## Date: Oct 9th - Oct 11th
 
 ## What we will cover
 
