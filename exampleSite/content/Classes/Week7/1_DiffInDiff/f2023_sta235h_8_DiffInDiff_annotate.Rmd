@@ -847,7 +847,7 @@ summary(lm(full ~ treat*post, data = minwage))
 
 - Difference-in-Differences provides an estimate for an **.darkorange[average treatment effect for the treated group]**
 
-  - The estimated effect is not generalizable for the entire sample, *only for the treated gorup*.
+  - The estimated effect is not generalizable for the entire sample, *only for the treated group*.
   
 ---
 background-position: 50% 50%
@@ -1058,6 +1058,7 @@ ggplot(dd_data, aes(x = Time, y = avg, color = Group, group = Group)) +
         axis.text.y = element_blank(),
         legend.title = element_blank(),
         legend.text = element_blank(),
+        legend.position = "",
         title = element_text(size=14))
 ```
 
@@ -1082,11 +1083,17 @@ ggplot(dd_data, aes(x = Time, y = avg, color = Group, group = Group)) +
 
 - Write down your answers and **.darkorange[be ready to participate and share with the class]**.
 
+--
+
+<br>
+
+.center[You can get the answers here: **.darkorange[[sta235h.click/Week7Answers](https://sta235h.click/Week7Answers)]**]
+
 ---
 # Wrapping up
 
 .pull-left[
-- We don't always need **.darkorange[randomization]** to make causal inference
+- We introduced a new study design!
 
 - If we think the **.darkorange[parallel trend assumption holds]**, we can find an Average Treatment Effect for the treated group (ATT)
 
