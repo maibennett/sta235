@@ -769,7 +769,7 @@ female
 <li>Average for the control group before the pilot</li>
 <li>Average for the control group after the pilot</li>
 </ul>
-<pre class="r"><code>netflix %&gt;% group_by(treat, post) %&gt;% summarise(mean(subscribed))</code></pre>
+<pre class="r"><code>netflix %&gt;% group_by(treat, post) %&gt;% summarise(avg_subs = round(mean(subscribed), 3))</code></pre>
 <div class="kable-table">
 <table>
 <thead>
@@ -781,7 +781,7 @@ treat
 post
 </th>
 <th style="text-align:right;">
-mean(subscribed)
+avg_subs
 </th>
 </tr>
 </thead>
@@ -794,7 +794,7 @@ mean(subscribed)
 0
 </td>
 <td style="text-align:right;">
-0.4883212
+0.488
 </td>
 </tr>
 <tr>
@@ -805,7 +805,7 @@ mean(subscribed)
 1
 </td>
 <td style="text-align:right;">
-0.5153285
+0.515
 </td>
 </tr>
 <tr>
@@ -816,7 +816,7 @@ mean(subscribed)
 0
 </td>
 <td style="text-align:right;">
-0.5428016
+0.543
 </td>
 </tr>
 <tr>
@@ -827,7 +827,7 @@ mean(subscribed)
 1
 </td>
 <td style="text-align:right;">
-0.6347276
+0.635
 </td>
 </tr>
 </tbody>
@@ -838,14 +838,17 @@ mean(subscribed)
 for CA and NY, and b) other states?</li>
 </ul>
 <p>For CA and NY: <span class="math inline">\(0.635 - 0.543 =
-0.092\)</span> For other states: <span class="math inline">\(0.515 -
-0.488 = 0.027\)</span></p>
+0.092\)</span></p>
+<p>For other states: <span class="math inline">\(0.515 - 0.488 =
+0.027\)</span></p>
 <ul>
 <li>What is the difference in subscriptions between the treatment and
 the control group in a) April 2022, and b) July 2022?</li>
 </ul>
-<p>In April: <span class="math inline">\(0.635 - 0.515 = 0.12\)</span>
-In July: <span class="math inline">\(0.543 - 0.488 = 0.055\)</span></p>
+<p>In April: <span class="math inline">\(0.635 - 0.515 =
+0.12\)</span></p>
+<p>In July: <span class="math inline">\(0.543 - 0.488 =
+0.055\)</span></p>
 <ol start="5" style="list-style-type: decimal">
 <li>Fit an appropriate regression for a Diff-in-Diff estimation (<span class="math inline">\(y = \beta_0 + \beta_1Treat + \beta_2Post + \beta_3
 Treat \times Post + \varepsilon\)</span>). What is the result you get?

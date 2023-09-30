@@ -34,12 +34,18 @@ In this class we will continue our talk on observational studies. We will cover 
 
 ## Slides
 
-<!-- {{% button href="https://sta235.netlify.app/Classes/Week8/1_DiffInDiff/f2022_sta235h_11_DiffInDiff.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week8/1_DiffInDiff/f2022_sta235h_11_DiffInDiff.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+<!-- {{% button href="https://sta235.com/Classes/Week7/1_DiffInDiff/f2023_sta235h_8_DiffInDiff.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.com/Classes/Week7/1_DiffInDiff/f2023_sta235h_8_DiffInDiff.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week8/1_DiffInDiff/f2022_sta235h_11_DiffInDiff.html" >}}
- -->
+{{< slides src="https://sta235.com/Classes/Week7/1_DiffInDiff/f2023_sta235h_8_DiffInDiff.html" >}} -->
+
 
 ## Code
 
-<!-- Check out the in-class activity we did for this week <a onclick="ga('send', 'event', 'External-Link','click','code8','0','Link');" href="https://sta235h.rocks/Week8" target="_blank" class="btn btn-default">Open<i class="fas  fa-external-link-alt"></i></a> -->
+<!-- You can open the in-class exercise here:
+<script>let date = Date.now();</script>
 
+<a onclick="gtag('event','code7_inclass', {'event_category': 'code','event_label': 'code7_inclass', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/InClassExercises/STA235H_Week7.html" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+
+After you've given it a try, compare your answers here: 
+
+<a onclick="gtag('event','code7', {'event_category': 'code','event_label': 'code7', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/InClassExercises/STA235H_Week7Answers.html" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> -->
