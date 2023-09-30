@@ -1,0 +1,109 @@
+---
+title: "Week 7 - In-Class Exercise"
+author: "STA 235H - Fall 2023"
+date: ""
+output: 
+  html_document:
+    css: style.css
+    df_print: "kable"
+---
+<style type="text/css">
+div.main-container {
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media only screen and (max-width: 600px) {
+   body {
+      margin: 0;
+      padding: 0;
+   }
+   .sample {
+      width: 100%;
+   }
+}
+</style>
+
+# Setup
+
+In this fictional scenario, imagine that Netflix is rolling out a policy to restrict access from multiple devices that are not from a verified subscriber. Their objective is to increase subscriptions by making it more difficult for people to share accounts. 
+
+They implemented a pilot for this policy in California and New York at the end of May of 2022, and you have a panel of individuals that you surveyed both before (April 2022) and after the rollout (July 2022):
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+
+netflix = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week7/1_DiffInDiff/data/netflix.csv")
+```
+
+Here's the list of variables in your dataset:
+
+- `id`: ID of the individual
+- `state`: State
+- `income`: Yearly income (in US$)
+- `employed`: Whether the person is employed (1) or not (0)
+- `female`: Female (1) or male (0)
+- `subscribed`: Whether the person is subscribed to Netflix (1) or not (0)
+- `survey`: Month and year of the survey (April2022 or July2022)
+
+## Tasks
+
+1) Create a binary variable `treat` for the states that were part of the pilot (1) and those that were not (0)
+
+```{r, message = FALSE, warning=FALSE}
+library(tidyverse)
+library(modelsummary)
+library(estimatr)
+
+netflix = netflix %>% mutate(treat = ifelse(state=="Other", 0, 1))
+```
+
+
+2) Create a binary variable `post` that takes the value of 1 if the information was collected after the pilot rollout (May 2022), and 0 in another case.
+
+```{r, message = FALSE, warning=FALSE}
+netflix = netflix %>% mutate(post = ifelse(survey=="April2022", 0, 1))
+```
+
+3) (If there is time) Compare the characteristics between your treatment and your control group (e.g. income, gender, employment). Do they look balanced?
+
+```{r, message = FALSE, warning=FALSE}
+netflix_bal = netflix %>% select(treat, income, employed, female)
+
+datasummary_balance(~ treat, data = netflix_bal, dinm_statistic = "p.value",
+                    fmt = 3)
+```
+
+4) Calculate 4 averages for the outcome of interest: 
+
+  - Average for the treatment group before the pilot
+  - Average for the treatment group after the pilot
+  - Average for the control group before the pilot
+  - Average for the control group after the pilot
+  
+
+```{r, message = FALSE, warning=FALSE}
+netflix %>% group_by(treat, post) %>% summarise(mean(subscribed))
+```
+
+- What was the change in subscriptions before and after the pilot a) for CA and NY, and b) other states?
+
+For CA and NY: $0.635 - 0.543 = 0.092$
+For other states: $0.515 - 0.488 = 0.027$
+
+- What is the difference in subscriptions between the treatment and the control group in a) April 2022, and b) July 2022?
+
+In April: $0.635 - 0.515 = 0.12$
+In July: $0.543 - 0.488 = 0.055$
+
+5) Fit an appropriate regression for a Diff-in-Diff estimation ($y = \beta_0 + \beta_1Treat + \beta_2Post + \beta_3 Treat \times Post + \varepsilon$). What is the result you get? Interpret the relevant coefficient.
+
+```{r}
+lm_dd = lm_robust(subscribed ~ treat*post, data = netflix)
+
+summary(lm_dd)
+```
+
+On average, the policy increased subscriptions in NY and CA by `r round(lm_dd$coefficients['treat:post'],3)*100` percentage points compared to no policy.
+
