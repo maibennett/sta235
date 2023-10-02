@@ -77,27 +77,31 @@ datasummary_balance(~ treat, data = netflix_bal, dinm_statistic = "p.value",
 
 4) Calculate 4 averages for the outcome of interest: 
 
-  - Average for the treatment group before the pilot
-  - Average for the treatment group after the pilot
-  - Average for the control group before the pilot
-  - Average for the control group after the pilot
+    - Average for the treatment group before the pilot
+    - Average for the treatment group after the pilot
+    - Average for the control group before the pilot    
+    - Average for the control group after the pilot
   
 
 ```{r, message = FALSE, warning=FALSE}
 netflix %>% group_by(treat, post) %>% summarise(avg_subs = round(mean(subscribed), 3))
 ```
 
-- What was the change in subscriptions before and after the pilot a) for CA and NY, and b) other states?
+  a) What was the change in subscriptions before and after the pilot a) for CA and NY, and b) other states?
 
 For CA and NY: $0.635 - 0.543 = 0.092$
 
 For other states: $0.515 - 0.488 = 0.027$
+<br>
+<br>
 
-- What is the difference in subscriptions between the treatment and the control group in a) April 2022, and b) July 2022?
+  b) What is the difference in subscriptions between the treatment and the control group in a) April 2022, and b) July 2022?
 
 In April: $0.635 - 0.515 = 0.12$
 
 In July: $0.543 - 0.488 = 0.055$
+<br>
+<br>
 
 5) Fit an appropriate regression for a Diff-in-Diff estimation ($y = \beta_0 + \beta_1Treat + \beta_2Post + \beta_3 Treat \times Post + \varepsilon$). What is the result you get? Interpret the relevant coefficient.
 

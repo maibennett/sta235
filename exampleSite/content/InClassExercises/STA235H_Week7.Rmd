@@ -58,16 +58,16 @@ Here's the list of variables in your dataset:
 
 4) Calculate 4 averages for the outcome of interest: 
 
-  - Average for the treatment group before the pilot
-  - Average for the treatment group after the pilot
-  - Average for the control group before the pilot
-  - Average for the control group after the pilot
+    - Average for the treatment group before the pilot
+    - Average for the treatment group after the pilot
+    - Average for the control group before the pilot
+    - Average for the control group after the pilot
   
 
-- What was the change in subscriptions before and after the pilot a) for CA and NY, and b) other states?
+  a) What was the change in subscriptions before and after the pilot a) for CA and NY, and b) other states?
 
 
-- What is the difference in subscriptions between the treatment and the control group in a) April 2022, and b) July 2022?
+  b) What is the difference in subscriptions between the treatment and the control group in a) April 2022, and b) July 2022?
 
 
 5) Fit an appropriate regression for a Diff-in-Diff estimation ($y = \beta_0 + \beta_1Treat + \beta_2Post + \beta_3 Treat \times Post + \varepsilon$). What is the result you get? Interpret the relevant coefficient.
