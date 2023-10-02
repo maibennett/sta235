@@ -34,9 +34,9 @@ In this class we will continue our talk on observational studies. We will cover 
 
 ## Slides
 
-<!-- {{% button href="https://sta235.com/Classes/Week7/1_DiffInDiff/f2023_sta235h_8_DiffInDiff.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.com/Classes/Week7/1_DiffInDiff/f2023_sta235h_8_DiffInDiff.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.com/Classes/Week7/1_DiffInDiff/f2023_sta235h_8_DiffInDiff.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.com/Classes/Week7/1_DiffInDiff/f2023_sta235h_8_DiffInDiff.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.com/Classes/Week7/1_DiffInDiff/f2023_sta235h_8_DiffInDiff.html" >}} -->
+{{< slides src="https://sta235.com/Classes/Week7/1_DiffInDiff/f2023_sta235h_8_DiffInDiff.html" >}}
 
 
 ## Code
