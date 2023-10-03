@@ -21,7 +21,7 @@ pre: "<b>4. </b>"
 
 - HonorLock is the proctoring system we will use for the exam. You will have a practice quiz on Canvas so you can get familiar with it.
 
-- HonorLock only works on Chrome (similar to Proctorio), and it will prompted you to install an extension the first time you use it.
+- HonorLock only works on Chrome (similar to Proctorio), and it will prompt you to install an extension the first time you use it.
 
 - You will access any proctored exam/quiz on the **HonorLock tab in Canvas** (do not enter through Assignments, because it will require a code and you won't be able to open the test).
 
