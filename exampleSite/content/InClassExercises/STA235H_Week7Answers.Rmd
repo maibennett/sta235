@@ -97,9 +97,9 @@ For other states: $0.515 - 0.488 = 0.027$
 
   b) What is the difference in subscriptions between the treatment and the control group in a) April 2022, and b) July 2022?
 
-In April: $0.635 - 0.515 = 0.12$
+In July: $0.635 - 0.515 = 0.12$
 
-In July: $0.543 - 0.488 = 0.055$
+In April: $0.543 - 0.488 = 0.055$
 <br>
 <br>
 
