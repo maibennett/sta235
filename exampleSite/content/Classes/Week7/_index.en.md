@@ -41,11 +41,11 @@ In this class we will continue our talk on observational studies. We will cover 
 
 ## Code
 
-<!-- You can open the in-class exercise here:
+You can open the in-class exercise here:
 <script>let date = Date.now();</script>
 
 <a onclick="gtag('event','code7_inclass', {'event_category': 'code','event_label': 'code7_inclass', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/InClassExercises/STA235H_Week7.html" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
 After you've given it a try, compare your answers here: 
 
-<a onclick="gtag('event','code7', {'event_category': 'code','event_label': 'code7', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/InClassExercises/STA235H_Week7Answers.html" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> -->
+<a onclick="gtag('event','code7', {'event_category': 'code','event_label': 'code7', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/InClassExercises/STA235H_Week7Answers.html" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
