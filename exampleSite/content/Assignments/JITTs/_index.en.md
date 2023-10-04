@@ -26,3 +26,7 @@ Weekly assignments submitted via **Canvas**
 ### JITT 5
 
 - See alternatives and feedback on Canvas
+
+### JITT 6
+
+- See alternatives and feedback on Canvas
