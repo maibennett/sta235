@@ -59,6 +59,19 @@ Cheatsheets for R are amazing! Here are two of my favorite so you can look up fu
 
 - [Rmarkdown: Cheatsheet](https://sta235.netlify.com/images/rmarkdown.pdf)
 
+### Multiple Regression
+
+- [Regression Models with Multiple Regressors](https://www.econometrics-with-r.org/6-rmwmr.html) by C. Hanck et al. (2020), from their book *Introduction to Econometrics with R*
+	- It also includes some R resources!
+
+### Causal Inference
+
+- [Introduction to the Potential Outcomes Framework](https://www.causalconversations.com/post/po-introduction/) by G. Basse & I. Bojinov (2021), from their blog *Causal Conversations*.
+
+- [A Leader's Guide to Interference (*also known as spillover effects*)](https://www.causalconversations.com/post/interference/) by G. Basse & I. Bojinov (2021), from their blog *Causal Conversations*.
+
+- [Correlation and Causation](https://www.causalconversations.com/post/correlation-causation/) by G. Basse & I. Bojinov (2021), from their blog *Causal Conversations*.
+
 
 # FAQ
 

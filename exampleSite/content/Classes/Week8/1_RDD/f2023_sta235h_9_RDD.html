@@ -5,10 +5,6 @@
     <meta charset="utf-8" />
     <meta name="author" content="McCombs School of Business, UT Austin" />
     <script src="libs/header-attrs/header-attrs.js"></script>
-    <script src="libs/fabric/fabric.min.js"></script>
-    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
     <script src="libs/clipboard/clipboard.min.js"></script>
     <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
@@ -246,17 +242,17 @@ Mind the gap
 ---
 # Assignment based on entrance score
 
-&lt;img src="f2023_sta235h_9_RDD_annotate_files/figure-html/tutoring-running-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_9_RDD_files/figure-html/tutoring-running-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Let's look at the area close to the cutoff
 
-&lt;img src="f2023_sta235h_9_RDD_annotate_files/figure-html/tutoring-running-threshold-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_9_RDD_files/figure-html/tutoring-running-threshold-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Let's get closer
 
-&lt;img src="f2023_sta235h_9_RDD_annotate_files/figure-html/tutoring-running-threshold-zoomed-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_9_RDD_files/figure-html/tutoring-running-threshold-zoomed-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 # Causal inference intuition
 
@@ -273,17 +269,17 @@ Mind the gap
 ---
 # Exit exam results according to running variable
 
-&lt;img src="f2023_sta235h_9_RDD_annotate_files/figure-html/tutoring-outcome-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_9_RDD_files/figure-html/tutoring-outcome-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Fit a regression at the right and left side of the cutoff
 
-&lt;img src="f2023_sta235h_9_RDD_annotate_files/figure-html/tutoring-outcome-lines-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_9_RDD_files/figure-html/tutoring-outcome-lines-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Fit a regression at the right and left side of the cutoff
 
-&lt;img src="f2023_sta235h_9_RDD_annotate_files/figure-html/tutoring-outcome-edlta-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_9_RDD_files/figure-html/tutoring-outcome-edlta-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -384,7 +380,7 @@ where `\(Treat\)` is a binary treatment variable and `\(R'\)` is the running var
 ---
 # Let's identify coefficients
 
-&lt;img src="f2023_sta235h_9_RDD_annotate_files/figure-html/rd_coeffs-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_9_RDD_files/figure-html/rd_coeffs-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -407,6 +403,19 @@ where `\(Treat\)` is a binary treatment variable and `\(R'\)` is the running var
 .center[
 ![](https://media.giphy.com/media/CC12bXfpwxyz5kRkmn/giphy.gif)]
 ]
+
+---
+# Discounts and sales
+
+1) Can you compare sales for the first 1,000 customers with sales for 1,001-2,000 to get a causal effect?
+
+--
+
+2) Can you compare sales for the first 1,000 customers today vs 1,000 customers yesterday to get a causal effect?
+
+--
+
+3) What could you do to get a causal effect?
 
 ---
 # Discounts and sales: Data available
@@ -441,7 +450,7 @@ sales = sales %&gt;% mutate(dist = c-time)
 lm(income ~ dist*treat, data = sales)
 ```
 
-&lt;img src="f2023_sta235h_9_RDD_annotate_files/figure-html/rd_check-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_9_RDD_files/figure-html/rd_check-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # RDD on sales using linear models
@@ -451,7 +460,7 @@ lm(income ~ dist*treat, data = sales)
 lm(sales ~ dist*treat, data = sales)
 ```
 
-&lt;img src="f2023_sta235h_9_RDD_annotate_files/figure-html/rd_linear-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_9_RDD_files/figure-html/rd_linear-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # RDD on sales using linear models
@@ -486,7 +495,6 @@ summary(lm(sales ~ dist*treat, data = sales))
 ]
 
 --
-
 .small[*On average, providing a 10% discount increases sales by $31.3 &lt;u&gt;for the 1,000 customer&lt;/u&gt;, compared to not having a discount*]
 
 ---
@@ -495,7 +503,7 @@ summary(lm(sales ~ dist*treat, data = sales))
 - The previous example just included linear terms, but you can also be more flexible:
 
 
-`$$Y = \beta_0 + \beta_1f(R') + \beta_2Treat + \beta_3f(R')\times Treat + \varepsilon$$`
+`$$Y = \beta_0 + \beta_1f(R') + \beta_2Z + \beta_3f(R')\times Z + \varepsilon$$`
 
    - Where `\(f\)` is any function you want.
    
@@ -506,7 +514,7 @@ summary(lm(sales ~ dist*treat, data = sales))
 lm(sales ~ dist*treat + treat*I(dist^2), data = sales)
 ```
 
-&lt;img src="f2023_sta235h_9_RDD_annotate_files/figure-html/rd_quad-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_9_RDD_files/figure-html/rd_quad-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # What happens if we fit a quadratic model?
@@ -541,7 +549,6 @@ summary(lm(sales ~ dist*treat + treat*I(dist^2), data = sales))
 ## F-statistic: 943.5 on 5 and 1994 DF,  p-value: &lt; 2.2e-16
 ```
 ]
-
 --
 
 .small[*On average, providing a 10% discount increases sales by $33.1 &lt;u&gt;for the 1,000 customer&lt;/u&gt;, compared to not having a discount*]
@@ -554,7 +561,7 @@ sales_close = sales %&gt;% filter(dist&gt;-100 &amp; dist&lt;100)
 lm(sales ~ dist*treat, data = sales_close)
 ```
 
-&lt;img src="f2023_sta235h_9_RDD_annotate_files/figure-html/rd_close-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_9_RDD_files/figure-html/rd_close-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # How do they compare?
@@ -630,10 +637,10 @@ summary(lm(sales ~ dist*treat, data = sales_close))
 
 ```r
 rdplot(y = sales$sales, x = sales$dist, c = 0, 
-       title = "RD plot", x.label = "c - time", y.label = "sales")
+       title = "RD plot", x.label = "time", y.label = "sales")
 ```
 
-&lt;img src="f2023_sta235h_9_RDD_annotate_files/figure-html/rdplot-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_9_RDD_files/figure-html/rdplot-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Let's compare with previous parametric results
@@ -641,15 +648,15 @@ rdplot(y = sales$sales, x = sales$dist, c = 0,
 
 ```r
 rdplot(y = sales$sales, x = sales$dist, c = 0, 
-       title = "RD plot", x.label = "c - time", y.label = "sales")
+       title = "RD plot", x.label = "time", y.label = "sales")
 ```
 
 .pull-left[
-&lt;img src="f2023_sta235h_9_RDD_annotate_files/figure-html/rdplot2a-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_9_RDD_files/figure-html/rdplot2a-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-&lt;img src="f2023_sta235h_9_RDD_annotate_files/figure-html/rdplot2b-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_9_RDD_files/figure-html/rdplot2b-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 ---

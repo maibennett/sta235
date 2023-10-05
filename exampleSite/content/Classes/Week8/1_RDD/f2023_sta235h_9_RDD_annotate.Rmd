@@ -847,19 +847,6 @@ ggplot(data = d, aes(x = r, y = y, color = z, fill = z)) +
 ]
 
 ---
-# Discounts and sales
-
-1) Can you compare sales for the first 1,000 customers with sales for 1,001-2,000 to get a causal effect?
-
---
-
-2) Can you compare sales for the first 1,000 customers today vs 1,000 customers yesterday to get a causal effect?
-
---
-
-3) What could you do to get a causal effect?
-
----
 # Discounts and sales: Data available
 
 - We have the following dataset, with time of arrival for customers, a few covariates, and the outcome of interest (sales)
@@ -947,6 +934,7 @@ summary(lm(sales ~ dist*treat, data = sales))
 ]
 
 --
+
 .small[*On average, providing a 10% discount increases sales by $31.3 <u>for the 1,000 customer</u>, compared to not having a discount*]
 
 ---
@@ -955,7 +943,7 @@ summary(lm(sales ~ dist*treat, data = sales))
 - The previous example just included linear terms, but you can also be more flexible:
 
 
-$$Y = \beta_0 + \beta_1f(R') + \beta_2Z + \beta_3f(R')\times Z + \varepsilon$$
+$$Y = \beta_0 + \beta_1f(R') + \beta_2Treat + \beta_3f(R')\times Treat + \varepsilon$$
 
    - Where $f$ is any function you want.
    
@@ -996,6 +984,7 @@ ggplot(data = sales_aug, aes(x = time, y = sales)) +
 summary(lm(sales ~ dist*treat + treat*I(dist^2), data = sales))
 ```
 ]
+
 --
 
 .small[*On average, providing a 10% discount increases sales by $33.1 <u>for the 1,000 customer</u>, compared to not having a discount*]
@@ -1108,7 +1097,7 @@ summary(lm(sales ~ dist*treat, data = sales_close))
 
 ```{r, echo = TRUE, eval = FALSE}
 rdplot(y = sales$sales, x = sales$dist, c = 0, 
-       title = "RD plot", x.label = "time", y.label = "sales")
+       title = "RD plot", x.label = "c - time", y.label = "sales")
 ```
 
 ```{r rdplot, fig.height=4.5, fig.width=8, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
@@ -1117,7 +1106,7 @@ library(rdrobust)
 c = min(sales$time[sales$treat==0])
 
 rdplot(y = sales$sales, x = sales$dist, c = 0, title = "RD plot",
-       x.label = "time", y.label = "sales", col.dots = "#F89441", col.lines = "#900DA4")
+       x.label = "c - time", y.label = "sales", col.dots = "#F89441", col.lines = "#900DA4")
 ```
 
 ---
@@ -1125,7 +1114,7 @@ rdplot(y = sales$sales, x = sales$dist, c = 0, title = "RD plot",
 
 ```{r, echo = TRUE, eval = FALSE}
 rdplot(y = sales$sales, x = sales$dist, c = 0, 
-       title = "RD plot", x.label = "time", y.label = "sales")
+       title = "RD plot", x.label = "c - time", y.label = "sales")
 ```
 
 .pull-left[
@@ -1157,7 +1146,7 @@ ggplot(data = sales_aug, aes(x = dist, y = sales)) +
 .pull-right[
 ```{r rdplot2b, fig.height=4.5, fig.width=6, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 rdplot(y = sales$sales, x = sales$dist, c = 0, title = "RD plot",
-       x.label = "time", y.label = "sales", col.dots = "#F89441", col.lines = "#900DA4")
+       x.label = "c - time", y.label = "sales", col.dots = "#F89441", col.lines = "#900DA4")
 
 ```
 ]
