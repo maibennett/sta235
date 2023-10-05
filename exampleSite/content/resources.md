@@ -68,6 +68,8 @@ Cheatsheets for R are amazing! Here are two of my favorite so you can look up fu
 
 - [Introduction to the Potential Outcomes Framework](https://www.causalconversations.com/post/po-introduction/) by G. Basse & I. Bojinov (2021), from their blog *Causal Conversations*.
 
+- [What is causal inference?](https://www.causalconversations.com/post/causal-inf-intro/) by G. Basse & I. Bojinov (2021), from their blog *Causal Conversations*.
+
 - [A Leader's Guide to Interference (*also known as spillover effects*)](https://www.causalconversations.com/post/interference/) by G. Basse & I. Bojinov (2021), from their blog *Causal Conversations*.
 
 - [Correlation and Causation](https://www.causalconversations.com/post/correlation-causation/) by G. Basse & I. Bojinov (2021), from their blog *Causal Conversations*.
