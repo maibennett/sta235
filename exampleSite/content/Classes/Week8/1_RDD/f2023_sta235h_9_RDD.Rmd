@@ -331,7 +331,7 @@ library(kableExtra)
 library(scales)
 library(patchwork)
 
-xaringanExtra::use_scribble()
+#xaringanExtra::use_scribble()
 
 htmltools::tagList(
   xaringanExtra::use_clipboard(
