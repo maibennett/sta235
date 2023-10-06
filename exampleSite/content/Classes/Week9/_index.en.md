@@ -10,5 +10,5 @@ disableToc: true
 
 There are no assigned readings for this week, and there will also be no JITT due before this class. For more information about the midterm (e.g. requirements, what you need to have, etc.), check out the [Exams](https://sta235.com/exams/#midterm) tab.
 
-![Picture](https://media.giphy.com/media/1iTX9tGRTTTVZb7q/giphy.gif){ width="800" height="600" style="display: block; margin: 0 auto" }
+![Picture](https://media.giphy.com/media/1iTX9tGRTTTVZb7q/giphy.gif)
 
