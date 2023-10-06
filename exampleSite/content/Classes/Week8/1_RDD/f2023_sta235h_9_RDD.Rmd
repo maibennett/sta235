@@ -348,7 +348,7 @@ font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
 font.add.google("Fira Sans", "Fira Sans")
 ```
 
-#Announcements
+# Announcements
 
 - **.darkorange[Midterm is next week]**
 
@@ -362,7 +362,13 @@ font.add.google("Fira Sans", "Fira Sans")
   
 --
 
-- Review session for the midterm on **.darkorange[Thursday 6.00pm]**
+- Review session for the midterm on **.darkorange[Friday 2.00pm]** at **.darkorange[UTC 3.102]**
+
+--
+
+- Remember that <u>all</u> submissions for JITTs are **.darkorange[formal submissions]** for an assignment.
+
+  - Use proper language (e.g. "nah" or "meh" are not actual words) and keep answers pertinent to the class.
 
 
 ---
@@ -373,13 +379,15 @@ font.add.google("Fira Sans", "Fira Sans")
   
   - RCTs in the wild.
   
-  - Importance of the context and checking potential confounding.
+  - Importance of the context and checking balance.
   
 - **.darkorange[Difference-in-Differences (DD)]**:
   
   - How we can use two wrong estimates to get a right one.
   
   - Assumptions behind DD.
+  
+  - *Make sure to check the JITT answer on the course website*.
 ]
 
 .pull-right[
@@ -401,7 +409,7 @@ font.add.google("Fira Sans", "Fira Sans")
   
   - Assumptions behind RD designs.
   
-- **.darkorange[Structure for today]**:
+- **.darkorange[Structure for this class]**:
 
   - Start: Material + Examples
   
@@ -418,8 +426,6 @@ Mind the gap
 
 ---
 # Another identification strategy
-
-- We have seen:
 
 .box-2trans[RCTs]
 
@@ -445,7 +451,6 @@ Mind the gap
 # Introduction to Regression Discontinuity Designs
 
 
-<br>
 <br>
 <br>
 .box-2LA[Regression Discontinuity (RD) Designs]
@@ -698,19 +703,17 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 <br>
 <br>
 <br>
-<br>
-
-.box-3trans[Is that what we want?]
+.box-3Trans[Is that what we want?]
 
 --
 <br>
 <br>
-.box-5trans[Probably not ideal, there may not be *any* units with R=c]
+.box-5Trans[Probably not ideal, there may not be *any* units with R=c]
 
 --
 <br>
 <br>
-.box-7trans[... but better LATE than nothing!]
+.box-7Trans[... but better LATE than nothing!]
 
 ---
 # Conditions required for identification
@@ -737,19 +740,6 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 .box-5t[That's the math-y way to say that the only thing that changes right at the cutoff is the treatment assignment!]
 
 ---
-<br>
-<br>
-.box-4LA[How can I check if this assumption holds?]
-
---
-<br>
-.box-4t[You can't! (it's an assumption)]
-
---
-<br>
-.box-4t[... but there are robustness checks (e.g. check covariates at the threshold)]
-
----
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
@@ -757,14 +747,14 @@ Estimation in practice
 ]
 
 ---
-# How do we actually estimate an RD?
+# How do we actually estimate an RDD?
 
 - The simplest way to do this is to fit a regression using **.darkorange[an interaction of the treatment variable and the running variable]**:
 
 $$Y = \beta_0 + \beta_1(R-c) + \beta_2\mathrm{I}[R>c] + \beta_3(R-c)\mathrm{I}[R> c] + \varepsilon$$
 
 ---
-# How do we actually estimate an RD?
+# How do we actually estimate an RDD?
 
 - The simplest way to do this is to fit a regression using **.darkorange[an interaction of the treatment variable and the running variable]**:
 
@@ -825,6 +815,25 @@ ggplot(data = d, aes(x = r, y = y, color = z, fill = z)) +
 ```
 
 ---
+# Steps for analyzing an RDD
+
+
+1) Check that there is a discontinuity in **.darkorange[treatment assignment]** at the cutoff.
+
+--
+
+2) Check that **.darkorange[covariates change smoothly]** across the threshold.
+
+  - You can think about this as the equivalent of a *balance table*.
+  
+--
+
+3) Run the **.darkorange[regression discontinuity design model]**.
+
+  - Interpret this effect *for individuals right at the cutoff*.
+
+
+---
 
 .center2[
 .box-7Trans[Let's see an example]
@@ -845,19 +854,6 @@ ggplot(data = d, aes(x = r, y = y, color = z, fill = z)) +
 .center[
 ![](https://media.giphy.com/media/CC12bXfpwxyz5kRkmn/giphy.gif)]
 ]
-
----
-# Discounts and sales
-
-1) Can you compare sales for the first 1,000 customers with sales for 1,001-2,000 to get a causal effect?
-
---
-
-2) Can you compare sales for the first 1,000 customers today vs 1,000 customers yesterday to get a causal effect?
-
---
-
-3) What could you do to get a causal effect?
 
 ---
 # Discounts and sales: Data available
@@ -947,6 +943,7 @@ summary(lm(sales ~ dist*treat, data = sales))
 ]
 
 --
+
 .small[*On average, providing a 10% discount increases sales by $31.3 <u>for the 1,000 customer</u>, compared to not having a discount*]
 
 ---
@@ -955,7 +952,7 @@ summary(lm(sales ~ dist*treat, data = sales))
 - The previous example just included linear terms, but you can also be more flexible:
 
 
-$$Y = \beta_0 + \beta_1f(R') + \beta_2Z + \beta_3f(R')\times Z + \varepsilon$$
+$$Y = \beta_0 + \beta_1f(R') + \beta_2Treat + \beta_3f(R')\times Treat + \varepsilon$$
 
    - Where $f$ is any function you want.
    
@@ -996,6 +993,7 @@ ggplot(data = sales_aug, aes(x = time, y = sales)) +
 summary(lm(sales ~ dist*treat + treat*I(dist^2), data = sales))
 ```
 ]
+
 --
 
 .small[*On average, providing a 10% discount increases sales by $33.1 <u>for the 1,000 customer</u>, compared to not having a discount*]
@@ -1108,7 +1106,7 @@ summary(lm(sales ~ dist*treat, data = sales_close))
 
 ```{r, echo = TRUE, eval = FALSE}
 rdplot(y = sales$sales, x = sales$dist, c = 0, 
-       title = "RD plot", x.label = "time", y.label = "sales")
+       title = "RD plot", x.label = "c - time", y.label = "sales")
 ```
 
 ```{r rdplot, fig.height=4.5, fig.width=8, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
@@ -1117,7 +1115,7 @@ library(rdrobust)
 c = min(sales$time[sales$treat==0])
 
 rdplot(y = sales$sales, x = sales$dist, c = 0, title = "RD plot",
-       x.label = "time", y.label = "sales", col.dots = "#F89441", col.lines = "#900DA4")
+       x.label = "c - time", y.label = "sales", col.dots = "#F89441", col.lines = "#900DA4")
 ```
 
 ---
@@ -1125,7 +1123,7 @@ rdplot(y = sales$sales, x = sales$dist, c = 0, title = "RD plot",
 
 ```{r, echo = TRUE, eval = FALSE}
 rdplot(y = sales$sales, x = sales$dist, c = 0, 
-       title = "RD plot", x.label = "time", y.label = "sales")
+       title = "RD plot", x.label = "c - time", y.label = "sales")
 ```
 
 .pull-left[
@@ -1157,7 +1155,7 @@ ggplot(data = sales_aug, aes(x = dist, y = sales)) +
 .pull-right[
 ```{r rdplot2b, fig.height=4.5, fig.width=6, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 rdplot(y = sales$sales, x = sales$dist, c = 0, title = "RD plot",
-       x.label = "time", y.label = "sales", col.dots = "#F89441", col.lines = "#900DA4")
+       x.label = "c - time", y.label = "sales", col.dots = "#F89441", col.lines = "#900DA4")
 
 ```
 ]
@@ -1178,26 +1176,6 @@ summary(rdrobust(y = sales$sales, x = sales$dist, c = 0))
 ]
 
 ---
-# In-Class Activity
-
-- Go to **.darkorange[[sta235h.clicks/Week8](https://sta235h.clicks/Week8)]**
-
-- Read the brief and answer the questions.
-
-- Write down your answers and **.darkorange[be ready to participate and share with the class]**.
-
----
-# Summary
-
-For conducting an RDD:
-
-1) Check that there is a **.darkorange[discontinuity in assignment]** (e.g. plot `treat` vs `r`)
-
-2) Check that **.darkorange[covariates are smooth across the cutoff]** (e.g. RDD for `x` (baseline covariate))
-
-3) Run a **.darkorange[RDD]** using either a linear model (`lm()`) or a nonparametric model (`rdrobust()`)
-
----
 # Takeaway points
 
 .pull-left[
@@ -1211,7 +1189,6 @@ For conducting an RDD:
 - Make sure to check your data:
 
   - Discontinuity in treatment assignment
-  - Density across the cutoff
   - Smoothness of covariates
 ]
 

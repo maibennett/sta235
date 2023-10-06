@@ -9,8 +9,8 @@
     <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
     <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
-    <link href="libs/font-awesome/css/all.min.css" rel="stylesheet" />
-    <link href="libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/5235085b15.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -58,7 +58,7 @@ class: center, middle, inverse, title-slide
 
 
 
-#Announcements
+# Announcements
 
 - **.darkorange[Midterm is next week]**
 
@@ -72,7 +72,13 @@ class: center, middle, inverse, title-slide
   
 --
 
-- Review session for the midterm on **.darkorange[Thursday 6.00pm]**
+- Review session for the midterm on **.darkorange[Friday 2.00pm]** at **.darkorange[UTC 3.102]**
+
+--
+
+- Remember that &lt;u&gt;all&lt;/u&gt; submissions for JITTs are **.darkorange[formal submissions]** for an assignment.
+
+  - Use proper language (e.g. "nah" or "meh" are not actual words) and keep answers pertinent to the class.
 
 
 ---
@@ -83,13 +89,15 @@ class: center, middle, inverse, title-slide
   
   - RCTs in the wild.
   
-  - Importance of the context and checking potential confounding.
+  - Importance of the context and checking balance.
   
 - **.darkorange[Difference-in-Differences (DD)]**:
   
   - How we can use two wrong estimates to get a right one.
   
   - Assumptions behind DD.
+  
+  - *Make sure to check the JITT answer on the course website*.
 ]
 
 .pull-right[
@@ -111,7 +119,7 @@ class: center, middle, inverse, title-slide
   
   - Assumptions behind RD designs.
   
-- **.darkorange[Structure for today]**:
+- **.darkorange[Structure for this class]**:
 
   - Start: Material + Examples
   
@@ -128,8 +136,6 @@ Mind the gap
 
 ---
 # Another identification strategy
-
-- We have seen:
 
 .box-2trans[RCTs]
 
@@ -155,7 +161,6 @@ Mind the gap
 # Introduction to Regression Discontinuity Designs
 
 
-&lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
 .box-2LA[Regression Discontinuity (RD) Designs]
@@ -296,19 +301,17 @@ Mind the gap
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
-&lt;br&gt;
-
-.box-3trans[Is that what we want?]
+.box-3Trans[Is that what we want?]
 
 --
 &lt;br&gt;
 &lt;br&gt;
-.box-5trans[Probably not ideal, there may not be *any* units with R=c]
+.box-5Trans[Probably not ideal, there may not be *any* units with R=c]
 
 --
 &lt;br&gt;
 &lt;br&gt;
-.box-7trans[... but better LATE than nothing!]
+.box-7Trans[... but better LATE than nothing!]
 
 ---
 # Conditions required for identification
@@ -335,19 +338,6 @@ Mind the gap
 .box-5t[That's the math-y way to say that the only thing that changes right at the cutoff is the treatment assignment!]
 
 ---
-&lt;br&gt;
-&lt;br&gt;
-.box-4LA[How can I check if this assumption holds?]
-
---
-&lt;br&gt;
-.box-4t[You can't! (it's an assumption)]
-
---
-&lt;br&gt;
-.box-4t[... but there are robustness checks (e.g. check covariates at the threshold)]
-
----
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
@@ -355,14 +345,14 @@ Estimation in practice
 ]
 
 ---
-# How do we actually estimate an RD?
+# How do we actually estimate an RDD?
 
 - The simplest way to do this is to fit a regression using **.darkorange[an interaction of the treatment variable and the running variable]**:
 
 `$$Y = \beta_0 + \beta_1(R-c) + \beta_2\mathrm{I}[R&gt;c] + \beta_3(R-c)\mathrm{I}[R&gt; c] + \varepsilon$$`
 
 ---
-# How do we actually estimate an RD?
+# How do we actually estimate an RDD?
 
 - The simplest way to do this is to fit a regression using **.darkorange[an interaction of the treatment variable and the running variable]**:
 
@@ -381,6 +371,25 @@ where `\(Treat\)` is a binary treatment variable and `\(R'\)` is the running var
 # Let's identify coefficients
 
 &lt;img src="f2023_sta235h_9_RDD_files/figure-html/rd_coeffs-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Steps for analyzing an RDD
+
+
+1) Check that there is a discontinuity in **.darkorange[treatment assignment]** at the cutoff.
+
+--
+
+2) Check that **.darkorange[covariates change smoothly]** across the threshold.
+
+  - You can think about this as the equivalent of a *balance table*.
+  
+--
+
+3) Run the **.darkorange[regression discontinuity design model]**.
+
+  - Interpret this effect *for individuals right at the cutoff*.
+
 
 ---
 
@@ -403,19 +412,6 @@ where `\(Treat\)` is a binary treatment variable and `\(R'\)` is the running var
 .center[
 ![](https://media.giphy.com/media/CC12bXfpwxyz5kRkmn/giphy.gif)]
 ]
-
----
-# Discounts and sales
-
-1) Can you compare sales for the first 1,000 customers with sales for 1,001-2,000 to get a causal effect?
-
---
-
-2) Can you compare sales for the first 1,000 customers today vs 1,000 customers yesterday to get a causal effect?
-
---
-
-3) What could you do to get a causal effect?
 
 ---
 # Discounts and sales: Data available
@@ -495,6 +491,7 @@ summary(lm(sales ~ dist*treat, data = sales))
 ]
 
 --
+
 .small[*On average, providing a 10% discount increases sales by $31.3 &lt;u&gt;for the 1,000 customer&lt;/u&gt;, compared to not having a discount*]
 
 ---
@@ -503,7 +500,7 @@ summary(lm(sales ~ dist*treat, data = sales))
 - The previous example just included linear terms, but you can also be more flexible:
 
 
-`$$Y = \beta_0 + \beta_1f(R') + \beta_2Z + \beta_3f(R')\times Z + \varepsilon$$`
+`$$Y = \beta_0 + \beta_1f(R') + \beta_2Treat + \beta_3f(R')\times Treat + \varepsilon$$`
 
    - Where `\(f\)` is any function you want.
    
@@ -549,6 +546,7 @@ summary(lm(sales ~ dist*treat + treat*I(dist^2), data = sales))
 ## F-statistic: 943.5 on 5 and 1994 DF,  p-value: &lt; 2.2e-16
 ```
 ]
+
 --
 
 .small[*On average, providing a 10% discount increases sales by $33.1 &lt;u&gt;for the 1,000 customer&lt;/u&gt;, compared to not having a discount*]
@@ -637,7 +635,7 @@ summary(lm(sales ~ dist*treat, data = sales_close))
 
 ```r
 rdplot(y = sales$sales, x = sales$dist, c = 0, 
-       title = "RD plot", x.label = "time", y.label = "sales")
+       title = "RD plot", x.label = "c - time", y.label = "sales")
 ```
 
 &lt;img src="f2023_sta235h_9_RDD_files/figure-html/rdplot-1.svg" style="display: block; margin: auto;" /&gt;
@@ -648,7 +646,7 @@ rdplot(y = sales$sales, x = sales$dist, c = 0,
 
 ```r
 rdplot(y = sales$sales, x = sales$dist, c = 0, 
-       title = "RD plot", x.label = "time", y.label = "sales")
+       title = "RD plot", x.label = "c - time", y.label = "sales")
 ```
 
 .pull-left[
@@ -701,26 +699,6 @@ summary(rdrobust(y = sales$sales, x = sales$dist, c = 0))
 ]
 
 ---
-# In-Class Activity
-
-- Go to **.darkorange[[sta235h.clicks/Week8](https://sta235h.clicks/Week8)]**
-
-- Read the brief and answer the questions.
-
-- Write down your answers and **.darkorange[be ready to participate and share with the class]**.
-
----
-# Summary
-
-For conducting an RDD:
-
-1) Check that there is a **.darkorange[discontinuity in assignment]** (e.g. plot `treat` vs `r`)
-
-2) Check that **.darkorange[covariates are smooth across the cutoff]** (e.g. RDD for `x` (baseline covariate))
-
-3) Run a **.darkorange[RDD]** using either a linear model (`lm()`) or a nonparametric model (`rdrobust()`)
-
----
 # Takeaway points
 
 .pull-left[
@@ -734,7 +712,6 @@ For conducting an RDD:
 - Make sure to check your data:
 
   - Discontinuity in treatment assignment
-  - Density across the cutoff
   - Smoothness of covariates
 ]
 

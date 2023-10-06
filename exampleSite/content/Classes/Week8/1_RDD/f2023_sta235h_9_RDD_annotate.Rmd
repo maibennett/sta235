@@ -348,7 +348,7 @@ font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
 font.add.google("Fira Sans", "Fira Sans")
 ```
 
-#Announcements
+# Announcements
 
 - **.darkorange[Midterm is next week]**
 
@@ -362,7 +362,13 @@ font.add.google("Fira Sans", "Fira Sans")
   
 --
 
-- Review session for the midterm on **.darkorange[Thursday 6.00pm]**
+- Review session for the midterm on **.darkorange[Friday 2.00pm]** at **.darkorange[UTC 3.102]**
+
+--
+
+- Remember that <u>all</u> submissions for JITTs are **.darkorange[formal submissions]** for an assignment.
+
+  - Use proper language (e.g. "nah" or "meh" are not actual words) and keep answers pertinent to the class.
 
 
 ---
@@ -373,13 +379,15 @@ font.add.google("Fira Sans", "Fira Sans")
   
   - RCTs in the wild.
   
-  - Importance of the context and checking potential confounding.
+  - Importance of the context and checking balance.
   
 - **.darkorange[Difference-in-Differences (DD)]**:
   
   - How we can use two wrong estimates to get a right one.
   
   - Assumptions behind DD.
+  
+  - *Make sure to check the JITT answer on the course website*.
 ]
 
 .pull-right[
@@ -401,7 +409,7 @@ font.add.google("Fira Sans", "Fira Sans")
   
   - Assumptions behind RD designs.
   
-- **.darkorange[Structure for today]**:
+- **.darkorange[Structure for this class]**:
 
   - Start: Material + Examples
   
@@ -418,8 +426,6 @@ Mind the gap
 
 ---
 # Another identification strategy
-
-- We have seen:
 
 .box-2trans[RCTs]
 
@@ -445,7 +451,6 @@ Mind the gap
 # Introduction to Regression Discontinuity Designs
 
 
-<br>
 <br>
 <br>
 .box-2LA[Regression Discontinuity (RD) Designs]
@@ -698,19 +703,17 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 <br>
 <br>
 <br>
-<br>
-
-.box-3trans[Is that what we want?]
+.box-3Trans[Is that what we want?]
 
 --
 <br>
 <br>
-.box-5trans[Probably not ideal, there may not be *any* units with R=c]
+.box-5Trans[Probably not ideal, there may not be *any* units with R=c]
 
 --
 <br>
 <br>
-.box-7trans[... but better LATE than nothing!]
+.box-7Trans[... but better LATE than nothing!]
 
 ---
 # Conditions required for identification
@@ -737,19 +740,6 @@ ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, fill = tutoring_text, col
 .box-5t[That's the math-y way to say that the only thing that changes right at the cutoff is the treatment assignment!]
 
 ---
-<br>
-<br>
-.box-4LA[How can I check if this assumption holds?]
-
---
-<br>
-.box-4t[You can't! (it's an assumption)]
-
---
-<br>
-.box-4t[... but there are robustness checks (e.g. check covariates at the threshold)]
-
----
 background-position: 50% 50%
 class: left, bottom, inverse
 .big[
@@ -757,14 +747,14 @@ Estimation in practice
 ]
 
 ---
-# How do we actually estimate an RD?
+# How do we actually estimate an RDD?
 
 - The simplest way to do this is to fit a regression using **.darkorange[an interaction of the treatment variable and the running variable]**:
 
 $$Y = \beta_0 + \beta_1(R-c) + \beta_2\mathrm{I}[R>c] + \beta_3(R-c)\mathrm{I}[R> c] + \varepsilon$$
 
 ---
-# How do we actually estimate an RD?
+# How do we actually estimate an RDD?
 
 - The simplest way to do this is to fit a regression using **.darkorange[an interaction of the treatment variable and the running variable]**:
 
@@ -778,6 +768,8 @@ $$Y_i = \beta_0 + \beta_1R' + \beta_2Treat + \beta_3R'\times Treat$$
 where $Treat$ is a binary treatment variable and $R'$ is the running variable centered around the cutoff
 
 .box-2LA[Can you identify these parameters in a plot?]
+
+---
 
 ---
 # Let's identify coefficients
@@ -823,6 +815,25 @@ ggplot(data = d, aes(x = r, y = y, color = z, fill = z)) +
         legend.position = c(0.1,0.9),
         title = element_text(size=14))
 ```
+
+---
+# Steps for analyzing an RDD
+
+
+1) Check that there is a discontinuity in **.darkorange[treatment assignment]** at the cutoff.
+
+--
+
+2) Check that **.darkorange[covariates change smoothly]** across the threshold.
+
+  - You can think about this as the equivalent of a *balance table*.
+  
+--
+
+3) Run the **.darkorange[regression discontinuity design model]**.
+
+  - Interpret this effect *for individuals right at the cutoff*.
+
 
 ---
 
@@ -1175,16 +1186,12 @@ summary(rdrobust(y = sales$sales, x = sales$dist, c = 0))
 
 - Write down your answers and **.darkorange[be ready to participate and share with the class]**.
 
----
-# Summary
+--
 
-For conducting an RDD:
+<br>
 
-1) Check that there is a **.darkorange[discontinuity in assignment]** (e.g. plot `treat` vs `r`)
+.center[You can check the answers at **sta235h.clicks/Week8Answers**]
 
-2) Check that **.darkorange[covariates are smooth across the cutoff]** (e.g. RDD for `x` (baseline covariate))
-
-3) Run a **.darkorange[RDD]** using either a linear model (`lm()`) or a nonparametric model (`rdrobust()`)
 
 ---
 # Takeaway points
@@ -1200,7 +1207,6 @@ For conducting an RDD:
 - Make sure to check your data:
 
   - Discontinuity in treatment assignment
-  - Density across the cutoff
   - Smoothness of covariates
 ]
 

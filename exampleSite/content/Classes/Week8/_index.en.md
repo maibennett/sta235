@@ -21,12 +21,18 @@ In this class we will finish with our causal inference chapter and tackle our la
 
 ## Slides
 
-<!-- {{% button href="https://sta235.netlify.app/Classes/Week9/1_RDD/f2022_sta235h_12_RDD.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week9/1_RDD/f2022_sta235h_12_RDD.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+<!-- {{% button href="https://sta235.netlify.app/Classes/Week8/1_RDD/f2023_sta235h_9_RDD.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week8/1_RDD/f2023_sta235h_9_RDD.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week9/1_RDD/f2022_sta235h_12_RDD.html" >}} -->
+{{< slides src="https://sta235.netlify.app/Classes/Week8/1_RDD/f2023_sta235h_9_RDD.html" >}} -->
 
 
 ## Code
 
-<!-- Check out the in-class activity we did for this week <a onclick="ga('send', 'event', 'External-Link','click','code9','0','Link');" href="https://sta235h.rocks/Week9" target="_blank" class="btn btn-default">Open<i class="fas  fa-external-link-alt"></i></a>
- -->
+<!-- You can open the in-class exercise here:
+<script>let date = Date.now();</script>
+
+<a onclick="gtag('event','code8_inclass', {'event_category': 'code','event_label': 'code8_inclass', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/InClassExercises/STA235H_Week8.html" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+
+After you've given it a try, compare your answers here: 
+
+<a onclick="gtag('event','code8', {'event_category': 'code','event_label': 'code8', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/InClassExercises/STA235H_Week8Answers.html" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> -->
