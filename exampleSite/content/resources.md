@@ -74,6 +74,14 @@ Cheatsheets for R are amazing! Here are two of my favorite so you can look up fu
 
 - [Correlation and Causation](https://www.causalconversations.com/post/correlation-causation/) by G. Basse & I. Bojinov (2021), from their blog *Causal Conversations*.
 
+- Brady Neal - Causal Inference. (2020). "Ignorability/Echangeability".
+
+{{< youtube src="https://www.youtube.com/embed/eg-bFhNKbnY?si=9X5OG71yyVcBG04p" >}}
+
+- Social Science Research Institute at Duke University. (2015). "The Credibility of the Unconfoundedness Assumption". *Video materials from Mod-U: Powerful Concepts in Social Science*.
+
+{{< youtube src="https://www.youtube.com/embed/FQ1CB0Svh8I?si=szxg4t_K25gUeSWd" >}}
+
 
 # FAQ
 
