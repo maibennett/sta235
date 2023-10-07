@@ -386,8 +386,6 @@ font.add.google("Fira Sans", "Fira Sans")
   - How we can use two wrong estimates to get a right one.
   
   - Assumptions behind DD.
-  
-  - *Video on interpreting the coefficients for DD*.
 ]
 
 .pull-right[

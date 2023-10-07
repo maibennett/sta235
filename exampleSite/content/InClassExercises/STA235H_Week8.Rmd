@@ -29,14 +29,14 @@ div.main-container {
 
 Most (if not all) countries have a minimum legal drinking age (MLDA), and people often ask if this makes sense or not. Should the MLDA be higher or lower or even exist at all? One way to think about this is to look at the external benefits of this, for example in health outcomes or crime.
 
-In this exercise, we will be working with real arrest data from the California Department of Justice's Monthly Arrest and Citation register (MACR) between 1979 and 2006 (data is from paper by Carpenter & Dobkin (2015)) to tackle this question.
+In this exercise, we will be working with real arrest data from the California Department of Justice's Monthly Arrest and Citation register (MACR) between 1979 and 2006 for individuals between 18 and 24 years old (data is from paper by Carpenter & Dobkin (2015)) to tackle this question.
 
 
 ```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(rdrobust)
 
-mlda = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RDD/data/mlda.csv")
+mlda = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RDD/data/mlda_18_24.csv")
 ```
 
 Here's the list of some variables in your dataset:
@@ -45,9 +45,9 @@ Here's the list of some variables in your dataset:
 - `all`: Total number of arrests
 - `felony`: Total number of felonies arrests
 - `murder`: Total number of murder arrests
-- `ill_drugs`: Total number of illegal drugs arrests
+- `assault`: Total number of assault arrests
 - `alcohol`: Total number of arrests related to alcohol
-- `dump_or_litter`: : Total number of dump or litter arrests
+- `dui`: : Total number of driving under the influece arrests
 - `female`: Proportion of female arrests (sim)
 
 ## Tasks
@@ -62,3 +62,6 @@ Here's the list of some variables in your dataset:
 
 
 4) Finally, let's calculate an effect! Use a linear model (`lm()`) to estimate the RDD, using `alcohol` as your outcome, and compare it to the results of `rdrobust()`. Include a plot using `rdplot()`. Which one do you think is a better estimate? Interpret your  effect.
+
+
+*At home: Try the same analysis but for a different outcome (e.g. DUI or assault). What do you find?*

@@ -381,12 +381,13 @@ look at the external benefits of this, for example in health outcomes or
 crime.</p>
 <p>In this exercise, we will be working with real arrest data from the
 California Department of Justice’s Monthly Arrest and Citation register
-(MACR) between 1979 and 2006 (data is from paper by Carpenter &amp;
-Dobkin (2014)) to tackle this question.</p>
+(MACR) between 1979 and 2006 for individuals between 18 and 24 years old
+(data is from paper by Carpenter &amp; Dobkin (2015)) to tackle this
+question.</p>
 <pre class="r"><code>library(tidyverse)
 library(rdrobust)
 
-mlda = read.csv(&quot;https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RDD/data/mlda.csv&quot;)</code></pre>
+mlda = read.csv(&quot;https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RDD/data/mlda_18_24.csv&quot;)</code></pre>
 <p>Here’s the list of some variables in your dataset:</p>
 <ul>
 <li><code>age_days</code>: Age of the people arrested, in days (we will
@@ -394,10 +395,10 @@ assume 7670 days = 21 years)</li>
 <li><code>all</code>: Total number of arrests</li>
 <li><code>felony</code>: Total number of felonies arrests</li>
 <li><code>murder</code>: Total number of murder arrests</li>
-<li><code>ill_drugs</code>: Total number of illegal drugs arrests</li>
+<li><code>assault</code>: Total number of assault arrests</li>
 <li><code>alcohol</code>: Total number of arrests related to
 alcohol</li>
-<li><code>dump_or_litter</code>: : Total number of dump or litter
+<li><code>dui</code>: : Total number of driving under the influece
 arrests</li>
 <li><code>female</code>: Proportion of female arrests (sim)</li>
 </ul>
@@ -424,6 +425,8 @@ your outcome, and compare it to the results of <code>rdrobust()</code>.
 Include a plot using <code>rdplot()</code>. Which one do you think is a
 better estimate? Interpret your effect.</p></li>
 </ol>
+<p><em>At home: Try the same analysis but for a different outcome
+(e.g. DUI or assault). What do you find?</em></p>
 </div>
 </div>
 

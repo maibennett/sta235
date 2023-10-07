@@ -45,9 +45,9 @@ Here's the list of some variables in your dataset:
 - `all`: Total number of arrests
 - `felony`: Total number of felonies arrests
 - `murder`: Total number of murder arrests
-- `ill_drugs`: Total number of illegal drugs arrests
+- `assault`: Total number of assault arrests
 - `alcohol`: Total number of arrests related to alcohol
-- `dump_or_litter`: : Total number of dump or litter arrests
+- `dui`: : Total number of driving under the influece arrests
 - `female`: Proportion of female arrests (sim)
 
 ## Tasks
@@ -80,7 +80,8 @@ rdplot(mlda$treat, mlda$r, c = 0, x.label = "Days since 21st birthday", y.lab = 
 We expect all baseline covariates to be smooth across the threshold (no jumps!), so we shouldn't expect a discontinuity in other variables (hint: you can think about this as a "balance" check for an RDD).
 
 ```{r}
-rdplot(mlda$female, mlda$r, c = 0, x.label = "Days since 21st birthday", y.lab = "Female arrests (proportion)")
+rdplot(mlda$female, mlda$r, c = 0, x.label = "Days since 21st birthday", y.lab = "Female arrests (proportion)",
+       col.dots = alpha("#F89441",0.3), col.lines = "#900DA4")
 ```
 
 ```{r}
@@ -88,13 +89,13 @@ summary(rdrobust(mlda$female, mlda$r, c = 0))
 ```
 
 
-4) Finally, let's calculate an effect! Use a linear model (`lm()`) to estimate the RDD, using `alcohol` as your outcome, and compare it to the results of `rdrobust()`. Include a plot using `rdplot()`. Which one do you think is a better estimate? Interpret your  effect.
+4) Finally, let's calculate an effect! Use a linear model (`lm()`) to estimate the RDD, using `all` as your outcome, and compare it to the results of `rdrobust()`. Include a plot using `rdplot()`. Which one do you think is a better estimate? Interpret your  effect.
 
 *Answer:*
 
 *For the interpretation, remember that this is valid for people exactly at the cutoff (Hint: Think of what the age for people at the cutoff is)*.
 
-According to the linear model, the estimate is 122.9, while for rdrobust is -67.47. Why is there such a big difference?
+According to the linear model, the estimate is 34.7, while for rdrobust is 409.1. Why is there such a big difference?
 
 ```{r}
 lm_rd = lm(all ~ treat*r, data = mlda)
@@ -128,4 +129,4 @@ rdplot(mlda$all, mlda$r, c = 0, x.label = "Days since 21st birthday", y.label = 
 ```
 
 
-As you can see, the linear plot doesn't do a good job approximating the data for the treatment group, so it seems like there is a "positive" effect of MLDA (increase in arrests), but there's actually not.
+As you can see, the linear plot doesn't do a good job approximating the data for the control group, so it seems like there is a much smaller effect of MLDA than there actually is.

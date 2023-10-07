@@ -99,8 +99,6 @@ class: center, middle, inverse, title-slide
   - How we can use two wrong estimates to get a right one.
   
   - Assumptions behind DD.
-  
-  - *Video on interpreting the coefficients for DD*.
 ]
 
 .pull-right[
@@ -644,7 +642,7 @@ summary(lm(sales ~ dist*treat, data = sales_close))
 
 ```r
 rdplot(y = sales$sales, x = sales$dist, c = 0, 
-       title = "RD plot", x.label = "c - time", y.label = "sales")
+       title = "RD plot", x.label = "Time since opening in min (centered at 1,000 customer)", y.label = "Sales ($)")
 ```
 
 &lt;img src="f2023_sta235h_9_RDD_annotate_files/figure-html/rdplot-1.svg" style="display: block; margin: auto;" /&gt;
@@ -655,7 +653,7 @@ rdplot(y = sales$sales, x = sales$dist, c = 0,
 
 ```r
 rdplot(y = sales$sales, x = sales$dist, c = 0, 
-       title = "RD plot", x.label = "c - time", y.label = "sales")
+       title = "RD plot", x.label = "Time since opening in min (centered at 1,000 customer)", y.label = "Sales ($)")
 ```
 
 .pull-left[
