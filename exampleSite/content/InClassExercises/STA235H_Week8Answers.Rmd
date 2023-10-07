@@ -29,14 +29,14 @@ div.main-container {
 
 Most (if not all) countries have a minimum legal drinking age (MLDA), and people often ask if this makes sense or not. Should the MLDA be higher or lower or even exist at all? One way to think about this is to look at the external benefits of this, for example in health outcomes or crime.
 
-In this exercise, we will be working with real arrest data from the California Department of Justice's Monthly Arrest and Citation register (MACR) between 1979 and 2006 (data is from paper by Carpenter & Dobkin (2014)) to tackle this question.
+In this exercise, we will be working with real arrest data from the California Department of Justice's Monthly Arrest and Citation register (MACR) between 1979 and 2006 for individuals between 18 and 24 years old (data is from paper by Carpenter & Dobkin (2015)) to tackle this question.
 
 
 ```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(rdrobust)
 
-mlda = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RDD/data/mlda.csv")
+mlda = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RDD/data/mlda_18_24.csv")
 ```
 
 Here's the list of some variables in your dataset:
@@ -70,7 +70,7 @@ mlda = mlda %>% mutate(r = age_days - 7670,
 We can see that there is a perfect discontinuity! 100% of individuals at the right of the cutoff are treated, and 100% at the left of the cutoff are not.
 
 ```{r, message = FALSE, warning = FALSE}
-rdplot(mlda$treat, mlda$r, c = 0)
+rdplot(mlda$treat, mlda$r, c = 0, x.label = "Days since 21st birthday", y.lab = "Legally able to drink (proportion)")
 ```
 
 3) Let's do another robustness check, by checking the smoothness of covariates across the threshold. Using `rdplot()` and `rdrobust()`, fit a RDD with `female` as your outcome and `r` as your running variable. Should you see a discontinuity?
@@ -80,7 +80,7 @@ rdplot(mlda$treat, mlda$r, c = 0)
 We expect all baseline covariates to be smooth across the threshold (no jumps!), so we shouldn't expect a discontinuity in other variables (hint: you can think about this as a "balance" check for an RDD).
 
 ```{r}
-rdplot(mlda$female, mlda$r, c = 0)
+rdplot(mlda$female, mlda$r, c = 0, x.label = "Days since 21st birthday", y.lab = "Female arrests (proportion)")
 ```
 
 ```{r}
@@ -97,11 +97,11 @@ summary(rdrobust(mlda$female, mlda$r, c = 0))
 According to the linear model, the estimate is 122.9, while for rdrobust is -67.47. Why is there such a big difference?
 
 ```{r}
-lm_rd = lm(alcohol ~ treat*r, data = mlda)
+lm_rd = lm(all ~ treat*r, data = mlda)
 
 summary(lm_rd)
 
-summary(rdrobust(mlda$alcohol, mlda$r, c = 0))
+summary(rdrobust(mlda$all, mlda$r, c = 0))
 ```
 
 Let's compare the plots:
@@ -115,15 +115,16 @@ mlda_control = mlda %>% filter(treat==0)
 # We will create a scatter plot with two smooth lines (regressions),
 # one for each side of the cutoff.
 
-ggplot(data = mlda, aes(x = r, y = alcohol)) +
+ggplot(data = mlda, aes(x = r, y = all)) +
   geom_point(pch = 21, color = "grey", fill = alpha("grey",0.5)) +
-  geom_smooth(data = mlda_treat, aes(x = r, y = alcohol), method = "lm",
+  geom_smooth(data = mlda_treat, aes(x = r, y = all), method = "lm",
               se = FALSE, color = "purple") +
-  geom_smooth(data = mlda_control, aes(x = r, y = alcohol), method = "lm",
+  geom_smooth(data = mlda_control, aes(x = r, y = all), method = "lm",
               se = FALSE, color = "darkorange") +
-  theme_minimal()
+  theme_minimal() + xlab("Days since 21st birthday") + ylab("Number of alcohol arrests")
 
-rdplot(mlda$alcohol, mlda$r, c = 0)
+rdplot(mlda$all, mlda$r, c = 0, x.label = "Days since 21st birthday", y.label = "Number of alcohol arrests",
+       col.dots = alpha("#F89441",0.3), col.lines = "#900DA4")
 ```
 
 

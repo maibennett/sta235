@@ -29,7 +29,7 @@ div.main-container {
 
 Most (if not all) countries have a minimum legal drinking age (MLDA), and people often ask if this makes sense or not. Should the MLDA be higher or lower or even exist at all? One way to think about this is to look at the external benefits of this, for example in health outcomes or crime.
 
-In this exercise, we will be working with real arrest data from the California Department of Justice's Monthly Arrest and Citation register (MACR) between 1979 and 2006 (data is from paper by Carpenter & Dobkin (2014)) to tackle this question.
+In this exercise, we will be working with real arrest data from the California Department of Justice's Monthly Arrest and Citation register (MACR) between 1979 and 2006 (data is from paper by Carpenter & Dobkin (2015)) to tackle this question.
 
 
 ```{r, message=FALSE, warning=FALSE}

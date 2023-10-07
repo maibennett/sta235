@@ -76,9 +76,9 @@ class: center, middle, inverse, title-slide
 
 --
 
-- Remember that &lt;u&gt;all&lt;/u&gt; submissions for JITTs are **.darkorange[formal submissions]** for an assignment.
+- Check out the **.darkorange[answers for the JITTs]** on the course website:
 
-  - Use proper language (e.g. "nah" or "meh" are not actual words) and keep answers pertinent to the class.
+  - Even if you got full credit, check the feedback and the correct answer.
 
 
 ---
@@ -89,7 +89,7 @@ class: center, middle, inverse, title-slide
   
   - RCTs in the wild.
   
-  - Importance of the context and checking balance.
+  - Always check for balance!
   
 - **.darkorange[Difference-in-Differences (DD)]**:
   
@@ -97,7 +97,7 @@ class: center, middle, inverse, title-slide
   
   - Assumptions behind DD.
   
-  - *Make sure to check the JITT answer on the course website*.
+  - *Video on interpreting the coefficients for DD*.
 ]
 
 .pull-right[
@@ -343,6 +343,10 @@ class: left, bottom, inverse
 .big[
 Estimation in practice
 ]
+---
+# We need to identify that "jump"
+
+&lt;img src="f2023_sta235h_9_RDD_files/figure-html/estimate_rd-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # How do we actually estimate an RDD?
@@ -635,7 +639,7 @@ summary(lm(sales ~ dist*treat, data = sales_close))
 
 ```r
 rdplot(y = sales$sales, x = sales$dist, c = 0, 
-       title = "RD plot", x.label = "c - time", y.label = "sales")
+       title = "RD plot", x.label = "Time since opening in min (centered at 1,000 customer)", y.label = "Sales ($)")
 ```
 
 &lt;img src="f2023_sta235h_9_RDD_files/figure-html/rdplot-1.svg" style="display: block; margin: auto;" /&gt;
@@ -646,7 +650,7 @@ rdplot(y = sales$sales, x = sales$dist, c = 0,
 
 ```r
 rdplot(y = sales$sales, x = sales$dist, c = 0, 
-       title = "RD plot", x.label = "c - time", y.label = "sales")
+       title = "RD plot", x.label = "Time since opening in min (centered at 1,000 customer)", y.label = "Sales ($)")
 ```
 
 .pull-left[
