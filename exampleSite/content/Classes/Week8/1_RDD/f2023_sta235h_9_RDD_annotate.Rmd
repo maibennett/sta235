@@ -1130,7 +1130,7 @@ summary(lm(sales ~ dist*treat, data = sales_close))
 
 ```{r, echo = TRUE, eval = FALSE}
 rdplot(y = sales$sales, x = sales$dist, c = 0, 
-       title = "RD plot", x.label = "Time since opening in min (centered at 1,000 customer)", y.label = "Sales ($)")
+       title = "RD plot", x.label = "Time to 1,000 customer (min)", y.label = "Sales ($)")
 ```
 
 ```{r rdplot, fig.height=4.5, fig.width=8, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
@@ -1139,7 +1139,7 @@ library(rdrobust)
 c = min(sales$time[sales$treat==0])
 
 rdplot(y = sales$sales, x = sales$dist, c = 0, title = "RD plot",
-       x.label = "Time since opening in min (centered at 1,000 customer)", y.label = "Sales ($)", col.dots = "#F89441", col.lines = "#900DA4")
+       x.label = "Time to 1,000 customer (min)", y.label = "Sales ($)", col.dots = "#F89441", col.lines = "#900DA4")
 ```
 
 ---
@@ -1147,7 +1147,7 @@ rdplot(y = sales$sales, x = sales$dist, c = 0, title = "RD plot",
 
 ```{r, echo = TRUE, eval = FALSE}
 rdplot(y = sales$sales, x = sales$dist, c = 0, 
-       title = "RD plot", x.label = "Time since opening in min (centered at 1,000 customer)", y.label = "Sales ($)")
+       title = "RD plot", x.label = "Time to 1,000 customer (min)", y.label = "Sales ($)")
 ```
 
 .pull-left[
@@ -1171,7 +1171,7 @@ ggplot(data = sales_aug, aes(x = dist, y = sales)) +
         legend.title = element_blank(),
         legend.text = element_text(size=15),
         legend.background = element_rect(fill="white",colour ="white"),
-        title = element_text(size=14)) + xlab("Time since opening in min (centered at 1,000 customer)") + ylab("Sales ($)")
+        title = element_text(size=14)) + xlab("Time to 1,000 customer (min)") + ylab("Sales ($)")
 
 ```
 ]
@@ -1179,7 +1179,7 @@ ggplot(data = sales_aug, aes(x = dist, y = sales)) +
 .pull-right[
 ```{r rdplot2b, fig.height=4.5, fig.width=6, fig.align='center', dev='svg', echo=FALSE, warning=FALSE, message = FALSE}
 rdplot(y = sales$sales, x = sales$dist, c = 0, title = "RD plot",
-       x.label = "Time since opening in min (centered at 1,000 customer)", y.label = "Sales ($)", col.dots = "#F89441", col.lines = "#900DA4")
+       x.label = "Time to 1,000 customer (min)", y.label = "Sales ($)", col.dots = "#F89441", col.lines = "#900DA4")
 
 ```
 ]
@@ -1189,7 +1189,8 @@ rdplot(y = sales$sales, x = sales$dist, c = 0, title = "RD plot",
 
 .small[
 ```{r, warning=FALSE, message=FALSE}
-summary(rdrobust(y = sales$sales, x = sales$dist, c = 0))
+rd_sales = rdrobust(y = sales$sales, x = sales$dist, c = 0)
+summary(rd_sales)
 ```
 ]
 

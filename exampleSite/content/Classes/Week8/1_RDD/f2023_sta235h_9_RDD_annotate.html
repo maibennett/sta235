@@ -642,7 +642,7 @@ summary(lm(sales ~ dist*treat, data = sales_close))
 
 ```r
 rdplot(y = sales$sales, x = sales$dist, c = 0, 
-       title = "RD plot", x.label = "Time since opening in min (centered at 1,000 customer)", y.label = "Sales ($)")
+       title = "RD plot", x.label = "Time to 1,000 customer (min)", y.label = "Sales ($)")
 ```
 
 &lt;img src="f2023_sta235h_9_RDD_annotate_files/figure-html/rdplot-1.svg" style="display: block; margin: auto;" /&gt;
@@ -653,7 +653,7 @@ rdplot(y = sales$sales, x = sales$dist, c = 0,
 
 ```r
 rdplot(y = sales$sales, x = sales$dist, c = 0, 
-       title = "RD plot", x.label = "Time since opening in min (centered at 1,000 customer)", y.label = "Sales ($)")
+       title = "RD plot", x.label = "Time to 1,000 customer (min)", y.label = "Sales ($)")
 ```
 
 .pull-left[
@@ -670,7 +670,8 @@ rdplot(y = sales$sales, x = sales$dist, c = 0,
 .small[
 
 ```r
-summary(rdrobust(y = sales$sales, x = sales$dist, c = 0))
+rd_sales = rdrobust(y = sales$sales, x = sales$dist, c = 0)
+summary(rd_sales)
 ```
 
 ```
