@@ -21,9 +21,9 @@ In this class we will finish with our causal inference chapter and tackle our la
 
 ## Slides
 
-<!-- {{% button href="https://sta235.netlify.app/Classes/Week8/1_RDD/f2023_sta235h_9_RDD.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week8/1_RDD/f2023_sta235h_9_RDD.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.netlify.app/Classes/Week8/1_RDD/f2023_sta235h_9_RDD.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week8/1_RDD/f2023_sta235h_9_RDD.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week8/1_RDD/f2023_sta235h_9_RDD.html" >}} -->
+{{< slides src="https://sta235.netlify.app/Classes/Week8/1_RDD/f2023_sta235h_9_RDD.html" >}}
 
 
 ## Code
