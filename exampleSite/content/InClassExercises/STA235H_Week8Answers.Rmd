@@ -89,7 +89,7 @@ summary(rdrobust(mlda$female, mlda$r, c = 0))
 ```
 
 
-4) Finally, let's calculate an effect! Use a linear model (`lm()`) to estimate the RDD, using `all` as your outcome, and compare it to the results of `rdrobust()`. Include a plot using `rdplot()`. Which one do you think is a better estimate? Interpret your  effect.
+4) Finally, let's calculate an effect! Use a linear model (`lm()`) to estimate the RDD, using `alcohol` as your outcome, and compare it to the results of `rdrobust()`. Include a plot using `rdplot()`. Which one do you think is a better estimate? Interpret your  effect.
 
 *Answer:*
 
@@ -98,11 +98,11 @@ summary(rdrobust(mlda$female, mlda$r, c = 0))
 According to the linear model, the estimate is 34.7, while for rdrobust is 409.1. Why is there such a big difference?
 
 ```{r}
-lm_rd = lm(all ~ treat*r, data = mlda)
+lm_rd = lm(alcohol ~ treat*r, data = mlda)
 
 summary(lm_rd)
 
-summary(rdrobust(mlda$all, mlda$r, c = 0))
+summary(rdrobust(mlda$alcohol, mlda$r, c = 0))
 ```
 
 Let's compare the plots:
@@ -116,11 +116,11 @@ mlda_control = mlda %>% filter(treat==0)
 # We will create a scatter plot with two smooth lines (regressions),
 # one for each side of the cutoff.
 
-ggplot(data = mlda, aes(x = r, y = all)) +
+ggplot(data = mlda, aes(x = r, y = alcohol)) +
   geom_point(pch = 21, color = "grey", fill = alpha("grey",0.5)) +
-  geom_smooth(data = mlda_treat, aes(x = r, y = all), method = "lm",
+  geom_smooth(data = mlda_treat, aes(x = r, y = alcohol), method = "lm",
               se = FALSE, color = "purple") +
-  geom_smooth(data = mlda_control, aes(x = r, y = all), method = "lm",
+  geom_smooth(data = mlda_control, aes(x = r, y = alcohol), method = "lm",
               se = FALSE, color = "darkorange") +
   theme_minimal() + xlab("Days since 21st birthday") + ylab("Number of alcohol arrests")
 
