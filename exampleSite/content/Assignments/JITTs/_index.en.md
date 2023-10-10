@@ -33,4 +33,4 @@ Weekly assignments submitted via **Canvas**
 
 ### JITT 7
 
-- The `treat` coefficient is capturing the differences between treated and control states **before** the policy was set in place. The interpretation of the coefficient would be as follows: "On average, NY and CA had an average subscription rate that was 5.4 percentage points higher than other states prior to the implementation of the policy/ in April 2022."
+- The `treat` coefficient is capturing the differences between treated and control states **before** the policy was set in place. The interpretation of the coefficient would be as follows: "On average, NY and CA had an average subscription rate that was 5.4 percentage points higher than other states prior to the implementation of the policy / in April 2022." Or, you could also say: "On average, a person in NY and CA has a probability of subscription that is 5.4 percentage points higher than a person in another state, before the implementation of the policy / in April 2022"
