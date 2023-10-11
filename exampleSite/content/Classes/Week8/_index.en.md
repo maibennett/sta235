@@ -28,11 +28,11 @@ In this class we will finish with our causal inference chapter and tackle our la
 
 ## Code
 
-<!-- You can open the in-class exercise here:
+You can open the in-class exercise here:
 <script>let date = Date.now();</script>
 
 <a onclick="gtag('event','code8_inclass', {'event_category': 'code','event_label': 'code8_inclass', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/InClassExercises/STA235H_Week8.html" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
 After you've given it a try, compare your answers here: 
 
-<a onclick="gtag('event','code8', {'event_category': 'code','event_label': 'code8', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/InClassExercises/STA235H_Week8Answers.html" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a> -->
+<a onclick="gtag('event','code8', {'event_category': 'code','event_label': 'code8', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/InClassExercises/STA235H_Week8Answers.html" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
