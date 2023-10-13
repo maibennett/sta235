@@ -4,24 +4,24 @@
 
 ### STA 235H Bootcamp
 
-{{% button href="https://sta235.com/bootcamp/f2023_sta235h_bootcamp.html" icon="fas fa-external-link-alt" icon-position="right" %}}HTML slides{{% /button %}} {{% button href="https://sta235.com/bootcamp/f2023_sta235h_bootcamp.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.com/bootcamp/f2023_sta235h_bootcamp.html" icon="fas fa-external-link-alt" icon-position="right" %}}HTML slides{{% /button %}} {{% button href="https://sta235.com/bootcamp/f2023_sta235h_bootcamp.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download {{% /button %}} 
 
-Here is the R code we will review in the bootcamp <a onclick="ga('send', 'event', 'External-Link','click','bootcamp','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/bootcamp/code/sta235_bootcamp.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+Here is the R code we will review in the bootcamp <a onclick="ga('send', 'event', 'External-Link','click','bootcamp','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/bootcamp/code/sta235_bootcamp.R" target="_blank" class="btn btn-default">Download <i class="fas fa-code"></i></a>
 
-Answers: <a onclick="ga('send', 'event', 'External-Link','click','bootcamp_answers','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/bootcamp/code/sta235_bootcamp_answers.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+Answers: <a onclick="ga('send', 'event', 'External-Link','click','bootcamp_answers','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/bootcamp/code/sta235_bootcamp_answers.R" target="_blank" class="btn btn-default">Download <i class="fas fa-code"></i></a>
 
 ### Practice questions
 
 <script>let date = Date.now();</script>
-- Practice set 1: <a onclick="gtag('event','practice1', {'event_category': 'HW','event_label': 'practice1', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/PracticeQuestions/STA235H_PracticeQ1.html" target="_blank" class="btn btn-default">Download<i class="fas fa-external-link-alt"></i></a>
+- Practice set 1: <a onclick="gtag('event','practice1', {'event_category': 'HW','event_label': 'practice1', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/PracticeQuestions/STA235H_PracticeQ1.html" target="_blank" class="btn btn-default">Download <i class="fas fa-external-link-alt"></i></a>
 
 ### Review sessions
 
 #### Midterm
 
-Slides (pdf) <a onclick="ga('send', 'event', 'External-Link','click','reviewsession','0','Link');" href="https://sta235.com/ReviewSession/Midterm/f2023_sta235h_ReviewMidterm.pdf" target="_blank" class="btn btn-default">Download<i class="fas fa-file-pdf"></i></a>
+Slides (pdf) <a onclick="ga('send', 'event', 'External-Link','click','reviewsession','0','Link');" href="https://sta235.com/ReviewSession/Midterm/f2023_sta235h_ReviewMidterm.pdf" target="_blank" class="btn btn-default">Download <i class="fas fa-file-pdf"></i></a>
 
-Slides (html) <a onclick="ga('send', 'event', 'External-Link','click','reviewsession','0','Link');" href="https://sta235.com/ReviewSession/Midterm/f2023_sta235h_ReviewMidterm.pdf" target="_blank" class="btn btn-default">Download<i class="fa-external-link-alt"></i></a>
+Slides (html) <a onclick="ga('send', 'event', 'External-Link','click','reviewsession','0','Link');" href="https://sta235.com/ReviewSession/Midterm/f2023_sta235h_ReviewMidterm.html" target="_blank" class="btn btn-default">Download <i class="fas fa-external-link-alt"></i></a>
 
 R code (we won't be going over code) <a onclick="ga('send', 'event', 'External-Link','click','reviewsession_code','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/ReviewSession/Midterm/STA235H_ReviewMidterm.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
