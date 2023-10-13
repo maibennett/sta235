@@ -25,7 +25,7 @@ Slides (pdf) <a onclick="ga('send', 'event', 'External-Link','click','reviewsess
 
 R code (we won't be going over code) <a onclick="ga('send', 'event', 'External-Link','click','reviewsession_code','0','Link');" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/ReviewSession/Midterm/STA235H_ReviewMidterm.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
-<!-- **Answers:** <a onclick="ga('send', 'event', 'External-Link','click','reviewsession_answers','0','Link');" href="https://sta235.com/ReviewSession/Midterm/f2023_sta235h_ReviewMidterm_Answers.html" target="_blank" class="btn btn-default">Download<i class="fa-external-link-alt"></i></a> -->
+\**Answers:** <a onclick="ga('send', 'event', 'External-Link','click','reviewsession_answers','0','Link');" href="https://sta235.com/ReviewSession/Midterm/f2023_sta235h_ReviewMidterm_Answers.html" target="_blank" class="btn btn-default">Download<i class="fa-external-link-alt"></i></a>
 
 
 ### Refresher from STA 301
