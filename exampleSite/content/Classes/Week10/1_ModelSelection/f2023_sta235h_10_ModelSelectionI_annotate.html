@@ -26,7 +26,7 @@ class: center, middle, inverse, title-slide
 # STA 235H - Model Selection I:<br/>Bias vs Variance, Cross-Validation, and Stepwise
 ]
 .subtitle[
-## Fall 2022
+## Fall 2023
 ]
 .author[
 ### McCombs School of Business, UT Austin
@@ -98,7 +98,7 @@ class: center, middle, inverse, title-slide
   
 --
 
-- *"On average, for individuals with exactly 21 years of age, being legally able to drink decreases the total number of arrests by 287, compared to not being legally able to drink"*
+- *"On average, for individuals with exactly 21 years of age, being legally able to drink increases the total number of arrests by 409.1, compared to not being legally able to drink"*
 
 ---
 # Introduction to prediction
@@ -217,7 +217,7 @@ class: center, middle, inverse, title-slide
 
 .box-2[Variance]
 
-.box-2t["[T]he amount by which the function *f*  would change if we estimated it using a different training dataset"]
+.box-2t["[T]he amount by which the function *f*   would change if we estimated it using a different training dataset"]
 
 --
 
@@ -269,25 +269,25 @@ Different measures:
 ---
 # Is flexibility always better?
 
-&lt;img src="f2022_sta235h_13_ModelSelectionI_annotate_files/figure-html/bias_variance-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_10_ModelSelectionI_annotate_files/figure-html/bias_variance-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Is flexibility always better?
 
-&lt;img src="f2022_sta235h_13_ModelSelectionI_annotate_files/figure-html/bias_variance2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_10_ModelSelectionI_annotate_files/figure-html/bias_variance2-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Is flexibility always better?
 
-&lt;img src="f2022_sta235h_13_ModelSelectionI_annotate_files/figure-html/bias_variance3-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_10_ModelSelectionI_annotate_files/figure-html/bias_variance3-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Is flexibility always better?
 
-&lt;img src="f2022_sta235h_13_ModelSelectionI_annotate_files/figure-html/bias_variance4-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_10_ModelSelectionI_annotate_files/figure-html/bias_variance4-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
-# Example: Let's predict pre-churn!
+# Example: Let's predict "pre-churn"!
 
 - You work at HBO Max and you know that a good measure for someone at risk of unsubscribing is the **.darkorange[times they've logged in the past week]**:
 
@@ -295,7 +295,7 @@ Different measures:
 
 
 ```r
-hbo &lt;- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/data/hbomax.csv")
+hbo = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/data/hbomax.csv")
 
 head(hbo)
 ```
@@ -333,12 +333,12 @@ $$
 ```r
 set.seed(100) #Always set seed for replication!
 
-*n &lt;- nrow(hbo)
+*n = nrow(hbo)
 
-train &lt;- sample(1:n, n*0.8) #randomly select 80% of the rows for our training sample
+train = sample(1:n, n*0.8) #randomly select 80% of the rows for our training sample
 
-train.data &lt;- hbo %&gt;% slice(train)
-test.data &lt;- hbo %&gt;% slice(-train)
+train.data = hbo %&gt;% slice(train)
+test.data = hbo %&gt;% slice(-train)
 ```
 
 ---
@@ -348,12 +348,12 @@ test.data &lt;- hbo %&gt;% slice(-train)
 ```r
 set.seed(100) #Always set seed for replication!
 
-n &lt;- nrow(hbo)
+n = nrow(hbo)
 
-*train &lt;- sample(1:n, n*0.8)
+*train = sample(1:n, n*0.8)
 
-train.data &lt;- hbo %&gt;% slice(train)
-test.data &lt;- hbo %&gt;% slice(-train)
+train.data = hbo %&gt;% slice(train)
+test.data = hbo %&gt;% slice(-train)
 ```
 
 ---
@@ -363,12 +363,12 @@ test.data &lt;- hbo %&gt;% slice(-train)
 ```r
 set.seed(100) #Always set seed for replication!
 
-n &lt;- nrow(hbo)
+n = nrow(hbo)
 
-train &lt;- sample(1:n, n*0.8) #randomly select 80% of the rows for our training sample
+train = sample(1:n, n*0.8) #randomly select 80% of the rows for our training sample
 
-*train.data &lt;- hbo %&gt;% slice(train)
-*test.data &lt;- hbo %&gt;% slice(-train)
+*train.data = hbo %&gt;% slice(train)
+*test.data = hbo %&gt;% slice(-train)
 ```
 ---
 # Estimate Accuracy Measure
@@ -377,25 +377,25 @@ train &lt;- sample(1:n, n*0.8) #randomly select 80% of the rows for our training
 ```r
 library(modelr)
 
-lm_simple &lt;- lm(logins ~ got + city, data = train.data)
+lm_simple = lm(logins ~ got + city, data = train.data)
 
-lm_complex &lt;- lm(logins ~ female + city + age + I(age^2) + got, data = train.data)
+lm_complex = lm(logins ~ female + city + age + I(age^2) + got, data = train.data)
 
 # For simple model:
-rmse(lm_simple, test.data)
+rmse(lm_simple, test.data) %&gt;% round(., 4)
 ```
 
 ```
-## [1] 2.089868
+## [1] 2.0899
 ```
 
 ```r
 # For complex model:
-rmse(lm_complex, test.data)
+rmse(lm_complex, test.data) %&gt;% round(., 4)
 ```
 
 ```
-## [1] 2.093429
+## [1] 2.0934
 ```
 
 - **.darkorange[Q2: Which one would you prefer?]**
@@ -437,9 +437,9 @@ Main advantage: Use the entire dataset for training **.darkorange[AND]** testing
 
 set.seed(100)
 
-train.control &lt;- trainControl(method = "cv", number = 10)
+train.control = trainControl(method = "cv", number = 10)
 
-lm_simple &lt;- train(logins ~ got + city, data = disney, method="lm", trControl = train.control)
+lm_simple = train(logins ~ got + city, data = disney, method="lm", trControl = train.control)
 
 lm_simple
 ```
@@ -453,9 +453,9 @@ library(caret)
 
 *set.seed(100)
 
-train.control &lt;- trainControl(method = "cv", number = 10)
+train.control = trainControl(method = "cv", number = 10)
 
-lm_simple &lt;- train(logins ~ got + city, data = disney, method="lm", trControl = train.control)
+lm_simple = train(logins ~ got + city, data = disney, method="lm", trControl = train.control)
 
 lm_simple
 ```
@@ -469,9 +469,9 @@ library(caret)
 
 set.seed(100)
 
-*train.control &lt;- trainControl(method = "cv", number = 10)
+*train.control = trainControl(method = "cv", number = 10)
 
-lm_simple &lt;- train(logins ~ got + city, data = disney, method="lm", trControl = train.control)
+lm_simple = train(logins ~ got + city, data = disney, method="lm", trControl = train.control)
 
 lm_simple
 ```
@@ -485,9 +485,9 @@ library(caret)
 
 *set.seed(100)
 
-train.control &lt;- trainControl(method = "cv", number = 10)
+train.control = trainControl(method = "cv", number = 10)
 
-*lm_simple &lt;- train(logins ~ got + city, data = hbo, method="lm", trControl = train.control)
+*lm_simple = train(logins ~ got + city, data = hbo, method="lm", trControl = train.control)
 
 lm_simple
 ```
@@ -543,9 +543,9 @@ Algorithm for forward stepwise selection:
 ```r
 set.seed(100)
 
-train.control &lt;- trainControl(method = "cv", number = 10) #set up a 10-fold cv
+train.control = trainControl(method = "cv", number = 10) #set up a 10-fold cv
 
-*lm.fwd &lt;- train(logins ~ . - unsubscribe, data = hbo, method = "leapForward",
+*lm.fwd = train(logins ~ . - unsubscribe, data = hbo, method = "leapForward",
 *               tuneGrid = data.frame(nvmax = 1:5), trControl = train.control)
 lm.fwd$results
 ```
@@ -619,7 +619,7 @@ coef(lm.fwd$finalModel, lm.fwd$bestTune$nvmax)
 ---
 # In-class Activity
 
-- Go to **.darkorange[https://sta235h.rocks/Week10]** and read the exercise.
+- Go to **.darkorange[https://sta235h.click/Week10]** and read the exercise.
 
 - Answer the questions in the activity and write them in your sheet.
 

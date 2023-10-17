@@ -1,7 +1,7 @@
 ################################################################################
 ### Title: "Week 10 - Prediction I"
 ### Course: STA 235H
-### Semester: Fall 2022
+### Semester: Fall 2023
 ### Professor: Magdalena Bennett
 ################################################################################
 
@@ -21,7 +21,7 @@ library(caret)
 ################################################################################
 ################ Measuring churn ###############################################
 
-hbo <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/data/hbomax.csv")
+hbo = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/data/hbomax.csv")
 
 head(hbo)
 
@@ -29,20 +29,20 @@ head(hbo)
 
 set.seed(100) #Always set seed for replication! (and make sure you are running an updated version of R!)
 
-n <- nrow(hbo) # Will tell us how many observations we have
+n = nrow(hbo) # Will tell us how many observations we have
 
-train <- sample(1:n, n*0.8) #randomly select 80% of the rows for our training sample
+train = sample(x = 1:n, size = n*0.8) #randomly select 80% of the rows for our training sample
 
 # slice() selects rows from a dataset based on the row number.
-train.data <- hbo %>% slice(train) #use only the rows that were selected for training
+train.data = hbo %>% slice(train) #use only the rows that were selected for training
 
-test.data <- hbo %>% slice(-train) #the rest are used for testing
+test.data = hbo %>% slice(-train) #the rest are used for testing
 
 ### Simple model
-lm_simple <- lm(logins ~ got + city, data = train.data) #Train the model on the TRAINING DATASET
+lm_simple = lm(logins ~ got + city, data = train.data) #Train the model on the TRAINING DATASET
 
 ### Complex model
-lm_complex <- lm(logins ~ female + city + age + I(age^2) + got, data = train.data) #Train the model on the TRAINING DATASET
+lm_complex = lm(logins ~ female + city + age + I(age^2) + got, data = train.data) #Train the model on the TRAINING DATASET
 
 
 # Estimate RMSE for these models on the TRAINING dataset:
@@ -53,7 +53,7 @@ rmse(lm_simple, train.data) #rmse() in the `modelr` package takes model we are u
 rmse(lm_complex, train.data)
 
 # If we wanted to actually get the predictions, we could also do that with the following line:
-pred_complex_train <- lm_complex %>% predict(train.data) #We start with the model, and then use the function predict on the data we want.
+pred_complex_train = lm_complex %>% predict(train.data) #We start with the model, and then use the function predict on the data we want.
 
 ## Question: According to this, which model is better? Is this the comparison we want?
 
@@ -74,18 +74,18 @@ rmse(lm_complex, test.data)
 
 set.seed(100) # Set seed for replication!
 
-train.control <- trainControl(method = "cv", number = 10) #This is a function from the package caret. We are telling our data that we will use a cross validation approach (cv) with 10 folds (number). Use ?trainControl to see the different methods we could use!
+train.control = trainControl(method = "cv", number = 10) #This is a function from the package caret. We are telling our data that we will use a cross validation approach (cv) with 10 folds (number). Use ?trainControl to see the different methods we could use!
 
-lm_simple_cv <- train(logins ~ got + city, data = hbo, method="lm",
+lm_simple_cv = train(logins ~ got + city, data = hbo, method="lm",
                trControl = train.control) #See that here (in the train function), we just pass all the data. The function will divide it in folds and do all that!
 
 lm_simple_cv
 
 
-lm_complex_cv <- train(logins ~ female + city + age + I(age^2) + got, data = hbo, method="lm",
+lm_complex_cv = train(logins ~ female + city + age + I(age^2) + got, data = hbo, method="lm",
                        trControl = train.control) #See that here (in the train function), we just pass all the data. The function will divide it in folds and do all that!
 
 lm_complex_cv
 
+# Question: Looking at both models, which one would you prefer?
 
-# Exercise: use the function `trainControl(method = "LOOCV")` to do a Leave One Out (LOO) cross validation. Do your results change? How? What are the advantages and disadvantages of using LOO?
