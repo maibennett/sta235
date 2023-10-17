@@ -36,7 +36,7 @@ In this class, we wil switch gears and start with our prediction chapter. We’l
 
 ## Code
 
-<!-- Here is the R code we will review in class, with many additional questions! Remember to review it in detail after class <script>let date = Date.now();</script> <a onclick="gtag('event','code10', {'event_category': 'code','event_label': 'code10', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/code/f2022_sta235h_8_prediction1.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+<!-- Here is the R code we will review in class, with many additional questions! Remember to review it in detail after class <script>let date = Date.now();</script> <a onclick="gtag('event','code10', {'event_category': 'code','event_label': 'code10', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/code/f2023_sta235h_10_prediction1.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
 Check out the in-class activity we did for this week <a onclick="gtag('event','code10_inclass', {'event_category': 'code','event_label': 'code10_inclass', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/InClassExercises/STA235H_Week10.html" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
