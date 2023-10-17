@@ -348,7 +348,34 @@ htmltools::tagList(
 font.add.google("Fira Sans Condensed", "Fira Sans Condensed")
 font.add.google("Fira Sans", "Fira Sans")
 ```
+# Announcements
 
+- Re-grading for homework 3 available **.darkorange[until this Wednesday]**.
+
+  - Please <u>check the rubric</u> and based on that ask for a specific re-grade.
+  
+--
+
+- Think of **.darkorange[assignment drop]** as an insurance policy.
+
+  - Start assignments with enough time *if you already think you used your drop*.
+
+--
+
+- **.darkorange[Grades for the midterm]** will be posted this week.
+
+  - Importance of completing assignments (e.g. practice quiz, JITTs).
+  
+  - Final exam will have limited notes.
+  
+--
+
+- **.darkorange[Start of a completely new chapter]**
+  
+  - If you struggled with causal inference, doesn't mean that you can't do very well in this second part.
+
+
+---
 # Last class
 
 .pull-left[
