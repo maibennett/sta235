@@ -124,8 +124,9 @@ nvars = length(lm_clv_cv$coefnames) #This could be one way of doing it... Q: How
   
 train.control = trainControl() #COMPLETE
 
-lm.fwd = train( , data = marketing, method = "leapForward",
-                tuneGrid = data.frame(nvmax = 1:nvars), trControl = train.control)
+lm.fwd = train( , data = train.data, method = "leapForward", # Complete the formula
+                tuneGrid = data.frame(nvmax = 1:nvars), 
+                trControl = train.control)
 
 lm.fwd$bestTune #This is the number of variables we will be using
 

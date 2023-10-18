@@ -150,7 +150,7 @@ nvars = length(lm_clv_cv$coefnames)
 train.control = trainControl(method = "cv", number = 5) #set up a 5-fold cv
 
 lm.fwd = train(Customer.Lifetime.Value ~ . - Response, 
-               data = marketing, 
+               data = train.data, 
                method = "leapForward",
                tuneGrid = data.frame(nvmax = 1:nvars), 
                trControl = train.control)
@@ -161,5 +161,8 @@ lm.fwd
 
 # If we want to recover the coefficient names, we can use the coef() function:
 coef(lm.fwd$finalModel, lm.fwd$bestTune$nvmax)
+
+# If we want to get the RMSE:
+rmse(lm.fwd, test.data)
 
 ```
