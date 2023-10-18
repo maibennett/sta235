@@ -1,0 +1,137 @@
+---
+title: "Week 10 - In-Class Exercise"
+author: "STA 235H - Fall 2023"
+date: ""
+output: 
+  html_document:
+    css: style.css
+    df_print: "kable"
+---
+<style type="text/css">
+div.main-container {
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media only screen and (max-width: 600px) {
+   body {
+      margin: 0;
+      padding: 0;
+   }
+   .sample {
+      width: 100%;
+   }
+}
+</style>
+
+# Setup
+
+You work at a marketing firm, and are trying to predict characteristics for different segments of your audience (customers from a car insurance company). You have the following dataset that will help you build your model:
+
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(caret)
+library(modelr)
+
+marketing = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/data/marketing.csv")
+
+# For simplicity, we will drop some variables, but you can use them all afterward if you want!
+marketing = marketing %>% select(Customer, Customer.Lifetime.Value, Response, 
+                                 Coverage, Education, EmploymentStatus,
+                                 Gender, Income, Location.Code, Marital.Status, 
+                                 Monthly.Premium.Auto, 
+                                 Months.Since.Last.Claim, Number.of.Policies,
+                                 Policy.Type, Sales.Channel, Total.Claim.Amount, 
+                                 Renew.Offer.Type)
+```
+
+Here's the list of some variables in your dataset:
+
+- `Customer`: Customer ID (*Note: ID variables are usually not predictors!*)
+- `Customer.Lifetime.Value`: Estimate of the value of a customer (*In this example, this is what we will predict*)
+- `Response`: Whether the client took the offer or not
+- `Coverage`: Type of insurance coverage
+- `Education`, `Gender`, `Income`, `Location.Code`, `Marital.Status`: Client's characteristics.
+- `Renew.Offer.Type`: Offer made to the client (out of four different options)
+
+## Tasks
+
+1) Let's prepare the data. Drop `Customer` from your dataset (we will not use it for prediction), and transform `Response` into a binary variable (1 if Response is Yes and 0 in another case).
+
+**Q3: How many observations with Response = 1 do you have? And with Response = 0?**
+
+
+2) We will also need to transform our predictors into factor variables, when needed (prediction models tend not to like character variables). Use the following code and look at your data. What happened here?
+
+```{r, eval = FALSE}
+head(marketing)
+
+marketing = marketing %>% mutate_if(is.character, as.factor)
+```
+
+3) Now we are ready to roll. Using `set.seed(100)`, create a training dataset that is 75% of your data, and a testing dataset that is 25% of your data. I'm giving you the start of your code...
+
+**Q4: How many observations does your testing dataset have?**
+
+```{r, eval = FALSE}
+set.seed(100)
+
+n = #COMPLETE
+
+train = sample() #COMPLETE
+
+train.data = marketing %>% slice(train)
+test.data = marketing %>% slice(-train)
+```
+
+4) Run a linear regression using all your covariates as predictors and `Customer.Lifetime.Value` as the outcome (make sure you exlcude `Response` as well, because that will also be an outcome that we will use next class). Fit your model on your training dataset, and get the RMSE on the testing dataset:
+
+**Q5: What is the RMSE of the model on the testing dataset?**
+
+```{r, eval = FALSE}
+lm_clv <- lm() #COMPLETE THE MODEL. NOTE: Pay special attention to what data you should be using
+
+rmse() #COMPLETE
+```
+
+5) Run the same model, but now use a cross-validation approach with 5-folds. In this case, you can use the entire dataset for this.
+
+**Q6: Is your RMSE better with this approach or the last one?**
+
+```{r, eval = FALSE}
+set.seed(100)
+
+train.control = trainControl() #COMPLETE
+
+lm_clv_cv = train(   , data = marketing, method="lm", trControl = train.control) #COMPLETE THE FORMULA
+
+lm_clv_cv
+
+# Compare models:
+
+coef(lm_clv)
+coef(lm_clv_cv$finalModel)
+```
+
+6) Finally, let's do a (forward) Stepwise selection model (using again a 5-fold CV). Remember that you need to identify how many predictors we have in this case (and factor variables count for more than 1 depending on the number of levels!):
+
+```{r, eval = FALSE}
+set.seed(100)
+
+nvars = length(lm_clv_cv$coefnames) #This could be one way of doing it... Q: How many variables do we have (max)?
+  
+train.control = trainControl() #COMPLETE
+
+lm.fwd = train( , data = marketing, method = "leapForward",
+                tuneGrid = data.frame(nvmax = 1:nvars), trControl = train.control)
+
+lm.fwd$bestTune #This is the number of variables we will be using
+
+lm.fwd
+
+# If we want to recover the coefficient names, we can use the coef() function:
+coef(lm.fwd$finalModel, lm.fwd$bestTune$nvmax)
+
+```

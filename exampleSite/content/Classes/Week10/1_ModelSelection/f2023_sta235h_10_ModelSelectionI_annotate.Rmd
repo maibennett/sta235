@@ -362,7 +362,7 @@ font.add.google("Fira Sans", "Fira Sans")
 
 --
 
-- **.darkorange[Grades for the midterm]** will be posted this week.
+- **.darkorange[Grades for the midterm]** will be posted on Tuesday.
 
   - Importance of completing assignments (e.g. practice quiz, JITTs).
   
@@ -1194,8 +1194,9 @@ set.seed(100)
 
 train.control = trainControl(method = "cv", number = 10) #set up a 10-fold cv
 
-lm.fwd = train(logins ~ . - unsubscribe, data = hbo, method = "leapForward",#<< 
-                tuneGrid = data.frame(nvmax = 1:5), trControl = train.control)#<<
+lm.fwd = train(logins ~ . - unsubscribe, data = train.data, 
+               method = "leapForward",#<< 
+               tuneGrid = data.frame(nvmax = 1:5), trControl = train.control)#<<
 lm.fwd$results
 ```
 ]
@@ -1214,8 +1215,8 @@ lm.fwd$bestTune
 # And how does that model looks like:
 summary(lm.fwd$finalModel)
 
-# If we want to recover the coefficient names, we can use the coef() function:
-coef(lm.fwd$finalModel, lm.fwd$bestTune$nvmax)
+# If we want the RMSE
+rmse(lm.fwd, test.data)
 ```
 ]
 

@@ -89,3 +89,30 @@ lm_complex_cv
 
 # Question: Looking at both models, which one would you prefer?
 
+
+################################################################################
+##### Stepwise
+################################################################################
+
+set.seed(100) # Set a seed for replication
+
+train.control = trainControl(method = "cv", number = 10) #set up a 10-fold cv
+
+lm.fwd = train(logins ~ . - unsubscribe, data = train.data, # We take out unsubscribe because it's also an outcome (happens *after* logins)
+               method = "leapForward", # "leapForward" is for Forward Stepwise and "leapBackward" is for backwards.
+               tuneGrid = data.frame(nvmax = 1:5), #We include 5 variables, because that's all the predictors we are using for our model.
+               trControl = train.control) 
+
+lm.fwd$results
+
+# We can see the number of covariates that is optimal to choose:
+lm.fwd$bestTune
+
+# And how does that model looks like:
+summary(lm.fwd$finalModel)
+
+# If we want the RMSE
+rmse(lm.fwd, test.data)
+
+# Note: Even if we are doing cross-validation, because we now have a *tuning parameter*
+# (nvmax), we still need to train our model in the training data.

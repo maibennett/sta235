@@ -13,8 +13,8 @@
     <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
     <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
-    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
-    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/5235085b15.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -75,7 +75,7 @@ class: center, middle, inverse, title-slide
 
 --
 
-- **.darkorange[Grades for the midterm]** will be posted this week.
+- **.darkorange[Grades for the midterm]** will be posted on Tuesday.
 
   - Importance of completing assignments (e.g. practice quiz, JITTs).
   
@@ -572,18 +572,19 @@ set.seed(100)
 
 train.control = trainControl(method = "cv", number = 10) #set up a 10-fold cv
 
-*lm.fwd = train(logins ~ . - unsubscribe, data = hbo, method = "leapForward",
-*               tuneGrid = data.frame(nvmax = 1:5), trControl = train.control)
+lm.fwd = train(logins ~ . - unsubscribe, data = train.data, 
+*              method = "leapForward",
+*              tuneGrid = data.frame(nvmax = 1:5), trControl = train.control)
 lm.fwd$results
 ```
 
 ```
 ##   nvmax     RMSE  Rsquared      MAE     RMSESD RsquaredSD      MAESD
-## 1     1 2.273269 0.6113410 1.847755 0.04250683 0.01688996 0.04353289
-## 2     2 2.087314 0.6724741 1.639618 0.04920703 0.01434646 0.04889721
-## 3     3 2.087994 0.6722625 1.640315 0.04919353 0.01436182 0.04904907
-## 4     4 2.088156 0.6722088 1.640489 0.04919301 0.01435653 0.04904416
-## 5     5 2.088235 0.6721845 1.640525 0.04925197 0.01438207 0.04908729
+## 1     1 2.269469 0.6101788 1.850376 0.04630907 0.01985045 0.04266950
+## 2     2 2.087184 0.6702660 1.639885 0.04260047 0.01784601 0.04623508
+## 3     3 2.087347 0.6702094 1.640405 0.04258030 0.01804773 0.04605074
+## 4     4 2.088230 0.6699245 1.641402 0.04270561 0.01808685 0.04620206
+## 5     5 2.088426 0.6698623 1.641528 0.04276883 0.01810569 0.04624618
 ```
 ]
 
@@ -627,13 +628,12 @@ summary(lm.fwd$finalModel)
 ```
 
 ```r
-# If we want to recover the coefficient names, we can use the coef() function:
-coef(lm.fwd$finalModel, lm.fwd$bestTune$nvmax)
+# If we want the RMSE
+rmse(lm.fwd, test.data)
 ```
 
 ```
-## (Intercept)        city         got 
-##    7.026494    2.577163   -6.265728
+## [1] 2.089868
 ```
 ]
 
