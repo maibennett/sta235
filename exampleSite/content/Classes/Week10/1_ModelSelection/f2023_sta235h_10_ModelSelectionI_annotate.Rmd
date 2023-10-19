@@ -1235,6 +1235,10 @@ rmse(lm.fwd, test.data)
 
 - Submit your sheet at the end of the class.
 
+--
+
+.center[Answers will be posted Wednesday afternoon!]
+
 ---
 # Takeaway points
 
