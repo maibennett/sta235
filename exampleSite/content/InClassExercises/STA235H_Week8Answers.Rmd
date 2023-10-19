@@ -95,7 +95,7 @@ summary(rdrobust(mlda$female, mlda$r, c = 0))
 
 *For the interpretation, remember that this is valid for people exactly at the cutoff (Hint: Think of what the age for people at the cutoff is)*.
 
-According to the linear model, the estimate is 34.7, while for rdrobust is 409.1. Why is there such a big difference?
+According to the linear model, the estimate is 34.7, while for rdrobust is 184.5. Why is there such a big difference?
 
 ```{r}
 lm_rd = lm(alcohol ~ treat*r, data = mlda)
