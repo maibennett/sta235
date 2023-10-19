@@ -60,7 +60,7 @@ class: center, middle, inverse, title-slide
 
 # Announcements
 
-- Re-grading for homework 3 available **.darkorange[until this Wednesday]**.
+- Re-grading for homework 3 available **.darkorange[until this Thursday]**.
 
   - Please &lt;u&gt;check the rubric&lt;/u&gt; and based on that ask for a specific re-grade.
   
@@ -252,7 +252,7 @@ class: center, middle, inverse, title-slide
 ---
 # How do we measure accuracy?
 
-Different measures:
+Different measures (*for continuous outcomes*):
 
 - Remember `\(Adj-R^2\)`?
 
@@ -264,6 +264,13 @@ Different measures:
 
 - **.darkorange[Mean Squared Error (MSE)]**: *Can be decomposed into variance and bias terms*
 `$$MSE = \frac{1}{n}\sum_{i=1}^n(y_i-\hat{f}(x_i))^2$$`
+
+--
+
+- **.darkorange[Root Mean Squared Error (RMSE)]**: *Measured in the same units as the outcome!*
+`$$RMSE = \sqrt{MSE}$$`
+
+--
 
 - Other measures: Bayesian Information Criterion (BIC) and Akaike Information Criterion (AIC)
 

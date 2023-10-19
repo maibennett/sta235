@@ -350,7 +350,7 @@ font.add.google("Fira Sans", "Fira Sans")
 ```
 # Announcements
 
-- Re-grading for homework 3 available **.darkorange[until this Wednesday]**.
+- Re-grading for homework 3 available **.darkorange[until this Thursday]**.
 
   - Please <u>check the rubric</u> and based on that ask for a specific re-grade.
   
@@ -413,6 +413,27 @@ font.add.google("Fira Sans", "Fira Sans")
 --
 
 - *"On average, for individuals with exactly 21 years of age, being legally able to drink increases the total number of arrests by 409.1, compared to not being legally able to drink"*
+
+---
+# Before we start...
+
+- During the following weeks, we will be playing **.darkorange[trivia]**.
+
+--
+
+- Make a team of **.darkorange[max. 3 people]** and fill out a sheet with your names (<u>one per team</u>).
+
+--
+
+- During the class, there will be some questions (Q1, Q2, ...) that you have to answer with your team. **.darkorange[Discuss the answer and write it down before the time is up!]**
+
+  - Same as bar trivia, this is an <u>honor system</u> thing.
+  
+--
+
+- At the end of the class, **.darkorange[submit your sheet]**.
+  
+  - This is not graded!
 
 ---
 # Introduction to prediction
@@ -564,7 +585,7 @@ font.add.google("Fira Sans", "Fira Sans")
 ---
 # How do we measure accuracy?
 
-Different measures:
+Different measures (*for continuous outcomes*):
 
 - Remember $Adj-R^2$?
 
@@ -576,6 +597,11 @@ Different measures:
 
 - **.darkorange[Mean Squared Error (MSE)]**: *Can be decomposed into variance and bias terms*
 $$MSE = \frac{1}{n}\sum_{i=1}^n(y_i-\hat{f}(x_i))^2$$
+--
+- **.darkorange[Root Mean Squared Error (RMSE)]**: *Measured in the same units as the outcome!*
+$$RMSE = \sqrt{MSE}$$
+
+--
 
 - Other measures: Bayesian Information Criterion (BIC) and Akaike Information Criterion (AIC)
 
@@ -1237,7 +1263,7 @@ rmse(lm.fwd, test.data)
 
 --
 
-.center[Answers will be posted Wednesday afternoon!]
+.center[*Answers will be posted on Wednesday afternoon!*]
 
 ---
 # Takeaway points
