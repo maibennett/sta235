@@ -84,6 +84,8 @@ lm_complex %>% predict(data_new)
 # Using the complex model, for a female who lives in a city and it's 30 yo and
 # has watched succession, we predict 3.3 logins in the past week.
 
+# Q: How many logins you predict using the simple model?
+
 ###############################################################################
 #### Cross-validation
 ###############################################################################
