@@ -895,7 +895,7 @@ set.seed(100)
 n <- 5000
 
 female <- sample(c(0,1),n,replace=TRUE, prob=c(0.5,0.5))
-got <- sample(c(0,1),n,replace=TRUE, prob=c(0.3,0.7))
+succession <- sample(c(0,1),n,replace=TRUE, prob=c(0.3,0.7))
 city <- sample(c(0,1),n,replace=TRUE, prob=c(0.15,0.85))
 
 age <- rnorm(n,45,15)
@@ -904,7 +904,7 @@ age <- round(rescale(age, to=c(18,73)),0)
 
 #logins <- sample(seq(0,10),n,replace=TRUE, prob=c(0.19,0.09,0.09,0.08,0.07,0.07,0.06,0.05,0.04,0.03,0.23))
 
-xb_l <- 2.5 - 5*got + city*2 + rnorm(n, 0, 1)
+xb_l <- 2.5 - 5*succession + city*2 + rnorm(n, 0, 1)
 
 q <- quantile(xb_l, prob = seq(0,1,0.1))
 
@@ -913,7 +913,7 @@ logins <- ifelse(xb_l < q[2]+1,0,ifelse(xb_l< q[3]+0.05, 1, ifelse(xb_l < q[4], 
                                                                                           ifelse(xb_l < q[7], 5, ifelse(xb_l < -90,
                                                                                                                         6, ifelse(xb_l < q[8]-0.2, 7, ifelse(xb_l < q[9]-0.2, 8, ifelse(xb_l < q[10]-0.5, 9, 10))))))))))
 
-xb <- 0.15 - 0.01*city + got*0.2 + (logins==0)*0.1 + rnorm(n, 0, 0.05)
+xb <- 0.15 - 0.01*city + succession*0.2 + (logins==0)*0.1 + rnorm(n, 0, 0.05)
 
 prob <- rescale(xb, to = c(0.01,0.52))
 
@@ -930,7 +930,7 @@ hbo <- data.frame(id = 1:n,
                      city = city,
                      age = age,
                      logins = logins,
-                     got = got,
+                     succession = succession,
                      unsubscribe = unsubscribe)
 
 hbo <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/data/hbomax.csv")
@@ -948,10 +948,10 @@ train.data <- hbo[train,] #use only the rows that were selected for training
 test.data <- hbo[-train,] #the rest are used for testing
 
 ### Simple model
-lm_simple <- lm(logins ~ got + city, data = train.data) #Train the model on the TRAINING DATASET
+lm_simple <- lm(logins ~ succession + city, data = train.data) #Train the model on the TRAINING DATASET
 
 ### Complex model
-lm_complex <- lm(logins ~ female + city + age + I(age^2) + got, data = train.data) #Train the model on the TRAINING DATASET
+lm_complex <- lm(logins ~ female + city + age + I(age^2) + succession, data = train.data) #Train the model on the TRAINING DATASET
 
 
 # Estimate RMSE for these models on the TRAINING dataset:
@@ -986,13 +986,13 @@ head(hbo)
 
 - **.darkorange[Simple Model]**:
 
-  $$logins = \beta_0 + \beta_1\times GoT + \beta_2 \times city + \varepsilon$$
+  $$logins = \beta_0 + \beta_1\times Succession + \beta_2 \times city + \varepsilon$$
   
 - **.darkorange[Complex Model]**:
 
 $$
 \begin{aligned}
-logins =& \beta_0 + \beta_1\times GoT + \beta_2\times age + \beta_3\times age^2 +\\
+logins =& \beta_0 + \beta_1\times Succession + \beta_2\times age + \beta_3\times age^2 +\\
 &\beta_4\times city + \beta_5\times female + \varepsilon
 \end{aligned}
 $$
@@ -1044,9 +1044,9 @@ test.data = hbo %>% slice(-train) #<<
 ```{r}
 library(modelr)
 
-lm_simple = lm(logins ~ got + city, data = train.data)
+lm_simple = lm(logins ~ succession + city, data = train.data)
 
-lm_complex = lm(logins ~ female + city + age + I(age^2) + got, data = train.data)
+lm_complex = lm(logins ~ female + city + age + I(age^2) + succession, data = train.data)
 
 # For simple model:
 rmse(lm_simple, test.data) %>% round(., 4)
@@ -1095,7 +1095,8 @@ set.seed(100)
 
 train.control = trainControl(method = "cv", number = 10)
 
-lm_simple = train(logins ~ got + city, data = disney, method="lm", trControl = train.control)
+lm_simple = train(logins ~ succession + city, data = disney, method="lm", 
+                  trControl = train.control)
 
 lm_simple
 ```
@@ -1110,7 +1111,8 @@ set.seed(100)#<<
 
 train.control = trainControl(method = "cv", number = 10)
 
-lm_simple = train(logins ~ got + city, data = disney, method="lm", trControl = train.control)
+lm_simple = train(logins ~ succession + city, data = disney, method="lm", 
+                  trControl = train.control)
 
 lm_simple
 ```
@@ -1125,7 +1127,8 @@ set.seed(100)
 
 train.control = trainControl(method = "cv", number = 10)#<<
 
-lm_simple = train(logins ~ got + city, data = disney, method="lm", trControl = train.control)
+lm_simple = train(logins ~ succession + city, data = disney, method="lm", 
+                  trControl = train.control)
 
 lm_simple
 ```
@@ -1140,7 +1143,8 @@ set.seed(100)#<<
 
 train.control = trainControl(method = "cv", number = 10)
 
-lm_simple = train(logins ~ got + city, data = hbo, method="lm", trControl = train.control) #<<
+lm_simple = train(logins ~ succession + city, data = hbo, method="lm", #<<
+                  trControl = train.control) #<<
 
 lm_simple
 ```

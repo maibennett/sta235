@@ -310,13 +310,13 @@ head(hbo)
 ```
 
 ```
-##   id female city age logins got unsubscribe
-## 1  1      1    1  53     10   0           1
-## 2  2      1    1  48      7   1           0
-## 3  3      0    1  45      7   1           0
-## 4  4      1    1  51      5   1           0
-## 5  5      1    1  45     10   0           0
-## 6  6      1    0  40      0   1           0
+##   id female city age logins succession unsubscribe
+## 1  1      1    1  53     10          0           1
+## 2  2      1    1  48      7          1           0
+## 3  3      0    1  45      7          1           0
+## 4  4      1    1  51      5          1           0
+## 5  5      1    1  45     10          0           0
+## 6  6      1    0  40      0          1           0
 ```
 
 ---
@@ -324,13 +324,13 @@ head(hbo)
 
 - **.darkorange[Simple Model]**:
 
-  `$$logins = \beta_0 + \beta_1\times GoT + \beta_2 \times city + \varepsilon$$`
+  `$$logins = \beta_0 + \beta_1\times Succession + \beta_2 \times city + \varepsilon$$`
   
 - **.darkorange[Complex Model]**:
 
 $$
 `\begin{aligned}
-logins =&amp; \beta_0 + \beta_1\times GoT + \beta_2\times age + \beta_3\times age^2 +\\
+logins =&amp; \beta_0 + \beta_1\times Succession + \beta_2\times age + \beta_3\times age^2 +\\
 &amp;\beta_4\times city + \beta_5\times female + \varepsilon
 \end{aligned}`
 $$
@@ -386,9 +386,9 @@ train = sample(1:n, n*0.8) #randomly select 80% of the rows for our training sam
 ```r
 library(modelr)
 
-lm_simple = lm(logins ~ got + city, data = train.data)
+lm_simple = lm(logins ~ succession + city, data = train.data)
 
-lm_complex = lm(logins ~ female + city + age + I(age^2) + got, data = train.data)
+lm_complex = lm(logins ~ female + city + age + I(age^2) + succession, data = train.data)
 
 # For simple model:
 rmse(lm_simple, test.data) %&gt;% round(., 4)
@@ -448,7 +448,8 @@ set.seed(100)
 
 train.control = trainControl(method = "cv", number = 10)
 
-lm_simple = train(logins ~ got + city, data = disney, method="lm", trControl = train.control)
+lm_simple = train(logins ~ succession + city, data = disney, method="lm", 
+                  trControl = train.control)
 
 lm_simple
 ```
@@ -464,7 +465,8 @@ library(caret)
 
 train.control = trainControl(method = "cv", number = 10)
 
-lm_simple = train(logins ~ got + city, data = disney, method="lm", trControl = train.control)
+lm_simple = train(logins ~ succession + city, data = disney, method="lm", 
+                  trControl = train.control)
 
 lm_simple
 ```
@@ -480,7 +482,8 @@ set.seed(100)
 
 *train.control = trainControl(method = "cv", number = 10)
 
-lm_simple = train(logins ~ got + city, data = disney, method="lm", trControl = train.control)
+lm_simple = train(logins ~ succession + city, data = disney, method="lm", 
+                  trControl = train.control)
 
 lm_simple
 ```
@@ -496,7 +499,8 @@ library(caret)
 
 train.control = trainControl(method = "cv", number = 10)
 
-*lm_simple = train(logins ~ got + city, data = hbo, method="lm", trControl = train.control)
+*lm_simple = train(logins ~ succession + city, data = hbo, method="lm",
+*                 trControl = train.control)
 
 lm_simple
 ```
@@ -596,16 +600,16 @@ summary(lm.fwd$finalModel)
 ```
 ## Subset selection object
 ## 5 Variables  (and intercept)
-##        Forced in Forced out
-## id         FALSE      FALSE
-## female     FALSE      FALSE
-## city       FALSE      FALSE
-## age        FALSE      FALSE
-## got        FALSE      FALSE
+##            Forced in Forced out
+## id             FALSE      FALSE
+## female         FALSE      FALSE
+## city           FALSE      FALSE
+## age            FALSE      FALSE
+## succession     FALSE      FALSE
 ## 1 subsets of each size up to 2
 ## Selection Algorithm: forward
-##          id  female city age got
-## 1  ( 1 ) " " " "    " "  " " "*"
+##          id  female city age succession
+## 1  ( 1 ) " " " "    " "  " " "*"       
 ## 2  ( 1 ) " " " "    "*"  " " "*"
 ```
 

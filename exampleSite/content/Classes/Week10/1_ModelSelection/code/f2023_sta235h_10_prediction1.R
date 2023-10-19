@@ -39,13 +39,13 @@ train.data = hbo %>% slice(train) #use only the rows that were selected for trai
 test.data = hbo %>% slice(-train) #the rest are used for testing
 
 ### Simple model
-lm_simple = lm(logins ~ got + city, data = train.data) #Train the model on the TRAINING DATASET
+lm_simple = lm(logins ~ succession + city, data = train.data) #Train the model on the TRAINING DATASET
 
 ### Complex model
-lm_complex = lm(logins ~ female + city + age + I(age^2) + got, data = train.data) #Train the model on the TRAINING DATASET
+lm_complex = lm(logins ~ female + city + age + I(age^2) + succession, data = train.data) #Train the model on the TRAINING DATASET
 
 
-# Estimate RMSE for these models on the TRAINING dataset:
+# Let's look at the RMSE for these models on the TRAINING dataset:
 # For simple model:
 rmse(lm_simple, train.data) #rmse() in the `modelr` package takes model we are using and the data.
 
@@ -66,6 +66,24 @@ rmse(lm_complex, test.data)
 
 ## Question: Using this comparison, which model is better? Is this the comparison we want?
 
+####################################################################################
+# Prediction for a specific individual:
+####################################################################################
+
+#If we wanted to predict for a specific individual, we can create a new dataset and use that with the predict() function.
+
+# Remember to create (at least) all the variables that are in the *model*!
+data_new = data.frame(female = 1,
+                      city = 1,
+                      age = 30,
+                      succession = 1,
+                      unsubscribed = 0)
+
+lm_complex %>% predict(data_new)
+
+# Using the complex model, for a female who lives in a city and it's 30 yo and
+# has watched succession, we predict 3.3 logins in the past week.
+
 ###############################################################################
 #### Cross-validation
 ###############################################################################
@@ -76,13 +94,13 @@ set.seed(100) # Set seed for replication!
 
 train.control = trainControl(method = "cv", number = 10) #This is a function from the package caret. We are telling our data that we will use a cross validation approach (cv) with 10 folds (number). Use ?trainControl to see the different methods we could use!
 
-lm_simple_cv = train(logins ~ got + city, data = hbo, method="lm",
+lm_simple_cv = train(logins ~ succession + city, data = hbo, method="lm",
                trControl = train.control) #See that here (in the train function), we just pass all the data. The function will divide it in folds and do all that!
 
 lm_simple_cv
 
 
-lm_complex_cv = train(logins ~ female + city + age + I(age^2) + got, data = hbo, method="lm",
+lm_complex_cv = train(logins ~ female + city + age + I(age^2) + succession, data = hbo, method="lm",
                        trControl = train.control) #See that here (in the train function), we just pass all the data. The function will divide it in folds and do all that!
 
 lm_complex_cv
