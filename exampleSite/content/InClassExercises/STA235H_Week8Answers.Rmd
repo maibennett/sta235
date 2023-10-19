@@ -124,7 +124,7 @@ ggplot(data = mlda, aes(x = r, y = alcohol)) +
               se = FALSE, color = "darkorange") +
   theme_minimal() + xlab("Days since 21st birthday") + ylab("Number of alcohol arrests")
 
-rdplot(mlda$all, mlda$r, c = 0, x.label = "Days since 21st birthday", y.label = "Number of alcohol arrests",
+rdplot(mlda$alcohol, mlda$r, c = 0, x.label = "Days since 21st birthday", y.label = "Number of alcohol arrests",
        col.dots = alpha("#F89441",0.3), col.lines = "#900DA4")
 ```
 
