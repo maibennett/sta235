@@ -92,7 +92,7 @@ Below you will find a general outline of the topics we’ll cover in this course
 </tr>
 <tr>
 <td>16</td>
-<td>December 8 <i>(TBD)</i></td>
+<td>December 7 <i>(8-11AM)</i></td>
 <td><b>Final Exam</b></td>
 </tr>
 </tbody>
