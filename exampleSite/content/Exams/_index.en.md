@@ -51,7 +51,15 @@ pre: "<b>4. </b>"
 
 ### Answer keys
 
+Check out the answer keys for each section here:
 
+- Section 1 (Mon 10am): <a onclick="gtag('event','midterm_answerkey1', {'event_category': 'code','event_label': 'midterm_answerkey1', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/Exams/Exams/STA235H_Fall23_Midterm_AnswerKey_s1.html" target="_blank" class="btn btn-default">Open <i class="fas fa-external-link-alt"></i></a>
+
+- Section 2 (Mon 12pm): <a onclick="gtag('event','midterm_answerkey2', {'event_category': 'code','event_label': 'midterm_answerkey2', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/Exams/Exams/STA235H_Fall23_Midterm_AnswerKey_s2.html" target="_blank" class="btn btn-default">Open <i class="fas fa-external-link-alt"></i></a>
+
+- Section 3 (Wed 2pm): <a onclick="gtag('event','midterm_answerkey3', {'event_category': 'code','event_label': 'midterm_answerkey3', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/Exams/Exams/STA235H_Fall23_Midterm_AnswerKey_s3.html" target="_blank" class="btn btn-default">Open <i class="fas fa-external-link-alt"></i></a>
+
+- Section 4 (Mon 4pm): <a onclick="gtag('event','midterm_answerkey4', {'event_category': 'code','event_label': 'midterm_answerkey4', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/Exams/Exams/STA235H_Fall23_Midterm_AnswerKey_s4.html" target="_blank" class="btn btn-default">Open <i class="fas fa-external-link-alt"></i></a>
 
 
 
