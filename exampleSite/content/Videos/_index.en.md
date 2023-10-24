@@ -59,6 +59,13 @@ Let's go over the difference between a percentage point change and a percent cha
 {{< youtube src="https://www.youtube.com/embed/3Aye_zDoQ2Y?si=coDvjBXE0SHmHJXh" >}}
 
 
+### Setting a seed
+
+Setting a seed is very important to make sure your results can be replicated. In this short video I show you how this works and some considerations to keep in mind!
+
+{{< youtube src="https://www.youtube.com/embed/8XQ35xDzCTY?si=dxzwegRi1oj1iSaM" >}}
+
+
 <!-- ### Matching Example
 
 Let's go through the code for the GOTV matching example!
