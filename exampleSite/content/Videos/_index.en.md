@@ -66,6 +66,13 @@ Setting a seed is very important to make sure your results can be replicated. In
 {{< youtube src="https://www.youtube.com/embed/8XQ35xDzCTY?si=dxzwegRi1oj1iSaM" >}}
 
 
+### Week 10: In-class exercise 
+
+Let's review the in-class exercise for Week 10. Here, I answer the most common questions about the code, so follow along (you can also skip through the different questions!).
+
+{{< youtube src="https://www.youtube.com/embed/dkNisMKCISQ?si=gOnkH90kDVhDF4x0" >}}
+
+
 <!-- ### Matching Example
 
 Let's go through the code for the GOTV matching example!
