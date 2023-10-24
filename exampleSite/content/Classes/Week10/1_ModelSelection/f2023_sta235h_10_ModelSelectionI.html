@@ -9,8 +9,8 @@
     <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
     <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
-    <link href="libs/font-awesome/css/all.min.css" rel="stylesheet" />
-    <link href="libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/5235085b15.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -101,6 +101,27 @@ class: center, middle, inverse, title-slide
   - Importance of **.darkorange[doing the coding exercises]**
 
 ]
+
+---
+# JITT 9: Regression discontinuity design
+
+- **.darkorange[RDD]** allows us to compare people &lt;u&gt;exactly at the cutoff&lt;/u&gt; if they were treated vs not treated, and estimate a **.darkorange[Local Average Treatment Effect]** (LATE) for those units.
+
+--
+
+- In the example for the JITT, the treatment is **.darkorange[being legally able to drink]** (and the control is *not* being legally able to drink).
+
+--
+
+- The code you had to run is: `summary(rdrobust(mlda$all, mlda$r, c = 0))`
+
+  - In this case, remember that `all` is our outcome (total number of arrests), `r` is our *centered* running variable (age minus the cutoff), and `c = 0` is our cutoff (remember that `r` is centered around 0, so the cutoff is 0 and not 7670).
+  
+  - You have to look at the coefficient in the table (`Conventional`)... and remember to also look at the p-value!
+  
+--
+
+- *"On average, for individuals with exactly 21 years of age, being legally able to drink increases the total number of arrests by 409.1, compared to not being legally able to drink"*
 
 ---
 # Introduction to prediction
