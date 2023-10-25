@@ -78,7 +78,7 @@ Below you will find a general outline of the topics we’ll cover in this course
 <tr>
 <td>13</td>
 <td>Nov 13 – Nov 15</td>
-<td><br>Prediction models (cont.): Random forests, boosting, and ensemble methods.<i>Homework 5 due</i></td>
+<td>Prediction models (cont.): Random forests, boosting, and ensemble methods.<br><i>Homework 5 due</i></td>
 </tr>
 <tr>
 <td>14</td>

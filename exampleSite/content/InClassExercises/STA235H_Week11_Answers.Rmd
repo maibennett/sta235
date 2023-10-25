@@ -1,0 +1,150 @@
+---
+title: "Week 11 - In-Class Exercise"
+author: "STA 235H - Fall 2023"
+date: ""
+output: 
+  html_document:
+    css: style.css
+    df_print: "kable"
+---
+<style type="text/css">
+div.main-container {
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media only screen and (max-width: 600px) {
+   body {
+      margin: 0;
+      padding: 0;
+   }
+   .sample {
+      width: 100%;
+   }
+}
+</style>
+
+# Setup
+
+In this exercise, we will be working with the same data as before!
+
+You work at a marketing firm, and are trying to predict characteristics for different segments of your audience (customers from a car insurance company). You have the following dataset that will help you build your model:
+
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(caret)
+library(modelr)
+
+marketing = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/data/marketing.csv")
+
+# For simplicity, we will drop some variables, but you can use them all afterward if you want!
+marketing = marketing %>% select(Customer, Customer.Lifetime.Value, Response, Coverage, Education, EmploymentStatus,
+                                  Gender, Income, Location.Code, Marital.Status, Monthly.Premium.Auto, 
+                                  Months.Since.Last.Claim, Number.of.Policies,
+                                  Policy.Type, Sales.Channel, Total.Claim.Amount, Renew.Offer.Type)
+```
+
+Here's the list of some variables in your dataset:
+
+- `Customer`: Customer ID (*Note: ID variables are usually not predictors!*)
+- `Customer.Lifetime.Value`: Estimate of the value of a customer (*In this example, this is what we will predict*)
+- `Response`: Whether the client took the offer or not
+- `Coverage`: Type of insurance coverage
+- `Education`, `Gender`, `Income`, `Location.Code`, `Marital.Status`: Client's characteristics.
+- `Renew.Offer.Type`: Offer made to the client (out of four different options)
+- `Response`: Whether a customer responds to an offer or not.
+
+Continuing with the task we were doing last week, run the following code and start from there:
+
+```{r}
+marketing = marketing %>% select(-Customer) %>% mutate(Response = ifelse(Response=="No", 0, 1))
+
+marketing = marketing %>% mutate_if(is.character, as.factor)
+
+set.seed(100) #Remember always to set seed before something random (in this case, sample())
+
+n = nrow(marketing) #Number of obs in our marketing dataset
+
+train = sample(1:n, nrow(marketing)*0.75) #Row numbers for 75% of our data (randomly selected)
+
+train.data = marketing %>% slice(train)
+test.data = marketing %>% slice(-train)
+
+```
+
+## Tasks
+
+1) First, let's try to predict **response** using Ridge regression. Note that this is a <u>binary outcome</u>, so we will be using **accuracy** to see how our model does, and not RMSE (accuracy will be calculate as how many observations I classify correctly). Use the following code as a starting point and complete it to answer the following questions:
+
+**Q2: What is your optimal lambda in this case?**
+**Q3: What is your percentage of accuracy?**
+
+```{r}
+lambda_seq = seq(0,0.5,length = 100) 
+
+set.seed(100)
+  
+train.control = trainControl(method = "cv", number = 10)
+
+ridge = train(factor(Response) ~ . , data = train.data, 
+               method = "glmnet",
+               preProcess = "scale", 
+               trControl = trainControl("cv", number = 10), 
+               tuneGrid = expand.grid(alpha = 0,
+                                      lambda = lambda_seq)
+)
+
+plot(ridge)
+
+ridge$bestTune
+
+# Predict response:
+pred.values = ridge %>% predict(test.data)
+
+# How many do we get right? (on average)
+mean(pred.values == test.data$Response)
+
+```
+
+
+3) Do the same exercise as 2) but now with lasso instead of ridge:
+
+**Q4: What is your percentage of accuracy?**
+**Q5: How many variables does your model have?**
+
+
+```{r}
+lambda_seq = seq(0,0.5,length = 100) 
+
+set.seed(100)
+  
+train.control = trainControl(method = "cv", number = 10)
+
+lasso = train(factor(Response) ~ . , data = train.data, 
+               method = "glmnet",
+               preProcess = "scale", 
+               trControl = trainControl("cv", number = 10), 
+               tuneGrid = expand.grid(alpha = 1,
+                                      lambda = lambda_seq)
+)
+
+plot(lasso)
+
+# Predict response:
+pred.values = lasso %>% predict(test.data)
+
+# How many do we get right? (on average)
+mean(pred.values == test.data$Response)
+
+# Let's see the coefficients in the model:
+coef(lasso$finalModel, lasso$bestTune$lambda)
+
+# You can also store them in an object, and then look at p!
+# This is the number of coefficients (variables + intercept)
+coefs = coef(lasso$finalModel, lasso$bestTune$lambda)
+
+coefs@p[2] - 1
+
+```

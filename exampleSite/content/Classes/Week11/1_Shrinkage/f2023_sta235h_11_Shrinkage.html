@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA 235H - Model Selection II: Shrinkage</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="McCombs School of Business, UT Austin" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# STA 235H - Model Selection II:<br/>Shrinkage
+]
+.subtitle[
+## Fall 2022
+]
+.author[
+### McCombs School of Business, UT Austin
+]
+
+---
+
+
+&lt;!-- &lt;script type="text/javascript"&gt; --&gt;
+&lt;!-- MathJax.Hub.Config({ --&gt;
+&lt;!--   "HTML-CSS": { --&gt;
+&lt;!--     preferredFont: null, --&gt;
+&lt;!--     webFont:  "Neo-Euler" --&gt;
+&lt;!--   } --&gt;
+&lt;!-- }); --&gt;
+&lt;!-- &lt;/script&gt; --&gt;
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+&lt;/style&gt;
+
+
+
+
+
+# Last class
+
+.pull-left[
+.center[
+![](https://media.giphy.com/media/Q8rwlNTcDAU3MuUzd7/giphy-downsized-large.gif)
+]
+]
+
+.pull-right[
+- Started with our **.darkorange[prediction chapter]**
+
+  - Bias vs. Variance
+  
+  - Validation set approach and Cross-validation
+  
+  - How to choose a model for a continuous outcome (RMSE)
+  
+  - Stepwise selection
+
+]
+
+---
+# Knowledge check from last week
+
+1) Which model is **.darkorange[higher bias]**: A complex model or a simpler one?
+
+
+
+--
+
+2) Why do we **.darkorange[split our data]** into training and testing datasets?
+
+
+
+--
+
+3) How do we **.darkorange[compare]** models with continuous outcomes?
+
+
+
+---
+# How forward stepwise selection works: Example from last class
+
+1) Start with a null model (no covariates)
+
+  - Your best guess will be the average of the outcome in the training dataset!
+  
+--
+
+2) Test out all models with **.darkorange[one covariate]**, and **.darkorange[select the best one]**:
+
+   - E.g. `\(logins \sim female\)`, `\(logins \sim succession\)`, `\(logins \sim age\)`, ...
+   - `\(logins \sim succession\)` is the best one (according to RMSE)
+   
+--
+
+3) Test out all models with **.darkorange[two covariates]**, but that have `\(succession\)`!
+
+  - E.g. `\(logins \sim succession + female\)`, `\(logins \sim succession + age\)`, `\(logins \sim succession + city\)`, ...
+  
+--
+
+4) You will end up with `\(k\)` possible models (k: total number of predictors).
+
+  - Choose the best one, depending on the RMSE.
+   
+
+---
+# Today: Continuing our journey
+
+.pull-left[
+- How to **.darkorange[improve our linear regressions]**:
+
+  - Ridge regression
+  - Lasso regression
+  
+- Look at **.darkorange[binary outcomes]**
+
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/nyPZB25Mg1pe/giphy.gif)]
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Honey, I shrunk the coefficients!
+]
+
+---
+# What is shrinkage?
+
+- We reviewed the **.darkorange[stepwise procedure]**: Subsetting model selection approach.
+  
+  - Select `\(k\)` out of `\(p\)` total predictors
+  
+--
+  
+- **.darkorange[Shrinkage *(a.k.a Regularization)*]**: Fitting a model with all `\(p\)` predictors, but introducing bias (i.e. shrinking coefficients towards 0) for improvement in variance.
+
+  - Ridge regression
+  
+  - Lasso regression
+  
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+On top of a ridge.
+]
+
+---
+# Ridge Regression: An example
+
+- Predict spending based on frequency of visits to a website
+
+&lt;img src="f2023_sta235h_11_Shrinkage_files/figure-html/ridge_intro-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Ordinary Least Squares
+
+- In an **.darkorange[OLS]**: Minimize sum of squared-errors, i.e. `\(\min_\beta \sum_{i=1}^n(\text{spend}_i - (\beta_0 + \beta_1\text{freq}_i))^2\)`
+
+
+&lt;img src="f2023_sta235h_11_Shrinkage_files/figure-html/ridge_ols-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# What about fit?
+
+- Does the OLS fit the testing data well?
+
+
+&lt;img src="f2023_sta235h_11_Shrinkage_files/figure-html/ridge_test-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Ridge Regression
+
+- Let's shrink the coefficients!: **.darkorange[Ridge Regression]**
+
+
+&lt;img src="f2023_sta235h_11_Shrinkage_files/figure-html/ridge-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Ridge Regression: What does it do?
+
+- Ridge regression **.darkorange[introduces bias to reduce variance]** in the testing data set.
+
+- In a simple regression (i.e. one regressor/covariate):
+
+`$$\min_\beta \sum_{i=1}^n\underbrace{(y_i - \beta_0 - x_i\beta_1)^2}_{OLS}$$`
+---
+# Ridge Regression: What does it do?
+
+- Ridge regression **.darkorange[introduces bias to reduce variance]** in the testing data set.
+
+- In a simple regression (i.e. one regressor/covariate):
+
+`$$\min_\beta \sum_{i=1}^n\underbrace{(y_i - \beta_0 - x_i\beta_1)^2}_{OLS} + \color{#F89441}{\underbrace{\lambda\cdot \beta_1^2}_{Ridge Penalty}}$$`
+--
+
+- `\(\lambda\)` is the **.darkorange[penalty factor]** `\(\rightarrow\)` indicates how much we want to shrink the coefficients.
+
+---
+
+.center2[
+.box-5Trans[Q1: In general, which model will have **smaller** &amp;beta; coefficients?]
+
+.box-5trans[a) A model with a larger &amp;lambda;]
+
+.box-5trans[b) A model with a smaller &amp;lambda;]
+]
+
+---
+
+.center2[
+.box-3LA[Remember... we care about accuracy in the testing dataset!]
+]
+
+---
+# RMSE on the testing dataset: OLS
+
+`$$RMSE = \sqrt{\frac{1}{4}\sum_{i=1}^4(\text{spend}_i - (132.5 -16.25\cdot\text{freq}_i))^2} = 28.36$$`
+
+&lt;img src="f2023_sta235h_11_Shrinkage_files/figure-html/ols_mse-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# RMSE on the testing dataset: Ridge Regression
+
+`$$RMSE = \sqrt{\frac{1}{4}\sum_{i=1}^4(\text{spend}_i - (119.5 -11.25\cdot\text{freq}_i))^2} = 12.13$$`
+
+&lt;img src="f2023_sta235h_11_Shrinkage_files/figure-html/ridge_mse-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Ridge Regression in general
+
+- For regressions that include **.darkorange[more than one regressor]**:
+
+`$$\min_\beta \sum_{i=1}^n\underbrace{(y_i - \sum_{k=0}^px_i\beta_k)^2}_{OLS} + \color{#F89441}{\underbrace{\lambda\cdot \sum_{k=1}^p\beta_k^2}_{Ridge Penalty}}$$`
+--
+
+- In our previous example, if we had two regressors, `\(female\)` and `\(freq\)`:
+
+`$$\min_\beta \sum_{i=1}^n(\text{spend}_i - \beta_0 - \beta_1\text{female}_i - \beta_2\text{freq}_i)^2 + \lambda\cdot (\beta_1^2 + \beta_2^2)$$`
+
+--
+
+- Because the ridge penalty includes the `\(\beta\)`'s coefficients, **.darkorange[scale matters]**:
+
+  - Standardize variables (*you will do that as an option in your code*)
+  
+---
+# How do we choose &amp;lambda;?
+
+--
+
+.box-5[Cross-validation!]
+
+--
+
+1) Choose a grid of `\(\lambda\)` values
+  - The grid you choose will be context dependent (play around with it!)
+
+2) Compute cross-validation error (e.g. RMSE) for each
+
+3) Choose the smallest one.
+
+---
+# &amp;lambda; vs RMSE?
+
+
+&lt;img src="f2023_sta235h_11_Shrinkage_files/figure-html/lambda_rmse-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# &amp;lambda; vs RMSE? A zoom
+
+
+&lt;img src="f2023_sta235h_11_Shrinkage_files/figure-html/lambda_rmse_zoom-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# How do we do this in R?
+
+.pull-left[
+
+```r
+*library(caret)
+
+set.seed(100)
+
+hbo = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
+
+lambda_seq = seq(0, 20, length = 500)
+
+ridge = train(logins ~ . - unsubscribe - id, 
+            data = train.data, 
+            method = "glmnet",
+            preProcess = "scale",
+            trControl = trainControl("cv", number = 10),
+            tuneGrid = expand.grid(alpha = 0, 
+                         lambda = lambda_seq)
+  )
+
+cv_lambda = data.frame(lambda = ridge$results$lambda,
+                        rmse = ridge$results$RMSE)
+```
+]
+
+.pull-right[
+- We will be using the `caret` package
+]
+
+---
+# How do we do this in R?
+
+.pull-left[
+
+```r
+library(caret) 
+
+*set.seed(100)
+
+hbo = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
+
+lambda_seq = seq(0, 20, length = 500)
+
+ridge = train(logins ~ . - unsubscribe - id, 
+            data = train.data, 
+            method = "glmnet",
+            preProcess = "scale",
+            trControl = trainControl("cv", number = 10),
+            tuneGrid = expand.grid(alpha = 0, 
+                         lambda = lambda_seq)
+  )
+```
+]
+
+.pull-right[
+- We will be using the `caret` package
+
+- We are doing **.darkorange[cross-validation]**, so remember to set a seed!
+]
+
+---
+# How do we do this in R?
+
+.pull-left[
+
+```r
+library(caret) 
+
+set.seed(100)
+
+hbo = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
+
+*lambda_seq = seq(0, 20, length = 500)
+
+ridge = train(logins ~ . - unsubscribe - id, 
+            data = train.data, 
+            method = "glmnet",
+            preProcess = "scale",
+            trControl = trainControl("cv", number = 10),
+            tuneGrid = expand.grid(alpha = 0, 
+                         lambda = lambda_seq)
+  )
+
+cv_lambda = data.frame(lambda = ridge$results$lambda,
+                        rmse = ridge$results$RMSE)
+```
+]
+
+.pull-right[
+- We will be using the `caret` package
+
+- We are doing **.darkorange[cross-validation]**, so remember to set a seed!
+
+- You need to create a grid for the `\(\lambda\)`'s **.darkorange[that will be tested]**
+
+]
+
+
+---
+# How do we do this in R?
+
+.pull-left[
+
+```r
+library(caret) 
+
+set.seed(100)
+
+hbo = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
+
+lambda_seq = seq(0, 20, length = 500)
+
+*ridge = train(logins ~ . - unsubscribe - id,
+*           data = train.data,
+*           method = "glmnet",
+*           preProcess = "scale",
+*           trControl = trainControl("cv", number = 10),
+*           tuneGrid = expand.grid(alpha = 0,
+*                        lambda = lambda_seq)
+  )
+
+cv_lambda = data.frame(lambda = ridge$results$lambda,
+                        rmse = ridge$results$RMSE)
+```
+]
+
+.pull-right[
+- We will be using the `caret` package
+
+- We are doing **.darkorange[cross-validation]**, so remember to set a seed!
+
+- You need to create a grid for the `\(\lambda\)`'s **.darkorange[that will be tested]**
+
+- The function we will use is `train`: Same as before
+.small[
+
+  - `method="glmnet"` means that it will run an elastic net.
+- `alpha=0` means is a **.darkorange[ridge regression]**
+- `lambda = lambda_seq` is not necessary (you can provide your own grid)]
+]
+
+---
+# How do we do this in R?
+
+.pull-left[
+
+```r
+library(caret) 
+
+set.seed(100)
+
+hbo = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
+
+lambda_seq = seq(0, 20, length = 500)
+
+ridge = train(logins ~ . - unsubscribe - id, 
+            data = train.data, 
+            method = "glmnet",
+            preProcess = "scale",
+            trControl = trainControl("cv", number = 10),
+            tuneGrid = expand.grid(alpha = 0, 
+                         lambda = lambda_seq)
+  )
+
+*cv_lambda = data.frame(lambda = ridge$results$lambda,
+*                       rmse = ridge$results$RMSE)
+```
+]
+
+.pull-right[
+- We will be using the `caret` package
+
+- We are doing **.darkorange[cross-validation]**, so remember to set a seed!
+
+- You need to create a grid for the `\(\lambda\)`'s **.darkorange[that will be tested]**
+
+- The function we will use is `train`: Same as before
+
+- Important objects in `cv`:
+.small[
+
+  - `results$lambda`: Vector of `\(\lambda\)` that was tested
+- `results$RMSE`: RMSE for each `\(\lambda\)`
+- `bestTune$lambda`: `\(\lambda\)` that minimizes the error term.]
+]
+
+---
+# How do we do this in R?
+
+.pull-left[
+OLS regression:
+
+
+```r
+lm1 = lm(logins ~ succession + city,
+          data = train.data)
+
+coef(lm1)
+```
+
+```
+## (Intercept)  succession        city 
+##    7.035888   -6.306371    2.570454
+```
+
+```r
+rmse(lm1, test.data)
+```
+
+```
+## [1] 2.089868
+```
+]
+
+.pull-right[
+Ridge regression:
+
+
+```r
+coef(ridge$finalModel, ridge$bestTune$lambda)
+```
+
+```
+## 5 x 1 sparse Matrix of class "dgCMatrix"
+##                       s1
+## (Intercept)  6.564243424
+## female       0.002726465
+## city         0.824387472
+## age          0.046468790
+## succession  -2.639308962
+```
+
+```r
+rmse(ridge, test.data)
+```
+
+```
+## [1] 2.097452
+```
+]
+
+---
+background-position: 50% 50%
+class: left, bottom, inverse
+.big[
+Throwing a lasso
+]
+
+---
+# Lasso regression
+
+- Very similar to ridge regression, except it **.darkorange[changes the penalty term]**:
+
+`$$\min_\beta \sum_{i=1}^n\underbrace{(y_i - \sum_{k=0}^px_i\beta_k)^2}_{OLS} + \color{#F89441}{\underbrace{\lambda\cdot \sum_{k=1}^p|\beta_k|}_{Lasso Penalty}}$$`
+
+--
+
+- In our previous example:
+
+`$$\min_\beta \sum_{i=1}^n(\text{spend}_i - \beta_0 - \beta_1\text{female}_i - \beta_2\text{freq}_i)^2 + \lambda\cdot (|\beta_1| + |\beta_2|)$$`
+--
+
+- Lasso regression is also called `\(l_1\)` regularization:
+
+`$$||\beta||_1 = \sum_{k=1}^p |\beta|$$`
+---
+# Ridge vs Lasso
+
+.pull-left[
+.box-2[Ridge]
+
+.box-2t[Final model will have p coefficients]
+
+.box-2t[Usually better with multicollinearity]
+]
+
+--
+
+.pull-left[
+.box-4[Lasso]
+
+.box-4t[Can set coefficients = 0]
+
+.box-4t[Improves interpretability of model]
+
+.box-4t[Can be used for model selection]
+]
+
+---
+# And how do we do Lasso in R?
+
+.pull-left[
+
+```r
+library(caret) 
+
+set.seed(100)
+
+hbo = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
+
+lambda_seq = seq(0, 20, length = 500)
+
+lasso = train(logins ~ . - unsubscribe - id, data = train.data, 
+            method = "glmnet",
+            preProcess = "scale",
+            trControl = trainControl("cv", number = 10),
+*           tuneGrid = expand.grid(alpha = 1,
+                         lambda = lambda_seq)
+  )
+
+cv_lambda = data.frame(lambda = lasso$results$lambda,
+                        rmse = lasso$results$RMSE)
+```
+]
+
+.pull-right[
+.box-7[Exactly the same!]
+
+- ... But change `alpha=1`!!
+]
+
+---
+# And how do we do Lasso in R?
+
+.pull-left[
+Ridge regression:
+
+
+```r
+coef(ridge$finalModel, ridge$bestTune$lambda)
+```
+
+```
+## 5 x 1 sparse Matrix of class "dgCMatrix"
+##                       s1
+## (Intercept)  6.564243424
+## female       0.002726465
+## city         0.824387472
+## age          0.046468790
+## succession  -2.639308962
+```
+
+```r
+rmse(ridge, test.data)
+```
+
+```
+## [1] 2.097452
+```
+]
+
+.pull-right[
+Lasso regression:
+
+
+```r
+coef(lasso$finalModel, lasso$bestTune$lambda)
+```
+
+```
+## 5 x 1 sparse Matrix of class "dgCMatrix"
+##                      s1
+## (Intercept)  6.84122778
+## female       .         
+## city         0.87982819
+## age          0.03099797
+## succession  -2.83492585
+```
+
+```r
+rmse(lasso, test.data)
+```
+
+```
+## [1] 2.09171
+```
+]
+
+---
+# A note on binary outcomes
+
+- If we are predicting **.darkorange[binary outcomes]**, RMSE would not be an appropriate measure anymore!
+
+  - We will use **.darkorange[accuracy instead]**: The proportion (%) of correctly classified observations.
+
+--
+
+- For example:
+
+
+```r
+set.seed(100)
+
+*lasso = train(factor(unsubscribe) ~ . - id, data = train.data,
+            method = "glmnet", preProcess = "scale",
+            trControl = trainControl("cv", number = 10),
+            tuneGrid = expand.grid(alpha = 1, lambda = lambda_seq))
+
+pred.values = lasso %&gt;% predict(test.data)
+
+mean(pred.values == test.data$unsubscribe)
+```
+
+```
+## [1] 0.736
+```
+
+---
+# A note on binary outcomes
+
+- If we are predicting **.darkorange[binary outcomes]**, RMSE would not be an appropriate measure anymore!
+
+  - We will use **.darkorange[accuracy instead]**: The proportion (%) of correctly classified observations.
+
+
+
+- For example:
+
+
+```r
+set.seed(100)
+
+lasso = train(factor(unsubscribe) ~ . - id, data = train.data,
+            method = "glmnet", preProcess = "scale",
+            trControl = trainControl("cv", number = 10),
+            tuneGrid = expand.grid(alpha = 1, lambda = lambda_seq))
+
+*pred.values = lasso %&gt;% predict(test.data)
+
+mean(pred.values == test.data$unsubscribe)
+```
+
+```
+## [1] 0.736
+```
+
+---
+# A note on binary outcomes
+
+- If we are predicting **.darkorange[binary outcomes]**, RMSE would not be an appropriate measure anymore!
+
+  - We will use **.darkorange[accuracy instead]**: The proportion (%) of correctly classified observations.
+
+
+
+- For example:
+
+
+```r
+set.seed(100)
+
+lasso = train(factor(unsubscribe) ~ . - id, data = train.data,
+            method = "glmnet", preProcess = "scale",
+            trControl = trainControl("cv", number = 10),
+            tuneGrid = expand.grid(alpha = 1, lambda = lambda_seq))
+
+pred.values = lasso %&gt;% predict(test.data)
+
+*mean(pred.values == test.data$unsubscribe)
+```
+
+```
+## [1] 0.736
+```
+
+---
+
+.center2[
+.box-7Trans[Your Turn]
+]
+
+
+---
+# Main takeway points
+
+.pull-left[
+- You can **.darkorange[shrink coefficients]** to introduce bias and decrease variance.
+
+- Ridge and Lasso regression are **.darkorange[similar]**:
+
+  - Lasso can be used for model selection.
+
+- Importance of understanding **.darkorange[how to estimate the penalty coefficient]**.
+]
+
+.pull-right[
+.center[
+![](https://media.giphy.com/media/2AsEweF761Dji/source.gif)]
+]
+---
+# References
+
+- James, G. et al. (2021). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 6.*
+
+- STDHA. (2018). ["Penalized Regression Essentials: Ridge, Lasso &amp; Elastic Net"](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/153-penalized-regression-essentials-ridge-lasso-elastic-net)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
