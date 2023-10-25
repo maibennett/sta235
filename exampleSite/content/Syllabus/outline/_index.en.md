@@ -73,12 +73,12 @@ Below you will find a general outline of the topics we’ll cover in this course
 <tr>
 <td>12</td>
 <td>Nov 6 – Nov 8</td>
-<td>Introduction to prediction models: K-nearest neighbors’ regression and classification.</td>
+<td>Introduction to Prediction models: Classification and regression trees (CART).</td>
 </tr>
 <tr>
 <td>13</td>
 <td>Nov 13 – Nov 15</td>
-<td>Prediction models (cont.): Classification and regression trees (CART).<br><i>Homework 5 due</i></td>
+<td><br>Prediction models (cont.): Random forests, boosting, and ensemble methods.<i>Homework 5 due</i></td>
 </tr>
 <tr>
 <td>14</td>
@@ -88,7 +88,7 @@ Below you will find a general outline of the topics we’ll cover in this course
 <tr>
 <td>15</td>
 <td>Nov 27 – Nov 29</td>
-<td>Prediction models (cont.): Random forests, boosting, and ensemble methods.<br><i>Homework 6 due</i></td>
+<td><br>Bringing it all together: Prediction<i>Homework 6 due</i></td>
 </tr>
 <tr>
 <td>16</td>

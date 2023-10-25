@@ -326,6 +326,7 @@ library(firasans)
 library(kableExtra)
 library(scales)
 library(patchwork)
+library(caret) 
 
 # for windows
 windowsFonts(sans = "Fira")
@@ -428,7 +429,10 @@ font.add.google("Fira Sans", "Fira Sans")
 .pull-left[
 - How to **.darkorange[improve our linear regressions]**:
 
-  - Shrinkage methods: Ridge and Lasso.
+  - Ridge regression
+  - Lasso regression
+  
+- Look at **.darkorange[binary outcomes]**
 
 ]
 
@@ -475,24 +479,24 @@ On top of a ridge.
 
 set.seed(100)
 
-n <- 1000
+n = 1000
 
-freq <- sample(1:10, n, replace = TRUE)
+freq = sample(1:10, n, replace = TRUE)
 
-spend <- 150 - sqrt(15)*freq^2 - freq + rnorm(n, 0, 60) + freq*rnorm(n, 0, 45)
+spend = 150 - sqrt(15)*freq^2 - freq + rnorm(n, 0, 60) + freq*rnorm(n, 0, 45)
 
-spend <- round(rescale(spend, to = c(0,189)),0)
+spend = round(rescale(spend, to = c(0,189)),0)
 
-female <- sample(c(0,1), n, replace = TRUE, prob = c(0.25,0.75))
+female = sample(c(0,1), n, replace = TRUE, prob = c(0.25,0.75))
 
-data <- data.frame(freq = freq,
+data = data.frame(freq = freq,
                    female = female,
                    spend = spend)
 
 #previous code was how the data was generated
-data <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
+data = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/purchases.csv")
 
-train <- data.frame(freq = c(2,6),
+train = data.frame(freq = c(2,6),
                     female = c(1,1),
                     spend = c(100,35))
 
@@ -564,7 +568,7 @@ ggplot(data = train, aes(x = freq, y = spend)) +
 
 ```{r ridge_test, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
 
-test <- data.frame(freq = c(1,5,6,9),
+test = data.frame(freq = c(1,5,6,9),
                    spend = c(105,70,75,20))
 
 
@@ -603,7 +607,7 @@ ggplot(data = train, aes(x = freq, y = spend)) +
 ```{r ridge, fig.height=5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
 
 
-ridge <- data.frame(freq = c(2,6),
+ridge = data.frame(freq = c(2,6),
                     spend = c(97,52))
 
 
@@ -657,7 +661,7 @@ $$\min_\beta \sum_{i=1}^n\underbrace{(y_i - \beta_0 - x_i\beta_1)^2}_{OLS} + \co
 ---
 
 .center2[
-.box-5Trans[Q2: In general, which model will have **smaller** &beta; coefficients?]
+.box-5Trans[Q1: In general, which model will have **smaller** &beta; coefficients?]
 
 .box-5trans[a) A model with a larger &lambda;]
 
@@ -677,8 +681,8 @@ $$RMSE = \sqrt{\frac{1}{4}\sum_{i=1}^4(\text{spend}_i - (132.5 -16.25\cdot\text{
 
 ```{r ols_mse, fig.height=4.5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
 
-lm1 <- lm(spend ~ freq, data = train)
-test$fitted <- predict(lm1, newdata = test)
+lm1 = lm(spend ~ freq, data = train)
+test$fitted = predict(lm1, newdata = test)
 
 ggplot(data = train, aes(x = freq, y = spend)) + 
   geom_smooth(method = "lm", color = "dark grey", lwd = 2, lty = 2, fullrange = TRUE) +
@@ -715,8 +719,8 @@ $$RMSE = \sqrt{\frac{1}{4}\sum_{i=1}^4(\text{spend}_i - (119.5 -11.25\cdot\text{
 
 ```{r ridge_mse, fig.height=4.5, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
 
-lm1 <- lm(spend ~ freq, data = ridge)
-test$fitted <- predict(lm1, newdata = test)
+lm1 = lm(spend ~ freq, data = ridge)
+test$fitted = predict(lm1, newdata = test)
 
 ggplot(data = train, aes(x = freq, y = spend)) + 
   #geom_smooth(method = "lm", color = "dark grey", lwd = 2, lty = 2, fullrange = TRUE) +
@@ -785,23 +789,23 @@ $$\min_\beta \sum_{i=1}^n(\text{spend}_i - \beta_0 - \beta_1\text{female}_i - \b
 
 
 ```{r lambda_rmse, fig.height=6, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
-hbo <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
+hbo = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
 
 # Divide data: 80% vs 20% split
 
 set.seed(100) #Always set seed for replication!
 
-n <- nrow(hbo)
+n = nrow(hbo)
 
-train <- sample(1:n, n*0.8) #randomly select 80% of the rows
+train = sample(1:n, n*0.8) #randomly select 80% of the rows
 
-train.data <- hbo[train,] #use only the rows that were selected for training
+train.data = hbo[train,] #use only the rows that were selected for training
 
-test.data <- hbo[-train,] #the rest are used for testing
+test.data = hbo[-train,] #the rest are used for testing
 
-lambda_seq <- c(0,10^seq(-3, 3, length = 100))
+lambda_seq = seq(0, 20, length = 500)
 
-cv <- train(logins ~ . - unsubscribe - id, 
+cv = train(logins ~ . - unsubscribe - id, 
             data = train.data, 
             method = "glmnet",
             preProcess = "scale",
@@ -811,10 +815,10 @@ cv <- train(logins ~ . - unsubscribe - id,
   )
 
 
-lambda <- cv$results$lambda
-rmse <- cv$results$RMSE
+lambda = cv$results$lambda
+rmse = cv$results$RMSE
 
-cv_lambda <- data.frame(lambda = lambda,
+cv_lambda = data.frame(lambda = lambda,
                         rmse = rmse)
 
 ggplot(data = cv_lambda, aes(x = lambda, y = rmse)) + 
@@ -847,7 +851,7 @@ ggplot(data = cv_lambda, aes(x = lambda, y = rmse)) +
 
 ```{r lambda_rmse_zoom, fig.height=6, fig.width=10, fig.align='center', dev='svg', echo=FALSE, warning=FALSE}
 
-cv_lambda_close <- cv_lambda %>% dplyr::filter(lambda<5)
+cv_lambda_close = cv_lambda %>% dplyr::filter(lambda<5)
 
 ggplot(data = cv_lambda_close, aes(x = lambda, y = rmse)) + 
   geom_line(aes(color = "#BF3984"), lwd = 2) +
@@ -882,11 +886,11 @@ library(caret) #<<
 
 set.seed(100)
 
-hbo <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
+hbo = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
 
-lambda_seq <- c(0,10^seq(-3, 1, length = 100))
+lambda_seq = seq(0, 20, length = 500)
 
-ridge <- train(logins ~ . - unsubscribe - id, 
+ridge = train(logins ~ . - unsubscribe - id, 
             data = train.data, 
             method = "glmnet",
             preProcess = "scale",
@@ -895,7 +899,7 @@ ridge <- train(logins ~ . - unsubscribe - id,
                          lambda = lambda_seq)
   )
 
-cv_lambda <- data.frame(lambda = ridge$results$lambda,
+cv_lambda = data.frame(lambda = ridge$results$lambda,
                         rmse = ridge$results$RMSE)
 
 ```
@@ -914,11 +918,11 @@ library(caret)
 
 set.seed(100) #<<
 
-hbo <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
+hbo = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
 
-lambda_seq <- c(0,10^seq(-3, 1, length = 100))
+lambda_seq = seq(0, 20, length = 500)
 
-ridge <- train(logins ~ . - unsubscribe - id, 
+ridge = train(logins ~ . - unsubscribe - id, 
             data = train.data, 
             method = "glmnet",
             preProcess = "scale",
@@ -926,9 +930,6 @@ ridge <- train(logins ~ . - unsubscribe - id,
             tuneGrid = expand.grid(alpha = 0, 
                          lambda = lambda_seq)
   )
-
-cv_lambda <- data.frame(lambda = ridge$results$lambda,
-                        rmse = ridge$results$RMSE)
 
 ```
 ]
@@ -948,11 +949,11 @@ library(caret)
 
 set.seed(100)
 
-hbo <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
+hbo = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
 
-lambda_seq <- c(0,10^seq(-3, 1, length = 100)) #<<
+lambda_seq = seq(0, 20, length = 500) #<<
 
-ridge <- train(logins ~ . - unsubscribe - id, 
+ridge = train(logins ~ . - unsubscribe - id, 
             data = train.data, 
             method = "glmnet",
             preProcess = "scale",
@@ -961,7 +962,7 @@ ridge <- train(logins ~ . - unsubscribe - id,
                          lambda = lambda_seq)
   )
 
-cv_lambda <- data.frame(lambda = ridge$results$lambda,
+cv_lambda = data.frame(lambda = ridge$results$lambda,
                         rmse = ridge$results$RMSE)
 
 ```
@@ -986,11 +987,11 @@ library(caret)
 
 set.seed(100)
 
-hbo <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
+hbo = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
 
-lambda_seq <- c(0,10^seq(-3, 1, length = 100))
+lambda_seq = seq(0, 20, length = 500)
 
-ridge <- train(logins ~ . - unsubscribe - id, #<<
+ridge = train(logins ~ . - unsubscribe - id, #<<
             data = train.data, #<<
             method = "glmnet", #<<
             preProcess = "scale", #<<
@@ -999,7 +1000,7 @@ ridge <- train(logins ~ . - unsubscribe - id, #<<
                          lambda = lambda_seq) #<<
   )
 
-cv_lambda <- data.frame(lambda = ridge$results$lambda,
+cv_lambda = data.frame(lambda = ridge$results$lambda,
                         rmse = ridge$results$RMSE)
 
 ```
@@ -1029,11 +1030,11 @@ library(caret)
 
 set.seed(100)
 
-hbo <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
+hbo = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
 
-lambda_seq <- c(0,10^seq(-3, 1, length = 100))
+lambda_seq = seq(0, 20, length = 500)
 
-ridge <- train(logins ~ . - unsubscribe - id, 
+ridge = train(logins ~ . - unsubscribe - id, 
             data = train.data, 
             method = "glmnet",
             preProcess = "scale",
@@ -1042,7 +1043,7 @@ ridge <- train(logins ~ . - unsubscribe - id,
                          lambda = lambda_seq)
   )
 
-cv_lambda <- data.frame(lambda = ridge$results$lambda, #<<
+cv_lambda = data.frame(lambda = ridge$results$lambda, #<<
                         rmse = ridge$results$RMSE) #<<
 
 ```
@@ -1072,7 +1073,7 @@ cv_lambda <- data.frame(lambda = ridge$results$lambda, #<<
 OLS regression:
 
 ```{r}
-lm1 <- lm(logins ~ got + city,
+lm1 = lm(logins ~ succession + city,
           data = train.data)
 
 coef(lm1)
@@ -1147,11 +1148,11 @@ library(caret)
 
 set.seed(100)
 
-hbo <- read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
+hbo = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
 
-lambda_seq <- c(0,10^seq(-3, 1, length = 100))
+lambda_seq = seq(0, 20, length = 500)
 
-lasso <- train(logins ~ . - unsubscribe - id, data = train.data, 
+lasso = train(logins ~ . - unsubscribe - id, data = train.data, 
             method = "glmnet",
             preProcess = "scale",
             trControl = trainControl("cv", number = 10),
@@ -1159,7 +1160,7 @@ lasso <- train(logins ~ . - unsubscribe - id, data = train.data,
                          lambda = lambda_seq)
   )
 
-cv_lambda <- data.frame(lambda = lasso$results$lambda,
+cv_lambda = data.frame(lambda = lasso$results$lambda,
                         rmse = lasso$results$RMSE)
 ```
 ]
@@ -1194,6 +1195,78 @@ rmse(lasso, test.data)
 ]
 
 ---
+# A note on binary outcomes
+
+- If we are predicting **.darkorange[binary outcomes]**, RMSE would not be an appropriate measure anymore!
+
+  - We will use **.darkorange[accuracy instead]**: The proportion (%) of correctly classified observations.
+
+--
+
+- For example:
+
+```{r}
+set.seed(100)
+
+lasso = train(factor(unsubscribe) ~ . - id, data = train.data, #<<
+            method = "glmnet", preProcess = "scale",
+            trControl = trainControl("cv", number = 10),
+            tuneGrid = expand.grid(alpha = 1, lambda = lambda_seq))
+
+pred.values = lasso %>% predict(test.data)
+
+mean(pred.values == test.data$unsubscribe)
+```
+
+---
+# A note on binary outcomes
+
+- If we are predicting **.darkorange[binary outcomes]**, RMSE would not be an appropriate measure anymore!
+
+  - We will use **.darkorange[accuracy instead]**: The proportion (%) of correctly classified observations.
+
+
+
+- For example:
+
+```{r}
+set.seed(100)
+
+lasso = train(factor(unsubscribe) ~ . - id, data = train.data,
+            method = "glmnet", preProcess = "scale",
+            trControl = trainControl("cv", number = 10),
+            tuneGrid = expand.grid(alpha = 1, lambda = lambda_seq))
+
+pred.values = lasso %>% predict(test.data) #<<
+
+mean(pred.values == test.data$unsubscribe)
+```
+
+---
+# A note on binary outcomes
+
+- If we are predicting **.darkorange[binary outcomes]**, RMSE would not be an appropriate measure anymore!
+
+  - We will use **.darkorange[accuracy instead]**: The proportion (%) of correctly classified observations.
+
+
+
+- For example:
+
+```{r}
+set.seed(100)
+
+lasso = train(factor(unsubscribe) ~ . - id, data = train.data,
+            method = "glmnet", preProcess = "scale",
+            trControl = trainControl("cv", number = 10),
+            tuneGrid = expand.grid(alpha = 1, lambda = lambda_seq))
+
+pred.values = lasso %>% predict(test.data)
+
+mean(pred.values == test.data$unsubscribe) #<<
+```
+
+---
 
 .center2[
 .box-7Trans[Your Turn]
@@ -1202,7 +1275,7 @@ rmse(lasso, test.data)
 ---
 # In-class Activity
 
-- Go to **.darkorange[https://sta235h.rocks/Week11]** and read the exercise.
+- Go to **.darkorange[https://sta235h.click/Week11]** and read the exercise.
 
 - Answer the questions in the activity and write them in your sheet.
 
@@ -1235,6 +1308,3 @@ rmse(lasso, test.data)
 - James, G. et al. (2021). "Introduction to Statistical Learning with Applications in R". *Springer. Chapter 6.*
 
 - STDHA. (2018). ["Penalized Regression Essentials: Ridge, Lasso & Elastic Net"](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/153-penalized-regression-essentials-ridge-lasso-elastic-net)
-
-<!-- rmarkdown::render("f2022_sta235h_14_Shrinkage_annotate.rmd")-->
-<!-- knit("C:/Users/mc72574/Dropbox/Hugo/Sites/sta235/exampleSite/content/Classes/Week11/1_Shrinkage/f2022_sta235h_14_Shrinkage_annotate.rmd")
