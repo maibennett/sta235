@@ -51,7 +51,8 @@ test.data = hbo %>% slice(-train) #the rest are used for testing
 #(THIS WILL DEPEND ON YOUR EXAMPLE AND YOU NEED TO CHANGE IT ACCORDINGLY)
 lambda_seq = c(0, 20, length = 500)
 
-## Question: Why do we use an exponential vector?
+#Question: Change your lambda_seq to go from 0 to 5 instead of 0 to 20. Are your results similar?
+
 set.seed(100)
 
 ridge = train(logins ~ . - unsubscribe - id, data = train.data, # We give the function `train` the formula (`logins` regressed on everything else that's on the dataset). Note: If there are variables *you don't want to include* (e.g. an id variable), you can exclude it with a - sign (e.g. logins ~ . - id).
@@ -61,7 +62,6 @@ ridge = train(logins ~ . - unsubscribe - id, data = train.data, # We give the fu
                tuneGrid = expand.grid(alpha = 0, # alpha is the "mixing" parameter. All you need to know is that `alpha=0` is for ridge regression (and `alpha=1` is for lasso)
                                       lambda = lambda_seq) # values of lambda we are going to test out
 )
-
 # This might ask you to install the "glmnet" package (you just have to install it once, and do not need to load it independently (caret will load it for you))
 
 lambda = ridge$results$lambda #We can extract the vector of tested lambdas here

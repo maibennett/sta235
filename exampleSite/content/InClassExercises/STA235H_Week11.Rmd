@@ -67,7 +67,7 @@ set.seed(100) #Remember always to set seed before something random (in this case
 
 n = nrow(marketing) #Number of obs in our marketing dataset
 
-train = sample(1:n, nrow(marketing)*0.75) #Row numbers for 75% of our data (randomly selected)
+train = sample(1:n, n*0.75) #Row numbers for 75% of our data (randomly selected)
 
 train.data = marketing %>% slice(train)
 test.data = marketing %>% slice(-train)
@@ -78,8 +78,8 @@ test.data = marketing %>% slice(-train)
 
 1) First, let's try to predict **response** using Ridge regression. Note that this is a <u>binary outcome</u>, so we will be using **accuracy** to see how our model does, and not RMSE (accuracy will be calculate as how many observations I classify correctly). Use the following code as a starting point and complete it to answer the following questions:
 
-**Q2: What is your optimal lambda in this case?**
-**Q3: What is your percentage of accuracy?**
+**Q3: What is your optimal lambda in this case?**<br>
+**Q4: What is your percentage of accuracy?**
 
 ```{r, eval = FALSE}
 lambda_seq = seq(0,0.5,length = 100) 
@@ -88,12 +88,11 @@ set.seed(100)
   
 train.control = trainControl() #COMPLETE
 
-ridge = train(factor(Response) ~ . , data = train.data, 
+ridge = train(factor(Response) ~ . , data = #COMPLETE, 
                method = "glmnet",
                preProcess = "scale", 
                trControl = train.control, 
-               tuneGrid = expand.grid(alpha = 0,
-                                      lambda = lambda_seq)
+               tuneGrid = #COMPLETE
 )
 
 plot(ridge)
@@ -102,15 +101,16 @@ plot(ridge)
 pred.values = ridge %>% predict(test.data)
 
 # How many do we get right? (on average)
-mean(pred.values == test.data$Response)
+
+mean(#COMPLETE)
 
 ```
 
 
 3) Do the same exercise as 2) but now with lasso instead of ridge:
 
-**Q4: What is your percentage of accuracy?**
-**Q5: How many variables does your model have?**
+**Q5: What is your percentage of accuracy?**<br>
+**Q6: How many variables does your model have?**
 
 
 ```{r, eval = FALSE}
@@ -125,11 +125,7 @@ lasso = #COMPLETE
 plot(lasso)
 
 # Predict response:
-pred.values = lasso %>% predict(test.data)
-
-
-# Let's see the coefficients in the model:
-coef(lasso$finalModel, lasso$bestTune$lambda)
+#COMPLETE
 
 # You can also store them in an object, and then look at p!
 # This is the number of coefficients (variables + intercept)

@@ -60,6 +60,8 @@ Homework assignments are posted **one week before they are due**. Check the [syl
 
 - Homework 3: <a onclick="gtag('event','hw3_code', {'event_category': 'HW','event_label': 'hw3_code', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/Homework3/templates/STA235H_HW3_Template.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
+- Homework 4: <a onclick="gtag('event','hw4_code', {'event_category': 'HW','event_label': 'hw4_code', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/Homework4/templates/STA235H_HW4_Template.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+
 ## Answer Keys
 
 - Homework 1: <a onclick="gtag('event','hw1_answerkey', {'event_category': 'code','event_label': 'hw1_answerkey', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/Assignments/Homework/Homework1/STA235H_Fall23_Homework1_AnswerKey.html" target="_blank" class="btn btn-default">Open <i class="fas fa-external-link-alt"></i></a>

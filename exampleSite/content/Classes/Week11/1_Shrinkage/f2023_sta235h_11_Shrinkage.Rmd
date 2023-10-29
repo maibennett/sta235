@@ -875,7 +875,7 @@ ggplot(data = cv_lambda_close, aes(x = lambda, y = rmse)) +
 # How do we do this in R?
 
 .pull-left[
-```{r, echo=TRUE, warning=FALSE, message = FALSE}
+```{r, echo=TRUE, warning=FALSE, message = FALSE, eval = FALSE}
 library(caret) #<<
 
 set.seed(100)
@@ -893,8 +893,7 @@ ridge = train(logins ~ . - unsubscribe - id,
                          lambda = lambda_seq)
   )
 
-cv_lambda = data.frame(lambda = ridge$results$lambda,
-                        rmse = ridge$results$RMSE)
+plot(ridge)
 
 ```
 ]
@@ -907,7 +906,7 @@ cv_lambda = data.frame(lambda = ridge$results$lambda,
 # How do we do this in R?
 
 .pull-left[
-```{r, echo=TRUE, warning=FALSE, message = FALSE}
+```{r, echo=TRUE, warning=FALSE, message = FALSE, eval = FALSE}
 library(caret) 
 
 set.seed(100) #<<
@@ -925,6 +924,8 @@ ridge = train(logins ~ . - unsubscribe - id,
                          lambda = lambda_seq)
   )
 
+plot(ridge)
+
 ```
 ]
 
@@ -938,7 +939,7 @@ ridge = train(logins ~ . - unsubscribe - id,
 # How do we do this in R?
 
 .pull-left[
-```{r, echo=TRUE, warning=FALSE, message = FALSE}
+```{r, echo=TRUE, warning=FALSE, message = FALSE, eval = FALSE}
 library(caret) 
 
 set.seed(100)
@@ -956,8 +957,7 @@ ridge = train(logins ~ . - unsubscribe - id,
                          lambda = lambda_seq)
   )
 
-cv_lambda = data.frame(lambda = ridge$results$lambda,
-                        rmse = ridge$results$RMSE)
+plot(ridge)
 
 ```
 ]
@@ -976,7 +976,7 @@ cv_lambda = data.frame(lambda = ridge$results$lambda,
 # How do we do this in R?
 
 .pull-left[
-```{r, echo=TRUE, warning=FALSE, message = FALSE}
+```{r, echo=TRUE, warning=FALSE, message = FALSE, eval = FALSE}
 library(caret) 
 
 set.seed(100)
@@ -994,8 +994,7 @@ ridge = train(logins ~ . - unsubscribe - id, #<<
                          lambda = lambda_seq) #<<
   )
 
-cv_lambda = data.frame(lambda = ridge$results$lambda,
-                        rmse = ridge$results$RMSE)
+plot(ridge)
 
 ```
 ]
@@ -1019,7 +1018,7 @@ cv_lambda = data.frame(lambda = ridge$results$lambda,
 # How do we do this in R?
 
 .pull-left[
-```{r, echo=TRUE, warning=FALSE, message = FALSE}
+```{r, echo=TRUE, warning=FALSE, message = FALSE, eval = FALSE}
 library(caret) 
 
 set.seed(100)
@@ -1037,8 +1036,7 @@ ridge = train(logins ~ . - unsubscribe - id,
                          lambda = lambda_seq)
   )
 
-cv_lambda = data.frame(lambda = ridge$results$lambda, #<<
-                        rmse = ridge$results$RMSE) #<<
+plot(ridge) #<<
 
 ```
 ]
@@ -1062,6 +1060,25 @@ cv_lambda = data.frame(lambda = ridge$results$lambda, #<<
 
 ---
 # How do we do this in R?
+
+```{r, echo=FALSE, warning=FALSE, message = FALSE}
+library(caret) 
+
+set.seed(100)
+
+hbo = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
+
+lambda_seq = seq(0, 20, length = 500)
+
+ridge = train(logins ~ . - unsubscribe - id, 
+            data = train.data, 
+            method = "glmnet",
+            preProcess = "scale",
+            trControl = trainControl("cv", number = 10),
+            tuneGrid = expand.grid(alpha = 0, 
+                         lambda = lambda_seq)
+  )
+```
 
 .pull-left[
 OLS regression:
@@ -1111,6 +1128,20 @@ $$\min_\beta \sum_{i=1}^n(\text{spend}_i - \beta_0 - \beta_1\text{female}_i - \b
 
 $$||\beta||_1 = \sum_{k=1}^p |\beta|$$
 ---
+
+.center2[
+.box-5Trans[Q2: Which of the following are TRUE?]
+
+.box-5trans[a) A ridge regression will have p coeff (if we have p predictors)]
+
+.box-5trans[b) A lasso regression will have p coeff (if we have p predictors)]
+
+.box-5trans[c) The larger the &#411;, the larger the L1 or L2 norm]
+
+.box-5trans[d) The larger the &#411;, the smaller the L1 or L2 norm]
+]
+
+---
 # Ridge vs Lasso
 
 .pull-left[
@@ -1137,7 +1168,7 @@ $$||\beta||_1 = \sum_{k=1}^p |\beta|$$
 # And how do we do Lasso in R?
 
 .pull-left[
-```{r, echo=TRUE, warning=FALSE, message = FALSE}
+```{r, echo=TRUE, warning=FALSE, message = FALSE, eval = FALSE}
 library(caret) 
 
 set.seed(100)
@@ -1154,8 +1185,7 @@ lasso = train(logins ~ . - unsubscribe - id, data = train.data,
                          lambda = lambda_seq)
   )
 
-cv_lambda = data.frame(lambda = lasso$results$lambda,
-                        rmse = lasso$results$RMSE)
+plot(lasso)
 ```
 ]
 
@@ -1167,6 +1197,24 @@ cv_lambda = data.frame(lambda = lasso$results$lambda,
 
 ---
 # And how do we do Lasso in R?
+
+```{r, echo=FALSE, warning=FALSE, message = FALSE}
+library(caret) 
+
+set.seed(100)
+
+hbo = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/data/hbomax.csv")
+
+lambda_seq = seq(0, 20, length = 500)
+
+lasso = train(logins ~ . - unsubscribe - id, data = train.data, 
+            method = "glmnet",
+            preProcess = "scale",
+            trControl = trainControl("cv", number = 10),
+            tuneGrid = expand.grid(alpha = 1, #<< 
+                         lambda = lambda_seq)
+  )
+```
 
 .pull-left[
 Ridge regression:
@@ -1259,12 +1307,6 @@ pred.values = lasso %>% predict(test.data)
 
 mean(pred.values == test.data$unsubscribe) #<<
 ```
-
----
-
-.center2[
-.box-7Trans[Your Turn]
-]
 
 
 ---
