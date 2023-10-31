@@ -18,9 +18,9 @@ This will be the final week that we cover new material, and we will be talking a
 
 {{< youtube src="https://www.youtube.com/embed/2Mg8QD0F1dQ?controls=0" >}}
 
-- Ritvik Kharkar. (2019). "Random Forests". *Video materials from ritvikmath*.
+- Statquest. (2018). "Random Forests Part 1: Building, Using and Evaluating".
 
-{{< youtube src="https://www.youtube.com/embed/w-eWTxbRQcU?controls=0" >}}
+{{< youtube src="https://www.youtube.com/embed/J4Wdy0Wc_xQ?si=Gc1aOOw3E0xKR66J" >}}
 
 - Udacity. (2016). "Boosting".
 
