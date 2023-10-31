@@ -14,17 +14,19 @@ This will be the final week that we cover new material, and we will be talking a
 
 - James, G. et al. (2021). "An Introduction to Statistical Learning with Applications in R" (ISLR). *Chapter 8: 8.2 (pg. 340-348)*. 
 
-- Udacity. (2016). "Bootstrap aggregating bagging".
+- The Semicolon. (2017). "Ensemble Learning, Bootstrap Aggregating (Bagging) and Boosting".
 
-{{< youtube src="https://www.youtube.com/embed/2Mg8QD0F1dQ?controls=0" >}}
+{{< youtube src="https://www.youtube.com/embed/m-S9Hojj1as?si=3E7H52nZHO_7CSH8" >}}
 
 - Statquest. (2018). "Random Forests Part 1: Building, Using and Evaluating".
 
 {{< youtube src="https://www.youtube.com/embed/J4Wdy0Wc_xQ?si=Gc1aOOw3E0xKR66J" >}}
 
-- Udacity. (2016). "Boosting".
+- Ritvik Kharkar. (2019). "Random Forests". *Video materials from ritvikmath*.
 
-{{< youtube src="https://www.youtube.com/embed/GM3CDQfQ4sw?controls=0" >}}
+{{< youtube src="https://www.youtube.com/embed/w-eWTxbRQcU?controls=0" >}}
+
+- 
 
 
 
