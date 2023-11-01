@@ -117,7 +117,7 @@ I now explain each of these grading components in more detail.
 
 5.	**Final Exam (25%)**
 
--	The final exam will be an individual in-person evaluation, and it will be cumulative. Students will be able to use any offline resource (e.g. notes from class, slides, R scripts provided), but no online resources.
+-	The final exam will be an individual in-person evaluation, and it will be cumulative. Students will be able to use some offline resources (one cheat-sheet, and one R script provided for everyone), but no online resources.
 
 -	Just as with homework assignments, students will have to submit their R script in addition to their final exam in order to be evaluated.
 
