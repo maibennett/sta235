@@ -8,6 +8,6 @@ disableToc: true
 
 ## Thanksgiving break
 
-There are no assigned readings for this week, and there will also be no JITT due.
+There are no assigned readings for this week. There is one JITT due on Sunday 26th, only with a knowledge check.
 
 ![](https://media.giphy.com/media/QC1TssrPbkD2menNfz/giphy.gif)
