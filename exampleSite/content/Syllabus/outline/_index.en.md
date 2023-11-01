@@ -88,7 +88,7 @@ Below you will find a general outline of the topics we’ll cover in this course
 <tr>
 <td>15</td>
 <td>Nov 27 – Nov 29</td>
-<td>Bringing it all together: Prediction.<br><i>Homework 6 due</i></td>
+<td>Bringing it all together<br><i>Homework 6 due</i></td>
 </tr>
 <tr>
 <td>16</td>
