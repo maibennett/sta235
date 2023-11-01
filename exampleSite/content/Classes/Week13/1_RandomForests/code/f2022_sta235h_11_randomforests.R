@@ -95,16 +95,16 @@ set.seed(100)
 tuneGrid = expand.grid(
   mtry = 1:11, # Number of random covariates that will test
   splitrule = "variance", # Split rule (for regressions use "variance", for classification use "gini")
-  min.node.size = 5
+  min.node.size = 5 # You can vary this (e.g. include c(5,10) if you want to test different min node sizes) or just live it out
 )
 
 rfcv = train(Sales ~ ., data = carseats.train,
-              method = "ranger", # You can also use "rf", but "ranger" is faster!
-              trControl = trainControl("cv", number = 10),
-              importance = "permutation",
-              tuneGrid = tuneGrid)
+             method = "ranger", # You can also use "rf", but "ranger" is faster!
+             trControl = trainControl("cv", number = 10),
+             importance = "permutation",
+             tuneGrid = tuneGrid)
 
-# Question: Change tuneGrid to tuneLength = 10, what do you get?
+# Question: Change tuneGrid = tuneGrid to tuneLength = 10, what do you get?
 
 rfcv # Here you can see the main results!
 

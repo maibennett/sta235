@@ -921,7 +921,7 @@ rt$finalModel
 ---
 # In-class Activity
 
-- Go to **.darkorange[https://sta235h.clicks/Week12]** and read the exercise.
+- Go to **.darkorange[https://sta235h.click/Week12]** and read the exercise.
 
 - Answer the questions in the activity and write them down on your sheet.
 
