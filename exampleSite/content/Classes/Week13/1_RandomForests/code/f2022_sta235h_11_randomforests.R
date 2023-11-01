@@ -14,7 +14,6 @@ cat("\014")
 # If you don't have one of these packages installed already, you will need to 
 #run install.packages() line
 library(tidyverse)
-library(ggplot2)
 library(caret)
 library(rpart)
 library(rattle)

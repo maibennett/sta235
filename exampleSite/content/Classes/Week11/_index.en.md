@@ -36,11 +36,8 @@ This week we will be talking about model selection and regularization. In partic
 Here is the R code we will review in class, with many additional questions! Remember to review it in detail after class <script>let date = Date.now();</script> <a onclick="gtag('event','code11', {'event_category': 'code','event_label': 'code11', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week11/1_Shrinkage/code/f2023_sta235h_11_prediction2.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
 
-<!--Check out the in-class activity we did for this week <a onclick="gtag('event','code11_inclass', {'event_category': 'code','event_label': 'code11_inclass', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/InClassExercises/STA235H_Week11.html" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+Check out the in-class activity we did for this week <a onclick="gtag('event','code11_inclass', {'event_category': 'code','event_label': 'code11_inclass', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/InClassExercises/STA235H_Week11.html" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
 (The answers for this are here: <a onclick="gtag('event','code11Answers', {'event_category': 'code','event_label': 'code11Answers', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/InClassExercises/STA235H_Week11Answers.html" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>)
 
-Check out the in-class activity we did for this week <a onclick="ga('send', 'event', 'External-Link','click','code12','0','Link');" href="https://sta235h.rocks/Week11" target="_blank" class="btn btn-default">Open<i class="fas  fa-external-link-alt"></i></a>
-
-(The answers for this are here: <a onclick="ga('send', 'event', 'External-Link','click','code11Answers','0','Link');" href="https://sta235h.rocks/Week11Answers" target="_blank" class="btn btn-default">Open<i class="fas  fa-external-link-alt"></i></a>) -->
 
