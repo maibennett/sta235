@@ -899,7 +899,7 @@ rt$finalModel
 
 
 ---
-.box-6Trans[Q4: What would the predicted value be for a customer who hasn't watched GOT and lives in a city?]
+.box-6Trans[Q4: What would the predicted value be for a customer who hasn't watched Succession and lives in a city?]
 
 .pull-left[
 ```{r plot_tree_reg2, fig.height=4, fig.width=5, fig.align='center', dev='svg', echo=TRUE, warning=FALSE, results=FALSE}

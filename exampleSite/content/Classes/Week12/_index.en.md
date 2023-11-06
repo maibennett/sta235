@@ -26,17 +26,17 @@ This week we will be diving into the amazing world of regression and clasificati
 
 ## Slides
 
-<!-- {{% button href="https://sta235.netlify.app/Classes/Week12/1_DecisionTrees/f2022_sta235h_15_DecisionTrees.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.netlify.app/Classes/Week12/1_DecisionTrees/f2022_sta235h_15_DecisionTrees.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
+{{% button href="https://sta235.com/Classes/Week12/1_DecisionTrees/f2023_sta235h_12_DecisionTrees.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} {{% button href="https://sta235.com/Classes/Week12/1_DecisionTrees/f2023_sta235h_12_DecisionTrees.pdf" icon="fas fa-file-pdf" icon-position="right" %}}Download{{% /button %}} 
 
-{{< slides src="https://sta235.netlify.app/Classes/Week12/1_DecisionTrees/f2022_sta235h_15_DecisionTrees.html" >}}
- -->
+{{< slides src="https://sta235.com/Classes/Week12/1_DecisionTrees/f2023_sta235h_12_DecisionTrees.html" >}}
+
 
 ## Code
 
-<!-- Here is the R code we will review in class, with many additional questions! Remember to review it in detail after class <a onclick="ga('send', 'event', 'External-Link','click','code10','0','Link');" href="https://sta235.netlify.app/Classes/Week12/1_DecisionTrees/code/f2022_sta235h_10_decisiontrees.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+Here is the R code we will review in class, with many additional questions! Remember to review it in detail after class <script>let date = Date.now();</script> <a onclick="gtag('event','code12', {'event_category': 'code','event_label': 'code12', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/code/f2023_sta235h_12_decisiontrees.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
 
-Check out the in-class activity we did for this week <a onclick="ga('send', 'event', 'External-Link','click','code13','0','Link');" href="https://sta235h.rocks/Week12" target="_blank" class="btn btn-default">Open<i class="fas  fa-external-link-alt"></i></a>
+<!-- Check out the in-class activity we did for this week <a onclick="ga('send', 'event', 'External-Link','click','code13','0','Link');" href="https://sta235h.rocks/Week12" target="_blank" class="btn btn-default">Open<i class="fas  fa-external-link-alt"></i></a>
 
 (The answers for this are here: <a onclick="ga('send', 'event', 'External-Link','click','code12Answers','0','Link');" href="https://sta235h.rocks/Week12Answers" target="_blank" class="btn btn-default">Open<i class="fas  fa-external-link-alt"></i></a>) -->
 
