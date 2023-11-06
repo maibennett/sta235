@@ -69,3 +69,5 @@ Homework assignments are posted **one week before they are due**. Check the [syl
 - Homework 2: <a onclick="gtag('event','hw2_answerkey', {'event_category': 'code','event_label': 'hw2_answerkey', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/Assignments/Homework/Homework2/STA235H_Fall23_Homework2_AnswerKey.html" target="_blank" class="btn btn-default">Open <i class="fas fa-external-link-alt"></i></a>
 
 - Homework 3: <a onclick="gtag('event','hw3_answerkey', {'event_category': 'code','event_label': 'hw3_answerkey', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/Assignments/Homework/Homework3/STA235H_Fall23_Homework3_AnswerKey.html" target="_blank" class="btn btn-default">Open <i class="fas fa-external-link-alt"></i></a>
+
+- Homework 4: <a onclick="gtag('event','hw4_answerkey', {'event_category': 'code','event_label': 'hw4_answerkey', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/Assignments/Homework/Homework4/STA235H_Fall23_Homework4_AnswerKey.html" target="_blank" class="btn btn-default">Open <i class="fas fa-external-link-alt"></i></a>
