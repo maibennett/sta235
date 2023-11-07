@@ -142,12 +142,12 @@ In this case, for non-zero values of $x$ and $y$, then $\beta$ cannot be shrunk 
 
 In the case of lasso, now, assuming a positive value for $\beta$ (though it works the same if $\beta<0$), we have the following objective function and FOC:
 
- $$F_l = \min_{\beta}(y - \beta x)^2 + \lambda \abs{\beta}$$
+ $$F_l = \min_{\beta}(y - \beta x)^2 + \lambda |\beta|$$
 
 The first order conditions (FOC) for this objective function:
 
 $$\frac{\partial F_l}{\partial \beta} = -2(y - \beta x)x + \lambda = 0$$
-$$2\beta x^2) = 2xy - \lambda$$
+$$2\beta x^2 = 2xy - \lambda$$
 $$\beta = \frac{2xy - \lambda}{2x^2}$$
 
 Now, we can actually set $\beta=0$ if $\lambda = 2xy$, with multiple values that can achieve that equality. 
