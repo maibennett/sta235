@@ -38,3 +38,11 @@ Weekly assignments submitted via **Canvas**
 ### JITT 8
 
 - "On average, for individuals with exactly 21 years of age, being legally able to drink increases the total number of arrests by 409.1, compared to not being legally able to drink." See slides in Week 10 for a more detailed response.
+
+### JITT 9
+
+- See alternatives and feedback on Canvas
+
+### JITT 10
+
+- See alternatives and feedback on Canvas
