@@ -41,3 +41,29 @@ Check out the in-class activity we did for this week <a onclick="gtag('event','c
 (The answers for this are here: <a onclick="gtag('event','code11Answers', {'event_category': 'code','event_label': 'code11Answers', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/InClassExercises/STA235H_Week11Answers.html" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>)
 
 
+
+## FAQ
+
+Here, I provide a simple example to understand why this happens. Let's think about the simplest scenario with just one data point and one predictor (we won't take the intercept into account, because it doesn't affect the prediction). As seen in class, the objective function that ridge regression is trying to minizime is the following:
+
+$$F_r = \min_{\beta}(y - \beta x)^2 + \lambda\beta^2$$
+
+Then, to find the optimal $\beta$'s , we need to set the first order conditions (FOC) for this objective function:
+
+$$\frac{\partial F_r}{\partial \beta} = -2(y - \beta x)x + 2\lambda\beta = 0$$
+$$\beta(2\lambda + 2x^2) = 2xy$$
+$$\beta = \frac{xy}{x^2 + \lambda}$$
+
+In this case, for non-zero values of $x$ and $y$, then $\beta$ cannot be shrunk to exactly 0, because the numerator will always be different from 0. However, if $\lambda \rightarrow \infty$, then $\beta \rightarrow 0$.
+
+In the case of lasso, now, assuming a positive value for $\beta$ (though it works the same if $\beta<0$), we have the following objective function and FOC:
+
+ $$F_l = \min_{\beta}(y - \beta x)^2 + \lambda |\beta|$$
+
+The first order conditions (FOC) for this objective function:
+
+$$\frac{\partial F_l}{\partial \beta} = -2(y - \beta x)x + \lambda = 0$$
+$$2\beta x^2 = 2xy - \lambda$$
+$$\beta = \frac{2xy - \lambda}{2x^2}$$
+
+Now, we can actually set $\beta=0$ if $\lambda = 2xy$, with multiple values that can achieve that equality. 
