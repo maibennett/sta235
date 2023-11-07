@@ -125,3 +125,29 @@ An important part of this course is for you to learn how to "teach" yourself how
 **4) Notation is too hard! Can we get a cheat-sheet for this?**
 
 Ask and you shall receive! I created this [short cheat sheet](https://sta235.netlify.app/notation_cheatsheet/) which hopefully helps. Let me know if you want me to include something else!
+
+**5) How come Lasso can shrink coefficients towards 0 and ridge cannot?**
+
+Here, I provide a simple example to understand why this happens. Let's think about the simplest scenario with just one data point and one predictor (we won't take the intercept into account, because it doesn't affect the prediction). As seen in class, the objective function that ridge regression is trying to minizime is the following:
+
+$$F_r = \min_{\beta}(y - \beta x)^2 + \lambda\beta^2$$
+
+Then, to find the optimal $\beta$'s , we need to set the first order conditions (FOC) for this objective function:
+
+$$\frac{\partial F_r}{\partial \beta} = -2(y - \beta x)x + 2\lambda\beta = 0$$
+$$\beta(2\lambda + 2x^2) = 2xy$$
+$$\beta = \frac{xy}{x^2 + \lambda}$$
+
+In this case, for non-zero values of $x$ and $y$, then $\beta$ cannot be shrunk to exactly 0, because the numerator will always be different from 0. However, if $\lambda \rightarrow \infty$, then $\beta \rightarrow 0$.
+
+In the case of lasso, now, assuming a positive value for $\beta$ (though it works the same if $\beta<0$), we have the following objective function and FOC:
+
+ $$F_l = \min_{\beta}(y - \beta x)^2 + \lambda \abs{\beta}$$
+
+The first order conditions (FOC) for this objective function:
+
+$$\frac{\partial F_l}{\partial \beta} = -2(y - \beta x)x + \lambda = 0$$
+$$2\beta x^2) = 2xy - \lambda$$
+$$\beta = \frac{2xy - \lambda}{2x^2}$$
+
+Now, we can actually set $\beta=0$ if $\lambda = 2xy$, with multiple values that can achieve that equality. 
