@@ -5,16 +5,12 @@
     <meta charset="utf-8" />
     <meta name="author" content="McCombs School of Business, UT Austin" />
     <script src="libs/header-attrs/header-attrs.js"></script>
-    <script src="libs/fabric/fabric.min.js"></script>
-    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
     <script src="libs/clipboard/clipboard.min.js"></script>
     <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
     <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
-    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
-    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/5235085b15.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -26,7 +22,7 @@ class: center, middle, inverse, title-slide
 # STA 235H - Prediction: Bagging, Random Forests, and Boosting
 ]
 .subtitle[
-## Fall 2022
+## Fall 2023
 ]
 .author[
 ### McCombs School of Business, UT Austin
@@ -64,22 +60,17 @@ class: center, middle, inverse, title-slide
 
 # Announcements
 
-- **.darkorange[Homework 6]** is due this Friday
+- **.darkorange[Homework 5]** is due this Friday (remember to get an early start!)
 
-- **.darkorange[Homework 7]** will be posted this Friday as well (shorter homework)
-
-  - Remember that it is due **.darkorange[Thursday Dec. 1st]** and &lt;u&gt;you cannot submit late&lt;/u&gt;.
-  
 --
 
 - Next class: **.darkorange[No new content]**, only a review! (Final TRIVIA)
 
 --
 
-- One **.darkorange[final JITT]**: No content, but you will need to make sure Proctorio works.
+- One **.darkorange[final JITT]**: Only a Knowledge Check (due Sunday before class for Monday section).
 
-  - No video recording, no websites blocked. 
-  - You will need to show an ID before starting. Only one device and one screen.
+  - Make sure you do it this week, so you don't have to work during the break. 
 
 ---
 # What we have seen...
@@ -162,11 +153,6 @@ Quick recap on trees
 ![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/tree_example.png)]
 ]
 
----
-
-.center2[
-.box-4Trans[Q1) In term of bias, which one is better: A deep tree or a shallow tree?]
-]
 
 ---
 # Let's look at an example: Car seat prices
@@ -174,8 +160,8 @@ Quick recap on trees
 .small[
 
 ```r
-library(ISLR)
-data(Carseats)
+# Data for ISLR
+Carseats = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/data/Carseats.csv")
 
 head(Carseats)
 ```
@@ -211,14 +197,14 @@ library(modelr)
 
 set.seed(100)
 
-*split &lt;- initial_split(Carseats, prop = 0.7, strata = "Sales")
+*split = initial_split(Carseats, prop = 0.7, strata = "Sales")
 
-carseats.train  &lt;- training(split)
-carseats.test   &lt;- testing(split)
+*carseats.train = training(split)
+*carseats.test = testing(split)
 
-tuneGrid &lt;- expand.grid(cp = seq(0, 0.015, length = 100))
+tuneGrid = expand.grid(cp = seq(0, 0.015, length = 100))
 
-mcv &lt;- train(Sales ~., data = carseats.train, method = "rpart", 
+mcv = train(Sales ~., data = carseats.train, method = "rpart", 
   trControl = trainControl("cv", number = 10), tuneGrid = tuneGrid)
 ```
 
@@ -235,14 +221,14 @@ library(modelr)
 
 set.seed(100)
 
-split &lt;- initial_split(Carseats, prop = 0.7, strata = "Sales")
+split = initial_split(Carseats, prop = 0.7, strata = "Sales")
 
-carseats.train  &lt;- training(split)
-carseats.test   &lt;- testing(split)
+carseats.train  = training(split)
+carseats.test   = testing(split)
 
-*tuneGrid &lt;- expand.grid(cp = seq(0, 0.015, length = 100))
+*tuneGrid = expand.grid(cp = seq(0, 0.015, length = 100))
 
-mcv &lt;- train(Sales ~., data = carseats.train, method = "rpart", 
+mcv = train(Sales ~., data = carseats.train, method = "rpart", 
   trControl = trainControl("cv", number = 10), tuneGrid = tuneGrid)
 ```
 
@@ -255,12 +241,12 @@ mcv &lt;- train(Sales ~., data = carseats.train, method = "rpart",
 fancyRpartPlot(mcv$finalModel, caption="Decision Tree for Car Seats Sales")
 ```
 
-&lt;img src="f2022_sta235h_16_RandomForests_annotate_files/figure-html/fancy_mcv-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_13_RandomForests_files/figure-html/fancy_mcv-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
 .center2[
-.box-7Trans[Q2) We are trying to predict Sales. How many different prediction values for sales will I have, at most, considering the previous decision tree?]
+.box-7Trans[Q1) We are trying to predict Sales. How many different prediction values for sales will I have, at most, considering the previous decision tree?]
 ]
 
 ---
@@ -279,7 +265,7 @@ Bagging
 ---
 
 .center2[
-.box-5Trans[Q3) What is the main objective of bagging?]
+.box-5Trans[Q2) What is the main objective of bagging?]
 ]
 ---
 # Introduction to Bagging
@@ -346,7 +332,6 @@ Bagging
 3. Predict your outcomes!
 
   a) Regression: Average the outcomes
-  
   &lt;br&gt;
   b) Classification: Majority vote
 ]
@@ -375,7 +360,7 @@ Bagging
 ```r
 set.seed(100)
 
-bt &lt;- train(Sales ~ ., data = carseats.train,
+bt = train(Sales ~ ., data = carseats.train,
             method = "treebag", 
             trControl = trainControl("cv", number = 10),
             nbagg = 100, 
@@ -389,7 +374,7 @@ bt &lt;- train(Sales ~ ., data = carseats.train,
 ```r
 set.seed(100)
 
-bt &lt;- train(Sales ~ ., data = carseats.train,
+bt = train(Sales ~ ., data = carseats.train,
 *           method = "treebag",
             trControl = trainControl("cv", number = 10),
             nbagg = 100, 
@@ -403,7 +388,7 @@ bt &lt;- train(Sales ~ ., data = carseats.train,
 ```r
 set.seed(100)
 
-bt &lt;- train(Sales ~ ., data = carseats.train,
+bt = train(Sales ~ ., data = carseats.train,
             method = "treebag",
             trControl = trainControl("cv", number = 10),
 *           nbagg = 100,
@@ -417,7 +402,7 @@ bt &lt;- train(Sales ~ ., data = carseats.train,
 ```r
 set.seed(100)
 
-bt &lt;- train(Sales ~ ., data = carseats.train,
+bt = train(Sales ~ ., data = carseats.train,
             method = "treebag",
             trControl = trainControl("cv", number = 10),
             nbagg = 100, 
@@ -466,7 +451,7 @@ rmse(bt, carseats.test)
 ---
 # Best DT vs Bagging
 
-&lt;img src="f2022_sta235h_16_RandomForests_annotate_files/figure-html/dt_vs_bag-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_13_RandomForests_files/figure-html/dt_vs_bag-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Interpretability?
@@ -475,14 +460,14 @@ rmse(bt, carseats.test)
 ```r
 set.seed(100)
 
-bt &lt;- train(Sales ~ ., data = carseats.train, method = "treebag", 
+bt = train(Sales ~ ., data = carseats.train, method = "treebag", 
             trControl = trainControl("cv", number = 10),
             nbagg = 100, control = rpart.control(cp = 0))
 
 plot(varImp(bt, scale = TRUE))
 ```
 
-&lt;img src="f2022_sta235h_16_RandomForests_annotate_files/figure-html/dt_vs_bag2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_13_RandomForests_files/figure-html/dt_vs_bag2-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -542,13 +527,13 @@ Random forests
 ```r
 set.seed(100)
 
-tuneGrid &lt;- expand.grid(
-* mtry = seq(1:11),
+tuneGrid = expand.grid(
+* mtry = 1:11,
 * splitrule = "variance",
   min.node.size = 5
 )
 
-rfcv &lt;- train(Sales ~ ., data = carseats.train,
+rfcv = train(Sales ~ ., data = carseats.train,
              method = "ranger", 
              trControl = trainControl("cv", number = 10),
              importance = "permutation",
@@ -559,7 +544,7 @@ plot(rfcv)
 ]
 
 .pull-right[
-&lt;img src="f2022_sta235h_16_RandomForests_annotate_files/figure-html/rf_plot-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_13_RandomForests_files/figure-html/rf_plot-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -568,12 +553,12 @@ plot(rfcv)
 
 ```r
 library(doParallel)
-cl &lt;- makePSOCKcluster(7)
+cl = makePSOCKcluster(7)
 registerDoParallel(cl)
 
 set.seed(100)
 
-rfcv_fast &lt;- train(Sales ~ ., data = carseats.train,
+rfcv_fast = train(Sales ~ ., data = carseats.train,
                    method = "ranger", 
                    trControl = trainControl("cv", number = 10, 
                                             allowParallel = TRUE),
@@ -591,12 +576,12 @@ registerDoSEQ()
 plot(varImp(rfcv, scale = TRUE))
 ```
 
-&lt;img src="f2022_sta235h_16_RandomForests_annotate_files/figure-html/cov_importance-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="f2023_sta235h_13_RandomForests_files/figure-html/cov_importance-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
 .center2[
-.box-3Trans[Q4) In a Random Forest, a higher number of trees will yield an... underfitted model? overfitted model? doesn't affect?]
+.box-3Trans[Q3) In a Random Forest, a higher number of trees will yield an... underfitted model? overfitted model? doesn't affect?]
 ]
 
 ---
@@ -652,7 +637,7 @@ Boosting!
 - More effective on models with **.darkorange[high bias]** and **.darkorange[low variance]**
 
 .center[
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/boosting2.png)]
+![:scale 60%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/boosting.png)]
 
 ---
 # Tuning parameters for boosting
@@ -671,17 +656,17 @@ Boosting!
 ---
 
 .center2[
-.box-6Trans[Q5) A tree with just a root and two leaves is called a stomp. Are these high or low-bias trees?]
+.box-6Trans[Q4) A tree with just a root and two leaves is called a stomp. Are these high or low-bias trees?]
 ]
 
 ---
 # Boosting in R
 
-- We have seen **.darkorange[gradient boosting]** so far.
+- There are different types of boosting:
+  
+  - **.darkorange[Gradient boosting (GBM)]**: *Improve on residuals of weak learners*
 
-- There are other types of boosting, like **.darkorange[adaptive boosting]** (you saw it in the video!)
-
-  - For classification problems
+  - **.darkorange[Adaptive boosting (AdaBosst)]**: *Larger weights for wrong classifications*. 
 
 .small[
 
@@ -715,7 +700,7 @@ modelLookup("gbm")
 ```r
 set.seed(100)
 
-gbm &lt;- train(Sales ~ ., data = carseats.train,
+gbm = train(Sales ~ ., data = carseats.train,
              method = "gbm", 
              trControl = trainControl("cv", number = 10),
              tuneLength = 20)
@@ -794,7 +779,7 @@ rmse(gbm, carseats.test)
 ---
 
 .center2[
-.box-7Trans[Q6) What is the main objective of boosting?]
+.box-7Trans[Q5) What is the main objective of boosting?]
 ]
 
 ---

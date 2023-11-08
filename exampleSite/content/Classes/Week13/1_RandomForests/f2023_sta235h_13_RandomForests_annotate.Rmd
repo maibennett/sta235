@@ -901,7 +901,7 @@ plot(varImp(rfcv, scale = TRUE))
 ---
 
 .center2[
-.box-3Trans[Q4) In a Random Forest, a higher number of trees will yield an... underfitted model? overfitted model? doesn't affect?]
+.box-3Trans[Q3) In a Random Forest, a higher number of trees will yield an... underfitted model? overfitted model? doesn't affect?]
 ]
 
 ---
@@ -938,7 +938,7 @@ Boosting!
 - More effective on models with **.darkorange[high bias]** and **.darkorange[low variance]**
 
 .center[
-![:scale 80%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/boosting2.png)]
+![:scale 60%](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/images/boosting.png)]
 
 ---
 # Tuning parameters for boosting
@@ -957,17 +957,17 @@ Boosting!
 ---
 
 .center2[
-.box-6Trans[Q5) A tree with just a root and two leaves is called a stomp. Are these high or low-bias trees?]
+.box-6Trans[Q4) A tree with just a root and two leaves is called a stomp. Are these high or low-bias trees?]
 ]
 
 ---
 # Boosting in R
 
-- We have seen **.darkorange[gradient boosting]** so far.
+- There are different types of boosting:
+  
+  - **.darkorange[Gradient boosting (GBM)]**: *Improve on residuals of weak learners*
 
-- There are other types of boosting, like **.darkorange[adaptive boosting]** (you saw it in the video!)
-
-  - For classification problems
+  - **.darkorange[Adaptive boosting (AdaBosst)]**: *Larger weights for wrong classifications*. 
 
 .small[
 ```{r}
@@ -1021,7 +1021,7 @@ rmse(gbm, carseats.test)
 ---
 
 .center2[
-.box-7Trans[Q6) What is the main objective of boosting?]
+.box-7Trans[Q5) What is the main objective of boosting?]
 ]
 
 ---

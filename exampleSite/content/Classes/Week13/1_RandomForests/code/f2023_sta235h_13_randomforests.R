@@ -1,7 +1,7 @@
 ################################################################################
 ### Title: "Week 13 - Bagging, Random Forests, and Boosting"
 ### Course: STA 235H
-### Semester: Fall 2022
+### Semester: Fall 2023
 ### Professor: Magdalena Bennett
 ################################################################################
 
@@ -15,11 +15,10 @@ cat("\014")
 #run install.packages() line
 library(tidyverse)
 library(caret)
+library(modelr)
 library(rpart)
 library(rattle)
 library(rsample) #This helps us divide our data by strata
-library(ipred) # You will need this to do bagged trees
-library(ranger) # You will need this to run random forests
 
 #install.packages("xgboost")
 # You will need to install xgboost. For that, you need to have RTools installed on your computer first if you use Windows. Check this out if you have Windows: https://www.rdocumentation.org/packages/installr/versions/0.22.0/topics/install.Rtools
@@ -30,8 +29,9 @@ library(ranger) # You will need this to run random forests
 ## Car seats sale
 ###################
 
-library(ISLR)
-data("Carseats") # Load the data from the ISLR package (this is the package for the book we are using!)
+#library(ISLR)
+#data("Carseats") # Load the data from the ISLR package (this is the package for the book we are using!)
+Carseats = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/data/Carseats.csv")
 
 head(Carseats) # Explore the data
 
@@ -92,8 +92,8 @@ set.seed(100)
 # We have a lot of parameters! (we can also use tuneLength as an overall default parameter)
 
 tuneGrid = expand.grid(
-  mtry = 1:11, # Number of random covariates that will test
-  splitrule = "variance", # Split rule (for regressions use "variance", for classification use "gini")
+  mtry = 1:11, # Number of random covariates that will test (this should be the number of max predictors you have in your data, if you want to test all)
+  splitrule = "variance", # Split rule (IMPORTANT: for regressions use "variance", for classification use "gini")
   min.node.size = 5 # You can vary this (e.g. include c(5,10) if you want to test different min node sizes) or just live it out
 )
 
@@ -165,7 +165,7 @@ gbm$finalModel
 # Best Tuning parameters?
 gbm$bestTune
 
-# You can also try extreme gradient boosting, which is more efficient
+# You can also try extreme gradient boosting, which is more efficient (and faster!)
 
 # If you don't want to run it in a parallel way, just comment out lines 167-168 and 176-177, and remove the option "allowParallel"
 cl = makePSOCKcluster(detectCores()-1)
