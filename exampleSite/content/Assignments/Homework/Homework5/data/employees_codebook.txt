@@ -1,0 +1,71 @@
+age - Age of the employee
+
+Attrition - Whether the employee quit or not
+
+BusinessTravel - How much did the employee traveled (categorical)
+
+DailyRate - Daily rate for employees
+
+Department - Department where the employee works
+
+DistanceFromHome - How far the office is from the employee's home (in miles)
+
+Education - Level of education of the employee (1 'Below College'; 2 'College'; 3 'Bachelor'; 4 'Master'; 5 'Doctor')
+
+EducationField - Education field of the employee
+
+EmployeeCount - How many employees are summarized in this observation (always 1)
+
+EmployeeNumber - ID number for each employee
+
+EnvironmentSatisfaction - How satisfied the employee is with their work environment (1 'Low'; 2 'Medium'; 3 'High'; 4 'Very High')
+
+Gender - Gender of the employee
+
+HourlyRate - Hourly rate for the employee
+
+JobInvolvement - How involved employees are with their job (1 'Low'; 2 'Medium'; 3 'High'; 4 'Very High')
+
+JobLevel - Level of employee's job
+
+JobRole - Role of the employee
+
+JobSatisfaction - How satisfied the employee is with their job (1 'Low'; 2 'Medium'; 3 'High'; 4 'Very High')
+
+MaritalStatus - Marital status
+
+MonthlyIncome - Montly income for the employee (in dollars)
+
+MonthlyRate - Monthly rate for the employee
+
+NumCompaniesWorked - Number of companies the employee has worked for
+
+Over18 - Age over 18
+
+OverTime - Gets paid overtime?
+
+PercentSalaryHike - Percentage of salary increase
+
+PerformanceRating - Performance rating for the employee (1 'Low'; 2 'Good'; 3 'Excellent'; 4 'Outstanding')
+
+RelationshipSatisfaction - Satisfaction in their relationship (1 'Low'; 2 'Medium'; 3 'High'; 4 'Very High')
+
+StandardHours - Number of standard hours
+
+StockOptionLevel - Level of stock options
+
+TotalWorkingYears - Total years of work experience
+
+TrainingTimesLastYear - Number of trainings attended last year
+
+WorkLifeBalance - Work life balance (1 'Bad'; 2 'Good'; 3 'Better'; 4 'Best')
+
+YearsAtCompany - Years at the company
+
+YearsInCurrentRole - Years in the current role
+
+YearsSinceLastPromotion - Years since last promotion
+
+YearsWithCurrentManager - Years with current manager
+
+

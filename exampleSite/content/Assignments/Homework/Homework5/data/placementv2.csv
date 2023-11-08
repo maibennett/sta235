@@ -1,0 +1,516 @@
+"sl_no","gender","ssc_p","ssc_b","hsc_p","hsc_b","hsc_s","degree_p","degree_t","workex","etest_p","specialisation","mba_p","status","salary"
+1,"M",59.96,"Others",42.16,"Others","Science",61.26,"Sci&Tech","No",54.48,"Mkt&HR",65.48,"Not Placed",NA
+2,"F",63,"Others",68,"Others","Commerce",61,"Comm&Mgmt","Yes",54.48,"Mkt&Fin",71.49,"Placed",240000
+3,"F",55.68,"Central",60,"Others","Science",65,"Comm&Mgmt","No",95.65,"Mkt&Fin",60.78,"Placed",270000
+4,"M",85.8,"Central",73.6,"Central","Commerce",73.3,"Comm&Mgmt","No",96.8,"Mkt&Fin",55.5,"Placed",425000
+5,"M",67,"Others",60,"Others","Science",66,"Comm&Mgmt","No",62,"Mkt&HR",53.49,"Placed",265000
+6,"F",73,"Central",56,"Central","Science",66,"Comm&Mgmt","Yes",60,"Mkt&Fin",61.58,"Placed",210000
+7,"M",58,"Central",70,"Central","Commerce",61,"Comm&Mgmt","No",54,"Mkt&Fin",52.21,"Not Placed",NA
+8,"M",54,"Others",49.8,"Central","Arts",60,"Comm&Mgmt","Yes",85,"Mkt&HR",58.52,"Not Placed",NA
+9,"F",73,"Others",70.4,"Others","Science",68,"Sci&Tech","Yes",65,"Mkt&Fin",63.08,"Placed",393000
+10,"M",62,"Central",81,"Central","Commerce",65,"Comm&Mgmt","No",77,"Mkt&HR",65.99,"Placed",240000
+11,"F",64,"Others",70.2,"Central","Commerce",61,"Comm&Mgmt","No",50,"Mkt&Fin",62.5,"Not Placed",NA
+12,"M",64,"Others",80,"Others","Science",65,"Sci&Tech","Yes",69,"Mkt&Fin",57.65,"Placed",5e+05
+13,"M",67,"Others",63,"Central","Science",60.9,"Others","No",60,"Mkt&HR",55.03,"Placed",225000
+14,"M",63,"Central",78.33,"Central","Commerce",65,"Comm&Mgmt","No",87.5,"Mkt&Fin",61.26,"Placed",270000
+15,"M",62,"Central",60.33,"Others","Science",64.21,"Sci&Tech","No",63,"Mkt&HR",60.02,"Not Placed",NA
+16,"F",69,"Others",62,"Others","Commerce",69,"Comm&Mgmt","Yes",67,"Mkt&HR",62.35,"Placed",240000
+17,"M",63.4,"Others",68,"Others","Commerce",60,"Comm&Mgmt","No",55,"Mkt&HR",56.81,"Placed",240000
+18,"M",67,"Others",62,"Central","Science",64.27,"Comm&Mgmt","No",58.1,"Mkt&Fin",52.64,"Placed",220000
+19,"F",74.9,"Central",73.2,"Central","Commerce",76,"Comm&Mgmt","Yes",65,"Mkt&Fin",67.28,"Placed",3e+05
+20,"M",58,"Others",60,"Others","Science",72,"Sci&Tech","No",74,"Mkt&Fin",53.62,"Placed",275000
+21,"F",65,"Central",63,"Central","Commerce",75,"Comm&Mgmt","No",60,"Mkt&HR",56.7,"Placed",240000
+22,"F",69,"Others",71.4,"Others","Science",68,"Comm&Mgmt","No",80.4,"Mkt&HR",69.03,"Placed",230000
+23,"F",82,"Central",70,"Central","Commerce",65,"Others","No",67,"Mkt&Fin",62.48,"Placed",250000
+24,"F",87,"Central",74,"Central","Commerce",78,"Comm&Mgmt","No",82,"Mkt&Fin",73.52,"Placed",252000
+25,"M",56.28,"Others",60,"Others","Science",65,"Sci&Tech","No",80,"Mkt&Fin",61.87,"Not Placed",NA
+26,"M",82,"Others",90,"Others","Commerce",83,"Comm&Mgmt","No",80,"Mkt&HR",73.52,"Placed",2e+05
+27,"M",80,"Central",53,"Central","Science",77.72,"Sci&Tech","No",86.5,"Mkt&Fin",74.49,"Not Placed",NA
+28,"M",64,"Central",63,"Central","Arts",61,"Comm&Mgmt","Yes",80,"Mkt&HR",59.81,"Placed",360000
+29,"F",46,"Central",55,"Central","Commerce",55,"Comm&Mgmt","No",76,"Mkt&HR",64.95,"Not Placed",NA
+30,"F",59,"Others",52,"Others","Commerce",50.8,"Comm&Mgmt","No",67,"Mkt&HR",56.11,"Not Placed",NA
+31,"M",63,"Others",62,"Others","Commerce",68,"Comm&Mgmt","No",64,"Mkt&Fin",62.46,"Placed",250000
+32,"F",62,"Central",66.6,"Central","Arts",57,"Comm&Mgmt","No",55,"Mkt&Fin",64.27,"Not Placed",NA
+33,"M",64,"Others",71.4,"Others","Commerce",65,"Comm&Mgmt","No",68,"Mkt&HR",62.28,"Placed",3e+05
+34,"M",59,"Others",61,"Others","Commerce",60,"Comm&Mgmt","No",57,"Mkt&Fin",56.81,"Not Placed",NA
+35,"M",52.6,"Central",82,"Central","Commerce",66.4,"Comm&Mgmt","No",71.2,"Mkt&Fin",51.58,"Not Placed",NA
+36,"F",77,"Others",64,"Others","Commerce",69,"Comm&Mgmt","Yes",57.5,"Mkt&Fin",55.47,"Placed",260000
+37,"F",73.96,"Others",79,"Others","Commerce",67,"Comm&Mgmt","No",72.15,"Mkt&Fin",63.08,"Placed",280000
+38,"M",56,"Others",49.8,"Others","Commerce",67.25,"Comm&Mgmt","No",50.48,"Mkt&Fin",67.2,"Not Placed",NA
+39,"M",53,"Central",63,"Others","Science",60,"Comm&Mgmt","Yes",70,"Mkt&Fin",53.2,"Placed",250000
+40,"F",77.8,"Central",65.5,"Central","Commerce",72,"Comm&Mgmt","No",89,"Mkt&Fin",67.05,"Placed",280000
+41,"M",82,"Others",89.83,"Others","Commerce",73,"Comm&Mgmt","Yes",68.71,"Mkt&Fin",62.14,"Placed",340000
+42,"F",84,"Others",75,"Others","Science",69,"Sci&Tech","Yes",62,"Mkt&HR",62.36,"Placed",210000
+43,"F",67,"Central",53,"Central","Commerce",72,"Sci&Tech","Yes",74.4,"Mkt&HR",59.24,"Not Placed",NA
+44,"M",70,"Central",63,"Others","Science",70,"Sci&Tech","Yes",55,"Mkt&Fin",62,"Placed",3e+05
+45,"M",56.6,"Others",74.66,"Others","Science",66,"Sci&Tech","No",60,"Mkt&HR",56.09,"Placed",231000
+46,"M",62,"Central",72,"Central","Commerce",65,"Comm&Mgmt","No",67,"Mkt&Fin",56.49,"Placed",216000
+47,"M",64.6,"Central",83.83,"Others","Commerce",71.72,"Comm&Mgmt","No",86,"Mkt&Fin",59.75,"Placed",218000
+48,"F",52.58,"Others",54.6,"Central","Commerce",50.2,"Comm&Mgmt","Yes",76,"Mkt&Fin",65.33,"Not Placed",NA
+49,"M",58,"Central",62,"Others","Science",65,"Sci&Tech","Yes",75,"Mkt&Fin",66.46,"Not Placed",NA
+50,"F",62,"Central",63,"Central","Commerce",61,"Comm&Mgmt","Yes",67,"Mkt&Fin",62.5,"Placed",940000
+51,"F",40.89,"Others",51,"Others","Commerce",58,"Comm&Mgmt","No",56.39,"Mkt&HR",58.32,"Not Placed",NA
+52,"F",74.9,"Others",56,"Others","Science",75.5,"Comm&Mgmt","Yes",64,"Mkt&Fin",62.92,"Placed",2e+05
+53,"F",54,"Central",77.6,"Others","Commerce",69.2,"Comm&Mgmt","No",95.65,"Mkt&Fin",66.94,"Not Placed",NA
+54,"M",59.96,"Others",51,"Others","Commerce",60,"Comm&Mgmt","No",55,"Mkt&HR",64.74,"Placed",940000
+55,"F",77,"Others",61,"Others","Commerce",68,"Comm&Mgmt","Yes",57.5,"Mkt&Fin",61.31,"Placed",3e+05
+56,"M",58,"Others",61,"Others","Commerce",56,"Sci&Tech","No",58,"Mkt&HR",60.02,"Placed",250000
+57,"M",66,"Central",78,"Others","Commerce",66,"Sci&Tech","Yes",58,"Mkt&HR",60.64,"Placed",231000
+58,"M",61,"Others",51,"Others","Science",53,"Comm&Mgmt","No",74,"Mkt&HR",59.08,"Not Placed",NA
+59,"M",52,"Others",54.6,"Others","Commerce",55,"Comm&Mgmt","No",55,"Mkt&HR",62.77,"Not Placed",NA
+60,"M",84.2,"Others",73.4,"Central","Science",68,"Sci&Tech","No",62,"Mkt&Fin",66.04,"Placed",3e+05
+61,"F",80,"Others",69.4,"Others","Science",72,"Sci&Tech","No",93,"Mkt&Fin",68.2,"Placed",260000
+62,"M",88,"Central",72,"Central","Commerce",73.43,"Comm&Mgmt","Yes",75,"Mkt&Fin",55.5,"Placed",3e+05
+63,"F",58,"Central",64,"Central","Commerce",64,"Comm&Mgmt","No",67,"Mkt&Fin",56.7,"Not Placed",NA
+64,"F",77.8,"Central",64,"Central","Science",64.2,"Sci&Tech","No",75.5,"Mkt&HR",72.14,"Not Placed",NA
+65,"M",87,"Others",61,"Others","Science",62,"Sci&Tech","No",59,"Mkt&HR",66.53,"Not Placed",NA
+66,"M",65,"Central",78.33,"Others","Commerce",66,"Comm&Mgmt","No",73,"Mkt&Fin",62.28,"Placed",350000
+67,"M",77.44,"Central",89.7,"Others","Commerce",59,"Comm&Mgmt","Yes",88.56,"Mkt&Fin",71.77,"Placed",411000
+68,"F",77.4,"Others",60,"Others","Science",64.74,"Sci&Tech","Yes",92,"Mkt&Fin",63.62,"Placed",3e+05
+69,"F",64,"Others",62,"Others","Science",61,"Sci&Tech","No",55,"Mkt&HR",57.29,"Not Placed",NA
+70,"M",52,"Central",64,"Central","Commerce",59.79,"Comm&Mgmt","No",75,"Mkt&HR",53.2,"Not Placed",NA
+71,"F",75.4,"Others",60.5,"Central","Science",84,"Sci&Tech","No",98,"Mkt&Fin",65.25,"Placed",240000
+72,"M",60.8,"Central",68.4,"Central","Commerce",64.6,"Comm&Mgmt","Yes",82.66,"Mkt&Fin",64.34,"Placed",940000
+73,"F",84,"Central",79,"Others","Science",61,"Sci&Tech","Yes",68,"Mkt&Fin",68.63,"Placed",240000
+74,"F",76,"Central",89.7,"Others","Arts",77.25,"Comm&Mgmt","Yes",68,"Mkt&Fin",70.48,"Placed",3e+05
+75,"F",65,"Central",66.8,"Others","Science",65,"Comm&Mgmt","No",72,"Mkt&HR",69.28,"Placed",3e+05
+76,"M",62,"Central",58,"Central","Commerce",54.38,"Comm&Mgmt","No",61.28,"Mkt&HR",62.65,"Not Placed",NA
+77,"M",70,"Others",73,"Others","Commerce",72,"Comm&Mgmt","No",50,"Mkt&Fin",61.29,"Placed",250000
+78,"F",67,"Central",67,"Others","Commerce",66,"Comm&Mgmt","No",78,"Mkt&Fin",66.94,"Not Placed",NA
+79,"M",55,"Central",67,"Central","Commerce",61,"Comm&Mgmt","No",60,"Mkt&Fin",54.97,"Not Placed",NA
+80,"F",63,"Central",66,"Others","Commerce",64,"Comm&Mgmt","No",86,"Mkt&Fin",69.03,"Not Placed",NA
+81,"F",80.92,"Others",76,"Others","Science",85,"Sci&Tech","No",59.32,"Mkt&HR",68.53,"Placed",2e+05
+82,"M",66.5,"Central",62.5,"Central","Commerce",60.9,"Comm&Mgmt","No",93.4,"Mkt&Fin",55.03,"Placed",3e+05
+83,"M",52,"Central",63,"Central","Commerce",64,"Comm&Mgmt","No",63,"Mkt&Fin",62.65,"Not Placed",NA
+84,"F",69.5,"Others",63,"Others","Science",68,"Comm&Mgmt","No",55,"Mkt&HR",60.23,"Placed",250000
+85,"M",69.8,"Others",79,"Others","Commerce",72,"Sci&Tech","Yes",71,"Mkt&Fin",60.98,"Placed",231000
+86,"M",60,"Others",62,"Others","Science",72,"Comm&Mgmt","No",59,"Mkt&Fin",56.94,"Placed",240000
+87,"F",74,"Others",63.16,"Others","Commerce",65,"Comm&Mgmt","Yes",65,"Mkt&HR",69.76,"Not Placed",NA
+88,"F",86.5,"Others",64.2,"Others","Science",67.4,"Sci&Tech","No",59,"Mkt&Fin",59.69,"Placed",240000
+89,"M",63,"Others",67,"Others","Commerce",65.6,"Comm&Mgmt","No",50,"Mkt&HR",57.69,"Placed",240000
+90,"F",84,"Others",79,"Others","Commerce",85,"Comm&Mgmt","No",95,"Mkt&Fin",72.78,"Placed",2e+05
+91,"M",76,"Central",80,"Central","Science",78,"Sci&Tech","Yes",97,"Mkt&HR",70.48,"Placed",276000
+92,"F",67,"Others",71.4,"Others","Science",69,"Sci&Tech","No",61,"Mkt&HR",68.81,"Placed",3e+05
+93,"M",51,"Central",44,"Central","Commerce",57,"Comm&Mgmt","No",64,"Mkt&Fin",51.45,"Not Placed",NA
+94,"M",77.67,"Central",60,"Others","Commerce",56,"Comm&Mgmt","No",75.5,"Mkt&HR",67.13,"Placed",240000
+95,"M",49,"Others",39,"Central","Science",65,"Others","No",63,"Mkt&Fin",51.21,"Not Placed",NA
+96,"M",43,"Others",54,"Others","Commerce",55,"Comm&Mgmt","No",74,"Mkt&HR",59.08,"Not Placed",NA
+97,"F",87,"Central",73.4,"Central","Science",65,"Sci&Tech","No",58,"Mkt&HR",58.78,"Placed",360000
+98,"M",82,"Central",64,"Central","Science",66,"Sci&Tech","Yes",67,"Mkt&Fin",62.14,"Placed",252000
+99,"M",67,"Central",74,"Central","Commerce",65,"Comm&Mgmt","Yes",67,"Mkt&HR",62.28,"Placed",252000
+100,"M",44,"Central",58,"Central","Arts",55,"Comm&Mgmt","Yes",64.25,"Mkt&HR",58.54,"Not Placed",NA
+101,"M",85,"Others",64,"Others","Science",78,"Comm&Mgmt","No",60,"Mkt&Fin",68.53,"Placed",240000
+102,"M",61.8,"Others",47,"Others","Commerce",54.38,"Comm&Mgmt","No",57,"Mkt&Fin",56.13,"Not Placed",NA
+103,"F",56.6,"Others",51,"Others","Science",57,"Comm&Mgmt","No",78,"Mkt&HR",56.11,"Not Placed",NA
+104,"F",59.6,"Central",61.12,"Others","Science",72.11,"Sci&Tech","No",89.69,"Mkt&Fin",67.69,"Not Placed",NA
+105,"F",74.9,"Central",56,"Central","Science",77.25,"Comm&Mgmt","Yes",66,"Mkt&Fin",65.04,"Placed",3e+05
+106,"M",89.4,"Others",64,"Others","Science",72,"Sci&Tech","Yes",72,"Mkt&HR",63.23,"Placed",350000
+107,"M",69,"Others",70.4,"Others","Science",69,"Sci&Tech","Yes",80.4,"Mkt&HR",68.07,"Not Placed",NA
+108,"F",60.23,"Central",65,"Central","Commerce",60,"Comm&Mgmt","No",58,"Mkt&HR",62.21,"Not Placed",NA
+109,"M",77.8,"Others",74,"Others","Science",72,"Comm&Mgmt","Yes",96.8,"Mkt&Fin",68.2,"Placed",2e+05
+110,"M",73,"Central",63,"Others","Science",64,"Sci&Tech","Yes",65,"Mkt&HR",60.11,"Placed",260000
+111,"M",65,"Others",62,"Others","Commerce",69,"Comm&Mgmt","Yes",74,"Mkt&HR",58.87,"Placed",380000
+112,"F",73,"Central",56,"Others","Science",70,"Sci&Tech","Yes",65,"Mkt&Fin",61.58,"Placed",250000
+113,"F",66.5,"Central",66,"Others","Science",66,"Comm&Mgmt","No",55.5,"Mkt&Fin",69.28,"Placed",260000
+114,"F",48,"Central",51,"Central","Commerce",58,"Comm&Mgmt","Yes",60,"Mkt&HR",58.79,"Not Placed",NA
+115,"F",67,"Others",62,"Central","Science",71.93,"Sci&Tech","No",55,"Mkt&Fin",64.66,"Placed",3e+05
+116,"F",87,"Others",65,"Others","Science",81,"Comm&Mgmt","Yes",88,"Mkt&Fin",72.78,"Placed",260000
+117,"F",55,"Central",67,"Others","Commerce",70,"Others","No",62,"Mkt&Fin",68.81,"Not Placed",NA
+118,"M",58,"Others",61,"Others","Commerce",61,"Comm&Mgmt","No",58,"Mkt&HR",53.94,"Placed",250000
+119,"F",84,"Central",79,"Others","Commerce",61,"Comm&Mgmt","Yes",72.15,"Mkt&Fin",72.14,"Placed",690000
+120,"M",45,"Others",39,"Others","Science",79,"Sci&Tech","No",85,"Mkt&Fin",51.58,"Not Placed",NA
+121,"F",69,"Central",62,"Central","Science",66,"Sci&Tech","No",75,"Mkt&HR",67.99,"Not Placed",NA
+122,"F",73,"Others",57,"Others","Science",65,"Comm&Mgmt","No",84,"Mkt&HR",64.95,"Placed",280000
+123,"M",60.4,"Central",65,"Others","Commerce",60,"Comm&Mgmt","No",68,"Mkt&HR",58.54,"Placed",220000
+124,"F",69,"Central",66,"Central","Science",65,"Comm&Mgmt","Yes",64,"Mkt&Fin",65.52,"Placed",3e+05
+125,"M",73,"Others",58,"Others","Commerce",56,"Comm&Mgmt","No",84,"Mkt&HR",52.64,"Placed",3e+05
+126,"M",69,"Central",63,"Others","Science",65,"Sci&Tech","No",68,"Mkt&Fin",68.07,"Placed",3e+05
+127,"M",63,"Central",70,"Central","Commerce",64,"Comm&Mgmt","Yes",87.5,"Mkt&HR",55.14,"Placed",233000
+128,"F",56.28,"Others",62.83,"Others","Commerce",59.79,"Comm&Mgmt","No",60,"Mkt&HR",57.29,"Not Placed",NA
+129,"M",80,"Central",77,"Central","Science",77.48,"Sci&Tech","No",92,"Mkt&HR",68.03,"Placed",276000
+130,"F",63.3,"Central",78.33,"Others","Commerce",74,"Comm&Mgmt","No",80,"Mkt&Fin",74.56,"Not Placed",NA
+131,"M",63,"Central",67,"Central","Commerce",74,"Comm&Mgmt","No",82,"Mkt&Fin",60.44,"Not Placed",NA
+132,"M",85,"Central",70,"Central","Science",78,"Comm&Mgmt","Yes",88,"Mkt&Fin",76.18,"Placed",650000
+133,"M",84,"Others",79,"Others","Science",68,"Sci&Tech","Yes",84,"Mkt&Fin",66.69,"Placed",3e+05
+134,"M",66.5,"Central",71,"Central","Arts",66,"Comm&Mgmt","No",69,"Mkt&Fin",61.26,"Placed",220000
+135,"F",74,"Others",73,"Others","Commerce",73,"Comm&Mgmt","Yes",80,"Mkt&Fin",67.69,"Placed",210000
+136,"M",67,"Others",63,"Others","Science",64,"Sci&Tech","No",60,"Mkt&Fin",61.87,"Not Placed",NA
+137,"M",54,"Central",82,"Others","Commerce",63,"Sci&Tech","No",50,"Mkt&Fin",59.47,"Not Placed",NA
+138,"F",47,"Central",45.83,"Central","Commerce",58,"Comm&Mgmt","No",76,"Mkt&HR",65.49,"Not Placed",NA
+139,"M",62,"Others",62,"Others","Commerce",60,"Comm&Mgmt","Yes",63,"Mkt&HR",52.38,"Placed",240000
+140,"F",64,"Central",78,"Central","Commerce",79,"Comm&Mgmt","No",56,"Mkt&HR",64.08,"Placed",2e+05
+141,"M",79,"Others",76,"Others","Science",67.5,"Comm&Mgmt","No",75,"Mkt&HR",59.42,"Placed",275000
+142,"M",79,"Others",76,"Others","Commerce",64,"Comm&Mgmt","No",61.6,"Mkt&Fin",60.99,"Placed",320000
+143,"F",85,"Others",90,"Others","Commerce",82,"Comm&Mgmt","No",92,"Mkt&Fin",68.03,"Placed",3e+05
+144,"M",84,"Others",90.9,"Central","Commerce",66,"Comm&Mgmt","Yes",68.71,"Mkt&Fin",66.04,"Placed",3e+05
+145,"F",55,"Central",47,"Central","Commerce",60,"Comm&Mgmt","No",60,"Mkt&HR",58.79,"Not Placed",NA
+146,"F",63,"Central",66,"Central","Commerce",64,"Comm&Mgmt","No",68,"Mkt&HR",64.08,"Not Placed",NA
+147,"F",64,"Central",67,"Others","Science",69.6,"Sci&Tech","Yes",55.67,"Mkt&HR",71.49,"Placed",250000
+148,"M",74,"Central",62,"Others","Science",68,"Comm&Mgmt","No",74,"Mkt&Fin",57.99,"Placed",268000
+149,"M",49,"Others",59,"Others","Science",65,"Sci&Tech","Yes",86,"Mkt&Fin",62.48,"Placed",340000
+150,"M",76.7,"Others",89.7,"Others","Science",67.5,"Sci&Tech","Yes",95,"Mkt&Fin",71.77,"Placed",450000
+151,"M",74,"Others",59,"Others","Commerce",73,"Comm&Mgmt","Yes",60,"Mkt&HR",56.7,"Placed",240000
+152,"F",85,"Others",73,"Others","Commerce",81,"Comm&Mgmt","No",91,"Mkt&Fin",74.49,"Placed",4e+05
+153,"M",69.7,"Central",68,"Others","Arts",68,"Comm&Mgmt","Yes",64,"Mkt&Fin",63.7,"Placed",4e+05
+154,"M",73,"Central",78,"Others","Commerce",65,"Comm&Mgmt","Yes",95.46,"Mkt&Fin",62.16,"Placed",420000
+155,"M",84,"Central",90.9,"Others","Commerce",65,"Comm&Mgmt","No",88.56,"Mkt&Fin",67.05,"Placed",276000
+156,"M",62,"Others",63,"Others","Commerce",64,"Comm&Mgmt","No",67,"Mkt&Fin",57.03,"Placed",220000
+157,"M",69.6,"Central",91,"Central","Commerce",69,"Comm&Mgmt","Yes",68,"Mkt&Fin",75.71,"Placed",2e+05
+158,"F",73,"Others",58,"Others","Science",66,"Comm&Mgmt","No",53.7,"Mkt&HR",56.86,"Placed",240000
+159,"M",58,"Central",61.12,"Central","Commerce",77.5,"Comm&Mgmt","No",84.27,"Mkt&HR",60.44,"Placed",270000
+160,"M",83.84,"Others",75,"Others","Science",68,"Sci&Tech","Yes",62,"Mkt&HR",62.98,"Placed",3e+05
+161,"M",69,"Central",71,"Central","Science",66.6,"Sci&Tech","Yes",56,"Mkt&HR",63.7,"Placed",3e+05
+162,"M",65,"Central",72,"Central","Commerce",66.6,"Comm&Mgmt","Yes",67,"Mkt&Fin",61.82,"Placed",250000
+163,"F",46,"Central",59,"Central","Arts",56.2,"Sci&Tech","Yes",60,"Mkt&HR",65.04,"Placed",940000
+164,"M",62,"Central",67,"Central","Commerce",64,"Comm&Mgmt","No",56,"Mkt&Fin",54.97,"Placed",250000
+165,"M",41,"Central",42,"Central","Science",60,"Comm&Mgmt","No",97,"Mkt&Fin",53.39,"Not Placed",NA
+166,"M",59.6,"Others",52,"Others","Science",55,"Comm&Mgmt","No",64.25,"Mkt&HR",58.52,"Not Placed",NA
+167,"M",62,"Central",67,"Central","Commerce",58,"Comm&Mgmt","No",77,"Mkt&Fin",51.29,"Not Placed",NA
+168,"M",62,"Central",72,"Central","Commerce",77.5,"Comm&Mgmt","No",56,"Mkt&Fin",56.66,"Placed",265000
+169,"M",74,"Others",66,"Others","Science",64.8,"Others","Yes",80,"Mkt&Fin",55.03,"Placed",3e+05
+170,"F",47,"Central",59,"Central","Arts",64,"Comm&Mgmt","No",78,"Mkt&Fin",61.58,"Not Placed",NA
+171,"M",80,"Others",70,"Others","Science",72,"Sci&Tech","No",87,"Mkt&HR",71.04,"Placed",450000
+172,"M",41,"Others",55,"Others","Commerce",65,"Comm&Mgmt","No",74,"Mkt&Fin",60.59,"Placed",380000
+173,"M",53,"Central",63,"Others","Science",64.21,"Sci&Tech","No",64.25,"Mkt&HR",59.43,"Not Placed",NA
+174,"M",51,"Others",51,"Others","Science",61,"Sci&Tech","No",85,"Mkt&HR",65.48,"Placed",5e+05
+175,"F",61,"Others",67,"Others","Commerce",60,"Comm&Mgmt","No",68,"Mkt&Fin",71.49,"Not Placed",NA
+176,"F",51.57,"Others",42.16,"Others","Science",58,"Comm&Mgmt","No",85,"Mkt&HR",53.29,"Not Placed",NA
+177,"M",63,"Others",67,"Others","Science",64,"Sci&Tech","No",75,"Mkt&Fin",66.46,"Placed",5e+05
+178,"M",65,"Central",77,"Central","Commerce",69,"Comm&Mgmt","No",60,"Mkt&HR",61.82,"Placed",276000
+179,"F",46,"Others",42,"Others","Arts",79,"Comm&Mgmt","Yes",55,"Mkt&HR",65.49,"Not Placed",NA
+180,"F",77.44,"Central",70,"Central","Commerce",64.2,"Comm&Mgmt","Yes",75.5,"Mkt&Fin",70.2,"Placed",218000
+181,"M",67,"Central",68.4,"Others","Commerce",66,"Comm&Mgmt","No",54,"Mkt&Fin",53.49,"Placed",250000
+182,"F",50,"Others",37,"Others","Arts",52,"Others","No",65,"Mkt&HR",56.11,"Not Placed",NA
+183,"M",58,"Central",61,"Central","Commerce",60,"Comm&Mgmt","Yes",62,"Mkt&HR",60.85,"Placed",260000
+184,"M",61,"Others",62,"Others","Commerce",65,"Comm&Mgmt","No",62,"Mkt&Fin",56.81,"Placed",250000
+185,"M",52,"Central",57,"Central","Commerce",50.8,"Comm&Mgmt","No",67,"Mkt&HR",62.79,"Not Placed",NA
+186,"M",87,"Central",69.4,"Others","Science",65.6,"Sci&Tech","Yes",89,"Mkt&Fin",52.72,"Placed",255000
+187,"M",79.33,"Others",70,"Others","Science",71,"Sci&Tech","Yes",75.5,"Mkt&Fin",66.94,"Placed",285000
+188,"M",67,"Others",67,"Others","Arts",60,"Comm&Mgmt","No",55,"Mkt&HR",55.03,"Placed",265000
+189,"M",85,"Central",70,"Others","Science",65,"Sci&Tech","No",59,"Mkt&HR",61.31,"Placed",3e+05
+190,"M",70,"Others",57,"Others","Science",58,"Comm&Mgmt","No",56,"Mkt&Fin",62.77,"Not Placed",NA
+191,"M",60.4,"Central",66.6,"Others","Science",65,"Comm&Mgmt","No",71,"Mkt&HR",52.71,"Placed",220000
+192,"F",60.23,"Central",69,"Central","Commerce",63,"Comm&Mgmt","No",86,"Mkt&Fin",60.5,"Placed",216000
+193,"M",51.57,"Others",74.66,"Others","Commerce",59.9,"Comm&Mgmt","Yes",56.15,"Mkt&HR",65.99,"Not Placed",NA
+194,"M",58,"Others",40,"Others","Science",59,"Comm&Mgmt","No",73,"Mkt&HR",58.81,"Not Placed",NA
+195,"M",61,"Central",82,"Central","Commerce",64,"Comm&Mgmt","Yes",68,"Mkt&HR",62.28,"Placed",411000
+196,"F",66.5,"Others",70.4,"Central","Arts",71.93,"Comm&Mgmt","No",61,"Mkt&Fin",64.27,"Placed",230000
+197,"M",52,"Central",49,"Others","Commerce",58,"Comm&Mgmt","No",62,"Mkt&HR",60.59,"Not Placed",NA
+198,"M",87,"Others",87,"Others","Commerce",66,"Comm&Mgmt","No",90,"Mkt&Fin",52.72,"Placed",3e+05
+199,"M",74.2,"Central",87.6,"Others","Commerce",77.25,"Comm&Mgmt","Yes",75.2,"Mkt&Fin",66.06,"Placed",285000
+200,"F",58,"Others",62.83,"Others","Commerce",56.87,"Comm&Mgmt","No",87.55,"Mkt&Fin",71.96,"Not Placed",NA
+201,"M",71,"Central",58.66,"Central","Science",58,"Sci&Tech","Yes",56,"Mkt&Fin",61.3,"Placed",690000
+202,"M",85,"Central",60,"Others","Science",73.43,"Sci&Tech","Yes",60,"Mkt&Fin",61.29,"Placed",260000
+203,"M",79,"Central",73.4,"Others","Commerce",80,"Comm&Mgmt","Yes",80,"Mkt&HR",69.06,"Placed",295000
+204,"F",64,"Central",73.5,"Central","Commerce",72,"Comm&Mgmt","No",56,"Mkt&Fin",62.21,"Placed",3e+05
+205,"M",67,"Others",61,"Central","Science",72,"Comm&Mgmt","No",72,"Mkt&Fin",61.01,"Placed",264000
+206,"F",59,"Others",50,"Others","Commerce",52,"Comm&Mgmt","No",78,"Mkt&HR",58.32,"Placed",3e+05
+207,"M",65,"Central",71.5,"Others","Commerce",62.8,"Comm&Mgmt","Yes",57,"Mkt&Fin",56.6,"Placed",265000
+208,"F",69.8,"Others",62,"Others","Science",66,"Comm&Mgmt","No",61,"Mkt&HR",57.29,"Placed",265000
+209,"F",52,"Others",61.33,"Others","Commerce",65,"Comm&Mgmt","No",63,"Mkt&Fin",57.29,"Not Placed",NA
+210,"M",55.6,"Others",51,"Others","Commerce",57.5,"Comm&Mgmt","No",57.63,"Mkt&HR",62.72,"Not Placed",NA
+211,"M",66,"Central",64,"Central","Science",60,"Comm&Mgmt","No",60,"Mkt&HR",61.9,"Not Placed",NA
+212,"F",46,"Others",37,"Others","Science",79,"Sci&Tech","Yes",50.48,"Mkt&Fin",56.11,"Not Placed",NA
+213,"M",60.8,"Central",67,"Others","Arts",65,"Comm&Mgmt","Yes",85,"Mkt&Fin",64.34,"Placed",3e+05
+214,"M",79.33,"Central",77,"Central","Science",73.43,"Sci&Tech","Yes",75,"Mkt&Fin",66.94,"Placed",285000
+215,"M",69,"Central",70,"Central","Arts",64.8,"Comm&Mgmt","No",93.4,"Mkt&HR",55.03,"Placed",3e+05
+216,"M",65,"Central",64.8,"Others","Commerce",69.5,"Comm&Mgmt","Yes",56,"Mkt&Fin",56.94,"Placed",265000
+217,"F",59,"Others",51,"Others","Science",67.25,"Sci&Tech","No",63,"Mkt&HR",59.24,"Not Placed",NA
+218,"M",77,"Central",70,"Central","Commerce",59,"Comm&Mgmt","Yes",58,"Mkt&Fin",54.43,"Placed",220000
+219,"F",73,"Others",63,"Others","Science",66,"Comm&Mgmt","No",89,"Mkt&Fin",60.5,"Placed",216000
+220,"F",70.89,"Others",71.98,"Others","Science",65.6,"Comm&Mgmt","No",68,"Mkt&HR",71.63,"Not Placed",NA
+221,"F",78,"Central",77,"Others","Commerce",80,"Comm&Mgmt","No",60,"Mkt&Fin",66.72,"Placed",287000
+222,"M",65,"Central",68,"Others","Science",69,"Comm&Mgmt","No",53.7,"Mkt&HR",55.01,"Placed",250000
+223,"F",77,"Others",73,"Others","Commerce",81,"Comm&Mgmt","Yes",89,"Mkt&Fin",69.7,"Placed",2e+05
+224,"M",70,"Central",78,"Others","Commerce",72,"Comm&Mgmt","Yes",80,"Mkt&Fin",60.98,"Placed",218000
+225,"M",61,"Others",62,"Others","Commerce",56,"Comm&Mgmt","No",67,"Mkt&HR",58.3,"Placed",220000
+226,"M",52,"Central",62,"Central","Commerce",59.79,"Comm&Mgmt","No",84.27,"Mkt&HR",64.34,"Not Placed",NA
+227,"M",62,"Central",81,"Others","Commerce",69.2,"Comm&Mgmt","No",61.28,"Mkt&HR",58.95,"Placed",275000
+228,"F",67.16,"Central",72.5,"Central","Commerce",63.35,"Comm&Mgmt","No",53.04,"Mkt&Fin",65.52,"Placed",250000
+229,"M",66,"Central",76,"Central","Commerce",72,"Comm&Mgmt","Yes",84,"Mkt&HR",58.95,"Placed",275000
+230,"M",67,"Others",63,"Central","Commerce",72,"Comm&Mgmt","No",56,"Mkt&HR",60.41,"Placed",225000
+231,"M",65.2,"Central",77,"Central","Commerce",71.72,"Comm&Mgmt","No",79,"Mkt&Fin",58.95,"Placed",240000
+232,"M",62,"Central",67,"Central","Commerce",63,"Comm&Mgmt","No",53.04,"Mkt&HR",62.65,"Placed",5e+05
+233,"M",61,"Central",82,"Central","Commerce",69,"Comm&Mgmt","No",84,"Mkt&Fin",58.31,"Placed",3e+05
+234,"M",56,"Central",52,"Central","Commerce",56.3,"Comm&Mgmt","No",62,"Mkt&HR",59.08,"Not Placed",NA
+235,"M",87,"Central",61,"Others","Science",80,"Sci&Tech","No",86.5,"Mkt&Fin",76.18,"Placed",260000
+236,"M",61.08,"Central",60.33,"Others","Science",60,"Comm&Mgmt","Yes",85,"Mkt&Fin",64.34,"Placed",690000
+237,"F",88,"Central",72,"Central","Science",78,"Others","No",82,"Mkt&HR",71.43,"Placed",252000
+238,"F",66.5,"Central",66.8,"Others","Science",69,"Comm&Mgmt","No",64,"Mkt&HR",63.08,"Placed",216000
+239,"F",77,"Central",87,"Central","Commerce",72,"Comm&Mgmt","No",57,"Mkt&Fin",54.43,"Placed",231000
+240,"F",55,"Others",54.6,"Others","Commerce",61,"Comm&Mgmt","No",50,"Mkt&HR",62.92,"Placed",5e+05
+241,"F",47,"Central",51,"Central","Commerce",53,"Comm&Mgmt","No",66,"Mkt&HR",58.32,"Not Placed",NA
+242,"M",75,"Central",76,"Central","Commerce",72,"Comm&Mgmt","No",58,"Mkt&Fin",61.31,"Placed",350000
+243,"M",77.4,"Others",78.5,"Others","Science",67,"Sci&Tech","Yes",86.04,"Mkt&Fin",59.42,"Placed",320000
+244,"F",88,"Others",64,"Others","Science",72,"Sci&Tech","No",60,"Mkt&Fin",66.53,"Placed",3e+05
+245,"M",59.6,"Central",51,"Central","Science",60,"Others","No",75,"Mkt&HR",59.08,"Not Placed",NA
+246,"M",73,"Central",63,"Others","Science",65,"Sci&Tech","Yes",80,"Mkt&Fin",61.87,"Placed",3e+05
+247,"F",72,"Others",60,"Others","Science",69,"Comm&Mgmt","No",55.5,"Mkt&HR",58.4,"Placed",250000
+248,"M",69.7,"Central",71,"Central","Science",65,"Comm&Mgmt","No",61,"Mkt&HR",62.28,"Placed",4e+05
+249,"M",62,"Others",62,"Others","Commerce",65,"Comm&Mgmt","Yes",80,"Mkt&Fin",55.41,"Placed",3e+05
+250,"F",45,"Others",57,"Others","Commerce",58,"Comm&Mgmt","Yes",56.39,"Mkt&HR",64.95,"Not Placed",NA
+251,"M",63,"Central",60,"Central","Commerce",57,"Comm&Mgmt","Yes",78,"Mkt&Fin",54.55,"Placed",204000
+252,"M",61,"Others",67,"Others","Commerce",59.9,"Comm&Mgmt","No",56,"Mkt&Fin",56.7,"Not Placed",NA
+253,"M",75,"Central",67,"Others","Arts",76,"Comm&Mgmt","No",84,"Mkt&Fin",63.62,"Placed",420000
+254,"M",84.86,"Others",67,"Others","Science",78,"Comm&Mgmt","No",95.5,"Mkt&Fin",68.53,"Placed",240000
+255,"F",69.5,"Central",70,"Central","Science",72,"Sci&Tech","No",57.2,"Mkt&HR",54.8,"Placed",250000
+256,"M",68.2,"Central",72.8,"Central","Science",66.6,"Comm&Mgmt","Yes",55,"Mkt&HR",68.07,"Placed",240000
+257,"F",85,"Central",60,"Others","Science",65.6,"Sci&Tech","No",67,"Mkt&HR",64.44,"Placed",240000
+258,"M",62,"Others",65,"Others","Commerce",66,"Comm&Mgmt","No",50,"Mkt&HR",56.7,"Placed",265000
+259,"F",84,"Others",90,"Others","Commerce",81,"Comm&Mgmt","Yes",81.2,"Mkt&Fin",74.49,"Placed",4e+05
+260,"F",52,"Others",60,"Central","Commerce",60,"Comm&Mgmt","No",55,"Mkt&HR",65.04,"Placed",250000
+261,"F",79,"Others",61,"Others","Science",75.5,"Sci&Tech","Yes",70,"Mkt&Fin",68.2,"Placed",210000
+262,"M",61,"Others",65,"Others","Commerce",70.2,"Comm&Mgmt","No",82,"Mkt&Fin",77.89,"Placed",250000
+263,"F",77,"Central",76.5,"Central","Commerce",59,"Comm&Mgmt","Yes",66,"Mkt&HR",58.46,"Placed",425000
+264,"M",73,"Central",64,"Others","Science",73,"Sci&Tech","Yes",80,"Mkt&HR",57.99,"Placed",233000
+265,"M",52,"Central",64,"Others","Science",65,"Sci&Tech","No",85,"Mkt&HR",58.8,"Not Placed",NA
+266,"M",52,"Others",74.66,"Others","Commerce",59.9,"Comm&Mgmt","No",71.2,"Mkt&HR",57.55,"Not Placed",NA
+267,"M",61,"Central",60.33,"Others","Commerce",58,"Comm&Mgmt","No",64,"Mkt&HR",61.9,"Not Placed",NA
+268,"M",52,"Others",50,"Others","Arts",61,"Comm&Mgmt","No",60,"Mkt&Fin",58.52,"Not Placed",NA
+269,"M",73.24,"Others",50.83,"Others","Science",64.27,"Sci&Tech","Yes",64,"Mkt&Fin",66.23,"Placed",5e+05
+270,"F",73.24,"Central",70,"Central","Commerce",60,"Comm&Mgmt","No",66,"Mkt&Fin",56.7,"Placed",220000
+271,"M",73.24,"Others",50.83,"Others","Science",58,"Sci&Tech","No",89,"Mkt&Fin",68.07,"Not Placed",NA
+272,"F",67,"Central",53,"Central","Science",65,"Sci&Tech","No",64,"Mkt&HR",58.32,"Not Placed",NA
+273,"M",77,"Central",72,"Central","Science",72,"Comm&Mgmt","Yes",58,"Mkt&HR",61.29,"Placed",225000
+274,"F",63,"Central",91,"Central","Commerce",72,"Comm&Mgmt","No",60,"Mkt&Fin",62.5,"Placed",393000
+275,"M",65.2,"Central",76,"Central","Commerce",65,"Comm&Mgmt","No",80,"Mkt&Fin",62.28,"Placed",276000
+276,"M",52,"Others",65,"Others","Arts",57,"Others","Yes",75,"Mkt&Fin",59.81,"Not Placed",NA
+277,"M",80.6,"Central",72,"Central","Science",78,"Sci&Tech","No",81.2,"Mkt&Fin",68.53,"Placed",290000
+278,"F",55.6,"Others",52,"Central","Arts",50.2,"Comm&Mgmt","No",54.48,"Mkt&HR",56.11,"Not Placed",NA
+279,"M",70.5,"Central",71,"Central","Commerce",64.33,"Comm&Mgmt","Yes",93.91,"Mkt&Fin",65.99,"Placed",240000
+280,"F",70.5,"Central",62.5,"Others","Commerce",61,"Comm&Mgmt","No",93.91,"Mkt&Fin",69.03,"Not Placed",NA
+281,"M",60,"Others",67,"Others","Arts",70,"Comm&Mgmt","Yes",50.48,"Mkt&Fin",77.89,"Placed",236000
+282,"F",84,"Central",73,"Central","Commerce",73,"Comm&Mgmt","No",75,"Mkt&Fin",73.33,"Placed",350000
+283,"M",65,"Central",65,"Central","Commerce",75,"Comm&Mgmt","No",83,"Mkt&Fin",58.87,"Placed",270000
+284,"M",70,"Central",73,"Central","Commerce",66,"Comm&Mgmt","No",67,"Mkt&Fin",62.28,"Placed",4e+05
+285,"F",77.44,"Central",64,"Others","Science",56,"Sci&Tech","Yes",92,"Mkt&HR",73.33,"Placed",5e+05
+286,"M",66,"Central",61.4,"Others","Science",58,"Comm&Mgmt","Yes",92.66,"Mkt&Fin",64.15,"Placed",360000
+287,"M",54.4,"Central",63,"Central","Commerce",66,"Comm&Mgmt","No",76,"Mkt&Fin",58.44,"Not Placed",NA
+288,"M",71,"Others",79,"Others","Commerce",66,"Comm&Mgmt","Yes",94,"Mkt&Fin",57.55,"Placed",240000
+289,"M",58,"Central",70,"Central","Commerce",56.2,"Comm&Mgmt","Yes",62,"Mkt&HR",62.65,"Placed",5e+05
+290,"M",62,"Central",81,"Others","Science",69.2,"Comm&Mgmt","No",79,"Mkt&HR",53.62,"Placed",218000
+291,"M",59,"Central",64,"Others","Science",58,"Sci&Tech","No",85,"Mkt&HR",55.3,"Not Placed",NA
+292,"F",74,"Others",66,"Others","Commerce",58,"Comm&Mgmt","No",70,"Mkt&HR",60.23,"Placed",204000
+293,"F",77,"Central",86,"Central","Arts",56,"Others","No",57,"Mkt&Fin",64.08,"Placed",240000
+294,"M",62,"Central",58,"Others","Science",53,"Comm&Mgmt","No",89,"Mkt&HR",60.22,"Not Placed",NA
+295,"F",67,"Others",67,"Others","Commerce",64.8,"Comm&Mgmt","No",74,"Mkt&Fin",56.63,"Placed",270000
+296,"M",76.7,"Central",89.7,"Others","Commerce",66,"Comm&Mgmt","Yes",90,"Mkt&Fin",68.55,"Placed",250000
+297,"M",54.4,"Central",61.12,"Central","Commerce",56.2,"Comm&Mgmt","No",67,"Mkt&HR",62.65,"Not Placed",NA
+298,"F",60.23,"Central",69,"Central","Science",66,"Comm&Mgmt","No",72,"Mkt&Fin",59.47,"Placed",230000
+299,"M",69.6,"Central",68.4,"Central","Commerce",78.3,"Comm&Mgmt","Yes",60,"Mkt&Fin",63.7,"Placed",250000
+300,"M",74,"Others",63,"Others","Science",58,"Others","Yes",80,"Mkt&Fin",52.64,"Placed",255000
+301,"F",79,"Central",76,"Central","Science",65.6,"Sci&Tech","No",58,"Mkt&HR",55.47,"Placed",320000
+302,"M",72,"Others",63,"Others","Science",77.5,"Sci&Tech","Yes",78,"Mkt&Fin",54.48,"Placed",250000
+303,"M",67,"Central",68.4,"Central","Science",64,"Sci&Tech","No",60,"Mkt&Fin",65.69,"Placed",240000
+304,"M",63,"Others",62,"Others","Commerce",64,"Comm&Mgmt","No",78,"Mkt&Fin",53.2,"Placed",275000
+305,"M",50,"Others",59,"Others","Commerce",65,"Comm&Mgmt","No",72,"Mkt&Fin",58.44,"Not Placed",NA
+306,"M",77.67,"Others",64.89,"Others","Commerce",70.67,"Comm&Mgmt","No",89,"Mkt&Fin",60.39,"Placed",3e+05
+307,"M",63,"Central",66.2,"Central","Commerce",65.6,"Comm&Mgmt","Yes",60,"Mkt&Fin",62.54,"Placed",3e+05
+308,"F",60,"Central",63,"Central","Arts",56,"Others","Yes",80,"Mkt&HR",56.63,"Placed",3e+05
+309,"F",49,"Others",44,"Others","Commerce",65,"Comm&Mgmt","No",84.27,"Mkt&Fin",53.29,"Not Placed",NA
+310,"M",61,"Central",66.6,"Others","Commerce",65,"Comm&Mgmt","No",82.66,"Mkt&Fin",64.15,"Placed",3e+05
+311,"M",55,"Others",49.8,"Others","Science",67.25,"Sci&Tech","Yes",55,"Mkt&Fin",51.58,"Not Placed",NA
+312,"F",78,"Central",78.5,"Central","Commerce",73,"Comm&Mgmt","No",68,"Mkt&HR",68.63,"Placed",360000
+313,"M",63.4,"Others",63,"Others","Science",75,"Sci&Tech","Yes",60,"Mkt&HR",56.94,"Placed",240000
+314,"M",61.08,"Others",50,"Others","Science",54,"Sci&Tech","No",71,"Mkt&Fin",65.69,"Not Placed",NA
+315,"M",67,"Central",64,"Central","Science",66,"Sci&Tech","Yes",55.67,"Mkt&HR",60.02,"Placed",220000
+316,"M",89.4,"Others",65.66,"Others","Science",71.25,"Sci&Tech","No",72,"Mkt&HR",63.23,"Placed",4e+05
+317,"M",61,"Central",69,"Central","Commerce",65,"Comm&Mgmt","No",95.65,"Mkt&Fin",55.14,"Placed",233000
+318,"M",63,"Others",62,"Others","Science",65,"Sci&Tech","No",87.5,"Mkt&HR",60.69,"Not Placed",NA
+319,"M",54.2,"Central",63,"Others","Science",58,"Comm&Mgmt","No",79,"Mkt&HR",58.44,"Not Placed",NA
+320,"F",83.96,"Others",53,"Others","Science",91,"Sci&Tech","No",59.32,"Mkt&HR",69.71,"Placed",260000
+321,"F",62,"Others",63,"Others","Commerce",58,"Comm&Mgmt","No",50.89,"Mkt&HR",68.81,"Placed",218000
+322,"F",77.8,"Others",82,"Central","Commerce",72,"Comm&Mgmt","No",72.15,"Mkt&HR",71.55,"Placed",3e+05
+323,"M",77,"Central",64.89,"Others","Commerce",56,"Comm&Mgmt","Yes",65,"Mkt&Fin",68.63,"Placed",250000
+324,"F",69.8,"Others",60.8,"Others","Science",72.23,"Sci&Tech","No",55.53,"Mkt&HR",68.81,"Placed",360000
+325,"M",75.4,"Others",59,"Others","Science",71.25,"Sci&Tech","Yes",65,"Mkt&Fin",66.04,"Placed",295000
+326,"F",46,"Others",49.2,"Others","Commerce",79,"Comm&Mgmt","No",74.28,"Mkt&Fin",53.29,"Not Placed",NA
+327,"F",67,"Others",73,"Others","Commerce",60.9,"Comm&Mgmt","Yes",73,"Mkt&Fin",71.49,"Placed",360000
+328,"M",77,"Others",75,"Others","Science",73,"Sci&Tech","No",80,"Mkt&Fin",67.05,"Placed",240000
+329,"M",69,"Central",78,"Others","Commerce",74,"Comm&Mgmt","Yes",67,"Mkt&Fin",63.7,"Placed",340000
+330,"M",80,"Others",76,"Others","Commerce",73,"Comm&Mgmt","Yes",96.8,"Mkt&Fin",65.45,"Placed",276000
+331,"M",73,"Central",78,"Central","Science",73,"Sci&Tech","Yes",85,"Mkt&HR",65.83,"Placed",240000
+332,"M",52,"Central",62,"Central","Commerce",54,"Comm&Mgmt","No",72,"Mkt&HR",55.41,"Not Placed",NA
+333,"F",76,"Central",87,"Central","Commerce",76,"Others","No",94,"Mkt&Fin",64.15,"Placed",216000
+334,"M",84.2,"Central",73.4,"Central","Commerce",66.89,"Comm&Mgmt","No",61.6,"Mkt&Fin",62.48,"Placed",3e+05
+335,"M",82,"Others",64,"Others","Science",71,"Comm&Mgmt","No",96,"Mkt&Fin",66.94,"Placed",280000
+336,"M",51,"Others",54,"Others","Science",61,"Sci&Tech","No",60,"Mkt&HR",60.64,"Not Placed",NA
+337,"F",74.9,"Others",57,"Others","Science",62,"Others","Yes",80,"Mkt&Fin",60.78,"Placed",360000
+338,"M",78.5,"Others",65.5,"Others","Commerce",72,"Comm&Mgmt","Yes",89,"Mkt&Fin",64.86,"Placed",240000
+339,"M",80,"Others",77,"Others","Commerce",83,"Comm&Mgmt","No",59.32,"Mkt&Fin",69.71,"Placed",336000
+340,"M",69.8,"Others",71.98,"Others","Arts",61.4,"Comm&Mgmt","No",64,"Mkt&HR",66.88,"Placed",240000
+341,"M",63,"Others",67,"Others","Commerce",66,"Comm&Mgmt","No",68,"Mkt&HR",57.69,"Placed",265000
+342,"M",69,"Others",70.2,"Others","Commerce",57,"Comm&Mgmt","No",66,"Mkt&Fin",55.03,"Placed",250000
+343,"F",73,"Central",56,"Central","Commerce",64,"Comm&Mgmt","No",70,"Mkt&Fin",65.33,"Placed",5e+05
+344,"M",69,"Others",70.2,"Others","Science",57,"Comm&Mgmt","No",78,"Mkt&HR",52.64,"Not Placed",NA
+345,"M",83,"Others",68,"Others","Commerce",78,"Comm&Mgmt","No",82,"Mkt&HR",69.71,"Placed",350000
+346,"F",74,"Others",65,"Others","Commerce",57,"Others","No",84,"Mkt&HR",70.81,"Not Placed",NA
+347,"M",76.76,"Others",76.5,"Others","Commerce",67.5,"Comm&Mgmt","Yes",73.35,"Mkt&Fin",64.15,"Placed",350000
+348,"F",52,"Central",64,"Central","Commerce",61,"Comm&Mgmt","No",55,"Mkt&Fin",62.93,"Not Placed",NA
+349,"M",69,"Others",65,"Others","Commerce",57,"Comm&Mgmt","No",73,"Mkt&HR",55.8,"Placed",265000
+350,"F",70.89,"Others",60.8,"Others","Commerce",69,"Comm&Mgmt","No",67,"Mkt&HR",69.28,"Not Placed",NA
+351,"F",66.5,"Central",66.8,"Central","Arts",69.3,"Comm&Mgmt","Yes",80.4,"Mkt&Fin",71,"Placed",236000
+352,"M",58,"Others",49.8,"Others","Commerce",61,"Comm&Mgmt","Yes",56.15,"Mkt&Fin",62.79,"Not Placed",NA
+353,"M",87,"Others",87,"Others","Commerce",68,"Comm&Mgmt","No",95,"Mkt&HR",62.9,"Placed",3e+05
+354,"M",67,"Others",67,"Others","Commerce",73,"Comm&Mgmt","Yes",59,"Mkt&Fin",69.72,"Placed",295000
+355,"F",68,"Central",67,"Others","Arts",57,"Comm&Mgmt","Yes",69,"Mkt&HR",62.35,"Placed",411000
+356,"F",65,"Central",73.5,"Central","Commerce",72,"Comm&Mgmt","No",58,"Mkt&Fin",64.36,"Placed",260000
+357,"M",84,"Others",90.9,"Others","Commerce",66,"Comm&Mgmt","No",75.2,"Mkt&Fin",64.86,"Placed",350000
+358,"M",79.33,"Central",78.33,"Others","Science",77.48,"Sci&Tech","Yes",86.5,"Mkt&Fin",66.28,"Placed",2e+05
+359,"F",76,"Central",70,"Central","Science",76,"Comm&Mgmt","Yes",66,"Mkt&Fin",64.44,"Placed",3e+05
+360,"M",43,"Others",59,"Central","Commerce",59.79,"Comm&Mgmt","No",73,"Mkt&HR",54.55,"Not Placed",NA
+361,"F",73,"Central",60,"Others","Science",77,"Sci&Tech","No",80,"Mkt&Fin",65.04,"Placed",3e+05
+362,"M",80,"Others",77,"Others","Commerce",71,"Comm&Mgmt","No",75,"Mkt&Fin",59.42,"Placed",5e+05
+363,"M",74,"Central",70,"Central","Science",72,"Comm&Mgmt","Yes",60,"Mkt&Fin",57.24,"Placed",260000
+364,"M",70,"Central",74,"Central","Commerce",65,"Comm&Mgmt","No",83,"Mkt&Fin",62.28,"Placed",3e+05
+365,"M",79,"Others",73,"Others","Commerce",70.67,"Comm&Mgmt","Yes",62,"Mkt&HR",68.63,"Placed",290000
+366,"M",80,"Others",73,"Others","Commerce",75,"Comm&Mgmt","No",61,"Mkt&Fin",58.78,"Placed",240000
+367,"M",62,"Central",65,"Others","Commerce",60,"Comm&Mgmt","No",84,"Mkt&Fin",64.15,"Not Placed",NA
+368,"F",55,"Central",67,"Central","Science",56.2,"Comm&Mgmt","No",68,"Mkt&Fin",62.5,"Not Placed",NA
+369,"M",52,"Central",64,"Central","Commerce",56,"Comm&Mgmt","No",50,"Mkt&Fin",62.54,"Not Placed",NA
+370,"M",62,"Others",70,"Others","Commerce",63,"Others","No",59,"Mkt&Fin",57.03,"Placed",265000
+371,"M",83,"Others",74,"Others","Science",66,"Comm&Mgmt","No",68.92,"Mkt&HR",58.46,"Placed",275000
+372,"M",52,"Central",57,"Central","Commerce",56.3,"Comm&Mgmt","No",58,"Mkt&HR",62.79,"Not Placed",NA
+373,"F",63.4,"Others",67.2,"Others","Commerce",60,"Comm&Mgmt","No",58.06,"Mkt&HR",69.28,"Not Placed",NA
+374,"M",84,"Others",75,"Others","Commerce",68,"Comm&Mgmt","No",61.6,"Mkt&Fin",60.99,"Placed",3e+05
+375,"M",73,"Central",72,"Central","Commerce",68,"Comm&Mgmt","No",66,"Mkt&Fin",57.99,"Placed",250000
+376,"F",52,"Others",51,"Others","Commerce",61.26,"Comm&Mgmt","No",62,"Mkt&Fin",65.49,"Not Placed",NA
+377,"F",64,"Central",73.5,"Central","Commerce",73,"Comm&Mgmt","No",52,"Mkt&HR",56.7,"Placed",250000
+378,"F",54.4,"Central",64,"Central","Science",58,"Sci&Tech","No",63,"Mkt&HR",64.08,"Not Placed",NA
+379,"M",68,"Others",56,"Others","Science",68,"Sci&Tech","No",73,"Mkt&HR",68.07,"Placed",350000
+380,"M",70,"Central",62.5,"Others","Science",56,"Comm&Mgmt","Yes",55.6,"Mkt&Fin",55.8,"Placed",240000
+381,"F",76,"Others",64,"Others","Science",81,"Sci&Tech","No",89,"Mkt&Fin",69.06,"Not Placed",NA
+382,"M",59,"Central",63,"Others","Science",72.11,"Comm&Mgmt","No",85,"Mkt&Fin",67.2,"Not Placed",NA
+383,"F",63,"Central",66,"Central","Commerce",78.3,"Comm&Mgmt","No",77,"Mkt&Fin",69.03,"Not Placed",NA
+384,"M",63,"Others",67,"Others","Commerce",61,"Comm&Mgmt","No",57.63,"Mkt&HR",56.81,"Placed",250000
+385,"M",60,"Central",47,"Central","Commerce",57,"Comm&Mgmt","No",62,"Mkt&HR",57.1,"Not Placed",NA
+386,"M",64.6,"Others",62,"Others","Commerce",77,"Comm&Mgmt","No",74.4,"Mkt&HR",67.2,"Placed",290000
+387,"M",61,"Others",70,"Others","Commerce",64,"Comm&Mgmt","No",68.5,"Mkt&HR",59.5,"Not Placed",NA
+388,"M",83.33,"Central",78,"Others","Commerce",61,"Comm&Mgmt","Yes",88.56,"Mkt&Fin",71.55,"Placed",3e+05
+389,"F",43,"Central",60,"Others","Science",65,"Comm&Mgmt","No",92.66,"Mkt&HR",62.92,"Not Placed",NA
+390,"M",67,"Central",76,"Central","Commerce",65,"Comm&Mgmt","Yes",95.65,"Mkt&Fin",62.16,"Placed",360000
+391,"M",73,"Central",79,"Central","Commerce",72,"Comm&Mgmt","No",91.34,"Mkt&Fin",61.29,"Placed",231000
+392,"F",63.3,"Central",77,"Central","Commerce",72,"Comm&Mgmt","Yes",73,"Mkt&HR",62.21,"Placed",210000
+393,"M",68,"Central",76,"Central","Commerce",74,"Comm&Mgmt","No",80,"Mkt&Fin",63.59,"Placed",360000
+394,"F",67,"Central",70,"Central","Commerce",65,"Others","No",88,"Mkt&HR",71.96,"Not Placed",NA
+395,"M",48,"Others",49.2,"Others","Commerce",55,"Comm&Mgmt","Yes",57,"Mkt&HR",62.77,"Placed",240000
+396,"M",62,"Central",47,"Central","Commerce",50,"Comm&Mgmt","No",76,"Mkt&HR",54.96,"Not Placed",NA
+397,"M",54.2,"Others",60,"Central","Commerce",61,"Comm&Mgmt","No",73,"Mkt&Fin",57.8,"Not Placed",NA
+398,"M",52.6,"Central",65.58,"Others","Science",72.11,"Sci&Tech","No",57.6,"Mkt&Fin",56.66,"Placed",265000
+399,"M",76,"Others",75,"Others","Science",72,"Sci&Tech","Yes",73.35,"Mkt&HR",64.86,"Placed",350000
+400,"F",64,"Others",70.4,"Others","Science",64,"Comm&Mgmt","No",64,"Mkt&HR",71.63,"Placed",940000
+401,"M",73,"Central",64,"Others","Commerce",77,"Comm&Mgmt","Yes",65,"Mkt&HR",60.98,"Placed",250000
+402,"M",62,"Central",68.4,"Central","Arts",59.9,"Comm&Mgmt","Yes",61.28,"Mkt&HR",61.9,"Placed",3e+05
+403,"F",73,"Central",73.2,"Central","Commerce",68,"Comm&Mgmt","No",60,"Mkt&Fin",56.7,"Placed",260000
+404,"F",82,"Others",64,"Others","Science",73,"Sci&Tech","Yes",96,"Mkt&Fin",71.77,"Placed",250000
+405,"M",63,"Others",67,"Others","Commerce",72.23,"Comm&Mgmt","No",68,"Mkt&HR",60.44,"Placed",264000
+406,"M",81.7,"Others",63,"Others","Science",67,"Comm&Mgmt","Yes",86,"Mkt&Fin",70.2,"Placed",3e+05
+407,"M",67,"Others",68,"Others","Commerce",61,"Comm&Mgmt","No",93.4,"Mkt&HR",55.8,"Placed",3e+05
+408,"F",40.89,"Others",45.83,"Others","Commerce",53,"Comm&Mgmt","No",71.2,"Mkt&HR",65.49,"Not Placed",NA
+409,"F",46,"Central",54,"Central","Commerce",53,"Others","No",72,"Mkt&HR",58.4,"Not Placed",NA
+410,"M",54,"Others",52,"Others","Science",61,"Others","No",85,"Mkt&HR",62.77,"Not Placed",NA
+411,"F",69.7,"Central",47,"Central","Commerce",72.7,"Sci&Tech","No",79,"Mkt&HR",59.24,"Not Placed",NA
+412,"M",52,"Others",55,"Others","Commerce",56.3,"Comm&Mgmt","No",59,"Mkt&Fin",64.74,"Not Placed",NA
+413,"F",76,"Central",64,"Central","Science",72,"Sci&Tech","No",58,"Mkt&HR",66.53,"Not Placed",NA
+414,"F",62,"Others",65,"Others","Commerce",56.87,"Sci&Tech","No",54.48,"Mkt&HR",71.63,"Not Placed",NA
+415,"F",73,"Central",97,"Others","Commerce",79,"Comm&Mgmt","Yes",89,"Mkt&Fin",70.81,"Placed",650000
+416,"M",66,"Central",63,"Others","Science",69,"Comm&Mgmt","Yes",55,"Mkt&Fin",56.66,"Placed",265000
+417,"F",74,"Central",47,"Central","Commerce",66,"Comm&Mgmt","No",58,"Mkt&Fin",53.29,"Not Placed",NA
+418,"F",85,"Others",75,"Others","Science",69,"Sci&Tech","Yes",75,"Mkt&Fin",55.5,"Placed",275000
+419,"M",55.68,"Central",63,"Central","Commerce",61,"Others","No",80,"Mkt&HR",51.29,"Not Placed",NA
+420,"M",54,"Others",47,"Others","Science",57,"Comm&Mgmt","No",89.69,"Mkt&HR",57.1,"Not Placed",NA
+421,"M",58,"Central",62,"Central","Commerce",64,"Comm&Mgmt","No",53.88,"Mkt&Fin",54.97,"Placed",260000
+422,"M",67,"Central",71,"Central","Science",64.33,"Others","Yes",64,"Mkt&HR",61.26,"Placed",250000
+423,"M",52.58,"Others",42.16,"Others","Arts",61.26,"Comm&Mgmt","No",74.28,"Mkt&HR",58.81,"Not Placed",NA
+424,"M",52.58,"Others",50,"Others","Arts",60,"Comm&Mgmt","Yes",71,"Mkt&Fin",62.72,"Not Placed",NA
+425,"F",75.2,"Central",73.2,"Central","Science",68.4,"Comm&Mgmt","No",65,"Mkt&HR",62.98,"Placed",2e+05
+426,"M",59.6,"Central",62,"Central","Arts",77.5,"Comm&Mgmt","No",75,"Mkt&HR",59.75,"Placed",270000
+427,"M",80,"Others",70,"Others","Commerce",72,"Comm&Mgmt","No",95,"Mkt&Fin",63.62,"Not Placed",NA
+428,"F",63.4,"Others",63,"Others","Commerce",75,"Comm&Mgmt","No",63,"Mkt&HR",69.28,"Not Placed",NA
+429,"M",70,"Central",63,"Central","Science",66,"Sci&Tech","No",61.28,"Mkt&HR",60.11,"Placed",240000
+430,"M",73,"Central",73,"Central","Science",66,"Sci&Tech","Yes",70,"Mkt&Fin",68.07,"Placed",275000
+431,"F",59,"Central",62,"Others","Commerce",77.5,"Comm&Mgmt","No",74,"Mkt&HR",67,"Not Placed",NA
+432,"F",69,"Central",53,"Central","Commerce",72,"Comm&Mgmt","No",83,"Mkt&HR",53.29,"Placed",3e+05
+433,"M",84,"Others",73,"Others","Science",66,"Comm&Mgmt","No",61.6,"Mkt&HR",60.99,"Placed",240000
+434,"M",86.5,"Others",67,"Others","Science",78,"Sci&Tech","No",88,"Mkt&Fin",68.53,"Placed",276000
+435,"F",79,"Others",76,"Others","Commerce",85,"Comm&Mgmt","No",95,"Mkt&Fin",69.06,"Placed",393000
+436,"M",76.5,"Others",97.7,"Others","Science",78.86,"Sci&Tech","No",97.4,"Mkt&Fin",74.01,"Placed",360000
+437,"M",55.68,"Others",61.33,"Others","Commerce",56.87,"Comm&Mgmt","No",66,"Mkt&HR",58.3,"Placed",260000
+438,"M",76,"Others",73,"Others","Commerce",71,"Comm&Mgmt","No",89,"Mkt&Fin",66.94,"Placed",240000
+439,"M",56.6,"Central",64.8,"Central","Commerce",70.2,"Comm&Mgmt","No",84.27,"Mkt&Fin",67.2,"Placed",336000
+440,"M",74.9,"Others",57,"Others","Science",75.5,"Comm&Mgmt","Yes",60,"Mkt&Fin",62,"Placed",3e+05
+441,"M",40.89,"Central",60,"Central","Commerce",66.4,"Comm&Mgmt","No",71.2,"Mkt&Fin",56.66,"Not Placed",NA
+442,"M",67.9,"Others",62,"Others","Science",67,"Sci&Tech","Yes",58.1,"Mkt&Fin",75.71,"Not Placed",NA
+443,"M",82,"Others",61,"Others","Science",62,"Sci&Tech","No",89,"Mkt&Fin",65.45,"Placed",360000
+444,"F",74,"Central",56,"Others","Science",73,"Comm&Mgmt","No",53.7,"Mkt&HR",62.92,"Placed",210000
+445,"F",77,"Central",87,"Central","Commerce",59,"Comm&Mgmt","No",68,"Mkt&Fin",68.63,"Placed",218000
+446,"M",75,"Others",70.29,"Others","Commerce",71,"Comm&Mgmt","No",95,"Mkt&Fin",66.94,"Placed",240000
+447,"M",79,"Others",76,"Others","Science",83,"Comm&Mgmt","Yes",88,"Mkt&Fin",66.28,"Placed",250000
+448,"M",79,"Others",76,"Others","Science",83,"Sci&Tech","Yes",60,"Mkt&Fin",66.28,"Placed",275000
+449,"M",63,"Others",71.4,"Others","Commerce",61.4,"Comm&Mgmt","No",68,"Mkt&Fin",66.88,"Placed",240000
+450,"M",62,"Others",51,"Others","Science",52,"Others","No",68.44,"Mkt&HR",62.77,"Not Placed",NA
+451,"F",59,"Central",60,"Others","Commerce",56,"Comm&Mgmt","No",55,"Mkt&HR",57.9,"Placed",220000
+452,"M",55.68,"Others",60,"Others","Commerce",61,"Comm&Mgmt","No",59,"Mkt&Fin",58.3,"Not Placed",NA
+453,"M",62,"Central",67,"Central","Commerce",58,"Comm&Mgmt","Yes",62,"Mkt&HR",58.54,"Placed",250000
+454,"M",56,"Central",52,"Central","Science",52,"Sci&Tech","No",66,"Mkt&HR",59.43,"Not Placed",NA
+455,"M",63,"Central",72,"Central","Commerce",68,"Comm&Mgmt","No",78,"Mkt&HR",60.44,"Placed",380000
+456,"F",55,"Central",67,"Central","Commerce",64,"Comm&Mgmt","No",60,"Mkt&Fin",67.28,"Not Placed",NA
+457,"M",69,"Others",60,"Others","Commerce",65,"Comm&Mgmt","No",87.55,"Mkt&Fin",52.81,"Placed",3e+05
+458,"M",73,"Central",60,"Others","Science",77,"Sci&Tech","Yes",73.35,"Mkt&Fin",66.06,"Placed",290000
+459,"F",61,"Central",81,"Central","Commerce",66.4,"Comm&Mgmt","No",50.89,"Mkt&HR",62.21,"Placed",278000
+460,"M",69,"Central",63,"Others","Science",65,"Comm&Mgmt","Yes",55,"Mkt&HR",58.23,"Placed",360000
+461,"M",58,"Central",70,"Central","Commerce",66,"Comm&Mgmt","No",62,"Mkt&Fin",62.54,"Placed",3e+05
+462,"M",55,"Others",50,"Others","Commerce",61.26,"Comm&Mgmt","No",55,"Mkt&HR",62.79,"Not Placed",NA
+463,"F",68,"Others",79,"Others","Commerce",69,"Comm&Mgmt","No",83,"Mkt&Fin",71.96,"Not Placed",NA
+464,"M",58,"Central",64.8,"Central","Arts",56,"Comm&Mgmt","Yes",92.66,"Mkt&HR",57.34,"Placed",255000
+465,"M",84,"Others",90,"Others","Arts",68,"Comm&Mgmt","Yes",91.34,"Mkt&Fin",68.55,"Placed",240000
+466,"F",47,"Central",55,"Others","Science",65,"Comm&Mgmt","No",62,"Mkt&HR",65.04,"Not Placed",NA
+467,"M",52,"Central",57,"Central","Arts",52,"Comm&Mgmt","No",93.4,"Mkt&HR",62.79,"Not Placed",NA
+468,"F",62,"Others",63,"Others","Commerce",56,"Comm&Mgmt","No",57,"Mkt&HR",71.49,"Placed",218000
+469,"M",51.57,"Others",40,"Others","Science",58,"Sci&Tech","No",71,"Mkt&HR",55.3,"Not Placed",NA
+470,"M",65,"Central",68,"Central","Arts",64,"Comm&Mgmt","No",75,"Mkt&Fin",57.8,"Placed",250000
+471,"F",77.44,"Central",92,"Others","Commerce",72,"Comm&Mgmt","Yes",94,"Mkt&Fin",67.13,"Placed",250000
+472,"M",72,"Others",60.5,"Others","Science",69,"Sci&Tech","Yes",53.7,"Mkt&Fin",66.06,"Placed",336000
+473,"F",65,"Central",71.5,"Central","Commerce",64,"Comm&Mgmt","No",75,"Mkt&Fin",60.5,"Placed",3e+05
+474,"M",65.2,"Central",61.4,"Central","Commerce",64.8,"Comm&Mgmt","Yes",93.4,"Mkt&Fin",57.34,"Placed",270000
+475,"M",62,"Others",65,"Others","Commerce",64,"Comm&Mgmt","No",93.4,"Mkt&Fin",64.34,"Placed",250000
+476,"M",87,"Central",74,"Central","Science",65,"Sci&Tech","Yes",75,"Mkt&HR",72.29,"Placed",3e+05
+477,"M",81,"Others",68,"Others","Science",64,"Sci&Tech","No",93,"Mkt&Fin",62.56,"Placed",411000
+478,"M",62,"Central",63,"Others","Science",66,"Comm&Mgmt","No",85,"Mkt&HR",55.14,"Placed",233000
+479,"M",87,"Central",82,"Central","Commerce",67,"Comm&Mgmt","No",88.56,"Mkt&Fin",62.9,"Placed",350000
+480,"M",80.4,"Central",73.4,"Central","Science",77.72,"Sci&Tech","Yes",81.2,"Mkt&HR",76.26,"Placed",4e+05
+481,"F",83.33,"Others",69.4,"Others","Science",84,"Sci&Tech","No",59.32,"Mkt&HR",76.18,"Placed",252000
+482,"M",80.6,"Others",82,"Others","Commerce",77.6,"Comm&Mgmt","No",91,"Mkt&Fin",74.49,"Placed",4e+05
+483,"F",65,"Central",75,"Central","Commerce",69,"Comm&Mgmt","Yes",72,"Mkt&Fin",64.66,"Placed",2e+05
+484,"M",84.2,"Central",69.4,"Central","Science",65,"Sci&Tech","Yes",80,"Mkt&HR",52.72,"Placed",255000
+485,"M",65,"Others",63,"Central","Commerce",64,"Comm&Mgmt","No",84,"Mkt&Fin",64.34,"Not Placed",NA
+486,"F",61,"Central",68.4,"Central","Commerce",58,"Comm&Mgmt","Yes",77,"Mkt&Fin",67.99,"Placed",360000
+487,"M",71,"Others",62,"Others","Science",68,"Sci&Tech","Yes",61,"Mkt&Fin",65.83,"Placed",295000
+488,"F",83.84,"Others",89.83,"Others","Commerce",77.2,"Comm&Mgmt","Yes",78.74,"Mkt&Fin",76.18,"Placed",4e+05
+489,"M",80,"Others",80,"Others","Commerce",72,"Comm&Mgmt","Yes",63.79,"Mkt&Fin",66.04,"Placed",290000
+490,"M",52,"Central",63,"Others","Science",65,"Sci&Tech","Yes",86,"Mkt&HR",56.09,"Not Placed",NA
+491,"F",52,"Others",52,"Others","Science",55,"Sci&Tech","No",67,"Mkt&HR",59.32,"Not Placed",NA
+492,"M",60.8,"Central",66.6,"Central","Commerce",54,"Comm&Mgmt","Yes",93.4,"Mkt&Fin",60.22,"Placed",3e+05
+493,"M",74,"Others",57,"Others","Science",69.5,"Comm&Mgmt","Yes",60,"Mkt&Fin",57.99,"Placed",250000
+494,"M",84,"Others",90.9,"Others","Science",64.5,"Sci&Tech","No",86.04,"Mkt&Fin",59.42,"Placed",270000
+495,"M",73,"Others",71.4,"Others","Commerce",68,"Comm&Mgmt","Yes",80,"Mkt&Fin",57.24,"Placed",265000
+496,"F",66,"Central",62,"Central","Commerce",73,"Comm&Mgmt","No",58,"Mkt&HR",64.36,"Placed",210000
+497,"M",68.2,"Central",72.8,"Central","Commerce",66.6,"Comm&Mgmt","Yes",96,"Mkt&Fin",70.85,"Placed",3e+05
+498,"M",65,"Central",64,"Others","Commerce",69,"Comm&Mgmt","Yes",74.4,"Mkt&HR",58.31,"Placed",3e+05
+499,"M",63,"Central",77,"Others","Commerce",72,"Others","No",60,"Mkt&HR",58.87,"Placed",270000
+500,"M",80.92,"Others",78.5,"Others","Commerce",67,"Comm&Mgmt","No",68.71,"Mkt&Fin",60.99,"Placed",275000
+501,"F",69,"Central",73,"Central","Commerce",65,"Comm&Mgmt","No",70,"Mkt&Fin",57.31,"Placed",220000
+502,"M",84,"Others",73,"Others","Science",66,"Comm&Mgmt","Yes",62,"Mkt&Fin",66.04,"Placed",290000
+503,"M",67,"Others",91,"Others","Commerce",58,"Sci&Tech","No",55,"Mkt&HR",58.8,"Placed",270000
+504,"F",74.9,"Others",63,"Others","Science",62,"Comm&Mgmt","Yes",64,"Mkt&Fin",63.08,"Placed",940000
+505,"M",78.5,"Central",65.5,"Central","Science",67,"Sci&Tech","Yes",95,"Mkt&Fin",64.86,"Placed",280000
+506,"F",74,"Central",60,"Others","Science",69,"Comm&Mgmt","No",78,"Mkt&HR",65.56,"Placed",216000
+507,"M",67,"Others",68,"Others","Commerce",64,"Comm&Mgmt","Yes",74.4,"Mkt&HR",53.49,"Placed",3e+05
+508,"M",74,"Central",66.2,"Others","Science",69,"Comm&Mgmt","No",70,"Mkt&HR",54.48,"Placed",220000
+509,"M",84.2,"Central",80,"Others","Science",65,"Sci&Tech","Yes",95,"Mkt&Fin",72.29,"Placed",252000
+510,"F",46,"Others",58,"Others","Commerce",79,"Comm&Mgmt","No",50.48,"Mkt&HR",64.95,"Not Placed",NA
+511,"M",55.6,"Others",52,"Others","Science",50.8,"Comm&Mgmt","No",75,"Mkt&HR",58.52,"Not Placed",NA
+512,"F",69,"Central",78,"Central","Commerce",72,"Comm&Mgmt","No",71,"Mkt&HR",62.74,"Placed",3e+05
+513,"F",66.5,"Central",62,"Central","Science",71.93,"Sci&Tech","Yes",64,"Mkt&Fin",64.08,"Placed",260000
+514,"M",60.23,"Others",65,"Others","Science",64,"Sci&Tech","Yes",75,"Mkt&HR",56.09,"Placed",233000
+515,"F",72,"Central",56,"Others","Science",69,"Comm&Mgmt","No",55.6,"Mkt&HR",65.63,"Placed",2e+05
