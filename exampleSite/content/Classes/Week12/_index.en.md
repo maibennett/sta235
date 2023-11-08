@@ -36,7 +36,7 @@ This week we will be diving into the amazing world of regression and clasificati
 Here is the R code we will review in class, with many additional questions! Remember to review it in detail after class <script>let date = Date.now();</script> <a onclick="gtag('event','code12', {'event_category': 'code','event_label': 'code12', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week12/1_DecisionTrees/code/f2023_sta235h_12_decisiontrees.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
 
-<!-- Check out the in-class activity we did for this week <a onclick="ga('send', 'event', 'External-Link','click','code13','0','Link');" href="https://sta235h.rocks/Week12" target="_blank" class="btn btn-default">Open<i class="fas  fa-external-link-alt"></i></a>
+Check out the in-class activity we did for this week <a onclick="gtag('event','code12_inclass', {'event_category': 'code','event_label': 'code12_inclass', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/InClassExercises/STA235H_Week12.html" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
-(The answers for this are here: <a onclick="ga('send', 'event', 'External-Link','click','code12Answers','0','Link');" href="https://sta235h.rocks/Week12Answers" target="_blank" class="btn btn-default">Open<i class="fas  fa-external-link-alt"></i></a>) -->
+(The answers for this are here: <a onclick="gtag('event','code12Answers', {'event_category': 'code','event_label': 'code12Answers', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/InClassExercises/STA235H_Week12Answers.html" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>)
 
