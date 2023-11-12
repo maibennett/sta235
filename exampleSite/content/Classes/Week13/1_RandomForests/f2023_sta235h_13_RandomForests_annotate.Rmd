@@ -384,9 +384,11 @@ font.add.google("Fira Sans", "Fira Sans")
 - Data Viz/Analysis
 ]
 
---
 <br>
-
+<br>
+<br>
+<br>
+<br>
 If you want to apply, visit: **[https://magdalenabennett.com/projects/nfl/](https://magdalenabennett.com/projects/nfl/)**
 
 ---
