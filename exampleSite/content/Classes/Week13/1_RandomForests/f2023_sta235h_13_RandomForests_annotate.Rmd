@@ -327,6 +327,7 @@ library(kableExtra)
 library(scales)
 library(patchwork)
 library(caret)
+library(gbm)
 
 # for windows
 windowsFonts(sans = "Fira")
@@ -363,6 +364,23 @@ font.add.google("Fira Sans", "Fira Sans")
 - One **.darkorange[final JITT]**: Only a Knowledge Check (due Sunday before class for Monday section).
 
   - Make sure you do it this week, so you don't have to work during the break. 
+  
+---
+# Football and Racial Disparities - RA needed
+
+
+.pull-left-little_l[
+<figure>
+  <img src="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/images/sankeyplot.png" alt="Sankey Plot" style="width:100%">
+  <figcaption>Selection process for quarterbacks at different stages by race</figcaption>
+</figure>
+]
+
+--
+
+.pull-right-little_l[
+If you want to apply, visit: **[https://magdalenabennett.com/projects/nfl/](https://magdalenabennett.com/projects/nfl/)**
+]
 
 ---
 # What we have seen...
