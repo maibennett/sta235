@@ -368,7 +368,6 @@ font.add.google("Fira Sans", "Fira Sans")
 ---
 # Football and Racial Disparities - RA needed
 
-
 .pull-left-little_l[
 <figure>
   <img src="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/images/sankeyplot.png" alt="Sankey Plot" style="width:100%">
@@ -385,7 +384,7 @@ font.add.google("Fira Sans", "Fira Sans")
 - Data Viz/Analysis
 ]
 
-
+--
 <br>
 
 If you want to apply, visit: **[https://magdalenabennett.com/projects/nfl/](https://magdalenabennett.com/projects/nfl/)**
