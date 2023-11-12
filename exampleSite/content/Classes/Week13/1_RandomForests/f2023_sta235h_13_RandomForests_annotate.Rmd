@@ -376,8 +376,6 @@ font.add.google("Fira Sans", "Fira Sans")
 </figure>
 ]
 
---
-
 .pull-right-little_l[
 
 - Paid RA position
@@ -387,7 +385,8 @@ font.add.google("Fira Sans", "Fira Sans")
 - Data Viz/Analysis
 ]
 
---
+
+<br>
 
 If you want to apply, visit: **[https://magdalenabennett.com/projects/nfl/](https://magdalenabennett.com/projects/nfl/)**
 
