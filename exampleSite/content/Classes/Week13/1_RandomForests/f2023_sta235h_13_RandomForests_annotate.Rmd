@@ -275,9 +275,9 @@ style_mono_accent(
    
    ".image-80 img" = list("scale" = "80%"),
    ".pull-left-little_l" = list("float" = "left",
-                                "width" = "67%"),
+                                "width" = "63%"),
    ".pull-right-little_l" = list("float" = "right",
-                                "width" = "27%"),
+                                "width" = "37%"),
    ".pull-left-little_r" = list("float" = "left",
                                 "width" = "27%"),
    ".pull-right-little_r" = list("float" = "right",
@@ -370,7 +370,7 @@ font.add.google("Fira Sans", "Fira Sans")
 
 .pull-left-little_l[
 <figure>
-  <img src="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/images/sankeyplot.png" alt="Sankey Plot" style="width:100%">
+  <img src="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/images/sankeyplot.png" alt="Sankey Plot" style="width:90%">
   <figcaption>Selection process for quarterbacks at different stages by race</figcaption>
 </figure>
 ]
@@ -382,21 +382,12 @@ font.add.google("Fira Sans", "Fira Sans")
 - Data collection
 
 - Data Viz/Analysis
-]
 
 <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-If you want to apply, visit: **[https://magdalenabennett.com/projects/nfl](https://magdalenabennett.com/projects/nfl/)**
+If you want to apply, visit: <br>
+**[https://magdalenabennett.com/projects/nfl](https://magdalenabennett.com/projects/nfl/)**
+]
+
 
 ---
 # What we have seen...
