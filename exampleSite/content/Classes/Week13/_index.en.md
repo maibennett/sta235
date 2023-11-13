@@ -37,7 +37,7 @@ This will be the final week that we cover new material, and we will be talking a
 
 ## Code
 
-Here is the R code we will review in class, with many additional questions! Remember to review it in detail after class <script>let date = Date.now();</script> <a onclick="gtag('event','code13', {'event_category': 'code','event_label': 'code13', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/code/f2023_sta235h_13_randomforests.R.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
+Here is the R code we will review in class, with many additional questions! Remember to review it in detail after class <script>let date = Date.now();</script> <a onclick="gtag('event','code13', {'event_category': 'code','event_label': 'code13', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week13/1_RandomForests/code/f2023_sta235h_13_randomforests.R" target="_blank" class="btn btn-default">Download<i class="fas fa-code"></i></a>
 
 
 <!-- Check out the in-class activity we did for this week <a onclick="ga('send', 'event', 'External-Link','click','code13','0','Link');" href="https://sta235h.rocks/Week12" target="_blank" class="btn btn-default">Open<i class="fas  fa-external-link-alt"></i></a>
