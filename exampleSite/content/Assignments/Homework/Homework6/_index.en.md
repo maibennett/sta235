@@ -64,4 +64,16 @@ Make your selection of dataset on Canvas by Thursday 11/16 (check announcement)
 {{% /notice %}} 
 
 
+## Submission structure
+
+For this assignment, you will have to submit three different files:
+
+1) **Written report**: This is the 2-page PDF file (without counting images and tables) that you need to submit. See instruction above for sections, stlyling, etc. You should name your report as following "LastnameFirstName_report.pdf". 
+
+2) **R Script**: This is a full, clean script that should replicate your results. It should have a section for the regression task and for the classification task, and both should be clearly delimited. Same thing for the different methods you use within each task. Follow the structure of the [following template](template.com) to make sure you are submitting an appropriate file. You should name your script as following "LastnameFirstName_script.R". 
+
+	- Remember that this script should run without glitches! Comment out **anything** that is not code, and make sure you don't include unecessary things (e.g. packages you are not using, code lines like `install.packages()`, etc.). These things will be evaluated as well.
+
+3) **Final Models (RData)**: To facilitate replication, you will also have to submit an **RData file with your two preferred models**. Do not submit anything else in this file. You should name your file as following "LastnameFirstName_models.RData". Follow the instructions in [the homework template](template.com) to make sure you are submitting everything correctly.
+
 
