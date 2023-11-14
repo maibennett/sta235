@@ -74,7 +74,7 @@ For this assignment, you will have to submit three different files:
 
 	- Remember that this script should run without glitches! Comment out **anything** that is not code, and make sure you don't include unecessary things (e.g. packages you are not using, code lines like `install.packages()`, etc.). These things will be evaluated as well.
 
-3) **Final Models (RData)**: To facilitate replication, you will also have to submit an **RData file with your two preferred models**. Do not submit anything else in this file. You should name your file as following "LastnameFirstName_models.RData". Follow the instructions in [the homework template](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/Homework6/template/BennettMagdalena_script.R) to make sure you are submitting everything correctly.
+3) **Final Models (RData)**: To facilitate replication, you will also have to submit an **RData file with your two preferred models**. Do not submit anything else in this file. You should name your file as following "LastnameFirstName_models.RData". Follow the instructions in [the homework template](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/Homework6/template/BennettMagdalena_script.R) to make sure you are submitting everything correctly. **Make sure that your regression task model starts with "reg" and your classification task model starts with "class"** to make evaluation easier.
 
 
 ## Some tips
