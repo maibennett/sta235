@@ -68,20 +68,20 @@ Make your selection of dataset on Canvas by Thursday 11/16 (check announcement)
 
 For this assignment, you will have to submit three different files:
 
-1) **Written report**: This is the 2-page PDF file (without counting images and tables) that you need to submit. See instruction above for sections, stlyling, etc. You should name your report as following "LastnameFirstName_report.pdf". 
+1) **Written report**: This is the 2-page PDF file (without counting images and tables) that you need to submit. See instruction above for sections, stlyling, etc. You should name your report as following "EID_LastnameFirstName_report.pdf" (e.g. mc72574_BennettM_report.pdf). 
 
-2) **R Script**: This is a full, clean script that should replicate your results. It should have a section for the regression task and for the classification task, and both should be clearly delimited. Same thing for the different methods you use within each task. Follow the structure of the [following template](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/Homework6/template/BennettMagdalena_script.R) to make sure you are submitting an appropriate file. You should name your script as following "LastnameFirstName_script.R". 
+2) **R Script**: This is a full, clean script that should replicate your results. It should have a section for the regression task and for the classification task, and both should be clearly delimited. Same thing for the different methods you use within each task. Follow the structure of the [following template](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/Homework6/template/mc72574_BennettM_script.R) to make sure you are submitting an appropriate file. You should name your script as following "EID_LastnameFirstletter_script.R" (e.g. mc72574_BennettM_script.R). 
 
 	- Remember that this script should run without glitches! Comment out **anything** that is not code, and make sure you don't include unecessary things (e.g. packages you are not using, code lines like `install.packages()`, etc.). These things will be evaluated as well.
 
-3) **Final Models (RData)**: To facilitate replication, you will also have to submit an **RData file with your two preferred models**. Do not submit anything else in this file. You should name your file as following "LastnameFirstName_models.RData". Follow the instructions in [the homework template](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/Homework6/template/BennettMagdalena_script.R) to make sure you are submitting everything correctly. **Make sure that your regression task model starts with "reg" and your classification task model starts with "class"** to make evaluation easier.
+3) **Final Models (RData)**: To facilitate replication, you will also have to submit an **RData file with your two preferred models**. Do not submit anything else in this file. You should name your file as following "EID_LastnameFirstLetter_models.RData" (e.g. mc72574_BennettM_models.RData). Follow the instructions in [the homework template](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/Homework6/template/mc72574_BennettM_script.R) to make sure you are submitting everything correctly. **Make sure that your regression task model starts with "reg" and your classification task model starts with "class"** to make evaluation easier.
 
 
 ## Some tips
 
 - You will most likely need to do some data cleaning before fitting any models. Make sure you do this to your entire dataset before you do anything else (see the previous template to guide you in the structure of your script). Pay special attention to the different variables you might encounter (e.g. Are they categorical? Should I transform them? Are there variables that are not predictors?). 
 
-- Depending on your dataset, it might make sense to aggregate some categories in categorical variables or mutate certain variables to be able to use the information they provide.
+- Depending on your dataset, it might make sense to aggregate some categories in categorical variables or mutate certain variables to be able to use the information they provide. Remember that <u>you need to have the same categories in your training and testing dataset</u>, so if you have too many categories (or one category with too few observations), you might run into issues.
 
 - You will also run into missing values. How you handle these is up to you. Some common alternatives are (1) drop observations with missing values (caveat: depending on missingness, this might be a bad idea if you are losing a lot of data), (2) not use variables with a lot of missing values (caveat: again, depending on the level of missing values, you might be losing important information), (3) impute average values to missing observations (caveat: you are introducing some noise in the variable).
 
