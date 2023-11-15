@@ -68,7 +68,7 @@ Make your selection of dataset on Canvas by Thursday 11/16 (check announcement)
 
 For this assignment, you will have to submit three different files:
 
-1) **Written report**: This is the 2-page PDF file (without counting images and tables) that you need to submit. See instruction above for sections, stlyling, etc. You should name your report as following "EID_LastnameFirstName_report.pdf" (e.g. mc72574_BennettM_report.pdf). 
+1) **Written report**: This is the 2-page PDF file (without counting images and tables) that you need to submit. See instruction above for sections, stlyling, etc. You should name your report as following "EID_LastnameFirstLetter_report.pdf" (e.g. mc72574_BennettM_report.pdf). 
 
 2) **R Script**: This is a full, clean script that should replicate your results. It should have a section for the regression task and for the classification task, and both should be clearly delimited. Same thing for the different methods you use within each task. Follow the structure of the [following template](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/Homework6/template/mc72574_BennettM_script.R) to make sure you are submitting an appropriate file. You should name your script as following "EID_LastnameFirstletter_script.R" (e.g. mc72574_BennettM_script.R). 
 
