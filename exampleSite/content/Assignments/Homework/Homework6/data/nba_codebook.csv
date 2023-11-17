@@ -1,0 +1,84 @@
+Variable,Description
+Player,Player name
+FirstName,Player's first name
+LastName,Player's last name
+Pos,Position
+Age,Age
+Tm,Team
+G,Games
+GS,Games started
+MP_per_game,Minutes played per game
+FG_per_game,Field goal per game
+FGA_per_game,Field goal attempt per game
+FG._per_game,Proportion of field goal over attempts per game
+X3P_per_game,3 points made per game
+X3PA_per_game,3 points attempt per game
+X3P._per_game,Proportion of 3 points over attempts per game
+X2P_per_game,2 points made per game
+X2PA_per_game,2 points attempt per game
+X2P._per_game,Proportion of 2 points over attempts per game
+eFG._per_game,Effective field goal percentage per game
+FT_per_game,Free throw per game
+FTA_per_game,Free throw attempt per game
+FT._per_game,Proportion of free throws over attempts per game
+ORB_per_game,Offensive rebound per game
+DRB_per_game,Defensive rebound per game
+TRB_per_game,Total rebounds per game
+AST_per_game,Assists per game
+STL_per_game,Steals per game
+BLK_per_game,Blocks per game
+TOV_per_game,Turnovers per game
+PF_per_game,Personal fouls
+PTS_per_game,Points per game
+Season.S.1,Season
+PER_advanced,Player efficiency rating
+TS._advanced,True shooting percentage
+X3PAr_advanced,3 points attempt rate (advanced)
+FTr_advanced,Free throw attempt rate (advanced)
+ORB._advanced,Offensive rebound (advanced)
+DRB._advanced,Defensive rebound (advanced)
+TRB._advanced,Total rebounds (advanced)
+AST._advanced,Assists (advanced)
+STL._advanced,Steals (advanced)
+BLK._advanced,Blocks (advanced)
+TOV._advanced,Turnovers (advanced)
+USG._advanced,Usage percentage
+OWS_advanced,Offensive win share (advanced)
+DWS_advanced,Defensive win share (advanced)
+WS_advanced,Win share (advanced)
+WS.48_advanced,Win share per 48 min (advanced)
+OBPM_advanced,Offensive box plus minus (advanced)
+DBPM_advanced,Defensive box plus minus (advanced)
+BPM_advanced,Box plus minus (advanced)
+VORP_advanced,Value over replacement player (advanced)
+MP_totals,Minutes played total
+FG_totals,Field goal total
+FGA_totals,Field goal attempts total
+FG._totals,Field goal proportion
+X3P_totals,3 points total
+X3PA_totals,3 points attempt total
+X3P._totals,3 point proportion
+X2P_totals,2 points total
+X2PA_totals,2 points attempt total
+X2P._totals,2 points proportion
+eFG._totals,Effective field goal percentage total
+FT_totals,Free throw totals
+FTA_totals,Free throw attempt totals
+FT._totals,Free throw attempt proportion
+ORB_totals,Offensive rebound total
+DRB_totals,Defensive rebound total
+TRB_totals,Total rebounds
+AST_totals,Assists total
+STL_totals,Steals total
+BLK_totals,Blocks total
+TOV_totals,Turnovers total
+PF_totals,Personal fouls total
+PTS_totals,Points total
+Salary,Salary (in millions $)
+Height,Height (feet and inches)
+Weight,Weight (pounds)
+COUNTRY,Country
+DRAFT.YEAR,Draft year
+DRAFT.ROUND,Draft round
+DRAFT.NUMBER,Draft number
+Salary_over_9.4,Salary over 9.4 millions

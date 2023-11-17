@@ -1,0 +1,39 @@
+Variable,Description
+as_of_year,Year
+respondent_id,Respondent ID
+agency_name,Agency name
+agency_abbr,Agency abbreviation
+agency_code,Agency code
+loan_type_name,Loan type (name)
+loan_type,Loan type (code)
+loan_purpose_name,Loan purpose (name)
+loan_purpose,Loan purpose (code)
+owner_occupancy_name,Owner occupancy (name)
+owner_occupancy,Owner occupancy (code)
+preapproval_name,Preapproval (name)
+preapproval,Preapproval (code)
+action_taken_name,Action taken: Loan originated (approved) or Application denied by financial institution (denied)
+state_abbr,State (abbreviation)
+applicant_ethnicity_name,Applicant ethnicity (name)
+applicant_ethnicity,Applicant ethnicity (code)
+co_applicant_ethnicity_name,"Co-applicant ethnicity (name), if available"
+co_applicant_ethnicity,"Co-applicant ethnicity (code), if available"
+applicant_race_name_1,Applicant race (name)
+applicant_race_1,Applicant race (code)
+co_applicant_race_name_1,Co-applicant race (name)
+co_applicant_race_1,Co-applicant race (code)
+applicant_sex_name,Applicant sex (name)
+applicant_sex,Applicant sex (code)
+co_applicant_sex_name,Co-applicant sex (name)
+co_applicant_sex,Co-applicant sex (code)
+applicant_income_000s,Applicant income (in thousands $)
+population,Total population in census tract
+minority_population,Percentage of minority population in census tract
+hud_median_family_income,HUD median family income for the MSA/MD where the census tract is located (in $)
+tract_to_msamd_income,Percentage of tract median family income compared to MSA/MD median family income
+number_of_owner_occupied_units,Number of dwelings that are lived in by the owner
+number_of_1_to_4_family_units,Number of dwelings that are built to house fewer than 5 families
+loan_amount_000s,Loan amount (in thousands $)
+,
+,
+See more details here: https://files.consumerfinance.gov/hmda-historic-data-dictionaries/lar_record_codes.pdf,

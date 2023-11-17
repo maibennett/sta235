@@ -1,0 +1,36 @@
+Variable,Description,Categories
+Marital.status,Marital status,
+Application.order,Application order (between 0 - first choice; and 9 last choice),
+Course,Course,33 - Biofuel Production Technologies 171 - Animation and Multimedia Design 8014 - Social Service (evening attendance) 9003 - Agronomy 9070 - Communication Design 9085 - Veterinary Nursing 9119 - Informatics Engineering 9130 - Equinculture 9147 - Management 9238 - Social Service 9254 - Tourism 9500 - Nursing 9556 - Oral Hygiene 9670 - Advertising and Marketing Management 9773 - Journalism and Communication 9853 - Basic Education 9991 - Management (evening attendance)
+Daytime.evening.attendance.,,1 – daytime 0 - evening
+Previous.qualification,Education level,
+Previous.qualification..grade.,Grade for education level,
+Mother.s.qualification,Mother's education,1 - Secondary Education - 12th Year of Schooling or Eq. 2 - Higher Education - Bachelor's Degree 3 - Higher Education - Degree 4 - Higher Education - Master's 5 - Higher Education - Doctorate 6 - Frequency of Higher Education 9 - 12th Year of Schooling - Not Completed 10 - 11th Year of Schooling - Not Completed 11 - 7th Year (Old) 12 - Other - 11th Year of Schooling 14 - 10th Year of Schooling 18 - General commerce course 19 - Basic Education 3rd Cycle (9th/10th/11th Year) or Equiv. 22 - Technical-professional course 26 - 7th year of schooling 27 - 2nd cycle of the general high school course 29 - 9th Year of Schooling - Not Completed 30 - 8th year of schooling 34 - Unknown 35 - Can't read or write 36 - Can read without having a 4th year of schooling 37 - Basic education 1st cycle (4th/5th year) or equiv. 38 - Basic Education 2nd Cycle (6th/7th/8th Year) or Equiv. 39 - Technological specialization course 40 - Higher education - degree (1st cycle) 41 - Specialized higher studies course 42 - Professional higher technical course 43 - Higher Education - Master (2nd cycle) 44 - Higher Education - Doctorate (3rd cycle)
+Father.s.qualification,Father's education,1 - Secondary Education - 12th Year of Schooling or Eq. 2 - Higher Education - Bachelor's Degree 3 - Higher Education - Degree 4 - Higher Education - Master's 5 - Higher Education - Doctorate 6 - Frequency of Higher Education 9 - 12th Year of Schooling - Not Completed 10 - 11th Year of Schooling - Not Completed 11 - 7th Year (Old) 12 - Other - 11th Year of Schooling 13 - 2nd year complementary high school course 14 - 10th Year of Schooling 18 - General commerce course 19 - Basic Education 3rd Cycle (9th/10th/11th Year) or Equiv. 20 - Complementary High School Course 22 - Technical-professional course 25 - Complementary High School Course - not concluded 26 - 7th year of schooling 27 - 2nd cycle of the general high school course 29 - 9th Year of Schooling - Not Completed 30 - 8th year of schooling 31 - General Course of Administration and Commerce 33 - Supplementary Accounting and Administration 34 - Unknown 35 - Can't read or write 36 - Can read without having a 4th year of schooling 37 - Basic education 1st cycle (4th/5th year) or equiv. 38 - Basic Education 2nd Cycle (6th/7th/8th Year) or Equiv. 39 - Technological specialization course 40 - Higher education - degree (1st cycle) 41 - Specialized higher studies course 42 - Professional higher technical course 43 - Higher Education - Master (2nd cycle) 44 - Higher Education - Doctorate (3rd cycle)
+Mother.s.occupation,Mother's occupation,
+Father.s.occupation,Father's occupation,
+Admission.grade,Admission grade (between 0 and 200),
+Displaced,Displaced,1 – yes 0 – no
+Educational.special.needs,Educational special needs,1 – yes 0 – no
+Debtor,Debtor,1 – yes 0 – no
+Tuition.fees.up.to.date,Tuition fees up to date,1 – yes 0 – no
+Gender,Gender,1 – male 0 – female
+Scholarship.holder,Scholarship holder,1 – yes 0 – no
+Age.at.enrollment,Age of studend at enrollment (years),
+International,International student,1 – yes 0 – no
+Curricular.units.1st.sem..credited.,Number of curricular units credited in the 1st semester,
+Curricular.units.1st.sem..enrolled.,Number of curricular units enrolled in the 1st semester,
+Curricular.units.1st.sem..evaluations.,Number of evaluations to curricular units in the 1st semester,
+Curricular.units.1st.sem..approved.,Number of curricular units approved in the 1st semester,
+Curricular.units.1st.sem..grade.,Grade average in the 1st semester (between 0 and 20),
+Curricular.units.1st.sem..without.evaluations.,Number of curricular units without evalutions in the 1st semester,
+Curricular.units.2nd.sem..credited.,Number of curricular units credited in the 2nd semester,
+Curricular.units.2nd.sem..enrolled.,Number of curricular units enrolled in the 2nd semester,
+Curricular.units.2nd.sem..evaluations.,Number of evaluations to curricular units in the 2nd semester,
+Curricular.units.2nd.sem..approved.,Number of curricular units approved in the 2nd semester,
+Curricular.units.2nd.sem..grade.,Grade average in the 2nd semester (between 0 and 20),
+Curricular.units.2nd.sem..without.evaluations.,Number of curricular units without evalutions in the 1st semester,
+Unemployment.rate,Unemployment rate (%),
+Inflation.rate,Inflation rate (%),
+GDP,GDP,
+Target,Dropout or Graduate,
