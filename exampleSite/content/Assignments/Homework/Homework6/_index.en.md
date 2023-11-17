@@ -43,6 +43,7 @@ chapter: false
 
 	- **Style**: The report follows the styling guidelines (keep it professional -- e.g. don't include screenshots of code, make sure anything you present is readable, include appropriate captions and references for tables/plots, etc.).
 	- **Clarity**: Descriptions and explanations are clear and accurate.
+	- **Data wrangling**: Data wrangling/cleaning is appropriate for the task.
 	- **Model training**: Training parameters are appropriate for the task at hand.
 	- **Results**: Presentation of results.
 	- **Model evaluation**: Selection of the best performing model.
