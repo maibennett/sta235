@@ -62,5 +62,7 @@ Check out the answer keys for each section here:
 - Section 4 (Mon 4pm): <a onclick="gtag('event','midterm_answerkey4', {'event_category': 'code','event_label': 'midterm_answerkey4', 'event_action': date, 'debug_mode':true });" href="https://sta235.com/Exams/Exams/STA235H_Fall23_Midterm_AnswerKey_s4.html" target="_blank" class="btn btn-default">Open <i class="fas fa-external-link-alt"></i></a>
 
 
+## Final
 
+You can access the Rscript for the final exam here: <a onclick="gtag('event','final_code', {'event_category': 'code','event_label': 'final_code', 'event_action': date, 'debug_mode':true });" href="https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Exams/Exams/Final/RScript_Final.R" target="_blank" class="btn btn-default">Open <i class="fas fa-external-link-alt"></i></a>
 
