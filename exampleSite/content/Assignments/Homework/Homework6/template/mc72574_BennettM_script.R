@@ -46,7 +46,7 @@ nvars = 4
 train.control = trainControl(method = "cv", number = 5) #set up a 5-fold cv
 
 # This is my preferred model:
-reg.fwd = train(logins ~ . - id, 
+reg.model = train(logins ~ . - id, 
                data = train.data, 
                method = "leapForward",
                tuneGrid = data.frame(nvmax = 1:nvars), 
@@ -87,7 +87,7 @@ train.control = trainControl(method = "cv", number = 10)
 
 # This is my preferred model
 
-class.ridge = train(factor(unsubscribe) ~ . , data = train.data, 
+class.model = train(factor(unsubscribe) ~ . , data = train.data, 
               method = "glmnet",
               preProcess = "scale", 
               trControl = trainControl("cv", number = 10), 
@@ -103,7 +103,7 @@ class.ridge = train(factor(unsubscribe) ~ . , data = train.data,
 
 #### SAVE YOUR PREFERRED MODELS FOR SUBMISSION:
 
-save(reg.fwd, class.ridge, file = "C:/Users/maibe/Dropbox/ROutput/BennettMagdalena_models.RData")
+save(reg.model, class.model, file = "C:/Users/maibe/Dropbox/ROutput/mc72574_BennettM_models.RData")
 
 
 ################################################################################
@@ -119,10 +119,10 @@ rm(list = ls())
 cat("\014")
 
 # Load your models
-load("C:/Users/maibe/Dropbox/ROutput/BennettMagdalena_models.RData")
+load("C:/Users/maibe/Dropbox/ROutput/mc72574_BennettM_models.RData")
 
 # Load your data
 hbo_r = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week10/1_ModelSelection/data/hbomax.csv")
 
 # Check performance:
-rmse(reg.fwd, hbo_c)
+rmse(reg.model, hbo_r)
