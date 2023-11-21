@@ -183,7 +183,7 @@ bg = train(logins ~ .,
 tuneGrid = expand.grid(
   mtry = 1:5, # Number of random covariates that will test
   splitrule = "variance", # Split rule (Important: for regressions use "variance", for classification use "gini")
-  min.node.size = 5
+  min.node.size = 5 # Min observations in each node.
 )
 
 rf = train(logins ~ .,
