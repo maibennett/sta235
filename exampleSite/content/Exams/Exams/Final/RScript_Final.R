@@ -158,6 +158,16 @@ pred.values = ridge %>% predict(test.data)
 
 mean(pred.values == test.data$unsubscribe)
 
+## Prediction
+df = data.frame(id = 1,
+                female = 0,
+                city = 1,
+                age = 40,
+                logins = 10,
+                succession = 1)
+
+ridge %>% predict(df)
+
 
 # Decision trees
 
@@ -176,6 +186,12 @@ bg = train(logins ~ .,
            trControl = trainControl(method = "cv", number = 5),
            method = "treebag",
            nbagg = 10)
+
+## Importance table
+varImp(bg, scale = TRUE)
+
+## Importance plot
+plot(varImp(bg, scale = TRUE))
 
 
 # Random Forests
