@@ -141,6 +141,7 @@ ridge = train(factor(unsubscribe) ~ .,
               data = data,
               trControl = trainControl(method = "cv", number = 5),
               method = "glmnet",
+              preProcess = "scale",
               tuneGrid = expand.grid(alpha = 0,
                                      lambda = seq(0, 0.1, length = 10)))
 
@@ -150,6 +151,7 @@ lasso = train(factor(unsubscribe) ~ .,
               data = data,
               trControl = trainControl(method = "cv", number = 5),
               method = "glmnet",
+              preProcess = "scale",
               tuneGrid = expand.grid(alpha = 1,
                                      lambda = seq(0, 0.1, by = 0.001)))
 
