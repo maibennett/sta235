@@ -95,12 +95,16 @@ test.data = data %>% slice(-train_id)
 
 # Split data (with stratification)
 
+set.seed(100)
+
 split = initial_split(data, prop = 0.7, strata = "logins")
 
 train.data = training(split)
 test.data = testing(split)
 
 # Linear Model (with cross-validation)
+
+set.seed(100)
 
 lm.cv = train(logins ~ .,
               data = data,
@@ -112,11 +116,15 @@ rmse(lm.cv, data)
 
 # Stepwise
 
+set.seed(100)
+
 lm.fwd = train(logins ~ . - unsubscribe - id,
               data = data,
               trControl = trainControl(method = "cv", number = 5),
               method = "leapForward",
               tuneGrid = data.frame(nvmax = 1:4))
+
+set.seed(100)
 
 lm.fwd = train(logins ~ . - unsubscribe - id,
                data = data,
@@ -127,12 +135,16 @@ lm.fwd = train(logins ~ . - unsubscribe - id,
 
 # Ridge and Lasso
 
+set.seed(100)
+
 ridge = train(factor(unsubscribe) ~ .,
               data = data,
               trControl = trainControl(method = "cv", number = 5),
               method = "glmnet",
               tuneGrid = expand.grid(alpha = 0,
                                      lambda = seq(0, 0.1, length = 10)))
+
+set.seed(100)
 
 lasso = train(factor(unsubscribe) ~ .,
               data = data,
@@ -171,6 +183,8 @@ ridge %>% predict(df)
 
 # Decision trees
 
+set.seed(100)
+
 dt = train(logins ~ .,
               data = data,
               trControl = trainControl(method = "cv", number = 5),
@@ -180,6 +194,8 @@ dt = train(logins ~ .,
 fancyRpartPlot(dt$finalModel, caption = "Title")
 
 # Bagging
+
+set.seed(100)
 
 bg = train(logins ~ .,
            data = data,
@@ -202,6 +218,8 @@ tuneGrid = expand.grid(
   min.node.size = 5 # Min observations in each node.
 )
 
+set.seed(100)
+
 rf = train(logins ~ .,
            data = data,
            trControl = trainControl(method = "cv", number = 5),
@@ -219,6 +237,8 @@ tuneGrid = expand.grid(
   shrinkage = c(0.01, 0.1), # Learning rates
   n.minobsinnode = 10 # Min observations in each node.
 )
+
+set.seed(100)
 
 boost = train(logins ~ .,
            data = data,
