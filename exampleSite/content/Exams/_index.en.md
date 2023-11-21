@@ -102,8 +102,8 @@ You can access the Rscript for the final exam here: <a onclick="gtag('event','fi
 
 ### Exam rules
 
-- During the exam, you cannot have access to any online resources or outside sources. Feel free to use your cheat-sheet or the R script provided for the exam for coding examples.
+- During the exam, you cannot have access to any online resources or outside sources, and you are only allowed to have RStudio and the exam (on Canva) open on your laptop. Feel free to use your note sheet or the R script provided for the exam for coding examples.
 
-- Because this is a proctored exam, you will not be allowed to use any device that has an internet connection and is not proctored (e.g. tablets, iPads, phones), so please make sure all your materials are on your laptop.
+- Because this is a proctored exam, you will not be allowed to use any device that has an internet connection and is not proctored (e.g. tablets, iPads, phones).
 
 ### Answer keys
