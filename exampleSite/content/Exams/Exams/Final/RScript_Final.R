@@ -52,9 +52,18 @@ lmq$coefficients["age"]
 
 datasummary_balance(~ unsubscribe, data = hbo, fmt = 3, dinm_statistic = "p.value")
 
-# Regression Discontinuity (RDD)
 
 sales = read.csv("https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Classes/Week8/1_RDD/data/sales.csv")
+
+# Scatter plot with regression line
+
+ggplot(data = sales, aes(x = income, y = sales)) +
+  geom_point(size = 2, color = "darkorange") +
+  geom_smooth(color = "darkgrey", se = FALSE, method = "lm") +
+  xlab("X label") + ylab("Y label") +
+  theme_minimal()
+
+# Regression Discontinuity (RDD)
 
 summary(rdrobust(x = sales$time, y = sales$sales, c = 259.7))
 
