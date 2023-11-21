@@ -112,17 +112,17 @@ rmse(lm.cv, data)
 
 # Stepwise
 
-lm.fwd = train(logins ~ .,
+lm.fwd = train(logins ~ . - unsubscribe - id,
               data = data,
               trControl = trainControl(method = "cv", number = 5),
               method = "leapForward",
-              tuneGrid = data.frame(nvmax = 1:5))
+              tuneGrid = data.frame(nvmax = 1:4))
 
-lm.fwd = train(logins ~ .,
+lm.fwd = train(logins ~ . - unsubscribe - id,
                data = data,
                trControl = trainControl(method = "cv", number = 5),
                method = "leapBackward",
-               tuneGrid = data.frame(nvmax = 1:5))
+               tuneGrid = data.frame(nvmax = 1:4))
 
 
 # Ridge and Lasso
