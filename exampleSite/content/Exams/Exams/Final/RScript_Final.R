@@ -19,6 +19,7 @@ library(tidyverse)
 library(modelsummary)
 library(estimatr)
 library(vtable)
+library(MatchIt)
 library(rdrobust)
 
 #Prediction packages
@@ -62,6 +63,15 @@ ggplot(data = sales, aes(x = income, y = sales)) +
   geom_smooth(color = "darkgrey", se = FALSE, method = "lm") +
   xlab("X label") + ylab("Y label") +
   theme_minimal()
+
+
+# Matching
+
+m1 = matchit(treat ~ age + income, data = sales,
+             exact = "female", method = "nearest", caliper = 0.3)
+
+data_m1 = match.data(m1)
+
 
 # Regression Discontinuity (RDD)
 
