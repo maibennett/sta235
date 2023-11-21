@@ -166,9 +166,9 @@ coefs = coef(lasso$finalModel, lasso$bestTune$lambda)
 coefs@p[2] - 1
 
 ## Accuracy
-pred.values = ridge %>% predict(test.data)
+pred.values = ridge %>% predict(data)
 
-mean(pred.values == test.data$unsubscribe)
+mean(pred.values == data$unsubscribe)
 
 ## Prediction
 df = data.frame(id = 1,
