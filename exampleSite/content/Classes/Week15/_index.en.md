@@ -8,14 +8,12 @@ disableToc: true
 
 ## Final Trivia
 
-This final week will just be a review session in the #FinalTrivia formal. Form groups and answer the questions provided! Slides with the answers will be posted Wednesday afternoon.
+This final week will just be a review session in the #FinalTrivia format. Form groups and answer the questions provided! Slides with the answers will be posted Wednesday afternoon.
 
 *Note: If you are a Mac user, you might get different results in Random Forests, because of the way `ranger` uses the RNG. Do not worry about it, because that will be considered in your submissions (Canvas shows who is running a Mac or Windows machine).*
 
 
 ![](https://media.giphy.com/media/2u9rIEBoKMCpU6gNHY/giphy.gif)
 
-
-## Slides
 
 
