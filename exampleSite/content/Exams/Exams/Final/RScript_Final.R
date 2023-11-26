@@ -227,6 +227,7 @@ rf = train(logins ~ .,
            trControl = trainControl(method = "cv", number = 5),
            method = "ranger",
            num.trees = 10,
+           importance = "permutation",
            tuneGrid = tuneGrid)
 
 plot(rf)
