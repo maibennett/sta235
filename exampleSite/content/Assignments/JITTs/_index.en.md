@@ -46,3 +46,46 @@ Weekly assignments submitted via **Canvas**
 ### JITT 10
 
 - See alternatives and feedback on Canvas
+
+### JITT 11
+
+    set.seed(100)
+    
+    ct = train(factor(unsubscribe) ~ . - id, data = train.data,
+               method = "rpart", 
+               tuneGrid = expand.grid(cp = seq(0,0.015, length = 50)),
+               trControl = trainControl(method = "cv", number = 10))
+    
+    ct$bestTune
+    
+    pred.values = ct %>% predict(test.data)
+    mean(pred.values == test.data$unsubscribe)
+
+  `ct` = 0.007 and accuracy is 63.9%
+
+
+### JITT 12
+
+Change `tuneGrid` according to specifications:
+
+    tuneGrid = expand.grid(
+       mtry = 3:11,
+       splitrule = "variance",
+       min.node.size = 1
+    )
+
+Run RF:
+
+    rfcv = train(Sales ~ ., data = carseats.train,
+                 method = "ranger",
+                 trControl = trainControl("cv", number = 10),
+                 importance = "permutation",
+                 tuneGrid = tuneGrid)
+
+Get best tuning parameter (10 in Windows):
+
+    rfcv$bestTune
+
+Get appropriate measure of performance (RMSE = 1.48):
+
+    rmse(rfcv, carseats.test)
