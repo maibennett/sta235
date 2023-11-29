@@ -16,4 +16,10 @@ This final week will just be a review session in the #FinalTrivia format. Form g
 ![](https://media.giphy.com/media/2u9rIEBoKMCpU6gNHY/giphy.gif)
 
 
+## Slides
+
+{{% button href="https://sta235.com/Classes/Week15/1_FinalTrivia/f2023_sta235h_15_FinalTrivia.html" icon="fas fa-external-link-alt" icon-position="right" %}}New window{{% /button %}} 
+
+{{< slides src="https://sta235.com/Classes/Week15/1_FinalTrivia/f2023_sta235h_15_FinalTrivia.html" >}}
+
 
