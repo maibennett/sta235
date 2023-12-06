@@ -107,6 +107,7 @@ test.data = testing(split)
 set.seed(100)
 
 lm.cv = train(logins ~ .,
+              method = "lm",
               data = data,
               trControl = trainControl(method = "cv", number = 5))
 
