@@ -91,116 +91,33 @@ For this assignment, you will have to submit three different files:
 
 ## Rubric
 
-<table border="0" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Category</th>
-      <th>Total Points</th>
-      <th>Item</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Style</td>
-      <td>10.0</td>
-      <td>Right length and font size, titles, etc.</td>
-    </tr>
-    <tr>
-      <td>Style</td>
-      <td>10.0</td>
-      <td>Images and tables (e.g. readable, axis labels, appropriate captions, no screenshots)</td>
-    </tr>
-    <tr>
-      <td>Style</td>
-      <td>10.0</td>
-      <td>Right naming structure</td>
-    </tr>
-    <tr>
-      <td>Clarity</td>
-      <td>23.0</td>
-      <td>Data description</td>
-    </tr>
-    <tr>
-      <td>Clarity</td>
-      <td>23.0</td>
-      <td>Data wrangling explanation (only clarity; whether is right or not is evaluated in the the next section)</td>
-    </tr>
-    <tr>
-      <td>Clarity</td>
-      <td>23.0</td>
-      <td>Models' Explanation: Regression (precise/no incorrect info)</td>
-    </tr>
-    <tr>
-      <td>Clarity</td>
-      <td>23.0</td>
-      <td>Models' Explanation: Classification (precise/no incorrect info)</td>
-    </tr>
-    <tr>
-      <td>Data wrangling</td>
-      <td>10.0</td>
-      <td>Manage missing values/categorical variables</td>
-    </tr>
-    <tr>
-      <td>Model training</td>
-      <td>32.0</td>
-      <td>Models are appropriate for the task (Regression) - conceptual and code</td>
-    </tr>
-    <tr>
-      <td>Model training</td>
-      <td>32.0</td>
-      <td>Models are appropriate for the task (Classification) - conceptual and code</td>
-    </tr>
-    <tr>
-      <td>Model training</td>
-      <td>32.0</td>
-      <td>Tuning parameters are appropriate (Regression)</td>
-    </tr>
-    <tr>
-      <td>Model training</td>
-      <td>32.0</td>
-      <td>Tuning parameters are appropriate (Classification)</td>
-    </tr>
-    <tr>
-      <td>Results</td>
-      <td>10.0</td>
-      <td>Presentation of results (appropriate performance measures, tuning grid and opt parameters): Regression</td>
-    </tr>
-    <tr>
-      <td>Results</td>
-      <td>10.0</td>
-      <td>Presentation of results (appropriate performance measures, tuning grid and opt parameters): Classification</td>
-    </tr>
-    <tr>
-      <td>Model evaluation</td>
-      <td>4.0</td>
-      <td>Chooses the right model (Regression)</td>
-    </tr>
-    <tr>
-      <td>Model evaluation</td>
-      <td>4.0</td>
-      <td>Chooses the right model (Classification)</td>
-    </tr>
-    <tr>
-      <td>Code</td>
-      <td>15.0</td>
-      <td>Code runs with no issues</td>
-    </tr>
-    <tr>
-      <td>Code</td>
-      <td>15.0</td>
-      <td>Code runs with no issues on testing data</td>
-    </tr>
-    <tr>
-      <td>Model performance</td>
-      <td>6.0</td>
-      <td>Average ranking</td>
-    </tr>
-    <tr>
-      <td><b>TOTAL</b></td>
-      <td>100.0</td>
-      <td></td>
-    </tr>
-  </tbody>
+<table border="1">
+<thead>
+<tr><th>Category</th><th>Total Points</th><th>Item</th></tr>
+</thead>
+<tbody>
+<tr><td>Style</td><td>10.0</td><td>Right length and font size, titles, etc.</td></tr>
+<tr><td>Images and tables (e.g. readable, axis labels, appropriate captions, no screenshots)</td></tr>
+<tr><td>Right naming structure</td></tr>
+<tr><td rowspan="3">Style</td><td>Clarity</td><td rowspan="3">10.0</td><td>23.0</td><td>Data description</td></tr>
+<tr><td>Data wrangling explanation (only clarity; whether is right or not is evaluated in the the next section)</td></tr>
+<tr><td>Models' Explanation: Regression (precise/no incorrect info)</td></tr>
+<tr><td>Models' Explanation: Classification (precise/no incorrect info)</td></tr>
+<tr><td rowspan="4">Clarity</td><td>Data wrangling</td><td rowspan="4">23.0</td><td>10.0</td><td>Manage missing values/categorical variables</td></tr>
+<tr><td>Model training</td><td>32.0</td><td>Models are appropriate for the task (Regression) - conceptual and code</td></tr>
+<tr><td>Models are appropriate for the task (Classification) - conceptual and code</td></tr>
+<tr><td>Tuning parameters are appropriate (Regression)</td></tr>
+<tr><td>Tuning parameters are appropriate (Classification)</td></tr>
+<tr><td rowspan="4">Model training</td><td>Results</td><td rowspan="4">32.0</td><td>10.0</td><td>Presentation of results (appropriate performance measures, tuning grid and opt parameters): Regression</td></tr>
+<tr><td>Presentation of results (appropriate performance measures, tuning grid and opt parameters): Classification</td></tr>
+<tr><td rowspan="2">Results</td><td>Model evaluation</td><td rowspan="2">10.0</td><td>4.0</td><td>Chooses the right model (Regression)</td></tr>
+<tr><td>Chooses the right model (Classification)</td></tr>
+<tr><td rowspan="2">Model evaluation</td><td>Code</td><td rowspan="2">4.0</td><td>15.0</td><td>Code runs with no issues</td></tr>
+<tr><td>Code runs with no issues on testing data</td></tr>
+<tr><td rowspan="2">Code</td><td>Model performance</td><td rowspan="2">15.0</td><td>6.0</td><td>Average ranking </td></tr>
+<tr><td>TOTAL</td><td>100.0</td><td></td></tr>
+</tbody>
 </table>
+
 
 
