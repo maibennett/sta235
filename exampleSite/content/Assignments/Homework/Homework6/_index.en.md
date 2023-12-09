@@ -124,7 +124,7 @@ For this assignment, you will have to submit three different files:
     </tr>
     <tr>
         <td><strong>Data wrangling</strong></td>
-        <td>10</td>
+        <td><strong>10</strong></td>
         <td><i>Manage missing values/categorical variables</i></td>
     </tr>
     <tr>
@@ -167,7 +167,7 @@ For this assignment, you will have to submit three different files:
     </tr>
     <tr>
         <td><strong>Model performance</strong></td>
-        <td>6</td>
+        <td><strong>6</strong></td>
         <td><i>Average ranking</i></td>
     </tr>
     <tr>
