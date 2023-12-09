@@ -91,33 +91,92 @@ For this assignment, you will have to submit three different files:
 
 ## Rubric
 
-<table border="1">
-<thead>
-<tr><th>Category</th><th>Total Points</th><th>Item</th></tr>
-</thead>
-<tbody>
-<tr><td>Style</td><td>10.0</td><td>Right length and font size, titles, etc.</td></tr>
-<tr><td>Images and tables (e.g. readable, axis labels, appropriate captions, no screenshots)</td></tr>
-<tr><td>Right naming structure</td></tr>
-<tr><td rowspan="3">Style</td><td>Clarity</td><td rowspan="3">10.0</td><td>23.0</td><td>Data description</td></tr>
-<tr><td>Data wrangling explanation (only clarity; whether is right or not is evaluated in the the next section)</td></tr>
-<tr><td>Models' Explanation: Regression (precise/no incorrect info)</td></tr>
-<tr><td>Models' Explanation: Classification (precise/no incorrect info)</td></tr>
-<tr><td rowspan="4">Clarity</td><td>Data wrangling</td><td rowspan="4">23.0</td><td>10.0</td><td>Manage missing values/categorical variables</td></tr>
-<tr><td>Model training</td><td>32.0</td><td>Models are appropriate for the task (Regression) - conceptual and code</td></tr>
-<tr><td>Models are appropriate for the task (Classification) - conceptual and code</td></tr>
-<tr><td>Tuning parameters are appropriate (Regression)</td></tr>
-<tr><td>Tuning parameters are appropriate (Classification)</td></tr>
-<tr><td rowspan="4">Model training</td><td>Results</td><td rowspan="4">32.0</td><td>10.0</td><td>Presentation of results (appropriate performance measures, tuning grid and opt parameters): Regression</td></tr>
-<tr><td>Presentation of results (appropriate performance measures, tuning grid and opt parameters): Classification</td></tr>
-<tr><td rowspan="2">Results</td><td>Model evaluation</td><td rowspan="2">10.0</td><td>4.0</td><td>Chooses the right model (Regression)</td></tr>
-<tr><td>Chooses the right model (Classification)</td></tr>
-<tr><td rowspan="2">Model evaluation</td><td>Code</td><td rowspan="2">4.0</td><td>15.0</td><td>Code runs with no issues</td></tr>
-<tr><td>Code runs with no issues on testing data</td></tr>
-<tr><td rowspan="2">Code</td><td>Model performance</td><td rowspan="2">15.0</td><td>6.0</td><td>Average ranking </td></tr>
-<tr><td>TOTAL</td><td>100.0</td><td></td></tr>
-</tbody>
+<table>
+    <tr>
+        <th><strong>Category</strong></th>
+        <th><strong>Total Points</strong></th>
+        <th><strong>Item</strong></th>
+    </tr>
+    <tr>
+        <td rowspan="3"><strong>Style</strong></td>
+        <td rowspan="3"><strong>10</strong></td>
+        <td><i>Right length and font size, titles, etc.</i></td>
+    </tr>
+    <tr>
+        <td><i>Images and tables (e.g. readable, axis labels, appropriate captions, no screenshots)</i></td>
+    </tr>
+    <tr>
+        <td><i>Right naming structure</i></td>
+    </tr>
+    <tr>
+        <td rowspan="4"><strong>Clarity</strong></td>
+        <td rowspan="4"><strong>23</strong></td>
+        <td><i>Data description</i></td>
+    </tr>
+    <tr>
+        <td><i>Data wrangling explanation (only clarity; whether is right or not is evaluated in the the next section)</i></td>
+    </tr>
+    <tr>
+        <td><i>Models' Explanation: Regression (precise/no incorrect info)</i></td>
+    </tr>
+    <tr>
+        <td><i>Models' Explanation: Classification (precise/no incorrect info)</i></td>
+    </tr>
+    <tr>
+        <td>Data wrangling</td>
+        <td>10</td>
+        <td><i>Manage missing values/categorical variables</i></td>
+    </tr>
+    <tr>
+        <td rowspan="4"><strong>Model training</strong></td>
+        <td rowspan="4"><strong>32</strong></td>
+        <td><i>Models are appropriate for the task (Regression) - conceptual and code</i></td>
+    </tr>
+    <tr>
+        <td><i>Models are appropriate for the task (Classification) - conceptual and code</i></td>
+    </tr>
+    <tr>
+        <td><i>Tuning parameters are appropriate (Regression)</i></td>
+    </tr>
+    <tr>
+        <td><i>Tuning parameters are appropriate (Classification)</i></td>
+    </tr>
+    <tr>
+        <td rowspan="2"><strong>Results</strong></td>
+        <td rowspan="2"><strong>10</strong></td>
+        <td><i>Presentation of results (appropriate performance measures, tuning grid and opt parameters): Regression</i></td>
+    </tr>
+    <tr>
+        <td><i>Presentation of results (appropriate performance measures, tuning grid and opt parameters): Classification</i></td>
+    </tr>
+    <tr>
+        <td rowspan="2"><strong>Model evaluation</strong></td>
+        <td rowspan="2"><strong>4</strong></td>
+        <td><i>Chooses the right model (Regression)</i></td>
+    </tr>
+    <tr>
+        <td><i>Chooses the right model (Classification)</i></td>
+    </tr>
+    <tr>
+        <td rowspan="2"><strong>Code</strong></td>
+        <td rowspan="2"><strong>15</strong></td>
+        <td><i>Code runs with no issues</i></td>
+    </tr>
+    <tr>
+        <td><i>Code runs with no issues on testing data</i></td>
+    </tr>
+    <tr>
+        <td>Model performance</td>
+        <td>6</td>
+        <td><i>Average ranking</i></td>
+    </tr>
+    <tr>
+        <th><strong>TOTAL</strong></th>
+        <th><strong>100</strong></th>
+        <td></td>
+    </tr>
 </table>
+
 
 
 
