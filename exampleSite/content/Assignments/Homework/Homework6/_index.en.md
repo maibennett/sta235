@@ -123,7 +123,7 @@ For this assignment, you will have to submit three different files:
         <td><i>Models' Explanation: Classification (precise/no incorrect info)</i></td>
     </tr>
     <tr>
-        <td>Data wrangling</td>
+        <td><strong>Data wrangling</strong></td>
         <td>10</td>
         <td><i>Manage missing values/categorical variables</i></td>
     </tr>
@@ -166,7 +166,7 @@ For this assignment, you will have to submit three different files:
         <td><i>Code runs with no issues on testing data</i></td>
     </tr>
     <tr>
-        <td>Model performance</td>
+        <td><strong>Model performance</strong></td>
         <td>6</td>
         <td><i>Average ranking</i></td>
     </tr>
