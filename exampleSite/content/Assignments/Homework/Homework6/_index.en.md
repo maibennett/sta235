@@ -181,6 +181,13 @@ This is a general view of the rubric used for evaluation, including the total po
 
 
 
+### Let's meet the top 10
+
+Here's a list of the top 10 performance per dataset. Congratulations!
+
+![](https://raw.githubusercontent.com/maibennett/sta235/main/exampleSite/content/Assignments/Homework/Homework6/data/ranking.png)
+
+
 ### Common Mistakes
 
 This is a non-exhaustive list of the most common mistakes/discounts in this assignment. Remember that the sections of "style", "clarity", "results", and "model evaluation" were exclusively based on the report. The other sections were based on the code.
@@ -196,5 +203,6 @@ This is a non-exhaustive list of the most common mistakes/discounts in this assi
 - **Results**: Not showing tuning grid and best tuning parameters.
 
 - **Code**: Not loading packages that are needed/ calling an object that is not defined.
+
 
 
