@@ -86,7 +86,7 @@ For this assignment, you will have to submit three different files:
 
 - You will also run into missing values. How you handle these is up to you. Some common alternatives are (1) drop observations with missing values (caveat: depending on missingness, this might be a bad idea if you are losing a lot of data), (2) not use variables with a lot of missing values (caveat: again, depending on the level of missing values, you might be losing important information), (3) impute average values to missing observations (caveat: you are introducing some noise in the variable). As a note, imputation should only be done for predictors, and not outcome variables. 
 
-- You can wrangle your data in an easy way, dropping a lot of data and variables, or spend a little more time in this part to be sure to preserve more information. This will have an impact on the accuracy of your prediction (remember that, usually, more info is better than less!). The decision is yours &#128512;
+- You can wrangle your data in an easy way, dropping a lot of data, or spend a little more time in this part to be sure to preserve more information. This will have an impact on the accuracy of your prediction (remember that, usually, more info is better than less!). The decision is yours &#128512;
 
 
 ## Rubric
