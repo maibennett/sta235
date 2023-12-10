@@ -131,7 +131,7 @@ This is a general view of the rubric used for evaluation, including the total po
     </tr>
     <tr>
         <td rowspan="4"><strong>Model training</strong></td>
-        <td rowspan="4"><strong>32</strong></td>
+        <td rowspan="4"><strong>22</strong></td>
         <td><i>Models are appropriate for the task (Regression) - conceptual and code</i></td>
     </tr>
     <tr>
