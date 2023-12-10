@@ -196,7 +196,7 @@ This is a non-exhaustive list of the most common mistakes/discounts in this assi
 
 - **Clarity**: Not (briefly) describing what the methods do; Not including information about the data (size/vars) or discussing data wrangling.
 
-- **Data Wrangling**: Dropping predictors without a (statistical) reason; Not transforming categorical variables to factors.
+- **Data Wrangling**: Dropping predictors without a (statistical) reason; Not transforming categorical variables to factors or not transforming numeric variables into numeric.
 
 - **Model training**: Not using an appropriate model (e.g. not factoring the outcome for classification tasks); Not using appropriate tuning parameters (e.g. copied from another assignment, but not tailored to this task).
 
