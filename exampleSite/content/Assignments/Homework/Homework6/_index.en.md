@@ -102,70 +102,70 @@ This is a general view of the rubric used for evaluation, including the total po
     <tr>
         <td rowspan="3"><strong>Style</strong></td>
         <td rowspan="3"><strong>10</strong></td>
-        <td><i>Right length and font size, titles, etc.</i></td>
+        <td><i>Right length and font size, titles, etc. (Points: 0 or 3)</i></td>
     </tr>
     <tr>
-        <td><i>Images and tables (e.g. readable, axis labels, appropriate captions, no screenshots)</i></td>
+        <td><i>Images and tables (e.g. readable, axis labels, appropriate captions, no screenshots). (Points: 0, 2, or 4)</i></td>
     </tr>
     <tr>
-        <td><i>Right naming structure</i></td>
+        <td><i>Right naming structure. (Points: 0 or 3)</i></td>
     </tr>
     <tr>
         <td rowspan="4"><strong>Clarity</strong></td>
         <td rowspan="4"><strong>23</strong></td>
-        <td><i>Data description</i></td>
+        <td><i>Data description. (Points: 0, 3, or 5)</i></td>
     </tr>
     <tr>
-        <td><i>Data wrangling explanation (only clarity; whether is right or not is evaluated in the the next section)</i></td>
+        <td><i>Data wrangling explanation (only clarity; whether is right or not is evaluated in the the next section). (Points: 0, 3, or 6)</i></td>
     </tr>
     <tr>
-        <td><i>Models' Explanation: Regression (precise/no incorrect info)</i></td>
+        <td><i>Models' Explanation: Regression (precise/no incorrect info). (Points: 0, 3, or 6)</i></td>
     </tr>
     <tr>
-        <td><i>Models' Explanation: Classification (precise/no incorrect info)</i></td>
+        <td><i>Models' Explanation: Classification (precise/no incorrect info). (Points: 0, 3, or 6)</i></td>
     </tr>
     <tr>
         <td><strong>Data wrangling</strong></td>
         <td><strong>10</strong></td>
-        <td><i>Manage missing values/categorical variables</i></td>
+        <td><i>Manage missing values/categorical variables. (Points: 0, 2, 6, or 10)</i></td>
     </tr>
     <tr>
         <td rowspan="4"><strong>Model training</strong></td>
         <td rowspan="4"><strong>22</strong></td>
-        <td><i>Models are appropriate for the task (Regression) - conceptual and code</i></td>
+        <td><i>Models are appropriate for the task (Regression) - conceptual and code. (Points: 0, 4, or 8)</i></td>
     </tr>
     <tr>
-        <td><i>Models are appropriate for the task (Classification) - conceptual and code</i></td>
+        <td><i>Models are appropriate for the task (Classification) - conceptual and code. (Points: 0, 4, or 8)</i></td>
     </tr>
     <tr>
-        <td><i>Tuning parameters are appropriate (Regression)</i></td>
+        <td><i>Tuning parameters are appropriate (Regression). (Points: 0, 1, or 3)</i></td>
     </tr>
     <tr>
-        <td><i>Tuning parameters are appropriate (Classification)</i></td>
+        <td><i>Tuning parameters are appropriate (Classification). (Points: 0, 1, or 3)</i></td>
     </tr>
     <tr>
         <td rowspan="2"><strong>Results</strong></td>
         <td rowspan="2"><strong>10</strong></td>
-        <td><i>Presentation of results (appropriate performance measures, tuning grid and opt parameters): Regression</i></td>
+        <td><i>Presentation of results (appropriate performance measures, tuning grid and opt parameters): Regression. (Points: 0, 2, or 5)</i></td>
     </tr>
     <tr>
-        <td><i>Presentation of results (appropriate performance measures, tuning grid and opt parameters): Classification</i></td>
+        <td><i>Presentation of results (appropriate performance measures, tuning grid and opt parameters): Classification. (Points: 0, 2, or 5)</i></td>
     </tr>
     <tr>
         <td rowspan="2"><strong>Model evaluation</strong></td>
         <td rowspan="2"><strong>4</strong></td>
-        <td><i>Chooses the right model (Regression)</i></td>
+        <td><i>Chooses the right model (Regression). (Points: 0 or 2)</i></td>
     </tr>
     <tr>
-        <td><i>Chooses the right model (Classification)</i></td>
+        <td><i>Chooses the right model (Classification). (Points: 0 or 2)</i></td>
     </tr>
     <tr>
         <td rowspan="2"><strong>Code</strong></td>
         <td rowspan="2"><strong>15</strong></td>
-        <td><i>Code runs with no issues</i></td>
+        <td><i>Code runs with no issues. (Points: 0, 5, or 10)</i></td>
     </tr>
     <tr>
-        <td><i>Code runs with no issues on testing data</i></td>
+        <td><i>Code runs with no issues on testing data. (Points: 0 , 4, or 5)</i></td>
     </tr>
     <tr>
         <td><strong>Model performance</strong></td>
@@ -198,7 +198,7 @@ This is a non-exhaustive list of the most common mistakes/discounts in this assi
 
 - **Data Wrangling**: Dropping predictors without a (statistical) reason; Not transforming categorical variables to factors or not transforming numeric variables into numeric.
 
-- **Model training**: Not using an appropriate model (e.g. not factoring the outcome for classification tasks); Not using appropriate tuning parameters (e.g. copied from another assignment, but not tailored to this task).
+- **Model training**: Not using an appropriate model (e.g. not factoring the outcome for classification tasks); Not using appropriate tuning parameters (e.g. copied from another assignment, but not tailored to this task; too coarse of a grid for shrinkage or DT; wrong number of total predictors).
 
 - **Results**: Not showing tuning grid and best tuning parameters.
 
