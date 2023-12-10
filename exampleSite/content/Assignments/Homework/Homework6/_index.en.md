@@ -91,6 +91,8 @@ For this assignment, you will have to submit three different files:
 
 ## Rubric
 
+This is a general view of the rubric used for evaluation, including the total points per section. 
+
 <table>
     <tr>
         <th><strong>Category</strong></th>
@@ -178,5 +180,21 @@ For this assignment, you will have to submit three different files:
 </table>
 
 
+
+### Common Mistakes
+
+This is a non-exhaustive list of the most common mistakes/discounts in this assignment. Remember that the sections of "style", "clarity", "results", and "model evaluation" were exclusively based on the report. The other sections were based on the code.
+
+- **Style**: Not including captions/numbering figures, incorrect naming of files.
+
+- **Clarity**: Not (briefly) describing what the methods do; Not including information about the data (size/vars) or discussing data wrangling.
+
+- **Data Wrangling**: Dropping predictors without a (statistical) reason; Not transforming categorical variables to factors.
+
+- **Model training**: Not using an appropriate model (e.g. not factoring the outcome for classification tasks); Not using appropriate tuning parameters (e.g. copied from another assignment, but not tailored to this task).
+
+- **Results**: Not showing tuning grid and best tuning parameters.
+
+- **Code**: Not loading packages that are needed/ calling an object that is not defined.
 
 
