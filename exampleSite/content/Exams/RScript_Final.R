@@ -85,6 +85,7 @@ test.data = testing(split)
 
 lm.cv = train(logins ~ .,
               data = data,
+              method = "lm",
               trControl = trainControl(method = "cv", number = 5))
 
 ## RMSE
